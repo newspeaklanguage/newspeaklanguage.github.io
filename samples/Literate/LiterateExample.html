@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Literate</title>
+    <style>
+    body {
+  margin-top: 1em;
+  margin-left: 3em;
+  margin-right: 3em;
+}
+
+/*english text, meant for reading*/
+p, table, label, h1, h2, h3, h4, a {
+  font-family:Georgia;
+  color:#2E2E2E;
+  line-height:1.5em;
+  text-align: justify;
+    }
+
+    div {
+font-family:monospace;
+  line-height:1.5em;
+
+    }
+
+    
+h1, h2, h3, h4 {
+  margin-top: 1.5em;
+  color: #444;
+}
+
+h2 {
+  margin-top: 2em;
+}
+    </style>
+  </head>
+  <body>
+    <h1>Newspeak by Example</h1>
+        
+    <p>
+    Unary sends
+    <div class="evaluator" expression="9 sqrt"></div>
+
+    <p>
+    Binary sends
+    <div class="evaluator" expression="3 + 4"></div>
+
+    <p>
+    Keyword sends
+    <div class="evaluator" expression="5 between: 3 and: 7"></div>
+
+    <p>
+    Closures
+    <div class="evaluator" expression="[3 + 4]"></div>
+    <div class="evaluator" expression="[3 + 4] value"></div>
+
+    <p>
+    Tuples
+    <div class="evaluator" expression="{1. true. 'false'} at: 2"></div>
+
+    <p>
+    Conditionals
+    <div class="evaluator" expression="1 < 2 ifTrue: [3] ifFalse: [4]"></div>
+
+    <p>
+    Loops
+    <div class="evaluator" expression="| x ::= 0. | 
+[x < 20] whileTrue: [x: x + 1].
+x"></div>
+
+    <p>
+    Filters
+    <div class="evaluator" expression="{1. 2. 3} select: [:each | each > 2]"></div>
+
+
+    
+    <script type="text/javascript" src="Literate.js"></script>
+  </body>
+</html>
