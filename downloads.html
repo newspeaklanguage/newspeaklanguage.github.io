@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Newspeak</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 20px;
+        padding-bottom: 60px;
+        background-image: url('peeking-eye-16-10.png');
+        background-position: left top;
+        background-repeat: no-repeat!important;
+      }
+
+      /* Custom container */
+      .container {
+        margin: 0 auto;
+        max-width: 1000px;
+      }
+      .container > hr {
+        margin: 60px 0;
+      }
+
+      /* Customize the navbar links to be fill the entire space of the .navbar */
+      .navbar .navbar-inner {
+        padding: 0;
+      }
+      .navbar .nav {
+        margin: 0;
+        display: table;
+        width: 100%;
+      }
+      .navbar .nav li {
+        display: table-cell;
+        width: 1%;
+        float: none;
+      }
+      .navbar .nav li a {
+        font-weight: bold;
+        text-align: center;
+        border-left: 1px solid rgba(255,255,255,.75);
+        border-right: 1px solid rgba(0,0,0,.1);
+      }
+      .navbar .nav li:first-child a {
+        border-left: 0;
+        border-radius: 3px 0 0 3px;
+      }
+      .navbar .nav li:last-child a {
+        border-right: 0;
+        border-radius: 0 3px 3px 0;
+      }
+    </style>
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="favicon.png">
+    
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="masthead">
+        <h3 class="muted">The Newspeak Programming Language</h3>
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="container">
+              <ul class="nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="papers.html">Papers</a></li>
+                <li><a href="talks.html">Talks</a></li>
+                <li class="active"><a href="downloads.html">Downloads</a></li>
+                <li><a href="demos.html">Demos</a></li>
+                <li><a href="https://bitbucket.org/newspeaklanguage">Repositories</a></li>
+                <li><a href="https://groups.google.com/forum/#!forum/newspeaklanguage">Forum</a></li>
+              </ul>
+            </div>
+          </div>
+        </div><!-- /.navbar -->
+      </div>
+
+      <div>
+        <h3>Virtual Machine</h3>
+
+        <ul>
+          <li><a href="https://bitbucket.org/newspeaklanguage/newspeak/downloads/Newspeak%20Spur%20Virtual%20Machine-16.10.3643.dmg">Mac OS X</a> (pre-Sierra)</li>
+          <li><a href="https://bitbucket.org/newspeaklanguage/newspeak/downloads/Newspeak%20Spur%20Virtual%20Machine.app.zip">Mac OS X Sierra</a> (unsigned for now, you have to force MacOS to let it run)</li>
+          <li><a href="https://bitbucket.org/newspeaklanguage/newspeak/downloads/nsvmspurlinux-16.10.3643.tgz">Linux</a></li>
+          <li><a href="https://bitbucket.org/newspeaklanguage/newspeak/downloads/nsvm-spur-16.10.3643.msi">Windows</a></li>
+        </ul>
+
+<h3>Image</h3>
+
+<ul>
+  <li><a href="https://bitbucket.org/newspeaklanguage/newspeak/downloads/ns-2016-11-13.32.zip">2016-11-13</a></li>
+</ul>
+
+<h3>64-bit Linux advice</h3>
+
+<p>If you are running 64-bit Linux, you will need to install 32-bit libraries.</p>
+
+<p>Debian/Ubuntu</p>
+<p>sudo apt-get install libc6:i386 libuuid1:i386 libx11-6:i386 libsm6:i386 libglu1-mesa:i386</p>
+
+<p>Fedora</p>
+<p>sudo yum install glibc.i686 uuid.i686 libX11.i686 libSM.i686 mesa-libGL.i686</p>
+
+<h3>Archive</h3>
+
+<ul>
+<li><a href="http://www.mirandabanda.org/files/Cog/VM/">Virtual machines</a></li>
+<li><a href="https://bitbucket.org/newspeaklanguage/newspeak/downloads">Images</a></li>
+</ul>
+
+<h3>Licensing</h3>
+
+The current prototype is based on Squeak, and contains code that is subject to the <a href="http://www.squeak.org/SqueakLicense/">Squeak License</a>, as well as the Newspeak sources, which are mostly under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2.0 license</a>. More details about the licensing of this software are available on the <a href="license.html">license</a> page.
+
+      </div>
+    </div> <!-- /container -->
+  </body>
+</html>

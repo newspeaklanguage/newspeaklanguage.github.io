@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Newspeak</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 20px;
+        padding-bottom: 60px;
+        background-image: url('peeking-eye-16-10.png');
+        background-position: left top;
+        background-repeat: no-repeat!important;
+      }
+
+      /* Custom container */
+      .container {
+        margin: 0 auto;
+        max-width: 1000px;
+      }
+      .container > hr {
+        margin: 60px 0;
+      }
+
+      /* Customize the navbar links to be fill the entire space of the .navbar */
+      .navbar .navbar-inner {
+        padding: 0;
+      }
+      .navbar .nav {
+        margin: 0;
+        display: table;
+        width: 100%;
+      }
+      .navbar .nav li {
+        display: table-cell;
+        width: 1%;
+        float: none;
+      }
+      .navbar .nav li a {
+        font-weight: bold;
+        text-align: center;
+        border-left: 1px solid rgba(255,255,255,.75);
+        border-right: 1px solid rgba(0,0,0,.1);
+      }
+      .navbar .nav li:first-child a {
+        border-left: 0;
+        border-radius: 3px 0 0 3px;
+      }
+      .navbar .nav li:last-child a {
+        border-right: 0;
+        border-radius: 0 3px 3px 0;
+      }
+    </style>
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="favicon.png">
+    
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="masthead">
+        <h3 class="muted">The Newspeak Programming Language</h3>
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="container">
+              <ul class="nav">
+                <li class="active"><a href="index.html">Home</a></li>
+                <li><a href="papers.html">Papers</a></li>
+                <li><a href="talks.html">Talks</a></li>
+                <li><a href="downloads.html">Downloads</a></li>
+                <li><a href="demos.html">Demos</a></li>
+                <li><a href="https://bitbucket.org/newspeaklanguage">Repositories</a></li>
+                <li><a href="https://groups.google.com/forum/#!forum/newspeaklanguage">Forum</a></li>
+              </ul>
+            </div>
+          </div>
+        </div><!-- /.navbar -->
+      </div>
+
+      <div>
+        <h3>What is Newspeak?</h3>
+
+
+
+<p>Newspeak is a new programming language in the tradition of <a href="http://selflanguage.org/">Self</a> and Smalltalk. Newspeak is highly dynamic and reflective  - but designed to support modularity and security. It supports both object-oriented and functional programming.</p>
+
+<p>Like Self, Newspeak is message-based; all names are dynamically bound. However, like Smalltalk, Newspeak uses classes rather than prototypes. As in <a href="http://www.daimi.au.dk/~beta/">Beta</a>, classes may nest. Because class names are late bound, all classes are virtual, every class can act as a mixin, and class hierarchy inheritance falls out automatically. Top level classes are essentially self contained parametric namespaces, and serve to define component style modules, which naturally define sandboxes in an object-capability style. Newspeak was deliberately designed as a principled dynamically typed language. We plan to evolve the language to support <a href="http://bracha.org/pluggableTypesPosition.pdf">pluggable types</a>.</p>
+
+<h3>Why Newspeak?</h3>
+
+<p>It’s hard to justify a new programming language.  Those of us who love programming languages need no justification: if we can make a better language, we obviously should. However, improving the state of the art  isn’t  enough of a reason for those less passionate about the subject.  The costs of learning, tooling and interoperability argue for the status quo.   Fortunately, every now and then circumstances change enough to create an opening for new technology.</p>
+
+<p>There are two such changes ongoing at the moment. One is the continuing evolution of the internet.  There is growing demand for applications that work well on and off line, combining the ease of maintenance of web applications with the high quality user experience of local clients.</p>
+
+<p>There are those who argue that the answer to these needs is do all computing on the server (in other words, a return to 1970s style time sharing, or early 90s style X-terminals).  Instead, we believe in a notion of service oriented computing that allows for off-line operation and leverages the inherent advantages of client devices, while utilizing the strengths of the network.  This idea, of objects as software services, has been presented in a <a href="http://bracha.org/objectsAsSoftwareServices.pdf">whitepaper<a>, <a href="http://www.bracha.org/oopsla05-dls-talk.pdf">slides</a>, <a href="https://www.youtube.com/watch?v=_cBGtvjaLM0&feature=youtu.be">video</a> and a <a href="http://gbracha.blogspot.com/2007/03/sobs.html">blog post</a>; these don’t mention Newspeak directly, but they do suggest how certain language features could facilitate this notion. We’ve tried to make these features an integral part of Newspeak, which may make it especially relevant in the internet age.</p>
+
+        <p>The other big change is multicore processing.  It’s not clear how this will play out, but we may finally realize some of the promise of functional programming. And we’re also very likely to see a lot more of actors, and a lot less of the poisonous coupling of concurrent computation with shared state.  Newspeak is a natural fit with actor style concurrency, and  fully supports higher order functions.  Newspeak can support both a traditional imperative style, and a pure functional style.  There is one exactly one construct in the entire language that makes it imperative; the rest depends on the libraries you use.</p>
+
+        <img src="home-3-18-2014.png"><img>
+
+        <h3>Status</h3>
+
+<p>An initial prototype of Newspeak has been released, and may be downloaded here. You can also get the latest development version by visiting our source code repository.</p>
+
+<p>At the moment, Newspeak is very much a work in progress.  The existing implementation runs on top of Squeak Smalltalk, and shares many of Squeak’s libraries and infrastructure.  However, Newspeak has its own GUI libraries and IDE infrastructure (see the screenshot below), and can be implemented independently of Squeak, Smalltalk or any particular VM or IDE.   A port that runs in a web browser is partially working, as you can see here.</p>
+
+<h3>Who’s to blame for Newspeak?</h3>
+
+<p><a href="http://bracha.org/">Gilad Bracha</a>, <a href="http://digital-sushi.org/">Peter Ahe</a>, <a href="http://blog.3plus4.org/">Vassili Bykov</a>, Ryan Macnak, <a href="http://www.mirandabanda.org/cogblog/about-cog/">Eliot Miranda</a> and Bill Maddox with invaluable contributions, both technical and otherwise, by Yaron Kashai. </p>
+
+<h3>Why is it called Newspeak?</h3>
+
+<p>In Orwell's novel 1984, Newspeak was a language that grew smaller over time. Unlike the case of natural languages, for a programming language this is actually a good thing. It is an ideal we strive for - a shrinkable language. </p>
+
+      </div>
+    </div> <!-- /container -->
+  </body>
+</html>
