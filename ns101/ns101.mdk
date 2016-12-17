@@ -85,25 +85,32 @@ How do test my deployment configuration?
 
 Let’s start by opening the Newspeak IDE. Make sure you’ve installed Newspeak first!
 
-#How do I install Newspeak?
+#How do I install Newspeak?{-}
 
 On Windows, use the installer. If you have a previous installation, it’s best to uninstall the old one and reinstall. On a Mac, open Newspeak Spur Virtual Machine.dmg, and drag the VM to the Applications folder. Make sure that ns101.image is associated with the Newspeak Virtual Machine. This can be an issue, especially if you have ordinary Squeak installed on your machine as well. On Linux, follow the instructions given in linux-advice.txt. 
 
-#How do I open the Newspeak IDE?
+#How do I open the Newspeak IDE?{-}
 
 The directory where you found this document probably includes a file called ns101.image. This is a Newspeak image, and it should be identifiable by its icon, the Newspeak eye (well, it’s big brother’s eye actually):
 
 Click (or double click, as the case may be) on the image file. This will open the IDE; you should see something like this:
 
+~~ Center
+![home-9-14]
+~~
 
+
+[home-9-14]: images/home-9-14.png "home-9-14" { width:auto; max-width:90% }
 
 The very first thing you should do is save a copy of your image, so your experiments don’t trash the release image you just opened.
 
 At the top of the window, you’ll see a tool bar that looks like this:
 
-The rightmost icon denotes a drop down menu known as the operate menu. 
+The rightmost icon, , denotes a drop down menu known as the operate menu. 
 
-
+~~ Center
+![opMenu]
+~~
 Choose the option Save Image As ... and give the image some other name. 
 
 
@@ -115,6 +122,16 @@ Newspeak currently runs on top of Squeak. If you’re running on Mac OS X or Lin
 
 
 The screen shot above shows the home page. You can always return to the home page of a Newspeak browser by clicking on the home icon at the top of the browser.
+
+~~ Center
+
+![HomeIcon]
+
+
+[HomeIcon]: images/HomeIcon.png "HomeIcon" { width:auto; max-width:90% }
+~~
+
+[opMenu]: images/opMenu.png "opMenu" { width:auto; max-width:90% }
 
 The home page includes links to a variety of useful places, like recently visited classes and packages, the source control page and more. If you look at the list of classes, you’ll see each class has a round icon next to it. The icon tells you which language the class is written in; the current system mixes Smalltalk code with Newspeak. A gray icon 
 
@@ -138,7 +155,7 @@ One can also go to the system source page and look for the class there. We’ll 
 
 
 
-##Searching 
+##Searching {-}
 
 
 You can type multiple search terms, separated by semicolons. The search is case-insensitive, and will find anything that includes the searched strings. You can use * as a wildcard character. If you enclose a search term in double quotes, you’ll only get exact matches.
@@ -207,7 +224,7 @@ Looking more closely at the method link, we see that it is followed by various b
 
 These elements help answer questions like:
 
-#How do I browse senders/implementors?
+#How do I browse senders/implementors?{-}
 
 The number of senders of this message may appear immediately to the right of a method name link.  You may see this information being filled in when a browser opens a class it has not displayed before. You do not need to wait for this process to complete. Because gathering this information takes significant time, it is done in the background.
 The sender information is actually a link.
@@ -220,13 +237,13 @@ Of course, you can also enter a message selector into the search pane. In all th
 
 
 
-#How do I delete a method?
+#How do I delete a method?{-}
 
 At the very right of a method link, you’ll see an icon denoting another drop down menu:
 The menu has an option to delete the method.
 
 
-#How do I change the category of a method?
+#How do I change the category of a method?{-}
 
 On the right hand side of a method link, to the left of the speech bubble, is the category of the method. Clicking it brings up a menu that lets you choose from all existing categories in the class, or enter a new one.
 
@@ -235,11 +252,11 @@ At the top right of the method section, you’ll notice a set of icons:
 
 The open circle opens up all of the methods listed below. The dot icon does the opposite - it will close all open methods. The rightmost icon (with the number sign) controls ordering. By default, Newspeak methods are ordered by their names. Clicking on this icon will toggle the ordering of the methods between name-based and category based. The circle and dot icons are also used in other presenters (such as the class list) with the same semantics.
 
-#Why is some code highlighted in red?
+#Why is some code highlighted in red?{-}
 
 There are two possible reasons: suspect implicit messages or syntax errors.
 
-##sec-back-to-combinatorialparsingSuspect implicit messages
+##Implicit messages{-}
 
 The browsers underline suspect identifiers and highlight them in red. For example, if an implicit message is not defined in the surrounding lexical scope, it may be indicate a problem - it may refer to an undefined message. On the other hand, it may be an inherited method. Unlike most other languages, in Newspeak one doesn’t statically know what methods are inherited, because the superclass isn’t statically known - it is determined dynamically by a message send.
 
@@ -247,14 +264,14 @@ The system uses heuristics to try and guess what methods are likely to be inheri
 
 In the case of a new class declaration, no such run time data is available, and so you may see spurious highlighting. Once you’ve run some code, it will go away.  On the other hand, the highlights may indicate typos, or truly undefined methods, such as missing imports.
 
-##Syntax Errors
+##Syntax Errors{-}
 
 The syntax colorizer analyzes your code as you type.  If, at any point, the syntax is malformed, it will mark the downstream code in red.
 
 
 
 
-##Debugging
+##Debugging{-}
 
 The debugger will mark the site of the active message send in blue.
 
@@ -268,7 +285,7 @@ Let’s navigate back to the original class. It’s time we looked more carefull
 
 
 
-#How do I navigate in the browser?
+#How do I navigate in the browser?{-}
 
 The top of the browser window shows a number of controls, some of which are reminiscent of a web browser. The back and front buttons 
 
@@ -299,7 +316,7 @@ In the context of an IDE, this feature is actually much more useful than in typi
 
 
 
-#How do I erase my history?
+#How do I erase my history?{-}
 
 After completing a task, you may want to eliminate it from your history to prevent clutter building up.  To erase the history, click the Forget All button on the history page.
 
@@ -322,7 +339,7 @@ The meta menu has two options for inspecting the GUI: Inspect Window and Inspect
 Of course, to utilize these, we need to understand how to inspect an object.
 
 
-#How do I inspect an object?
+#How do I inspect an object?{-}
  
 
 
@@ -343,7 +360,7 @@ Each slot of the inspected object is listed in the inspector. It is prefixed by 
 
 
 
-#How do I evaluate code?
+#How do I evaluate code?{-}
 
 The inspector has an interaction pane in which you can evaluate expressions in the context of the object. Type in an expression (3 + 4 in the example below) and select it. Then hit Ctrl-S (or cmd-S on a mac). A link to the result of the expression is added. You can expand it in place with the arrow icon, or link to it. You can also use the Evaluate button on the right instead of Ctrl-S/cmd-S. 
 
@@ -357,7 +374,7 @@ Of course, you can always evaluate code in an ordinary Squeak workspace - but th
 Actually, there is something ungood that can happen - our evaluation may raise an exception.
 
 
-##What if evaluation raises an exception?
+##What if evaluation raises an exception?{-}
 
 In that case, rather than a link to the result, you get a link to the debugger.  Assume that we have a class BlowUp, with the following method
 
@@ -389,7 +406,7 @@ and get at the collections module of the platform, even if you forgot to import 
 
 
 
-#How do I run the Newspeak Debugger?
+#How do I run the Newspeak Debugger?{-}
 
 
 You will encounter the debugger if an uncaught exception occurs during execution. If you evaluate an expression that results in an uncaught exception in a Hopscotch workspace or object inspector, the inspector will catch the exception, as described above. The text describing the exception also serves as a link that opens up a debugger page on the stack of the failed computation. Click on the link, to get a debugger in a new window. The debugger displays the call stack. 
@@ -438,7 +455,7 @@ You may also restart the method using the activation’s menu. This menu also pr
 
 
 
-#How do I open a workspace?
+#How do I open a workspace?{-}
 
 
 On the home page, you can click on the link labeled Workspaces. This will take you to the workspaces page.  If there are no workspaces yet, one will be created and opened in place. If there is exactly one workspace it will be opened in the same way. Otherwise, you will be presented with a list of all existing workspaces to choose from. 
@@ -470,12 +487,12 @@ You can also define methods for the workspace class directly in the workspace: t
 
 
 
-#Back to CombinatorialParsing
+#Back to CombinatorialParsing{-}
 
 
 Let’s navigate back to the CombinatorialParsing class. We’ve seen how methods and nested classes work, but we haven’t really investigated the class header. The header includes the class comment and slot definitions.
 
-#How do I edit the class header?
+#How do I edit the class header?{-}
 
 At the left hand side of the class header section is a link that is labeled as
 Source. Clicking it transforms the presentation of the header, thus:
@@ -493,7 +510,7 @@ This concludes the sections dealing with browsing existing code. Now we consider
 
 
 
-#How do I create a new class?
+#How do I create a new class?{-}
 
 
 
@@ -501,7 +518,7 @@ Currently, classes are created within class categories, which themselves are usu
 
 
 
-#How do I create a package?
+#How do I create a package?{-}
 
 
 Packages are created on the source control page.  It is also possible to create a category that is not part of a package. 
@@ -509,7 +526,7 @@ Packages are created on the source control page.  It is also possible to create 
 
 
 
-#How do I create a class category?
+#How do I create a class category?{-}
 
 
 Go to the System Source page (linked to from the home page) , and find the package to which you wish to add the category.  The display shows a list of packages on the left, and for each package, a list of class categories it contains on the right. Just to the left of the category list is a link marked add. Click it and fill in the name of the desired category.
@@ -576,7 +593,7 @@ Now we’ll add some methods.
 
 
 
-How do I add a method?
+#How do I add a method?{-}
 
 Click the plus icon in the Methods section (or Class Methods section, if you want to add a class method). Then edit the displayed method template.
 
@@ -598,21 +615,21 @@ Now let’s turn our attention to Fisk.  Add a nested class named Hest to Fisk. 
 
 
 
-#How do I delete a class?
+#How do I delete a class?{-}
 
 Use the drop down menu at the right of the class header.
 
 
-#How do I add a slot?
+#How do I add a slot?{-}
 
 To add a slot,  edit the class header. 
 
-#How do I delete a slot?
+#How do I delete a slot?{-}
 
 Edit the class header.
 
 
-#How do I find a class by browsing the IDE namespace?
+#How do I find a class by browsing the IDE namespace?{-}
 
 From the home page, you can click the link marked System Source.   You’ll see a listing of all the packages loaded in the image on the left.  For each package, the right hand column shows the list of class categories within. All the listed items are links.  You can navigate to any category in this way, and from there to any specific class in the category.
 
@@ -626,7 +643,7 @@ The remaining column gives you an estimate of the number of subclasses the class
 
 
 
-#How do I add a Category
+#How do I add a Category{-}
 
 Accept the category name by clicking on the green icon:
 
@@ -641,7 +658,7 @@ Now we can go look at our category
 
 
 
-#How does Source Control Work?
+#How does Source Control Work?{-}
 
 
 The Hopscotch IDE features an integrated source code management system called MemoryHole, that currently runs on top of Mercurial (hg) or Git.
@@ -652,7 +669,7 @@ Of course, if MemoryHole doesn’t suit you, you may always choose to save and l
 
 
 
-##The MemoryHole Page
+##The MemoryHole Page{-}
 
 
 You get to source control from the link marked Repositories on the home page. You’ll need to have Mercurial or Git installed for this to work.
@@ -668,7 +685,7 @@ To add a new repository, click on the plus icon on the right hand side. This wil
 
 You have three choices. You can connect to a remote repository such as the public Newspeak repository (recommended); you can connect to an existing local Mercurial or Git repository or you can create a new Mercurial repository. Note that local repository paths are relative to the current image directory!  Choose the first option; type in 
 
-https://bitbucket.org/newspeaklanguage/newspeak
+<https://bitbucket.org/newspeaklanguage/newspeak>
 
 and accept your change by click the green icon.
 
@@ -692,11 +709,11 @@ At the end of this process, you will have a local repository that is a clone of 
 
 You can have several repositories open in an image. For example, you might want both the normal public repository 
 
-https://bitbucket.org/newspeaklanguage/newspeak/
+<https://bitbucket.org/newspeaklanguage/newspeak/>
 
- and the development repository 
+ and the sample repository 
 
-https://bitbucket.org/newspeaklanguage/newspeak_bleeding_edge/.
+<https://bitbucket.org/newspeaklanguage/samples/>.
 
 
 
@@ -730,7 +747,7 @@ Additions are highlighted in green and deletions in red. For example, in the scr
 If we click on the revert link, the code in the image will be mutated to match the local repository. If you’re starting up, as in this case, this ensures that we have the latest and greatest from the repository. If you’ve had the MemoryHole page open for while, it’s a good idea to use the refresh button of the Hopscotch window to force it to update the display so it accurately reflects the differences with respect to the repository.
 
 
-##More on Historians
+##More on Historians{-}
 
 Before we go on, we should discuss MemoryHole’s model of the world.
 
@@ -751,7 +768,7 @@ http://www.hpi.uni-potsdam.de/hirschfeld/publications/media/KleineHirschfeldBrac
 
 
 
-##Publishing Code
+##Publishing Code{-}
 
 If you edit a class that is under source control, the changes between the image and the repository will be displayed in the same way as we’ve seen above.  You can then use the commit link to publish them to the local repository.  You will be asked to provide a commit message describing your changes.
 
@@ -766,7 +783,7 @@ You can expand each commit and see what it consists of.
 Assuming you have the rights to publish to the remote repository, use the Forward to main on default link to push the updates from your local repository to the remote one. Once that’s done, the local and remote repositories are in sync, and all is well.
 
 
-##Getting Updates
+##Getting Updates{-}
 
 
 As indicated above, MemoryHole will notify you when your remote repository changes. 
@@ -778,7 +795,7 @@ In this case, clicking the Forward to main on default link will bring the local 
 
 
 
-#How do I use the Native GUI?
+#How do I use the Native GUI?{-}
 
 The native GUI binding currently only exists for Windows (XP, Vista, Windows 7, Windows 8). If you’re running on Windows, the native binding is on by default; beware that on Windows 8, you have to use a muse or trackpad, since touch events trigger errors. Native windows currently co-exist with the main Squeak window where the Morphic binding is used. Eventually, the system will operate exclusively with the native binding, but this transition will take time. 
 
@@ -788,7 +805,7 @@ If you find these problems are too acute for you to bear, and want to retreat to
 
 
 
-#How do I open a console Window?
+#How do I open a console Window?{-}
 
 Choose Show Console Window from the operate menu. If you are running on Mac or Linux, you are always running within the console window, which is simply the top level Squeak window, aka the morphic window,
 
@@ -810,7 +827,7 @@ You can of course use Ctrl-S to save, and Ctrl-C, Ctrl-X and Ctrl-V to copy, cut
 There are doubtless others.  
 
 
-How do I open a Newspeak browser from the Console?
+#How do I open a Newspeak browser from the Console?{-}
 
 At the top of the console window, you’ll see a tool bar that looks like this:
 
@@ -849,7 +866,7 @@ The first item of the Tools menu below opens a fresh Newspeak browser, displayin
 
 
 
-#How do I run Unit Tests?
+#How do I run Unit Tests?{-}
 
 
 Newspeak’s unit testing framework is called Minitest.  Support for Minitest is integrated into the Hopscotch IDE.
@@ -904,7 +921,7 @@ Note that successes are hidden by default, as no one cares about your successes 
 You can click on each test method just as you would in a class browser to see the failing test code. Beneath the method is a link to the exception;  click on the link to see a stack trace.
 
 
-##More about Minitest
+##More about Minitest{-}
 
 If you are used to SUnit (or any of the many unit testing frameworks it has inspired, liked JUnit etc.), it may be worth noting some of the differences.
 
@@ -956,7 +973,7 @@ Minitest cleanly breaks down the multiple roles an SUnit TestCase has. The defin
 
 
 
-#I just want Hello World!
+#I just want Hello World!{-}
 
 
 The best way to develop Newspeak code is via the IDE (here’s how to open it).  Make sure you’ve saved your image under a different name (as described here). In a Newspeak browser (this is how to open one) create a new class (as explained here) called HelloBraveNewWorld
@@ -1068,7 +1085,7 @@ That has such people in’t!
 William Shakespeare, The Tempest
 
 
-#Brave new GUI
+#Brave new GUI{-}
 
 Until now, we’ve used the Hopscotch IDE - but the IDE is only one possible application of the Hopscotch library. Hopscotch is a complete GUI application framework that can be used for all sorts of applications. We’ll now use it to create a very simple application; we’ll build a fancier one later.
 
@@ -1117,7 +1134,7 @@ The definition method declares its return type to be Fragment, Type annotations 
 
 The ^ sign in front of label: indicates that this is a return statement. This is the traditional Smalltalk syntax; we might change it to return: in a future version of the language, to make the syntax accessible to a larger population of programmers.
 
-Why is label: red?
+##Why is label: red?{-}
 
 At this stage, things are so simple that our subject class does almost nothing. It’s only function is to determine what kind of presenter to use, by means of its createPresenter method. We don’t even need a model. So add this method to BraveNewWorldSubject:
 
@@ -1147,7 +1164,7 @@ This is a good time to take a break. Get yourself a glass of Chateau Margaux or 
 
 
 
-#Intermission
+#Intermission{-}
 
 
 Our next, and most substantial, example will require a few more language constructs. It’s best to introduce them now via very simple examples so that you are up to speed when the real fun starts. 
@@ -1158,7 +1175,7 @@ Our next, and most substantial, example will require a few more language constru
 
 
 
-##Keyword Messages
+##Keyword Messages{-}
 
 Until now, we’ve only seen messages that take zero or one arguments. This helped keep the presentation simple. However, the keyword syntax generalizes to multiple parameters. Consider the mathematical function max(x,y). One could declare a method 
 
@@ -1188,12 +1205,12 @@ parser parse: 'printf(“max %d and %d”, ++p*, --q**[3]);' inContext: getParse
 
 This syntax may require some getting used to, but it grows on you. Trust me, you’ve dealt with much weirder syntax.  The keyword syntax lends itself to defining internal DSLs. Code like the Address  number: ... example above is much more readable this way. Another advantage is that you can’t get the arity wrong.
 
-##Tuples
+##Tuples{-}
 
 Here is a literal tuple: {'six'. 3 + 4 min: 6. 3 factorial}. It denotes an array with 3 elements - the string ‘six’, the number 6, and the number 6 again. Array indexing begins at 1. Maybe we’ll change this someday.
 
 
-##Closures
+##Closures{-}
 
 A closure is is a block of code representing an action you want done. Closures are delimited by square brackets. A very simple closure would be:
 
@@ -1218,7 +1235,7 @@ The parameters are identified by prefixing them with a colon. A vertical bar mar
 Closures can contain return statements. This is useful to manage control flow.
 
 
-##Control flow
+##Control flow{-}
 
 Newspeak has no built in control constructs - all operations are method invocations/message sends, without exception.
 
@@ -1274,7 +1291,7 @@ You now know all you need to know to move on to our next conquest.
 
 
 
-#Exploring the Brave New World
+#Exploring the Brave New World{-}
 
 
 To make things more interesting, our next task will be to build an application that really explores the world around it - specifically, the file system.
@@ -1589,7 +1606,7 @@ title ^ <String> = (
 Having built an application, we should consider how to deploy it.
  
 
-#How do I deploy an application?
+#How do I deploy an application?{-}
 
 
 Having built an application, there is some question how to deploy it. You, can of course, save your image with your application in its initial state, and distribute that, with the IDE intact. We won’t pursue that option further here.  We are working toward more convenient options. 
@@ -1608,7 +1625,7 @@ The main method’s purpose is to instantiate the various module definitions tha
 	
 
 
-#Deploying a Newspeak Application as a NOF File
+#Deploying a Newspeak Application as a NOF File{-}
 
 
 Notice the deploy link near the top right of the class presenter.  This link appears whenever a class defines a packageUsing: class method. Click on it, and you get a pop-up menu; choose as NOF.
@@ -1617,7 +1634,7 @@ Notice the deploy link near the top right of the class presenter.  This link app
 Check your working directory: there now two new files: BraveNewWorldExplorerApp.nof and its gzipped sibling.  At this point, we’re done, but it’s always good to test your deployed application.
 
 
-#How do I test my deployment code?
+#How do I test my deployment code?{-}
 
 
 You can test your deployable app in the IDE. Click on the run link in your application class.  If you’ve actually saved an application in a NOF file, you can choose Run App from the operate menu. 
@@ -1722,7 +1739,7 @@ In reality, these options are completely inappropriate for a file browser, or fo
 
 
 
-#What’s next
+#What’s next{-}
 
 We hope you enjoyed this peek into the brave new world of Newspeak.  Now it’s up to you to help Newspeak mature into a platform that can survive in the cowardly old world into which it was born.
 
