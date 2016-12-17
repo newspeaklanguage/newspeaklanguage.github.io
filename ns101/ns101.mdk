@@ -11,89 +11,98 @@ This document is a guide to using Newspeak in the prototype release running on t
 You can read this document sequentially, from start to finish, as a structured tutorial; or, you can just use the FAQ to quickly lead you to specific task oriented sections. If you want to read things in sequence, just begin at the beginning.
 Table of Contents/FAQ
 
-I just want Hello World!
+[I just want Hello World!](#sec-i-just-want-hello-world)
 
-How do I install Newspeak?
+[How do I install Newspeak?](#sec-how-do-i-install-newspeak)
 
-How do I open the Newspeak IDE?
+[How do I open the Newspeak IDE?](#sec-how-do-i-open-the-newspeak-ide)
 
-How do I open a Newspeak browser?
+[How do I open a Newspeak browser?](#sec-how-do-i-open-a-newspeak-browser-from-the-console)
 
-How do I browse an existing class?
+[How do I browse an existing class?](#sec-how-do-i-browse-an-existing-class)
 
-How do I browse senders/implementors?
+[How do I browse senders/implementors?](#sec-how-do-i-browse-sendersimplementors)
 
-How do I delete a method?
+[How do I delete a method?](#sec-how-do-i-delete-a-method)
 
-How do I change the category of a method?
+[How do I change the category of a method?](#sec-how-do-i-change-the-category-of-a-method)
 
-How do I navigate in the browser?
+[How do I navigate in the browser?](#sec-how-do-i-navigate-in-the-browser)
 
-How do I erase my history?
+[How do I erase my history?](#sec-how-do-i-erase-my-history)
 
-How do I manage a Newspeak window?
+[How do I manage a Newspeak window?](#sec-how-do-i-manage-a-newspeak-window)
 
-How do I inspect the GUI?
+[How do I inspect the GUI?](#sec-how-do-i-inspect-the-gui)
 
-How do I inspect an object?
+[How do I inspect an object?](#sec-how-do-i-inspect-an-object)
 
-How do I evaluate code?
+[How do I evaluate code?](#sec-how-do-i-evaluate-code)
 
-What if evaluation raises an exception?
+[What if evaluation raises an exception?](#sec-what-if-evaluation-raises-an-exception)
 
-What if I want to get at the platform or IDE namespace from an inspector?
+[What if I want to get at the platform or IDE namespace from an inspector?]()
 
-How do I run the Hopscotch debugger?
+[How do I run the Newspeak debugger?](#sec-how-do-i-run-the-newspeak-debugger)
 
-How do I open a workspace?
+[How do I open a workspace?](#sec-how-do-i-open-a-workspace)
 
-How do I edit the class header?
+[How do I edit the class header?](#sec-how-do-i-edit-the-class-header)
 
-How do I edit the class comment?
 
-How do I create a new class?
+[How do I edit the class comment?]()
+  
+[How do I create a new class?](#sec-how-do-i-create-a-new-class)
 
-How do I convert Smalltalk code to Newspeak?
+[How do I convert Smalltalk code to Newspeak?]()
 
-How do I add a method?
+[How do I add a method?](#sec-how-do-i-add-a-method)
 
-How do I delete a class?
+[How do I delete a class?](#sec-how-do-i-delete-a-class)
 
-How do I add a slot?
+[How do I add a slot?](#sec-how-do-i-add-a-slot)
 
-How do delete a slot?
+[How do delete a slot?](#sec-how-do-i-delete-a-slot)
 
-How do I find a class by browsing the IDE namespace?
+[How do I find a class by browsing the IDE namespace?](#sec-how-do-i-find-a-class-by-browsing-the-ide-namespace)
 
-How does source control work?
+[How does source control work?](#sec-how-does-source-control-work)
 
-How do I use the Native GUI?
+[How do I use the Native GUI?](#sec-how-do-i-use-the-native-gui)
 
-How do I run unit tests?
+[How do I run unit tests?](#sec-how-do-i-run-unit-tests)
 
-Why is stuff red?
+[Why is stuff red?](#sec-why-is-some-code-highlighted-in-red)
 
 How does the Syntax differ from the Specification, and Why?
 
-What is the configuration link on the home page for?
+[What is the configuration link on the home page for?]()
 
-How do I deploy an application?
+[How do I deploy an application?](#sec-how-do-i-deploy-an-application)
 
-How do test my deployment configuration?
+[How do I test my deployment configuration?](#sec-how-do-i-test-my-deployment-code)
 
-#Begin at the Beginning
+#Begin at the Beginning{-; #sec-begin-at-the-beginning}
 
 Let’s start by opening the Newspeak IDE. Make sure you’ve installed Newspeak first!
 
-#How do I install Newspeak?{-}
+#How do I install Newspeak?{-; #sec-how-do-i-install-newspeak}
 
 On Windows, use the installer. If you have a previous installation, it’s best to uninstall the old one and reinstall. On a Mac, open Newspeak Spur Virtual Machine.dmg, and drag the VM to the Applications folder. Make sure that ns101.image is associated with the Newspeak Virtual Machine. This can be an issue, especially if you have ordinary Squeak installed on your machine as well. On Linux, follow the instructions given in linux-advice.txt. 
 
-#How do I open the Newspeak IDE?{-}
+#How do I open the Newspeak IDE?{-; #sec-how-do-i-open-the-newspeak-ide}
 
 The directory where you found this document probably includes a file called ns101.image. This is a Newspeak image, and it should be identifiable by its icon, the Newspeak eye (well, it’s big brother’s eye actually):
 
+~~ Center
+  
+![icon512]
+  ~~
+
+[icon512]: images/icon512.png "icon512" { width:auto; max-width:90% }
+
 Click (or double click, as the case may be) on the image file. This will open the IDE; you should see something like this:
+
 
 ~~ Center
 ![home-9-14]
@@ -143,7 +152,7 @@ Now that we’ve got ourselves a browser, let’s browse some existing classes.
 
 
 
-#How do I browse an existing class?
+#How do I browse an existing class?{-; #sec-how-do-i-browse-an-existing-class}
 
 
 There are several ways to browse an existing class.  If you know the name of the class (or some approximation thereof), you can search for it using the search pane in the upper right hand side of the Newspeak browser’s tool bar:
@@ -155,7 +164,7 @@ One can also go to the system source page and look for the class there. We’ll 
 
 
 
-##Searching {-}
+##Searching {-; #sec-searching}
 
 
 You can type multiple search terms, separated by semicolons. The search is case-insensitive, and will find anything that includes the searched strings. You can use * as a wildcard character. If you enclose a search term in double quotes, you’ll only get exact matches.
@@ -224,7 +233,7 @@ Looking more closely at the method link, we see that it is followed by various b
 
 These elements help answer questions like:
 
-#How do I browse senders/implementors?{-}
+#How do I browse senders/implementors?{-; #sec-how-do-i-browse-sendersimplementors}
 
 The number of senders of this message may appear immediately to the right of a method name link.  You may see this information being filled in when a browser opens a class it has not displayed before. You do not need to wait for this process to complete. Because gathering this information takes significant time, it is done in the background.
 The sender information is actually a link.
@@ -237,13 +246,13 @@ Of course, you can also enter a message selector into the search pane. In all th
 
 
 
-#How do I delete a method?{-}
+#How do I delete a method?{-; #sec-how-do-i-delete-a-method}
 
 At the very right of a method link, you’ll see an icon denoting another drop down menu:
 The menu has an option to delete the method.
 
 
-#How do I change the category of a method?{-}
+#How do I change the category of a method?{-; #sec-how-do-i-change-the-category-of-a-method}
 
 On the right hand side of a method link, to the left of the speech bubble, is the category of the method. Clicking it brings up a menu that lets you choose from all existing categories in the class, or enter a new one.
 
@@ -252,11 +261,11 @@ At the top right of the method section, you’ll notice a set of icons:
 
 The open circle opens up all of the methods listed below. The dot icon does the opposite - it will close all open methods. The rightmost icon (with the number sign) controls ordering. By default, Newspeak methods are ordered by their names. Clicking on this icon will toggle the ordering of the methods between name-based and category based. The circle and dot icons are also used in other presenters (such as the class list) with the same semantics.
 
-#Why is some code highlighted in red?{-}
+#Why is some code highlighted in red?{-; #sec-why-is-some-code-highlighted-in-red}
 
 There are two possible reasons: suspect implicit messages or syntax errors.
 
-##Implicit messages{-}
+##Implicit messages{-; #sec-implicit-messages}
 
 The browsers underline suspect identifiers and highlight them in red. For example, if an implicit message is not defined in the surrounding lexical scope, it may be indicate a problem - it may refer to an undefined message. On the other hand, it may be an inherited method. Unlike most other languages, in Newspeak one doesn’t statically know what methods are inherited, because the superclass isn’t statically known - it is determined dynamically by a message send.
 
@@ -264,14 +273,14 @@ The system uses heuristics to try and guess what methods are likely to be inheri
 
 In the case of a new class declaration, no such run time data is available, and so you may see spurious highlighting. Once you’ve run some code, it will go away.  On the other hand, the highlights may indicate typos, or truly undefined methods, such as missing imports.
 
-##Syntax Errors{-}
+##Syntax Errors{-; #sec-syntax-errors}
 
 The syntax colorizer analyzes your code as you type.  If, at any point, the syntax is malformed, it will mark the downstream code in red.
 
 
 
 
-##Debugging{-}
+##Debugging{-; #sec-debugging}
 
 The debugger will mark the site of the active message send in blue.
 
@@ -285,7 +294,7 @@ Let’s navigate back to the original class. It’s time we looked more carefull
 
 
 
-#How do I navigate in the browser?{-}
+#How do I navigate in the browser?{-; #sec-how-do-i-navigate-in-the-browser}
 
 The top of the browser window shows a number of controls, some of which are reminiscent of a web browser. The back and front buttons 
 
@@ -316,7 +325,7 @@ In the context of an IDE, this feature is actually much more useful than in typi
 
 
 
-#How do I erase my history?{-}
+#How do I erase my history?{-; #sec-how-do-i-erase-my-history}
 
 After completing a task, you may want to eliminate it from your history to prevent clutter building up.  To erase the history, click the Forget All button on the history page.
 
@@ -324,12 +333,12 @@ Or just close the browser and open a new one. You can also clean out individual 
 
 One more thing while we’re on the topic of managing the browser
 
-#How do I manage a Newspeak window?
+#How do I manage a Newspeak window? {-; #sec-how-do-i-manage-a-newspeak-window}
 
 Same as any other window. In Squeak, you’ll find these icons on the right hand side of the window title bar: 
 The green one maximizes, the orange one minimizes, and the blue one provides a drop down menu. Most of the menu entries are standard, but the browser provides unusual options for inspecting the GUI:
 
-#How do I inspect the GUI?
+#How do I inspect the GUI? {-; #sec-how-do-i-inspect-the-gui}
 
 Use the browser’s meta menu, which is marked with this icon:
 
@@ -339,7 +348,7 @@ The meta menu has two options for inspecting the GUI: Inspect Window and Inspect
 Of course, to utilize these, we need to understand how to inspect an object.
 
 
-#How do I inspect an object?{-}
+#How do I inspect an object?{-; #sec-how-do-i-inspect-an-object}
  
 
 
@@ -360,7 +369,7 @@ Each slot of the inspected object is listed in the inspector. It is prefixed by 
 
 
 
-#How do I evaluate code?{-}
+#How do I evaluate code?{-; #sec-how-do-i-evaluate-code}
 
 The inspector has an interaction pane in which you can evaluate expressions in the context of the object. Type in an expression (3 + 4 in the example below) and select it. Then hit Ctrl-S (or cmd-S on a mac). A link to the result of the expression is added. You can expand it in place with the arrow icon, or link to it. You can also use the Evaluate button on the right instead of Ctrl-S/cmd-S. 
 
@@ -374,7 +383,7 @@ Of course, you can always evaluate code in an ordinary Squeak workspace - but th
 Actually, there is something ungood that can happen - our evaluation may raise an exception.
 
 
-##What if evaluation raises an exception?{-}
+##What if evaluation raises an exception?{-; #sec-what-if-evaluation-raises-an-exception}
 
 In that case, rather than a link to the result, you get a link to the debugger.  Assume that we have a class BlowUp, with the following method
 
@@ -406,7 +415,7 @@ and get at the collections module of the platform, even if you forgot to import 
 
 
 
-#How do I run the Newspeak Debugger?{-}
+#How do I run the Newspeak Debugger?{-; #sec-how-do-i-run-the-newspeak-debugger}
 
 
 You will encounter the debugger if an uncaught exception occurs during execution. If you evaluate an expression that results in an uncaught exception in a Hopscotch workspace or object inspector, the inspector will catch the exception, as described above. The text describing the exception also serves as a link that opens up a debugger page on the stack of the failed computation. Click on the link, to get a debugger in a new window. The debugger displays the call stack. 
@@ -455,7 +464,7 @@ You may also restart the method using the activation’s menu. This menu also pr
 
 
 
-#How do I open a workspace?{-}
+#How do I open a workspace?{-; #sec-how-do-i-open-a-workspace}
 
 
 On the home page, you can click on the link labeled Workspaces. This will take you to the workspaces page.  If there are no workspaces yet, one will be created and opened in place. If there is exactly one workspace it will be opened in the same way. Otherwise, you will be presented with a list of all existing workspaces to choose from. 
@@ -487,12 +496,12 @@ You can also define methods for the workspace class directly in the workspace: t
 
 
 
-#Back to CombinatorialParsing{-}
+#Back to CombinatorialParsing{-; #sec-back-to-combinatorialparsing}
 
 
 Let’s navigate back to the CombinatorialParsing class. We’ve seen how methods and nested classes work, but we haven’t really investigated the class header. The header includes the class comment and slot definitions.
 
-#How do I edit the class header?{-}
+#How do I edit the class header?{-; #sec-how-do-i-edit-the-class-header}
 
 At the left hand side of the class header section is a link that is labeled as
 Source. Clicking it transforms the presentation of the header, thus:
@@ -510,7 +519,7 @@ This concludes the sections dealing with browsing existing code. Now we consider
 
 
 
-#How do I create a new class?{-}
+#How do I create a new class?{-; #sec-how-do-i-create-a-new-class}
 
 
 
@@ -518,7 +527,7 @@ Currently, classes are created within class categories, which themselves are usu
 
 
 
-#How do I create a package?{-}
+#How do I create a package?{-; #sec-how-do-i-create-a-package}
 
 
 Packages are created on the source control page.  It is also possible to create a category that is not part of a package. 
@@ -526,7 +535,7 @@ Packages are created on the source control page.  It is also possible to create 
 
 
 
-#How do I create a class category?{-}
+#How do I create a class category?{-; #sec-how-do-i-create-a-class-category}
 
 
 Go to the System Source page (linked to from the home page) , and find the package to which you wish to add the category.  The display shows a list of packages on the left, and for each package, a list of class categories it contains on the right. Just to the left of the category list is a link marked add. Click it and fill in the name of the desired category.
@@ -593,7 +602,7 @@ Now we’ll add some methods.
 
 
 
-#How do I add a method?{-}
+#How do I add a method?{-; #sec-how-do-i-add-a-method}
 
 Click the plus icon in the Methods section (or Class Methods section, if you want to add a class method). Then edit the displayed method template.
 
@@ -615,21 +624,21 @@ Now let’s turn our attention to Fisk.  Add a nested class named Hest to Fisk. 
 
 
 
-#How do I delete a class?{-}
+#How do I delete a class?{-; #sec-how-do-i-delete-a-class}
 
 Use the drop down menu at the right of the class header.
 
 
-#How do I add a slot?{-}
+#How do I add a slot?{-; #sec-how-do-i-add-a-slot}
 
 To add a slot,  edit the class header. 
 
-#How do I delete a slot?{-}
+#How do I delete a slot?{-; #sec-how-do-i-delete-a-slot}
 
 Edit the class header.
 
 
-#How do I find a class by browsing the IDE namespace?{-}
+#How do I find a class by browsing the IDE namespace?{-; #sec-how-do-i-find-a-class-by-browsing-the-ide-namespace}
 
 From the home page, you can click the link marked System Source.   You’ll see a listing of all the packages loaded in the image on the left.  For each package, the right hand column shows the list of class categories within. All the listed items are links.  You can navigate to any category in this way, and from there to any specific class in the category.
 
@@ -643,7 +652,7 @@ The remaining column gives you an estimate of the number of subclasses the class
 
 
 
-#How do I add a Category{-}
+#How do I add a Category{-; #sec-how-do-i-add-a-category}
 
 Accept the category name by clicking on the green icon:
 
@@ -658,7 +667,7 @@ Now we can go look at our category
 
 
 
-#How does Source Control Work?{-}
+#How does Source Control Work?{-; #sec-how-does-source-control-work}
 
 
 The Hopscotch IDE features an integrated source code management system called MemoryHole, that currently runs on top of Mercurial (hg) or Git.
@@ -669,7 +678,7 @@ Of course, if MemoryHole doesn’t suit you, you may always choose to save and l
 
 
 
-##The MemoryHole Page{-}
+##The MemoryHole Page{-; #sec-the-memoryhole-page}
 
 
 You get to source control from the link marked Repositories on the home page. You’ll need to have Mercurial or Git installed for this to work.
@@ -747,7 +756,7 @@ Additions are highlighted in green and deletions in red. For example, in the scr
 If we click on the revert link, the code in the image will be mutated to match the local repository. If you’re starting up, as in this case, this ensures that we have the latest and greatest from the repository. If you’ve had the MemoryHole page open for while, it’s a good idea to use the refresh button of the Hopscotch window to force it to update the display so it accurately reflects the differences with respect to the repository.
 
 
-##More on Historians{-}
+##More on Historians{-; #sec-more-on-historians}
 
 Before we go on, we should discuss MemoryHole’s model of the world.
 
@@ -763,12 +772,12 @@ The original repository is listed under Remote Repositories.  We can expand it a
 
 For more details on MemoryHole, see Matthias Kleine’s thesis at 
 
-http://www.hpi.uni-potsdam.de/hirschfeld/publications/media/KleineHirschfeldBracha_2012_AnAbstractionForVersionControlSystems_HPI54.pdf.
+<http://www.hpi.uni-potsdam.de/hirschfeld/publications/media/KleineHirschfeldBracha_2012_AnAbstractionForVersionControlSystems_HPI54.pdf>.
 
 
 
 
-##Publishing Code{-}
+##Publishing Code{-; #sec-publishing-code}
 
 If you edit a class that is under source control, the changes between the image and the repository will be displayed in the same way as we’ve seen above.  You can then use the commit link to publish them to the local repository.  You will be asked to provide a commit message describing your changes.
 
@@ -783,7 +792,7 @@ You can expand each commit and see what it consists of.
 Assuming you have the rights to publish to the remote repository, use the Forward to main on default link to push the updates from your local repository to the remote one. Once that’s done, the local and remote repositories are in sync, and all is well.
 
 
-##Getting Updates{-}
+##Getting Updates{-; #sec-getting-updates}
 
 
 As indicated above, MemoryHole will notify you when your remote repository changes. 
@@ -795,7 +804,7 @@ In this case, clicking the Forward to main on default link will bring the local 
 
 
 
-#How do I use the Native GUI?{-}
+#How do I use the Native GUI?{-; #sec-how-do-i-use-the-native-gui}
 
 The native GUI binding currently only exists for Windows (XP, Vista, Windows 7, Windows 8). If you’re running on Windows, the native binding is on by default; beware that on Windows 8, you have to use a muse or trackpad, since touch events trigger errors. Native windows currently co-exist with the main Squeak window where the Morphic binding is used. Eventually, the system will operate exclusively with the native binding, but this transition will take time. 
 
@@ -805,7 +814,7 @@ If you find these problems are too acute for you to bear, and want to retreat to
 
 
 
-#How do I open a console Window?{-}
+#How do I open a console Window?{-; #sec-how-do-i-open-a-console-window}
 
 Choose Show Console Window from the operate menu. If you are running on Mac or Linux, you are always running within the console window, which is simply the top level Squeak window, aka the morphic window,
 
@@ -827,7 +836,7 @@ You can of course use Ctrl-S to save, and Ctrl-C, Ctrl-X and Ctrl-V to copy, cut
 There are doubtless others.  
 
 
-#How do I open a Newspeak browser from the Console?{-}
+#How do I open a Newspeak browser from the Console?{-; #sec-how-do-i-open-a-newspeak-browser-from-the-console}
 
 At the top of the console window, you’ll see a tool bar that looks like this:
 
@@ -866,7 +875,7 @@ The first item of the Tools menu below opens a fresh Newspeak browser, displayin
 
 
 
-#How do I run Unit Tests?{-}
+#How do I run Unit Tests?{-; #sec-how-do-i-run-unit-tests}
 
 
 Newspeak’s unit testing framework is called Minitest.  Support for Minitest is integrated into the Hopscotch IDE.
@@ -921,7 +930,7 @@ Note that successes are hidden by default, as no one cares about your successes 
 You can click on each test method just as you would in a class browser to see the failing test code. Beneath the method is a link to the exception;  click on the link to see a stack trace.
 
 
-##More about Minitest{-}
+##More about Minitest{-; #sec-more-about-minitest}
 
 If you are used to SUnit (or any of the many unit testing frameworks it has inspired, liked JUnit etc.), it may be worth noting some of the differences.
 
@@ -973,7 +982,7 @@ Minitest cleanly breaks down the multiple roles an SUnit TestCase has. The defin
 
 
 
-#I just want Hello World!{-}
+#I just want Hello World!{-; #sec-i-just-want-hello-world}
 
 
 The best way to develop Newspeak code is via the IDE (here’s how to open it).  Make sure you’ve saved your image under a different name (as described here). In a Newspeak browser (this is how to open one) create a new class (as explained here) called HelloBraveNewWorld
@@ -1085,7 +1094,7 @@ That has such people in’t!
 William Shakespeare, The Tempest
 
 
-#Brave new GUI{-}
+#Brave new GUI{-; #sec-brave-new-gui}
 
 Until now, we’ve used the Hopscotch IDE - but the IDE is only one possible application of the Hopscotch library. Hopscotch is a complete GUI application framework that can be used for all sorts of applications. We’ll now use it to create a very simple application; we’ll build a fancier one later.
 
@@ -1134,7 +1143,7 @@ The definition method declares its return type to be Fragment, Type annotations 
 
 The ^ sign in front of label: indicates that this is a return statement. This is the traditional Smalltalk syntax; we might change it to return: in a future version of the language, to make the syntax accessible to a larger population of programmers.
 
-##Why is label: red?{-}
+##Why is label: red?{-; #sec-why-is-label--red}
 
 At this stage, things are so simple that our subject class does almost nothing. It’s only function is to determine what kind of presenter to use, by means of its createPresenter method. We don’t even need a model. So add this method to BraveNewWorldSubject:
 
@@ -1164,7 +1173,7 @@ This is a good time to take a break. Get yourself a glass of Chateau Margaux or 
 
 
 
-#Intermission{-}
+#Intermission{-; #sec-intermission}
 
 
 Our next, and most substantial, example will require a few more language constructs. It’s best to introduce them now via very simple examples so that you are up to speed when the real fun starts. 
@@ -1175,7 +1184,7 @@ Our next, and most substantial, example will require a few more language constru
 
 
 
-##Keyword Messages{-}
+##Keyword Messages{-; #sec-keyword-messages}
 
 Until now, we’ve only seen messages that take zero or one arguments. This helped keep the presentation simple. However, the keyword syntax generalizes to multiple parameters. Consider the mathematical function max(x,y). One could declare a method 
 
@@ -1205,12 +1214,12 @@ parser parse: 'printf(“max %d and %d”, ++p*, --q**[3]);' inContext: getParse
 
 This syntax may require some getting used to, but it grows on you. Trust me, you’ve dealt with much weirder syntax.  The keyword syntax lends itself to defining internal DSLs. Code like the Address  number: ... example above is much more readable this way. Another advantage is that you can’t get the arity wrong.
 
-##Tuples{-}
+##Tuples{-; #sec-tuples}
 
 Here is a literal tuple: {'six'. 3 + 4 min: 6. 3 factorial}. It denotes an array with 3 elements - the string ‘six’, the number 6, and the number 6 again. Array indexing begins at 1. Maybe we’ll change this someday.
 
 
-##Closures{-}
+##Closures{-; #sec-closures}
 
 A closure is is a block of code representing an action you want done. Closures are delimited by square brackets. A very simple closure would be:
 
@@ -1235,7 +1244,7 @@ The parameters are identified by prefixing them with a colon. A vertical bar mar
 Closures can contain return statements. This is useful to manage control flow.
 
 
-##Control flow{-}
+##Control flow{-; #sec-control-flow}
 
 Newspeak has no built in control constructs - all operations are method invocations/message sends, without exception.
 
@@ -1291,7 +1300,7 @@ You now know all you need to know to move on to our next conquest.
 
 
 
-#Exploring the Brave New World{-}
+#Exploring the Brave New World{-; #sec-exploring-the-brave-new-world}
 
 
 To make things more interesting, our next task will be to build an application that really explores the world around it - specifically, the file system.
@@ -1606,14 +1615,14 @@ title ^ <String> = (
 Having built an application, we should consider how to deploy it.
  
 
-#How do I deploy an application?{-}
+#How do I deploy an application?{-; #sec-how-do-i-deploy-an-application}
 
 
 Having built an application, there is some question how to deploy it. You, can of course, save your image with your application in its initial state, and distribute that, with the IDE intact. We won’t pursue that option further here.  We are working toward more convenient options. 
 
 The first step is structuring your code as a stand-alone application.
 
-How do I structure a Newspeak Application?
+#How do I structure a Newspeak Application? {-; #sec-how-do-i-structure-a-newspeak-application}
 
 
 A Newspeak application is an object conforming to a standard API. This API consists of a single method, main:args:. In concept, it is similar to the main() method of a Java or C program.
@@ -1625,7 +1634,7 @@ The main method’s purpose is to instantiate the various module definitions tha
 	
 
 
-#Deploying a Newspeak Application as a NOF File{-}
+#Deploying a Newspeak Application as a NOF File{-; #sec-deploying-a-newspeak-application-as-a-nof-file}
 
 
 Notice the deploy link near the top right of the class presenter.  This link appears whenever a class defines a packageUsing: class method. Click on it, and you get a pop-up menu; choose as NOF.
@@ -1634,7 +1643,7 @@ Notice the deploy link near the top right of the class presenter.  This link app
 Check your working directory: there now two new files: BraveNewWorldExplorerApp.nof and its gzipped sibling.  At this point, we’re done, but it’s always good to test your deployed application.
 
 
-#How do I test my deployment code?{-}
+#How do I test my deployment code?{-; #sec-how-do-i-test-my-deployment-code}
 
 
 You can test your deployable app in the IDE. Click on the run link in your application class.  If you’ve actually saved an application in a NOF file, you can choose Run App from the operate menu. 
@@ -1719,7 +1728,7 @@ directoryPresentation ^ <Fragment> = (
 
 We need to modify the incantation to run our application, because we added an extra parameter. Evaluate:
 
-ide IDEWindow openSubject: ((BraveNewWorldExplorer usingPlatform:   platform ide: ide) FileSubject onModel: 'C:/Users')
+    ide IDEWindow openSubject: ((BraveNewWorldExplorer usingPlatform:   platform ide: ide) FileSubject onModel: 'C:/Users')
 
 
 This will produce a new window. 
@@ -1739,7 +1748,7 @@ In reality, these options are completely inappropriate for a file browser, or fo
 
 
 
-#What’s next{-}
+#What’s next{-; #sec-what-if-evaluation-raises-an-exception}
 
 We hope you enjoyed this peek into the brave new world of Newspeak.  Now it’s up to you to help Newspeak mature into a platform that can survive in the cowardly old world into which it was born.
 
