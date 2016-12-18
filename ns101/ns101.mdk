@@ -54,7 +54,7 @@ Table of Contents/FAQ
   
 [How do I create a new class?](#sec-how-do-i-create-a-new-class)
 
-[How do I convert Smalltalk code to Newspeak?]()
+[How do I convert Smalltalk code to Newspeak?](#)
 
 [How do I add a method?](#sec-how-do-i-add-a-method)
 
@@ -74,9 +74,9 @@ Table of Contents/FAQ
 
 [Why is stuff red?](#sec-why-is-some-code-highlighted-in-red)
 
-How does the Syntax differ from the Specification, and Why?
+[How does the Syntax differ from the Specification, and Why?](#)
 
-[What is the configuration link on the home page for?]()
+[What is the configuration link on the home page for?](#)
 
 [How do I deploy an application?](#sec-how-do-i-deploy-an-application)
 
@@ -115,12 +115,16 @@ The very first thing you should do is save a copy of your image, so your experim
 
 At the top of the window, you’ll see a tool bar that looks like this:
 
+~~ Center
+content
+~~
+
 The rightmost icon, , denotes a drop down menu known as the operate menu. 
 
 ~~ Center
 ![opMenu]
 ~~
-Choose the option Save Image As ... and give the image some other name. 
+Choose the option _Save Image As ..._ and give the image some other name. 
 
 
 
@@ -168,7 +172,12 @@ Now that we’ve got ourselves a browser, let’s browse some existing classes.
 There are several ways to browse an existing class.  If you know the name of the class (or some approximation thereof), you can search for it using the search pane in the upper right hand side of the Newspeak browser’s tool bar:
 
 
+~~ Center
 
+![SearchPane]
+~~
+
+[SearchPane]: images/SearchPane.png "SearchPane" { width:auto; max-width:90% }
 
 One can also go to the system source page and look for the class there. We’ll examine both options below.
 
@@ -179,7 +188,7 @@ One can also go to the system source page and look for the class there. We’ll 
 
 You can type multiple search terms, separated by semicolons. The search is case-insensitive, and will find anything that includes the searched strings. You can use * as a wildcard character. If you enclose a search term in double quotes, you’ll only get exact matches.
 
-We’ll search for the class CombinatorialParsing.  Type the name of the class into the search pane. This yields a list of classes and a list of method names matching that string.
+We’ll search for the class **CombinatorialParsing**.  Type the name of the class into the search pane. This yields a list of classes and a list of method names matching that string.
 
 ~~ Center
 
@@ -193,7 +202,7 @@ Every element in the lists is a link, and clicking on it will take us to the cor
 to the left of the link.  The behavior of the arrow icon is similar to its behavior in the mac finder (or if you use a PC, the plus/minus signs in Windows explorer).
 
 Notice how the links are underlined as you hover over them, just like in a web browser.
-Click on the link for CombinatorialParsing
+Click on the link for **CombinatorialParsing**
 
 ~~ Center
 
@@ -203,7 +212,7 @@ Click on the link for CombinatorialParsing
 [combParsing-link]: images/combParsing-link.png "combParsing-link" { width:auto; max-width:90% }
 
 
-The browser now displays the CombinatorialParsing class.
+The browser now displays the **CombinatorialParsing** class.
 
 ~~ Center
 
@@ -226,7 +235,9 @@ Notice the yellow circles in front of each member. These indicate access rights 
 The header information appears at the top with a gray background:
 
 
-
+~~ Center
+content
+~~
 
 Notice the arrow icon in the top left corner. You can use it to collapse the entire header section:
 
@@ -239,7 +250,7 @@ Notice the arrow icon in the top left corner. You can use it to collapse the ent
 
 For now, let’s focus on the nested classes section; this is where most of the content is in this particular class. This is characteristic of module definitions. The slots usually represent the “imports” of the module, and there are typically relatively few module methods.
 
-Each of the nested classes can be either expanded in place using the arrow, or linked to by clicking on the class name. Click on the arrow next to AlternatingParser to see how a nested class can be displayed in context. This is usually convenient with small nested classes.
+Each of the nested classes can be either expanded in place using the arrow, or linked to by clicking on the class name. Click on the arrow next to **AlternatingParser** to see how a nested class can be displayed in context. This is usually convenient with small nested classes.
 
 You should now see something like this:
 
@@ -250,9 +261,9 @@ You should now see something like this:
 
 [alternatingParserNested1-9-14]: images/alternatingParserNested1-9-14.png "alternatingParserNested1-9-14" { width:auto; max-width:90% }
 
-Now click on the name of the class AlternatingParser. That will take you to a full page display of the class. This is best when dealing with larger classes. 
+Now click on the name of the class **AlternatingParser**. That will take you to a full page display of the class. This is best when dealing with larger classes. 
 
-AlternatingParser has no nested classes, but it does have some instance methods. Each of the method names displayed is a link. However, when you click on it, the method opens in place, rather than on a new page.
+**AlternatingParser** has no nested classes, but it does have some instance methods. Each of the method names displayed is a link. However, when you click on it, the method opens in place, rather than on a new page.
 
 ~~ Center
 
@@ -263,7 +274,7 @@ AlternatingParser has no nested classes, but it does have some instance methods.
 
 Clicking on the link again collapses the method display. This shows that link behavior in Hopscotch can be customized.  It isn’t very useful to show a method on a separate page. Newspeak methods are usually short, and should never be very long.  In any case methods need to be understood in context.
 
-Looking at the method parse:inContext:ifError:, you can see the syntax coloring scheme is deliberately low key. The selector is bold, parameters and local slots are bold gray. The message pattern is followed by an equal sign, and the method body appears between parentheses. This will change in later versions.
+Looking at the method _**parse:inContext:ifError:**_, you can see the syntax coloring scheme is deliberately low key. The selector is bold, parameters and local slots are bold gray. The message pattern is followed by an equal sign, and the method body appears between parentheses. This will change in later versions.
 
 Looking more closely at the method link, we see that it is followed by various bits of information:
 
@@ -291,6 +302,9 @@ which generally denotes references to an entity (who’s talking about me ). In 
 
 [speechBubble]: images/speechBubble.png "speechBubble" { width:auto; max-width:90% }
 
+~~ Center
+content
+~~
 
 Of course, you can also enter a message selector into the search pane. In all these cases, the result is a list like this
 
@@ -314,7 +328,13 @@ On the right hand side of a method link, to the left of the speech bubble, is th
 
 At the top right of the method section, you’ll notice a set of icons:
 
+~~ Center
+
+![methodButtons]
+~~
 The open circle opens up all of the methods listed below. The dot icon does the opposite - it will close all open methods. The rightmost icon (with the number sign) controls ordering. By default, Newspeak methods are ordered by their names. Clicking on this icon will toggle the ordering of the methods between name-based and category based. The circle and dot icons are also used in other presenters (such as the class list) with the same semantics.
+
+[methodButtons]: images/methodButtons.png "methodButtons" { width:auto; max-width:90% }
 
 #Why is some code highlighted in red?{-; #sec-why-is-some-code-highlighted-in-red}
 
@@ -353,25 +373,46 @@ Let’s navigate back to the original class. It’s time we looked more carefull
 
 The top of the browser window shows a number of controls, some of which are reminiscent of a web browser. The back and front buttons 
 
+~~ Center
 
+![backAndFront]
+~~
+
+[backAndFront]: images/backAndFront.png "backAndFront" { width:auto; max-width:90% }
 
 behave just as you’d expect. The two little drop down menu icons surrounding these
  
+~~ Center
 
+![stackButtons]
+~~
+
+[stackButtons]: images/stackButtons.png "stackButtons" { width:auto; max-width:90% }
+
+[dropDown]: images/dropDown.png "dropDown" { width:auto; max-width:90% }
 
 
 give you a menu of all the places on the browser stack, below or above the current location.  You’ve already seen the home button. Perhaps the most useful feature is the history button:
 
 
 
-
+~~ Center
+content
+~~
 
 
 
 
 It acts much like the history feature in a web browser. It takes you to a page that holds your browsing history for this particular browser, latest location on top:  
 
+~~ Center
 
+![history]
+~~
+
+[history]: images/history.PNG "history" { width:auto; max-width:90% }
+
+[history]: images/history.png "history" { width:auto; max-width:90% }
 
 Click on any link on the page to go to that location. You’ll find it just as you left it - with subpanes open, unaccepted edits still preserved etc. This means you can leave any view to go to another, regardless of its state. Interaction with the browser is modeless.
 It also means that you are never more than two clicks away from any place you’ve browsed - one click to the history, and one click from there to any prior destination.
@@ -382,7 +423,7 @@ In the context of an IDE, this feature is actually much more useful than in typi
 
 #How do I erase my history?{-; #sec-how-do-i-erase-my-history}
 
-After completing a task, you may want to eliminate it from your history to prevent clutter building up.  To erase the history, click the Forget All button on the history page.
+After completing a task, you may want to eliminate it from your history to prevent clutter building up.  To erase the history, click the _Forget All_ button on the history page.
 
 Or just close the browser and open a new one. You can also clean out individual history entries using the [forget] link at the right of each entry.
 
@@ -397,6 +438,9 @@ The green one maximizes, the orange one minimizes, and the blue one provides a d
 
 Use the browser’s meta menu, which is marked with this icon:
 
+~~ Center
+
+~~
 
 The meta menu has two options for inspecting the GUI: Inspect Window and Inspect Application. The latter opens a new browser showing an inspector on the original browser application. Usually this option is more interesting, as that is where the application logic resides. The former is similar, but the inspector is opened on the Window object representing the browser window. You can drill down and find what code implements a given GUI element.  In addition, many presenters have an Inspect Presenter option in their drop down menu, which opens up an inspector on the presenter object.
 
@@ -407,7 +451,7 @@ Of course, to utilize these, we need to understand how to inspect an object.
  
 
 
-There are several actions that will open up an inspector.  Besides the menu options described above, the Inspect Mixin menu item available in the class header presenter will open up an inspector on the corresponding mixin object. However, the most general way to get an inspector on an object is to evaluate an expression in a workspace.
+There are several actions that will open up an inspector.  Besides the menu options described above, the _Inspect Mixin_ menu item available in the class header presenter will open up an inspector on the corresponding mixin object. However, the most general way to get an inspector on an object is to evaluate an expression in a workspace.
 
 
 
@@ -416,7 +460,7 @@ However you open an inspector, you’re likely to see a view such as the followi
 
 
 
-Each slot of the inspected object is listed in the inspector. It is prefixed by an arrow icon that allows you to view an inspector on the value of the slot in context . Following the slot name is a description of the slot value, which is itself a link to an inspector on the slot value.  The gray area at the top of the inspector gives a description of the object being inspected, and a link to its class and its enclosing object. Clicking on the class brings up a class presenter on the class, not an inspector on the class object. If you need to inspect the class object, you can do that by choosing Inspect Class from the drop down menu, whose icon you can see at at top right:
+Each slot of the inspected object is listed in the inspector. It is prefixed by an arrow icon that allows you to view an inspector on the value of the slot in context . Following the slot name is a description of the slot value, which is itself a link to an inspector on the slot value.  The gray area at the top of the inspector gives a description of the object being inspected, and a link to its class and its enclosing object. Clicking on the class brings up a class presenter on the class, not an inspector on the class object. If you need to inspect the class object, you can do that by choosing _Inspect Class_ from the drop down menu, whose icon you can see at at top right:
 
 
  
@@ -446,7 +490,7 @@ provokeBug: b <Boolean> = (
   ^missing: b with: self
 )
 
-Calling BlowUp>>provokeBug: from a workspace gives us the following display:
+Calling _BlowUp>>provokeBug:_ from a workspace gives us the following display:
 
 ~~ Center
 ![blowup1-9-24]
@@ -454,7 +498,7 @@ Calling BlowUp>>provokeBug: from a workspace gives us the following display:
 
 [blowup1-9-24]: images/blowup1-9-24.png "blowup1-9-24" { width:auto; max-width:90% }
 
-We can look at the exception in more detail by expanding the item MessageNotUnderstood BlowUp>>missing:with:  as shown below:
+We can look at the exception in more detail by expanding the item _MessageNotUnderstood BlowUp>>missing:with:_  as shown below:
 
 
 ~~ Center
@@ -502,7 +546,7 @@ Evaluating an expression produces a link to the result. To the right of that lin
 
 You may use the method presenter on the left as you usually would; you may edit the method and save the changes for example. This will discard all activations above the edited method, and restart the method at its beginning.
 
-In our case, we can see that the problem is that missing:with: is not defined. Expand the top frame on the stack, to see the doesNotUnderstand: method.
+In our case, we can see that the problem is that _**missing:with:**_ is not defined. Expand the top frame on the stack, to see the _**doesNotUnderstand:**_ method.
 
 ~~ Center
 
@@ -512,7 +556,7 @@ In our case, we can see that the problem is that missing:with: is not defined. E
 [blowup-4-9-14]: images/blowup-4-9-14.png "blowup-4-9-14" { width:auto; max-width:90% }
 
 
-If the activation involves the method doesNotUnderstand:, you will have an option to declare the missing method semi-automatically.  
+If the activation involves the method _**doesNotUnderstand:**_, you will have an option to declare the missing method semi-automatically.  
 
 
 ~~ Center
@@ -532,31 +576,31 @@ You will be transported to a class browser page for the class of the receiver, w
 
 [blowup-add-missing-9-14]: images/blowup-add-missing-9-14.png "blowup-add-missing-9-14" { width:auto; max-width:90% }
 
-Once you’ve edited the method to your satisfaction and saved it, you can return to the debugger and/or press the Continue button at the top to proceed with the computation.. 
+Once you’ve edited the method to your satisfaction and saved it, you can return to the debugger and/or press the _Continue_ button at the top to proceed with the computation.. 
 
-You may also restart the method using the activation’s menu. This menu also provides the option to unwind recursive calls of a method. This is useful when you have stopped in an infinite recursion; you want to pop all recursive activations off the stack and get back to the very first activation of the method, where you can correct the method and then proceed with execution using the Continue button.  
+You may also restart the method using the activation’s menu. This menu also provides the option to unwind recursive calls of a method. This is useful when you have stopped in an infinite recursion; you want to pop all recursive activations off the stack and get back to the very first activation of the method, where you can correct the method and then proceed with execution using the _Continue_ button.  
 
 
 
 #How do I open a workspace?{-; #sec-how-do-i-open-a-workspace}
 
 
-On the home page, you can click on the link labeled Workspaces. This will take you to the workspaces page.  If there are no workspaces yet, one will be created and opened in place. If there is exactly one workspace it will be opened in the same way. Otherwise, you will be presented with a list of all existing workspaces to choose from. 
+On the home page, you can click on the link labeled _Workspaces_. This will take you to the workspaces page.  If there are no workspaces yet, one will be created and opened in place. If there is exactly one workspace it will be opened in the same way. Otherwise, you will be presented with a list of all existing workspaces to choose from. 
 
 
-You can create new workspaces by clicking the plus button. Workspaces are identified by cheerful names, such as Workspace_1 etc. You can then navigate to a given workspace by clicking on its link in the workspaces page
-
-
-
+You can create new workspaces by clicking the _plus_ button. Workspaces are identified by cheerful names, such as _Workspace_1_ etc. You can then navigate to a given workspace by clicking on its link in the workspaces page
 
 
 
 
-A workspace allows you to evaluate code and provides you with access to the IDE’s top level namespace.  The IDE namespace gives you access to all top level classes loaded into the IDE (both Newspeak classes and Squeak classes).  It also supports access to the Newspeak platform object via the name platform. In addition, you can use the name ide to gain access to the IDE namespace itself.
 
-Finally, workspaces provide direct access to all the modules the Newspeak platform provides; e.g., the collections module is available via the name collections, the streams module via the name streams etc.
 
-Each workspace has its own unique class. You can access it via the drop down menu located just under the Evaluate button. This allows you to define slots (sometimes known as workspace variables in other systems) for the workspace. Likewise, you can define workspace specific methods or even nested classes. All of these are treated exactly like members of any other class.
+
+A workspace allows you to evaluate code and provides you with access to the IDE’s top level namespace.  The IDE namespace gives you access to all top level classes loaded into the IDE (both Newspeak classes and Squeak classes).  It also supports access to the Newspeak platform object via the name _**platform**_. In addition, you can use the name _**ide**_ to gain access to the IDE namespace itself.
+
+Finally, workspaces provide direct access to all the modules the Newspeak platform provides; e.g., the collections module is available via the name _**collections**_, the streams module via the name _**streams**_ etc.
+
+Each workspace has its own unique class. You can access it via the drop down menu located just under the _Evaluate_ button. This allows you to define slots (sometimes known as workspace variables in other systems) for the workspace. Likewise, you can define workspace specific methods or even nested classes. All of these are treated exactly like members of any other class.
 
 You can also define methods for the workspace class directly in the workspace: the Methods section at the bottom of the workspace works exactly like it does in a class browser. More on this below.
 
@@ -573,7 +617,7 @@ You can also define methods for the workspace class directly in the workspace: t
 #Back to CombinatorialParsing{-; #sec-back-to-combinatorialparsing}
 
 
-Let’s navigate back to the CombinatorialParsing class. We’ve seen how methods and nested classes work, but we haven’t really investigated the class header. The header includes the class comment and slot definitions.
+Let’s navigate back to the **CombinatorialParsing** class. We’ve seen how methods and nested classes work, but we haven’t really investigated the class header. The header includes the class comment and slot definitions.
 
 #How do I edit the class header?{-; #sec-how-do-i-edit-the-class-header}
 
@@ -612,7 +656,7 @@ Packages are created on the source control page.  It is also possible to create 
 #How do I create a class category?{-; #sec-how-do-i-create-a-class-category}
 
 
-Go to the System Source page (linked to from the home page) , and find the package to which you wish to add the category.  The display shows a list of packages on the left, and for each package, a list of class categories it contains on the right. Just to the left of the category list is a link marked add. Click it and fill in the name of the desired category.
+Go to the _System Source_ page (linked to from the home page) , and find the package to which you wish to add the category.  The display shows a list of packages on the left, and for each package, a list of class categories it contains on the right. Just to the left of the category list is a link marked add. Click it and fill in the name of the desired category.
 
 Since we won’t be adding our category in a package, we will add to the set of unpackaged categories listed at the top:
 
@@ -622,6 +666,11 @@ Accept the category name by clicking on the green icon:
 
 You can also just type Ctrl-S (or Cmd-S on a mac) in the text pane. If you wish to cancel 
 the operation, click the red icon:
+
+~~ Center
+
+![redIcon]
+~~
 
  You will be asked to confirm the cancelation
 
@@ -739,7 +788,7 @@ Edit the class header.
 
 From the home page, you can click the link marked System Source.   You’ll see a listing of all the packages loaded in the image on the left.  For each package, the right hand column shows the list of class categories within. All the listed items are links.  You can navigate to any category in this way, and from there to any specific class in the category.
 
-Choose the category BrazilForMorphic-CustomMorphs:
+Choose the category _BrazilForMorphic-CustomMorphs_:
 
 
 This is an interesting choice, as it consists of Smalltalk classes. You’ll note that next to each class, we find, on the right, two columns. The rightmost column tells us how many methods the class has; the darker the green background behind that number, the more methods are in the class - so you can tell at a glance what the big classes are.
@@ -753,8 +802,22 @@ The remaining column gives you an estimate of the number of subclasses the class
 
 Accept the category name by clicking on the green icon:
 
+~~ Center
+
+![greenIcon]
+~~
+
+[greenIcon]: images/greenIcon.png "greenIcon" { width:auto; max-width:90% }
+
 You can also just type Ctrl-S (or cmd-s on a mac) in the text pane. If you wish to cancel 
 the operation, click the red icon:
+
+~~ Center
+
+![redIcon]
+~~
+
+[redIcon]: images/redIcon.png "redIcon" { width:auto; max-width:90% }
 
  You will be asked to confirm the cancelation
 
@@ -871,7 +934,7 @@ The above is what you’ll see if your image and the repository are perfectly in
 
 
 
-The top most deep grey banner says: Modified In Image.  Underneath, there is a collapsed pane that lists any classes that are unversioned - that is, are not under source control at all. There’s also a link marked Log in the upper right hand corner that will take you to list of source control log entries.
+The top most deep grey banner says: _Modified In Image_.  Underneath, there is a collapsed pane that lists any classes that are unversioned - that is, are not under source control at all. There’s also a link marked Log in the upper right hand corner that will take you to list of source control log entries.
 
 Below are two banners side by side - one marked Historian the other Image. This allows us to compare the current local repository to the image. Beneath it is a list of classes that differ between the image and the local repository.  They might differ because your image is out of date with respect to the repository (say, because the repository has moved forward since the download image was created) , or because you’ve made changes in the image (the common scenario in day-to-day work).
 
@@ -884,7 +947,7 @@ Removed ones with a pink one.
 
 Changed code is shown with yellow background.
 
-Additions are highlighted in green and deletions in red. For example, in the screenshot below you can see that in class KernelForSqueak, the nested class AbstractMixin has had the method binding added. There have been changes made to the nested class KernelForSqueak `Class which are not shown. And in we see that in class KernelForSqueak `InstanceMixin, the method binding was removed and several methods were modified.
+Additions are highlighted in green and deletions in red. For example, in the screenshot below you can see that in class KernelForSqueak, the nested class **AbstractMixin** has had the method binding added. There have been changes made to the nested class KernelForSqueak `Class which are not shown. And in we see that in class KernelForSqueak `InstanceMixin, the method binding was removed and several methods were modified.
 
 ~~ Center
 ![src-ctl2-9-14]
@@ -903,15 +966,15 @@ If we click on the revert link, the code in the image will be mutated to match t
 
 Before we go on, we should discuss MemoryHole’s model of the world.
 
-You probably noticed the term historian used in the above screenshots. A historian is a keeper of history (similar to a Git branch or Mercurial bookmark). What’s a history? A history is a complete representation of the state of a branch in a repository at some point in time. A history includes the state of the source, all known prior states and how they relate to each other. A historian is a mutable pointer to a history.  Usually a historian points to the latest history in a branch.
+You probably noticed the term historian used in the above screenshots. A _historian_ is a keeper of history (similar to a Git branch or Mercurial bookmark). What’s a history? A history is a complete representation of the state of a branch in a repository at some point in time. A history includes the state of the source, all known prior states and how they relate to each other. A historian is a mutable pointer to a history.  Usually a historian points to the latest history in a branch.
 
-We can maintain multiple historians, pointing at different branches and repositories. One of these will be the current historian, which in our case points at the tip of a local hg repository.  The Modified In Image panel shows us how the image and the current historian differ. Additional historians are listed under the banner Other Local Historians.
+We can maintain multiple historians, pointing at different branches and repositories. One of these will be the current historian, which in our case points at the tip of a local hg repository.  The _Modified In Image_ panel shows us how the image and the current historian differ. Additional historians are listed under the banner _Other Local Historians_.
 
 Above, we arranged for the local repository to be a clone of the public newspeak repository at a certain moment.  MemoryHole is aware of the relationship between our clone and the original (in our case, the public newspeak repository).  As the original evolves, MemoryHole will notify us and offer to sync the clone to it. Likewise, if the clone evolves - most likely because we publish some changes to it from the image - MemoryHole will offer to sync with the original. What is the mechanism which enables us to track changes to the original repository?
 
-A local historian may track a remote one. If a historian is being tracked, MemoryHole will notify us when changes to the remote historian occur. When MemoryHole sets up a connection to a remote repository it will set the current historian to a clone of that repository, and have the local historian track the (historian of the) trunk of the remote one.
+A local historian may _track_ a remote one. If a historian is being tracked, MemoryHole will notify us when changes to the remote historian occur. When MemoryHole sets up a connection to a remote repository it will set the current historian to a clone of that repository, and have the local historian track the (historian of the) trunk of the remote one.
 
-The original repository is listed under Remote Repositories.  We can expand it and see all historians associated with the remote repository, and whether they are tracked by the current historian. 
+The original repository is listed under _Remote Repositories_.  We can expand it and see all historians associated with the remote repository, and whether they are tracked by the current historian. 
 
 For more details on MemoryHole, see Matthias Kleine’s thesis at 
 
@@ -949,7 +1012,7 @@ In this case, clicking the Forward to main on default link will bring the local 
 
 #How do I use the Native GUI?{-; #sec-how-do-i-use-the-native-gui}
 
-The native GUI binding currently only exists for Windows (XP, Vista, Windows 7, Windows 8). If you’re running on Windows, the native binding is on by default; beware that on Windows 8, you have to use a muse or trackpad, since touch events trigger errors. Native windows currently co-exist with the main Squeak window where the Morphic binding is used. Eventually, the system will operate exclusively with the native binding, but this transition will take time. 
+The native GUI binding currently only exists for Windows (XP, Vista, Windows 7, Windows 8). If you’re running on Windows, the native binding is on by default; beware that on Windows 8, you have to use a mouse or trackpad, since touch events trigger errors. Native windows currently co-exist with the main Squeak window where the Morphic binding is used. Eventually, the system will operate exclusively with the native binding, but this transition will take time. 
 
 The native binding still suffers from some bugs/limitations. These bugs are detailed below. 
 
@@ -959,16 +1022,16 @@ If you find these problems are too acute for you to bear, and want to retreat to
 
 #How do I open a console Window?{-; #sec-how-do-i-open-a-console-window}
 
-Choose Show Console Window from the operate menu. If you are running on Mac or Linux, you are always running within the console window, which is simply the top level Squeak window, aka the morphic window.
+Choose _Show Console Window_ from the operate menu. If you are running on Mac or Linux, you are always running within the console window, which is simply the top level Squeak window, aka the morphic window.
 
-Then choose the File>>Preferences>>goMorphic  option. All Hopscotch windows will revert back to their Morphic form, and from then on any new ones will open as Morphic windows as well.
+Then choose the _File>>Preferences>>goMorphic_  option. All Hopscotch windows will revert back to their Morphic form, and from then on any new ones will open as Morphic windows as well.
 
 ~~ Center
 ![goNative menu]
 ~~
 [goNative menu]: images/goNative-menu.png "goNative menu" { width:auto; max-width:90% }
 
-You can always change your mind again. Choose the File>>Preferences>>goNative  option, which is the inverse of the above. At this point, all existing Hopscotch windows will become native, any new ones you create will be native as well. 
+You can always change your mind again. Choose the _File>>Preferences>>goNative_  option, which is the inverse of the above. At this point, all existing Hopscotch windows will become native, any new ones you create will be native as well. 
 
 
 
@@ -1030,8 +1093,8 @@ Newspeak’s unit testing framework is called Minitest.  Support for Minitest is
 
 In Minitest, you define a testing module, which is designed to test a particular interface (not a particular implementation). To run tests, one needs to feed the testing module with the particular implementation(s) that one wishes to test. A test configuration module does just that. Newspeak naturally enforces this separation of interface and implementation.
 
-Here is a testing module ListTesting. It is a very simplistic set of tests for lists. 
-ListTesting’s factory method takes 3 arguments: platform (the Newspeak platform, from which all kinds of generally useful libraries might be obtained), minitest (an instance of Minitest, naturally) and listClass, a factory that will produce lists for us to test. This is typical: the first two arguments to a test module factory are almost always a platform object and an instance of Minitest, while the third is the object under test.  
+Here is a testing module **ListTesting**. It is a very simplistic set of tests for lists. 
+**ListTesting**’s factory method takes 3 arguments: _**platform**_ (the Newspeak platform, from which all kinds of generally useful libraries might be obtained), _**minitest**_ (an instance of **Minitest**, naturally) and _**listClass**_, a factory that will produce lists for us to test. This is typical: the first two arguments to a test module factory are almost always a platform object and an instance of Minitest, while the third is the object under test.  
 
 
 ~~ Center
@@ -1043,10 +1106,10 @@ ListTesting’s factory method takes 3 arguments: platform (the Newspeak platfor
 
 
 
-Nested within the module is the class ListTests, which includes the actual tests. Test methods are identified by the convention that their names begin with test. Each test will be executed in a test context; that is, for each test method being run, Minitest will 
-instantiate a fresh ListTests object. That is why ListTests is called a test context - it provides a context for a single test.
+Nested within the module is the class **ListTests**, which includes the actual tests. Test methods are identified by the convention that their names begin with test. Each test will be executed in a test context; that is, for each test method being run, Minitest will 
+instantiate a fresh **ListTests** object. That is why **ListTests** is called a test context - it provides a context for a single test.
 
-It is common to define test context classes like ListTests as subclasses of the class TestContext defined by the Minitest framework. One reason why having a Minitest factory argument is useful is so we can import TestContext.  TestContext provides useful methods like deny:, so it is convenient to use it. However, inheriting from TestContext is not essential.  What identifies ListTests as a test context is the marker class method TEST_CONTEXT, not inheriting from TestContext.
+It is common to define test context classes like **ListTests** as subclasses of the class **TestContext** defined by the Minitest framework. One reason why having a Minitest factory argument is useful is so we can import **TestContext**.  **TestContext** provides useful methods like _**deny:**_, so it is convenient to use it. However, inheriting from **TestContext** is not essential.  What identifies **ListTests** as a test context is the marker class method _**TEST_CONTEXT**_, not inheriting from **TestContext**.
 
 Minitest will do its work by examining the nested classes of the test module and seeing which are test contexts (that is, which have a class method named TEST_CONTEXT). For each test context tc, Minitest will list all its test methods (the ones with names beginning with test) and for each of those, it will instantiate tc and call the selected method on it, gathering data on success or failure. 
 
@@ -1055,16 +1118,16 @@ We need a test configuration to run the tests, as the test module definition is 
 A test configuration module is defined by a top level class with the factory method
 
 
-packageTestsUsing: namespace
+_**packageTestsUsing: namespace**_
 
 
 The factory takes a namespace object that should provide access to the testing module declaration and to any concrete classes or objects we want to test. This arrangement is very similar to how we package applications from within the IDE.
 
 
 
-We show a single test configuration ListTestingConfiguration, but you can define as many you like.
+We show a single test configuration **ListTestingConfiguration**, but you can define as many you like.
 
-The method testModulesUsingPlatform:minitest: must be provided by the configuration. It will be called by Minitest to produce a set of testing modules, each of which will be processed by the framework as outlined above (i.e., searched for test contexts to be run).
+The method _**testModulesUsingPlatform:minitest:**_ must be provided by the configuration. It will be called by Minitest to produce a set of testing modules, each of which will be processed by the framework as outlined above (i.e., searched for test contexts to be run).
 
 ~~ Center
 
@@ -1073,20 +1136,31 @@ The method testModulesUsingPlatform:minitest: must be provided by the configurat
 
 [listTestingConfig-9-14]: images/listTestingConfig-9-14.png "listTestingConfig-9-14" { width:auto; max-width:90% }
 
-The IDE recognizes test configurations based on the name of the factory method - that is, a class with a class method packageTestsUsing: is considered a test configuration, and the IDE will provide a run tests link in the class browser’s upper right hand corner.
+The IDE recognizes test configurations based on the name of the factory method - that is, a class with a class method _**packageTestsUsing:**_ is considered a test configuration, and the IDE will provide a run tests link in the class browser’s upper right hand corner.
 
 Running the tests will display a progress bar, and once they have run you will see a test results page:
+
+~~ Center
+
+![testResults1]
+~~
+
+[testResults1]: images/testResults1.png "testResults1" { width:auto; max-width:90% }
 
 Things are more interesting if some tests fail (did not produce expected results) or cause errors (raised unexpected exceptions):
 
 
+~~ Center
 
+![testFailure]
+~~
+
+[testFailure]: images/testFailure.png "testFailure" { width:auto; max-width:90% }
 
 
 If any of tests have failed in any way (i.e., resulted in failures or errors) the banner at the head of the page will say so on a red background. If all tests succeed the banner will be green.  A gray banner indicates that even though no test has failed, not all tests have been run.
 
 Note that successes are hidden by default, as no one cares about your successes - only your errors and failures. There is a link that allows you to bask in their glory if you need to.
-
 You can click on each test method just as you would in a class browser to see the failing test code. Beneath the method is a link to the exception;  click on the link to see a stack trace.
 
 
@@ -1094,9 +1168,9 @@ You can click on each test method just as you would in a class browser to see th
 
 If you are used to SUnit (or any of the many unit testing frameworks it has inspired, liked JUnit etc.), it may be worth noting some of the differences.
 
-Minitest does away with concepts like TestResource that are typically used to hold data for tests.
+Minitest does away with concepts like _**TestResource**_ that are typically used to hold data for tests.
 
-In the simple case above, the data for the test gets created by the instance initializer of ListTests . However, what if the data for the test needs to be shared among multiple tests (say, because it is expensive to create)?
+In the simple case above, the data for the test gets created by the instance initializer of **ListTests** . However, what if the data for the test needs to be shared among multiple tests (say, because it is expensive to create)?
 
 As an example, suppose we want to test a compiler, and setting up the compiler is relatively costly.
 
@@ -1113,11 +1187,11 @@ class CompilerTesting usingPlatform: platform
 )
 
 
-Minitest leverages Newspeak’s nested structure in these cases. A test context (StatementTests above) does not have to be a direct nested class of the test module. Instead, we can nest it more deeply inside another nested class (CompilerHolder). That nested class will serve to hold any state that we want to share among multiple tests - in our case, an instance of the compiler, which it will create and store as part of its initialization.
+Minitest leverages Newspeak’s nested structure in these cases. A test context (**StatementTests** above) does not have to be a direct nested class of the test module. Instead, we can nest it more deeply inside another nested class (**CompilerHolder**). That nested class will serve to hold any state that we want to share among multiple tests - in our case, an instance of the compiler, which it will create and store as part of its initialization.
 
-As you can see there is no need for a special setUp method or a test resource class. Newspeak’s nesting structure and built-in instance initializers take care of all that. If the shared resource is just an object in memory, then it will also be disposed of via garbage collection after the test is run. Of course, some resources cannot be just garbage collected. In that case, one should define a method named cleanUp in the test context class.
+As you can see there is no need for a special _**setUp**_ method or a test resource class. Newspeak’s nesting structure and built-in instance initializers take care of all that. If the shared resource is just an object in memory, then it will also be disposed of via garbage collection after the test is run. Of course, some resources cannot be just garbage collected. In that case, one should define a method named _**cleanUp**_ in the test context class.
 
-Minitest cleanly breaks down the multiple roles an SUnit TestCase has. The definition of a set of tests is done by a test context. The actual configuration is done a test configuration. And the actual command to run a specific test (the thing that should be called TestCase) is not the user’s concern anymore - the test framework handles it but need not expose it.
+Minitest cleanly breaks down the multiple roles an SUnit TestCase has. The definition of a set of tests is done by a test context. The actual configuration is done a test configuration. And the actual command to run a specific test (the thing that should be called **TestCase**) is not the user’s concern anymore - the test framework handles it but need not expose it.
 
 
 
