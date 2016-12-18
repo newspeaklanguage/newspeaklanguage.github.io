@@ -144,9 +144,19 @@ The screen shot above shows the home page. You can always return to the home pag
 
 The home page includes links to a variety of useful places, like recently visited classes and packages, the source control page and more. If you look at the list of classes, you’ll see each class has a round icon next to it. The icon tells you which language the class is written in; the current system mixes Smalltalk code with Newspeak. A gray icon 
 
+~~ Center
+![SmalltalkClassIcon]
+~~
+
+[SmalltalkClassIcon]: images/SmalltalkClassIcon.png "SmalltalkClassIcon" { width:auto; max-width:90% }
+
 represents Smalltalk. Icons representing Newspeak are labeled with a version number. Golden icons represent Newspeak3, which is the currently operational dialect of Newspeak.
 
+~~ Center
+![ns3-icon]
+~~
 
+[ns3-icon]: images/ns3-icon.png "ns3-icon" { width:auto; max-width:90% }
 
 Now that we’ve got ourselves a browser, let’s browse some existing classes.
 
@@ -171,7 +181,12 @@ You can type multiple search terms, separated by semicolons. The search is case-
 
 We’ll search for the class CombinatorialParsing.  Type the name of the class into the search pane. This yields a list of classes and a list of method names matching that string.
 
+~~ Center
 
+![combinatorialParsing-9-14]
+~~
+
+[combinatorialParsing-9-14]: images/combinatorialParsing-9-14.PNG "combinatorialParsing-9-14" { width:auto; max-width:90% }
 
 
 Every element in the lists is a link, and clicking on it will take us to the corresponding class or method. We can also view one or more of the classes/methods in place, by clicking on the arrow icon 
@@ -180,15 +195,22 @@ to the left of the link.  The behavior of the arrow icon is similar to its behav
 Notice how the links are underlined as you hover over them, just like in a web browser.
 Click on the link for CombinatorialParsing
 
+~~ Center
 
+![combParsing-link]
+~~
 
-
-
-
-
+[combParsing-link]: images/combParsing-link.png "combParsing-link" { width:auto; max-width:90% }
 
 
 The browser now displays the CombinatorialParsing class.
+
+~~ Center
+
+![combParsingDef-9-14]
+~~
+
+[combParsingDef-9-14]: images/combParsingDef-9-14.png "combParsingDef-9-14" { width:auto; max-width:90% }
 
 The class presenter has distinct sections for class header information, nested classes, methods and class methods.  
 
@@ -208,7 +230,12 @@ The header information appears at the top with a gray background:
 
 Notice the arrow icon in the top left corner. You can use it to collapse the entire header section:
 
+~~ Center
 
+![comboParsing-hdrCollapsed]
+~~
+
+[comboParsing-hdrCollapsed]: images/comboParsing-hdrCollapsed.png "comboParsing-hdrCollapsed" { width:auto; max-width:90% }
 
 For now, let’s focus on the nested classes section; this is where most of the content is in this particular class. This is characteristic of module definitions. The slots usually represent the “imports” of the module, and there are typically relatively few module methods.
 
@@ -216,13 +243,23 @@ Each of the nested classes can be either expanded in place using the arrow, or l
 
 You should now see something like this:
 
+~~ Center
 
+![alternatingParserNested1-9-14]
+~~
+
+[alternatingParserNested1-9-14]: images/alternatingParserNested1-9-14.png "alternatingParserNested1-9-14" { width:auto; max-width:90% }
 
 Now click on the name of the class AlternatingParser. That will take you to a full page display of the class. This is best when dealing with larger classes. 
 
 AlternatingParser has no nested classes, but it does have some instance methods. Each of the method names displayed is a link. However, when you click on it, the method opens in place, rather than on a new page.
 
+~~ Center
 
+![parseInContext]
+~~
+
+[parseInContext]: images/parseInContext.png "parseInContext" { width:auto; max-width:90% }
 
 Clicking on the link again collapses the method display. This shows that link behavior in Hopscotch can be customized.  It isn’t very useful to show a method on a separate page. Newspeak methods are usually short, and should never be very long.  In any case methods need to be understood in context.
 
@@ -230,6 +267,12 @@ Looking at the method parse:inContext:ifError:, you can see the syntax coloring 
 
 Looking more closely at the method link, we see that it is followed by various bits of information:
 
+~~ Center
+
+![parseInContext-hdr]
+~~
+
+[parseInContext-hdr]: images/parseInContext-hdr.png "parseInContext-hdr" { width:auto; max-width:90% }
 
 These elements help answer questions like:
 
@@ -239,12 +282,24 @@ The number of senders of this message may appear immediately to the right of a m
 The sender information is actually a link.
 
 Another way to get at the sender/implementor information is the speech bubble
+
+~~ Center
+
+![speechBubble]
+~~
 which generally denotes references to an entity (who’s talking about me ). In the case of a method, clicking on it brings up a pop-up menu with a list of messages, starting with the method’s selector, and including all messages used inside the method. Choose an item from the menu to get the list of implementors and senders for that message.
+
+[speechBubble]: images/speechBubble.png "speechBubble" { width:auto; max-width:90% }
 
 
 Of course, you can also enter a message selector into the search pane. In all these cases, the result is a list like this
 
+~~ Center
 
+![recordFailure]
+~~
+
+[recordFailure]: images/recordFailure.png "recordFailure" { width:auto; max-width:90% }
 
 #How do I delete a method?{-; #sec-how-do-i-delete-a-method}
 
@@ -393,15 +448,26 @@ provokeBug: b <Boolean> = (
 
 Calling BlowUp>>provokeBug: from a workspace gives us the following display:
 
+~~ Center
+![blowup1-9-24]
+~~
+
+[blowup1-9-24]: images/blowup1-9-24.png "blowup1-9-24" { width:auto; max-width:90% }
+
 We can look at the exception in more detail by expanding the item MessageNotUnderstood BlowUp>>missing:with:  as shown below:
 
 
+~~ Center
 
+![blowup-2-9-14]
+~~
+
+[blowup-2-9-14]: images/blowup-2-9-14.png "blowup-2-9-14" { width:auto; max-width:90% }
 
 If we want to debug this computation, we need to open a debugger on it.
 
 
-What if I want to get at the platform or IDE namespace from an inspector?
+#What if I want to get at the platform or IDE namespace from an inspector?{-; #sec-what-if-i-want-to-get-at-the-platform-or-ide-namespace-from-an-inspector}
 
 Sometimes you need to evaluate an expression that involves an object that isn't accessible from the current scope. Perhaps you need to get at a module you didn’t import. 
 
@@ -420,7 +486,9 @@ and get at the collections module of the platform, even if you forgot to import 
 
 You will encounter the debugger if an uncaught exception occurs during execution. If you evaluate an expression that results in an uncaught exception in a Hopscotch workspace or object inspector, the inspector will catch the exception, as described above. The text describing the exception also serves as a link that opens up a debugger page on the stack of the failed computation. Click on the link, to get a debugger in a new window. The debugger displays the call stack. 
 
+~~ Center
 
+~~
 
 Each activation frame is expandable to an activation presenter which allows you to see the method in question and the state of the frame.
 
@@ -436,27 +504,33 @@ You may use the method presenter on the left as you usually would; you may edit 
 
 In our case, we can see that the problem is that missing:with: is not defined. Expand the top frame on the stack, to see the doesNotUnderstand: method.
 
+~~ Center
+
+![blowup-4-9-14]
+~~
+
+[blowup-4-9-14]: images/blowup-4-9-14.png "blowup-4-9-14" { width:auto; max-width:90% }
 
 
 If the activation involves the method doesNotUnderstand:, you will have an option to declare the missing method semi-automatically.  
 
 
+~~ Center
 
+![restartMethod-menu-9-14]
+~~
 
-
-
-
-
-
-
-
-
-
-
+[restartMethod-menu-9-14]: images/restartMethod-menu-9-14.png "restartMethod-menu-9-14" { width:auto; max-width:90% }
 
 
 You will be transported to a class browser page for the class of the receiver, with an editor open on a new method with the appropriate name. The system will also guess types for the parameters based on the actual arguments that had been passed. 
 
+~~ Center
+
+![blowup-add-missing-9-14]
+~~
+
+[blowup-add-missing-9-14]: images/blowup-add-missing-9-14.png "blowup-add-missing-9-14" { width:auto; max-width:90% }
 
 Once you’ve edited the method to your satisfaction and saved it, you can return to the debugger and/or press the Continue button at the top to proceed with the computation.. 
 
@@ -563,7 +637,14 @@ At the moment, there are no classes in the category. Let’s add one, by clickin
 
 You’ll see an editable pane with a template of a class header.
 
+~~ Center
 
+![addHest3-17-2014]
+~~
+
+[addHest3-17-2014]: images/addHest3-17-2014.png "addHest3-17-2014" { width:auto; max-width:90% }
+
+[addClassHest]: images/addClassHest.png "addClassHest" { width:auto; max-width:90% }
 
 We’ve named our class Hest, which is Danish for horse. Don’t ask why. We will erase the slots from the template, and accept, as usual, by typing ctri-s (or cmd-s on macs) or by clicking the green icon. Now our category is populated with a single class:
 
@@ -593,7 +674,12 @@ Edit the template  to represent the desired nested class  Our nested class will 
 
 Save the code. Your display now looks something like this:
 
+~~ Center
 
+![fisk1]
+~~
+
+[fisk1]: images/fisk1.PNG "fisk1" { width:auto; max-width:90% }
 
 
 
@@ -606,10 +692,21 @@ Now we’ll add some methods.
 
 Click the plus icon in the Methods section (or Class Methods section, if you want to add a class method). Then edit the displayed method template.
 
+~~ Center
+
+![addMethod]
+~~
+
+[addMethod]: images/addMethod.png "addMethod" { width:auto; max-width:90% }
 
 We’ll call our method bar. It will return the number 91.
 
+~~ Center
 
+![addBar]
+~~
+
+[addBar]: images/addBar.png "addBar" { width:auto; max-width:90% }
 
 
 Accept the changes.  
@@ -684,13 +781,25 @@ Of course, if MemoryHole doesn’t suit you, you may always choose to save and l
 You get to source control from the link marked Repositories on the home page. You’ll need to have Mercurial or Git installed for this to work.
 
 
-MemoryHole shows you a list of repositories that are available to you. The first time you go to the source control page, it will be likely be empty. 
+MemoryHole shows you a list of repositories that are available to you. The first time you go to the source control page, it will be likely be empty.
+
+~~ Center
+
+![memoryHole-repolist-empty]
+~~ 
+
+[memoryHole-repolist-empty]: images/memoryHole-repolist-empty.png "memoryHole-repolist-empty" { width:auto; max-width:90% }
 
 However, if there are already some Git or Mercurial repositories in the directory where you are running or in its parent directories, the IDE will find and list them for you.
 
 To add a new repository, click on the plus icon on the right hand side. This will initiate a dialog that will ask you for information needed to establish a connection to a Mercurial or Git repository. 
 
+~~ Center
 
+![newRepo1-9-14]
+~~
+
+[newRepo1-9-14]: images/newRepo1-9-14.png "newRepo1-9-14" { width:auto; max-width:90% }
 
 You have three choices. You can connect to a remote repository such as the public Newspeak repository (recommended); you can connect to an existing local Mercurial or Git repository or you can create a new Mercurial repository. Note that local repository paths are relative to the current image directory!  Choose the first option; type in 
 
@@ -700,16 +809,40 @@ and accept your change by click the green icon.
 
 Once you choose one of these, more information is required. First, your name and e-mail address.
 
+~~ Center
 
+![memoryHole-dialog1]
+~~
+
+[memoryHole-dialog1]: images/memoryHole-dialog1.png "memoryHole-dialog1" { width:auto; max-width:90% }
 
 
 Next, your username at your hg provider. For the public Newspeak repository, this is  BitBucket.
 
+~~ Center
+
+![memoryHole-bitbucket-username]
+~~
+
 We also need your password at bitbucket:
 
+[memoryHole-bitbucket-username]: images/memoryHole-bitbucket-username.png "memoryHole-bitbucket-username" { width:auto; max-width:90% }
+
+~~ Center
+
+![downwithbigbrother]
+~~
+
+[downwithbigbrother]: images/downwithbigbrother.png "downwithbigbrother" { width:auto; max-width:90% }
 
 Newspeak will set up a dedicated mercurial repository in the same directory as the image. This takes a short while. Once that is done, the new repository appears in the repository list on the MemoryHole page
 
+~~ Center
+
+![memoryHole-repolist2]
+~~
+
+[memoryHole-repolist2]: images/memoryHole-repolist2.png "memoryHole-repolist2" { width:auto; max-width:90% }
 
 Each entry in the list is a link to the page for that repository. Click on the new link. The very first time you do this will take a very long time, as we diff the live image against the repository. Take a walk.
 
@@ -727,6 +860,10 @@ You can have several repositories open in an image. For example, you might want 
 
 
 Once the initial set up is done, you may see a display like:
+
+~~ Center
+
+~~
 
 
 The above is what you’ll see if your image and the repository are perfectly in sync, with no differences. In practice, that’s not very likely, as the download image won’t be updated nearly as frequently as the repository. So you’re more likely to see a screen like the following:
@@ -749,7 +886,13 @@ Changed code is shown with yellow background.
 
 Additions are highlighted in green and deletions in red. For example, in the screenshot below you can see that in class KernelForSqueak, the nested class AbstractMixin has had the method binding added. There have been changes made to the nested class KernelForSqueak `Class which are not shown. And in we see that in class KernelForSqueak `InstanceMixin, the method binding was removed and several methods were modified.
 
- 
+~~ Center
+![src-ctl2-9-14]
+~~
+
+[src-ctl2-9-14]: images/src-ctl2-9-14.png "src-ctl2-9-14" { width:auto; max-width:90% }
+
+[src-ctl1-9-14]: images/src-ctl1-9-14.png "src-ctl1-9-14" { width:auto; max-width:90% }
 
 
 
@@ -816,9 +959,14 @@ If you find these problems are too acute for you to bear, and want to retreat to
 
 #How do I open a console Window?{-; #sec-how-do-i-open-a-console-window}
 
-Choose Show Console Window from the operate menu. If you are running on Mac or Linux, you are always running within the console window, which is simply the top level Squeak window, aka the morphic window,
+Choose Show Console Window from the operate menu. If you are running on Mac or Linux, you are always running within the console window, which is simply the top level Squeak window, aka the morphic window.
 
 Then choose the File>>Preferences>>goMorphic  option. All Hopscotch windows will revert back to their Morphic form, and from then on any new ones will open as Morphic windows as well.
+
+~~ Center
+![goNative menu]
+~~
+[goNative menu]: images/goNative-menu.png "goNative menu" { width:auto; max-width:90% }
 
 You can always change your mind again. Choose the File>>Preferences>>goNative  option, which is the inverse of the above. At this point, all existing Hopscotch windows will become native, any new ones you create will be native as well. 
 
@@ -886,7 +1034,12 @@ Here is a testing module ListTesting. It is a very simplistic set of tests for l
 ListTesting’s factory method takes 3 arguments: platform (the Newspeak platform, from which all kinds of generally useful libraries might be obtained), minitest (an instance of Minitest, naturally) and listClass, a factory that will produce lists for us to test. This is typical: the first two arguments to a test module factory are almost always a platform object and an instance of Minitest, while the third is the object under test.  
 
 
+~~ Center
 
+![listTesting-9-14]
+~~
+
+[listTesting-9-14]: images/listTesting-9-14.png "listTesting-9-14" { width:auto; max-width:90% }
 
 
 
@@ -912,6 +1065,13 @@ The factory takes a namespace object that should provide access to the testing m
 We show a single test configuration ListTestingConfiguration, but you can define as many you like.
 
 The method testModulesUsingPlatform:minitest: must be provided by the configuration. It will be called by Minitest to produce a set of testing modules, each of which will be processed by the framework as outlined above (i.e., searched for test contexts to be run).
+
+~~ Center
+
+![listTestingConfig-9-14]
+~~
+
+[listTestingConfig-9-14]: images/listTestingConfig-9-14.png "listTestingConfig-9-14" { width:auto; max-width:90% }
 
 The IDE recognizes test configurations based on the name of the factory method - that is, a class with a class method packageTestsUsing: is considered a test configuration, and the IDE will provide a run tests link in the class browser’s upper right hand corner.
 
@@ -1307,6 +1467,12 @@ To make things more interesting, our next task will be to build an application t
 
 We’ll start by defining a new top level class called BraveNewWorldExplorer.  Again, we’ll import Subject and Presenter. We’ll define two nested classes - FileSubject and FilePresenter.
 
+~~ Center
+
+![bne-00-9-14]
+~~
+
+[bne-00-9-14]: images/bne-00-9-14.png "bne-00-9-14" { width:auto; max-width:90% }
 
 This time, we will need to have a model for FileSubject  It will be a file name - a string that gives the fully qualified pathname for the file. Make sure the definition of FileSubject is as follows:
 
@@ -1333,8 +1499,30 @@ hopscotch core HopscotchWindow openSubject: ((BraveNewWorldExplorer usingPlatfor
 You may need to change the string 'C:/Users' if you aren’t running on a common Windows setup; replace it with a fully qualified path name that works on your system. 
 Unfortunately, evaluating this fails:
 
+~~ Center
+![braveNeworld-debug0]
+~~
+[braveNeworld-debug0]: images/braveNeworld-debug0.png "braveNeworld-debug0" { width:auto; max-width:90% }
+
+
 You may recall that FileSubject should have a createPresenter method that  determines what kind of presenter should present it by default.  To correct this situation, follow the Error: My subclass should have overridden #createPresenter link.
+
+~~ Center
+
+![bne-debug1-9-14]
+~~
+
+[bne-debug1-9-14]: images/bne-debug1-9-14.png "bne-debug1-9-14" { width:auto; max-width:90% }
+
+
 Next, expand the subclassResponsibility frame:
+
+~~ Center
+
+![bne-debug2-9-14]
+~~
+
+[bne-debug2-9-14]: images/bne-debug2-9-14.png "bne-debug2-9-14" { width:auto; max-width:90% }
 
 Clicking on FileSubject will take us to BraveNewWorldExplorer`FileSubject.
 Add this method:
@@ -1346,12 +1534,23 @@ createPresenter ^ <Presenter> = (
 
 Then go back to the debugger.  We can see that createPresenter is called from the method presenter, so let’s open the activation of presenter:
 
+~~ Center
 
+![bne-debug3-9-14]
+~~
+
+[bne-debug3-9-14]: images/bne-debug3-9-14.png "bne-debug3-9-14" { width:auto; max-width:90% }
 
 
 
 Now use choose Restart block from the menu
 
+~~ Center
+
+![restart-block-menu]
+~~
+
+[restart-block-menu]: images/restart-block-menu.png "restart-block-menu" { width:auto; max-width:90% }
 
 
 We should be able to proceed successfully from this point. Of course, if we had remembered to add a createPresenter method at the beginning, we wouldn’t need to do all this. However, this tutorial deliberately neglected to remind you of this point, so that we could demonstrate a common style of program development: 
@@ -1630,8 +1829,13 @@ A Newspeak application is an object conforming to a standard API. This API consi
 The main method’s purpose is to instantiate the various module definitions that make up the application and start running the application code. To create an application object for BraveNewWorldExplorer, we’ll define the following class:
 
 
+~~ Center
 
+![bneApp-9-14]
+~~
 	
+
+[bneApp-9-14]: images/bneApp-9-14.png "bneApp-9-14" { width:auto; max-width:90% }
 
 
 #Deploying a Newspeak Application as a NOF File{-; #sec-deploying-a-newspeak-application-as-a-nof-file}
@@ -1639,8 +1843,13 @@ The main method’s purpose is to instantiate the various module definitions tha
 
 Notice the deploy link near the top right of the class presenter.  This link appears whenever a class defines a packageUsing: class method. Click on it, and you get a pop-up menu; choose as NOF.
 
+~~ Center
 
+![deployMenu]
+~~
 Check your working directory: there now two new files: BraveNewWorldExplorerApp.nof and its gzipped sibling.  At this point, we’re done, but it’s always good to test your deployed application.
+
+[deployMenu]: images/deployMenu.png "deployMenu" { width:auto; max-width:90% }
 
 
 #How do I test my deployment code?{-; #sec-how-do-i-test-my-deployment-code}
