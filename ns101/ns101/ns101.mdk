@@ -858,13 +858,20 @@ the operation, click the red icon:
 
 [redIcon]: images/redIcon.png "redIcon" { width:auto; max-width:90% }
 
- You will be asked to confirm the cancelation
+ You will be asked to confirm the cancellation
 
+~~ Center
 
+![confirmCancel]
+~~
+
+[confirmCancel]: images/confirmCancel.png "confirmCancel" { width:auto; max-width:90% }
 
 Now we can go look at our category 
 
-
+~~ Center
+content
+~~
 
 #How does Source Control Work?{-; #sec-how-does-source-control-work}
 
@@ -880,7 +887,7 @@ Of course, if MemoryHole doesn’t suit you, you may always choose to save and l
 ##The MemoryHole Page{-; #sec-the-memoryhole-page}
 
 
-You get to source control from the link marked Repositories on the home page. You’ll need to have Mercurial or Git installed for this to work.
+You get to source control from the link marked _Repositories_ on the home page. You’ll need to have Mercurial or Git installed for this to work.
 
 
 MemoryHole shows you a list of repositories that are available to you. The first time you go to the source control page, it will be likely be empty.
@@ -923,12 +930,15 @@ Next, your username at your hg provider. For the public Newspeak repository, thi
 
 ~~ Center
 
-![memoryHole-bitbucket-username]
+
+![wsmith]
 ~~
+
+[wsmith]: images/wsmith.png "wsmith" { width:auto; max-width:90% }
 
 We also need your password at bitbucket:
 
-[memoryHole-bitbucket-username]: images/memoryHole-bitbucket-username.png "memoryHole-bitbucket-username" { width:auto; max-width:90% }
+
 
 ~~ Center
 
@@ -964,27 +974,39 @@ You can have several repositories open in an image. For example, you might want 
 Once the initial set up is done, you may see a display like:
 
 ~~ Center
-
+content
 ~~
 
 
 The above is what you’ll see if your image and the repository are perfectly in sync, with no differences. In practice, that’s not very likely, as the download image won’t be updated nearly as frequently as the repository. So you’re more likely to see a screen like the following:
 
 
+~~ Center
+content
+~~
 
+The top most deep grey banner says: _Modified In Image_.  Underneath, there is a collapsed pane that lists any classes that are unversioned - that is, are not under source control at all. There’s also a link marked _Log_ in the upper right hand corner that will take you to list of source control log entries.
 
-The top most deep grey banner says: _Modified In Image_.  Underneath, there is a collapsed pane that lists any classes that are unversioned - that is, are not under source control at all. There’s also a link marked Log in the upper right hand corner that will take you to list of source control log entries.
-
-Below are two banners side by side - one marked Historian the other Image. This allows us to compare the current local repository to the image. Beneath it is a list of classes that differ between the image and the local repository.  They might differ because your image is out of date with respect to the repository (say, because the repository has moved forward since the download image was created) , or because you’ve made changes in the image (the common scenario in day-to-day work).
+Below are two banners side by side - one marked _Historian_ the other _Image_. This allows us to compare the current local repository to the image. Beneath it is a list of classes that differ between the image and the local repository.  They might differ because your image is out of date with respect to the repository (say, because the repository has moved forward since the download image was created) , or because you’ve made changes in the image (the common scenario in day-to-day work).
 
 If you want to see the differences between the image and the repository, you can expand them. We can drill down from the changed top level class into methods and, recursively, into nested classes. 
 
 New classes and methods are shown on a green background.
 
-
+~~ Center
+content
+~~
 Removed ones with a pink one. 
 
+~~ Center
+content
+~~
+
 Changed code is shown with yellow background.
+
+~~ Center
+content
+~~
 
 Additions are highlighted in green and deletions in red. For example, in the screenshot below you can see that in class KernelForSqueak, the nested class **AbstractMixin** has had the method binding added. There have been changes made to the nested class KernelForSqueak `Class which are not shown. And in we see that in class KernelForSqueak `InstanceMixin, the method binding was removed and several methods were modified.
 
@@ -1029,12 +1051,12 @@ If you edit a class that is under source control, the changes between the image 
 
 
 
-At this point, the current historian is no longer in sync with the remote one it is tracking. Under the heading Going out to main on default, you will find a list of commits that have not been sync’ed to the remote repository.  The commit message for each such commit is listed. In our case, there is just one - the commit we just made.
+At this point, the current historian is no longer in sync with the remote one it is tracking. Under the heading _Going out to main on default_, you will find a list of commits that have not been sync’ed to the remote repository.  The commit message for each such commit is listed. In our case, there is just one - the commit we just made.
 
 You can expand each commit and see what it consists of.
 
 
-Assuming you have the rights to publish to the remote repository, use the Forward to main on default link to push the updates from your local repository to the remote one. Once that’s done, the local and remote repositories are in sync, and all is well.
+Assuming you have the rights to publish to the remote repository, use the _Forward to main on default_ link to push the updates from your local repository to the remote one. Once that’s done, the local and remote repositories are in sync, and all is well.
 
 
 ##Getting Updates{-; #sec-getting-updates}
@@ -1045,7 +1067,7 @@ The changes will be listed under the heading Coming in from main on default as s
 
 A typical situation is where you have made changes in your image on the one hand, while the remote repository has been updated on the other, as illustrated above.
 
-In this case, clicking the Forward to main on default link will bring the local repository up to date with the remote one.
+In this case, clicking the _Forward to main on default_ link will bring the local repository up to date with the remote one.
 
 
 
@@ -1078,7 +1100,7 @@ You can always change your mind again. Choose the _File>>Preferences>>goNative_ 
 You can go back and forth among these choices as many times as you like.
 
 
-Windows binding bugs and limitations:
+##Windows binding bugs and limitations:{-}
 
 Various keyboard shortcuts specific to Squeak also don’t work in the native version. 
 You can of course use Ctrl-S to save, and Ctrl-C, Ctrl-X and Ctrl-V to copy, cut and paste. 
@@ -1090,8 +1112,13 @@ There are doubtless others.
 
 At the top of the console window, you’ll see a tool bar that looks like this:
 
+~~ Center
+![toolbar]
+~~
 
 The first item of the Tools menu below opens a fresh Newspeak browser, displaying the home page.
+
+[toolbar]: images/toolbar.png "toolbar" { width:auto; max-width:90% }
 
 
 
@@ -1148,9 +1175,9 @@ Here is a testing module **ListTesting**. It is a very simplistic set of tests f
 Nested within the module is the class **ListTests**, which includes the actual tests. Test methods are identified by the convention that their names begin with test. Each test will be executed in a test context; that is, for each test method being run, Minitest will 
 instantiate a fresh **ListTests** object. That is why **ListTests** is called a test context - it provides a context for a single test.
 
-It is common to define test context classes like **ListTests** as subclasses of the class **TestContext** defined by the Minitest framework. One reason why having a Minitest factory argument is useful is so we can import **TestContext**.  **TestContext** provides useful methods like _**deny:**_, so it is convenient to use it. However, inheriting from **TestContext** is not essential.  What identifies **ListTests** as a test context is the marker class method _**TEST_CONTEXT**_, not inheriting from **TestContext**.
+It is common to define test context classes like **ListTests** as subclasses of the class **TestContext** defined by the Minitest framework. One reason why having a Minitest factory argument is useful is so we can import **TestContext**.  **TestContext** provides useful methods like _**deny:**_, so it is convenient to use it. However, inheriting from **TestContext** is not essential.  What identifies **ListTests** as a test context is the marker class method _**TEST_CONTEXT**_ , not inheriting from **TestContext**.
 
-Minitest will do its work by examining the nested classes of the test module and seeing which are test contexts (that is, which have a class method named TEST_CONTEXT). For each test context tc, Minitest will list all its test methods (the ones with names beginning with test) and for each of those, it will instantiate tc and call the selected method on it, gathering data on success or failure. 
+Minitest will do its work by examining the nested classes of the test module and seeing which are test contexts (that is, which have a class method named _**TEST_CONTEXT**_). For each test context _tc_, Minitest will list all its test methods (the ones with names beginning with test) and for each of those, it will instantiate _tc_ and call the selected method on it, gathering data on success or failure. 
 
 We need a test configuration to run the tests, as the test module definition is always parametric with respect to any implementation that we would actually test.
 
@@ -1258,13 +1285,19 @@ Minitest cleanly breaks down the multiple roles an SUnit TestCase has. The defin
 #I just want Hello World!{-; #sec-i-just-want-hello-world}
 
 
-The best way to develop Newspeak code is via the IDE (here’s how to open it).  Make sure you’ve saved your image under a different name (as described here). In a Newspeak browser (this is how to open one) create a new class (as explained here) called HelloBraveNewWorld
+The best way to develop Newspeak code is via the IDE (here’s how to open it).  Make sure you’ve saved your image under a different name (as described here). In a Newspeak browser (this is how to open one) create a new class (as explained here) called **HelloBraveNewWorld**
 
+~~ Center
+content
+~~
 
-Click on the link that says Source. You should see something like the following:
+Click on the link that says _Source_. You should see something like the following:
 
+~~ Center
+content
+~~
 
-What we see is the actual syntax for a Newspeak class header. In this case, we see that the class name is HelloBraveNewWorld. The keyword class is omitted in this view - we know it’s a class. Its superclass is listed after the = sign (unless it is Object). Disregard the rest - we’ll explain it as we go along. 
+What we see is the actual syntax for a Newspeak class header. In this case, we see that the class name is **HelloBraveNewWorld**. The keyword _**class**_ is omitted in this view - we know it’s a class. Its superclass is listed after the _**=**_ sign (unless it is Object). Disregard the rest - we’ll explain it as we go along. 
 
 Now select the entire text, and replace it by typing in the following code:
 
@@ -1274,57 +1307,59 @@ class HelloBraveNewWorld usingPlatform: platform = (
 
 and accepting it (Ctrl-S or Cmd-S). What have we done? We’ve changed the stuff between the parentheses a good deal. The parentheses delimit the instance initializer.  The instance initializer contains all the slot (aka field/instance variable) declarations of the class, and any initialization code for them.  In this case, there are no slots; the initialization code is all there is - the line that says
 
-platform squeak Transcript new open show: 'Hello, Oh Brave new world'.
+_**platform squeak Transcript new open show: 'Hello, Oh Brave new world'**_.
 
 If you know Smalltalk or Self, you’ll recognize the syntax. Otherwise, stay with us as we take this expression apart:
 
 
-platform is a parameter to the initializer. It’s declared in the line above:
+_**platform**_ is a parameter to the initializer. It’s declared in the line above:
 
-HelloBraveNewWorld usingPlatform: platform
+_**HelloBraveNewWorld usingPlatform: platform**_
 
 more on that in a bit. The parameter is an object that will represent the underlying platform we are running on. It is our link to the outside world.
 
-platform squeak sends a message to platform. The message has no arguments - it consists solely of the identifier squeak. In mainstream syntax, this might have been written as 
+_**platform squeak**_ sends a message to _**platform**_. The message has no arguments - it consists solely of the identifier _**squeak**_. In mainstream syntax, this might have been written as 
 
-platform.squeak()
+_**platform.squeak()**_
 
 In Newspeak, you don’t need the dot - just use whitespace. Likewise, you don’t need the empty parameter list in parentheses - if there are no parameters, you don’t write any.
 
-The message “squeak” is a way of getting at things you are specific to the Squeak-based implementation. It returns an object that represent’s the namespace of the Squeak system. In our case, we are using it to get at Squeak’s “console”, Transcript.
+The message _**squeak**_ is a way of getting at things you are specific to the Squeak-based implementation. It returns an object that represent’s the namespace of the Squeak system. In our case, we are using it to get at Squeak’s “console”, **Transcript**.
 
-platform squeak Transcript  in turn sends  the message Transcript to platform squeak.  The transcript is the standard output stream in most Smalltalk systems,  including Squeak. So now we have an output stream to write to. 
+_**platform squeak Transcript**_  in turn sends  the message _**Transcript**_ to _**platform squeak**_.  The transcript is the standard output stream in most Smalltalk systems,  including Squeak. So now we have an output stream to write to. 
 
-platform squeak Transcript open show: 'Hello, Oh Brave new world'
+_**platform squeak Transcript open show: 'Hello, Oh Brave new world'**_
 
-We’re sending the message open to the output stream we got from platform Transcript.   This will open a window to display the transcript stream, and return the stream. 
+We’re sending the message open to the output stream we got from _**platform Transcript**_.   This will open a window to display the transcript stream, and return the stream. 
 
-Finally, we send the stream the message show: 'Hello, Oh Brave new world'. This message includes the argument ‘Hello, Oh Brave new world', which is a string literal. The name (often called the message selector) of the message is show:.  So we’re asking the output stream to show a string - which was the entire purpose of the exercise. Because this code appears in the instance initializer, it will get executed whenever we create an instance of the class.
+Finally, we send the stream the message _**show: 'Hello, Oh Brave new world'**_. This message includes the argument _**‘Hello, Oh Brave new world'**_, which is a string literal. The name (often called the message selector) of the message is _**show:**_.  So we’re asking the output stream to show a string - which was the entire purpose of the exercise. Because this code appears in the instance initializer, it will get executed whenever we create an instance of the class.
 
 Again, it may help to see this in a more traditional syntax:
 
-platform.squeak().Transcript().open().show("Hello, Oh Brave new world ");
+_**platform.squeak().Transcript().open().show("Hello, Oh Brave new world ");**_
 
 To create an instance of a class, we must send it a message. Sending a message is the only operation in Newspeak. What message shall we send? Well, the class declaration specifies that message immediately after the class name 
 
-HelloBraveNewWorld usingPlatform: platform
+_**HelloBraveNewWorld usingPlatform: platform**_
   
-The latter part of the line above tells us (and the compiler) that the message named usingPlatform: will be used to create instances of this class.  The message takes a single parameter named platform. When the class receives such a message, the actual parameter is made available to the instance initializer under the name platform. 
+The latter part of the line above tells us (and the compiler) that the message named _**usingPlatform:**_ will be used to create instances of this class.  The message takes a single parameter named platform. When the class receives such a message, the actual parameter is made available to the instance initializer under the name _**platform**_. 
 
-So now you know that we must send HelloBraveNewWorld the message usingPlatform: with an argument representing the underlying platform - or at least an object that responds to the message Transcript with a valid output stream. This will create an instance of the class, causing its initializer to run, and write to the output as we desire.
+So now you know that we must send **HelloBraveNewWorld** the message _**usingPlatform:**_ with an argument representing the underlying platform - or at least an object that responds to the message _**Transcript**_ with a valid output stream. This will create an instance of the class, causing its initializer to run, and write to the output as we desire.
 
 Where shall we get such an object? And how shall we send this message?
 Open a workspace (this way) and type in: 
 
-HelloBraveNewWorld usingPlatform: platform
+_**HelloBraveNewWorld usingPlatform: platform**_
 
 Note: If you are running on Windows, choose the open console option from the operate menu, so you can see the transcript window when it opens.
 
 Select the expression and hit Ctrl-S (Cmd-s on a Mac). You should see some results:
 
+~~ Center
+content
+~~
 
-
-Now, let’s discuss some high principles. Good Newspeak style requires that a module declaration list all its external dependencies clearly and explicitly. What does this have to do with HelloBraveNewWorld? Well, we have, perhaps unknowingly, created a module.
+Now, let’s discuss some high principles. Good Newspeak style requires that a module declaration list all its external dependencies clearly and explicitly. What does this have to do with **HelloBraveNewWorld**? Well, we have, perhaps unknowingly, created a module.
 
 In Newspeak, a top level class declaration is always a module declaration. A module declaration has no access to any surrounding scope; any names used inside the declaration must be declared within it, or inherited from another module declaration. Module declarations are of course instantiable like any other class; their instances are called modules. 
 
@@ -1334,8 +1369,8 @@ class HelloBraveNewWorld  = (
 	Transcript open show:  'Hello, Oh Brave new world'.
 )
 
-and then created an instance via  HelloBraveNewWorld new
-(if a class doesn’t specify a message for creating instances, new is the default), we would get a doesNotUnderstand: error, because HelloBraveNewWorld does not understand the message Transcript.  There simply is no way to access the standard output stream, or any other system state, without having it passed in via a parameter when a module is instantiated.
+and then created an instance via  _**HelloBraveNewWorld new**_
+(if a class doesn’t specify a message for creating instances, new is the default), we would get a _**doesNotUnderstand:**_ error, because **HelloBraveNewWorld** does not understand the message _**Transcript**_.  There simply is no way to access the standard output stream, or any other system state, without having it passed in via a parameter when a module is instantiated.
   
 To comply with the style guidelines, we’ll change the code to:
 
@@ -1345,9 +1380,9 @@ class HelloBraveNewWorld usingPlatform: platform = (
 Transcript open show:  'Hello, Oh Brave new world'.
 )
 
-What we’ve done is declared a slot (aka field/instance variable) named Transcript. The slot declaration includes an initializer that initializes it to hold the object returned by platform squeak Transcript. Slots are declared between a pair of vertical bars, much like Smalltalk local variables. We can use Transcript to access the output stream in the rest of code.
+What we’ve done is declared a slot (aka field/instance variable) named _**Transcript**_. The slot declaration includes an initializer that initializes it to hold the object returned by _**platform squeak Transcript**_. Slots are declared between a pair of vertical bars, much like Smalltalk local variables. We can use Transcript to access the output stream in the rest of code.
 
-The nice thing about this is that our dependence on Transcript is localized to one point - the declaration of the slot Transcript. The slot declaration plays a role similar to an import. It may not be a big deal in this tiny example, but in real code this localization is very valuable. You can see all the external dependencies of a module in one place, by going through it’s slot declarations.
+The nice thing about this is that our dependence on **Transcript** is localized to one point - the declaration of the slot _**Transcript**_. The slot declaration plays a role similar to an import. It may not be a big deal in this tiny example, but in real code this localization is very valuable. You can see all the external dependencies of a module in one place, by going through it’s slot declarations.
 
 The use of slots as imports also allows us to rename imported elements if that makes sense. Usually it doesn’t, but we could just as easily have written:
 
@@ -1359,21 +1394,21 @@ stdout open show:  'Hello, Oh Brave new world'.
 )
 
 
-Of course, printing text isn’t as interesting nowadays as it was when the original Hello World example was written over 30 years ago. The world expects much more today. The next step is to extend HelloBraveNewWorld to do a modern GUI. 
+Of course, printing text isn’t as interesting nowadays as it was when the original Hello World example was written over 30 years ago. The world expects much more today. The next step is to extend **HelloBraveNewWorld** to do a modern GUI. 
 
 
-... O brave new world 
-That has such people in’t!
-William Shakespeare, The Tempest
+>... O brave new world \
+>That has such people in’t!\
+>&emsp;&emsp; ---William Shakespeare, The Tempest
 
 
 #Brave new GUI{-; #sec-brave-new-gui}
 
 Until now, we’ve used the Hopscotch IDE - but the IDE is only one possible application of the Hopscotch library. Hopscotch is a complete GUI application framework that can be used for all sorts of applications. We’ll now use it to create a very simple application; we’ll build a fancier one later.
 
-A Hopscotch application consists of three parts: a presenter, a subject and a model. The presenter, as you’d expect, manages presentation. The subject of the presentation provides application logic.  The model is the object that we want our application to interact with. The model has no knowledge of the GUI; therefore, it is not bound by any specific protocol or interface. It is the subject’s role to provide logic to bridge between it and the presentation.
+A Hopscotch application consists of three parts: a _presenter_, a _subject_ and a _model_. The presenter, as you’d expect, manages presentation. The subject of the presentation provides application logic.  The model is the object that we want our application to interact with. The model has no knowledge of the GUI; therefore, it is not bound by any specific protocol or interface. It is the subject’s role to provide logic to bridge between it and the presentation.
 
-It follows that to build a GUI, we need to define a presenter class and a subject class. Presenter classes extend the Presenter class of HopscotchFramework, and subject classes extend its Subject class.
+It follows that to build a GUI, we need to define a presenter class and a subject class. Presenter classes extend the **Presenter** class of **HopscotchFramework**, and subject classes extend its **Subject** class.
 
 
 Let’s change the header so that it imports these two classes
@@ -1386,33 +1421,33 @@ class HelloBraveNewWorld usingPlatform: platform = (
 )
 
  
-The message platform hopscotch provides us with the platform’s built-in instance of HopscotchFramework. Sending it the message core gets us a namespace object that holds core classes of the framework, such as Subject and Presenter.  
+The message _**platform hopscotch**_ provides us with the platform’s built-in instance of **HopscotchFramework**. Sending it the message _**core**_ gets us a namespace object that holds core classes of the framework, such as **Subject** and **Presenter**.  
 
-Next, we’ll define presenter and subject classes - BraveNewWorldPresenter and BraveNewWordSubject, respectively, nested within the HelloBraveNewWorld class (here’s how to declare a nested class).
+Next, we’ll define presenter and subject classes - **BraveNewWorldPresenter** and **BraveNewWordSubject**, respectively, nested within the **HelloBraveNewWorld** class [(here’s how to declare a nested class)](#).
 
 
-The definition of BraveNewWorldSubject should read:
+The definition of **BraveNewWorldSubject** should read:
 
 class BraveNewWorldSubject onModel: m <String> = Subject onModel: m ()()
 
-A subject class typically has a factory method onModel:, which takes a model as an argument.
+A subject class typically has a factory method _**onModel:**_, which takes a model as an argument.
 
-Each class declaration determines what arguments are to be passed to the factory method of its superclass. Since Subject requires the model object (indeed it stores it in a slot named model) we pass it up, using an extended form of the superclass clause Subject onModel: m  that specifies the factory method and arguments to be used. Prior to running the subclass’ instance initializer, the named superclass factory will be invoked, causing its instance initializer to run (and those of its superclasses, recursively).
+Each class declaration determines what arguments are to be passed to the factory method of its superclass. Since **Subject** requires the model object (indeed it stores it in a slot named model) we pass it up, using an extended form of the superclass clause _**Subject onModel: m**_  that specifies the factory method and arguments to be used. Prior to running the subclass’ instance initializer, the named superclass factory will be invoked, causing its instance initializer to run (and those of its superclasses, recursively).
 
 In this simple example, the model won’t matter because we won’t actually use it - but that is highly unusual.
 
-Having established a subject, we can move on to the presenter. Define BraveNewWorldPresenter’s thus:
+Having established a subject, we can move on to the presenter. Define **BraveNewWorldPresenter**’s thus:
 
 class BraveNewWorldPresenter onSubject: s <Subject> = Presenter onSubject: s ()()
 
-Now we can add some functionality to our presenter. The most important method (here’s how to add a method) in a presenter is definition, which defines what gets displayed. In our case, we will simply present the string 'Hello, Oh Brave new world'. The Hopscotch library provides a set of basic operators, called combinators, that display information on the screen.  One of the simplest combinators is label:, which allows us to display a string.
+Now we can add some functionality to our presenter. The most important method [(here’s how to add a method)](#sec-how-do-i-add-a-method) in a presenter is definition, which defines what gets displayed. In our case, we will simply present the string _**'Hello, Oh Brave new world'**_. The Hopscotch library provides a set of basic operators, called combinators, that display information on the screen.  One of the simplest combinators is _**label:**_, which allows us to display a string.
 
 
 
 
 
 
-The definition method declares its return type to be Fragment, Type annotations are displayed in blue, and types are delimited with angle brackets. If you dislike types, relax; they are strictly optional. Fragments are the basic elements of display. The label: combinator constructs a fragment from a string.
+The definition method declares its return type to be **Fragment**. Type annotations are displayed in blue, and types are delimited with angle brackets. If you dislike types, relax; they are strictly optional. Fragments are the basic elements of display. The _**label:**_ combinator constructs a fragment from a string.
 
 The ^ sign in front of label: indicates that this is a return statement. This is the traditional Smalltalk syntax; we might change it to return: in a future version of the language, to make the syntax accessible to a larger population of programmers.
 
@@ -1426,16 +1461,16 @@ createPresenter ^ <Presenter> = (
 
 This is enough to actually open a window. In a workspace, evaluate 
 
-ide IDEWindow openSubject: ((HelloBraveNewWorld usingPlatform: platform) BraveNewWorldSubject onModel: nil)
+_**ide IDEWindow openSubject: ((HelloBraveNewWorld usingPlatform: platform) BraveNewWorldSubject onModel: nil)**_
 
 
 
 You should see something like this:
 
 
-
-
-
+~~ Center
+content
+~~
 
 
 Still not terribly interesting, but we now have a Hopscotch window running our application.  This the modern day equivalent of Hello World. 
@@ -1459,7 +1494,7 @@ Our next, and most substantial, example will require a few more language constru
 
 ##Keyword Messages{-; #sec-keyword-messages}
 
-Until now, we’ve only seen messages that take zero or one arguments. This helped keep the presentation simple. However, the keyword syntax generalizes to multiple parameters. Consider the mathematical function max(x,y). One could declare a method 
+Until now, we’ve only seen messages that take zero or one arguments. This helped keep the presentation simple. However, the keyword syntax generalizes to multiple parameters. Consider the mathematical function _max(x,y)_. One could declare a method 
 
 max: x <Number> and: y <Number>  = (
 	(* some code *)
@@ -1467,50 +1502,49 @@ max: x <Number> and: y <Number>  = (
 
 and invoke it like this:
 
-  max: 3 and: 4 (* just like max(3, 4) *)
+  _**max: 3 and: 4 (* just like max(3, 4) *)_**
 
-The idea is that the colons mark the positions of the arguments - sort of the way % marks data positions in a printf string. The method’s name is max:and:, but when invoked, the arguments are interspersed within the name. The order of the keywords matters, so and:max: is a different method altogether.
+The idea is that the colons mark the positions of the arguments - sort of the way % marks data positions in a printf string. The method’s name is _**max:and:**_, but when invoked, the arguments are interspersed within the name. The order of the keywords matters, so _**and:max:**_ is a different method altogether.
 
 In terms of precedence, binary expressions have higher precedence than keyword expressions, and unary expressions have higher precedence than binary ones:
 
-min: 3 + 4 and: 3 factorial + 2 (* evaluates to 7, just like min(3 + 4, 3.factorial() + 2) *)
+_**min: 3 + 4 and: 3 factorial + 2 (* evaluates to 7, just like min(3 + 4, 3.factorial() + 2) *)_**
 
 Some more examples
 
-Address number: 1600 street: 'Pennsylvania Avenue' city: 'Washington' state: 'DC'  country: ‘USA’   
-(* Roughly like Address.new(1600, 'Pennsylvania Avenue', 'Washington', 'DC', 'USA') *)
+_**Address number: 1600 street: 'Pennsylvania Avenue' city: 'Washington' state: 'DC'  country: ‘USA’   (* Roughly like Address.new(1600, 'Pennsylvania Avenue', 'Washington', 'DC', 'USA') *)**_
 
-min: (max: 3 and: 4) and: 3 (* evaluates to 3, just like min(max(3,4), 3)  *)
+_**min: (max: 3 and: 4) and: 3 (* evaluates to 3, just like min(max(3,4), 3)  *)**_
 
-parser parse: 'printf(“max %d and %d”, ++p*, --q**[3]);' inContext: getParserContext 
-(* parser.parse('printf("max %d and %d", ++p*, --q**[3]);', getParserContext()) *)
+_**parser parse: 'printf(“max %d and %d”, ++p*, --q**[3]);' inContext: getParserContext 
+(* parser.parse('printf("max %d and %d", ++p*, --q**[3]);', getParserContext()) *)**_
 
-This syntax may require some getting used to, but it grows on you. Trust me, you’ve dealt with much weirder syntax.  The keyword syntax lends itself to defining internal DSLs. Code like the Address  number: ... example above is much more readable this way. Another advantage is that you can’t get the arity wrong.
+This syntax may require some getting used to, but it grows on you. Trust me, you’ve dealt with much weirder syntax.  The keyword syntax lends itself to defining internal DSLs. Code like the _**Address  number: ... **_ example above is much more readable this way. Another advantage is that you can’t get the arity wrong.
 
 ##Tuples{-; #sec-tuples}
 
-Here is a literal tuple: {'six'. 3 + 4 min: 6. 3 factorial}. It denotes an array with 3 elements - the string ‘six’, the number 6, and the number 6 again. Array indexing begins at 1. Maybe we’ll change this someday.
+Here is a literal tuple: _**{'six'. 3 + 4 min: 6. 3 factorial}**_. It denotes an array with 3 elements - the string _**‘six’**_, the number _**6**_, and the number _**6**_ again. Array indexing begins at 1. 
 
 
 ##Closures{-; #sec-closures}
 
 A closure is is a block of code representing an action you want done. Closures are delimited by square brackets. A very simple closure would be:
 
-[3+ 4]
+_**[3+ 4]**_
 
-The expression inside the closure, 3 + 4, is not evaluated until the closure is invoked.  To invoke it, send the closure the message value, as in 
+The expression inside the closure, _**3 + 4**_, is not evaluated until the closure is invoked.  To invoke it, send the closure the message value, as in 
 
-[3+ 4] value  (* evaluates to 7 *)
+_**[3+ 4] value  (* evaluates to 7 *)**_
 
 The value returned by a closure is the value of its last statement. 
 
-[3+ 4. 42] value  (* evaluates to 42 *)
+_**[3+ 4. 42] value  (* evaluates to 42 *)**_
 
 A closure is of course, an object, like everything else in Newspeak. 
 
 Closures may have parameters.  This example has two: x and y.
 
-[:x :y | x + y] value: 3 value: 4  (* evaluates to 7 *)
+_**[:x :y | x + y] value: 3 value: 4  (* evaluates to 7 *)**_
 
 The parameters are identified by prefixing them with a colon. A vertical bar marks the end of the parameter list.  The closure is invoked using a value: message whose arity matches that of the closure.
 
@@ -1521,16 +1555,16 @@ Closures can contain return statements. This is useful to manage control flow.
 
 Newspeak has no built in control constructs - all operations are method invocations/message sends, without exception.
 
-The most important example of this is the ifTrue:ifFalse: method defined on boolean objects. 
+The most important example of this is the _**ifTrue:ifFalse:**_ method defined on boolean objects. 
 
-x > y ifTrue: [x] ifFalse: [y] (* evaluates to x if x > y; y otherwise *)
+_**x > y ifTrue: [x] ifFalse: [y] (* evaluates to x if x > y; y otherwise *)**_
 As you can see, it takes two closures as arguments - one for the true branch and one for the false branch. If the receiver is true, it will invoke its first argument and return the result. If it is false, it will act similarly, but invoke the second argument.
 
 max: x <Number> and: y <Number>  = (
 	x > y ifTrue: [^x] ifFalse: [^y] 
 )
 
-The method above implements the mathematical function max(x,y). It’s important to understand that a return statement always returns from the nearest enclosing method - max:and: in this case - not the enclosing closure. The above behaves the same as
+The method above implements the mathematical function _max(x,y)_. It’s important to understand that a return statement always returns from the nearest enclosing method - _**max:and:**_ in this case - not the enclosing closure. The above behaves the same as
 
 max: x <Number> and: y <Number>  = (
 	^x > y ifTrue: [x] ifFalse: [y] 
@@ -1539,32 +1573,32 @@ max: x <Number> and: y <Number>  = (
 This latter version is much better style of course.
 
 
-How does the Syntax Differ from the Specification, and Why?
+#How does the Syntax Differ from the Specification, and Why?{-; #sec-how-does-the-syntax-differ-from-the-specification-and-why}
 
 
 Sigh. Newspeak has been evolving gradually from Smalltalk. The specification indicates the way things should be, but the implementation lags.
 
 Expect the following changes, and possibly more:
 
-Classes, methods and closures will use curly braces as delimiters instead of parentheses.
+* Classes, methods and closures will use curly braces as delimiters instead of parentheses.
 
-Tuples will use square brackets as delimiters instead of curly braces.
+* Tuples will use square brackets as delimiters instead of curly braces.
 
-String literals will be delimited by double quotes, instead of, or in addition to, single quotes and denote interned strings (aka symbols). 
+* String literals will be delimited by double quotes, instead of, or in addition to, single quotes and denote interned strings (aka symbols). 
 
-Symbol literals (currently written as #sym) may be eliminated
+* Symbol literals (currently written as #sym) may be eliminated
 
-Character literals will be merged into strings.
+* Character literals will be merged into strings.
 
-The return statement may be written return: e rather than ^e.
+* The return statement may be written return: e rather than ^e.
 
-Object literals will be supported.
-
-
-Kernel`Object
+* Object literals will be supported.
 
 
-The default superclass for Newspeak classes is Kernel`Object, which is distinct from  Squeak’s Object class. Squeak’s Object class contains a lot of methods, almost none of which will be in Newspeak’s library.  You can browse Kernel`Object and get an idea of how small the API of Object should be.
+##Kernel`Object{-}
+
+
+The default superclass for Newspeak classes is **Kernel`Object**, which is distinct from  Squeak’s **Object** class. Squeak’s **Object** class contains a lot of methods, almost none of which will be in Newspeak’s library.  You can browse **Kernel`Object** and get an idea of how small the API of **Object** should be.
 
 You now know all you need to know to move on to our next conquest.
 
@@ -1578,7 +1612,7 @@ You now know all you need to know to move on to our next conquest.
 
 To make things more interesting, our next task will be to build an application that really explores the world around it - specifically, the file system.
 
-We’ll start by defining a new top level class called BraveNewWorldExplorer.  Again, we’ll import Subject and Presenter. We’ll define two nested classes - FileSubject and FilePresenter.
+We’ll start by defining a new top level class called **BraveNewWorldExplorer**.  Again, we’ll import **Subject** and **Presenter**. We’ll define two nested classes - **FileSubject** and **FilePresenter**.
 
 ~~ Center
 
@@ -1587,7 +1621,7 @@ We’ll start by defining a new top level class called BraveNewWorldExplorer.  A
 
 [bne-00-9-14]: images/bne-00-9-14.png "bne-00-9-14" { width:auto; max-width:90% }
 
-This time, we will need to have a model for FileSubject  It will be a file name - a string that gives the fully qualified pathname for the file. Make sure the definition of FileSubject is as follows:
+This time, we will need to have a model for **FileSubject**  It will be a file name - a string that gives the fully qualified pathname for the file. Make sure the definition of **FileSubject** is as follows:
 
 class FileSubject onModel: m <String> = Subject onModel: m ()()
 
@@ -1595,21 +1629,21 @@ and that FilePresenter’s definition is:
 
 class FilePresenter onSubject: s <Subject> = Presenter onSubject: s ()()
 
-We’ll add a very simple definition method to FilePresenter
+We’ll add a very simple definition method to **FilePresenter**
 
 definition ^ <Fragment> = (
 	^label: subject model
 )
 
-Why are things red again?
+##Why are things red again?{-}
 
-As in the previous example, we’ve used the label: method, which is inherited by all presenters.  
+As in the previous example, we’ve used the _**label:**_ method, which is inherited by all presenters.  
 
 We can now open a workspace and type in
 
-hopscotch core HopscotchWindow openSubject: ((BraveNewWorldExplorer usingPlatform: platform) FileSubject onModel: 'C:/Users')
+_**hopscotch core HopscotchWindow openSubject: ((BraveNewWorldExplorer usingPlatform: platform) FileSubject onModel: 'C:/Users')**_
 
-You may need to change the string 'C:/Users' if you aren’t running on a common Windows setup; replace it with a fully qualified path name that works on your system. 
+You may need to change the string _**'C:/Users'**_ if you aren’t running on a common Windows setup; replace it with a fully qualified path name that works on your system. 
 Unfortunately, evaluating this fails:
 
 ~~ Center
@@ -1618,7 +1652,7 @@ Unfortunately, evaluating this fails:
 [braveNeworld-debug0]: images/braveNeworld-debug0.png "braveNeworld-debug0" { width:auto; max-width:90% }
 
 
-You may recall that FileSubject should have a createPresenter method that  determines what kind of presenter should present it by default.  To correct this situation, follow the Error: My subclass should have overridden #createPresenter link.
+You may recall that **FileSubject** should have a _**createPresenter**_ method that  determines what kind of presenter should present it by default.  To correct this situation, follow the _Error: My subclass should have overridden #createPresenter_ link.
 
 ~~ Center
 
@@ -1628,7 +1662,7 @@ You may recall that FileSubject should have a createPresenter method that  deter
 [bne-debug1-9-14]: images/bne-debug1-9-14.png "bne-debug1-9-14" { width:auto; max-width:90% }
 
 
-Next, expand the subclassResponsibility frame:
+Next, expand the _**subclassResponsibility**_ frame:
 
 ~~ Center
 
@@ -1637,7 +1671,7 @@ Next, expand the subclassResponsibility frame:
 
 [bne-debug2-9-14]: images/bne-debug2-9-14.png "bne-debug2-9-14" { width:auto; max-width:90% }
 
-Clicking on FileSubject will take us to BraveNewWorldExplorer`FileSubject.
+Clicking on **FileSubject** will take us to **BraveNewWorldExplorer`FileSubject**.
 Add this method:
 
 createPresenter ^ <Presenter> = (
@@ -1645,7 +1679,7 @@ createPresenter ^ <Presenter> = (
 )
 
 
-Then go back to the debugger.  We can see that createPresenter is called from the method presenter, so let’s open the activation of presenter:
+Then go back to the debugger.  We can see that _**createPresenter**_ is called from the method _**presenter**_, so let’s open the activation of _**presenter**_:
 
 ~~ Center
 
@@ -1656,7 +1690,7 @@ Then go back to the debugger.  We can see that createPresenter is called from th
 
 
 
-Now use choose Restart block from the menu
+Now use choose _Restart block_ from the menu
 
 ~~ Center
 
@@ -1666,41 +1700,45 @@ Now use choose Restart block from the menu
 [restart-block-menu]: images/restart-block-menu.png "restart-block-menu" { width:auto; max-width:90% }
 
 
-We should be able to proceed successfully from this point. Of course, if we had remembered to add a createPresenter method at the beginning, we wouldn’t need to do all this. However, this tutorial deliberately neglected to remind you of this point, so that we could demonstrate a common style of program development: 
+We should be able to proceed successfully from this point. Of course, if we had remembered to add a _**createPresenter**_ method at the beginning, we wouldn’t need to do all this. However, this tutorial deliberately neglected to remind you of this point, so that we could demonstrate a common style of program development: 
 
 Rather than define everything up front, we sometimes choose to leave methods undefined and let the program fail on purpose. We can then add the missing method at the point of failure. Working this way, we often have a better sense of the sort of data that will be available to us in the method. Some developers really love working this way. On the other hand, there is some risk that your test paths will miss the method altogether, and so there is something to be said for defining the method in advance.
 
-This concludes our digression into the debugger. Now click on the Continue button. 
+This concludes our digression into the [debugger](#sec-how-do-i-run-the-newspeak-debugger). Now click on the _Continue_ button. 
 
 
 You should see a new Hopscotch window, like this:
 
-It would be more useful if we could actually browse the structure of the /Users directory. To do this, we’ll refine both our subject and our presenter.
+~~ Center
+content
+~~
 
-We’ll need to be able to determine whether we’re looking at a directory or a simple file. So let’s add an isDirectory method to FileSubject. 
+It would be more useful if we could actually browse the structure of the _/Users_ directory. To do this, we’ll refine both our subject and our presenter.
+
+We’ll need to be able to determine whether we’re looking at a directory or a simple file. So let’s add an _**isDirectory**_ method to _**FileSubject**_. 
 
 isDirectory ^ <Boolean> = (
 	^(FilePath for: fullFilePath) isDirectory
 )
 
-The code above shows how this is done using the Newspeak libraries. A FilePath represents a path in file system in an abstract manner, independent of OS specific details like what separator character is used. We construct it based on from our model, a string representing the absolute file name. FilePath is marked as a suspect implicit send.  Unlike previous cases, this is not a spurious warning. 
+The code above shows how this is done using the Newspeak libraries. A **FilePath** represents a path in file system in an abstract manner, independent of OS specific details like what separator character is used. We construct it based on from our model, a string representing the absolute file name. **FilePath** is marked as a suspect implicit send.  Unlike previous cases, this is not a spurious warning. 
 
 
-We need to import FilePath into the BraveNewWorldExplorer class, like so:
+We need to import **FilePath** into the **BraveNewWorldExplorer** class, like so:
 
-	FilePath = platform files FilePath.
+	_**FilePath = platform files FilePath.**_
 
 
 This is an example of how the language forces you to keep all your external dependencies explicit. 
 
-The highlighting of fullFilePath isn’t spurious either; this isn’t an inherited method. We’ll define fullFilePath as an alias of model. 
+The highlighting of _**fullFilePath**_ isn’t spurious either; this isn’t an inherited method. We’ll define _**fullFilePath**_ as an alias of model. 
 
 
 fullFilePath ^ <String> = (
  	^model
 )
 
-It’s clearer, and our presenter doesn’t need to know if we use the path name as a model, or something  else (like a FilePath object). 
+It’s clearer, and our presenter doesn’t need to know if we use the path name as a model, or something  else (like a **FilePath*** object). 
 
 We’d rather not display full path names all the time, so let’s add
 
@@ -1709,7 +1747,7 @@ localFileName ^ <String> = (
 	^(FilePath for: fullFilePath) simpleName
 )
 
-Note that FilePath isn’t red anymore.
+Note that **FilePath** isn’t red anymore.
 
 We also need a way of getting the contents of a directory. The code below will do this. 
 
@@ -1727,8 +1765,8 @@ contents ^ <Collection[FileSubject]> = (
 		ifFalse: [MutableArrayList new]
 )
 
-You should import MutableArrayList from platform collections. 
-The method begins by testing if the current file is a directory. Obviously, if it isn’t, it has no contents and we return an empty list.  If it is a directory, we compute thisDirectory, the path object for the directory and extract all its elements using the entries method.  We can then collect subjects for the name of each entry in the directory.
+You should import **MutableArrayList** from _**platform collections**_. 
+The method begins by testing if the current file is a directory. Obviously, if it isn’t, it has no contents and we return an empty list.  If it is a directory, we compute _**thisDirectory**_, the path object for the directory and extract all its elements using the entries method.  We can then collect subjects for the name of each entry in the directory.
 
 Now let’s refine our definition method as follows:
 
@@ -1738,26 +1776,27 @@ definition ^ <Fragment> = (
 		ifFalse: [label: subject localFileName]
 )
 
-We’ll also need to define directoryPresentation. 
+We’ll also need to define _**directoryPresentation**_. 
 
 directoryPresentation ^ <Fragment> = (
 	^heading: (label: subject localFileName)
 	  details: [column: directoryContentsPresenters]
 )
 
-What’s going on here? The method heading:details: is, like label:, a fragment combinator inherited by all presenters. It creates a collapsible heading. The first argument defines the collapsed form, and the second determines the expanded one.  
+What’s going on here? The method _**heading:details:**_ is, like _**label:**_, a fragment combinator inherited by all presenters. It creates a collapsible heading. The first argument defines the collapsed form, and the second determines the expanded one.  
 
-Drilling down, the first argument is the result of a familiar call to label:. In general, it could be anything that evaluates to a fragment. The second argument is a closure; this is required so that the expanded view can be computed later, at the time of expansion.
+Drilling down, the first argument is the result of a familiar call to _**label:**_. In general, it could be anything that evaluates to a fragment. The second argument is a closure; this is required so that the expanded view can be computed later, at the time of expansion.
 
-The closure must return a fragment. In our case, the body of the closure is an invocation of the column: combinator. As you’d expect, it constructs a vertical column, where the rows of the column are given by its argument, which is a list of fragments. The list in question is the result of directoryContentsPresenters, which we define as:
+The closure must return a fragment. In our case, the body of the closure is an invocation of the column: combinator. As you’d expect, it constructs a vertical column, where the rows of the column are given by its argument, which is a list of fragments. The list in question is the result of _**directoryContentsPresenters**_, which we define as:
 
 
 directoryContentsPresenters ^ <Collection[Presenter]> = (
  	^(subject contents) collect: [:each | each presenter]
 )
-this computes a presenter corresponding to each file in the directory. Presenters are a kind of fragment, so they can be used with fragment combinators like column:.
 
-Finally, let’s do a small refactoring and add a method  filePresentation to FilePresenter, which we can then use in both directoryPresentation and definition. 
+this computes a presenter corresponding to each file in the directory. Presenters are a kind of fragment, so they can be used with fragment combinators like _**column:**_.
+
+Finally, let’s do a small refactoring and add a method _**filePresentation**_ to **FilePresenter**, which we can then use in both _**directoryPresentation**_ and _**definition**_. 
 
 
 filePresentation ^ <Fragment> = (
@@ -1786,10 +1825,12 @@ Go back to your workspace and reevaluate the code.
 We’re finally getting somewhere. If you click on the arrow, you can see the directory contents.
 
 
+~~ Center
+content
+~~
 
 
-
-To pretty things up, add this method to FilePresenter.
+To pretty things up, add this method to **FilePresenter**.
 
 bar: def <Fragment> ^ <Collection[Presenter]> = (
  	^(column: { 
@@ -1804,7 +1845,7 @@ bar: def <Fragment> ^ <Collection[Presenter]> = (
 )
 
 
-and change directoryPresentation as follows
+and change _**directoryPresentation**_ as follows
 
 
 directoryPresentation ^ <Fragment> = (
@@ -1812,21 +1853,21 @@ directoryPresentation ^ <Fragment> = (
 	  details: [column: directoryContentsPresenters]
 )
 
-You’ll need to import Color thusly
+You’ll need to import **Color** thusly
 
-	Color = platform graphics Color.
+_**Color = platform graphics Color.**_
 
 
 Now re-evaluate the code in the workspace. 
 
 
-What have we done? We defined a new fragment combinator, bar:, which displays its argument fragment in a grey bar. The inherited combinator blank: creates n pixels of blank space given an integer argument n;  row: is analogous to column:; and elastic: makes its argument stretchable to fill up the available space.  You can set the color of a fragment using color:. 
+What have we done? We defined a new fragment combinator, _**bar:**_, which displays its argument fragment in a grey bar. The inherited combinator _**blank:**_ creates n pixels of blank space given an integer argument _**n**_;  _**row:**_ is analogous to _**column:**_; and _**elastic:**_ makes its argument stretchable to fill up the available space.  You can set the color of a fragment using _**color:**_. 
 
 By now you should have a sense of how you can build up display structures using fragment combinators. Notice how the resulting code looks like a purpose built domain specific language (DSL) for describing the GUI. You can think of Hopscotch as such a DSL embedded in a general purpose language (aka an internal DSL).  
 
 This sort of thing isn’t specific to the GUI library, though it is an excellent example. Newspeak’s features conspire to allow you to easily define such internal DSLs for all sorts of purposes.
 
-Now let’s make yet another change to directoryPresentation.
+Now let’s make yet another change to _**directoryPresentation**_.
 
 directoryPresentation ^ <Fragment> = (
 	^heading: (bar: (link: subject localFileName action: [openOnNewPage]))
@@ -1835,7 +1876,7 @@ directoryPresentation ^ <Fragment> = (
 
 
 
-The link:action: combinator produces a hyperlink. The first argument determines how the link is displayed. The second is a closure that is invoked when the link is clicked on.
+The _**link:action:**_ combinator produces a hyperlink. The first argument determines how the link is displayed. The second is a closure that is invoked when the link is clicked on.
 
 The action in question is defined as
 
@@ -1844,23 +1885,30 @@ openOnNewPage = (
 )
 
 
-Look carefully at enterSubject:.  You’ll notice there is a double colon. This is not a typo. A single keyword message with an extra colon affixed to the selector has lower precedence, so we can avoid wrapping the argument in parentheses.
+Look carefully at _**enterSubject::**_.  You’ll notice there is a double colon. This is not a typo. A single keyword message with an extra colon affixed to the selector has lower precedence, so we can avoid wrapping the argument in parentheses.
 
-enterSubject: is inherited by all presenters. It takes a subject and causes the Hopscotch browser to make it the current subject of presentation - consequently displaying its presenter. Here, we provide a new subject on the directory as an argument. 
+_**enterSubject:**_ is inherited by all presenters. It takes a subject and causes the Hopscotch browser to make it the current subject of presentation - consequently displaying its presenter. Here, we provide a new subject on the directory as an argument. 
 
 
 Check it out.  You just need to refresh the existing window in this case, since we have not added any state to the application, only modified its behavior.
 
+~~ Center
+content
+~~
 
 Not bad, but there are still some problems. Following the link seems to have no effect! To understand what’s happening, let’s first open up the directory hierarchy a few levels by clicking on the arrows. 
 
+~~ Center
+content
+~~
 
 
+Now follow one of the nested directory links, such as the one named _Public_.
 
-Now follow one of the nested directory links, such as the one named Public.
-
-
-It’s not that the links don’t work - it’s just that the directory is collapsed when you follow the link. This is a nuisance, but we can fix that.  Modify the definition of FileSubject
+~~ Center
+content
+~~
+It’s not that the links don’t work - it’s just that the directory is collapsed when you follow the link. This is a nuisance, but we can fix that.  Modify the definition of **FileSubject**
 
 class FileSubject onModel: m <String> = Subject onModel: m (
 |
@@ -1868,9 +1916,9 @@ class FileSubject onModel: m <String> = Subject onModel: m (
 |
 )
 
-This adds a mutable slot to FileSubject. Until now, we’ve only introduced immutable slots. These slots are set once, in the instance initializer, and are never mutated again. They can’t be mutated except via reflection. In contrast, mutable slots can be changed at any time, by means of an automatically defined setter method.  For example, to change the value of initiallyExpanded  to true, write initiallyExpanded: true.
+This adds a mutable slot to **FileSubject**. Until now, we’ve only introduced immutable slots. These slots are set once, in the instance initializer, and are never mutated again. They can’t be mutated except via reflection. In contrast, mutable slots can be changed at any time, by means of an automatically defined setter method.  For example, to change the value of initiallyExpanded  to true, write initiallyExpanded: true.
 
-Now make these changes to FilePresenter :
+Now make these changes to **FilePresenter** :
 
 openOnNewPage = (
  	enterSubject:: (subject class onModel: subject model) initiallyExpanded: true
@@ -1885,15 +1933,20 @@ directoryPresentation ^ <Fragment> = (
 
 Restart the app by re-evaluating the code in the workspace and verify that the links open when you click on them. 
 
+~~ Center
+content
+~~
 
 There are still some details we should attend to.  If you look at the history, you may find that there are multiple entries for the same directory:
 
 
+~~ Center
+content
+~~
 
+What you see will depend on what exact actions you took. The above might result from clicking repeatedly on the link to  _‘C/Users’_.  We know that all these are views of the same directory. However, the browser doesn’t know this; each is a distinct object, with its own identity.
 
-What you see will depend on what exact actions you took. The above might result from clicking repeatedly on the link to  ‘C/Users’.  We know that all these are views of the same directory. However, the browser doesn’t know this; each is a distinct object, with its own identity.
-
-To address this, we can add an equality method to FileSubject. 
+To address this, we can add an equality method to **FileSubject**. 
 
 = x <Object> ^ <Boolean> = (
 	^x class = class 
@@ -1907,7 +1960,7 @@ hash ^ <Integer> = (
 	^class hash bitXor: model hash
 )
 
-open a new copy of the application by re-evaluating the code in the workspace. Expand the Users directory, and follow one of the subdirectory links (here, we’ll follow Public), and then follow a subdirectory link again (we’ll choose Recorded TV).  The history would look something like:
+open a new copy of the application by re-evaluating the code in the workspace. Expand the _Users_ directory, and follow one of the subdirectory links (here, we’ll follow _Public_), and then follow a subdirectory link again (we’ll choose _Recorded TV_).  The history would look something like:
 
 
 
@@ -1915,7 +1968,7 @@ open a new copy of the application by re-evaluating the code in the workspace. E
 
 So now we have a reliable view of which directories we’ve visited, courtesy of the Hopscotch browser.
 
-One more detail: we can control the name the browser displays when presenting a directory by defining a title method in FileSubject.
+One more detail: we can control the name the browser displays when presenting a directory by defining a title method in **FileSubject**.
 
 title ^ <String> = (
 	^fullFilePath
@@ -1937,9 +1990,9 @@ The first step is structuring your code as a stand-alone application.
 #How do I structure a Newspeak Application? {-; #sec-how-do-i-structure-a-newspeak-application}
 
 
-A Newspeak application is an object conforming to a standard API. This API consists of a single method, main:args:. In concept, it is similar to the main() method of a Java or C program.
+A Newspeak application is an object conforming to a standard API. This API consists of a single method, _**main:args:**_. In concept, it is similar to the _main()_ method of a Java or C program.
 
-The main method’s purpose is to instantiate the various module definitions that make up the application and start running the application code. To create an application object for BraveNewWorldExplorer, we’ll define the following class:
+The main method’s purpose is to instantiate the various module definitions that make up the application and start running the application code. To create an application object for **BraveNewWorldExplorer**, we’ll define the following class:
 
 
 ~~ Center
@@ -1954,13 +2007,13 @@ The main method’s purpose is to instantiate the various module definitions tha
 #Deploying a Newspeak Application as a NOF File{-; #sec-deploying-a-newspeak-application-as-a-nof-file}
 
 
-Notice the deploy link near the top right of the class presenter.  This link appears whenever a class defines a packageUsing: class method. Click on it, and you get a pop-up menu; choose as NOF.
+Notice the deploy link near the top right of the class presenter.  This link appears whenever a class defines a packageUsing: class method. Click on it, and you get a pop-up menu; choose as _NOF_.
 
 ~~ Center
 
 ![deployMenu]
 ~~
-Check your working directory: there now two new files: BraveNewWorldExplorerApp.nof and its gzipped sibling.  At this point, we’re done, but it’s always good to test your deployed application.
+Check your working directory: there now two new files: _BraveNewWorldExplorerApp.nof_ and its gzipped sibling.  At this point, we’re done, but it’s always good to test your deployed application.
 
 [deployMenu]: images/deployMenu.png "deployMenu" { width:auto; max-width:90% }
 
@@ -1968,7 +2021,7 @@ Check your working directory: there now two new files: BraveNewWorldExplorerApp.
 #How do I test my deployment code?{-; #sec-how-do-i-test-my-deployment-code}
 
 
-You can test your deployable app in the IDE. Click on the run link in your application class.  If you’ve actually saved an application in a NOF file, you can choose Run App from the operate menu. 
+You can test your deployable app in the IDE. Click on the run link in your application class.  If you’ve actually saved an application in a NOF file, you can choose _Run App_ from the operate menu. 
 
 
 
@@ -1977,38 +2030,36 @@ This will open up a file chooser dialog, which will let you select a NOF file. O
 Note that if you actually mean to deploy code without exposing the IDE, NOF won’t do that for you at this point. In the past, we’ve supported deploying as .exe, or as an image that disallows access to the IDE. Those options don’t work in the current release. What they would give you would be an app like the following:
 
 
+~~ Center
+content
+~~
 
 
 
+In this configuration is there is no way for the user of the application to get to the Newspeak IDE. Notice the absence of the operate and meta menu icons and the search pane. All these are features provided by Hopscotch’s  **IDEWindow**. We configured our app to use a **HopscotchWindow** rather than an **IDEWindow**. After all, we typically don’t want the IDE as part of a deployed application.
 
+You’ll also note the presence of a menu bar. Again, this is due to the use of **HopscotchWindow**. We at the Ministry of Truth feel that menu bars are somewhat ungood, which is why the IDE doesn’t use them. If you are building a real application, you’ll have to decide whether to enable the menu bar, and what it should show. This particular menu bar is just a placeholder; you would never want to use it without customizing it.
 
-
-
-
-In this configuration is there is no way for the user of the application to get to the Newspeak IDE. Notice the absence of the operate and meta menu icons and the search pane. All these are features provided by Hopscotch’s  IDEWindow. We configured our app to use a HopscotchWindow rather than an IDEWindow. After all, we typically don’t want the IDE as part of a deployed application.
-
-You’ll also note the presence of a menu bar. Again, this is due to the use of HopscotchWindow. We at the Ministry of Truth feel that menu bars are somewhat ungood, which is why the IDE doesn’t use them. If you are building a real application, you’ll have to decide whether to enable the menu bar, and what it should show. This particular menu bar is just a placeholder; you would never want to use it without customizing it.
-
-Because the IDE isn’t part of the default deployment set up, any attempt to use elements of it would fail, unless we explicitly included by extracting them from the manifest parameter in packageUsing: and inserting them into the application (as opposed to the Hopscotch framework, which we can obtain from the platform in main:args:)  
+Because the IDE isn’t part of the default deployment set up, any attempt to use elements of it would fail, unless we explicitly included by extracting them from the manifest parameter in _**packageUsing:**_ and inserting them into the application (as opposed to the Hopscotch framework, which we can obtain from the platform in _**main:args:**_)  
 
 Another consequence of this packaging is that if something goes wrong in our packaged application we won’t get a nice debugger. Instead, a file named error will be deposited in the working directory, with a textual stack trace.
 
 These options did not prove popular; they acted as a proof of concept for how one could deploy applications. To be genuinely useful, more engineering is needed: the produced executable should be much smaller (they hid the IDE rather than eliminating it) and should run natively on today’s popular platforms (web, mobile).  We hope to address these deficiencies and bring better deployment options in the future.
 
 
-Finally, let’s do something crazy. Change the superclass of FilePresenter to be ProgrammingPresenter. 
+Finally, let’s do something crazy. Change the superclass of **FilePresenter** to be **ProgrammingPresenter**. 
 
-Note: ProgrammingPresenter  comes as part of the IDE itself, not part of the general Hopscotch framework that is part of the basic platform. This makes our application IDE-dependent! We can’t deploy it unless we include the IDE explicitly in our application. We won’t be doing that - the goal here is just to show off some cool functionality.
-
-
-You’ll need to import ProgrammingPresenter :
-
-ProgrammingPresenter = ide tools ProgrammingPresenter.
+Note: **ProgrammingPresenter**  comes as part of the IDE itself, not part of the general Hopscotch framework that is part of the basic platform. This makes our application IDE-dependent! We can’t deploy it unless we include the IDE explicitly in our application. We won’t be doing that - the goal here is just to show off some cool functionality.
 
 
-You’ll see that ide is highlighted in red.  We need to get access to the IDE to get hold of ProgrammingPresenter. So we’ll modify the factory of BraveNewWorldExplorer to take ide as a parameter.
+You’ll need to import **ProgrammingPresenter** :
 
-BraveNewWorldExplorer usingPlatform: platform ide: ide
+_**ProgrammingPresenter = ide tools ProgrammingPresenter.**_
+
+
+You’ll see that _**ide**_ is highlighted in red.  We need to get access to the IDE to get hold of **ProgrammingPresenter**. So we’ll modify the factory of **BraveNewWorldExplorer** to take _**ide**_ as a parameter.
+
+_**BraveNewWorldExplorer usingPlatform: platform ide: ide**_
 
 Now we’ll add a menu. The menu won’t do anything you’d do in a regular application. Rather, it will do something cool, that isn’t easily done in a traditional IDE. 
 
@@ -2021,7 +2072,7 @@ filePresenterMenu = (
 		}	
 )
 
-The combinator menuWithLabelsAndActions:  takes a list as an argument. Each list element describes a single entry in the menu. An entry is described via an association which maps a string (the label of the entry) to a closure that describes the action to be taken when the entry is selected. Add the two methods invoked from the menu:
+The combinator _**menuWithLabelsAndActions:**_  takes a list as an argument. Each list element describes a single entry in the menu. An entry is described via an association which maps a string (the label of the entry) to a closure that describes the action to be taken when the entry is selected. Add the two methods invoked from the menu:
 
 
 respondToInspectPresenter = (
@@ -2032,7 +2083,7 @@ respondToInspectPresenter = (
 respondToShowImplementation = (
 	browseClass: class 
 )
-and update directoryPresentation
+and update _**directoryPresentation**_
 
 directoryPresentation ^ <Fragment> = (
 	^heading: 
@@ -2050,20 +2101,22 @@ directoryPresentation ^ <Fragment> = (
 
 We need to modify the incantation to run our application, because we added an extra parameter. Evaluate:
 
-    ide IDEWindow openSubject: ((BraveNewWorldExplorer usingPlatform:   platform ide: ide) FileSubject onModel: 'C:/Users')
+_**ide IDEWindow openSubject: ((BraveNewWorldExplorer usingPlatform:   platform ide: ide) FileSubject onModel: 'C:/Users')**_
 
 
 This will produce a new window. 
 
+~~ Center
+content
+~~
+
+Next choose _Inspect Presenter_ from newly added drop down the menu on the  right.
 
 
-Next choose Inspect Presenter from newly added drop down the menu on the  right.
+You’ll see an object inspector on the live **FilePresenter** instance managing the presentation. 
 
 
-You’ll see an object inspector on the live  FilePresenter instance managing the presentation. 
-
-
-Now choose the Show Implementation menu option from the menu. This allows us to directly access a class browser on the FilePresenter class, so our application is directly metacircular. 
+Now choose the _Show Implementation_ menu option from the menu. This allows us to directly access a class browser on the **FilePresenter** class, so our application is directly metacircular. 
 
 
 In reality, these options are completely inappropriate for a file browser, or for any end-user facing application. Even if you don’t care about exposing your IP in this way, they pose a security risk. They are only included here to show how you can easily extend and integrate with the Hopscotch IDE.
