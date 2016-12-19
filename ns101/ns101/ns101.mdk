@@ -305,8 +305,10 @@ which generally denotes references to an entity (who’s talking about me ). In 
 [speechBubble]: images/speechBubble.png "speechBubble" { width:auto; max-width:90% }
 
 ~~ Center
-content
+![bubble-menu]
 ~~
+
+[bubble-menu]: images/bubble-menu.png "bubble-menu" { width:auto; max-width:90% }
 
 Of course, you can also enter a message selector into the search pane. In all these cases, the result is a list like this
 
@@ -938,10 +940,10 @@ Once you choose one of these, more information is required. First, your name and
 
 ~~ Center
 
-![memoryHole-dialog1]
+![bitbucket-dialog]
 ~~
 
-[memoryHole-dialog1]: images/memoryHole-dialog1.png "memoryHole-dialog1" { width:auto; max-width:90% }
+[bitbucket-dialog]: images/bitbucket-dialog.png "bitbucket-dialog" { width:auto; max-width:90% }
 
 
 Next, your username at your hg provider. For the public Newspeak repository, this is  BitBucket.
@@ -992,16 +994,20 @@ You can have several repositories open in an image. For example, you might want 
 Once the initial set up is done, you may see a display like:
 
 ~~ Center
-content
+![memoryHole-repoView0]
 ~~
+
+[memoryHole-repoView0]: images/memoryHole-repoView0.png "memoryHole-repoView0" { width:auto; max-width:90% }
 
 
 The above is what you’ll see if your image and the repository are perfectly in sync, with no differences. In practice, that’s not very likely, as the download image won’t be updated nearly as frequently as the repository. So you’re more likely to see a screen like the following:
 
 
 ~~ Center
-content
+![memoryHole-repoview1]
 ~~
+
+[memoryHole-repoview1]: images/memoryHole-repoview1.png "memoryHole-repoview1" { width:auto; max-width:90% }
 
 The top most deep grey banner says: _Modified In Image_.  Underneath, there is a collapsed pane that lists any classes that are unversioned - that is, are not under source control at all. There’s also a link marked _Log_ in the upper right hand corner that will take you to list of source control log entries.
 
@@ -1011,20 +1017,10 @@ If you want to see the differences between the image and the repository, you can
 
 New classes and methods are shown on a green background.
 
-~~ Center
-content
-~~
 Removed ones with a pink one. 
-
-~~ Center
-content
-~~
 
 Changed code is shown with yellow background.
 
-~~ Center
-content
-~~
 
 Additions are highlighted in green and deletions in red. For example, in the screenshot below you can see that in class KernelForSqueak, the nested class **AbstractMixin** has had the method binding added. There have been changes made to the nested class KernelForSqueak `Class which are not shown. And in we see that in class KernelForSqueak `InstanceMixin, the method binding was removed and several methods were modified.
 
@@ -1066,10 +1062,23 @@ For more details on MemoryHole, see Matthias Kleine’s thesis at
 
 If you edit a class that is under source control, the changes between the image and the repository will be displayed in the same way as we’ve seen above.  You can then use the commit link to publish them to the local repository.  You will be asked to provide a commit message describing your changes.
 
+~~ Center
+![memoryHole-commmitMsg]
+~~
+
+[memoryHole-commmitMsg]: images/memoryHole-commmitMsg.png "memoryHole-commmitMsg" { width:auto; max-width:90% }
 
 
+At this point, the current historian is no longer in sync with the remote one it is tracking. 
 
-At this point, the current historian is no longer in sync with the remote one it is tracking. Under the heading _Going out to main on default_, you will find a list of commits that have not been sync’ed to the remote repository.  The commit message for each such commit is listed. In our case, there is just one - the commit we just made.
+~~ Center
+![memoryHole-forward2remote]
+~~
+
+[memoryHole-forward2remote]: images/memoryHole-forward2remote.png "memoryHole-forward2remote" { width:auto; max-width:90% }
+
+
+Under the heading _Going out to main on default_, you will find a list of commits that have not been sync’ed to the remote repository.  The commit message for each such commit is listed. In our case, there is just one - the commit we just made.
 
 You can expand each commit and see what it consists of.
 
@@ -1135,6 +1144,11 @@ At the top of the console window, you’ll see a tool bar that looks like this:
 ~~
 
 The first item of the Tools menu below opens a fresh Newspeak browser, displaying the home page.
+
+~~ Center
+![tools-menu]
+~~
+[tools-menu]: images/tools-menu.png "tools-menu" { width:auto; max-width:90% }
 
 [toolbar]: images/toolbar.png "toolbar" { width:auto; max-width:90% }
 
@@ -1307,14 +1321,21 @@ Minitest cleanly breaks down the multiple roles an SUnit TestCase has. The defin
 The best way to develop Newspeak code is via the IDE (here’s how to open it).  Make sure you’ve saved your image under a different name (as described here). In a Newspeak browser (this is how to open one) create a new class (as explained here) called **HelloBraveNewWorld**
 
 ~~ Center
-content
+
+![helloBraveNewWorld-01]
 ~~
+
+[helloBraveNewWorld-01]: images/helloBraveNewWorld-01.png "helloBraveNewWorld-01" { width:auto; max-width:90% }
+
+[helloBNW0]: images/helloBNW0.png "helloBNW0" { width:auto; max-width:90% }
 
 Click on the link that says _Source_. You should see something like the following:
 
 ~~ Center
-content
+![helloBraveNewWorld-02]
 ~~
+
+[helloBraveNewWorld-02]: images/helloBraveNewWorld-02.png "helloBraveNewWorld-02" { width:auto; max-width:90% }
 
 What we see is the actual syntax for a Newspeak class header. In this case, we see that the class name is **HelloBraveNewWorld**. The keyword _**class**_ is omitted in this view - we know it’s a class. Its superclass is listed after the _**=**_ sign (unless it is **Object**). Disregard the rest - we’ll explain it as we go along. 
 
@@ -1375,8 +1396,10 @@ Note: If you are running on Windows, choose the open console option from the ope
 Select the expression and hit Ctrl-S (Cmd-s on a Mac). You should see some results:
 
 ~~ Center
-content
+![helloBNW0-9-14]
 ~~
+
+[helloBNW0-9-14]: images/helloBNW0-9-14.png "helloBNW0-9-14" { width:auto; max-width:90% }
 
 Now, let’s discuss some high principles. Good Newspeak style requires that a module declaration list all its external dependencies clearly and explicitly. What does this have to do with **HelloBraveNewWorld**? Well, we have, perhaps unknowingly, created a module.
 
@@ -1445,6 +1468,11 @@ The message _**platform hopscotch**_ provides us with the platform’s built-in 
 
 Next, we’ll define presenter and subject classes - **BraveNewWorldPresenter** and **BraveNewWordSubject**, respectively, nested within the **HelloBraveNewWorld** class [(here’s how to declare a nested class)](#).
 
+~~ Center
+![bne-00-9-14]
+~~
+
+[helloBraveNewWorld3]: images/helloBraveNewWorld3.png "helloBraveNewWorld3" { width:auto; max-width:90% }
 
 The definition of **BraveNewWorldSubject** should read:
 
@@ -1462,9 +1490,11 @@ _**class**_ _BraveNewWorldPresenter_ _**onSubject:**_ _s <Subject> = Presenter_ 
 
 Now we can add some functionality to our presenter. The most important method [(here’s how to add a method)](#sec-how-do-i-add-a-method) in a presenter is definition, which defines what gets displayed. In our case, we will simply present the string _**'Hello, Oh Brave new world'**_. The Hopscotch library provides a set of basic operators, called combinators, that display information on the screen.  One of the simplest combinators is _**label:**_, which allows us to display a string.
 
+~~ Center
+![braveNewWorldPresenter-1-9-14]
+~~
 
-
-
+[braveNewWorldPresenter-1-9-14]: images/braveNewWorldPresenter-1-9-14.png "braveNewWorldPresenter-1-9-14" { width:auto; max-width:90% }
 
 
 The definition method declares its return type to be **Fragment**. Type annotations are displayed in blue, and types are delimited with angle brackets. If you dislike types, relax; they are strictly optional. Fragments are the basic elements of display. The _**label:**_ combinator constructs a fragment from a string.
