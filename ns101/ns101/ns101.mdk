@@ -116,10 +116,16 @@ The very first thing you should do is save a copy of your image, so your experim
 At the top of the window, you’ll see a tool bar that looks like this:
 
 ~~ Center
-content
+
+![toolbar]
 ~~
 
-The rightmost icon, , denotes a drop down menu known as the operate menu. 
+
+[operateMenuIcon]: images/operateMenuIcon.PNG "operateMenuIcon" { width:auto; max-width:90% }
+
+[toolbar]: images/toolbar.PNG "toolbar" { width:auto; max-width:90% }
+
+The rightmost icon, ![operateMenuIcon], denotes a drop down menu known as the operate menu. 
 
 ~~ Center
 ![opMenu]
@@ -225,19 +231,15 @@ The class presenter has distinct sections for class header information, nested c
 
 Notice the yellow circles in front of each member. These indicate access rights to the member (yellow is the default, for protected; green for public and red for private).  Access control is not yet enforced by the Squeak implementation, and we will largely ignore it in this tutorial. 
 
-
-
-
-
-
-
-
 The header information appears at the top with a gray background:
 
 
 ~~ Center
-content
+
+![combiParsing-header1]
 ~~
+
+[combiParsing-header1]: images/combiParsing-header1.png "combiParsing-header1" { width:auto; max-width:90% }
 
 Notice the arrow icon in the top left corner. You can use it to collapse the entire header section:
 
@@ -397,8 +399,11 @@ give you a menu of all the places on the browser stack, below or above the curre
 
 
 ~~ Center
-content
+
+![historyButton]
 ~~
+
+[historyButton]: images/historyButton.png "historyButton" { width:auto; max-width:90% }
 
 
 
@@ -441,6 +446,11 @@ Use the browser’s meta menu, which is marked with this icon:
 
 ~~ Center
 
+![metaMenuIcon]
+[metaButon]: images/metaButon.png "metaButon" { width:auto; max-width:90% }
+
+[metaMenuIcon]: images/metaMenuIcon.PNG "metaMenuIcon" { width:auto; max-width:90% }
+
 ~~
 
 The meta menu has two options for inspecting the GUI: _Inspect Window_ and _Inspect Application_. The latter opens a new browser showing an inspector on the original browser application. Usually this option is more interesting, as that is where the application logic resides. The former is similar, but the inspector is opened on the Window object representing the browser window. You can drill down and find what code implements a given GUI element.  In addition, many presenters have an _Inspect Presenter_ option in their drop down menu, which opens up an inspector on the presenter object.
@@ -479,6 +489,13 @@ The inspector has an interaction pane in which you can evaluate expressions in t
 
 If you don’t make a selection explicitly, the current line will be evaluated. This is useful for short expressions. This design allows you to have multiple code snippets in an interaction pane and evaluate them as needed. After evaluation, the selection is highlighted so you can see what was evaluated
 
+~~ Center
+
+![workspace-8-12]
+~~
+
+[workspace-8-12]: images/workspace-8-12.png "workspace-8-12" { width:auto; max-width:90% }
+
 Note: If you split your expression among several lines, make sure you select it in its entirety.
 
 
@@ -491,9 +508,10 @@ Actually, there is something ungood that can happen - our evaluation may raise a
 
 In that case, rather than a link to the result, you get a link to the debugger.  Assume that we have a class **BlowUp**, with the following method
 
-provokeBug: b <Boolean> = (
-  ^missing: b with: self
-)
+_**provokeBug:**_ _b_ \<_Boolean_> _= (_\
+&emsp;  _^missing: b with: self_\
+_)_
+
 
 Calling _BlowUp>>provokeBug:_ from a workspace gives us the following display:
 
@@ -1240,17 +1258,18 @@ In the simple case above, the data for the test gets created by the instance ini
 
 As an example, suppose we want to test a compiler, and setting up the compiler is relatively costly.
 
-class CompilerTesting usingPlatform: platform
-                   minitest: mintest
-                   compilerClass: compilerClass = ( 
-| Compiler = compilerClass. |  )
-(
-    class CompilerHolder = (     
-      | compiler = Compiler configuredInAParticularWay. |    
- )( 
-    class StatementsTests ( ...) (....): ( TEST_CONTEXT = ()) 
-  )
-)
+_**class**_ _CompilerTesting_  _**usingPlatform:**_ _platform_\
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; _**minitest:**_ _minitest_\
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;   _**compilerClass:**_ _compilerClass = (_ \
+&emsp;&emsp; _| Compiler = compilerClass. |  )_\
+_(_\
+ &emsp;&emsp;  _**class**_ _CompilerHolder = (_     \
+ &emsp;&emsp;&emsp;&emsp;  _| compiler = Compiler configuredInAParticularWay. |_  \  
+&emsp;&emsp;&emsp;&emsp; \
+&emsp;&emsp; _)(_ \
+&emsp;&emsp; &emsp;&emsp;  _**class**_ _StatementsTests (...) (...): (_ *TEST_CONTEXT* _= ())_ \
+ &emsp;&emsp; _)_\
+_)_
 
 
 Minitest leverages Newspeak’s nested structure in these cases. A test context (**StatementTests** above) does not have to be a direct nested class of the test module. Instead, we can nest it more deeply inside another nested class (**CompilerHolder**). That nested class will serve to hold any state that we want to share among multiple tests - in our case, an instance of the compiler, which it will create and store as part of its initialization.
@@ -1297,24 +1316,24 @@ Click on the link that says _Source_. You should see something like the followin
 content
 ~~
 
-What we see is the actual syntax for a Newspeak class header. In this case, we see that the class name is **HelloBraveNewWorld**. The keyword _**class**_ is omitted in this view - we know it’s a class. Its superclass is listed after the _**=**_ sign (unless it is Object). Disregard the rest - we’ll explain it as we go along. 
+What we see is the actual syntax for a Newspeak class header. In this case, we see that the class name is **HelloBraveNewWorld**. The keyword _**class**_ is omitted in this view - we know it’s a class. Its superclass is listed after the _**=**_ sign (unless it is **Object**). Disregard the rest - we’ll explain it as we go along. 
 
 Now select the entire text, and replace it by typing in the following code:
 
-class HelloBraveNewWorld usingPlatform: platform = (
-	platform squeak Transcript open show: 'Hello, Oh Brave new world'.
-)
+_**class**_ _HelloBraveNewWorld_  _**usingPlatform:**_ _platform = (_\
+	&emsp; _platform squeak Transcript open show: 'Hello, Oh Brave new world'._\
+_)_
 
 and accepting it (Ctrl-S or Cmd-S). What have we done? We’ve changed the stuff between the parentheses a good deal. The parentheses delimit the instance initializer.  The instance initializer contains all the slot (aka field/instance variable) declarations of the class, and any initialization code for them.  In this case, there are no slots; the initialization code is all there is - the line that says
 
-_**platform squeak Transcript new open show: 'Hello, Oh Brave new world'**_.
+_platform squeak Transcript new open show: 'Hello, Oh Brave new world'_.
 
 If you know Smalltalk or Self, you’ll recognize the syntax. Otherwise, stay with us as we take this expression apart:
 
 
 _**platform**_ is a parameter to the initializer. It’s declared in the line above:
 
-_**HelloBraveNewWorld usingPlatform: platform**_
+_HelloBraveNewWorld_ _**usingPlatform:**_ _platform_
 
 more on that in a bit. The parameter is an object that will represent the underlying platform we are running on. It is our link to the outside world.
 
@@ -1336,11 +1355,11 @@ Finally, we send the stream the message _**show: 'Hello, Oh Brave new world'**_.
 
 Again, it may help to see this in a more traditional syntax:
 
-_**platform.squeak().Transcript().open().show("Hello, Oh Brave new world ");**_
+_platform.squeak().Transcript().open().show("Hello, Oh Brave new world ");_
 
 To create an instance of a class, we must send it a message. Sending a message is the only operation in Newspeak. What message shall we send? Well, the class declaration specifies that message immediately after the class name 
 
-_**HelloBraveNewWorld usingPlatform: platform**_
+_HelloBraveNewWorld_ _**usingPlatform:**_ platform_
   
 The latter part of the line above tells us (and the compiler) that the message named _**usingPlatform:**_ will be used to create instances of this class.  The message takes a single parameter named platform. When the class receives such a message, the actual parameter is made available to the instance initializer under the name _**platform**_. 
 
@@ -1365,8 +1384,8 @@ In Newspeak, a top level class declaration is always a module declaration. A mod
 
 This is why we had to declare a parameter for our initializer. If we had written 
 
-class HelloBraveNewWorld  = (
-	Transcript open show:  'Hello, Oh Brave new world'.
+_**class**_ _HelloBraveNewWorld  = (_\
+&emsp;	_Transcript open show:  'Hello, Oh Brave new world'._\
 )
 
 and then created an instance via  _**HelloBraveNewWorld new**_
@@ -1374,11 +1393,11 @@ and then created an instance via  _**HelloBraveNewWorld new**_
   
 To comply with the style guidelines, we’ll change the code to:
 
-class HelloBraveNewWorld usingPlatform: platform = (
-
-| Transcript  = platform squeak Transcript. |
-Transcript open show:  'Hello, Oh Brave new world'.
-)
+_**class**_ _HelloBraveNewWorld_ _**usingPlatform:**_ _platform = (_\
+\
+&emsp;_| Transcript  = platform squeak Transcript. |_\
+&emsp;_Transcript open show:  'Hello, Oh Brave new world'._\
+_)_
 
 What we’ve done is declared a slot (aka field/instance variable) named _**Transcript**_. The slot declaration includes an initializer that initializes it to hold the object returned by _**platform squeak Transcript**_. Slots are declared between a pair of vertical bars, much like Smalltalk local variables. We can use Transcript to access the output stream in the rest of code.
 
@@ -1388,10 +1407,10 @@ The use of slots as imports also allows us to rename imported elements if that m
 
 
 
-HelloBraveNewWorld usingPlatform: platform = (
-| stdout  = platform squeak Transcript. |
-stdout open show:  'Hello, Oh Brave new world'.
-)
+_HelloBraveNewWorld_ _**usingPlatform:**_ _platform = (_\
+&emsp; _| stdout  = platform squeak Transcript. |_\
+&emsp; _stdout open show:  'Hello, Oh Brave new world'._\
+_)_
 
 
 Of course, printing text isn’t as interesting nowadays as it was when the original Hello World example was written over 30 years ago. The world expects much more today. The next step is to extend **HelloBraveNewWorld** to do a modern GUI. 
@@ -1413,12 +1432,13 @@ It follows that to build a GUI, we need to define a presenter class and a subjec
 
 Let’s change the header so that it imports these two classes
 
-class HelloBraveNewWorld usingPlatform: platform = (
-| 
-	Presenter  = platform hopscotch core Presenter. 
-	Subject  = platform hopscotch core Subject.
-|
-)
+_**class**_ _HelloBraveNewWorld_ _**usingPlatform:**_ _platform = (_\
+&emsp; _|_  
+\ 
+&emsp;_Presenter  = platform hopscotch core Presenter._\
+&emsp; _Subject  = platform hopscotch core Subject._\
+&emsp; _|_\
+_)_
 
  
 The message _**platform hopscotch**_ provides us with the platform’s built-in instance of **HopscotchFramework**. Sending it the message _**core**_ gets us a namespace object that holds core classes of the framework, such as **Subject** and **Presenter**.  
@@ -1428,7 +1448,7 @@ Next, we’ll define presenter and subject classes - **BraveNewWorldPresenter** 
 
 The definition of **BraveNewWorldSubject** should read:
 
-class BraveNewWorldSubject onModel: m <String> = Subject onModel: m ()()
+_**class**_ _BraveNewWorldSubject_ _**onModel:**_ _m <String> = Subject onModel: m ()()_
 
 A subject class typically has a factory method _**onModel:**_, which takes a model as an argument.
 
@@ -1438,7 +1458,7 @@ In this simple example, the model won’t matter because we won’t actually use
 
 Having established a subject, we can move on to the presenter. Define **BraveNewWorldPresenter**’s thus:
 
-class BraveNewWorldPresenter onSubject: s <Subject> = Presenter onSubject: s ()()
+_**class**_ _BraveNewWorldPresenter_ _**onSubject:**_ _s <Subject> = Presenter_ _**onSubject:**_ _s ()()_
 
 Now we can add some functionality to our presenter. The most important method [(here’s how to add a method)](#sec-how-do-i-add-a-method) in a presenter is definition, which defines what gets displayed. In our case, we will simply present the string _**'Hello, Oh Brave new world'**_. The Hopscotch library provides a set of basic operators, called combinators, that display information on the screen.  One of the simplest combinators is _**label:**_, which allows us to display a string.
 
@@ -1455,13 +1475,14 @@ The ^ sign in front of label: indicates that this is a return statement. This is
 
 At this stage, things are so simple that our subject class does almost nothing. It’s only function is to determine what kind of presenter to use, by means of its createPresenter method. We don’t even need a model. So add this method to BraveNewWorldSubject:
 
-createPresenter ^ <Presenter> = (
-	^BraveNewWorldPresenter onSubject: self
-)
+_**createPresenter ^ <Presenter>**_ _= (_\
+&emsp;	_^BraveNewWorldPresenter onSubject: self_\
+_)_
 
 This is enough to actually open a window. In a workspace, evaluate 
 
-_**ide IDEWindow openSubject: ((HelloBraveNewWorld usingPlatform: platform) BraveNewWorldSubject onModel: nil)**_
+_ide IDEWindow openSubject:_ \
+&emsp;_((HelloBraveNewWorld usingPlatform: platform) BraveNewWorldSubject onModel: nil)_
 
 
 
@@ -1496,55 +1517,58 @@ Our next, and most substantial, example will require a few more language constru
 
 Until now, we’ve only seen messages that take zero or one arguments. This helped keep the presentation simple. However, the keyword syntax generalizes to multiple parameters. Consider the mathematical function _max(x,y)_. One could declare a method 
 
-max: x <Number> and: y <Number>  = (
-	(* some code *)
-)
+_**max:**_ _x <Number>_ _**and:**_ _y <Number>  = (_\
+&emsp;	_(\* some code *)_\
+_)_
 
 and invoke it like this:
 
-  _**max: 3 and: 4 (* just like max(3, 4) *)_**
+  _max: 3 and: 4 (\* just like max(3, 4) *)_
 
 The idea is that the colons mark the positions of the arguments - sort of the way % marks data positions in a printf string. The method’s name is _**max:and:**_, but when invoked, the arguments are interspersed within the name. The order of the keywords matters, so _**and:max:**_ is a different method altogether.
 
 In terms of precedence, binary expressions have higher precedence than keyword expressions, and unary expressions have higher precedence than binary ones:
 
-_**min: 3 + 4 and: 3 factorial + 2 (* evaluates to 7, just like min(3 + 4, 3.factorial() + 2) *)_**
+_min: 3 + 4 and: 3 factorial + 2 (\* evaluates to 7, just like min(3 + 4, 3.factorial() + 2) *)_
 
 Some more examples
 
-_**Address number: 1600 street: 'Pennsylvania Avenue' city: 'Washington' state: 'DC'  country: ‘USA’   (* Roughly like Address.new(1600, 'Pennsylvania Avenue', 'Washington', 'DC', 'USA') *)**_
+_Address number: 1600 street: 'Pennsylvania Avenue' city: 'Washington' state: 'DC'  country: ‘USA’_\
+   _(\* Roughly like Address.new(1600, 'Pennsylvania Avenue', 'Washington', 'DC', 'USA') *)_
 
-_**min: (max: 3 and: 4) and: 3 (* evaluates to 3, just like min(max(3,4), 3)  *)**_
+_min: (max: 3 and: 4) and: 3_ \
+_(\* evaluates to 3, just like min(max(3,4), 3)  *)_
 
-_**parser parse: 'printf(“max %d and %d”, ++p*, --q**[3]);' inContext: getParserContext 
-(* parser.parse('printf("max %d and %d", ++p*, --q**[3]);', getParserContext()) *)**_
+_parser parse: 'printf(“max %d and %d”, ++p\*, --q\*\*[3]);' inContext: getParserContext_ \
+\ 
+ _(\* parser.parse('printf("max %d and %d", ++p*, --q\*\*[3]);', getParserContext()) *)_
 
 This syntax may require some getting used to, but it grows on you. Trust me, you’ve dealt with much weirder syntax.  The keyword syntax lends itself to defining internal DSLs. Code like the _**Address  number: ... **_ example above is much more readable this way. Another advantage is that you can’t get the arity wrong.
 
 ##Tuples{-; #sec-tuples}
 
-Here is a literal tuple: _**{'six'. 3 + 4 min: 6. 3 factorial}**_. It denotes an array with 3 elements - the string _**‘six’**_, the number _**6**_, and the number _**6**_ again. Array indexing begins at 1. 
+Here is a literal tuple: _{'six'. 3 + 4 min: 6. 3 factorial}_. It denotes an array with 3 elements - the string _‘six’_, the number _6_, and the number _6_ again. Array indexing begins at 1. 
 
 
 ##Closures{-; #sec-closures}
 
 A closure is is a block of code representing an action you want done. Closures are delimited by square brackets. A very simple closure would be:
 
-_**[3+ 4]**_
+_[3+ 4]_
 
-The expression inside the closure, _**3 + 4**_, is not evaluated until the closure is invoked.  To invoke it, send the closure the message value, as in 
+The expression inside the closure, _3 + 4_, is not evaluated until the closure is invoked.  To invoke it, send the closure the message value, as in 
 
-_**[3+ 4] value  (* evaluates to 7 *)**_
+_[3+ 4] value  (* evaluates to 7 *)_
 
 The value returned by a closure is the value of its last statement. 
 
-_**[3+ 4. 42] value  (* evaluates to 42 *)**_
+_[3+ 4. 42] value  (* evaluates to 42 *)_
 
 A closure is of course, an object, like everything else in Newspeak. 
 
 Closures may have parameters.  This example has two: x and y.
 
-_**[:x :y | x + y] value: 3 value: 4  (* evaluates to 7 *)**_
+_[:x :y | x + y] value: 3 value: 4  (\* evaluates to 7 *)_
 
 The parameters are identified by prefixing them with a colon. A vertical bar marks the end of the parameter list.  The closure is invoked using a value: message whose arity matches that of the closure.
 
@@ -1557,18 +1581,19 @@ Newspeak has no built in control constructs - all operations are method invocati
 
 The most important example of this is the _**ifTrue:ifFalse:**_ method defined on boolean objects. 
 
-_**x > y ifTrue: [x] ifFalse: [y] (* evaluates to x if x > y; y otherwise *)**_
+_x > y ifTrue: [x] ifFalse: [y] (\* evaluates to x if x > y; y otherwise *)_
+
 As you can see, it takes two closures as arguments - one for the true branch and one for the false branch. If the receiver is true, it will invoke its first argument and return the result. If it is false, it will act similarly, but invoke the second argument.
 
-max: x <Number> and: y <Number>  = (
-	x > y ifTrue: [^x] ifFalse: [^y] 
-)
+_**max:**_ _x <Number>_ _**and:**_ _y <Number>  = (_ \
+&emsp;	_x > y ifTrue: [^x] ifFalse: [^y]_ \
+_)_
 
 The method above implements the mathematical function _max(x,y)_. It’s important to understand that a return statement always returns from the nearest enclosing method - _**max:and:**_ in this case - not the enclosing closure. The above behaves the same as
 
-max: x <Number> and: y <Number>  = (
-	^x > y ifTrue: [x] ifFalse: [y] 
-)
+_**max:**_ _x <Number>_ _**and:**_ _y <Number>  = (_ \
+&emsp;	_^x > y ifTrue: [x] ifFalse: [y]_ \
+_)_
 
 This latter version is much better style of course.
 
@@ -1623,17 +1648,17 @@ We’ll start by defining a new top level class called **BraveNewWorldExplorer**
 
 This time, we will need to have a model for **FileSubject**  It will be a file name - a string that gives the fully qualified pathname for the file. Make sure the definition of **FileSubject** is as follows:
 
-class FileSubject onModel: m <String> = Subject onModel: m ()()
+_**class**_ _FileSubject_ _**onModel:**_ _m <String> = Subject onModel: m ()()_
 
 and that FilePresenter’s definition is:
 
-class FilePresenter onSubject: s <Subject> = Presenter onSubject: s ()()
+_**class**_ _FilePresenter_ _**onSubject:**_ _s <Subject> = Presenter onSubject: s ()()_
 
 We’ll add a very simple definition method to **FilePresenter**
 
-definition ^ <Fragment> = (
-	^label: subject model
-)
+_**definition**_  _^ <Fragment> = (_\
+&emsp;	_^label: subject model_\
+_)_
 
 ##Why are things red again?{-}
 
@@ -1641,7 +1666,7 @@ As in the previous example, we’ve used the _**label:**_ method, which is inher
 
 We can now open a workspace and type in
 
-_**hopscotch core HopscotchWindow openSubject: ((BraveNewWorldExplorer usingPlatform: platform) FileSubject onModel: 'C:/Users')**_
+_hopscotch core HopscotchWindow openSubject: ((BraveNewWorldExplorer usingPlatform: platform) FileSubject onModel: 'C:/Users')_
 
 You may need to change the string _**'C:/Users'**_ if you aren’t running on a common Windows setup; replace it with a fully qualified path name that works on your system. 
 Unfortunately, evaluating this fails:
@@ -1674,9 +1699,9 @@ Next, expand the _**subclassResponsibility**_ frame:
 Clicking on **FileSubject** will take us to **BraveNewWorldExplorer`FileSubject**.
 Add this method:
 
-createPresenter ^ <Presenter> = (
-	^FilePresenter onSubject: self
-)
+_**createPresenter**_ _ ^ <Presenter> = (_\
+&emsp;	_^FilePresenter onSubject: self_\
+_)_
 
 
 Then go back to the debugger.  We can see that _**createPresenter**_ is called from the method _**presenter**_, so let’s open the activation of _**presenter**_:
@@ -1710,23 +1735,25 @@ This concludes our digression into the [debugger](#sec-how-do-i-run-the-newspeak
 You should see a new Hopscotch window, like this:
 
 ~~ Center
-content
+![app1]
 ~~
+
+[app1]: images/app1.png "app1" { width:auto; max-width:90% }
 
 It would be more useful if we could actually browse the structure of the _/Users_ directory. To do this, we’ll refine both our subject and our presenter.
 
 We’ll need to be able to determine whether we’re looking at a directory or a simple file. So let’s add an _**isDirectory**_ method to _**FileSubject**_. 
 
-isDirectory ^ <Boolean> = (
-	^(FilePath for: fullFilePath) isDirectory
-)
+_**isDirectory**_ _^ <Boolean> = (_\
+&emsp;	_^(FilePath for: fullFilePath) isDirectory_\
+_)_
 
 The code above shows how this is done using the Newspeak libraries. A **FilePath** represents a path in file system in an abstract manner, independent of OS specific details like what separator character is used. We construct it based on from our model, a string representing the absolute file name. **FilePath** is marked as a suspect implicit send.  Unlike previous cases, this is not a spurious warning. 
 
 
 We need to import **FilePath** into the **BraveNewWorldExplorer** class, like so:
 
-	_**FilePath = platform files FilePath.**_
+_FilePath = platform files FilePath.*_
 
 
 This is an example of how the language forces you to keep all your external dependencies explicit. 
@@ -1734,54 +1761,54 @@ This is an example of how the language forces you to keep all your external depe
 The highlighting of _**fullFilePath**_ isn’t spurious either; this isn’t an inherited method. We’ll define _**fullFilePath**_ as an alias of model. 
 
 
-fullFilePath ^ <String> = (
- 	^model
-)
+_**fullFilePath**_ _^ <String> = (_\
+&emsp; 	_^model_\
+_)_\
 
 It’s clearer, and our presenter doesn’t need to know if we use the path name as a model, or something  else (like a **FilePath*** object). 
 
 We’d rather not display full path names all the time, so let’s add
 
-localFileName ^ <String> = (
-	(* Answer only the file name portion of the path name *)
-	^(FilePath for: fullFilePath) simpleName
-)
+_**localFileName**_ _^ <String> = (_\
+&emsp;	_(\* Answer only the file name portion of the path name *)_\
+&emsp;	_^(FilePath for: fullFilePath) simpleName_\
+_)_
 
 Note that **FilePath** isn’t red anymore.
 
 We also need a way of getting the contents of a directory. The code below will do this. 
 
-contents ^ <Collection[FileSubject]> = (
-	(* Answer a collection of subjects on the receiver elements *)
-	^isDirectory
-		ifTrue:
-			[ | thisDirectory |
-			thisDirectory: (FilePath for: fullFilePath).
-			thisDirectory entries collect:
-				[:each | 
-				FileSubject onModel: each name
-				]
-		]
-		ifFalse: [MutableArrayList new]
-)
+_**contents**_ _^ <Collection[FileSubject]> = (_\
+	_(\* Answer a collection of subjects on the receiver elements *)_\
+	_^isDirectory_\
+	&emsp;	_ifTrue:_\
+	&emsp;		_[ | thisDirectory |_\
+	&emsp;&emsp;		_thisDirectory: (FilePath for: fullFilePath)._\
+	&emsp;&emsp;		_thisDirectory entries collect:_\
+	&emsp;&emsp;			_[:each |_ \
+	&emsp;&emsp;&emsp;			_FileSubject onModel: each name_\
+	&emsp;&emsp;			_]_\
+	&emsp;	_]_\
+	&emsp;	_ifFalse: [MutableArrayList new]_\
+)\
 
 You should import **MutableArrayList** from _**platform collections**_. 
 The method begins by testing if the current file is a directory. Obviously, if it isn’t, it has no contents and we return an empty list.  If it is a directory, we compute _**thisDirectory**_, the path object for the directory and extract all its elements using the entries method.  We can then collect subjects for the name of each entry in the directory.
 
 Now let’s refine our definition method as follows:
 
-definition ^ <Fragment> = (
-	^subject isDirectory
-		ifTrue: [directoryPresentation]
-		ifFalse: [label: subject localFileName]
-)
+_**definition**_ _^ <Fragment> = (_\
+&emsp;	_^subject isDirectory_\
+&emsp;		_ifTrue: [directoryPresentation]_\
+&emsp;		_ifFalse: [label: subject localFileName]_\
+_)_
 
 We’ll also need to define _**directoryPresentation**_. 
 
-directoryPresentation ^ <Fragment> = (
-	^heading: (label: subject localFileName)
-	  details: [column: directoryContentsPresenters]
-)
+_**directoryPresentation**_ _^ <Fragment> = (_\
+&emsp;	_^heading: (label: subject localFileName)_\
+&emsp;	  _details: [column: directoryContentsPresenters]_\
+_)_
 
 What’s going on here? The method _**heading:details:**_ is, like _**label:**_, a fragment combinator inherited by all presenters. It creates a collapsible heading. The first argument defines the collapsed form, and the second determines the expanded one.  
 
@@ -1790,78 +1817,91 @@ Drilling down, the first argument is the result of a familiar call to _**label:*
 The closure must return a fragment. In our case, the body of the closure is an invocation of the column: combinator. As you’d expect, it constructs a vertical column, where the rows of the column are given by its argument, which is a list of fragments. The list in question is the result of _**directoryContentsPresenters**_, which we define as:
 
 
-directoryContentsPresenters ^ <Collection[Presenter]> = (
- 	^(subject contents) collect: [:each | each presenter]
-)
+_**directoryContentsPresenters**_ _^ <Collection[Presenter]> = (_\
+ &emsp;	_^(subject contents) collect: [:each | each presenter]_\
+_)_
 
 this computes a presenter corresponding to each file in the directory. Presenters are a kind of fragment, so they can be used with fragment combinators like _**column:**_.
 
 Finally, let’s do a small refactoring and add a method _**filePresentation**_ to **FilePresenter**, which we can then use in both _**directoryPresentation**_ and _**definition**_. 
 
 
-filePresentation ^ <Fragment> = (
-	^label: subject localFileName
-)
+_**filePresentation**_ _^ <Fragment> = (_\
+&emsp;	_^label: subject localFileName_\
+_)_
 
 
 
-directoryPresentation ^ <Fragment> = (
-	^heading: filePresentation
-	  details: [column: directoryContentsPresenters]
-)
+_**directoryPresentation**_ _^ <Fragment> = (_\
+&emsp;	_^heading: filePresentation_\
+&emsp;	  _details: [column: directoryContentsPresenters]_\
+_)_
 
-definition ^ <Fragment> = (
-	^subject isDirectory
-		ifTrue: [directoryPresentation]
-		ifFalse: [filePresentation]
-)
+_**definition**_ _^ <Fragment> = (_\
+	_^subject isDirectory
+&emsp;		_ifTrue: [directoryPresentation]_\
+&emsp;		_ifFalse: [filePresentation]_\
+_)_
 
 
 
 Go back to your workspace and reevaluate the code. 
 
+~~ Center
 
+![app-2-1]
+~~
+
+[app-2-1]: images/app-2-1.png "app-2-1" { width:auto; max-width:90% }
 
 We’re finally getting somewhere. If you click on the arrow, you can see the directory contents.
 
 
 ~~ Center
-content
+
+![app-2-1-open]
 ~~
+
+[app-2-1-open]: images/app-2-1-open.png "app-2-1-open" { width:auto; max-width:90% }
 
 
 To pretty things up, add this method to **FilePresenter**.
 
-bar: def <Fragment> ^ <Collection[Presenter]> = (
- 	^(column: { 
-		blank: 2.
-		row: {
-		        	blank: 4.
-			elastic: def.
-			blank: 4.
-		}.
-		blank: 2.
-	}) color: (Color gray: 0.9)
-)
+_**bar:**_ _def <Fragment> ^ <Collection[Presenter]> = (_\
+ &emsp;	_^(column: { _\
+&emsp;&emsp;		_blank: 2._\
+&emsp;&emsp;		_row: {_\
+&emsp;&emsp;&emsp;		        	_blank: 4._\
+&emsp;&emsp;&emsp;			_elastic: def._\
+&emsp;&emsp;			_blank: 4._\
+&emsp;&emsp;		_}._\
+&emsp;&emsp;		_blank: 2._\
+&emsp;	_}) color: (Color gray: 0.9)_\
+_)_
 
 
 and change _**directoryPresentation**_ as follows
 
 
-directoryPresentation ^ <Fragment> = (
-	^heading: (bar: filePresentation)
-	  details: [column: directoryContentsPresenters]
-)
+_**directoryPresentation**_ _^ <Fragment> = (_\
+&emsp;	_^heading: (bar: filePresentation)_\
+&emsp;	  _details: [column: directoryContentsPresenters]_\
+_)_
 
 You’ll need to import **Color** thusly
 
-_**Color = platform graphics Color.**_
+_Color = platform graphics Color._
 
 
 Now re-evaluate the code in the workspace. 
 
+~~ Center
 
+![app2]
+~~
 What have we done? We defined a new fragment combinator, _**bar:**_, which displays its argument fragment in a grey bar. The inherited combinator _**blank:**_ creates n pixels of blank space given an integer argument _**n**_;  _**row:**_ is analogous to _**column:**_; and _**elastic:**_ makes its argument stretchable to fill up the available space.  You can set the color of a fragment using _**color:**_. 
+
+[app2]: images/app2.png "app2" { width:auto; max-width:90% }
 
 By now you should have a sense of how you can build up display structures using fragment combinators. Notice how the resulting code looks like a purpose built domain specific language (DSL) for describing the GUI. You can think of Hopscotch as such a DSL embedded in a general purpose language (aka an internal DSL).  
 
@@ -1869,10 +1909,10 @@ This sort of thing isn’t specific to the GUI library, though it is an excellen
 
 Now let’s make yet another change to _**directoryPresentation**_.
 
-directoryPresentation ^ <Fragment> = (
-	^heading: (bar: (link: subject localFileName action: [openOnNewPage]))
-	details: [column: directoryContentsPresenters]
-)
+_**directoryPresentation**_ _^ <Fragment> = (_\
+&emsp;	_^heading: (bar: (link: subject localFileName action: [openOnNewPage]))_\
+&emsp;	_details: [column: directoryContentsPresenters]_\
+_)_
 
 
 
@@ -1880,9 +1920,9 @@ The _**link:action:**_ combinator produces a hyperlink. The first argument deter
 
 The action in question is defined as
 
-openOnNewPage = (
- 	enterSubject:: subject class onModel: subject model
-)
+_**openOnNewPage**_ _= (_\
+&emsp; _enterSubject:: subject class onModel: subject model_\
+_)_
 
 
 Look carefully at _**enterSubject::**_.  You’ll notice there is a double colon. This is not a typo. A single keyword message with an extra colon affixed to the selector has lower precedence, so we can avoid wrapping the argument in parentheses.
@@ -1893,14 +1933,22 @@ _**enterSubject:**_ is inherited by all presenters. It takes a subject and cause
 Check it out.  You just need to refresh the existing window in this case, since we have not added any state to the application, only modified its behavior.
 
 ~~ Center
-content
+
+![app4-0-closed]
 ~~
+
+[app4-0-closed]: images/app4-0-closed.png "app4-0-closed" { width:auto; max-width:90% }
+
+[app3]: images/app3.png "app3" { width:auto; max-width:90% }
 
 Not bad, but there are still some problems. Following the link seems to have no effect! To understand what’s happening, let’s first open up the directory hierarchy a few levels by clicking on the arrows. 
 
 ~~ Center
-content
+
+![app4-0-open]
 ~~
+
+[app4-0-open]: images/app4-0-open.png "app4-0-open" { width:auto; max-width:90% }
 
 
 Now follow one of the nested directory links, such as the one named _Public_.
@@ -1910,25 +1958,25 @@ content
 ~~
 It’s not that the links don’t work - it’s just that the directory is collapsed when you follow the link. This is a nuisance, but we can fix that.  Modify the definition of **FileSubject**
 
-class FileSubject onModel: m <String> = Subject onModel: m (
-|
-	initiallyExpanded <Boolean>  ::= false.
-|
-)
+_**class**_ _FileSubject_ _**onModel:**_ _m <String> = Subject onModel: m(_\
+_|_\
+	&emsp; _initiallyExpanded <Boolean>  ::= false._\
+_|_\
+_)_
 
 This adds a mutable slot to **FileSubject**. Until now, we’ve only introduced immutable slots. These slots are set once, in the instance initializer, and are never mutated again. They can’t be mutated except via reflection. In contrast, mutable slots can be changed at any time, by means of an automatically defined setter method.  For example, to change the value of initiallyExpanded  to true, write initiallyExpanded: true.
 
 Now make these changes to **FilePresenter** :
 
-openOnNewPage = (
- 	enterSubject:: (subject class onModel: subject model) initiallyExpanded: true
-)
+_**openOnNewPage**_ _= (_\
+&emsp; 	_enterSubject:: (subject class onModel: subject model initiallyExpanded: true_\
+_)_
 
 
-directoryPresentation ^ <Fragment> = (
-	^heading: (bar: (link: subject localFileName action:[openOnNewPage]))
-	details: [column: directoryContentsPresenters]
-	initiallyExpanded: subject initiallyExpanded
+_**directoryPresentation**_ _^ <Fragment> = (_\
+	&emsp; _^heading: (bar: (link: subject localFileName action:[openOnNewPage]))_\
+&emsp;&emsp;	_details: [column: directoryContentsPresenters]_\
+&emsp;&emsp;	_initiallyExpanded: subject initiallyExpanded_\
 )
 
 Restart the app by re-evaluating the code in the workspace and verify that the links open when you click on them. 
@@ -1941,38 +1989,44 @@ There are still some details we should attend to.  If you look at the history, y
 
 
 ~~ Center
-content
+
+![app4-1-history2]
 ~~
+
+[app4-1-history2]: images/app4-1-history2.png "app4-1-history2" { width:auto; max-width:90% }
 
 What you see will depend on what exact actions you took. The above might result from clicking repeatedly on the link to  _‘C/Users’_.  We know that all these are views of the same directory. However, the browser doesn’t know this; each is a distinct object, with its own identity.
 
 To address this, we can add an equality method to **FileSubject**. 
 
-= x <Object> ^ <Boolean> = (
-	^x class = class 
-		and:[x model = model 
-		and:[x initiallyExpanded = initiallyExpanded]]
-)
+_**=**_ _x \<Object> ^ <Boolean> = (_\
+&emsp;	_^x class = class _\
+&emsp;&emsp;		_and:[x model = model and:[x initiallyExpanded = initiallyExpanded]]_ \
+_)_
 
 Of course, if we define an equality method, we need to define a hash
 
-hash ^ <Integer> = (
-	^class hash bitXor: model hash
-)
+_**hash**_ _^ <Integer> = (_\
+&emsp;	_^class hash bitXor: model hash_\
+_)_
 
 open a new copy of the application by re-evaluating the code in the workspace. Expand the _Users_ directory, and follow one of the subdirectory links (here, we’ll follow _Public_), and then follow a subdirectory link again (we’ll choose _Recorded TV_).  The history would look something like:
 
 
+~~ Center
+![app4-2-history]
+~~
 
+[app4-2-history]: images/app4-2-history.png "app4-2-history" { width:auto; max-width:90% }
 
 
 So now we have a reliable view of which directories we’ve visited, courtesy of the Hopscotch browser.
 
 One more detail: we can control the name the browser displays when presenting a directory by defining a title method in **FileSubject**.
 
-title ^ <String> = (
-	^fullFilePath
-)
+_**title**_ _^ <String> = (_\
+&emsp;	_^fullFilePath_\
+_)_
 
 
 
@@ -2054,54 +2108,56 @@ Note: **ProgrammingPresenter**  comes as part of the IDE itself, not part of the
 
 You’ll need to import **ProgrammingPresenter** :
 
-_**ProgrammingPresenter = ide tools ProgrammingPresenter.**_
+_ProgrammingPresenter = ide tools ProgrammingPresenter._
 
 
 You’ll see that _**ide**_ is highlighted in red.  We need to get access to the IDE to get hold of **ProgrammingPresenter**. So we’ll modify the factory of **BraveNewWorldExplorer** to take _**ide**_ as a parameter.
 
-_**BraveNewWorldExplorer usingPlatform: platform ide: ide**_
+_BraveNewWorldExplorer_ _**usingPlatform:**_ _platform ide: ide_
 
 Now we’ll add a menu. The menu won’t do anything you’d do in a regular application. Rather, it will do something cool, that isn’t easily done in a traditional IDE. 
 
 We’ll define our menu as 
 
-filePresenterMenu = (
-	^menuWithLabelsAndActions: {
-		'Inspect Presenter' -> [respondToInspectPresenter].
-		'Show Implementation' -> [respondToShowImplementation]
-		}	
-)
+_**filePresenterMenu**_ _= (_\
+&emsp;	_^menuWithLabelsAndActions: {_\
+&emsp;&emsp;	_'Inspect Presenter' -> [respondToInspectPresenter]._\
+&emsp;&emsp;		_'Show Implementation' -> [respondToShowImplementation]_\
+&emsp;		_}_\	
+_)_
 
 The combinator _**menuWithLabelsAndActions:**_  takes a list as an argument. Each list element describes a single entry in the menu. An entry is described via an association which maps a string (the label of the entry) to a closure that describes the action to be taken when the entry is selected. Add the two methods invoked from the menu:
 
 
-respondToInspectPresenter = (
-	inspect: self 
-)
+_**respondToInspectPresenter**_ _= (_\
+	inspect: self _|
+)_
 
 
-respondToShowImplementation = (
-	browseClass: class 
-)
+_**respondToShowImplementation**_ _= (_\
+&emsp;	_browseClass: class _\
+_)_
+
 and update _**directoryPresentation**_
 
-directoryPresentation ^ <Fragment> = (
-	^heading: 
-		(bar:
-			 (row: {
-				link: subject localFileName action:[openOnNewPage].
-				filler.
-				dropDownMenu: [filePresenterMenu]
-				}
-			))
-	details: [column: directoryContentsPresenters]
-	initiallyExpanded: subject initiallyExpanded
-)
+_**directoryPresentation**_ _^ <Fragment> = (_\
+&emsp;	_^heading: _\
+&emsp;&emsp;		_(bar:_\
+&emsp;&emsp;&emsp;			 _(row: {_\
+&emsp;&emsp;&emsp;&emsp;				_link: subject localFileName action:[openOnNewPage]._\
+&emsp;&emsp;&emsp;&emsp;				_filler._\
+&emsp;&emsp;&emsp;&emsp;				_dropDownMenu: [filePresenterMenu]_\
+&emsp;&emsp;&emsp;				_}_\
+&emsp;&emsp;			_))_\
+&emsp;	_details: [column: directoryContentsPresenters]_\
+&emsp;	_initiallyExpanded: subject initiallyExpanded_\
+_)_
 
 
 We need to modify the incantation to run our application, because we added an extra parameter. Evaluate:
 
-_**ide IDEWindow openSubject: ((BraveNewWorldExplorer usingPlatform:   platform ide: ide) FileSubject onModel: 'C:/Users')**_
+_ide IDEWindow openSubject:_\
+&emsp; _((BraveNewWorldExplorer usingPlatform:   platform ide: ide) FileSubject onModel: 'C:/Users')_
 
 
 This will produce a new window. 
@@ -2112,12 +2168,21 @@ content
 
 Next choose _Inspect Presenter_ from newly added drop down the menu on the  right.
 
+~~ Center
+content
+~~
+
 
 You’ll see an object inspector on the live **FilePresenter** instance managing the presentation. 
 
-
+~~ Center
+content
+~~
 Now choose the _Show Implementation_ menu option from the menu. This allows us to directly access a class browser on the **FilePresenter** class, so our application is directly metacircular. 
 
+~~ Center
+content
+~~
 
 In reality, these options are completely inappropriate for a file browser, or for any end-user facing application. Even if you don’t care about exposing your IP in this way, they pose a security risk. They are only included here to show how you can easily extend and integrate with the Hopscotch IDE.
 
