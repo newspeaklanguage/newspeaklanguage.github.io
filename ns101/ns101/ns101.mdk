@@ -433,21 +433,32 @@ In the context of an IDE, this feature is actually much more useful than in typi
 
 After completing a task, you may want to eliminate it from your history to prevent clutter building up.  To erase the history, click the _Forget All_ button on the history page.
 
-Or just close the browser and open a new one. You can also clean out individual history entries using the [forget] link at the right of each entry.
+~~ Center
+![forgetAll]
+~~
+
+[forgetAll]: images/forgetAll.png "forgetAll" { width:auto; max-width:90% }
+
+Or just close the browser and open a new one. You can also clean out individual history entries using the _forget_ link at the right of each entry.
 
 One more thing while we’re on the topic of managing the browser
 
 #How do I manage a Newspeak window? {-; #sec-how-do-i-manage-a-newspeak-window}
 
 Same as any other window. In Squeak, you’ll find these icons on the right hand side of the window title bar: 
+
+~~ Center
+![WindowControls]
+~~
 The green one maximizes, the orange one minimizes, and the blue one provides a drop down menu. Most of the menu entries are standard, but the browser provides unusual options for inspecting the GUI:
+
+[WindowControls]: images/WindowControls.png "WindowControls" { width:auto; max-width:90% }
 
 #How do I inspect the GUI? {-; #sec-how-do-i-inspect-the-gui}
 
 Use the browser’s meta menu, which is marked with this icon:
 
 ~~ Center
-
 ![metaMenuIcon]
 [metaButon]: images/metaButon.png "metaButon" { width:auto; max-width:90% }
 
@@ -472,16 +483,12 @@ However you open an inspector, you’re likely to see a view such as the followi
 
 
 ~~ Center
-content
+![inspector99]
 ~~
 
-Each slot of the inspected object is listed in the inspector. It is prefixed by an arrow icon that allows you to view an inspector on the value of the slot in context . Following the slot name is a description of the slot value, which is itself a link to an inspector on the slot value.  The gray area at the top of the inspector gives a description of the object being inspected, and a link to its class and its enclosing object. Clicking on the class brings up a class presenter on the class, not an inspector on the class object. If you need to inspect the class object, you can do that by choosing _Inspect Class_ from the drop down menu, whose icon you can see at at top right:
+[inspector99]: images/inspector99.png "inspector99" { width:auto; max-width:90% }
 
-~~ Center
-content
-~~
- 
-
+Each slot of the inspected object is listed in the inspector. It is prefixed by an arrow icon that allows you to view an inspector on the value of the slot in context . Following the slot name is a description of the slot value, which is itself a link to an inspector on the slot value.  The gray area at the top of the inspector gives a description of the object being inspected, and a link to its class and its enclosing object. Clicking on the class brings up a class presenter on the class, not an inspector on the class object. If you need to inspect the class object, you can do that by choosing _Inspect Class_ from the drop down menu, whose icon, ![dropDown],  you can see at at top right.
 
 
 
@@ -559,6 +566,8 @@ You will encounter the debugger if an uncaught exception occurs during execution
 content
 ~~
 
+[blowup-3-9-14]: images/blowup-3-9-14.png "blowup-3-9-14" { width:auto; max-width:90% }
+
 Each activation frame is expandable to an activation presenter which allows you to see the method in question and the state of the frame.
 
 The method is shown on the left, and above it buttons that control stepping etc.
@@ -568,6 +577,10 @@ The frame state is shown on the right, and includes the receiver, any parameters
 Near the top right hand corner of the activation presenter is an evaluator, where we can evaluate expressions in the context of the activation, just like in an object inspector. 
 
 Evaluating an expression produces a link to the result. To the right of that link will be another link, return it. If you click on it, the object in question will be returned as the result of the method, irrespective of its normal course of computation.
+
+~~ Center
+![blowup-3-9-14]
+~~
 
 You may use the method presenter on the left as you usually would; you may edit the method and save the changes for example. This will discard all activations above the edited method, and restart the method at its beginning.
 
@@ -617,8 +630,11 @@ You can create new workspaces by clicking the _plus_ button. Workspaces are iden
 
 
 ~~ Center
-content
+
+![workspaces1]
 ~~
+
+[workspaces1]: images/workspaces1.PNG "workspaces1" { width:auto; max-width:90% }
 
 
 A workspace allows you to evaluate code and provides you with access to the IDE’s top level namespace.  The IDE namespace gives you access to all top level classes loaded into the IDE (both Newspeak classes and Squeak classes).  It also supports access to the Newspeak platform object via the name _**platform**_. In addition, you can use the name _**ide**_ to gain access to the IDE namespace itself.
@@ -630,8 +646,10 @@ Each workspace has its own unique class. You can access it via the drop down men
 You can also define methods for the workspace class directly in the workspace: 
 
 ~~ Center
-content
+![workspaces-blank]
 ~~
+
+[workspaces-blank]: images/workspaces-blank.PNG "workspaces-blank" { width:auto; max-width:90% }
 
 the Methods section at the bottom of the workspace works exactly like it does in a class browser. More on this below.
 
@@ -848,6 +866,10 @@ Edit the class header.
 From the home page, you can click the link marked System Source.   You’ll see a listing of all the packages loaded in the image on the left.  For each package, the right hand column shows the list of class categories within. All the listed items are links.  You can navigate to any category in this way, and from there to any specific class in the category.
 
 Choose the category _BrazilForMorphic-CustomMorphs_:
+
+~~ Center
+content
+~~
 
 
 This is an interesting choice, as it consists of Smalltalk classes. You’ll note that next to each class, we find, on the right, two columns. The rightmost column tells us how many methods the class has; the darker the green background behind that number, the more methods are in the class - so you can tell at a glance what the big classes are.
@@ -1084,6 +1106,12 @@ You can expand each commit and see what it consists of.
 
 
 Assuming you have the rights to publish to the remote repository, use the _Forward to main on default_ link to push the updates from your local repository to the remote one. Once that’s done, the local and remote repositories are in sync, and all is well.
+
+~~ Center
+![memoryHole-allGood]
+~~
+
+[memoryHole-allGood]: images/memoryHole-allGood.png "memoryHole-allGood" { width:auto; max-width:90% }
 
 
 ##Getting Updates{-; #sec-getting-updates}
@@ -1520,7 +1548,7 @@ You should see something like this:
 
 
 ~~ Center
-content
+![helloBNW0-9-14]
 ~~
 
 
@@ -2116,7 +2144,11 @@ Check your working directory: there now two new files: _BraveNewWorldExplorerApp
 
 You can test your deployable app in the IDE. Click on the run link in your application class.  If you’ve actually saved an application in a NOF file, you can choose _Run App_ from the operate menu. 
 
+~~ Center
+![runApp]
+~~
 
+[runApp]: images/runApp.png "runApp" { width:auto; max-width:90% }
 
 This will open up a file chooser dialog, which will let you select a NOF file. Once you choose the file, the IDE will bring it for for you.
 
@@ -2204,8 +2236,10 @@ _ide IDEWindow openSubject:_\
 This will produce a new window. 
 
 ~~ Center
-content
+![brav20]
 ~~
+
+[brav20]: images/brav20.png "brav20" { width:auto; max-width:90% }
 
 Next choose _Inspect Presenter_ from newly added drop down the menu on the  right.
 
