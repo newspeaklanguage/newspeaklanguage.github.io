@@ -1954,9 +1954,11 @@ Not bad, but there are still some problems. Following the link seems to have no 
 Now follow one of the nested directory links, such as the one named _Public_.
 
 ~~ Center
-content
+![app4-link-problem]
 ~~
 It’s not that the links don’t work - it’s just that the directory is collapsed when you follow the link. This is a nuisance, but we can fix that.  Modify the definition of **FileSubject**
+
+[app4-link-problem]: images/app4-link-problem.png "app4-link-problem" { width:auto; max-width:90% }
 
 _**class**_ _FileSubject_ _**onModel:**_ _m <String> = Subject onModel: m(_\
 _|_\
@@ -1982,8 +1984,11 @@ _**directoryPresentation**_ _^ <Fragment> = (_\
 Restart the app by re-evaluating the code in the workspace and verify that the links open when you click on them. 
 
 ~~ Center
-content
+
+
 ~~
+
+[bnwe-withTitle]: images/bnwe-withTitle.png "bnwe-withTitle" { width:auto; max-width:90% }
 
 There are still some details we should attend to.  If you look at the history, you may find that there are multiple entries for the same directory:
 
@@ -2028,7 +2033,11 @@ _**title**_ _^ <String> = (_\
 &emsp;	_^fullFilePath_\
 _)_
 
+~~ Center
+![bnwe-withTitle]
+~~
 
+[app5-closed]: images/app5-closed.png "app5-closed" { width:auto; max-width:90% }
 
 
 Having built an application, we should consider how to deploy it.
@@ -2085,8 +2094,10 @@ Note that if you actually mean to deploy code without exposing the IDE, NOF won�
 
 
 ~~ Center
-content
+![deployed1]
 ~~
+
+[deployed1]: images/deployed1.png "deployed1" { width:auto; max-width:90% }
 
 
 
@@ -2169,20 +2180,28 @@ content
 Next choose _Inspect Presenter_ from newly added drop down the menu on the  right.
 
 ~~ Center
-content
+![braveNewWorldExplorer-menu]
 ~~
+
+[braveNewWorldExplorer-menu]: images/braveNewWorldExplorer-menu.png "braveNewWorldExplorer-menu" { width:auto; max-width:90% }
+
+[inspectPresenter1]: images/inspectPresenter1.png "inspectPresenter1" { width:auto; max-width:90% }
 
 
 You’ll see an object inspector on the live **FilePresenter** instance managing the presentation. 
 
 ~~ Center
-content
+![inspect-presenter]
 ~~
 Now choose the _Show Implementation_ menu option from the menu. This allows us to directly access a class browser on the **FilePresenter** class, so our application is directly metacircular. 
 
+[inspect-presenter]: images/inspect-presenter.png "inspect-presenter" { width:auto; max-width:90% }
+
 ~~ Center
-content
+![filePresenter]
 ~~
+
+[filePresenter]: images/filePresenter.png "filePresenter" { width:auto; max-width:90% }
 
 In reality, these options are completely inappropriate for a file browser, or for any end-user facing application. Even if you don’t care about exposing your IP in this way, they pose a security risk. They are only included here to show how you can easily extend and integrate with the Hopscotch IDE.
 
