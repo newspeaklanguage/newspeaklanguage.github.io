@@ -168,7 +168,7 @@ represents Smalltalk. Icons representing Newspeak are labeled with a version num
 
 [ns3-icon]: images/ns3-icon.png "ns3-icon" { width:auto; max-width:90% }
 
-Now that we’ve got ourselves a browser, let’s browse some existing classes.
+Now that we’ve got ourselves a browser, let’s browse some classes.
 
 
 
@@ -185,7 +185,7 @@ There are several ways to browse an existing class.  If you know the name of the
 
 [SearchPane]: images/SearchPane.png "SearchPane" { width:auto; max-width:90% }
 
-One can also go to the system source page and look for the class there. We’ll examine both options below.
+One can also go to the Newspeak source page and look for the class there. We’ll examine both options below.
 
 
 
@@ -229,7 +229,7 @@ The browser now displays the **CombinatorialParsing** class.
 
 The class presenter has distinct sections for class header information, nested classes, methods and class methods.  
 
-Notice the yellow circles in front of each member. These indicate access rights to the member (yellow is the default, for protected; green for public and red for private).  Access control is not yet enforced by the Squeak implementation, and we will largely ignore it in this tutorial. 
+Notice the yellow circles in front of each member. These indicate access rights to the member (yellow is the default, for protected; green for public and red for private). 
 
 The header information appears at the top with a gray background:
 
@@ -276,7 +276,7 @@ Now click on the name of the class **AlternatingParser**. That will take you to 
 
 Clicking on the link again collapses the method display. This shows that link behavior in Hopscotch can be customized.  It isn’t very useful to show a method on a separate page. Newspeak methods are usually short, and should never be very long.  In any case methods need to be understood in context.
 
-Looking at the method _**parse:inContext:ifError:**_, you can see the syntax coloring scheme is deliberately low key. The selector is bold, parameters and local slots are bold gray. The message pattern is followed by an equal sign, and the method body appears between parentheses. This will change in later versions.
+Looking at the method _**parse:inContext:ifError:**_, you can see the syntax coloring scheme is deliberately low key. The selector is bold, parameters and local slots are bold gray. The message pattern is followed by an equal sign, and the method body appears between parentheses. This may change in later versions.
 
 Looking more closely at the method link, we see that it is followed by various bits of information:
 
@@ -294,13 +294,7 @@ These elements help answer questions like:
 The number of senders of this message may appear immediately to the right of a method name link.  You may see this information being filled in when a browser opens a class it has not displayed before. You do not need to wait for this process to complete. Because gathering this information takes significant time, it is done in the background.
 The sender information is actually a link.
 
-Another way to get at the sender/implementor information is the speech bubble
-
-~~ Center
-
-![speechBubble]
-~~
-which generally denotes references to an entity (who’s talking about me ). In the case of a method, clicking on it brings up a pop-up menu with a list of messages, starting with the method’s selector, and including all messages used inside the method. Choose an item from the menu to get the list of implementors and senders for that message.
+Another way to get at the sender/implementor information is the speech bubble, ![speechBubble], which generally denotes references to an entity (who’s talking about me ). In the case of a method, clicking on it brings up a pop-up menu with a list of messages, starting with the method’s selector, and including all messages used inside the method. Choose an item from the menu to get the list of implementors and senders for that message.
 
 [speechBubble]: images/speechBubble.png "speechBubble" { width:auto; max-width:90% }
 
@@ -321,7 +315,7 @@ Of course, you can also enter a message selector into the search pane. In all th
 
 #How do I delete a method?{-; #sec-how-do-i-delete-a-method}
 
-At the very right of a method link, you’ll see an icon denoting another drop down menu:
+At the very right of a method link, you’ll see an icon denoting another drop down menu: ![dropDown].
 The menu has an option to delete the method.
 
 
@@ -342,7 +336,7 @@ The open circle opens up all of the methods listed below. The dot icon does the 
 
 #Why is some code highlighted in red?{-; #sec-why-is-some-code-highlighted-in-red}
 
-There are two possible reasons: suspect implicit messages or syntax errors.
+There are two possible reasons: _suspect implicit messages_ or _syntax errors_.
 
 ##Implicit messages{-; #sec-implicit-messages}
 
@@ -356,16 +350,9 @@ In the case of a new class declaration, no such run time data is available, and 
 
 The syntax colorizer analyzes your code as you type.  If, at any point, the syntax is malformed, it will mark the downstream code in red.
 
-
-
-
-##Debugging{-; #sec-debugging}
-
-The debugger will mark the site of the active message send in blue.
-
 This concludes our review of browsing methods.
 
-Let’s navigate back to the original class. It’s time we looked more carefully at navigation in the browser.
+Let’s navigate back to the original class. It’s time we looked more carefully at navigation in the IDE.
 
 
 
@@ -373,9 +360,9 @@ Let’s navigate back to the original class. It’s time we looked more carefull
 
 
 
-#How do I navigate in the browser?{-; #sec-how-do-i-navigate-in-the-browser}
+#How do I navigate in the IDE?{-; #sec-how-do-i-navigate-in-the-browser}
 
-The top of the browser window shows a number of controls, some of which are reminiscent of a web browser. The back and front buttons 
+The top of the IDE browser window shows a number of controls, some of which are reminiscent of a web browser. The back and front buttons 
 
 ~~ Center
 
@@ -450,21 +437,19 @@ Same as any other window. In Squeak, you’ll find these icons on the right hand
 ~~ Center
 ![WindowControls]
 ~~
-The green one maximizes, the orange one minimizes, and the blue one provides a drop down menu. Most of the menu entries are standard, but the browser provides unusual options for inspecting the GUI:
+The green one maximizes, the orange one minimizes, and the blue one provides a drop down menu. Most of the menu entries are standard, but the browser provides unusual options for inspecting the GUI.
 
 [WindowControls]: images/WindowControls.png "WindowControls" { width:auto; max-width:90% }
 
 #How do I inspect the GUI? {-; #sec-how-do-i-inspect-the-gui}
 
-Use the browser’s meta menu, which is marked with this icon:
+Use the browser’s meta menu, which is marked with this icon:               ![metaMenuIcon].
 
-~~ Center
-![metaMenuIcon]
 [metaButon]: images/metaButon.png "metaButon" { width:auto; max-width:90% }
 
 [metaMenuIcon]: images/metaMenuIcon.PNG "metaMenuIcon" { width:auto; max-width:90% }
 
-~~
+
 
 The meta menu has two options for inspecting the GUI: _Inspect Window_ and _Inspect Application_. The latter opens a new browser showing an inspector on the original browser application. Usually this option is more interesting, as that is where the application logic resides. The former is similar, but the inspector is opened on the Window object representing the browser window. You can drill down and find what code implements a given GUI element.  In addition, many presenters have an _Inspect Presenter_ option in their drop down menu, which opens up an inspector on the presenter object.
 
@@ -479,7 +464,7 @@ There are several actions that will open up an inspector.  Besides the menu opti
 
 
 
-However you open an inspector, you’re likely to see a view such as the following:
+Whichever way you open an inspector, you’re likely to see a view such as the following:
 
 
 ~~ Center
@@ -494,7 +479,7 @@ Each slot of the inspected object is listed in the inspector. It is prefixed by 
 
 #How do I evaluate code?{-; #sec-how-do-i-evaluate-code}
 
-The inspector has an interaction pane in which you can evaluate expressions in the context of the object. Type in an expression (3 + 4 in the example below) and select it. Then hit Ctrl-S (or cmd-S on a mac). A link to the result of the expression is added. You can expand it in place with the arrow icon, or link to it. You can also use the Evaluate button on the right instead of Ctrl-S/cmd-S. 
+The inspector has an interaction pane in which you can evaluate expressions in the context of the object. Type in an expression (3 + 4 in the example below) and select it. Then hit Ctrl-S (or cmd-S on a mac). A link to the result of the expression is added. You can expand it in place with the arrow icon, or link to it. You can also use the _Evaluate_ button on the right instead of Ctrl-S/cmd-S. 
 
 If you don’t make a selection explicitly, the current line will be evaluated. This is useful for short expressions. This design allows you to have multiple code snippets in an interaction pane and evaluate them as needed. After evaluation, the selection is highlighted so you can see what was evaluated
 
@@ -517,7 +502,7 @@ Actually, there is something ungood that can happen - our evaluation may raise a
 
 In that case, rather than a link to the result, you get a link to the debugger.  Assume that we have a class **BlowUp**, with the following method
 
-_**provokeBug:**_ _b_ \<_Boolean_> _= (_\
+_public_ _**provokeBug:**_ _b_ \<_Boolean_> _= (_\
 &emsp;  _^missing: b with: self_\
 _)_
 
@@ -551,7 +536,7 @@ In this situation, you can use a workspace. A workspace is an object in the IDE 
 
 In inspectors, the backtick (`) is allowed in expressions, and evaluates to a workspace. So you can send messages like 
 
-_**`  collections (* note the space after the backtick - it has to be there *)_**
+_`  collections (\* note the space after the backtick - it has to be there *)_
 
 and get at the collections module of the platform, even if you forgot to import it. This won't work in regular code of course - the backtick was chosen precisely because it is not legal Newspeak syntax. And we don't want to undermine Newspeak's modularity by providing such a back door.  However, you the programmer are all-powerful during development. You can get anything you need through the workspace.
 
@@ -569,6 +554,8 @@ content
 [blowup-3-9-14]: images/blowup-3-9-14.png "blowup-3-9-14" { width:auto; max-width:90% }
 
 Each activation frame is expandable to an activation presenter which allows you to see the method in question and the state of the frame.
+The debugger will mark the site of the active message send in blue.
+
 
 The method is shown on the left, and above it buttons that control stepping etc.
 
@@ -604,6 +591,8 @@ If the activation involves the method _**doesNotUnderstand:**_, you will have an
 
 [restartMethod-menu-9-14]: images/restartMethod-menu-9-14.png "restartMethod-menu-9-14" { width:auto; max-width:90% }
 
+
+**Er, this is broken because the implementation calls class, which is no longer public.**
 
 You will be transported to a class browser page for the class of the receiver, with an editor open on a new method with the appropriate name. The system will also guess types for the parameters based on the actual arguments that had been passed. 
 
