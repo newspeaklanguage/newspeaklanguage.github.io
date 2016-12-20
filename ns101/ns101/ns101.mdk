@@ -117,13 +117,16 @@ At the top of the window, you’ll see a tool bar that looks like this:
 
 ~~ Center
 
+
 ![toolbar]
 ~~
+
+[toolbar]: images/toolbar.PNG "toolbar" { width:auto; max-width:90% }
 
 
 [operateMenuIcon]: images/operateMenuIcon.PNG "operateMenuIcon" { width:auto; max-width:90% }
 
-[toolbar]: images/toolbar.PNG "toolbar" { width:auto; max-width:90% }
+
 
 The rightmost icon, ![operateMenuIcon], denotes a drop down menu known as the operate menu. 
 
@@ -663,8 +666,10 @@ At the left hand side of the class header section is a link that is labeled as
 _Source_. Clicking it transforms the presentation of the header, thus:
 
 ~~ Center
-content
+![combinatorialParsing-hdr-9-14]
 ~~
+
+[combinatorialParsing-hdr-9-14]: images/combinatorialParsing-hdr-9-14.png "combinatorialParsing-hdr-9-14" { width:auto; max-width:90% }
 
 One can edit the header source and so add, remove or rename slots, change the primary factory, edit the class comment, edit any initialization code that follows the slot declaration section etc. 
 
@@ -681,8 +686,7 @@ This concludes the sections dealing with browsing existing code. Now we consider
 #How do I create a new class?{-; #sec-how-do-i-create-a-new-class}
 
 
-
-Currently, classes are created within _namespaces_. 
+Well, we could just use a text editor and then compile it, but that really isn't the way things are usually done. Typically, classes are created within _namespaces_. 
 The IDE maintains a root namespace (called _Root_). Currently, the root namespace is
 only allowed to contain subnamespaces called _category namespaces_, or just  
 _categories_. Classes can be
@@ -736,16 +740,32 @@ the operation, click the red icon:
 Now we can go look at our category 
 
 ~~ Center
-content
+![category1]
 ~~
 
+[category1]: images/category1.PNG "category1" { width:auto; max-width:90% }
 
-At the moment, there are no classes in the category. Let’s add one, by clicking on the plus icon
+
+At the moment, there are no classes in the category. Let’s add one, by clicking on the plus icon. This brings up a menu of things that we can add to our category namespace
+
+We will chose  _Add Class_
 
 ~~ Center
-content
+![addNamespace-item-menu3-17-2014]
 ~~
-You’ll see an editable pane with a template of a class header.
+
+You’ll see an editable pane with a template of a class header. We can edit this template with the details of the class we want to create.
+
+~~ Center
+![addClass1-3-17-2014]
+~~
+
+[addNamespace-item-menu3-17-2014]: images/addNamespace-item-menu3-17-2014.png "addNamespace-item-menu3-17-2014" { width:auto; max-width:90% }
+
+
+[addClass1-3-17-2014]: images/addClass1-3-17-2014.png "addClass1-3-17-2014" { width:auto; max-width:90% }
+
+
 
 ~~ Center
 
@@ -760,8 +780,10 @@ We’ve named our class Hest, which is Danish for horse. Don’t ask why. We wil
 
 
 ~~ Center
-content
+![category2]
 ~~
+
+[category2]: images/category2.PNG "category2" { width:auto; max-width:90% }
 
 
 Click on the link to Hest. The view you see should look like this:
