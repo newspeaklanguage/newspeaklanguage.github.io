@@ -730,7 +730,7 @@ the operation, click the red icon:
  You will be asked to confirm the cancelation
 
 ~~ Center
-content
+![confirmCancel]
 ~~
 
 Now we can go look at our category 
@@ -858,59 +858,15 @@ To add a slot,  edit the class header.
 Edit the class header.
 
 
-#How do I find a class by browsing the IDE namespace?{-; #sec-how-do-i-find-a-class-by-browsing-the-ide-namespace}
-
-From the home page, you can click the link marked System Source.   You’ll see a listing of all the packages loaded in the image on the left.  For each package, the right hand column shows the list of class categories within. All the listed items are links.  You can navigate to any category in this way, and from there to any specific class in the category.
-
-Choose the category _BrazilForMorphic-CustomMorphs_:
-
-~~ Center
-content
-~~
-
-
-This is an interesting choice, as it consists of Smalltalk classes. You’ll note that next to each class, we find, on the right, two columns. The rightmost column tells us how many methods the class has; the darker the green background behind that number, the more methods are in the class - so you can tell at a glance what the big classes are.
-
-The remaining column gives you an estimate of the number of subclasses the class has. This is just an estimate, as it can be pretty hard to tell this in Newspeak. These numbers have a progressively darker blue background the more subclasses there are - so you can quickly get a sense of which classes are important.
-
-
-
-
-#How do I add a Category{-; #sec-how-do-i-add-a-category}
-
-Accept the category name by clicking on the green icon:
-
-~~ Center
-
-![greenIcon]
-~~
-
 [greenIcon]: images/greenIcon.png "greenIcon" { width:auto; max-width:90% }
 
-You can also just type Ctrl-S (or cmd-s on a mac) in the text pane. If you wish to cancel 
-the operation, click the red icon:
 
-~~ Center
-
-![redIcon]
-~~
 
 [redIcon]: images/redIcon.png "redIcon" { width:auto; max-width:90% }
 
- You will be asked to confirm the cancellation
-
-~~ Center
-
-![confirmCancel]
-~~
 
 [confirmCancel]: images/confirmCancel.png "confirmCancel" { width:auto; max-width:90% }
 
-Now we can go look at our category 
-
-~~ Center
-content
-~~
 
 #How does Source Control Work?{-; #sec-how-does-source-control-work}
 
