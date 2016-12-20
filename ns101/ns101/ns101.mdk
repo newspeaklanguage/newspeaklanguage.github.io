@@ -660,7 +660,7 @@ Let’s navigate back to the **CombinatorialParsing** class. We’ve seen how me
 #How do I edit the class header?{-; #sec-how-do-i-edit-the-class-header}
 
 At the left hand side of the class header section is a link that is labeled as
-Source. Clicking it transforms the presentation of the header, thus:
+_Source_. Clicking it transforms the presentation of the header, thus:
 
 ~~ Center
 content
@@ -682,24 +682,32 @@ This concludes the sections dealing with browsing existing code. Now we consider
 
 
 
-Currently, classes are created within class categories, which themselves are usually created in packages. Class categories are a Smalltalk legacy that we hope to drop in due course. Likewise, as our source management facilities mature, packages are likely to go extinct as well.
+Currently, classes are created within _namespaces_. 
+The IDE maintains a root namespace (called _Root_). Currently, the root namespace is
+only allowed to contain subnamespaces called _category namespaces_, or just  
+_categories_. Classes can be
+added to category namespaces. So the first step in creating a new top level class is
+finding an appropriate category. If you know the category you want to use, you can
+find it using the search bar, or you can go to the root namespace where you will see it listed.
 
+Otherwise, you need to create a new category. That also requires you to get to the root
+namespace. 
 
+#How do I get to the root namespace?{-; #sec-how-do-i-get-to-the-root-namespace}
 
-#How do I create a package?{-; #sec-how-do-i-create-a-package}
+On the home page, you will see a link marked _Newspeak sources_. This link leads 
+to the root namespace. 
 
+~~ Center
+content
+~~
 
-Packages are created on the source control page.  It is also possible to create a category that is not part of a package. 
+#How do I create a category namespace?{-; #sec-how-do-i-create-a-class-category}
 
-
-
-
-#How do I create a class category?{-; #sec-how-do-i-create-a-class-category}
-
-
-Go to the _System Source_ page (linked to from the home page) , and find the package to which you wish to add the category.  The display shows a list of packages on the left, and for each package, a list of class categories it contains on the right. Just to the left of the category list is a link marked add. Click it and fill in the name of the desired category.
-
-Since we won’t be adding our category in a package, we will add to the set of unpackaged categories listed at the top:
+In the root namespace, click on the add button, which looks like this: .
+This brings op an _Add Namespace_ menu item. If you click on that,
+you'll be asked to type in the name of the new namespace. Accepting
+that will add the namespace and take you back to an updated view of the root.
 
 ~~ Center
 content
