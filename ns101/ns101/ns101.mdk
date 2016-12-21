@@ -9,7 +9,9 @@ Logo          : True
 This document is a guide to using Newspeak in the prototype release running on top of Squeak. It acts as a tutorial for the IDE, and to a limited extent, for the Newspeak language as well.
 
 You can read this document sequentially, from start to finish, as a structured tutorial; or, you can just use the FAQ to quickly lead you to specific task oriented sections. If you want to read things in sequence, just begin at the beginning.
-Table of Contents/FAQ
+
+
+#Table of Contents/FAQ{-}
 
 [I just want Hello World!](#sec-i-just-want-hello-world)
 
@@ -41,7 +43,7 @@ Table of Contents/FAQ
 
 [What if evaluation raises an exception?](#sec-what-if-evaluation-raises-an-exception)
 
-[What if I want to get at the platform or IDE namespace from an inspector?]()
+[What if I want to get at the platform or IDE namespace from an inspector?](#sec-what-if-i-want-to-get-at-the-platform-or-ide-namespace-from-an-inspector)
 
 [How do I run the Newspeak debugger?](#sec-how-do-i-run-the-newspeak-debugger)
 
@@ -50,11 +52,10 @@ Table of Contents/FAQ
 [How do I edit the class header?](#sec-how-do-i-edit-the-class-header)
 
 
-[How do I edit the class comment?]()
-  
-[How do I create a new class?](#sec-how-do-i-create-a-new-class)
+[How do I edit the class comment?](#sec-how-do-i-edit-the-class-header)
 
-[How do I convert Smalltalk code to Newspeak?](#)
+
+[How do I create a new class?](#sec-how-do-i-create-a-new-class)
 
 [How do I add a method?](#sec-how-do-i-add-a-method)
 
@@ -131,7 +132,7 @@ At the top of the window, you’ll see a tool bar that looks like this:
 
 
 
-The rightmost icon, ![operateMenuIcon], denotes a drop down menu known as the operate menu. 
+The rightmost icon, ![operateMenuIcon], denotes a drop down menu known as the _operate menu_. 
 
 ~~ Center
 ![opMenu]
@@ -485,7 +486,7 @@ Each slot of the inspected object is listed in the inspector. It is prefixed by 
 
 #How do I evaluate code?{-; #sec-how-do-i-evaluate-code}
 
-The inspector has an interaction pane in which you can evaluate expressions in the context of the object. Type in an expression (3 + 4 in the example below) and select it. Then hit Ctrl-S (or cmd-S on a mac). A link to the result of the expression is added. You can expand it in place with the arrow icon, or link to it. You can also use the _Evaluate_ button on the right instead of Ctrl-S/cmd-S. 
+The inspector has an interaction pane in which you can evaluate expressions in the context of the object. Type in an expression (3 + 4 in the example below) and select it. Then hit Ctrl-S (or cmd-S on a mac). A link to the result of the expression is added. You can expand it in place with the arrow icon, or follow the link. You can also use the _Evaluate_ button on the right instead of Ctrl-S/cmd-S. 
 
 If you don’t make a selection explicitly, the current line will be evaluated. This is useful for short expressions. This design allows you to have multiple code snippets in an interaction pane and evaluate them as needed. After evaluation, the selection is highlighted so you can see what was evaluated
 
@@ -531,7 +532,7 @@ We can look at the exception in more detail by expanding the item _MessageNotUnd
 
 [blowup-2-9-14]: images/blowup-2-9-14.png "blowup-2-9-14" { width:auto; max-width:90% }
 
-If we want to debug this computation, we need to open a [debugger](#sec-debugging) on it.
+If we want to debug this computation, we need to open a [debugger](#sec-how-do-i-run-the-newspeak-debugger) on it.
 
 
 #What if I want to get at the platform or IDE namespace from an inspector?{-; #sec-what-if-i-want-to-get-at-the-platform-or-ide-namespace-from-an-inspector}
@@ -554,26 +555,27 @@ and get at the collections module of the platform, even if you forgot to import 
 You will encounter the debugger if an uncaught exception occurs during execution. If you evaluate an expression that results in an uncaught exception in a Hopscotch workspace or object inspector, the inspector will catch the exception, as described above. The text describing the exception also serves as a link that opens up a debugger page on the stack of the failed computation. Click on the link, to get a debugger in a new window. The debugger displays the call stack. 
 
 ~~ Center
-content
+![blowUp3]
 ~~
+
+[blowUp3]: images/blowUp3.png "blowUp3" { width:auto; max-width:90% }
 
 [blowup-3-9-14]: images/blowup-3-9-14.png "blowup-3-9-14" { width:auto; max-width:90% }
 
-Each activation frame is expandable to an activation presenter which allows you to see the method in question and the state of the frame.
-The debugger will mark the site of the active message send in blue.
+Each activation frame is expandable to an activation presenter which allows you to see the method in question and the state of the frame. You can see all this in the screenshot below, where we have two activations open - one for _**provokeBug:**_ and one for the code we evaluated in the workspace.  You'll notice that the Newspeak debugger is unusual in that it allows you to simultaneously view multiple frames, such as caller and callee.
 
 
-The method is shown on the left, and above it buttons that control stepping etc.
+~~ Center
+![blowup-3-9-14]
+~~
+
+The method is shown on the left, and above it buttons that control stepping etc. The debugger will mark the site of the active message send in blue.
 
 The frame state is shown on the right, and includes the receiver, any parameters and local slots, and the contents of the expression stack. Each of these is identified by name, and has a link to an inspector on the value next to it. These links are expandable in place via arrow icons.
 
 Near the top right hand corner of the activation presenter is an evaluator, where we can evaluate expressions in the context of the activation, just like in an object inspector. 
 
 Evaluating an expression produces a link to the result. To the right of that link will be another link, return it. If you click on it, the object in question will be returned as the result of the method, irrespective of its normal course of computation.
-
-~~ Center
-![blowup-3-9-14]
-~~
 
 You may use the method presenter on the left as you usually would; you may edit the method and save the changes for example. This will discard all activations above the edited method, and restart the method at its beginning.
 
@@ -587,7 +589,7 @@ In our case, we can see that the problem is that _**missing:with:**_ is not defi
 [blowup-4-9-14]: images/blowup-4-9-14.png "blowup-4-9-14" { width:auto; max-width:90% }
 
 
-If the activation involves the method _**doesNotUnderstand:**_, you will have an option to declare the missing method semi-automatically.  
+If the activation involves the method _**doesNotUnderstand:**_, the drop down menu at the right will have an option to declare the missing method semi-automatically.  
 
 
 ~~ Center
@@ -597,8 +599,6 @@ If the activation involves the method _**doesNotUnderstand:**_, you will have an
 
 [restartMethod-menu-9-14]: images/restartMethod-menu-9-14.png "restartMethod-menu-9-14" { width:auto; max-width:90% }
 
-
-**Er, this is broken because the implementation calls class, which is no longer public.**
 
 You will be transported to a class browser page for the class of the receiver, with an editor open on a new method with the appropriate name. The system will also guess types for the parameters based on the actual arguments that had been passed. 
 
@@ -632,7 +632,7 @@ You can create new workspaces by clicking the _plus_ button. Workspaces are iden
 [workspaces1]: images/workspaces1.PNG "workspaces1" { width:auto; max-width:90% }
 
 
-A workspace allows you to evaluate code and provides you with access to the IDE’s top level namespace.  The IDE namespace gives you access to all top level classes loaded into the IDE (both Newspeak classes and Squeak classes).  It also supports access to the Newspeak platform object via the name _**platform**_. In addition, you can use the name _**ide**_ to gain access to the IDE namespace itself.
+A workspace allows you to evaluate code and provides you with access to the IDE’s top level namespace.  The IDE namespace gives you access to all top level Newspeak classes loaded into the IDE.  It also supports access to the Newspeak platform object via the name _**platform**_. In addition, you can use the name _**ide**_ to gain access to the IDE namespace itself.
 
 Finally, workspaces provide direct access to all the modules the Newspeak platform provides; e.g., the collections module is available via the name _**collections**_, the streams module via the name _**streams**_ etc.
 
@@ -692,9 +692,7 @@ This concludes the sections dealing with browsing existing code. Now we consider
 
 Currently, classes are created within _namespaces_. 
 The IDE maintains a root namespace (called _Root_). Currently, the root namespace is
-only allowed to contain subnamespaces called _category namespaces_, or just  
-_categories_. Classes can be
-added to category namespaces. So the first step in creating a new top level class is
+only allowed to contain subnamespaces called _category namespaces_, or just  _categories_. Classes can be added to category namespaces. So the first step in creating a new top level class is
 finding an appropriate category. If you know the category you want to use, you can
 find it using the search bar, or you can go to the root namespace where you will see it listed.
 
@@ -712,10 +710,12 @@ content
 
 #How do I create a category namespace?{-; #sec-how-do-i-create-a-class-category}
 
-In the root namespace, click on the add button, which looks like this: .
+In the root namespace, click on the plus icon, which looks like this: 
+![plusIcon]. 
 This brings op an _Add Namespace_ menu item. If you click on that,
-you'll be asked to type in the name of the new namespace. Accepting
-that will add the namespace and take you back to an updated view of the root.
+you'll be asked to type in the name of the new namespace. 
+
+[plusIcon]: images/plusIcon.png "plusIcon" { width:auto; max-width:90% }
 
 ~~ Center
 content
@@ -741,7 +741,7 @@ the operation, click the red icon:
 ![confirmCancel]
 ~~
 
-Now we can go look at our category 
+Accepting  will add the namespace and take you back to an updated view of the root. We can then follow the link to look at our category :
 
 ~~ Center
 ![category1]
@@ -750,17 +750,13 @@ Now we can go look at our category
 [category1]: images/category1.PNG "category1" { width:auto; max-width:90% }
 
 
-At the moment, there are no classes in the category. Let’s add one, by clicking on the plus icon
+At the moment, there are no classes in the category. Let’s add one, by clicking on the plus icon, ![plusIcon].
 
 We will chose  _Add Class_
 
 ~~ Center
-content
+![addNamespace-item-menu3-17-2014]
 ~~
-<!-- begin merge (remove this line to resolve the conflict) -->
-~ Begin Remote
-You’ll see an editable pane with a template of a class header.
-~ End Remote
 
 You’ll see an editable pane with a template of a class header. We can edit this template with the details of the class we want to create.
 
@@ -772,7 +768,6 @@ You’ll see an editable pane with a template of a class header. We can edit thi
 
 
 [addClass1-3-17-2014]: images/addClass1-3-17-2014.png "addClass1-3-17-2014" { width:auto; max-width:90% }
-<!-- end merge -->
 
 
 
@@ -806,7 +801,8 @@ Click on the link to Hest. The view you see should look like this:
 
 
 
-Now let’s add a nested class, by clicking the plus icon next to the word Classes.
+Now let’s add a nested class, by clicking the plus icon, ![plusIcon], next to the word Classes.
+
 
 
 ~~ Center
@@ -844,7 +840,7 @@ Now we’ll add some methods.
 
 #How do I add a method?{-; #sec-how-do-i-add-a-method}
 
-Click the plus icon in the Methods section (or Class Methods section, if you want to add a class method). Then edit the displayed method template.
+Click the plus icon (![plusIcon]) in the Methods section (or Class Methods section, if you want to add a class method). Then edit the displayed method template.
 
 ~~ Center
 
@@ -927,7 +923,7 @@ MemoryHole shows you a list of repositories that are available to you. The first
 
 However, if there are already some Git or Mercurial repositories in the directory where you are running or in its parent directories, the IDE will find and list them for you.
 
-To add a new repository, click on the plus icon on the right hand side. This will initiate a dialog that will ask you for information needed to establish a connection to a Mercurial or Git repository. 
+To add a new repository, click on the add plus icon on the right hand side. This will initiate a dialog that will ask you for information needed to establish a connection to a Mercurial or Git repository. 
 
 ~~ Center
 
