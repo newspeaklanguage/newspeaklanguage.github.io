@@ -2059,7 +2059,7 @@ The main method’s purpose is to instantiate the various module definitions tha
 #Deploying a Newspeak Application as a NOF File{-; #sec-deploying-a-newspeak-application-as-a-nof-file}
 
 
-Notice the deploy link near the top right of the class presenter.  This link appears whenever a class defines a packageUsing: class method. Click on it, and you get a pop-up menu; choose as _NOF_.
+Notice the deploy link near the top right of the class presenter.  This link appears whenever a class defines a _**packageUsing:**_ class method. Click on it, and you get a pop-up menu; choose as _NOF_.
 
 ~~ Center
 
@@ -2100,7 +2100,7 @@ You’ll also note the presence of a menu bar. Again, this is due to the use of 
 
 Because the IDE isn’t part of the default deployment set up, any attempt to use elements of it would fail, unless we explicitly included by extracting them from the manifest parameter in _**packageUsing:**_ and inserting them into the application (as opposed to the Hopscotch framework, which we can obtain from the platform in _**main:args:**_)  
 
-Another consequence of this packaging is that if something goes wrong in our packaged application we won’t get a nice debugger. Instead, a file named error will be deposited in the working directory, with a textual stack trace.
+Another consequence of this packaging is that if something goes wrong in our packaged application we won’t get a nice debugger. Instead, a file named _error_ will be deposited in the working directory, with a textual stack trace.
 
 These options did not prove popular; they acted as a proof of concept for how one could deploy applications. To be genuinely useful, more engineering is needed: the produced executable should be much smaller (they hid the IDE rather than eliminating it) and should run natively on today’s popular platforms (web, mobile).  We hope to address these deficiencies and bring better deployment options in the future.
 
@@ -2117,7 +2117,7 @@ _ProgrammingPresenter = ide tools ProgrammingPresenter._
 
 You’ll see that _**ide**_ is highlighted in red.  We need to get access to the IDE to get hold of **ProgrammingPresenter**. So we’ll modify the factory of **BraveNewWorldExplorer** to take _**ide**_ as a parameter.
 
-_BraveNewWorldExplorer_ _**usingPlatform:**_ _platform ide: ide_
+_BraveNewWorldExplorer_ _**usingPlatform:**_ _platform_ _**ide:**_ _ide_
 
 Now we’ll add a menu. The menu won’t do anything you’d do in a regular application. Rather, it will do something cool, that isn’t easily done in a traditional IDE. 
 
@@ -2134,7 +2134,7 @@ The combinator _**menuWithLabelsAndActions:**_  takes a list as an argument. Eac
 
 
 _**respondToInspectPresenter**_ _= (_\
-	inspect: self _|
+&emsp;	_inspect: self _\
 )_
 
 
