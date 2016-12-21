@@ -1306,21 +1306,21 @@ If you know Smalltalk or Self, you’ll recognize the syntax. Otherwise, stay wi
 
 _**platform**_ is a parameter to the initializer. It’s declared in the line above:
 
-_HelloBraveNewWorld_ _**usingPlatform:**_ _platform_
+_**class**_ _HelloBraveNewWorld_ _**usingPlatform:**_ _platform_
 
 more on that in a bit. The parameter is an object that will represent the underlying platform we are running on. It is our link to the outside world.
 
-_**platform squeak**_ sends a message to _**platform**_. The message has no arguments - it consists solely of the identifier _**squeak**_. In mainstream syntax, this might have been written as 
+_platform squeak_ sends a message to _**platform**_. The message has no arguments - it consists solely of the identifier _**squeak**_. In mainstream syntax, this might have been written as 
 
 _platform.squeak()_
 
 In Newspeak, you don’t need the dot - just use whitespace. Likewise, you don’t need the empty parameter list in parentheses - if there are no parameters, you don’t write any.
 
-The message _**squeak**_ is a way of getting at things that are specific to the Squeak-based implementation. It returns an object that represent’s the namespace of the Squeak system. In our case, we are using it to get at Squeak’s “console”, **Transcript**.
+The message _squeak_ is a way of getting at things that are specific to the Squeak-based implementation. It returns an object that represent’s the namespace of the Squeak system. In our case, we are using it to get at Squeak’s “console”, **Transcript**.
 
-_**platform squeak Transcript**_  in turn sends  the message _**Transcript**_ to _**platform squeak**_.  The transcript is the standard output stream in most Smalltalk systems,  including Squeak. So now we have an output stream to write to. 
+_platform squeak Transcript_  in turn sends  the message _**Transcript**_ to _platform squeak_.  The transcript is the standard output stream in most Smalltalk systems,  including Squeak. So now we have an output stream to write to. 
 
-_**platform squeak Transcript open show: 'Hello, Oh Brave new world'**_
+_platform squeak Transcript open show: 'Hello, Oh Brave new world'_
 
 We’re sending the message open to the output stream we got from _**platform Transcript**_.   This will open a window to display the transcript stream, and return the stream. 
 
@@ -1431,7 +1431,7 @@ Next, we’ll define presenter and subject classes - **BraveNewWorldPresenter** 
 
 The definition of **BraveNewWorldSubject** should read:
 
-_**class**_ _BraveNewWorldSubject_ _**onModel:**_ _m <String> = Subject onModel: m ()()_
+_**class**_ _BraveNewWorldSubject_ _**onModel:**_ _m_ \<_String_\> _= Subject onModel: m ()()_
 
 A subject class typically has a factory method _**onModel:**_, which takes a model as an argument.
 
@@ -1441,7 +1441,7 @@ In this simple example, the model won’t matter because we won’t actually use
 
 Having established a subject, we can move on to the presenter. Define **BraveNewWorldPresenter** thus:
 
-_**class**_ _BraveNewWorldPresenter_ _**onSubject:**_ _s <Subject> = Presenter_ _**onSubject:**_ _s ()()_
+_**class**_ _BraveNewWorldPresenter_ _**onSubject:**_ _s_ \<_Subject_\> _= Presenter_ _**onSubject:**_ _s ()()_
 
 Now we can add some functionality to our presenter. The most important method [(here’s how to add a method)](#sec-how-do-i-add-a-method) in a presenter is _**definition**_, which defines what gets displayed. In our case, we will simply present the string _'Hello, Oh Brave new world'_. The Hopscotch library provides a set of basic operators, called combinators, that display information on the screen.  One of the simplest combinators is _**label:**_, which allows us to display a string.
 
@@ -1460,7 +1460,7 @@ The ^ sign in front of label: indicates that this is a return statement. This is
 
 At this stage, things are so simple that our subject class does almost nothing. It’s only function is to determine what kind of presenter to use, by means of its _**createPresenter**_ method. We don’t even need a model. So add this method to **BraveNewWorldSubject**:
 
-_**createPresenter ^ <Presenter>**_ _= (_\
+_**createPresenter**_ _^_ \<_Presenter_\> _= (_\
 &emsp;	_^BraveNewWorldPresenter onSubject: self_\
 _)_
 
@@ -1502,7 +1502,7 @@ Our next, and most substantial, example will require a few more language constru
 
 Until now, we’ve only seen messages that take zero or one arguments. This helped keep the presentation simple. However, the keyword syntax generalizes to multiple parameters. Consider the mathematical function _max(x,y)_. One could declare a method 
 
-_**max:**_ _x <Number>_ _**and:**_ _y <Number>  = (_\
+_**max:**_ _x_ \<_Number_\> _**and:**_ _y_ \<_Number_\>  _= (_ \
 &emsp;	_(\* some code *)_\
 _)_
 
@@ -1570,13 +1570,13 @@ _x > y ifTrue: [x] ifFalse: [y] (\* evaluates to x if x > y; y otherwise *)_
 
 As you can see, it takes two closures as arguments - one for the true branch and one for the false branch. If the receiver is true, it will invoke its first argument and return the result. If it is false, it will act similarly, but invoke the second argument.
 
-_**max:**_ _x <Number>_ _**and:**_ _y <Number>  = (_ \
+_**max:**_ _x_ \<_Number_\> _**and:**_ _y_ \<_Number_\>  _= (_ \
 &emsp;	_x > y ifTrue: [^x] ifFalse: [^y]_ \
 _)_
 
 The method above implements the mathematical function _max(x,y)_. It’s important to understand that a return statement always returns from the nearest enclosing method - _**max:and:**_ in this case - not the enclosing closure. The above behaves the same as
 
-_**max:**_ _x <Number>_ _**and:**_ _y <Number>  = (_ \
+_**max:**_ _x_ \<_Number_\> _**and:**_ _y_ \<_Number_\>  _= (_ \
 &emsp;	_^x > y ifTrue: [x] ifFalse: [y]_ \
 _)_
 
@@ -1633,15 +1633,15 @@ We’ll start by defining a new top level class called **BraveNewWorldExplorer**
 
 This time, we will need to have a model for **FileSubject**.  It will be a file name - a string that gives the fully qualified pathname for the file. Make sure the definition of **FileSubject** is as follows:
 
-_**class**_ _FileSubject_ _**onModel:**_ _m <String> = Subject onModel: m ()()_
+_**class**_ _FileSubject_ _**onModel:**_ _m_ \<_String_\> _= Subject onModel: m ()()_
 
 and that FilePresenter’s definition is:
 
-_**class**_ _FilePresenter_ _**onSubject:**_ _s <Subject> = Presenter onSubject: s ()()_
+_**class**_ _FilePresenter_ _**onSubject:**_ _s_ \<_Subject_\> _= Presenter onSubject: s ()()_
 
 We’ll add a very simple definition method to **FilePresenter**
 
-_**definition**_  _^ <Fragment> = (_\
+_**definition**_  _^_ \<_Fragment_\> _= (_\
 &emsp;	_^label: subject model_\
 _)_
 
@@ -1688,7 +1688,7 @@ Next, expand the _**subclassResponsibility**_ frame:
 Clicking on **FileSubject** will take us to **BraveNewWorldExplorer`FileSubject**.
 Add this method:
 
-_**createPresenter**_ _ ^ <Presenter> = (_\
+_**createPresenter**_ _ ^_ \<_Presenter_\> _= (_\
 &emsp;	_^FilePresenter onSubject: self_\
 _)_
 
@@ -1733,7 +1733,7 @@ It would be more useful if we could actually browse the structure of the _/Users
 
 We’ll need to be able to determine whether we’re looking at a directory or a simple file. So let’s add an _**isDirectory**_ method to _**FileSubject**_. 
 
-_**isDirectory**_ _^ <Boolean> = (_\
+_**isDirectory**_ _^_ \<_Boolean_\> _= (_\
 &emsp;	_^(FilePath for: fullFilePath) isDirectory_\
 _)_
 
@@ -1750,7 +1750,7 @@ This is an example of how the language forces you to keep all your external depe
 The highlighting of _**fullFilePath**_ isn’t spurious either; this isn’t an inherited method. We’ll define _**fullFilePath**_ as an alias of model. 
 
 
-_**fullFilePath**_ _^ <String> = (_\
+_**fullFilePath**_ _^_ \<_String_\> _= (_\
 &emsp; 	_^model_\
 _)_\
 
@@ -1758,7 +1758,7 @@ It’s clearer, and our presenter doesn’t need to know if we use the path name
 
 We’d rather not display full path names all the time, so let’s add
 
-_**localFileName**_ _^ <String> = (_\
+_**localFileName**_ _^_ \<_String_\> _= (_\
 &emsp;	_(\* Answer only the file name portion of the path name *)_\
 &emsp;	_^(FilePath for: fullFilePath) simpleName_\
 _)_
@@ -1767,7 +1767,7 @@ Note that **FilePath** isn’t red anymore.
 
 We also need a way of getting the contents of a directory. The code below will do this. 
 
-_**contents**_ _^ <Collection[FileSubject]> = (_\
+_**contents**_ _^_ \<_Collection[FileSubject]_\> _= (_\
 	_(\* Answer a collection of subjects on the receiver elements *)_\
 	_^isDirectory_\
 	&emsp;	_ifTrue:_\
@@ -1786,7 +1786,7 @@ The method begins by testing if the current file is a directory. Obviously, if i
 
 Now let’s refine our definition method as follows:
 
-_**definition**_ _^ <Fragment> = (_\
+_**definition**_ _^_ \<_Fragment_\> _= (_\
 &emsp;	_^subject isDirectory_\
 &emsp;&emsp;		_ifTrue: [directoryPresentation]_\
 &emsp;&emsp;		_ifFalse: [label: subject localFileName]_\
@@ -1794,7 +1794,7 @@ _)_
 
 We’ll also need to define _**directoryPresentation**_. 
 
-_**directoryPresentation**_ _^ <Fragment> = (_\
+_**directoryPresentation**_ _^_ \<_Fragment_\> _= (_\
 &emsp;	_^heading: (label: subject localFileName)_\
 &emsp;	  _details: [column: directoryContentsPresenters]_\
 _)_
@@ -1806,7 +1806,7 @@ Drilling down, the first argument is the result of a familiar call to _**label:*
 The closure must return a fragment. In our case, the body of the closure is an invocation of the column: combinator. As you’d expect, it constructs a vertical column, where the rows of the column are given by its argument, which is a list of fragments. The list in question is the result of _**directoryContentsPresenters**_, which we define as:
 
 
-_**directoryContentsPresenters**_ _^ <Collection[Presenter]> = (_\
+_**directoryContentsPresenters**_ _^_ \<_Collection[Presenter]_\> _= (_\
  &emsp;	_^(subject contents) collect: [:each | each presenter]_\
 _)_
 
@@ -1815,18 +1815,18 @@ this computes a presenter corresponding to each file in the directory. Presenter
 Finally, let’s do a small refactoring and add a method _**filePresentation**_ to **FilePresenter**, which we can then use in both _**directoryPresentation**_ and _**definition**_. 
 
 
-_**filePresentation**_ _^ <Fragment> = (_\
+_**filePresentation**_ _^_ \<_Fragment_\> _= (_\
 &emsp;	_^label: subject localFileName_\
 _)_
 
 
 
-_**directoryPresentation**_ _^ <Fragment> = (_\
+_**directoryPresentation**_ _^_ \<_Fragment_\> _= (_\
 &emsp;	_^heading: filePresentation_\
 &emsp;	  _details: [column: directoryContentsPresenters]_\
 _)_
 
-_**definition**_ _^ <Fragment> = (_\
+_**definition**_ _^_ \<_Fragment_\> _= (_\
 	_^subject isDirectory_\
 &emsp;		_ifTrue: [directoryPresentation]_\
 &emsp;		_ifFalse: [filePresentation]_\
@@ -1856,7 +1856,7 @@ We’re finally getting somewhere. If you click on the arrow, you can see the di
 
 To pretty things up, add this method to **FilePresenter**.
 
-_**bar:**_ _def <Fragment> ^ <Collection[Presenter]> = (_\
+_**bar:**_ _def_ \<_Fragment_\> _^_ \<_Collection[Presenter]_\> _= (_\
  &emsp;	_^(column: { _\
 &emsp;&emsp;		_blank: 2._\
 &emsp;&emsp;		_row: {_\
@@ -1872,7 +1872,7 @@ _)_
 and change _**directoryPresentation**_ as follows
 
 
-_**directoryPresentation**_ _^ <Fragment> = (_\
+_**directoryPresentation**_ _^_ \<_Fragment_\> _= (_\
 &emsp;	_^heading: (bar: filePresentation)_\
 &emsp;	  _details: [column: directoryContentsPresenters]_\
 _)_
@@ -1898,7 +1898,7 @@ This sort of thing isn’t specific to the GUI library, though it is an excellen
 
 Now let’s make yet another change to _**directoryPresentation**_.
 
-_**directoryPresentation**_ _^ <Fragment> = (_\
+_**directoryPresentation**_ _^_ \<_Fragment_\> _= (_\
 &emsp;	_^heading: (bar: (link: subject localFileName action: [openOnNewPage]))_\
 &emsp;	_details: [column: directoryContentsPresenters]_\
 _)_
@@ -1949,9 +1949,9 @@ It’s not that the links don’t work - it’s just that the directory is colla
 
 [app4-link-problem]: images/app4-link-problem.png "app4-link-problem" { width:auto; max-width:90% }
 
-_**class**_ _FileSubject_ _**onModel:**_ _m <String> = Subject onModel: m(_\
+_**class**_ _FileSubject_ _**onModel:**_ _m_ \<_String_\> _= Subject onModel: m(_\
 &emsp;_|_\
-	&emsp; _initiallyExpanded <Boolean>  ::= false._\
+	&emsp; _initiallyExpanded_ \<_Boolean_\>  _::= false._\
 &emsp;_|_\
 _)_
 
@@ -1964,7 +1964,7 @@ _**openOnNewPage**_ _= (_\
 _)_
 
 
-_**directoryPresentation**_ _^ <Fragment> = (_\
+_**directoryPresentation**_ _^_ \<_Fragment_\> _= (_\
 	&emsp; _^heading: (bar: (link: subject localFileName action:[openOnNewPage]))_\
 &emsp;&emsp;	_details: [column: directoryContentsPresenters]_\
 &emsp;&emsp;	_initiallyExpanded: subject initiallyExpanded_\
@@ -1993,14 +1993,14 @@ What you see will depend on what exact actions you took. The above might result 
 
 To address this, we can add an equality method to **FileSubject**. 
 
-_**=**_ _x \<Object> ^ <Boolean> = (_\
+_**=**_ _x_ \<_Object_\> _^_ \<_Boolean_\> _= (_\
 &emsp;	_^x class = class _\
 &emsp;&emsp;		_and:[x model = model and:[x initiallyExpanded = initiallyExpanded]]_ \
 _)_
 
 Of course, if we define an equality method, we need to define a hash
 
-_**hash**_ _^ <Integer> = (_\
+_**hash**_ _^_ \<_Integer_\> _= (_\
 &emsp;	_^class hash bitXor: model hash_\
 _)_
 
@@ -2018,7 +2018,7 @@ So now we have a reliable view of which directories we’ve visited, courtesy of
 
 One more detail: we can control the name the browser displays when presenting a directory by defining a title method in **FileSubject**.
 
-_**title**_ _^ <String> = (_\
+_**title**_ _^_ \<_String_\> _= (_\
 &emsp;	_^fullFilePath_\
 _)_
 
