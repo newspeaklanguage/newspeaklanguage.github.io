@@ -1322,9 +1322,9 @@ _platform squeak Transcript_  in turn sends  the message _**Transcript**_ to _pl
 
 _platform squeak Transcript open show: 'Hello, Oh Brave new world'_
 
-We’re sending the message open to the output stream we got from _**platform Transcript**_.   This will open a window to display the transcript stream, and return the stream. 
+We’re sending the message open to the output stream we got from _platform Transcript_.   This will open a window to display the transcript stream, and return the stream. 
 
-Finally, we send the stream the message _**show: 'Hello, Oh Brave new world'**_. This message includes the argument _**‘Hello, Oh Brave new world'**_, which is a string literal. The name (often called the message selector) of the message is _**show:**_.  So we’re asking the output stream to show a string - which was the entire purpose of the exercise. Because this code appears in the instance initializer, it will get executed whenever we create an instance of the class.
+Finally, we send the stream the message _show: 'Hello, Oh Brave new world'_. This message includes the argument _‘Hello, Oh Brave new world'_, which is a string literal. The name (often called the _message selector_) of the message is _**show:**_.  So we’re asking the output stream to show a string - which was the entire purpose of the exercise. Because this code appears in the instance initializer, it will get executed whenever we create an instance of the class.
 
 Again, it may help to see this in a more traditional syntax:
 
@@ -1417,7 +1417,7 @@ _**class**_ _HelloBraveNewWorld_ _**usingPlatform:**_ _platform = (_\
 _)_
 
  
-The message _**platform hopscotch**_ provides us with the platform’s built-in instance of **HopscotchFramework**. Sending it the message _**core**_ gets us a namespace object that holds core classes of the framework, such as **Subject** and **Presenter**.  
+The expression _platform hopscotch_ provides us with the platform’s built-in instance of **HopscotchFramework**. Sending it the message _**core**_ gets us a namespace object that holds core classes of the framework, such as **Subject** and **Presenter**.  
 
 Next, we’ll define presenter and subject classes - **BraveNewWorldPresenter** and **BraveNewWordSubject**, respectively, nested within the **HelloBraveNewWorld** class [(here’s how to declare a nested class)](#)).
 
@@ -1441,7 +1441,7 @@ In this simple example, the model won’t matter because we won’t actually use
 
 Having established a subject, we can move on to the presenter. Define **BraveNewWorldPresenter** thus:
 
-_**class**_ _BraveNewWorldPresenter_ _**onSubject:**_ _s_ \<_Subject_\> _= Presenter_ _**onSubject:**_ _s ()()_
+_**class**_ _BraveNewWorldPresenter_ _**onSubject:**_ _s_ \<_Subject_\> _= Presenter onSubject: s ()()_
 
 Now we can add some functionality to our presenter. The most important method [(here’s how to add a method)](#sec-how-do-i-add-a-method) in a presenter is _**definition**_, which defines what gets displayed. In our case, we will simply present the string _'Hello, Oh Brave new world'_. The Hopscotch library provides a set of basic operators, called combinators, that display information on the screen.  One of the simplest combinators is _**label:**_, which allows us to display a string.
 
@@ -1528,7 +1528,7 @@ _parser parse: 'printf(“max %d and %d”, ++p\*, --q\*\*[3]);' inContext: getP
 \ 
  _(\* parser.parse('printf("max %d and %d", ++p*, --q\*\*[3]);', getParserContext()) *)_
 
-This syntax may require some getting used to, but it grows on you. Trust me, you’ve dealt with much weirder syntax.  The keyword syntax lends itself to defining internal DSLs. Code like the _**Address  number: ... **_ example above is much more readable this way. Another advantage is that you can’t get the arity wrong.
+This syntax may require some getting used to, but it grows on you. Trust me, you’ve dealt with much weirder syntax.  The keyword syntax lends itself to defining internal DSLs. Code like the _Address  number: ... _ example above is much more readable this way. Another advantage is that you can’t get the arity wrong.
 
 ##Tuples{-; #sec-tuples}
 
@@ -1654,7 +1654,7 @@ We can now open a workspace and type in
 _hopscotch core HopscotchWindow openSubject:_ \
 &emsp; _((BraveNewWorldExplorer usingPlatform: platform) FileSubject onModel: 'C:/Users')_
 
-You may need to change the string _**'C:/Users'**_ if you aren’t running on a common Windows setup; replace it with a fully qualified path name that works on your system. 
+You may need to change the string _'C:/Users'_ if you aren’t running on a common Windows setup; replace it with a fully qualified path name that works on your system. 
 
 Unfortunately, evaluating this fails:
 
@@ -1914,7 +1914,7 @@ _**openOnNewPage**_ _= (_\
 _)_
 
 
-Look carefully at _**enterSubject::**_.  You’ll notice there is a double colon. This is not a typo. A single keyword message with an extra colon affixed to the selector has lower precedence, so we can avoid wrapping the argument in parentheses.
+Look carefully at _enterSubject::_.  You’ll notice there is a double colon. This is not a typo. A single keyword message with an extra colon affixed to the selector has lower precedence, so we can avoid wrapping the argument in parentheses.
 
 _**enterSubject:**_ is inherited by all presenters. It takes a subject and causes the Hopscotch browser to make it the current subject of presentation - consequently displaying its presenter. Here, we provide a new subject on the directory as an argument. 
 
@@ -2135,7 +2135,7 @@ The combinator _**menuWithLabelsAndActions:**_  takes a list as an argument. Eac
 
 _**respondToInspectPresenter**_ _= (_\
 &emsp;	_inspect: self _\
-)_
+_)_
 
 
 _**respondToShowImplementation**_ _= (_\
@@ -2144,7 +2144,7 @@ _)_
 
 and update _**directoryPresentation**_
 
-_**directoryPresentation**_ _^ <Fragment> = (_\
+_**directoryPresentation**_ _^_ \<_Fragment_\> _= (_\
 &emsp;	_^heading: _\
 &emsp;&emsp;		_(bar:_\
 &emsp;&emsp;&emsp;			 _(row: {_\
