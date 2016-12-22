@@ -1,4 +1,5 @@
 Title         : Newspeak on Squeak
+Subtitle: _**A Guide for the Perplexed**_
 Author        : Gilad Bracha, Peter Ahe, Vassili Bykov and Ryan Macnak
 Logo          : True
 
@@ -8,7 +9,8 @@ Logo          : True
 
 This document is a guide to using Newspeak in the prototype release running on top of Squeak. It acts as a tutorial for the IDE, and to a limited extent, for the Newspeak language as well.
 
-You can read this document sequentially, from start to finish, as a structured tutorial; or, you can just use the FAQ to quickly lead you to specific task oriented sections. If you want to read things in sequence, just begin at the beginning.
+You can read this document sequentially, from start to finish, as a structured tutorial; or, you can just use the FAQ to quickly lead you to specific task oriented sections. 
+If you want to read things in sequence, just [begin at the beginning](#sec-begin-at-the-beginning).
 
 
 #Table of Contents/FAQ{-}
@@ -1014,11 +1016,13 @@ Below are two banners side by side - one marked _Historian_ the other _Image_. T
 If you want to see the differences between the image and the repository, you can expand them. We can drill down from the changed top level class into methods and, recursively, into nested classes. 
 
 New classes and methods are shown on a green background.
+{background-color: green}
 
 Removed ones with a pink one. 
+{background-color: pink}
 
 Changed code is shown with yellow background.
-
+{background-color: yellow}
 
 Additions are highlighted in green and deletions in red. For example, in the screenshot below you can see that in class **KernelForSqueak**, the nested class **AbstractMixin** has had the method _**binding**_ added. There have been changes made to the nested class **KernelForSqueak`Class** which are not shown. And we see that in class **KernelForSqueak`InstanceMixin**, the method _**binding**_ was removed and several methods were modified.
 
@@ -1456,7 +1460,7 @@ The definition method declares its return type to be **Fragment**. Type annotati
 
 The ^ sign in front of label: indicates that this is a return statement. This is the traditional Smalltalk syntax; we might change it to _**return:**_ in a future version of the language, to make the syntax accessible to a larger population of programmers.
 
-##Why is label: red?{-; #sec-why-is-label--red}
+##Why is _label:_ [red]{color: red}?{-; #sec-why-is-label--red}
 
 At this stage, things are so simple that our subject class does almost nothing. It’s only function is to determine what kind of presenter to use, by means of its _**createPresenter**_ method. We don’t even need a model. So add this method to **BraveNewWorldSubject**:
 
@@ -1502,31 +1506,31 @@ Our next, and most substantial, example will require a few more language constru
 
 Until now, we’ve only seen messages that take zero or one arguments. This helped keep the presentation simple. However, the keyword syntax generalizes to multiple parameters. Consider the mathematical function _max(x,y)_. One could declare a method 
 
-_**max:**_ _x_ \<_Number_\> _**and:**_ _y_ \<_Number_\>  _= (_ \
-&emsp;	_(\* some code *)_\
+_**max:**_ _x_ [\<_Number_\>]{color: blue} _**and:**_ _y_ [\<_Number_\>]{color: blue}  _= (_ \
+&emsp;	[_(\* some code *)_]{color: blue}\
 _)_
 
 and invoke it like this:
 
-  _max: 3 and: 4 (\* just like max(3, 4) *)_
+  _max: 3 and: 4_ [_(\* just like max(3, 4) *)_ ]{color: blue}
 
 The idea is that the colons mark the positions of the arguments - sort of the way % marks data positions in a _printf_ string. The method’s name is _**max:and:**_, but when invoked, the arguments are interspersed within the name. The order of the keywords matters, so _**and:max:**_ is a different method altogether.
 
 In terms of precedence, binary expressions have higher precedence than keyword expressions, and unary expressions have higher precedence than binary ones:
 
-_min: 3 + 4 and: 3 factorial + 2 (\* evaluates to 7, just like min(3 + 4, 3.factorial() + 2) *)_
+_min: 3 + 4 and: 3 factorial + 2_ [_(\* evaluates to 7, just like min(3 + 4, 3.factorial() + 2) *)_]{color: blue}
 
 Some more examples
 
 _Address number: 1600 street: 'Pennsylvania Avenue' city: 'Washington' state: 'DC'  country: ‘USA’_\
-   _(\* Roughly like Address.new(1600, 'Pennsylvania Avenue', 'Washington', 'DC', 'USA') *)_
+   [_(\* Roughly like Address.new(1600, 'Pennsylvania Avenue', 'Washington', 'DC', 'USA') *)_]{color: blue}
 
 _min: (max: 3 and: 4) and: 3_ \
-_(\* evaluates to 3, just like min(max(3,4), 3)  *)_
+[_(\* evaluates to 3, just like min(max(3,4), 3)  *)_]{color: blue}
 
 _parser parse: 'printf(“max %d and %d”, ++p\*, --q\*\*[3]);' inContext: getParserContext_ \
 \ 
- _(\* parser.parse('printf("max %d and %d", ++p*, --q\*\*[3]);', getParserContext()) *)_
+ [_(\* parser.parse('printf("max %d and %d", ++p*, --q\*\*[3]);', getParserContext()) *)_]{color: blue}
 
 This syntax may require some getting used to, but it grows on you. Trust me, you’ve dealt with much weirder syntax.  The keyword syntax lends itself to defining internal DSLs. Code like the _Address  number: ... _ example above is much more readable this way. Another advantage is that you can’t get the arity wrong.
 
@@ -1543,17 +1547,17 @@ _[3 + 4]_
 
 The expression inside the closure, _3 + 4_, is not evaluated until the closure is invoked.  To invoke it, send the closure the message _**value**_, as in 
 
-_[3 + 4] value  (\* evaluates to 7 *)_
+_[3 + 4] value_  [_(\* evaluates to 7 *)_]{color: blue}
 
 The value returned by a closure is the value of its last statement. 
 
-_[3 + 4. 42] value  (\* evaluates to 42 *)_
+_[3 + 4. 42] value_  [_(\* evaluates to 42 *)_]{color: blue}
 
 A closure is of course, an object, like everything else in Newspeak. 
 
 Closures may have parameters.  This example has two: _**x**_ and _**y**_.
 
-_[:x :y | x + y] value: 3 value: 4  (\* evaluates to 7 *)_
+_[:x :y | x + y] value: 3 value: 4_  [_(\* evaluates to 7 *)_]{color: blue}
 
 A closure's parameters are identified by prefixing them with a colon. A vertical bar marks the end of the parameter list.  The closure is invoked using a _**value:**_ message whose arity matches that of the closure.
 
@@ -1566,17 +1570,17 @@ Newspeak has no built in control constructs - all operations are method invocati
 
 The most important example of this is the _**ifTrue:ifFalse:**_ method defined on boolean objects. 
 
-_x > y ifTrue: [x] ifFalse: [y] (\* evaluates to x if x > y; y otherwise *)_
+_x > y ifTrue: [x] ifFalse: [y]_ [_(\* evaluates to x if x > y; y otherwise *)_]{color: blue}
 
 As you can see, it takes two closures as arguments - one for the true branch and one for the false branch. If the receiver is true, it will invoke its first argument and return the result. If it is false, it will act similarly, but invoke the second argument.
 
-_**max:**_ _x_ \<_Number_\> _**and:**_ _y_ \<_Number_\>  _= (_ \
+_**max:**_ _x_ [\<_Number_\>]{color: blue} _**and:**_ _y_ [\<_Number_\>]{color: blue}  _= (_ \
 &emsp;	_x > y ifTrue: [^x] ifFalse: [^y]_ \
 _)_
 
 The method above implements the mathematical function _max(x,y)_. It’s important to understand that a return statement always returns from the nearest enclosing method - _**max:and:**_ in this case - not the enclosing closure. The above behaves the same as
 
-_**max:**_ _x_ \<_Number_\> _**and:**_ _y_ \<_Number_\>  _= (_ \
+_**max:**_ _x_ [\<_Number_\>]{color: blue} _**and:**_ _y_ [\<_Number_\>]{color: blue}  _= (_ \
 &emsp;	_^x > y ifTrue: [x] ifFalse: [y]_ \
 _)_
 
@@ -1633,19 +1637,19 @@ We’ll start by defining a new top level class called **BraveNewWorldExplorer**
 
 This time, we will need to have a model for **FileSubject**.  It will be a file name - a string that gives the fully qualified pathname for the file. Make sure the definition of **FileSubject** is as follows:
 
-_**class**_ _FileSubject_ _**onModel:**_ _m_ \<_String_\> _= Subject onModel: m ()()_
+_**class**_ _FileSubject_ _**onModel:**_ _m_ [\<_String_\>]{color: blue} _= Subject onModel: m ()()_
 
 and that FilePresenter’s definition is:
 
-_**class**_ _FilePresenter_ _**onSubject:**_ _s_ \<_Subject_\> _= Presenter onSubject: s ()()_
+_**class**_ _FilePresenter_ _**onSubject:**_ _s_ [\<_Subject_\>]{color: blue} _= Presenter onSubject: s ()()_
 
 We’ll add a very simple definition method to **FilePresenter**
 
-_**definition**_  _^_ \<_Fragment_\> _= (_\
+_**definition**_  _^_ [\<_Fragment_\>]{color: blue} _= (_\
 &emsp;	_^label: subject model_\
 _)_
 
-##Why are things red again?{-}
+##Why are things [red]{color: red} again?{-}
 
 As in the previous example, we’ve used the _**label:**_ method, which is inherited by all presenters.  
 
@@ -1688,7 +1692,7 @@ Next, expand the _**subclassResponsibility**_ frame:
 Clicking on **FileSubject** will take us to **BraveNewWorldExplorer`FileSubject**.
 Add this method:
 
-_**createPresenter**_ _ ^_ \<_Presenter_\> _= (_\
+_**createPresenter**_ [_ ^_ \<_Presenter_\>]{color: blue} _= (_\
 &emsp;	_^FilePresenter onSubject: self_\
 _)_
 
@@ -1733,7 +1737,7 @@ It would be more useful if we could actually browse the structure of the _/Users
 
 We’ll need to be able to determine whether we’re looking at a directory or a simple file. So let’s add an _**isDirectory**_ method to _**FileSubject**_. 
 
-_**isDirectory**_ _^_ \<_Boolean_\> _= (_\
+_**isDirectory**_ [_^_ \<_Boolean_\>]{color: blue} _= (_\
 &emsp;	_^(FilePath for: fullFilePath) isDirectory_\
 _)_
 
@@ -1750,7 +1754,7 @@ This is an example of how the language forces you to keep all your external depe
 The highlighting of _**fullFilePath**_ isn’t spurious either; this isn’t an inherited method. We’ll define _**fullFilePath**_ as an alias of model. 
 
 
-_**fullFilePath**_ _^_ \<_String_\> _= (_\
+_**fullFilePath**_ [_^_ \<_String_\>]{color: blue} _= (_\
 &emsp; 	_^model_\
 _)_\
 
@@ -1758,7 +1762,7 @@ It’s clearer, and our presenter doesn’t need to know if we use the path name
 
 We’d rather not display full path names all the time, so let’s add
 
-_**localFileName**_ _^_ \<_String_\> _= (_\
+_**localFileName**_ [_^_ \<_String_\>]{color: blue} _= (_\
 &emsp;	_(\* Answer only the file name portion of the path name *)_\
 &emsp;	_^(FilePath for: fullFilePath) simpleName_\
 _)_
@@ -1767,7 +1771,7 @@ Note that **FilePath** isn’t red anymore.
 
 We also need a way of getting the contents of a directory. The code below will do this. 
 
-_**contents**_ _^_ \<_Collection[FileSubject]_\> _= (_\
+_**contents**_ [_^_ \<_Collection[FileSubject]_\>]{color: blue} _= (_\
 	_(\* Answer a collection of subjects on the receiver elements *)_\
 	_^isDirectory_\
 	&emsp;	_ifTrue:_\
@@ -1786,7 +1790,7 @@ The method begins by testing if the current file is a directory. Obviously, if i
 
 Now let’s refine our definition method as follows:
 
-_**definition**_ _^_ \<_Fragment_\> _= (_\
+_**definition**_ [_^_ \<_Fragment_\>]{color: blue} _= (_\
 &emsp;	_^subject isDirectory_\
 &emsp;&emsp;		_ifTrue: [directoryPresentation]_\
 &emsp;&emsp;		_ifFalse: [label: subject localFileName]_\
@@ -1794,7 +1798,7 @@ _)_
 
 We’ll also need to define _**directoryPresentation**_. 
 
-_**directoryPresentation**_ _^_ \<_Fragment_\> _= (_\
+_**directoryPresentation**_ [_^_ \<_Fragment_\>]{color: blue} _= (_\
 &emsp;	_^heading: (label: subject localFileName)_\
 &emsp;	  _details: [column: directoryContentsPresenters]_\
 _)_
@@ -1806,7 +1810,7 @@ Drilling down, the first argument is the result of a familiar call to _**label:*
 The closure must return a fragment. In our case, the body of the closure is an invocation of the column: combinator. As you’d expect, it constructs a vertical column, where the rows of the column are given by its argument, which is a list of fragments. The list in question is the result of _**directoryContentsPresenters**_, which we define as:
 
 
-_**directoryContentsPresenters**_ _^_ \<_Collection[Presenter]_\> _= (_\
+_**directoryContentsPresenters**_ [_^_ \<_Collection[Presenter]_\>]{color: blue} _= (_\
  &emsp;	_^(subject contents) collect: [:each | each presenter]_\
 _)_
 
@@ -1815,18 +1819,18 @@ this computes a presenter corresponding to each file in the directory. Presenter
 Finally, let’s do a small refactoring and add a method _**filePresentation**_ to **FilePresenter**, which we can then use in both _**directoryPresentation**_ and _**definition**_. 
 
 
-_**filePresentation**_ _^_ \<_Fragment_\> _= (_\
+_**filePresentation**_ [_^_ \<_Fragment_\>]{color: blue} _= (_\
 &emsp;	_^label: subject localFileName_\
 _)_
 
 
 
-_**directoryPresentation**_ _^_ \<_Fragment_\> _= (_\
+_**directoryPresentation**_ [_^_ \<_Fragment_\>]{color: blue} _= (_\
 &emsp;	_^heading: filePresentation_\
 &emsp;	  _details: [column: directoryContentsPresenters]_\
 _)_
 
-_**definition**_ _^_ \<_Fragment_\> _= (_\
+_**definition**_ [_^_ \<_Fragment_\>]{color: blue} _= (_\
 	_^subject isDirectory_\
 &emsp;		_ifTrue: [directoryPresentation]_\
 &emsp;		_ifFalse: [filePresentation]_\
@@ -1856,7 +1860,7 @@ We’re finally getting somewhere. If you click on the arrow, you can see the di
 
 To pretty things up, add this method to **FilePresenter**.
 
-_**bar:**_ _def_ \<_Fragment_\> _^_ \<_Collection[Presenter]_\> _= (_\
+_**bar:**_ _def_ [\<_Fragment_\> _^_ \<_Collection[Presenter]_\>]{color: blue} _= (_\
  &emsp;	_^(column: { _\
 &emsp;&emsp;		_blank: 2._\
 &emsp;&emsp;		_row: {_\
@@ -1872,7 +1876,7 @@ _)_
 and change _**directoryPresentation**_ as follows
 
 
-_**directoryPresentation**_ _^_ \<_Fragment_\> _= (_\
+_**directoryPresentation**_ [_^_ \<_Fragment_\>]{color: blue} _= (_\
 &emsp;	_^heading: (bar: filePresentation)_\
 &emsp;	  _details: [column: directoryContentsPresenters]_\
 _)_
@@ -1898,7 +1902,7 @@ This sort of thing isn’t specific to the GUI library, though it is an excellen
 
 Now let’s make yet another change to _**directoryPresentation**_.
 
-_**directoryPresentation**_ _^_ \<_Fragment_\> _= (_\
+_**directoryPresentation**_ [_^_ \<_Fragment_\>]{color: blue} _= (_\
 &emsp;	_^heading: (bar: (link: subject localFileName action: [openOnNewPage]))_\
 &emsp;	_details: [column: directoryContentsPresenters]_\
 _)_
@@ -1949,9 +1953,9 @@ It’s not that the links don’t work - it’s just that the directory is colla
 
 [app4-link-problem]: images/app4-link-problem.png "app4-link-problem" { width:auto; max-width:90% }
 
-_**class**_ _FileSubject_ _**onModel:**_ _m_ \<_String_\> _= Subject onModel: m(_\
+_**class**_ _FileSubject_ _**onModel:**_ _m_ [\<_String_\>]{color: blue} _= Subject onModel: m(_\
 &emsp;_|_\
-	&emsp; _initiallyExpanded_ \<_Boolean_\>  _::= false._\
+	&emsp; _initiallyExpanded_ [\<_Boolean_\>]{color: blue}  _::= false._\
 &emsp;_|_\
 _)_
 
@@ -1964,7 +1968,7 @@ _**openOnNewPage**_ _= (_\
 _)_
 
 
-_**directoryPresentation**_ _^_ \<_Fragment_\> _= (_\
+_**directoryPresentation**_ [_^_ \<_Fragment_\>]{color: blue} _= (_\
 	&emsp; _^heading: (bar: (link: subject localFileName action:[openOnNewPage]))_\
 &emsp;&emsp;	_details: [column: directoryContentsPresenters]_\
 &emsp;&emsp;	_initiallyExpanded: subject initiallyExpanded_\
@@ -1993,14 +1997,14 @@ What you see will depend on what exact actions you took. The above might result 
 
 To address this, we can add an equality method to **FileSubject**. 
 
-_**=**_ _x_ \<_Object_\> _^_ \<_Boolean_\> _= (_\
+_**=**_ _x_ [\<_Object_\> _^_ \<_Boolean_\>]{color: blue} _= (_\
 &emsp;	_^x class = class _\
 &emsp;&emsp;		_and:[x model = model and:[x initiallyExpanded = initiallyExpanded]]_ \
 _)_
 
 Of course, if we define an equality method, we need to define a hash
 
-_**hash**_ _^_ \<_Integer_\> _= (_\
+_**hash**_ [_^_ \<_Integer_\>]{color: blue} _= (_\
 &emsp;	_^class hash bitXor: model hash_\
 _)_
 
@@ -2018,7 +2022,7 @@ So now we have a reliable view of which directories we’ve visited, courtesy of
 
 One more detail: we can control the name the browser displays when presenting a directory by defining a title method in **FileSubject**.
 
-_**title**_ _^_ \<_String_\> _= (_\
+_**title**_ [_^_ \<_String_\>]{color: blue} _= (_\
 &emsp;	_^fullFilePath_\
 _)_
 
@@ -2144,7 +2148,7 @@ _)_
 
 and update _**directoryPresentation**_
 
-_**directoryPresentation**_ _^_ \<_Fragment_\> _= (_\
+_**directoryPresentation**_ [_^_ \<_Fragment_\>]{color: blue} _= (_\
 &emsp;	_^heading: _\
 &emsp;&emsp;		_(bar:_\
 &emsp;&emsp;&emsp;			 _(row: {_\
