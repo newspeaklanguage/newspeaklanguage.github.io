@@ -1814,7 +1814,7 @@ It’s clearer, and our presenter doesn’t need to know if we use the path name
 
 We’d rather not display full path names all the time, so let’s add
 
-_**localFileName**_ [_^_ \<_String_\>]{color: blue} _= (_\
+_**public localFileName**_ [_^_ \<_String_\>]{color: blue} _= (_\
 &emsp;	[_(\* Answer only the file name portion of the path name *)_]{color: blue}\
 &emsp;	_^(FilePath for: fullFilePath) simpleName_\
 _)_
