@@ -1423,6 +1423,16 @@ _)_
  
 The expression _platform hopscotch_ provides us with the platform’s built-in instance of **HopscotchFramework**. Sending it the message _**core**_ gets us a namespace object that holds core classes of the framework, such as **Subject** and **Presenter**.  
 
+**Coding note:** As we become more sophisticated, we start to pay attention to pesky details like access control.
+We've declared our imports _**private**_, which means they are only accessible within
+the lexical scope of the class that declares them. This is appropriate for imports, because
+what the external dependencies of a module are should not impact any other declaration.
+
+All methods, classes and slots are by default
+_**protected**_, which means that they can be accessed by the object itself, but not from the outside.
+This is different form _**private**_, because code in subclasses can access _**protected**_ members,
+but not _**private**_ ones.
+
 Next, we’ll define presenter and subject classes - **BraveNewWorldPresenter** and **BraveNewWordSubject**, respectively, nested within the **HelloBraveNewWorld** class [(here’s how to declare a nested class)](#)).
 
 ~~ Center
@@ -1435,7 +1445,7 @@ Next, we’ll define presenter and subject classes - **BraveNewWorldPresenter** 
 
 The definition of **BraveNewWorldSubject** should read:
 
-_**class**_ _BraveNewWorldSubject_ _**onModel:**_ _m = Subject onModel: m ()()_
+_**public class**_ _BraveNewWorldSubject_ _**onModel:**_ _m = Subject onModel: m ()()_
 
 A subject class typically has a factory method _**onModel:**_, which takes a model as an argument.
 
@@ -1443,15 +1453,23 @@ Each class declaration determines what arguments are to be passed to the factory
 
 In this simple example, the model won’t matter because we won’t actually use it - but that is highly unusual.
 
+It is crucial that the subject class be declared _**public**_, because we will be referring to it from outside
+the  _**HelloBraveNewWorld**_ object, as we'll soon see.  
+
 Having established a subject, we can move on to the presenter. Define **BraveNewWorldPresenter** thus:
 
 _**class**_ _BraveNewWorldPresenter_ _**onSubject:**_ _s_ [\<_Subject_\>]{color: blue} _= Presenter onSubject: s ()()_
 
 
-Note that this declares the type of _**s**_ to be [_Subject_]{color: blue}. 
+**Yet Another Coding Note:** that this declares the type of _**s**_ to be [_Subject_]{color: blue}. 
 Type annotations are displayed in [blue]{color: blue}, and types are delimited with angle brackets. 
 If you dislike types, relax; they are strictly optional. 
 
+**And Another:** The presenter need not be public. One doesn't usually name a presenter class
+from outside the enclosing class. The framework obtains an instance of it by asking the subject
+for its presenter via _**createPresenter**_, so that method needs to be public, but not the
+presenter class itself. If _**createPresenter**_ wasn't public, we'd get a _**MessageNotUnderstood**_
+exception, just as if it had not been completely missing.
 
 Now we can add some functionality to our presenter. The most important method [(here’s how to add a method)](#sec-how-do-i-add-a-method) in a presenter is _**definition**_, which defines what gets displayed. In our case, we will simply present the string _'Hello, Oh Brave new world'_. The Hopscotch library provides a set of basic operators, called combinators, that display information on the screen.  One of the simplest combinators is _**label:**_, which allows us to display a string.
 
@@ -1462,8 +1480,11 @@ Now we can add some functionality to our presenter. The most important method [(
 [braveNewWorldPresenter-1-9-14]: images/braveNewWorldPresenter-1-9-14.png "braveNewWorldPresenter-1-9-14" { width:auto; max-width:90% }
 
 The _**label:**_ combinator constructs a _fragment_ from a string. 
-Fragments are the basic elements of display. The _^_ sign in front of _label:_ indicates that this is a return statement. This is the traditional Smalltalk syntax; we might change it to _**return:**_ in a future version of the language, to make the syntax accessible to a larger population of programmers.
+Fragments are the basic elements of display. 
 
+**Code Notes:**  The _^_ sign in front of _label:_ indicates that this is a return statement. This is the traditional Smalltalk syntax; we might change it to _**return:**_ in a future version of the language, to make the syntax accessible to a larger population of programmers.
+Also, notice that _**definition**_ is also declared public, because the framework code will
+be calling it to compute what needs to be displayed.
 
 ###Why is _label:_ [red]{color: red}?{-; #sec-why-is-label--red}
 
@@ -1471,7 +1492,7 @@ It's a [suspect implicit message](#sec-why-is-some-code-highlighted-in-red).
 
 At this stage, things are so simple that our subject class does almost nothing. It’s only function is to determine what kind of presenter to use, by means of its _**createPresenter**_ method. We don’t even need a model. So add this method to **BraveNewWorldSubject**:
 
-_**createPresenter**_ [_^_ \<_Presenter_\>]{color: blue} _= (_\
+_**public createPresenter**_ [_^_ \<_Presenter_\>]{color: blue} _= (_\
 &emsp;	_^BraveNewWorldPresenter onSubject: self_\
 _)_
 
@@ -1647,7 +1668,7 @@ We’ll start by defining a new top level class called **BraveNewWorldExplorer**
 
 This time, we will need to have a model for **FileSubject**.  It will be a file name - a string that gives the fully qualified pathname for the file. Make sure the definition of **FileSubject** is as follows:
 
-_**class**_ _FileSubject_ _**onModel:**_ _m_ [\<_String_\>]{color: blue} _= Subject onModel: m ()()_
+_**public class**_ _FileSubject_ _**onModel:**_ _m_ [\<_String_\>]{color: blue} _= Subject onModel: m ()()_
 
 and that FilePresenter’s definition is:
 
@@ -1655,7 +1676,7 @@ _**class**_ _FilePresenter_ _**onSubject:**_ _s_ [\<_Subject_\>]{color: blue} _=
 
 We’ll add a very simple definition method to **FilePresenter**
 
-_**definition**_  _^_ [\<_Fragment_\>]{color: blue} _= (_\
+_**public definition**_  _^_ [\<_Fragment_\>]{color: blue} _= (_\
 &emsp;	_^label: subject model_\
 _)_
 
@@ -1702,7 +1723,7 @@ Next, expand the _**subclassResponsibility**_ frame:
 Clicking on **FileSubject** will take us to **BraveNewWorldExplorer`FileSubject**.
 Add this method:
 
-_**createPresenter**_ [_ ^_ \<_Presenter_\>]{color: blue} _= (_\
+_**public createPresenter**_ [_ ^_ \<_Presenter_\>]{color: blue} _= (_\
 &emsp;	_^FilePresenter onSubject: self_\
 _)_
 
@@ -1756,7 +1777,7 @@ The code above shows how this is done using the Newspeak libraries. A **FilePath
 
 We need to import **FilePath** into the **BraveNewWorldExplorer** class, like so:
 
-_FilePath = platform files FilePath._
+_**private**_ _FilePath = platform files FilePath._
 
 
 This is an example of how the language forces you to keep all your external dependencies explicit. 
@@ -1800,7 +1821,7 @@ The method begins by testing if the current file is a directory. Obviously, if i
 
 Now let’s refine our definition method as follows:
 
-_**definition**_ [_^_ \<_Fragment_\>]{color: blue} _= (_\
+_**public definition**_ [_^_ \<_Fragment_\>]{color: blue} _= (_\
 &emsp;	_^subject isDirectory_\
 &emsp;&emsp;		_ifTrue: [directoryPresentation]_\
 &emsp;&emsp;		_ifFalse: [label: subject localFileName]_\
@@ -1840,7 +1861,7 @@ _**directoryPresentation**_ [_^_ \<_Fragment_\>]{color: blue} _= (_\
 &emsp;	  _details: [column: directoryContentsPresenters]_\
 _)_
 
-_**definition**_ [_^_ \<_Fragment_\>]{color: blue} _= (_\
+_**public definition**_ [_^_ \<_Fragment_\>]{color: blue} _= (_\
 	_^subject isDirectory_\
 &emsp;		_ifTrue: [directoryPresentation]_\
 &emsp;		_ifFalse: [filePresentation]_\
@@ -1893,7 +1914,7 @@ _)_
 
 You’ll need to import **Color** thusly
 
-_Color = platform graphics Color._
+_**private**_ _Color = platform graphics Color._
 
 
 Now re-evaluate the code in the workspace. 
@@ -1963,7 +1984,7 @@ It’s not that the links don’t work - it’s just that the directory is colla
 
 [app4-link-problem]: images/app4-link-problem.png "app4-link-problem" { width:auto; max-width:90% }
 
-_**class**_ _FileSubject_ _**onModel:**_ _m_ [\<_String_\>]{color: blue} _= Subject onModel: m(_\
+_**public class**_ _FileSubject_ _**onModel:**_ _m_ [\<_String_\>]{color: blue} _= Subject onModel: m(_\
 &emsp;_|_\
 	&emsp; _initiallyExpanded_ [\<_Boolean_\>]{color: blue}  _::= false._\
 &emsp;_|_\
@@ -2007,7 +2028,7 @@ What you see will depend on what exact actions you took. The above might result 
 
 To address this, we can add an equality method to **FileSubject**. 
 
-_**=**_ _x_ [_^_ \<_Boolean_\>]{color: blue} _= (_\
+_**public =**_ _x_ [_^_ \<_Boolean_\>]{color: blue} _= (_\
 &emsp;	_^x isKindOfFileSubject _\
 &emsp;&emsp;		_and:[x model = model and:[x initiallyExpanded = initiallyExpanded]]_ \
 _)_
@@ -2017,13 +2038,13 @@ in response to a message of the form _isKindOfX_.
 Only instances of _**FileSubject**_ should return _**true**_. To ensure that, we'll also
 add this method to _**FileSubject**_. 
 
-_**isKindOfFileSubject**_ [_^_ \<_Boolean_\>]{color: blue} _= (_\
+_**public isKindOfFileSubject**_ [_^_ \<_Boolean_\>]{color: blue} _= (_\
 &emsp;	_^_ _**true**_\
 _)_
 
 Of course, if we define an equality method, we need to define a hash
 
-_**hash**_ [_^_ \<_Integer_\>]{color: blue} _= (_\
+_**public hash**_ [_^_ \<_Integer_\>]{color: blue} _= (_\
 &emsp;	_^class hash bitXor: model hash_\
 _)_
 
@@ -2041,7 +2062,7 @@ So now we have a reliable view of which directories we’ve visited, courtesy of
 
 One more detail: we can control the name the browser displays when presenting a directory by defining a title method in **FileSubject**.
 
-_**title**_ [_^_ \<_String_\>]{color: blue} _= (_\
+_**public title**_ [_^_ \<_String_\>]{color: blue} _= (_\
 &emsp;	_^fullFilePath_\
 _)_
 
