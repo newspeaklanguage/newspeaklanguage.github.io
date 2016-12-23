@@ -1,0 +1,48 @@
+Newspeak3'NS101'class BraveNewWorldExplorer usingPlatform: platform = ((* A trivial file browser app *)|	private Presenter = platform hopscotch core Presenter.	private Subject = platform hopscotch core Subject.	private FileDirectory = platform files FileDirectory.	private List = platform collections List.	private Color = platform graphics Color.|) (class FilePresenter onSubject: s <Subject>= Presenter onSubject: s () ('as yet unclassified'bar: def = (
+	^(column: {
+		blank: 2.
+		row: {
+			blank: 4.
+			elastic: def.
+			blank: 4.
+			}.
+		blank: 2
+		}
+	) color: (Color gray: 0.9)
+)public definition ^ <Fragment> = (^subject isDirectory	ifTrue: [directoryPresentation]	ifFalse: [label: subject localFileName])directoryContentsPresenters ^ <Collection[Presenter]>  = (
+	^(subject contents) collect: [:each | each presenter]
+)directoryPresentation ^ <Fragment> = (
+	^heading:(
+		bar:(link: subject localFileName action:[openOnNewPage])
+		)
+	details: [column: directoryContentsPresenters]
+	initiallyExpanded: subject initiallyExpanded
+)filePresentation ^ <Fragment> = (
+	^label: subject localFileName
+)openOnNewPage = (
+	enterSubject:: (subject class onModel: subject model) initiallyExpanded: true
+)) : ()public class FileSubject onModel: m <String> = Subject onModel: m (|	public initiallyExpanded <Boolean>  ::= false.|) ('as yet unclassified'public =  x <Object> ^ <Boolean> = (	^x isKindOfFileSubject and: [model = x model and:[initiallyExpanded = x initiallyExpanded]])contents ^<OrderedCollection[FileSubject]> = (
+	(* Answer a collection of subjects on the receiver elements *)
+	^isDirectory
+		ifTrue:  
+			[ | thisDirectory |
+			thisDirectory:: FileDirectory on: fullFilePath.
+			(groupAndSortEntryNames: thisDirectory entries) collect:
+				[:each | FileSubject onModel: (thisDirectory / each) pathName]]
+		ifFalse: [OrderedCollection new]
+)public createPresenter ^ <Presenter> = (	^FilePresenter new subject: self)fullFilePath ^<String> = (
+	(* A more descriptive model accessor.*)
+	^model
+)groupAndSortEntryNames: entries = (
+	| grouped |
+	grouped: (entries reject: [:some | some at: 4])
+		,(entries select: [:some | some at: 4]).
+	^grouped collect: [:each | each at: 1]
+)public hash ^ <Integer> = (	^class hash bitXor: model hash)isDirectory = (
+	^(FileDirectory on: fullFilePath) exists
+)public isKindOfFileSubject ^ <Boolean> = (	^true)localFileName ^<String> = (
+	(* Answer only the file name portion of the file name. *)
+	FileDirectory splitName: model to:
+		[:path :nm | ^nm].
+	^String new
+)public title ^ <String> = (	^fullFilePath)) : ()) : ()

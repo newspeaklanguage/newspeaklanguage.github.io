@@ -1,0 +1,3 @@
+Newspeak3'NS101'class BraveNewWorldExplorerApp fileBrowserClass: fb <BraveNewWorldExplorer> = NewspeakObject ((* File browser application.*)|	private BraveNewWorldExplorer = fb.|) ('as yet unclassified'public main: platform args: as = (	| fn <String> |	fn:: as at: 1 ifAbsent: [ 'C:/Users'].	platform hopscotch core HopscotchWindow 		openSubject: ((BraveNewWorldExplorer usingPlatform: platform) FileSubject 							onModel: fn					))) : ('as yet unclassified'packageUsing: ideNamespace = (
+	^fileBrowserClass: ideNamespace BraveNewWorldExplorer
+))
