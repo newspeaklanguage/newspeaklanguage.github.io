@@ -343,7 +343,7 @@ The open circle opens up all of the methods listed below. The dot icon does the 
 
 [methodButtons]: images/methodButtons.png "methodButtons" { width:auto; max-width:90% }
 
-#Why is some code highlighted in red?{-; #sec-why-is-some-code-highlighted-in-red}
+#Why is some code highlighted in [red]{color: red}?{-; #sec-why-is-some-code-highlighted-in-red}
 
 There are two possible reasons: _suspect implicit messages_ or _syntax errors_.
 
@@ -1415,8 +1415,8 @@ Let’s change the header so that it imports these two classes
 _**class**_ _HelloBraveNewWorld_ _**usingPlatform:**_ _platform = (_\
 &emsp; _|_  
 \ 
-&emsp;_Presenter  = platform hopscotch core Presenter._\
-&emsp; _Subject  = platform hopscotch core Subject._\
+&emsp; _**private**_ _Presenter  = platform hopscotch core Presenter._\
+&emsp;  _**private**_ _Subject  = platform hopscotch core Subject._\
 &emsp; _|_\
 _)_
 
@@ -1435,7 +1435,7 @@ Next, we’ll define presenter and subject classes - **BraveNewWorldPresenter** 
 
 The definition of **BraveNewWorldSubject** should read:
 
-_**class**_ _BraveNewWorldSubject_ _**onModel:**_ _m_ \<_String_\> _= Subject onModel: m ()()_
+_**class**_ _BraveNewWorldSubject_ _**onModel:**_ _m = Subject onModel: m ()()_
 
 A subject class typically has a factory method _**onModel:**_, which takes a model as an argument.
 
@@ -1445,7 +1445,13 @@ In this simple example, the model won’t matter because we won’t actually use
 
 Having established a subject, we can move on to the presenter. Define **BraveNewWorldPresenter** thus:
 
-_**class**_ _BraveNewWorldPresenter_ _**onSubject:**_ _s_ \<_Subject_\> _= Presenter onSubject: s ()()_
+_**class**_ _BraveNewWorldPresenter_ _**onSubject:**_ _s_ [\<_Subject_\>]{color: blue} _= Presenter onSubject: s ()()_
+
+
+Note that this declares the type of _**s**_ to be [_Subject_]{color: blue}. 
+Type annotations are displayed in [blue]{color: blue}, and types are delimited with angle brackets. 
+If you dislike types, relax; they are strictly optional. 
+
 
 Now we can add some functionality to our presenter. The most important method [(here’s how to add a method)](#sec-how-do-i-add-a-method) in a presenter is _**definition**_, which defines what gets displayed. In our case, we will simply present the string _'Hello, Oh Brave new world'_. The Hopscotch library provides a set of basic operators, called combinators, that display information on the screen.  One of the simplest combinators is _**label:**_, which allows us to display a string.
 
@@ -1455,18 +1461,22 @@ Now we can add some functionality to our presenter. The most important method [(
 
 [braveNewWorldPresenter-1-9-14]: images/braveNewWorldPresenter-1-9-14.png "braveNewWorldPresenter-1-9-14" { width:auto; max-width:90% }
 
+The _**label:**_ combinator constructs a _fragment_ from a string. 
+Fragments are the basic elements of display. The _^_ sign in front of _label:_ indicates that this is a return statement. This is the traditional Smalltalk syntax; we might change it to _**return:**_ in a future version of the language, to make the syntax accessible to a larger population of programmers.
 
-The definition method declares its return type to be **Fragment**. Type annotations are displayed in blue, and types are delimited with angle brackets. If you dislike types, relax; they are strictly optional. Fragments are the basic elements of display. The _**label:**_ combinator constructs a fragment from a string.
 
-The ^ sign in front of label: indicates that this is a return statement. This is the traditional Smalltalk syntax; we might change it to _**return:**_ in a future version of the language, to make the syntax accessible to a larger population of programmers.
+###Why is _label:_ [red]{color: red}?{-; #sec-why-is-label--red}
 
-##Why is _label:_ [red]{color: red}?{-; #sec-why-is-label--red}
+It's a [suspect implicit message](#sec-why-is-some-code-highlighted-in-red). 
 
 At this stage, things are so simple that our subject class does almost nothing. It’s only function is to determine what kind of presenter to use, by means of its _**createPresenter**_ method. We don’t even need a model. So add this method to **BraveNewWorldSubject**:
 
-_**createPresenter**_ _^_ \<_Presenter_\> _= (_\
+_**createPresenter**_ [_^_ \<_Presenter_\>]{color: blue} _= (_\
 &emsp;	_^BraveNewWorldPresenter onSubject: self_\
 _)_
+
+Note that we're declaring a return type for _**createPresenter**_ here, 
+which is why we preface the type with a [_^_]{color: blue}.
 
 This is enough to actually open a window. In a workspace, evaluate 
 
@@ -1506,7 +1516,7 @@ Our next, and most substantial, example will require a few more language constru
 
 Until now, we’ve only seen messages that take zero or one arguments. This helped keep the presentation simple. However, the keyword syntax generalizes to multiple parameters. Consider the mathematical function _max(x,y)_. One could declare a method 
 
-_**max:**_ _x_ [\<_Number_\>]{color: blue} _**and:**_ _y_ [\<_Number_\>]{color: blue}  _= (_ \
+_**max:**_ _x_ [\<_Number_\>]{color: blue} _**and:**_ _y_ [\<_Number_\> _^_ \<_Number_\>]{color: blue}  _= (_ \
 &emsp;	[_(\* some code *)_]{color: blue}\
 _)_
 
@@ -1574,13 +1584,13 @@ _x > y ifTrue: [x] ifFalse: [y]_ [_(\* evaluates to x if x > y; y otherwise *)_]
 
 As you can see, it takes two closures as arguments - one for the true branch and one for the false branch. If the receiver is true, it will invoke its first argument and return the result. If it is false, it will act similarly, but invoke the second argument.
 
-_**max:**_ _x_ [\<_Number_\>]{color: blue} _**and:**_ _y_ [\<_Number_\>]{color: blue}  _= (_ \
+_**max:**_ _x_ [\<_Number_\>]{color: blue} _**and:**_ _y_ [\<_Number_\> _^_ \<_Number_\>]{color: blue}  _= (_ \
 &emsp;	_x > y ifTrue: [^x] ifFalse: [^y]_ \
 _)_
 
 The method above implements the mathematical function _max(x,y)_. It’s important to understand that a return statement always returns from the nearest enclosing method - _**max:and:**_ in this case - not the enclosing closure. The above behaves the same as
 
-_**max:**_ _x_ [\<_Number_\>]{color: blue} _**and:**_ _y_ [\<_Number_\>]{color: blue}  _= (_ \
+_**max:**_ _x_ [\<_Number_\>]{color: blue} _**and:**_ _y_ [\<_Number_\> _^_ \<_Number_\>]{color: blue}  _= (_ \
 &emsp;	_^x > y ifTrue: [x] ifFalse: [y]_ \
 _)_
 
@@ -1997,9 +2007,18 @@ What you see will depend on what exact actions you took. The above might result 
 
 To address this, we can add an equality method to **FileSubject**. 
 
-_**=**_ _x_ [\<_Object_\> _^_ \<_Boolean_\>]{color: blue} _= (_\
-&emsp;	_^x class = class _\
+_**=**_ _x_ [_^_ \<_Boolean_\>]{color: blue} _= (_\
+&emsp;	_^x isKindOfFileSubject _\
 &emsp;&emsp;		_and:[x model = model and:[x initiallyExpanded = initiallyExpanded]]_ \
+_)_
+
+The Newspeak language ensures that by default, any object will return _**false**_
+in response to a message of the form _isKindOfX_.
+Only instances of _**FileSubject**_ should return _**true**_. To ensure that, we'll also
+add this method to _**FileSubject**_. 
+
+_**isKindOfFileSubject**_ [_^_ \<_Boolean_\>]{color: blue} _= (_\
+&emsp;	_^_ _**true**_\
 _)_
 
 Of course, if we define an equality method, we need to define a hash
