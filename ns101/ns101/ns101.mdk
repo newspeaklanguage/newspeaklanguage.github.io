@@ -489,12 +489,8 @@ Each slot of the inspected object is listed in the inspector. It is prefixed by 
 
 #How do I evaluate code?{-; #sec-how-do-i-evaluate-code}
 
-<!-- begin merge (remove this line to resolve the conflict) -->
-~ Begin Remote
 The inspector has an interaction pane in which you can evaluate expressions in the context of the object. Type in an expression (3 + 4 in the example below) and select it. Then hit Ctrl-S (or cmd-S on a mac). A link to the result of the expression is added. You can expand it in place with the arrow icon, or follow the link. You can also use the _Evaluate_ button on the right instead of Ctrl-S/cmd-S. 
-~ End Remote
-The inspector has an interaction pane in which you can evaluate expressions in the context of the object. Type in an expression (3 + 4 in the example below) and select it. Then hit Ctrl-S (or cmd-S on a mac). A link to the result of the expression is added. You can expand it in place with the arrow icon, or link to it. You can also use the _Evaluate_ button on the right instead of Ctrl-S/cmd-S. 
-<!-- end merge -->
+
 
 If you don’t make a selection explicitly, the current line will be evaluated. This is useful for short expressions. This design allows you to have multiple code snippets in an interaction pane and evaluate them as needed. After evaluation, the selection is highlighted so you can see what was evaluated
 
@@ -610,7 +606,7 @@ If the activation involves the method _**doesNotUnderstand:**_, the drop down me
 [restartMethod-menu-9-14]: images/restartMethod-menu-9-14.png "restartMethod-menu-9-14" { width:auto; max-width:90% }
 
 
-**Er, this is broken because the implementation calls class, which is no longer public.**
+
 
 You will be transported to a class browser page for the class of the receiver, with an editor open on a new method with the appropriate name. The system will also guess types for the parameters based on the actual arguments that had been passed. 
 
@@ -702,42 +698,32 @@ This concludes the sections dealing with browsing existing code. Now we consider
 
 
 
-<!-- begin merge (remove this line to resolve the conflict) -->
-~ Begin Remote
+
 Currently, classes are created within _namespaces_. 
 The IDE maintains a root namespace (called _Root_). Currently, the root namespace is
 only allowed to contain subnamespaces called _category namespaces_, or just  _categories_. Classes can be added to category namespaces. So the first step in creating a new top level class is
 finding an appropriate category. If you know the category you want to use, you can
 find it using the search bar, or you can go to the root namespace where you will see it listed.
-~ End Remote
-Currently, classes are created within _namespaces_. 
-The IDE maintains a root namespace (called _Root_). Currently, the root namespace is
-only allowed to contain subnamespaces called _category namespaces_, or just  
-_categories_. Classes can be
-added to category namespaces. So the first step in creating a new top level class is
-finding an appropriate category. If you know the category you want to use, you can
-find it using the search bar, or you can go to the root namespace where you will see it listed.
-<!-- end merge -->
+
 
 Otherwise, you need to create a new category. That also requires you to get to the root
 namespace. 
 Otherwise, you need to create a new category. That also requires you to get to the root
 namespace. 
 
-#How do I get to the root namespace?{-; #sec-how-do-i-get-to-the-root-namespace}
+
 #How do I get to the root namespace?{-; #sec-how-do-i-get-to-the-root-namespace}
 
 On the home page, you will see a link marked _Newspeak sources_. This link leads 
 to the root namespace. 
 
 ~~ Center
-content
-~~
-~~ Center
-content
+![root]
 ~~
 
 #How do I create a category namespace?{-; #sec-how-do-i-create-a-class-category}
+
+[root]: images/root.png "root" { width:auto; max-width:90% }
 
 In the root namespace, click on the plus icon, which looks like this: 
 ![plusIcon]. 
