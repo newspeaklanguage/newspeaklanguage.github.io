@@ -4,7 +4,7 @@
   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
   <meta name="generator" content="Madoko, version 1.0.3" />
   <meta name="viewport" content="initial-scale=1.0" />
-  <meta name="author" content="Gilad Bracha, Peter Ahe, Vassili Bykov and Ryan Macnak" />
+  <meta name="author" content="_Gilad Bracha, Peter Ahe, Vassili Bykov and Ryan Macnak_" />
   <title>Newspeak on Squeak</title>
   <style type="text/css"  class="link">
   /*# sourceURL=madoko.css */
@@ -295,7 +295,7 @@
 <div class="subtitle para-block" style="font-size:x-large;margin-bottom:0.5ex;line-adjust:0"><em class="em-low1"><strong class="strong-star2">A Guide for the Perplexed</strong></em></div></div>
 <div class="authors align-center" style="text-align:center;width:80%;line-adjust:0"><table class="authorrow columns block" style="margin-top:2ex;width:100%;line-adjust:0">
 <tbody><tr><td class="author column" style="text-align:center;line-adjust:0">
-<div class="authorname" style="font-size:large;line-adjust:0">Gilad Bracha, Peter Ahe, Vassili Bykov and Ryan Macnak</div></td></tr></tbody></table></div></div>
+<div class="authorname" style="font-size:large;line-adjust:0"><em class="em-low1">Gilad Bracha, Peter Ahe, Vassili Bykov and Ryan Macnak</em></div></td></tr></tbody></table></div></div>
 <p class="p noindent para-continued">This document is a guide to using Newspeak in the prototype release running on top of Squeak. It acts as a tutorial for the IDE, and to a limited extent, for the Newspeak language as well.
 </p>
 <p class="p indent">You can read this document sequentially, from start to finish, as a structured tutorial; or, you can just use the FAQ to quickly lead you to specific task oriented sections. 
@@ -1467,10 +1467,10 @@ Add this method:
     &#8195;&#8195;&#8195;            <em class="em-low1">FileSubject onModel: each name</em><br>
     &#8195;&#8195;            <em class="em-low1">]</em><br>
     &#8195;    <em class="em-low1">]</em><br>
-    &#8195;    <em class="em-low1">ifFalse: [MutableArrayList new]</em><br>
+    &#8195;    <em class="em-low1">ifFalse: [List new]</em><br>
 )<br>
 </p>
-<p class="p indent">You should import <strong class="strong-star2">MutableArrayList</strong> from <em class="em-low1"><strong class="strong-star2">platform collections</strong></em>. 
+<p class="p indent">You should import <strong class="strong-star2">List</strong> from <em class="em-low1"><strong class="strong-star2">platform collections</strong></em>. 
 The method begins by testing if the current file is a directory. Obviously, if it isn’t, it has no contents and we return an empty list.  If it is a directory, we compute <em class="em-low1"><strong class="strong-star2">thisDirectory</strong></em>, the path object for the directory and extract all its elements using the entries method.  We can then collect subjects for the name of each entry in the directory.
 </p>
 <p class="p indent">Now let’s refine our definition method as follows:
