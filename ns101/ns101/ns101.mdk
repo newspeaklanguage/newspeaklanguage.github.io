@@ -706,6 +706,7 @@ finding an appropriate category. If you know the category you want to use, you c
 find it using the search bar, or you can go to the root namespace where you will see it listed.
 
 
+
 Otherwise, you need to create a new category. That also requires you to get to the root
 namespace. 
 Otherwise, you need to create a new category. That also requires you to get to the root
@@ -728,18 +729,11 @@ to the root namespace.
 In the root namespace, click on the plus icon, which looks like this: 
 ![plusIcon]. 
 This brings up an _Add Namespace_ menu item. If you click on that,
-you'll be asked to type in the name of the new namespace. 
-<!-- begin merge (remove this line to resolve the conflict) -->
-~ Begin Remote
-
-[plusIcon]: images/plusIcon.png "plusIcon" { width:auto; max-width:90% }
-~ End Remote
-In the root namespace, click on the add button, which looks like this: .
-This brings op an _Add Namespace_ menu item. If you click on that,
 you'll be asked to type in the name of the new namespace. Accepting
 that will add the namespace and take you back to an updated view of the root.
 
-<!-- end merge -->
+[plusIcon]: images/plusIcon.png "plusIcon" { width:auto; max-width:90% }
+
 ~~ Center
 content
 ~~
@@ -764,14 +758,10 @@ the operation, click the red icon:
 You will be asked to confirm the cancellation
 
 ~~ Center
-<!-- begin merge (remove this line to resolve the conflict) -->
-~ Begin Remote
 ![confirmCancel]
-~ End Remote
-
-![confirmCancel]
-<!-- end merge -->
 ~~
+
+[confirmCancel]: images/confirmCancel.png "confirmCancel" { width:auto; max-width:90% }
 
 Accepting  will add the namespace and take you back to an updated view of the root. We can then follow the link to look at our category :
 
@@ -1825,7 +1815,7 @@ It’s clearer, and our presenter doesn’t need to know if we use the path name
 We’d rather not display full path names all the time, so let’s add
 
 _**localFileName**_ [_^_ \<_String_\>]{color: blue} _= (_\
-&emsp;	_(\* Answer only the file name portion of the path name *)_\
+&emsp;	[_(\* Answer only the file name portion of the path name *)_]{color: blue}\
 &emsp;	_^(FilePath for: fullFilePath) simpleName_\
 _)_
 
@@ -1834,7 +1824,7 @@ Note that **FilePath** isn’t red anymore.
 We also need a way of getting the contents of a directory. The code below will do this. 
 
 _**contents**_ [_^_ \<_Collection\[FileSubject\]_\>]{color: blue} _= (_\
-	_(\* Answer a collection of subjects on the receiver elements *)_\
+	[_(\* Answer a collection of subjects on the receiver elements *)_]{color: blue}\
 	_^isDirectory_\
 	&emsp;	_ifTrue:_\
 	&emsp;		_[ | thisDirectory |_\
