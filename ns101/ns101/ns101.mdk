@@ -1632,18 +1632,18 @@ Newspeak has no built in control constructs - all operations are method invocati
 
 The most important example of this is the _**ifTrue:ifFalse:**_ method defined on boolean objects. 
 
-_x > y ifTrue: [x] ifFalse: [y]_ [_(\* evaluates to x if x > y; y otherwise *)_]{color: blue}
+_x > y ifTrue: \[x\] ifFalse: \[y\]_ [_(\* evaluates to x if x > y; y otherwise *)_]{color: blue}
 
 As you can see, it takes two closures as arguments - one for the true branch and one for the false branch. If the receiver is true, it will invoke its first argument and return the result. If it is false, it will act similarly, but invoke the second argument.
 
 _**max:**_ _x_ [\<_Number_\>]{color: blue} _**and:**_ _y_ [\<_Number_\> _^_ \<_Number_\>]{color: blue}  _= (_ \
-&emsp;	_x > y ifTrue: [^x] ifFalse: [^y]_ \
+&emsp;	_x > y ifTrue: \[^x\] ifFalse: \[^y\]_ \
 _)_
 
 The method above implements the mathematical function _max(x,y)_. It’s important to understand that a return statement always returns from the nearest enclosing method - _**max:and:**_ in this case - not the enclosing closure. The above behaves the same as
 
 _**max:**_ _x_ [\<_Number_\>]{color: blue} _**and:**_ _y_ [\<_Number_\> _^_ \<_Number_\>]{color: blue}  _= (_ \
-&emsp;	_^x > y ifTrue: [x] ifFalse: [y]_ \
+&emsp;	_^x > y ifTrue: \[x\] ifFalse: \[y\]_ \
 _)_
 
 This latter version is much better style of course.
@@ -1833,7 +1833,7 @@ Note that **FilePath** isn’t red anymore.
 
 We also need a way of getting the contents of a directory. The code below will do this. 
 
-_**contents**_ [_^_ \<_Collection[FileSubject]_\>]{color: blue} _= (_\
+_**contents**_ [_^_ \<_Collection\[FileSubject\]_\>]{color: blue} _= (_\
 	_(\* Answer a collection of subjects on the receiver elements *)_\
 	_^isDirectory_\
 	&emsp;	_ifTrue:_\
@@ -1854,8 +1854,8 @@ Now let’s refine our definition method as follows:
 
 _**public definition**_ [_^_ \<_Fragment_\>]{color: blue} _= (_\
 &emsp;	_^subject isDirectory_\
-&emsp;&emsp;		_ifTrue: [directoryPresentation]_\
-&emsp;&emsp;		_ifFalse: [label: subject localFileName]_\
+&emsp;&emsp;		_ifTrue: \[directoryPresentation\]_\
+&emsp;&emsp;		_ifFalse: \[label: subject localFileName\]_\
 _)_
 
 We’ll also need to define _**directoryPresentation**_. 
@@ -1872,7 +1872,7 @@ Drilling down, the first argument is the result of a familiar call to _**label:*
 The closure must return a fragment. In our case, the body of the closure is an invocation of the column: combinator. As you’d expect, it constructs a vertical column, where the rows of the column are given by its argument, which is a list of fragments. The list in question is the result of _**directoryContentsPresenters**_, which we define as:
 
 
-_**directoryContentsPresenters**_ [_^_ \<_Collection[Presenter]_\>]{color: blue} _= (_\
+_**directoryContentsPresenters**_ [_^_ \<_Collection\[Presenter\]_\>]{color: blue} _= (_\
  &emsp;	_^(subject contents) collect: [:each | each presenter]_\
 _)_
 
@@ -1894,8 +1894,8 @@ _)_
 
 _**public definition**_ [_^_ \<_Fragment_\>]{color: blue} _= (_\
 	_^subject isDirectory_\
-&emsp;		_ifTrue: [directoryPresentation]_\
-&emsp;		_ifFalse: [filePresentation]_\
+&emsp;		_ifTrue: \[directoryPresentation\]_\
+&emsp;		_ifFalse: \[filePresentation\]_\
 _)_
 
 
@@ -1922,7 +1922,7 @@ We’re finally getting somewhere. If you click on the arrow, you can see the di
 
 To pretty things up, add this method to **FilePresenter**.
 
-_**bar:**_ _def_ [\<_Fragment_\> _^_ \<_Collection[Presenter]_\>]{color: blue} _= (_\
+_**bar:**_ _def_ [\<_Fragment_\> _^_ \<_Collection\[Presenter\]_\>]{color: blue} _= (_\
  &emsp;	_^(column: { _\
 &emsp;&emsp;		_blank: 2._\
 &emsp;&emsp;		_row: {_\
@@ -1965,7 +1965,7 @@ This sort of thing isn’t specific to the GUI library, though it is an excellen
 Now let’s make yet another change to _**directoryPresentation**_.
 
 _**directoryPresentation**_ [_^_ \<_Fragment_\>]{color: blue} _= (_\
-&emsp;	_^heading: (bar: (link: subject localFileName action: [openOnNewPage]))_\
+&emsp;	_^heading: (bar: (link: subject localFileName action: \[openOnNewPage\]))_\
 &emsp;	_details: [column: directoryContentsPresenters]_\
 _)_
 
@@ -2031,7 +2031,7 @@ _)_
 
 
 _**directoryPresentation**_ [_^_ \<_Fragment_\>]{color: blue} _= (_\
-	&emsp; _^heading: (bar: (link: subject localFileName action:[openOnNewPage]))_\
+	&emsp; _^heading: (bar: (link: subject localFileName action: \[openOnNewPage\]))_\
 &emsp;&emsp;	_details: [column: directoryContentsPresenters]_\
 &emsp;&emsp;	_initiallyExpanded: subject initiallyExpanded_\
 )
@@ -2200,8 +2200,8 @@ We’ll define our menu as
 
 _**filePresenterMenu**_ _= (_\
 &emsp;	_^menuWithLabelsAndActions: {_\
-&emsp;&emsp;	_'Inspect Presenter' -> [respondToInspectPresenter]._\
-&emsp;&emsp;		_'Show Implementation' -> [respondToShowImplementation]_\
+&emsp;&emsp;	_'Inspect Presenter' -> \[respondToInspectPresenter\]._\
+&emsp;&emsp;		_'Show Implementation' -> \[respondToShowImplementation\]_\
 &emsp;		_}_\	
 _)_
 
@@ -2223,9 +2223,9 @@ _**directoryPresentation**_ [_^_ \<_Fragment_\>]{color: blue} _= (_\
 &emsp;	_^heading: _\
 &emsp;&emsp;		_(bar:_\
 &emsp;&emsp;&emsp;			 _(row: {_\
-&emsp;&emsp;&emsp;&emsp;				_link: subject localFileName action:[openOnNewPage]._\
+&emsp;&emsp;&emsp;&emsp;				_link: subject localFileName action: \[openOnNewPage\]._\
 &emsp;&emsp;&emsp;&emsp;				_filler._\
-&emsp;&emsp;&emsp;&emsp;				_dropDownMenu: [filePresenterMenu]_\
+&emsp;&emsp;&emsp;&emsp;				_dropDownMenu: \[filePresenterMenu\]_\
 &emsp;&emsp;&emsp;				_}_\
 &emsp;&emsp;			_))_\
 &emsp;	_details: [column: directoryContentsPresenters]_\
