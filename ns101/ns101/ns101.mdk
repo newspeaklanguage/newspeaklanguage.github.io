@@ -1,6 +1,6 @@
 Title         : Newspeak on Squeak
 Subtitle: _**A Guide for the Perplexed**_
-Author        : Gilad Bracha, Peter Ahe, Vassili Bykov and Ryan Macnak
+Author        : _Gilad Bracha, Peter Ahe, Vassili Bykov and Ryan Macnak_
 Logo          : True
 
 [TITLE]
@@ -460,6 +460,7 @@ Use the browser’s meta menu, which is marked with this icon:               ![m
 
 
 
+
 The meta menu has two options for inspecting the GUI: _Inspect Window_ and _Inspect Application_. The latter opens a new browser showing an inspector on the original browser application. Usually this option is more interesting, as that is where the application logic resides. The former is similar, but the inspector is opened on the Window object representing the browser window. You can drill down and find what code implements a given GUI element.  In addition, many presenters have an _Inspect Presenter_ option in their drop down menu, which opens up an inspector on the presenter object.
 
 Of course, to utilize these, we need to understand how to inspect an object.
@@ -488,7 +489,12 @@ Each slot of the inspected object is listed in the inspector. It is prefixed by 
 
 #How do I evaluate code?{-; #sec-how-do-i-evaluate-code}
 
+<!-- begin merge (remove this line to resolve the conflict) -->
+~ Begin Remote
 The inspector has an interaction pane in which you can evaluate expressions in the context of the object. Type in an expression (3 + 4 in the example below) and select it. Then hit Ctrl-S (or cmd-S on a mac). A link to the result of the expression is added. You can expand it in place with the arrow icon, or follow the link. You can also use the _Evaluate_ button on the right instead of Ctrl-S/cmd-S. 
+~ End Remote
+The inspector has an interaction pane in which you can evaluate expressions in the context of the object. Type in an expression (3 + 4 in the example below) and select it. Then hit Ctrl-S (or cmd-S on a mac). A link to the result of the expression is added. You can expand it in place with the arrow icon, or link to it. You can also use the _Evaluate_ button on the right instead of Ctrl-S/cmd-S. 
+<!-- end merge -->
 
 If you don’t make a selection explicitly, the current line will be evaluated. This is useful for short expressions. This design allows you to have multiple code snippets in an interaction pane and evaluate them as needed. After evaluation, the selection is highlighted so you can see what was evaluated
 
@@ -565,6 +571,8 @@ You will encounter the debugger if an uncaught exception occurs during execution
 [blowup-3-9-14]: images/blowup-3-9-14.png "blowup-3-9-14" { width:auto; max-width:90% }
 
 Each activation frame is expandable to an activation presenter which allows you to see the method in question and the state of the frame. You can see all this in the screenshot below, where we have two activations open - one for _**provokeBug:**_ and one for the code we evaluated in the workspace.  You'll notice that the Newspeak debugger is unusual in that it allows you to simultaneously view multiple frames, such as caller and callee.
+The debugger will mark the site of the active message send in blue.
+
 
 
 ~~ Center
@@ -601,6 +609,8 @@ If the activation involves the method _**doesNotUnderstand:**_, the drop down me
 
 [restartMethod-menu-9-14]: images/restartMethod-menu-9-14.png "restartMethod-menu-9-14" { width:auto; max-width:90% }
 
+
+**Er, this is broken because the implementation calls class, which is no longer public.**
 
 You will be transported to a class browser page for the class of the receiver, with an editor open on a new method with the appropriate name. The system will also guess types for the parameters based on the actual arguments that had been passed. 
 
@@ -692,20 +702,37 @@ This concludes the sections dealing with browsing existing code. Now we consider
 
 
 
+<!-- begin merge (remove this line to resolve the conflict) -->
+~ Begin Remote
 Currently, classes are created within _namespaces_. 
 The IDE maintains a root namespace (called _Root_). Currently, the root namespace is
 only allowed to contain subnamespaces called _category namespaces_, or just  _categories_. Classes can be added to category namespaces. So the first step in creating a new top level class is
 finding an appropriate category. If you know the category you want to use, you can
 find it using the search bar, or you can go to the root namespace where you will see it listed.
+~ End Remote
+Currently, classes are created within _namespaces_. 
+The IDE maintains a root namespace (called _Root_). Currently, the root namespace is
+only allowed to contain subnamespaces called _category namespaces_, or just  
+_categories_. Classes can be
+added to category namespaces. So the first step in creating a new top level class is
+finding an appropriate category. If you know the category you want to use, you can
+find it using the search bar, or you can go to the root namespace where you will see it listed.
+<!-- end merge -->
 
 Otherwise, you need to create a new category. That also requires you to get to the root
 namespace. 
+Otherwise, you need to create a new category. That also requires you to get to the root
+namespace. 
 
+#How do I get to the root namespace?{-; #sec-how-do-i-get-to-the-root-namespace}
 #How do I get to the root namespace?{-; #sec-how-do-i-get-to-the-root-namespace}
 
 On the home page, you will see a link marked _Newspeak sources_. This link leads 
 to the root namespace. 
 
+~~ Center
+content
+~~
 ~~ Center
 content
 ~~
@@ -716,9 +743,17 @@ In the root namespace, click on the plus icon, which looks like this:
 ![plusIcon]. 
 This brings up an _Add Namespace_ menu item. If you click on that,
 you'll be asked to type in the name of the new namespace. 
+<!-- begin merge (remove this line to resolve the conflict) -->
+~ Begin Remote
 
 [plusIcon]: images/plusIcon.png "plusIcon" { width:auto; max-width:90% }
+~ End Remote
+In the root namespace, click on the add button, which looks like this: .
+This brings op an _Add Namespace_ menu item. If you click on that,
+you'll be asked to type in the name of the new namespace. Accepting
+that will add the namespace and take you back to an updated view of the root.
 
+<!-- end merge -->
 ~~ Center
 content
 ~~
@@ -729,18 +764,27 @@ Accept the category name by clicking on the green icon:
 ![greenIcon]
 ~~
 
+[greenIcon]: images/greenIcon.png "greenIcon" { width:auto; max-width:90% }
+
 You can also just type Ctrl-S (or Cmd-S on a mac) in the text pane. If you wish to cancel 
 the operation, click the red icon:
 
 ~~ Center
-
 ![redIcon]
 ~~
 
- You will be asked to confirm the cancelation
+[redIcon]: images/redIcon.png "redIcon" { width:auto; max-width:90% }
+
+You will be asked to confirm the cancellation
 
 ~~ Center
+<!-- begin merge (remove this line to resolve the conflict) -->
+~ Begin Remote
 ![confirmCancel]
+~ End Remote
+
+![confirmCancel]
+<!-- end merge -->
 ~~
 
 Accepting  will add the namespace and take you back to an updated view of the root. We can then follow the link to look at our category :
@@ -885,6 +929,7 @@ To add a slot,  edit the class header.
 #How do I delete a slot?{-; #sec-how-do-i-delete-a-slot}
 
 Edit the class header.
+Edit the class header.
 
 
 [greenIcon]: images/greenIcon.png "greenIcon" { width:auto; max-width:90% }
@@ -894,7 +939,7 @@ Edit the class header.
 [redIcon]: images/redIcon.png "redIcon" { width:auto; max-width:90% }
 
 
-[confirmCancel]: images/confirmCancel.png "confirmCancel" { width:auto; max-width:90% }
+
 
 
 #How does Source Control Work?{-; #sec-how-does-source-control-work}
@@ -1813,10 +1858,10 @@ _**contents**_ [_^_ \<_Collection[FileSubject]_\>]{color: blue} _= (_\
 	&emsp;&emsp;&emsp;			_FileSubject onModel: each name_\
 	&emsp;&emsp;			_]_\
 	&emsp;	_]_\
-	&emsp;	_ifFalse: [MutableArrayList new]_\
+	&emsp;	_ifFalse: [List new]_\
 )\
 
-You should import **MutableArrayList** from _**platform collections**_. 
+You should import **List** from _**platform collections**_. 
 The method begins by testing if the current file is a directory. Obviously, if it isn’t, it has no contents and we return an empty list.  If it is a directory, we compute _**thisDirectory**_, the path object for the directory and extract all its elements using the entries method.  We can then collect subjects for the name of each entry in the directory.
 
 Now let’s refine our definition method as follows:
