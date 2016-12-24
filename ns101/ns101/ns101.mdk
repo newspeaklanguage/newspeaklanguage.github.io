@@ -1806,7 +1806,7 @@ This is an example of how the language forces you to keep all your external depe
 The highlighting of _**fullFilePath**_ isn’t spurious either; this isn’t an inherited method. We’ll define _**fullFilePath**_ as an alias of model. 
 
 
-_**fullFilePath**_ [_^_ \<_String_\>]{color: blue} _= (_\
+_**public fullFilePath**_ [_^_ \<_String_\>]{color: blue} _= (_\
 &emsp; 	_^model_\
 _)_\
 
@@ -1823,7 +1823,7 @@ Note that **FilePath** isn’t red anymore.
 
 We also need a way of getting the contents of a directory. The code below will do this. 
 
-_**contents**_ [_^_ \<_Collection\[FileSubject\]_\>]{color: blue} _= (_\
+_**public contents**_ [_^_ \<_Collection\[FileSubject\]_\>]{color: blue} _= (_\
 	[_(\* Answer a collection of subjects on the receiver elements *)_]{color: blue}\
 	_^isDirectory_\
 	&emsp;	_ifTrue:_\
@@ -1863,7 +1863,7 @@ The closure must return a fragment. In our case, the body of the closure is an i
 
 
 _**directoryContentsPresenters**_ [_^_ \<_Collection\[Presenter\]_\>]{color: blue} _= (_\
- &emsp;	_^(subject contents) collect: [:each | each presenter]_\
+ &emsp;	_^subject contents collect: [:each | each presenter]_\
 _)_
 
 this computes a presenter corresponding to each file in the directory. Presenters are a kind of fragment, so they can be used with fragment combinators like _**column:**_.
@@ -1912,7 +1912,7 @@ We’re finally getting somewhere. If you click on the arrow, you can see the di
 
 To pretty things up, add this method to **FilePresenter**.
 
-_**bar:**_ _def_ [\<_Fragment_\> _^_ \<_Collection\[Presenter\]_\>]{color: blue} _= (_\
+_**bar:**_ _def_ [\<_Fragment_\> _^_ \<_Fragment_\>]{color: blue} _= (_\
  &emsp;	_^(column: { _\
 &emsp;&emsp;		_blank: 2._\
 &emsp;&emsp;		_row: {_\
@@ -2007,7 +2007,7 @@ It’s not that the links don’t work - it’s just that the directory is colla
 
 _**public class**_ _FileSubject_ _**onModel:**_ _m_ [\<_String_\>]{color: blue} _= Subject onModel: m(_\
 &emsp;_|_\
-	&emsp; _initiallyExpanded_ [\<_Boolean_\>]{color: blue}  _::= false._\
+	&emsp; _**public**_ _initiallyExpanded_ [\<_Boolean_\>]{color: blue}  _::= false._\
 &emsp;_|_\
 _)_
 
@@ -2016,7 +2016,7 @@ This adds a mutable slot to **FileSubject**. Until now, we’ve only introduced 
 Now make these changes to **FilePresenter** :
 
 _**openOnNewPage**_ _= (_\
-&emsp; 	_enterSubject:: (subject class onModel: subject model initiallyExpanded: true_\
+&emsp; 	_enterSubject:: (subject class onModel: subject model) initiallyExpanded: true_\
 _)_
 
 
@@ -2051,7 +2051,7 @@ To address this, we can add an equality method to **FileSubject**.
 
 _**public =**_ _x_ [_^_ \<_Boolean_\>]{color: blue} _= (_\
 &emsp;	_^x isKindOfFileSubject _\
-&emsp;&emsp;		_and:[x model = model and:[x initiallyExpanded = initiallyExpanded]]_ \
+&emsp;&emsp;		_and:[x fullFilePath = fullFilePath and:[x initiallyExpanded = initiallyExpanded]]_ \
 _)_
 
 The Newspeak language ensures that by default, any object will return _**false**_
@@ -2177,12 +2177,12 @@ Note: **ProgrammingPresenter**  comes as part of the IDE itself, not part of the
 
 You’ll need to import **ProgrammingPresenter** :
 
-_ProgrammingPresenter = ide tools ProgrammingPresenter._
+_**private**_ _ProgrammingPresenter = ide tools ProgrammingPresenter._
 
 
 You’ll see that _**ide**_ is highlighted in red.  We need to get access to the IDE to get hold of **ProgrammingPresenter**. So we’ll modify the factory of **BraveNewWorldExplorer** to take _**ide**_ as a parameter.
 
-_BraveNewWorldExplorer_ _**usingPlatform:**_ _platform_ _**ide:**_ _ide_
+_**class**_ _BraveNewWorldExplorer_ _**usingPlatform:**_ _platform_ _**ide:**_ _ide_
 
 Now we’ll add a menu. The menu won’t do anything you’d do in a regular application. Rather, it will do something cool, that isn’t easily done in a traditional IDE. 
 
