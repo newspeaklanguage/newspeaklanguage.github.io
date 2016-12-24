@@ -36,21 +36,7 @@ Newspeak3'NS101'class FilePresenterDemo usingPlatform: platform <Platform> = (
 	^subject isDirectory
 		ifTrue: [directoryPresentation3]
 		ifFalse: [filePresentation]
-)directoryContentsPresenters = (
-	^(subject contents) collect: [:each | each presenter]
-)directoryPresentation1 = (
-	^heading: (
-		bar: (label: subject localFileName)
-		)
-	  details: [column: directoryContentsPresenters]
-	  initiallyExpanded: subject initiallyExpanded
-)directoryPresentation2 = (
-	^heading: (
-		bar: (link: subject localFileName action:[openOnNewPage])
-		)
-	  details: [column: directoryContentsPresenters]
-	  initiallyExpanded: subject initiallyExpanded
-)directoryPresentation3 = (
+)directoryContentsPresenters ^ <Collection[Presenter]> = (	^subject contents collect: [:each | each presenter])directoryPresentation1 = (	^heading: (bar: filePresentation)	  details: [column: directoryContentsPresenters]	  initiallyExpanded: subject initiallyExpanded)directoryPresentation2 = (	^heading: (		bar: (link: subject localFileName action: [openOnNewPage])		)	  details: [column: directoryContentsPresenters]	  initiallyExpanded: subject initiallyExpanded)directoryPresentation3 = (
 	^heading: 
 		(bar: 
 			(row:{
@@ -68,43 +54,23 @@ Newspeak3'NS101'class FilePresenterDemo usingPlatform: platform <Platform> = (
 		'Inspect Presenter' -> [respondToInspectPresenter].
 		'Show implementation' -> [respondToShowImplementation]
 		}	
-)openOnNewPage = (
-	enterSubject:: (subject class on: subject model) initiallyExpanded: true
-)respondToInspectPresenter = (
+)openOnNewPage = (	enterSubject:: (subject class onModel: subject model) initiallyExpanded: true)respondToInspectPresenter = (
 		enterSubject: (ObjectSubject on: self)
 )respondToShowImplementation = (
 		enterSubject: (class language
 		newClassSubjectOn: class
 		usingReflection: shell reflection) 
-)) : ()public class FileSubject onModel: theModel <FilePath> = Subject onModel: theModel ((* In this example, the subject plays an active role in adapting the domain for presentation, since the domain lacks a file object with a coherent API. Our subject fills this blank by essentially reifying the concept of an external file. The model is a String with the full file path.*)|	public initiallyExpanded <Boolean>  ::= false.|) ('as yet unclassified'public =  x ^ <Boolean> = (	^x isKIndOfFileSubject  and: [model = x model and:[initiallyExpanded = x initiallyExpanded]])containingDirectoryPath ^<String> = (
+)) : ()public class FileSubject onModel: theModel <FilePath> = Subject onModel: theModel ((* In this example, the subject plays an active role in adapting the domain for presentation, since the domain lacks a file object with a coherent API. Our subject fills this blank by essentially reifying the concept of an external file. The model is a String with the full file path.*)|	public initiallyExpanded <Boolean>  ::= false.|) ('as yet unclassified'public =  x ^ <Boolean> = (	^x isKIndOfFileSubject  and: [fullFilePath = x fullFilePath and: [initiallyExpanded = x initiallyExpanded]])containingDirectoryPath ^<String> = (
 	(* Answer only the directory portion of the full file name, sans the file name itself.*)
 	FileDirectory splitName: model to:
 		[:path :name |
 		^path].
 	^String new
-)contents ^<OrderedCollection[FileSubject]> = (
-	(* Answer a collection of subjects on the receiver elements *)
-	^isDirectory
-		ifTrue: 
-			[ | thisDirectory |
-			thisDirectory:: FileDirectory on: fullFilePath.
-			(groupAndSortEntryNames: thisDirectory entries) collect:
-				[:each | FileSubject on: (thisDirectory / each) pathName]]
-		ifFalse: [OrderedCollection new]
-)public createPresenter^ <Presenter> = (	^FilePresenter subject: self)exists ^ <Boolean> = (	^(FileDirectory on: containingDirectoryPath)		includesKey: localFileName)fullFilePath ^<String> = (
-	(* A more descriptive model accessor.*)
-	^model
-)groupAndSortEntryNames: entries = (
+)public contents ^<List[FileSubject]> = (	(* Answer a collection of subjects on the receiver elements *)	^isDirectory		ifTrue: 			[ | thisDirectory |			thisDirectory:: FileDirectory on: fullFilePath.			(groupAndSortEntryNames: thisDirectory entries) collect:				[:each | FileSubject on: (thisDirectory / each) pathName]]		ifFalse: [OrderedCollection new])public createPresenter^ <Presenter> = (	^FilePresenter subject: self)exists ^ <Boolean> = (	^(FileDirectory on: containingDirectoryPath)		includesKey: localFileName)public fullFilePath ^<String> = (	(* A more descriptive model accessor.*)	^model)groupAndSortEntryNames: entries = (
 	| grouped |
 	grouped:: (entries reject: [:some | some at: 4])
 		,(entries select: [:some | some at: 4]).
 	^grouped collect: [:each | each at: 1]
 )public hash ^ <Integer> = (	^model hash)isDirectory = (
 	^(FileDirectory on: fullFilePath) exists
-)public isKindOfFileSubject ^ <Boolean> = (	^true)localFileName ^<String> = (
-	(* Answer only the file name portion of the file name.*)
-	FileDirectory splitName: model to:
-		[:path :name |
-		^name].
-	^String new
-)) : ()) : ()
+)public isKindOfFileSubject ^ <Boolean> = (	^true)public localFileName ^<String> = (	(* Answer only the file name portion of the file name.*)	FileDirectory splitName: model to:		[:path :name |		^name].	^String new)) : ()) : ()
