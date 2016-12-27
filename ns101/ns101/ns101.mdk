@@ -750,31 +750,48 @@ to the root namespace.
 ![root]
 ~~
 
+[root]: images/root.png "root" { width:auto; max-width:90% }
+
 #How do I create a category namespace?{-; #sec-how-do-i-create-a-class-category}
 
-[root]: images/root.png "root" { width:auto; max-width:90% }
+
 
 In the root namespace, click on the plus icon, which looks like this: 
 ![plusIcon]. 
-This brings up an _Add Namespace_ menu item. If you click on that,
-you'll be asked to type in the name of the new namespace. Accepting
-that will add the namespace and take you back to an updated view of the root.
-
-[plusIcon]: images/plusIcon.png "plusIcon" { width:auto; max-width:90% }
+This brings up an _Add Namespace_ menu item. 
+~~ Center
+![addNamespace-menu]
+~~
+[addNamespace-menu]: images/addNamespace-menu.png "addNamespace-menu" { width:auto; max-width:90% }
+If you click on that,
+you'll be asked to type in the name of the new namespace. 
 
 ~~ Center
-content
+![addNamespace]
 ~~
 
+[addNamespace]: images/addNamespace.png "addNamespace" { width:auto; max-width:90% }
 Accept the category name by clicking on the green icon:
 
 ~~ Center
 ![greenIcon]
 ~~
 
+Accepting
+will add the namespace and take you back to an updated view of the root.
+
+[plusIcon]: images/plusIcon.png "plusIcon" { width:auto; max-width:90% }
+
+~~ Center
+![rootNS101]
+~~
+
+[rootNS101]: images/rootNS101.png "rootNS101" { width:auto; max-width:90% }
+
+
 [greenIcon]: images/greenIcon.png "greenIcon" { width:auto; max-width:90% }
 
-You can also just type Ctrl-S (or Cmd-S on a mac) in the text pane. If you wish to cancel 
+You can also just type Ctrl-S (or Cmd-S on a mac) in the text pane to accept. If you wish to cancel 
 the operation, click the red icon:
 
 ~~ Center
@@ -791,7 +808,7 @@ You will be asked to confirm the cancellation
 
 [confirmCancel]: images/confirmCancel.png "confirmCancel" { width:auto; max-width:90% }
 
-Accepting  will add the namespace and take you back to an updated view of the root. We can then follow the link to look at our category :
+Assuming we accepted, we can then follow the link to look at our category :
 
 ~~ Center
 ![ns101-blank]
