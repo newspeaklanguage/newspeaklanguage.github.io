@@ -637,10 +637,12 @@ You will be transported to a class browser page for the class of the receiver, w
 
 ~~ Center
 
-![blowup-add-missing-9-14]
+![Blowup]
 ~~
 
-[blowup-add-missing-9-14]: images/blowup-add-missing-9-14.png "blowup-add-missing-9-14" { width:auto; max-width:90% }
+[Blowup]: images/Blowup.png "Blowup" { width:auto; max-width:90% }
+
+
 
 Once you’ve edited the method to your satisfaction and saved it, you can return to the debugger and/or press the _Continue_ button at the top to proceed with the computation. 
 
@@ -1424,10 +1426,11 @@ Note: If you are running on Windows, choose the _open console_ option from the o
 Select the expression and hit Ctrl-S (Cmd-s on a Mac). You should see some results:
 
 ~~ Center
-![helloBNW0-9-14]
+![HelloBraveNewWorld-transcript2]
 ~~
 
-[helloBNW0-9-14]: images/helloBNW0-9-14.png "helloBNW0-9-14" { width:auto; max-width:90% }
+[HelloBraveNewWorld-transcript2]: images/HelloBraveNewWorld-transcript2.png "HelloBraveNewWorld-transcript2" { width:auto; max-width:90% }
+
 
 Now, let’s discuss some high principles. Good Newspeak style requires that a module declaration list all its external dependencies clearly and explicitly. What does this have to do with **HelloBraveNewWorld**? Well, we have, perhaps unknowingly, created a module.
 
@@ -1582,8 +1585,10 @@ You should see something like this:
 
 
 ~~ Center
-![helloBNW0-9-14]
+![helloBnwApp-final]
 ~~
+
+[helloBnwApp-final]: images/helloBnwApp-final.png "helloBnwApp-final" { width:auto; max-width:90% }
 
 
 Still not terribly interesting, but we now have a Hopscotch window running our application.  This the modern day equivalent of Hello World. 
@@ -1732,11 +1737,11 @@ To make things more interesting, our next task will be to build an application t
 We’ll start by defining a new top level class called **BraveNewWorldExplorer**.  Again, we’ll import **Subject** and **Presenter**. We’ll define two nested classes - **FileSubject** and **FilePresenter**.
 
 ~~ Center
-
-![bne-00-9-14]
+![BraveNewWorldExplorer]
 ~~
 
-[bne-00-9-14]: images/bne-00-9-14.png "bne-00-9-14" { width:auto; max-width:90% }
+[BraveNewWorldExplorer]: images/BraveNewWorldExplorer.png "BraveNewWorldExplorer" { width:auto; max-width:90% }
+
 
 This time, we will need to have a model for **FileSubject**.  It will be a file name - a string that gives the fully qualified pathname for the file. Make sure the definition of **FileSubject** is as follows:
 
@@ -2162,14 +2167,13 @@ A Newspeak application is an object conforming to a standard API. This API consi
 
 The main method’s purpose is to instantiate the various module definitions that make up the application and start running the application code. To create an application object for **BraveNewWorldExplorer**, we’ll define the following class:
 
-
 ~~ Center
-
-![bneApp-9-14]
+![braveNewWorldExplorerApp]
 ~~
-	
 
-[bneApp-9-14]: images/bneApp-9-14.png "bneApp-9-14" { width:auto; max-width:90% }
+[braveNewWorldExplorerApp]: images/braveNewWorldExplorerApp.png "braveNewWorldExplorerApp" { width:auto; max-width:90% }
+
+
 
 
 #Deploying a Newspeak Application as a VictoryFuel File{-; #sec-deploying-a-newspeak-application-as-a-vfuel-file}
@@ -2200,18 +2204,21 @@ You can test your deployable app in the IDE. Click on the run link in your appli
 This will open up a file chooser dialog, which will let you select a vfuel file. Once you choose the file, the IDE will bring it up for for you.
 
 ~~ Center
-content
+![vfuel-choose-file]
 ~~
+
+[vfuel-choose-file]: images/vfuel-choose-file.png "vfuel-choose-file" { width:auto; max-width:90% }
 
 In this configuration is there is no way for the user of the application to get to the Newspeak IDE. Notice the absence of the operate and meta menu icons and the search pane. All these are features provided by Hopscotch’s  **IDEWindow**. We configured our app to use a **HopscotchWindow** rather than an **IDEWindow**. After all, we typically don’t want the IDE as part of a deployed application.
 
-You’ll also note the presence of a menu bar. 
 
 ~~ Center
-content
+![bneApp-deployed]
 ~~
 
-Again, this is due to the use of **HopscotchWindow**. We at the Ministry of Truth feel that menu bars are somewhat ungood, which is why the IDE doesn’t use them. If you are building a real application, you’ll have to decide whether to enable the menu bar, and what it should show. This particular menu bar is just a placeholder; you would never want to use it without customizing it.
+[bneApp-deployed]: images/bneApp-deployed.png "bneApp-deployed" { width:auto; max-width:90% }
+
+You’ll also note the presence of a Windows menu bar. Again, this is due to the use of **HopscotchWindow**. We at the Ministry of Truth feel that menu bars are somewhat ungood, which is why the IDE doesn’t use them. If you are building a real application, you’ll have to decide whether to enable the menu bar, and what it should show. This particular menu bar is just a placeholder; you would never want to use it without customizing it.
 
 Because the IDE isn’t part of the default deployment set up, any attempt to use elements of it would fail, unless we explicitly included by extracting them from the manifest parameter in _**packageUsing:**_ and inserting them into the application (as opposed to the Hopscotch framework, which we can obtain from the platform in _**main:args:**_)  
 
@@ -2280,8 +2287,10 @@ _ide IDEWindow openSubject:_\
 This will produce a new window. 
 
 ~~ Center
-![brav20]
+![bneApp-final]
 ~~
+
+[bneApp-final]: images/bneApp-final.png "bneApp-final" { width:auto; max-width:90% }
 
 [brav20]: images/brav20.png "brav20" { width:auto; max-width:90% }
 
@@ -2299,15 +2308,19 @@ Next choose _Inspect Presenter_ from newly added drop down the menu on the  righ
 You’ll see an object inspector on the live **FilePresenter** instance managing the presentation. 
 
 ~~ Center
-![inspect-presenter]
+![inspectorOnFilePresenter]
 ~~
 Now choose the _Show Implementation_ menu option from the menu. This allows us to directly access a class browser on the **FilePresenter** class, so our application is directly metacircular. 
+
+[inspectorOnFilePresenter]: images/inspectorOnFilePresenter.png "inspectorOnFilePresenter" { width:auto; max-width:90% }
 
 [inspect-presenter]: images/inspect-presenter.png "inspect-presenter" { width:auto; max-width:90% }
 
 ~~ Center
-![filePresenter]
+![FilePresenter-final]
 ~~
+
+[FilePresenter-final]: images/FilePresenter-final.png "FilePresenter-final" { width:auto; max-width:90% }
 
 [filePresenter]: images/filePresenter.png "filePresenter" { width:auto; max-width:90% }
 
