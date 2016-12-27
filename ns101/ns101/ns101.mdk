@@ -252,8 +252,10 @@ The header information appears at the top with a gray background:
 
 ~~ Center
 
-![combiParsing-header1]
+![CombinatorialParsing-header-closed]
 ~~
+
+[CombinatorialParsing-header-closed]: images/CombinatorialParsing-header-closed.png "CombinatorialParsing-header-closed" { width:auto; max-width:90% }
 
 [combiParsing-header1]: images/combiParsing-header1.png "combiParsing-header1" { width:auto; max-width:90% }
 
@@ -261,8 +263,11 @@ Notice the arrow icon in the top left corner. You can use it to collapse the ent
 
 ~~ Center
 
-![comboParsing-hdrCollapsed]
+![CombinatorialParsing-header-minimized]
+
 ~~
+
+[CombinatorialParsing-header-minimized]: images/CombinatorialParsing-header-minimized.png "CombinatorialParsing-header-minimized" { width:auto; max-width:90% }
 
 [comboParsing-hdrCollapsed]: images/comboParsing-hdrCollapsed.png "comboParsing-hdrCollapsed" { width:auto; max-width:90% }
 
@@ -274,8 +279,10 @@ You should now see something like this:
 
 ~~ Center
 
-![alternatingParserNested1-9-14]
+![CombinatorialParsing-open]
 ~~
+
+[CombinatorialParsing-open]: images/CombinatorialParsing-open.png "CombinatorialParsing-open" { width:auto; max-width:90% }
 
 [alternatingParserNested1-9-14]: images/alternatingParserNested1-9-14.png "alternatingParserNested1-9-14" { width:auto; max-width:90% }
 
@@ -418,8 +425,10 @@ It acts much like the history feature in a web browser. It takes you to a page t
 ~~ Center
 
 
-![history1]
+![history]
 ~~
+
+[history]: images/history.png "history" { width:auto; max-width:90% }
 
 [history1]: images/history1.png "history1" { width:auto; max-width:90% }
 
@@ -485,8 +494,10 @@ Whichever way you open an inspector, you’re likely to see a view such as the f
 
 
 ~~ Center
-![inspector99]
+![inspector]
 ~~
+
+[inspector]: images/inspector.png "inspector" { width:auto; max-width:90% }
 
 [inspector99]: images/inspector99.png "inspector99" { width:auto; max-width:90% }
 
@@ -528,8 +539,10 @@ _)_
 Calling _BlowUp>>provokeBug:_ from a workspace gives us the following display:
 
 ~~ Center
-![blowup1-9-24]
+![provokeBug-ws1]
 ~~
+
+[provokeBug-ws1]: images/provokeBug-ws1.png "provokeBug-ws1" { width:auto; max-width:90% }
 
 [blowup1-9-24]: images/blowup1-9-24.png "blowup1-9-24" { width:auto; max-width:90% }
 
@@ -537,9 +550,10 @@ We can look at the exception in more detail by expanding the item _MessageNotUnd
 
 
 ~~ Center
-
-![blowup-2-9-14]
+![provokeBug-ws2]
 ~~
+
+[provokeBug-ws2]: images/provokeBug-ws2.png "provokeBug-ws2" { width:auto; max-width:90% }
 
 [blowup-2-9-14]: images/blowup-2-9-14.png "blowup-2-9-14" { width:auto; max-width:90% }
 
@@ -566,8 +580,10 @@ and get at the collections module of the platform, even if you forgot to import 
 You will encounter the debugger if an uncaught exception occurs during execution. If you evaluate an expression that results in an uncaught exception in a Hopscotch workspace or object inspector, the inspector will catch the exception, as described above. The text describing the exception also serves as a link that opens up a debugger page on the stack of the failed computation. Click on the link, to get a debugger in a new window. The debugger displays the call stack. 
 
 ~~ Center
-![blowUp3]
+![provokeBug-debug-closed]
 ~~
+
+[provokeBug-debug-closed]: images/provokeBug-debug-closed.png "provokeBug-debug-closed" { width:auto; max-width:90% }
 
 [blowUp3]: images/blowUp3.png "blowUp3" { width:auto; max-width:90% }
 
@@ -579,8 +595,10 @@ The debugger will mark the site of the active message send in blue.
 
 
 ~~ Center
-![blowup-3-9-14]
-~~
+![provokeBug-debug-open]
+~~ 
+
+[provokeBug-debug-open]: images/provokeBug-debug-open.png "provokeBug-debug-open" { width:auto; max-width:90% }
 
 The method is shown on the left, and above it buttons that control stepping etc. The debugger will mark the site of the active message send in blue.
 
@@ -595,9 +613,10 @@ You may use the method presenter on the left as you usually would; you may edit 
 In our case, we can see that the problem is that _**missing:with:**_ is not defined. Expand the top frame on the stack, to see the _**doesNotUnderstand:**_ method.
 
 ~~ Center
-
-![blowup-4-9-14]
+![mssingWithDNU]
 ~~
+
+[mssingWithDNU]: images/mssingWithDNU.png "mssingWithDNU" { width:auto; max-width:90% }
 
 [blowup-4-9-14]: images/blowup-4-9-14.png "blowup-4-9-14" { width:auto; max-width:90% }
 
@@ -684,8 +703,10 @@ At the left hand side of the class header section is a link that is labeled as
 _Source_. Clicking it transforms the presentation of the header, thus:
 
 ~~ Center
-![combinatorialParsing-hdr-9-14]
+![CombinatorialParsing-header-open]
 ~~
+
+[CombinatorialParsing-header-open]: images/CombinatorialParsing-header-open.png "CombinatorialParsing-header-open" { width:auto; max-width:90% }
 
 [combinatorialParsing-hdr-9-14]: images/combinatorialParsing-hdr-9-14.png "combinatorialParsing-hdr-9-14" { width:auto; max-width:90% }
 
@@ -773,8 +794,10 @@ You will be asked to confirm the cancellation
 Accepting  will add the namespace and take you back to an updated view of the root. We can then follow the link to look at our category :
 
 ~~ Center
-![category1]
+![ns101-blank]
 ~~
+
+[ns101-blank]: images/ns101-blank.png "ns101-blank" { width:auto; max-width:90% }
 
 [category1]: images/category1.PNG "category1" { width:auto; max-width:90% }
 
@@ -790,8 +813,10 @@ We will chose  _Add Class_
 You’ll see an editable pane with a template of a class header. 
 
 ~~ Center
-![addClass1-3-17-2014]
+![addClass]
 ~~
+
+[addClass]: images/addClass.png "addClass" { width:auto; max-width:90% }
 
 [addNamespace-item-menu3-17-2014]: images/addNamespace-item-menu3-17-2014.png "addNamespace-item-menu3-17-2014" { width:auto; max-width:90% }
 
@@ -801,9 +826,10 @@ You’ll see an editable pane with a template of a class header.
 We can edit this template with the details of the class we want to create.
 
 ~~ Center
-
-![addHest3-17-2014]
+![addHest]
 ~~
+
+[addHest]: images/addHest.png "addHest" { width:auto; max-width:90% }
 
 [addHest3-17-2014]: images/addHest3-17-2014.png "addHest3-17-2014" { width:auto; max-width:90% }
 
@@ -813,8 +839,10 @@ We’ve named our class **Hest**, which is Danish for horse. Don’t ask why. We
 
 
 ~~ Center
-![category2]
+![ns101-Hest]
 ~~
+
+[ns101-Hest]: images/ns101-Hest.png "ns101-Hest" { width:auto; max-width:90% }
 
 [category2]: images/category2.PNG "category2" { width:auto; max-width:90% }
 
@@ -822,9 +850,10 @@ We’ve named our class **Hest**, which is Danish for horse. Don’t ask why. We
 Click on the link to **Hest**. The view you see should look like this:
 
 ~~ Center
-
-![hest-1]
+![Hest]
 ~~
+
+[Hest]: images/Hest.png "Hest" { width:auto; max-width:90% }
 
 [hest-1]: images/hest-1.png "hest-1" { width:auto; max-width:90% }
 
@@ -835,9 +864,10 @@ Now let’s add a nested class, by clicking the plus icon, ![plusIcon], next to 
 
 
 ~~ Center
-
-![hest-2]
+![addNestedClass]
 ~~
+
+[addNestedClass]: images/addNestedClass.png "addNestedClass" { width:auto; max-width:90% }
 
 [hest-2]: images/hest-2.png "hest-2" { width:auto; max-width:90% }
 
@@ -854,9 +884,10 @@ Edit the template  to represent the desired nested class  Our nested class will 
 Save the code. Your display now looks something like this:
 
 ~~ Center
-
-![fisk1]
+![HestFisk]
 ~~
+
+[HestFisk]: images/HestFisk.png "HestFisk" { width:auto; max-width:90% }
 
 [fisk1]: images/fisk1.PNG "fisk1" { width:auto; max-width:90% }
 
@@ -873,8 +904,10 @@ Click the plus icon (![plusIcon]) in the _Methods_ section (or _Class Methods_ s
 
 ~~ Center
 
-![addMethod]
+![addNewMethod-blank]
 ~~
+
+[addNewMethod-blank]: images/addNewMethod-blank.png "addNewMethod-blank" { width:auto; max-width:90% }
 
 [addMethod]: images/addMethod.png "addMethod" { width:auto; max-width:90% }
 
@@ -956,9 +989,10 @@ However, if there are already some Git or Mercurial repositories in the director
 To add a new repository, click on the plus icon on the right hand side. This will initiate a dialog that will ask you for information needed to establish a connection to a Mercurial or Git repository. 
 
 ~~ Center
-
-![newRepo1-9-14]
+![repositoryChoice]
 ~~
+
+[repositoryChoice]: images/repositoryChoice.png "repositoryChoice" { width:auto; max-width:90% }
 
 [newRepo1-9-14]: images/newRepo1-9-14.png "newRepo1-9-14" { width:auto; max-width:90% }
 
@@ -971,8 +1005,10 @@ and accept your change by clicking the green icon.
 Once you choose one of these, more information is required. First, your name and e-mail address.
 
 ~~ Center
-![bitbucket-dialog]
+![fullName]
 ~~
+
+[fullName]: images/fullName.png "fullName" { width:auto; max-width:90% }
 
 [bitbucket-dialog]: images/bitbucket-dialog.png "bitbucket-dialog" { width:auto; max-width:90% }
 
@@ -998,9 +1034,10 @@ We also need your password at Bitbucket:
 Newspeak will set up a dedicated mercurial repository in the same directory as the image. This takes a short while. Once that is done, the new repository appears in the repository list on the MemoryHole page
 
 ~~ Center
-
-![memoryHole-repolist2]
+![Repositories-wNewspeak]
 ~~
+
+[Repositories-wNewspeak]: images/Repositories-wNewspeak.png "Repositories-wNewspeak" { width:auto; max-width:90% }
 
 [memoryHole-repolist2]: images/memoryHole-repolist2.png "memoryHole-repolist2" { width:auto; max-width:90% }
 
@@ -1201,9 +1238,10 @@ Here is a testing module **ListTesting**. It is a very simplistic set of tests f
 
 
 ~~ Center
-
-![listTesting-9-14]
+![ListTesting]
 ~~
+
+[ListTesting]: images/ListTesting.png "ListTesting" { width:auto; max-width:90% }
 
 [listTesting-9-14]: images/listTesting-9-14.png "listTesting-9-14" { width:auto; max-width:90% }
 
@@ -1233,9 +1271,10 @@ We show a single test configuration **ListTestingConfiguration**, but you can de
 The method _**testModulesUsingPlatform:minitest:**_ must be provided by the configuration. It will be called by Minitest to produce a set of testing modules, each of which will be processed by the framework as outlined above (i.e., searched for test contexts to be run).
 
 ~~ Center
-
-![listTestingConfig-9-14]
+![ListTestingConfiguration]
 ~~
+
+[ListTestingConfiguration]: images/ListTestingConfiguration.png "ListTestingConfiguration" { width:auto; max-width:90% }
 
 [listTestingConfig-9-14]: images/listTestingConfig-9-14.png "listTestingConfig-9-14" { width:auto; max-width:90% }
 
@@ -1306,8 +1345,11 @@ The best way to develop Newspeak code is via the IDE ([here’s how to open it](
 
 ~~ Center
 
+![HelloBraveNewWorld-0]
 ![helloBraveNewWorld-01]
 ~~
+
+[HelloBraveNewWorld-0]: images/HelloBraveNewWorld-0.png "HelloBraveNewWorld-0" { width:auto; max-width:90% }
 
 [helloBraveNewWorld-01]: images/helloBraveNewWorld-01.png "helloBraveNewWorld-01" { width:auto; max-width:90% }
 
