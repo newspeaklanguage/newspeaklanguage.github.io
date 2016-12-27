@@ -771,13 +771,8 @@ you'll be asked to type in the name of the new namespace.
 ~~
 
 [addNamespace]: images/addNamespace.png "addNamespace" { width:auto; max-width:90% }
-Accept the category name by clicking on the green icon:
-
-~~ Center
-![greenIcon]
-~~
-
-Accepting
+Accept the category name by clicking on the green icon,
+![greenIcon]. Accepting
 will add the namespace and take you back to an updated view of the root.
 
 [plusIcon]: images/plusIcon.png "plusIcon" { width:auto; max-width:90% }
@@ -792,21 +787,12 @@ will add the namespace and take you back to an updated view of the root.
 [greenIcon]: images/greenIcon.png "greenIcon" { width:auto; max-width:90% }
 
 You can also just type Ctrl-S (or Cmd-S on a mac) in the text pane to accept. If you wish to cancel 
-the operation, click the red icon:
+the operation, click the red icon, ![redIcon]. 
+You will be asked to confirm the cancellation. 
 
-~~ Center
-![redIcon]
-~~
 
 [redIcon]: images/redIcon.png "redIcon" { width:auto; max-width:90% }
 
-You will be asked to confirm the cancellation
-
-~~ Center
-![confirmCancel]
-~~
-
-[confirmCancel]: images/confirmCancel.png "confirmCancel" { width:auto; max-width:90% }
 
 Assuming we accepted, we can then follow the link to look at our category :
 
@@ -1362,7 +1348,7 @@ The best way to develop Newspeak code is via the IDE ([here’s how to open it](
 
 ~~ Center
 
-![HelloBraveNewWorld-0]
+
 ![helloBraveNewWorld-01]
 ~~
 
@@ -1375,7 +1361,7 @@ The best way to develop Newspeak code is via the IDE ([here’s how to open it](
 Click on the link that says _Source_. You should see something like the following:
 
 ~~ Center
-![helloBraveNewWorld-02]
+  ![HelloBraveNewWorld-0]
 ~~
 
 [helloBraveNewWorld-02]: images/helloBraveNewWorld-02.png "helloBraveNewWorld-02" { width:auto; max-width:90% }
