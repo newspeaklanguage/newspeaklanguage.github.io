@@ -1,0 +1,1 @@
+Newspeak3'NS101'class HelloBraveNewWorld usingPlatform: platform = (  | stdout = platform squeak Transcript. |  stdout open show: 'Hello, Oh Brave new world'.) () : ()
