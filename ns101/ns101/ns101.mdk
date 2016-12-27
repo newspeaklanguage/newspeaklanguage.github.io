@@ -108,8 +108,10 @@ Click (or double click, as the case may be) on the image file. This will open th
 
 
 ~~ Center
-![home-9-14]
+![home]
 ~~
+
+[home]: images/home.png "home" { width:auto; max-width:90% }
 
 
 [home-9-14]: images/home-9-14.png "home-9-14" { width:auto; max-width:90% }
@@ -122,6 +124,8 @@ At the top of the window, you’ll see a tool bar that looks like this:
 
 
 ![hopscotch-toolbar]
+
+[hopscotch-toolbar]: images/hopscotch-toolbar.png "hopscotch-toolbar" { width:auto; max-width:90% }
 
 [hopscotch-toolbar]: images/hopscotch-toolbar.PNG "hopscotch-toolbar" { width:auto; max-width:90% }
 
@@ -206,9 +210,10 @@ You can type multiple search terms, separated by semicolons. The search is case-
 We’ll search for the class **CombinatorialParsing**.  Type the name of the class into the search pane. This yields a list of classes and a list of method names matching that string.
 
 ~~ Center
-
-![combinatorialParsing-9-14]
+![searchCombinatorialParsing]
 ~~
+
+[searchCombinatorialParsing]: images/searchCombinatorialParsing.png "searchCombinatorialParsing" { width:auto; max-width:90% }
 
 [combinatorialParsing-9-14]: images/combinatorialParsing-9-14.PNG "combinatorialParsing-9-14" { width:auto; max-width:90% }
 
@@ -227,11 +232,13 @@ Click on the link for **CombinatorialParsing**
 [combParsing-link]: images/combParsing-link.png "combParsing-link" { width:auto; max-width:90% }
 
 
+[CombinatorialParsing]: images/CombinatorialParsing.png "CombinatorialParsing" { width:auto; max-width:90% }
+
+
 The browser now displays the **CombinatorialParsing** class.
 
 ~~ Center
-
-![combParsingDef-9-14]
+![CombinatorialParsing]
 ~~
 
 [combParsingDef-9-14]: images/combParsingDef-9-14.png "combParsingDef-9-14" { width:auto; max-width:90% }
