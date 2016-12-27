@@ -152,30 +152,25 @@ Newspeak currently runs on top of Squeak. If you’re running on Mac OS X or Lin
 
 
 
-The screen shot above shows the home page. You can always return to the home page of a Newspeak browser by clicking on the home icon at the top of the browser.
+The screen shot above shows the home page. You can always return to the home page of a Newspeak browser by clicking on the home icon at the top of the browser: ![HomeIcon].
 
-~~ Center
 
-![HomeIcon]
 
 
 [HomeIcon]: images/HomeIcon.png "HomeIcon" { width:auto; max-width:90% }
-~~
 
 [opMenu]: images/opMenu.png "opMenu" { width:auto; max-width:90% }
 
 The home page includes links to a variety of useful places, like recently visited classes and packages, the source control page and more. If you look at the list of classes, you’ll see each class has a round icon next to it. The icon tells you which language the class is written in; the current system mixes Smalltalk code with Newspeak. A gray icon 
+![SmalltalkClassIcon] represents Smalltalk. Icons representing Newspeak are labeled with a version number. Golden icons ![ns3-icon] represent Newspeak3, which is the currently operational dialect of Newspeak.
 
-~~ Center
-![SmalltalkClassIcon]
-~~
 
 [SmalltalkClassIcon]: images/SmalltalkClassIcon.png "SmalltalkClassIcon" { width:auto; max-width:90% }
 
-represents Smalltalk. Icons representing Newspeak are labeled with a version number. Golden icons represent Newspeak3, which is the currently operational dialect of Newspeak.
+
 
 ~~ Center
-![ns3-icon]
+
 ~~
 
 [ns3-icon]: images/ns3-icon.png "ns3-icon" { width:auto; max-width:90% }
@@ -1426,10 +1421,10 @@ Note: If you are running on Windows, choose the _open console_ option from the o
 Select the expression and hit Ctrl-S (Cmd-s on a Mac). You should see some results:
 
 ~~ Center
-![HelloBraveNewWorld-transcript2]
+![helloBNW0-9-14]
 ~~
 
-[HelloBraveNewWorld-transcript2]: images/HelloBraveNewWorld-transcript2.png "HelloBraveNewWorld-transcript2" { width:auto; max-width:90% }
+[helloBNW0-9-14]: images/helloBNW0-9-14.png "helloBNW0-9-14" { width:auto; max-width:90% }
 
 
 Now, let’s discuss some high principles. Good Newspeak style requires that a module declaration list all its external dependencies clearly and explicitly. What does this have to do with **HelloBraveNewWorld**? Well, we have, perhaps unknowingly, created a module.
