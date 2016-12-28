@@ -746,10 +746,11 @@ On the home page, you will see a link marked _Newspeak sources_. This link leads
 to the root namespace. 
 
 ~~ Center
-![root]
+![rootClean]
 ~~
 
-[root]: images/root.png "root" { width:auto; max-width:90% }
+[rootClean]: images/rootClean.png "rootClean" { width:auto; max-width:90% }
+
 
 
 
