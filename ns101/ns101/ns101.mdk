@@ -821,6 +821,8 @@ You’ll see an editable pane with a template of a class header.
 
 [addClass]: images/addClass.png "addClass" { width:auto; max-width:90% }
 
+[addClass]: images/addClass.png "addClass" { width:auto; max-width:90% }
+
 [addNamespace-item-menu3-17-2014]: images/addNamespace-item-menu3-17-2014.png "addNamespace-item-menu3-17-2014" { width:auto; max-width:90% }
 
 
@@ -831,6 +833,14 @@ We can edit this template with the details of the class we want to create.
 ~~ Center
 ![addHest]
 ~~
+<!-- begin merge (remove this line to resolve the conflict) -->
+~ Begin Remote
+![addHest]
+~~
+~ End Remote
+
+[addHest]: images/addHest.png "addHest" { width:auto; max-width:90% }
+<!-- end merge -->
 
 [addHest]: images/addHest.png "addHest" { width:auto; max-width:90% }
 
@@ -847,6 +857,8 @@ We’ve named our class **Hest**, which is Danish for horse. Don’t ask why. We
 
 [ns101-Hest]: images/ns101-Hest.png "ns101-Hest" { width:auto; max-width:90% }
 
+[ns101-Hest]: images/ns101-Hest.png "ns101-Hest" { width:auto; max-width:90% }
+
 [category2]: images/category2.PNG "category2" { width:auto; max-width:90% }
 
 
@@ -855,6 +867,14 @@ Click on the link to **Hest**. The view you see should look like this:
 ~~ Center
 ![Hest]
 ~~
+<!-- begin merge (remove this line to resolve the conflict) -->
+~ Begin Remote
+![Hest]
+~~
+~ End Remote
+
+[Hest]: images/Hest.png "Hest" { width:auto; max-width:90% }
+<!-- end merge -->
 
 [Hest]: images/Hest.png "Hest" { width:auto; max-width:90% }
 
@@ -869,6 +889,14 @@ Now let’s add a nested class, by clicking the plus icon, ![plusIcon], next to 
 ~~ Center
 ![addNestedClass]
 ~~
+<!-- begin merge (remove this line to resolve the conflict) -->
+~ Begin Remote
+![addNestedClass]
+~~
+~ End Remote
+
+[addNestedClass]: images/addNestedClass.png "addNestedClass" { width:auto; max-width:90% }
+<!-- end merge -->
 
 [addNestedClass]: images/addNestedClass.png "addNestedClass" { width:auto; max-width:90% }
 
@@ -1844,6 +1872,10 @@ You should see a new Hopscotch window, like this:
 
 [bneApp-initial]: images/bneApp-initial.png "bneApp-initial" { width:auto; max-width:90% }
 
+ Notice the absence of the operate and meta menu icons and the search pane. All these are features provided by Hopscotch’s  **IDEWindow**. We configured our app to use a **HopscotchWindow** rather than an **IDEWindow**. After all, we typically don’t want the IDE as part of a deployed application. Using **HopscotchWindow** ensures is there is no way for the user of the application to get to the Newspeak IDE.
+
+You'll also note the presence of a Windows menu bar. This is due to the use of **HopscotchWindow**, as opposed to **IDEWindow** which we used before. We at the Ministry of Truth feel that menu bars are somewhat ungood, which is why the IDE doesn’t use them. If you are building a real application, you’ll have to decide whether to enable the menu bar, and what it should show. This particular menu bar is just a placeholder; you would never want to use it without customizing it.
+
 It would be more useful if we could actually browse the structure of the _/Users_ directory. To do this, we’ll refine both our subject and our presenter.
 
 We’ll need to be able to determine whether we’re looking at a directory or a simple file. So let’s add an _**isDirectory**_ method to _**FileSubject**_. 
@@ -2182,6 +2214,8 @@ The main method’s purpose is to instantiate the various module definitions tha
 ![braveNewWorldExplorerApp]
 ~~
 
+
+
 [braveNewWorldExplorerApp]: images/braveNewWorldExplorerApp.png "braveNewWorldExplorerApp" { width:auto; max-width:90% }
 
 
@@ -2212,24 +2246,28 @@ You can test your deployable app in the IDE. Click on the run link in your appli
 
 [runApp]: images/runApp.png "runApp" { width:auto; max-width:90% }
 
-This will open up a file chooser dialog, which will let you select a vfuel file. Once you choose the file, the IDE will bring it up for for you.
-
+This will open up a file chooser dialog, which will let you select a vfuel file. 
 ~~ Center
 ![vfuel-choose-file]
 ~~
 
 [vfuel-choose-file]: images/vfuel-choose-file.png "vfuel-choose-file" { width:auto; max-width:90% }
 
-In this configuration is there is no way for the user of the application to get to the Newspeak IDE. Notice the absence of the operate and meta menu icons and the search pane. All these are features provided by Hopscotch’s  **IDEWindow**. We configured our app to use a **HopscotchWindow** rather than an **IDEWindow**. After all, we typically don’t want the IDE as part of a deployed application.
+[vfuel-choose-file]: images/vfuel-choose-file.png "vfuel-choose-file" { width:auto; max-width:90% }
+
+Once you choose the file, the IDE will bring it up for for you.
 
 
+
+~~ Center
+![bneApp-deployed]
+~~
 ~~ Center
 ![bneApp-deployed]
 ~~
 
 [bneApp-deployed]: images/bneApp-deployed.png "bneApp-deployed" { width:auto; max-width:90% }
 
-You’ll also note the presence of a Windows menu bar. Again, this is due to the use of **HopscotchWindow**. We at the Ministry of Truth feel that menu bars are somewhat ungood, which is why the IDE doesn’t use them. If you are building a real application, you’ll have to decide whether to enable the menu bar, and what it should show. This particular menu bar is just a placeholder; you would never want to use it without customizing it.
 
 Because the IDE isn’t part of the default deployment set up, any attempt to use elements of it would fail, unless we explicitly included by extracting them from the manifest parameter in _**packageUsing:**_ and inserting them into the application (as opposed to the Hopscotch framework, which we can obtain from the platform in _**main:args:**_)  
 
@@ -2303,6 +2341,8 @@ This will produce a new window.
 
 [bneApp-final]: images/bneApp-final.png "bneApp-final" { width:auto; max-width:90% }
 
+[bneApp-final]: images/bneApp-final.png "bneApp-final" { width:auto; max-width:90% }
+
 [brav20]: images/brav20.png "brav20" { width:auto; max-width:90% }
 
 Next choose _Inspect Presenter_ from newly added drop down the menu on the  right.
@@ -2325,11 +2365,15 @@ Now choose the _Show Implementation_ menu option from the menu. This allows us t
 
 [inspectorOnFilePresenter]: images/inspectorOnFilePresenter.png "inspectorOnFilePresenter" { width:auto; max-width:90% }
 
+[inspectorOnFilePresenter]: images/inspectorOnFilePresenter.png "inspectorOnFilePresenter" { width:auto; max-width:90% }
+
 [inspect-presenter]: images/inspect-presenter.png "inspect-presenter" { width:auto; max-width:90% }
 
 ~~ Center
 ![FilePresenter-final]
 ~~
+
+[FilePresenter-final]: images/FilePresenter-final.png "FilePresenter-final" { width:auto; max-width:90% }
 
 [FilePresenter-final]: images/FilePresenter-final.png "FilePresenter-final" { width:auto; max-width:90% }
 
