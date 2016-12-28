@@ -762,17 +762,28 @@ In the root namespace, click on the plus icon, which looks like this:
 ![plusIcon]. 
 This brings up an _Add Namespace_ menu item. 
 ~~ Center
-![addNamespace-menu]
+![addNamespace-menu-edited]
 ~~
-[addNamespace-menu]: images/addNamespace-menu.png "addNamespace-menu" { width:auto; max-width:90% }
+
 If you click on that,
 you'll be asked to type in the name of the new namespace. 
+
+[addNamespace-menu-edited]: images/addNamespace-menu-edited.png "addNamespace-menu-edited" { width:auto; max-width:90% }
 
 ~~ Center
 ![addNamespace]
 ~~
 
 [addNamespace]: images/addNamespace.png "addNamespace" { width:auto; max-width:90% }
+
+We'll type in NS101
+
+~~ Center
+![add-NS101]
+~~
+
+[add-NS101]: images/add-NS101.png "add-NS101" { width:auto; max-width:90% }
+
 Accept the category name by clicking on the green icon,
 ![greenIcon]. Accepting
 will add the namespace and take you back to an updated view of the root.
@@ -835,14 +846,6 @@ We can edit this template with the details of the class we want to create.
 ~~ Center
 ![addHest]
 ~~
-<!-- begin merge (remove this line to resolve the conflict) -->
-~ Begin Remote
-![addHest]
-~~
-~ End Remote
-
-[addHest]: images/addHest.png "addHest" { width:auto; max-width:90% }
-<!-- end merge -->
 
 [addHest]: images/addHest.png "addHest" { width:auto; max-width:90% }
 
@@ -869,14 +872,6 @@ Click on the link to **Hest**. The view you see should look like this:
 ~~ Center
 ![Hest]
 ~~
-<!-- begin merge (remove this line to resolve the conflict) -->
-~ Begin Remote
-![Hest]
-~~
-~ End Remote
-
-[Hest]: images/Hest.png "Hest" { width:auto; max-width:90% }
-<!-- end merge -->
 
 [Hest]: images/Hest.png "Hest" { width:auto; max-width:90% }
 
@@ -891,14 +886,7 @@ Now let’s add a nested class, by clicking the plus icon, ![plusIcon], next to 
 ~~ Center
 ![addNestedClass]
 ~~
-<!-- begin merge (remove this line to resolve the conflict) -->
-~ Begin Remote
-![addNestedClass]
-~~
-~ End Remote
 
-[addNestedClass]: images/addNestedClass.png "addNestedClass" { width:auto; max-width:90% }
-<!-- end merge -->
 
 [addNestedClass]: images/addNestedClass.png "addNestedClass" { width:auto; max-width:90% }
 
@@ -947,8 +935,10 @@ Click the plus icon (![plusIcon]) in the _Methods_ section (or _Class Methods_ s
 We’ll call our method _**bar**_. It will return the number 91.
 
 ~~ Center
-![addBar]
+![addBarMethod]
 ~~
+
+[addBarMethod]: images/addBarMethod.png "addBarMethod" { width:auto; max-width:90% }
 
 [addBar]: images/addBar.png "addBar" { width:auto; max-width:90% }
 
@@ -1049,10 +1039,11 @@ Once you choose one of these, more information is required. First, your name and
 Next, your username at your hg provider. For the public Newspeak repository, the provider is BitBucket.
 
 ~~ Center
-![wsmith]
+![wsmith-12-28-16]
 ~~
 
-[wsmith]: images/wsmith.png "wsmith" { width:auto; max-width:90% }
+[wsmith-12-28-16]: images/wsmith-12-28-16.png "wsmith-12-28-16" { width:auto; max-width:90% }
+
 
 
 
@@ -2230,13 +2221,12 @@ The main method’s purpose is to instantiate the various module definitions tha
 Notice the _deploy_ link near the top right of the class presenter.  This link appears whenever a class defines a _**packageUsing:**_ class method. Click on it, and you get a pop-up menu; choose _as VictoryFuel_.
 
 ~~ Center
-![vfuel-menu]
-
-[vfuel-menu]: images/vfuel-menu.png "vfuel-menu" { width:auto; max-width:90% }
+![vfuel-menu-edited]
 ~~
 Check your working directory: there is a new file: _BraveNewWorldExplorerApp.vfuel_.  At this point, we’re done, but it’s always good to test your deployed application.
 
-[deployMenu]: images/deployMenu.png "deployMenu" { width:auto; max-width:90% }
+[vfuel-menu-edited]: images/vfuel-menu-edited.png "vfuel-menu-edited" { width:auto; max-width:90% }
+
 
 
 #How do I test my deployment code?{-; #sec-how-do-i-test-my-deployment-code}
@@ -2263,9 +2253,6 @@ Once you choose the file, the IDE will bring it up for for you.
 
 
 
-~~ Center
-![bneApp-deployed]
-~~
 ~~ Center
 ![bneApp-deployed]
 ~~
