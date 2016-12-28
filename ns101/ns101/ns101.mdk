@@ -285,10 +285,11 @@ Now click on the name of the class **AlternatingParser**. That will take you to 
 **AlternatingParser** has no nested classes, but it does have some instance methods. Each of the method names displayed is a link. However, when you click on it, the method opens in place, rather than on a new page.
 
 ~~ Center
-![parseInContext]
+![parseInContext-public]
 ~~
+[parseInContext-public]: images/parseInContext-public.png "parseInContext-public" { width:auto; max-width:90% }
 
-[parseInContext]: images/parseInContext.png "parseInContext" { width:auto; max-width:90% }
+
 
 
 
@@ -299,11 +300,10 @@ Looking at the method _**parse:inContext:ifError:**_, you can see the syntax col
 Looking more closely at the method link, we see that it is followed by various bits of information:
 
 ~~ Center
-
-![parseInContext-hdr]
+![parseInContext-link]
 ~~
 
-[parseInContext-hdr]: images/parseInContext-hdr.png "parseInContext-hdr" { width:auto; max-width:90% }
+[parseInContext-link]: images/parseInContext-link.png "parseInContext-link" { width:auto; max-width:90% }
 
 These elements help answer questions like:
 
