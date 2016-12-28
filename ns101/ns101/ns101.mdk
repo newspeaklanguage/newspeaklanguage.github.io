@@ -917,11 +917,11 @@ Click the plus icon (![plusIcon]) in the _Methods_ section (or _Class Methods_ s
 We’ll call our method _**bar**_. It will return the number 91.
 
 ~~ Center
-
 ![addBar]
 ~~
 
 [addBar]: images/addBar.png "addBar" { width:auto; max-width:90% }
+
 
 
 Accept the changes.  
@@ -1024,15 +1024,19 @@ Next, your username at your hg provider. For the public Newspeak repository, the
 
 [wsmith]: images/wsmith.png "wsmith" { width:auto; max-width:90% }
 
+
+
 We also need your password at Bitbucket:
 
 
 
 ~~ Center
-![downwithbigbrother]
+![downWithBigBrother]
 ~~
 
-[downwithbigbrother]: images/downwithbigbrother.png "downwithbigbrother" { width:auto; max-width:90% }
+[downWithBigBrother]: images/downWithBigBrother.png "downWithBigBrother" { width:auto; max-width:90% }
+
+
 
 Newspeak will set up a dedicated mercurial repository in the same directory as the image. This takes a short while. Once that is done, the new repository appears in the repository list on the MemoryHole page
 
