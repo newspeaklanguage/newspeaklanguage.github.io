@@ -285,11 +285,12 @@ Now click on the name of the class **AlternatingParser**. That will take you to 
 **AlternatingParser** has no nested classes, but it does have some instance methods. Each of the method names displayed is a link. However, when you click on it, the method opens in place, rather than on a new page.
 
 ~~ Center
-
 ![parseInContext]
 ~~
 
 [parseInContext]: images/parseInContext.png "parseInContext" { width:auto; max-width:90% }
+
+
 
 Clicking on the link again collapses the method display. This shows that link behavior in Hopscotch can be customized.  It isn’t very useful to show a method on a separate page. Newspeak methods are usually short, and should never be very long.  In any case methods need to be understood in context.
 
@@ -324,11 +325,12 @@ Another way to get at the sender/implementor information is the speech bubble, !
 Of course, you can also enter a message selector into the search pane. In all these cases, the result is a list like this
 
 ~~ Center
-
 ![recordFailure]
 ~~
 
 [recordFailure]: images/recordFailure.png "recordFailure" { width:auto; max-width:90% }
+
+
 
 #How do I delete a method?{-; #sec-how-do-i-delete-a-method}
 
@@ -747,6 +749,8 @@ to the root namespace.
 ~~
 
 [root]: images/root.png "root" { width:auto; max-width:90% }
+
+
 
 #How do I create a category namespace?{-; #sec-how-do-i-create-a-class-category}
 
