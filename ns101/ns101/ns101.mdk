@@ -1379,22 +1379,22 @@ Minitest cleanly breaks down the multiple roles an SUnit **TestCase** has. The d
 The best way to develop Newspeak code is via the IDE ([here’s how to open it](#sec-how-do-i-open-the-newspeak-ide)).  Make sure you’ve saved your image under a different name [as described here](). In a Newspeak browser ([this is how to open one](#sec-how-do-i-open-a-newspeak-browser-from-the-console)) create a new class ([as explained here](#sec-how-do-i-create-a-new-class)) called **HelloBraveNewWorld**
 
 ~~ Center
-
-
-![helloBraveNewWorld-01]
+![HelloBraveNewWorld-blank]
 ~~
 
-[HelloBraveNewWorld-0]: images/HelloBraveNewWorld-0.png "HelloBraveNewWorld-0" { width:auto; max-width:90% }
+[HelloBraveNewWorld-blank]: images/HelloBraveNewWorld-blank.png "HelloBraveNewWorld-blank" { width:auto; max-width:90% }
 
-[helloBraveNewWorld-01]: images/helloBraveNewWorld-01.png "helloBraveNewWorld-01" { width:auto; max-width:90% }
 
 [helloBNW0]: images/helloBNW0.png "helloBNW0" { width:auto; max-width:90% }
 
 Click on the link that says _Source_. You should see something like the following:
 
 ~~ Center
-  ![HelloBraveNewWorld-0]
+![HelloBraveNewWorld-0]
 ~~
+
+
+[HelloBraveNewWorld-0]: images/HelloBraveNewWorld-0.png "HelloBraveNewWorld-0" { width:auto; max-width:90% }
 
 [helloBraveNewWorld-02]: images/helloBraveNewWorld-02.png "helloBraveNewWorld-02" { width:auto; max-width:90% }
 
@@ -1542,12 +1542,12 @@ but not _**private**_ ones.
 Next, we’ll define presenter and subject classes - **BraveNewWorldPresenter** and **BraveNewWordSubject**, respectively, nested within the **HelloBraveNewWorld** class [(here’s how to declare a nested class)](#)).
 
 ~~ Center
-![braveNewWorld-9-14]
+![HelloBraveNewWorld-final]
 ~~
 
-[braveNewWorld-9-14]: images/braveNewWorld-9-14.png "braveNewWorld-9-14" { width:auto; max-width:90% }
+[HelloBraveNewWorld-final]: images/HelloBraveNewWorld-final.png "HelloBraveNewWorld-final" { width:auto; max-width:90% }
 
-[helloBraveNewWorld3]: images/helloBraveNewWorld3.png "helloBraveNewWorld3" { width:auto; max-width:90% }
+[braveNewWorld-9-14]: images/braveNewWorld-9-14.png "braveNewWorld-9-14" { width:auto; max-width:90% }
 
 The definition of **BraveNewWorldSubject** should read:
 
@@ -1580,10 +1580,11 @@ exception, just as if it had not been completely missing.
 Now we can add some functionality to our presenter. The most important method [(here’s how to add a method)](#sec-how-do-i-add-a-method) in a presenter is _**definition**_, which defines what gets displayed. In our case, we will simply present the string _'Hello, Oh Brave new world'_. The Hopscotch library provides a set of basic operators, called combinators, that display information on the screen.  One of the simplest combinators is _**label:**_, which allows us to display a string.
 
 ~~ Center
-![braveNewWorldPresenter-1-9-14]
+![BraveNewWorldPresenter]
 ~~
 
-[braveNewWorldPresenter-1-9-14]: images/braveNewWorldPresenter-1-9-14.png "braveNewWorldPresenter-1-9-14" { width:auto; max-width:90% }
+[BraveNewWorldPresenter]: images/BraveNewWorldPresenter.png "BraveNewWorldPresenter" { width:auto; max-width:90% }
+
 
 The _**label:**_ combinator constructs a _fragment_ from a string. 
 Fragments are the basic elements of display. 
@@ -2227,8 +2228,9 @@ The main method’s purpose is to instantiate the various module definitions tha
 Notice the _deploy_ link near the top right of the class presenter.  This link appears whenever a class defines a _**packageUsing:**_ class method. Click on it, and you get a pop-up menu; choose _as VictoryFuel_.
 
 ~~ Center
+![vfuel-menu]
 
-![deployMenu]
+[vfuel-menu]: images/vfuel-menu.png "vfuel-menu" { width:auto; max-width:90% }
 ~~
 Check your working directory: there is a new file: _BraveNewWorldExplorerApp.vfuel_.  At this point, we’re done, but it’s always good to test your deployed application.
 
