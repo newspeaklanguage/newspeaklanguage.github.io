@@ -31,7 +31,7 @@ If you want to read things in sequence, just [begin at the beginning](#sec-begin
 
 [How do I change the category of a method?](#sec-how-do-i-change-the-category-of-a-method)
 
-[How do I navigate in the browser?](#sec-how-do-i-navigate-in-the-browser)
+[How do I navigate in the ide?](#sec-how-do-i-navigate-in-the-browser)
 
 [How do I erase my history?](#sec-how-do-i-erase-my-history)
 
@@ -67,8 +67,6 @@ If you want to read things in sequence, just [begin at the beginning](#sec-begin
 
 [How do delete a slot?](#sec-how-do-i-delete-a-slot)
 
-[How do I find a class by browsing the IDE namespace?](#sec-how-do-i-find-a-class-by-browsing-the-ide-namespace)
-
 [How does source control work?](#sec-how-does-source-control-work)
 
 [How do I use the Native GUI?](#sec-how-do-i-use-the-native-gui)
@@ -77,13 +75,11 @@ If you want to read things in sequence, just [begin at the beginning](#sec-begin
 
 [Why is stuff red?](#sec-why-is-some-code-highlighted-in-red)
 
-[How does the Syntax differ from the Specification, and Why?](#)
-
-[What is the configuration link on the home page for?](#)
+[How does the Syntax differ from the Specification, and Why?](#sec-how-does-the-syntax-differ-from-the-specification-and-why)
 
 [How do I deploy an application?](#sec-how-do-i-deploy-an-application)
 
-[How do I test my deployment configuration?](#sec-how-do-i-test-my-deployment-code)
+[How do I test my deployment code?](#sec-how-do-i-test-my-deployment-code)
 
 #Begin at the Beginning{-; #sec-begin-at-the-beginning}
 
@@ -148,7 +144,7 @@ Choose the option _Save Image As ..._ and give the image some other name.
 
 Now we can proceed.
 
-Newspeak currently runs on top of Squeak. If you’re running on Mac OS X or Linux, all IDE windows open up within the main Squeak window. On Windows we use a native GUI binding. Most screen shots in this document show the Windows native binding running on Windows 7.
+Newspeak currently runs on top of Squeak. If you’re running on Mac OS X or Linux, all IDE windows open up within the main Squeak window. On Windows we use a native GUI binding. Most screen shots in this document show the Windows native binding running on Windows 10 (though some date back to Windows 7).
 
 
 
@@ -967,7 +963,6 @@ To add a slot,  edit the class header.
 
 #How do I delete a slot?{-; #sec-how-do-i-delete-a-slot}
 
-Edit the class header.
 Edit the class header.
 
 
