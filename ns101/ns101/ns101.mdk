@@ -996,11 +996,11 @@ You get to source control from the link marked _Repositories_ on the home page. 
 MemoryHole shows you a list of repositories that are available to you. The first time you go to the source control page, it will be likely be empty.
 
 ~~ Center
-
-![memoryHole-repolist-empty]
+![memoryHole-empty]
 ~~ 
 
-[memoryHole-repolist-empty]: images/memoryHole-repolist-empty.png "memoryHole-repolist-empty" { width:auto; max-width:90% }
+[memoryHole-empty]: images/memoryHole-empty.png "memoryHole-empty" { width:auto; max-width:90% }
+
 
 However, if there are already some Git or Mercurial repositories in the directory where you are running or in its parent directories, the IDE will find and list them for you. Unless they are actually Newspeak repos, you won't want to access them via Memory Hole however. Hence, we'll need to add a new repository.
 
@@ -1092,10 +1092,10 @@ The above is what you’ll see if your image and the repository are perfectly in
 
 
 ~~ Center
-![memoryHole-repoview1]
+![memoryHole-closed]
 ~~
 
-[memoryHole-repoview1]: images/memoryHole-repoview1.png "memoryHole-repoview1" { width:auto; max-width:90% }
+[memoryHole-closed]: images/memoryHole-closed.png "memoryHole-closed" { width:auto; max-width:90% }
 
 The top most deep grey banner says: _Modified In Image_.  Underneath, there is a collapsed pane that lists any classes that are unversioned - that is, are not under source control at all. There’s also a link marked _Log_ in the upper right hand corner that will take you to list of source control log entries.
 
@@ -1115,12 +1115,10 @@ Changed code is shown with yellow background.
 Additions are highlighted in green and deletions in red. For example, in the screenshot below you can see that in class **KernelForSqueak**, the nested class **AbstractMixin** has had the method _**binding**_ added. There have been changes made to the nested class **KernelForSqueak`Class** which are not shown. And we see that in class **KernelForSqueak`InstanceMixin**, the method _**binding**_ was removed and several methods were modified.
 
 ~~ Center
-![src-ctl2-9-14]
+![memoryHole-details]
 ~~
 
-[src-ctl2-9-14]: images/src-ctl2-9-14.png "src-ctl2-9-14" { width:auto; max-width:90% }
-
-[src-ctl1-9-14]: images/src-ctl1-9-14.png "src-ctl1-9-14" { width:auto; max-width:90% }
+[memoryHole-details]: images/memoryHole-details.png "memoryHole-details" { width:auto; max-width:90% }
 
 
 
