@@ -1791,31 +1791,28 @@ You may need to change the string _'C:/Users'_ if you aren’t running on a comm
 Unfortunately, evaluating this fails:
 
 ~~ Center
-![BNE-01-9-14]
+![workspace-createPresenterMissing]
 ~~
-[braveNeworld-debug0]: images/braveNeworld-debug0.png "braveNeworld-debug0" { width:auto; max-width:90% }
 
-[BNE-01-9-14]: images/BNE-01-9-14.png "BNE-01-9-14" { width:auto; max-width:90% }
+[workspace-createPresenterMissing]: images/workspace-createPresenterMissing.png "workspace-createPresenterMissing" { width:auto; max-width:90% }
 
 
 You may recall that **FileSubject** should have a _**createPresenter**_ method that  determines what kind of presenter should present it by default.  To correct this situation, follow the _Error: My subclass should have overridden #createPresenter_ link.
 
 ~~ Center
-
-![bne-debug1-9-14]
+![debugCreatePresenter]
 ~~
 
-[bne-debug1-9-14]: images/bne-debug1-9-14.png "bne-debug1-9-14" { width:auto; max-width:90% }
+[debugCreatePresenter]: images/debugCreatePresenter.png "debugCreatePresenter" { width:auto; max-width:90% }
 
 
 Next, expand the _**subclassResponsibility**_ frame:
 
 ~~ Center
-
-![bne-debug2-9-14]
+![debugSubclassResponsibility]
 ~~
 
-[bne-debug2-9-14]: images/bne-debug2-9-14.png "bne-debug2-9-14" { width:auto; max-width:90% }
+[debugSubclassResponsibility]: images/debugSubclassResponsibility.png "debugSubclassResponsibility" { width:auto; max-width:90% }
 
 Clicking on **FileSubject** will take us to **BraveNewWorldExplorer`FileSubject**.
 Add this method:
@@ -1828,11 +1825,10 @@ _)_
 Then go back to the debugger.  We can see that _**createPresenter**_ is called from the method _**presenter**_, so let’s open the activation of _**presenter**_:
 
 ~~ Center
-
-![bne-debug3-9-14]
+![debug-presenterBlock]
 ~~
 
-[bne-debug3-9-14]: images/bne-debug3-9-14.png "bne-debug3-9-14" { width:auto; max-width:90% }
+[debug-presenterBlock]: images/debug-presenterBlock.png "debug-presenterBlock" { width:auto; max-width:90% }
 
 
 
@@ -1846,7 +1842,7 @@ Now use choose _Restart block_ from the menu
 [restart-block-menu]: images/restart-block-menu.png "restart-block-menu" { width:auto; max-width:90% }
 
 
-We should be able to proceed successfully from this point. Of course, if we had remembered to add a _**createPresenter**_ method at the beginning, we wouldn’t need to do all this. However, this tutorial deliberately neglected to remind you of this point, so that we could demonstrate a common style of program development: 
+We should be able to proceed successfully from this point by pressing _Continue_. Of course, if we had remembered to add a _**createPresenter**_ method at the beginning, we wouldn’t need to do all this. However, this tutorial deliberately neglected to remind you of this point, so that we could demonstrate a common style of program development: 
 
 Rather than define everything up front, we sometimes choose to leave methods undefined and let the program fail on purpose. We can then add the missing method at the point of failure. Working this way, we often have a better sense of the sort of data that will be available to us in the method. Some developers really love working this way. On the other hand, there is some risk that your test paths will miss the method altogether, and so there is something to be said for defining the method in advance.
 
