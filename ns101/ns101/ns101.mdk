@@ -506,11 +506,11 @@ The inspector has an interaction pane in which you can evaluate expressions in t
 If you don’t make a selection explicitly, the current line will be evaluated. This is useful for short expressions. This design allows you to have multiple code snippets in an interaction pane and evaluate them as needed. After evaluation, the selection is highlighted so you can see what was evaluated
 
 ~~ Center
+![evaluate7]
 
-![workspace-8-12]
+[evaluate7]: images/evaluate7.png "evaluate7" { width:auto; max-width:90% }
 ~~
 
-[workspace-8-12]: images/workspace-8-12.png "workspace-8-12" { width:auto; max-width:90% }
 
 Note: If you split your expression among several lines, make sure you select it in its entirety.
 
@@ -654,11 +654,11 @@ You can create new workspaces by clicking the _plus_ button. Workspaces are iden
 
 
 ~~ Center
-
-![workspaces1]
+![workspaces]
 ~~
 
-[workspaces1]: images/workspaces1.PNG "workspaces1" { width:auto; max-width:90% }
+[workspaces]: images/workspaces.png "workspaces" { width:auto; max-width:90% }
+
 
 
 A workspace allows you to evaluate code and provides you with access to the IDE’s top level namespace.  The IDE namespace gives you access to all top level Newspeak classes loaded into the IDE.  It also supports access to the Newspeak platform object via the name _**platform**_. In addition, you can use the name _**ide**_ to gain access to the IDE namespace itself.
@@ -670,10 +670,11 @@ Each workspace has its own unique class. You can access it via the drop down men
 You can also define methods for the workspace class directly in the workspace: 
 
 ~~ Center
-![workspaces-blank]
+![ws-addMethod]
 ~~
 
-[workspaces-blank]: images/workspaces-blank.PNG "workspaces-blank" { width:auto; max-width:90% }
+[ws-addMethod]: images/ws-addMethod.png "ws-addMethod" { width:auto; max-width:90% }
+
 
 the Methods section at the bottom of the workspace works exactly like it does in a class browser. More on this below.
 
