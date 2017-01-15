@@ -4,7 +4,7 @@
 \usepackage{epsfig}
 %\usepackage{amssymb,amsmath,amsthm}
 \newcommand{\code}[1]{{\sf #1}}
-\title{Newspeak Programming Language Draft Specification Version 0.097}
+\title{Newspeak Programming Language Draft Specification Version 0.098}
 \author{Gilad Bracha}
 \begin{document}
 \maketitle
@@ -1693,7 +1693,7 @@ classComment:: whitespace, comment.
 initExprs = (expression, (dot expression) star, dot opt) opt.  
 sideDecl = lparen, nestedClassDecl star, transientSlotDecl star, category star, rparen.
 nestedClassDecl = accessModifier opt, classDeclaration.
-category:: string, methodDecl star.
+category:: empty, methodDecl star.
 classSideDecl = colon, lparen, category star, rparen.                               
 \end{newspeak}
  
@@ -1832,7 +1832,7 @@ transientSlotDecl = accessModifier opt, transientModifier, slotDecl,
                      ), expression, dot.
 \end{newspeak}
 
-A transient slot declaration has the form \code{transient $m ::= e.$} or \code{transient $m = e.$}, possinly prefixed with an access modifier.
+A transient slot declaration has the form \code{transient $m ::= e.$} or \code{transient $m = e.$}, possibly prefixed with an access modifier.
  A transient slot  always has an initialization expression $e$, but the slot value is initially \NIL{}.
 When the slot is read by invoking its getter method $m$, if the slot contains \NIL{}, $e$ is evaluated to an object $o$, the slot's value is set to $o$ (but not by means of a setter method), and $o$ is returned as the result of the send.  Otherwise, the result of getter method invocation $m$ is the value the slot contains.  
 % The stuff below is not what we agreed to implement. We may bring it back later. Commented out for now.
@@ -1940,7 +1940,7 @@ Currently expressions or statements may be evaluated in the IDE. Only module dec
 compilationUnit =  languageId, toplevelClass.
 languageId:: identifier.
 toplevelClass = classCategory, classDeclaration.
-classCategory = string.
+classCategory = string opt.
 \end{newspeak}
 
 {\it
