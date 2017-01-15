@@ -1,0 +1,2039 @@
+\documentclass{article}
+\usepackage{newspeak}
+\usepackage{hyperref}
+\usepackage{epsfig}
+%\usepackage{amssymb,amsmath,amsthm}
+\newcommand{\code}[1]{{\sf #1}}
+\title{Newspeak Programming Language Draft Specification Version 0.097}
+\author{Gilad Bracha}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Introduction}
+
+{\em
+
+ {\bf Caveat Emptor}
+ 
+This document is a {\bf  draft} specification. It is incomplete, and everything is subject to change. Please ensure you are reading the latest draft. Certain language features described herein have not been implemented; in other cases, the implementation deviates from this specification. When such features are discussed, we will endeavor to note this clearly in the text.
+
+}
+
+
+{\bf Notation and Conventions:} Sections that provide design rationale or examples appear in {\em italics}. 
+
+When we refer to a class with a specific name $n$, we mean the class $n$ defined by the modules of the underlying Newspeak platform (\ref{platform}).
+
+Newspeak is a programming language in the Smalltalk \cite{GoldbergRobson83} tradition.  
+Newspeak is:
+
+\begin{itemize}
+\item  {\em Network-serviced.} Newspeak applications can be updated over the internet {\em while running;} the language supports {\em orthogonal synchronization, } making it straightforward to synchronize persistent data with a remote server, supporting backup, sharing and collaboration \cite{bracha05}.
+{\it
+The synchronization features are in their early design stages, and only partially implemented. See section \ref{transientSlots}
+}
+\item  {\em Message-based.}  All computation  - even an object's own access to its internal structure - is performed by sending messages to objects. Hence, everything in Newspeak is an object, from elementary data such as numbers and booleans up to functions, classes and modules.
+\item  {\em Secure.} Newspeak objects encapsulate their representation, and Newspeak programs have no static state, providing a sound basis for an object-capability security model \cite{RobustComposition}.
+
+\item  {\em Reflective.} Newspeak programs are causally connected to their executable representation via a reflective API. Reflection in Newspeak is mirror based \cite{bracha-ungar04}, with mirrors acting as capabilities.   Given access to the appropriate mirrors (and only given such access), a running program and can both introspect and modify itself. 
+
+\item  {\em Modular.} Newspeak module definitions are independent, immutable, self-contained parametric namespaces.  They can be instantiated into modules which may be stateful and mutually recursive. These modules are inherently re-entrant, because there is no static state in Newspeak.  All inter-module dependencies are explicit. Modules and their definitions are first class objects that can be manipulated at run time.
+\item  {\em Concurrent.}  Concurrency  in Newspeak is based on {\em actors.} Actors are objects with their own thread of control. They share no state with other actors; they communicate exclusively via asynchronous message passing. Actors are non-blocking, race-and-deadlock free, and scalable.
+{\it Note that the FFI (\ref{aliens}) can undermine actor isolation as C can take state passed from one actor, store it globally, and return it to another actor. Non-blockingness also requires care, as a callback passed in by one actor can be invoked when C is called by another. Must ensure that said call back acts as a future, or  fails (the former, to allow event processing). In an ideal world, one would only communicate with foreign languages running in a distinct actor. This would be more secure, and require less special handling; this was part of the original vision of Smalltalk.  Newspeak is pragmatic in this regard; it remains idealistic, but only to an extent.
+}
+\item  {\em Optionally typed.} Newspeak supports pluggable types \cite{bracha04b}, allowing the language to be extended with arbitrary type systems.  These type systems are necessarily optional, and never affect run-time semantics. They utilize Newspeak's metadata facility (\ref{metadata}), which allows annotations to be attached to any node in a program's abstract syntax tree.
+{\it Unimplemented.}
+\end{itemize}
+
+\section{Overview}
+
+In this section, we provide a quick introduction to those properties of Newspeak that are unusual, in
+order to provide intuition when reading the specification proper. The normative part of this specification  begins with section \ref{concept}. 
+
+\subsection{Terminology}
+
+We follow Smalltalk/Self/Objective-C terminology in using the term {\em message} to refer to both synchronous and asynchronous messages. A synchronous message {\em send} is like a virtual method call.
+A message must be sent to a {\em receiver}. Some readers may prefer to think of the receiver as the target of a method invocation.  
+
+Our use of the term {\em message} may be slightly non-standard, but it conveys a valuable intuition about loose coupling. The term {\em method} does not; common usage allows for methods that are static, final/non-virtual etc.
+
+\subsection{Syntax}
+
+The syntax of Newspeak is close to those of Smalltalk and Self \cite{UngarSmith87}. We expect some details to change over time, to make the language somewhat more familiar to most programmers. However, we intend to retain key features of the Smalltalk syntax where they confer a real advantage. Here we highlight the differences between Newspeak and other languages briefly.
+
+\subsubsection{Object Member Selection}
+
+In most languages, a notation such as  \cd{o.m} or \cd{o.m()} is used to denote a member \cd{m} of an object \cd{o}. The object member selection operator is dot, and if the member is a method the member name is followed by a parenthesized parameter list. 
+
+In Newspeak, as in Smalltalk, the only operation on objects is member selection, and so the dot conveys no information. On the contrary, it is redundant, and makes it harder to embed domain specific languages within Newspeak. Therefore, member selection is implicit: we write \cd{o m} for object member selection. Member selection always means sending
+a message (invoking a method), and there is no need for parentheses to distinguish field access from
+method access. Hence, references to methods without arguments are not distinguished from references to slots (aka fields) or to nested classes.
+
+\subsubsection{Parameter Lists}
+
+As noted above, if there are no parameters, no parameter list needs to be written in Newspeak. If there are parameters, we follow the Smalltalk lead of distinguishing between methods that denote binary operators (aka binary methods) and other methods. Binary methods are written in the traditional infix notation: \cd{5 + 4}.  However, all binary operators have the same precedence and are evaluated from left to right, so \cd{5+4*2} evaluates to 18 rather than 13. 
+
+{\em This is controversial, as it may surprise most programmers. An alternative is to have the most common operators follow conventional precedence, while others follow the usual left to right precedence. Scala \cite{ScalaBook} takes this route. However, beyond addition/subtraction and multiplication/division, it's not clear what to do. Should one treat all C operators specially? All Java operators? All Python operators? 
+
+Another issue is that while the common precedence rules may make sense for general purpose programming, they may not be good choices in domain specific languages. Good Newspeak practice is to embed domain specific languages within Newspeak as much as possible.
+}
+
+Other methods that take parameters are known as {\em keyword methods}. We follow Smalltalk's rules (not Self's!). Parameters are interspersed with the method name in a mixfix notation. Places where a parameter is expected are denoted by a colon, which is then followed by the parameter, and then the rest of the method name (if further parameters are needed).
+
+\paragraph{Example:} 
+
+\cd{anArray at: 5 + 1 put: 0+ 6 factorial}  would probably be written as  \cd{anArray.atPut(5+1, 0 + 6.factorial())} in a more traditional syntax, and, assuming that the receiver is indeed an array, places the value 720 into the receiver's 6th element.
+
+
+
+{\em
+This notation makes it impossible to have an arity error when calling a method. In a dynamically typed language, this is a huge advantage. 
+
+I am keenly aware that this syntax is unfamiliar to most programmers, and is a potential barrier to adoption. However, it improves usability massively. 
+}
+
+\subsubsection{Closures and other Literals}
+
+An n-ary closure is written as in Smalltalk: \cd{[:p1 ... :pN $|$ body]}. 
+
+{\it
+This notation is much more concise than those used in functional programming. Closures are still rare enough that most programmers are not wedded to a particular syntax. However, we will likely change the syntax to
+\cd{\{:p1 ... :pN $|$ body\}} as we adopt curly braces for class and method delimiters.
+}
+
+Tuples are written \cd{\{e1 .  .... . eN \}}.
+
+{\it
+ If we change the closure syntax, we would use square braces for tuples, which is closer to widely recognized javascript notation. The remaining difference would be the use of dots rather than commas as separators. We see real value in using comma as an operator, and do not plan to conform exactly to javascript notation.
+}
+
+
+The current implementation uses Smalltalk syntax for characters, strings and symbols. We anticipate moving to a more mainstream notation. Indeed, we will likely make all string literals act as symbols, and represent characters as a special case of these.
+
+\subsection{Class Declarations}
+
+Like most object oriented languages, but unlike Smalltalk, Newspeak supports a syntax for class declarations.  The details of the syntax are likely to evolve. 
+
+Newspeak classes contain slots, methods and nested classes. Slots are like fields/instance variables, but accessed exclusively via messages. Methods are always virtual (i.e., subject to override) and may be inherited via mixin-based inheritance. Nested classes are discussed later in this section. 
+
+Here are some examples to convey an intuition:
+
+\begin{newspeak}
+\CLASS Empty = ()()
+\end{newspeak}
+
+A class named \cd{Empty}. As minimal a class declaration as possible.  No superclass is specified, so it inherits from \cd{Object}.
+Parentheses are used as delimiters (this will change). What might be surprising is that there are two sets of parentheses. This will be explained shortly.
+
+\begin{newspeak}
+\CLASS JustAsEmpty = Object ()()
+\end{newspeak}
+
+Same as above, with the superclass listed explicitly.
+
+\begin{newspeak}
+\CLASS Box = ($|$ contents $|$ )()
+\end{newspeak}
+
+This class has a single slot named \cd{contents}. Slots are declared in between vertical bars, much like Smalltalk local variables. The first set of parentheses in the above declaration delimits the {\em instance initializer} of the class.  Such an initializer always exists, though, as we've seen, it may be empty. It contains all slot declarations for the class. Slots may be followed by initialization expressions
+
+\begin{newspeak}
+\CLASS BoxWithNonNullContents = ( $|$ contents =   \{1. 2. 3\}. $|$ )()
+\end{newspeak}
+
+The above sets the slot contents to a {\em tuple} (an array) with 3 elements - 1, 2 and 3.
+Slot declarations may be followed by further initialization code, as in
+
+\begin{newspeak}
+\CLASS AnotherBox = ( 
+  $|$  \PUBLIC contents =  Array new: 3. $|$ 
+  1 to: 3 do:[:i $|$ contents at: i put: i].
+  )()
+\end{newspeak}
+
+The instance initializer is followed by the class body (delimited by the last set of parentheses in our examples), which may contain nested classes and methods. 
+
+Below, class \cd{WorkingBox} has a method named \cd{doAction:} that takes a single parameter, $a$. The method body is also delimited by parentheses.
+
+\begin{newspeak}
+\CLASS WorkingBox = ( 
+  $|$ contents $|$ 
+  )(
+       \PUBLIC doAction: a = ( a value: contents )
+ 
+  )
+\end{newspeak}
+
+Class declarations create a class factory object that provides the means of producing instances of the class. The factory object supports at least one message that produces new instances. This is known as the {\em primary factory method.} By default, it is called \cd{new}. So the following code produces an instance of class \cd{AnotherBox} and queries it for its contents, evaluating to an array with the three elements 1,2 and 3.
+
+\begin{newspeak}
+AnotherBox new contents
+\end{newspeak}
+
+Finally, here is a class with a single nested class:
+
+\begin{newspeak}
+\CLASS Outer = () (
+   \PUBLIC \CLASS Inner = ()()
+)
+\end{newspeak}
+
+Nested classes deserve discussion. As in Beta \cite{BetaBook}, and unlike Java \cite{GoslingJoySteeleBracha05}, every instance of an enclosing class has its own distinct set of nested classes. These nested classes may be accessed by sending messages to the instance. For example, the code above defines a class \cd{Outer} with a nested class \cd{Inner}. We find that if we create two distinct instances of \cd{Outer} and query each for its nested class, the two nested classes are different. In other words
+
+\begin{newspeak}
+Outer new Inner = Outer new Inner.
+\end{newspeak}
+
+evaluates to false. 
+
+{\it The situation is depicted in figure \ref{nested}. The class \cd{Outer} is shown with two instances, \cd{anOuter 1} and \cd{anOuter 2}. Each such instance has its own class \cd{Inner}.  Each \cd{Inner} class can have its own instances - in this case \cd{anInner1} and \cd{anInner 2} respectively.
+
+\begin{figure}
+\includegraphics[]{../diagrams/OuterAndInner.pdf}
+\caption{Enclosing classes, nested classes and their instances}
+\label{nested}
+\end{figure}
+}
+
+The relationship between an instance $o$ of an enclosing class $EC$ and its nested classes is bidirectional. Each such nested class $NC$ is tied to $o$, which is known as its {\em enclosing object}. 
+
+{\it The enclosing object relationship is also shown in  figure \ref{nested}.}
+
+The enclosing object is a property of a class, and so it is common to all the class' instances. Hence we may also speak of the enclosing object of an object $i$, which is the enclosing object of $i$'s class.
+
+Because all references to nested classes are message sends, nested classes can be overridden.
+
+\begin{newspeak}
+\CLASS ChildOfOuter = Outer () (
+       \PUBLIC foo = (\^{}Inner new) (* Note that the caret  acts like  \RETURN *)
+)
+
+\CLASS GrandChildOfOuter = ChildOfOuter( $|$ \PUBLIC Inner = String. $|$) (
+)
+
+GrandChildOfOuter new foo. (* returns a String, not an Inner *)
+\end{newspeak}
+
+Here we have overridden a nested class declaration with a slot.  It is also possible to override a superclass of a nested class; consider this variation:
+
+\begin{newspeak}
+\CLASS ChildOfOuter = Outer () (
+
+    \PUBLIC \CLASS Nested = Inner () ()
+    \PUBLIC foo = (\^{}Inner new)
+)
+
+\CLASS GrandChildOfOuter = ChildOfOuter( $|$ \PUBLIC Inner ::= String. $|$) (
+)
+
+GrandChildOfOuter new Nested. (* returns a subclass of String, not Inner *)
+
+(GrandChildOfOuter new Inner: Array) Nested. (* returns a subclass of Array *)
+\end{newspeak}
+
+The code above demonstrates that one cannot, in general, expect two instances to have the same nested classes. Nested classes are created lazily, and cached thereafter. Hence \cd{Nested} is created after \cd{inner} has been set to \cd{Array}. This also shows that all nested classes must be compiled as mixins, as the superclass cannot be reliably known at compilation time.
+
+Here are a few more illustrative examples. If \cd{g} is an instance of \cd{GrandChildOfOuter}, then 
+
+\begin{newspeak}
+
+g Inner. (* returns String *)
+g Nested. (* returns a subclass of String *)
+
+(g Inner: Array) Nested. (* returns the same subclass of String, even though Inner has changed *)
+g Inner (* returns Array *)
+\end{newspeak}
+
+\subsubsection{Implicit Receivers and Scope}
+
+In most object-oriented programming languages, if the receiver is \SELF{} (aka \THIS{}) it can be omitted. It is often said that we are referring to a method name that is {\em in scope}.
+
+ In the presence of class (or object literal)  nesting, if the receiver is implicit (i.e., omitted), it may be either \SELF{} or an enclosing object of \SELF{}.  In statically typed languages, the lexical level of the receiver is determined at compile time. In dynamically typed languages, it is usually done at run time as part of the method lookup process. Typically, one starts the lookup with the class of \SELF{} (or \SELF{} itself in a prototype based language) and proceeds up its inheritance chain; if no method is found, one jumps to the enclosing lexical level and recurses.
+ 
+Newspeak differs in that lookup proceeds up the lexical scope chain (starting with the lexically deepest activation record) and only if no lexically visible matching method is found, do we proceed up the inheritance chain of \SELF{}. After that, no further lookup is done. See figure \ref{implicitSends} for an illustration.
+For a discussion of the rationale for this decision see \cite{bracha07b}. An extensive treatment of Newspeak's nested classes and their impact on modularity is given in \cite{bracha10a}.
+
+\section{Concepts}
+\label{concept}
+
+\subsection{Objects}
+\label{obj}
+
+An {\em object} is an entity that can perform computation in response to a {\em message} (\ref{msg}). Only objects perform computation, and they do so only in response to messages sent to them. Every object is an instance of some {\em class }(\ref{classes}). The class determines the set of {\em slots} (\ref{slots}){\em, methods} (\ref{mtds}){\em,} and {\em nested classes} (\ref{classes}) that are associated with the object. Objects are the only entities that exist during the execution of a Newspeak program. 
+
+\subsubsection{Values: Deeply Immutable Objects}
+\label{vals}
+
+Some objects cannot change after they are created. They are {\em deeply immutable} and known as {\em value objects.} A value object is globally unique, in the sense that no other object is equal to it. An object $o$ is a value object iff one or both of the following conditions hold:
+\begin{itemize}
+\item $o$ is either a module definition (\ref{module}) or an instance of \code{String}, \code{Symbol},  \code{Character}, \code{Boolean} or \code{Number}.
+\item Under the assumption that $o$ is a value object, it can be shown that:
+\begin{itemize}
+\item All its slots are immutable, have been initialized and contain value objects; and
+\item Its enclosing objects (\ref{enclosing}) are all value objects; and
+\item Its class inherits from class \code{Value} and does not define an identity method (\code{==}).
+\end{itemize}
+\end{itemize}
+
+If the class \code{Value} declares an identity method, that method must return the same results as \code{Value}'s equality method (\code{=}).
+
+{\it
+The implications for actor concurrency (\ref{actors}) are that values can be passed among actors.  Values can be copied freely across actor boundaries, or shared, as desired - but only if their initialization is complete.
+}
+
+Examples of such objects are numbers (\ref{number}), booleans (\ref{bool}), characters (\ref{char}), literal strings (\ref{string}), symbols (\ref{symbol}) and module definitions (\ref{module}).  
+
+{\it
+At the moment, Newspeak still relies on Squeak Smalltalk for some of its libraries. There is no class \cd{Value} yet.
+}
+
+Values are only immutable at the base level. If the code that defines a value changes, the behavior of the value is necessarily different. For example, if the code of the \code{Integer} class changes, the actual behavior of integers might differ. As a more typical example, module definitions can be mutated via reflection.
+
+{\it
+There are two scenarios regarding the impact of reflective changes across actors.
+
+One applies to actors that co-exist in the same address space. Values may be shared among such actors  (rather than copied). Reflective changes to such shared values will be seen across actor boundaries.
+
+The second scenario is when an actor resides in a distinct address space. Here, values are necessarily copied, and changes in an actor in one address space will not impact an actor in another address space.
+
+To make sense of this, some construct that incorporates the idea of an address space is needed.
+My current thinking is that a VM (as reified by a VM mirror (\ref{vm})) is responsible for a set of actors, and reflective operations will impact values seen by all these actors. Actors that are managed by another VM will not. 
+}
+
+\subsubsection{Eventual References}
+\label{eventualReferences}
+
+{\em Eventual references} are objects that are handles for objects that are not  available in the heap of the currently executing actor (\ref{actors}).  There are two kinds of eventual references: promises and far references.
+{\em Promises} represent the result of an asynchronous message send.  {\em Far references} are proxies for objects of a different actor (\ref{actors}). 
+
+%Promises have three states: {\em unresolved}, {\em resolved} and {\em broken}. A promise's initial state is always {\em unresolved}.
+
+
+\subsection{Classes, Mixins and Inheritance}
+\label{classes}
+
+A {\em class} is an  object that defines a family of objects, known as its {\em instances}.  All instances of a class respond to the same set of messages. A class is either the empty class \code{Top} or the application of a {\em mixin}  to another class known as its {\em superclass.}   Only the class  \code{Object} may have \code{Top} as its superclass.  See figure \ref{anOuterObj}.
+
+{\it
+The purpose of \cd{Top} is to allow for a uniform definition in which all code resides in mixins - including the code in \cd{Object}. \cd{Top} doesn't exist yet.  
+}
+
+\begin{figure}
+\includegraphics[]{../diagrams/anOuterObject.pdf}
+\caption{Mixins, classes and instances}
+\label{anOuterObj} 
+\end{figure}
+
+A class $S$ is {\em a proper superclass of} a class $C$ iff $S$ is either the superclass of $C$ or  a proper superclass of the superclass of $C$.
+A class $S$ is {\em a superclass of} a class $C$ iff $S$ is either a proper superclass of $C$ or $S = C$.
+A class $S$ is {\em a proper subclass of} $C$ iff $C$ is a proper superclass of $S$. 
+A class $S$ is {\em a subclass of} $C$ iff $C$ is a superclass of $S$.
+
+The class' mixin specifies how the class differs from the superclass. The class {\em inherits} all the properties of its superclass that are not explicitly {\em overridden} (i.e., specified to be different) by its mixin. Mixins are associated with class declarations (\ref{classes}). A class' mixin may be used in a mixin application expression (\ref{mixinApplication}) to derive additional classes that share the same mixin but may have different superclasses.
+
+Except for \code{Top} all classes are subclasses of  class \code{Object}, which provides a small number of methods available to all classes. These include equality, identity, the corresponding hashes etc. They also include accessors for predefined classes and objects, such as the classes of the built-in literals (\ref{literals}) e.g.,  \code{String}. In addition, the methods \code{Array} and \cd{ByteArray} provide predefined factory objects for arrays.
+
+{\it
+Currently, we use the \cd{Array} and  \cd{ByteArray}  classes provided by Squeak as these factories. However, the intent is to use a factory which is not a class. Newspeak, like most languages (and unlike Smalltalk), does not support the definition of variable sized classes like arrays. Of course, the arrays created have such a class, but access to it is restricted by the mirror system.
+}
+
+Each class is an instance of a unique {\em metaclass}. All metaclasses are instances of class \code{Metaclass}, and are direct subclasses of \code{Class}. Metaclasses may not be subclassed.
+
+{\it
+This differs from Smalltalk, where the metaclass would be a subclass of the metaclass of the class' superclass. The metaclass hierarchy in Newspeak is deliberately kept very flat. 
+}
+
+
+\subsection{Enclosing Objects}
+\label{enclosing}
+
+Every class has an {\em enclosing object} defined as follows:
+\begin{itemize}
+\item The enclosing object of a class definition expression (\ref{classes}) is its surrounding activation, if any, and \NIL{} (\ref{nil}) otherwise, as specified in section \ref{classes}. 
+
+\item The enclosing object of an object literal's (\ref{objLiteral}) class is the literal's surrounding activation, if any, and \NIL{} otherwise, as specified in section \ref{objLiteral}.
+
+\item The enclosing object of a class created by a mixin application expression (\ref{mixinApplication}) is the enclosing object of the class used to derive the mixin, as specified in section \ref{mixinApplication}. 
+
+\item Otherwise, the class is necessarily a member class;  the enclosing object of a member class $C$ is the object of which $C$ is a member - the object that received the message that created the class object $C$, as specified in section \ref{classes}.  
+
+\item The enclosing object of a class and the enclosing object of its metaclass are always the same.
+\end{itemize}
+
+{\it The above rules imply  that  the enclosing object of the result of evaluating a top level expression  (\ref{topLevel}) is always \NIL{} and in particular, the enclosing object of a module definition (\ref{module}) is \NIL{}. 
+}
+
+Method and closure activations  (\ref{activations}) also have enclosing objects.  The enclosing object of a method activation $a$ is $a$'s current instance. The enclosing object of an activation of a  closure $c$ is the (method or closure) activation that instantiated $c$. 
+
+Let $o$ be an instance of class $C$ and let $S$ be a superclass of $C$. The {\em enclosing object of  $o$ with respect to  $S$} is the enclosing object of $S$. 
+
+% One would think that this was equivalent to the 1st enclosing object wrt S. But, consider the case
+%  of an enclosing class O with nested class C.  Let i1 and i2 be two instances of O. i1 C and i2 C are 
+% distinct classes with distinct enclosing objects i1 and i2 respectively.  Now suppose we have a class 
+% S with superclass i1 C mixin |> i2 C.  Its 1st enclosing object wrt to i2 C is i1!
+
+%{\it Since there is an enclosing object for every one of the superclasses $S$  of a class $C$, one could speak of $C$'s enclosing object with respect to each such class. Then one could define the enclosing object of  $o$ with respect to  $S$ as the enclosing object of $o$'s class with respect to $S$. Such a definition is closer to the implementation, but seems messier.}
+
+
+Given an object $o$:
+
+The
+%An object $o$ is its own 
+0th {\em enclosing object of $o$ with respect to} a class $C$ is $o$ if $C$ is a superclass of
+the class of $o$ and undefined otherwise. 
+The 1st {\em enclosing object of $o$ with respect to} a class $C$ is the enclosing object of $C$.
+For $n > 1$, an object $o_n$ is the $n$th {\em enclosing object of $o$ with respect to} a class $C$ if $o_n$ is the enclosing object of $S_{n-1}$ where:
+\begin{enumerate}
+\item $o_{n-1}$ is the $n-1$st enclosing object of $o$ with respect to $C$.
+\item $C_{n-1}$ is the class of $o_{n-1}$.
+\item $S_{n-1}$ is a superclass of $C_{n-1}$.
+\item $S_{n-1}$ is an application of the mixin associated with the $n-1$st lexically enclosing class declaration of $C$ (\ref{classes}).
+\item There is no class $S_k$ such that
+  \begin{itemize}
+  \item $S_k$ is a superclass of $C_{n-1}$.
+  \item $S_k$ is a proper subclass of $S_{n-1}$.
+  \item $S_k$ is an application of the mixin associated with the $n-1$st lexically enclosing class declaration of $C$. %Object literals?
+% We changed this so that n = 1 is a special case, to deal with
+% cases of repeated mixin application. Otherwise, the enclosing object accessed is non-obvious in such cases. This also implied that super calls in enclosing objects will  be interpreted
+% relative to the wrong enclosing object. And a super call that made a super call could 
+% cause an infinite loop. 
+  \end{itemize} 
+\end{enumerate}
+
+{\it
+The definition above may seem  rather esoteric and unmotivated. However, it is useful in order to  to define the precise meaning of method lookup. The concept of the kth enclosing object with respect to a class is used in section \ref{out}, which in turn is referenced when defining self sends and implicit receiver sends in general. 
+
+To establish intuition, it helps to visualize some of the relationships, as shown in figure \ref{kth-enclosing}.
+
+The figure shows the nesting structure of a class $S_3$, which contains a nested class $S_2$, in which is nested the class $S_1$, which contains the class  $C = S_0$.  It also shows an instance $o = o_0$ of some subclass of $C$, and the chain of $k$th enclosing objects of $o_0$ with respect to $C$, for $k$ between 0 and 3. If a method of $S_0$ is invoked upon $o_0$, and this method refers to a message declared in one of the lexically enclosing classes $S_k$, the receiver for that message will be $o_k$, the $k$th enclosing object of $o_0$ with respect to $C$.
+
+\begin{figure}
+\includegraphics[]{../diagrams/kth-enclosing-object.pdf}
+\caption{The $k$th enclosing object of $o = o_0$ with respect to $C = S_0, k \in 0 .. 3$}
+\label{kth-enclosing}
+\end{figure}
+
+If, after reading this and section \ref{out}, you are still baffled, you may  find it helpful to consult the literature on nested classes, in particular \cite{Mads99a} , \cite{innerclasses-ftfjp03}.
+}
+
+\subsection{Messages}
+\label{msg}
+
+A message consists of a distinguished object known as its  {\em selector,} and a list of argument objects. Computation takes place when an object receives a message. Messages are usually inaccessible to an executing Newspeak program, but they may be {\em reified}  by the
+implementation by means of  a {\em message mirror}. A message mirror on a message $\mu$ is an object obeying the protocol of class  \code{MessageMirror} that provides access to $\mu$'s selector and arguments.
+
+{\it 
+In the Squeak implementation, class Message is used to represent messages.
+}
+
+We say that a message selector $s$ is {\em defined on} an object $o$ if a method with selector $s$ is defined for (\ref{mtds}) the class $C$ of $o$.
+
+\subsection{Methods}
+\label{mtds}
+
+A method defines an action be executed when it is {\em invoked on} an object {\em in response to} a message.
+Methods are declared within class declarations and have an associated selector (\ref{msg}). 
+
+We say that a method $f$ is {\em defined by} the mixin (\ref{classes}) of the class declaration in which $f$ is declared. A method $f$ is {\em defined for} a class $C$ under the following conditions:
+\begin{itemize}
+\item If $f$ is defined by the class' mixin.
+\item Otherwise, if $f$ is defined for the class' superclass.
+\end{itemize}
+
+Let $C$ be a class and $s$ be a selector; the {\em defining class of} $s$ {\em with respect to} $C$ (written $definingClass(s, C)$)  is
+\begin{itemize}
+\item undefined, if $C =$ \cd{Top}
+\item $C$,  if a method $f$ with selector $s$ is defined by the mixin of $C$
+\item	$definingClass(s, superclass(C))$ otherwise.
+\end{itemize}
+
+When a user defined method $f$ is invoked on an object $o$ in response to a message $\mu$, an activation $a$ (\ref{activations}) derived from $f$ in response to $\mu$ is instantiated. The current instance of the activation is set to $o$. 
+
+The code in the method is then executed (\ref{statement}) in the context of $a$.  If execution of the method completes, control is passed back to $a$'s continuation object (\ref{activations}) and $a$'s continuation object becomes \NIL{}. If no explicit return statement (\ref{return}) is executed, the value returned is $o$ (the current binding of \SELF{}).
+
+{\it
+Severing the connection between an activation and its continuation object upon method termination means that closures are not full continuations by default. Continuations should be created very explicitly via mirrors on activations.
+}
+
+The syntax of methods is described in section \ref{methodDecls}.
+
+\subsection{Activations}
+\label{activations}
+
+An {\em activation} is an object that is created in order to process a message (\ref{msg}). An activation is always  derived from either a method definition (\ref{mtds}) or a closure (\ref{block}) or is a {\em top level activation}. If an activation is derived from a method,  it is  known as a {\em method activation.} If its derived from a closure it is  called a {\em closure activation.} Closure activations differ from method activations in how they support the \RETURN{} statement (\ref{return}).   
+
+An activation $a$ derived from a method definition or closure $p$ in response to message $\mu$ has the following properties :
+\begin{itemize}
+\item Zero or more {\em parameter slots}, one for each formal parameter of $p$. Parameter slots are immutable (\ref{immutableSlots}). The $n$th parameter slot is initialized with the value of the $n$th argument of $\mu$.
+\item Zero or more {\em local slots}, one for each slot declaration in the body of $p$. Local slots are defined by their corresponding declarations (\ref{slots}). They are initialized  in the context of $a$,  according to their declarations.
+\item 
+The current instance (\SELF). For method activations, the current instance is determined when the method is invoked. For closure activations, the current instance is the current instance of the closure $p$.
+\item The current class. In the case of method activations, the current class is $definingClass(s, C)$ where $s$ is the selector of $p$ and $C$ is the class of the current instance, unless  explicitly specified otherwise
+({\it the only such cases are super sends (\ref{super})}). For closure activations, the current class is the current class of $p$.
+\item
+The current {\em continuation object.} Let $sender$ be the activation that sent the message that  caused this invocation. Then $sender$ determines the continuation object as follows:
+  \begin{itemize} 
+  \item If $sender$ has further computation that it needs to perform after this invocation, then the continuation object is $sender$.
+   \item Otherwise, the continuation object is the continuation object of $sender$.
+  \end{itemize}
+\end{itemize}
+
+{\it This specifies tail call elimination, to the extent that it is observable. Unimplemented. 
+}
+
+It is a compile-time error to define a method or closure that has a parameter and a local with the same name.
+
+Activations may be marked {\em uncontinuable}.
+When an activation $a$ is marked uncontinuable, it's continuation object is set to \NIL{}.
+Furthermore, any activation $x$ whose continuation object is $a$ is marked uncontinuable.
+
+
+Newspeak programming environments must always allow developers to retain activations during debugging so that accurate and complete stack traces can be maintained. 
+
+{\it 
+Eliminating tail calls can be detrimental to the development experience, because such elimination may throw away activations representing valuable information regarding the history of a computation being debugged. This need not be the case, and runs counter to Newspeak philosophy (Goodthink).
+
+In general, the
+problem of keeping the history of a computation is not limited to the stack. Back-in-time debuggers
+should be able to keep garbage collected parts of the heap available, for example. We do not provide such
+functionality, and do not mandate it - yet.
+}
+
+Top level activations have no slots, and  their current instance, their current class and their continuation object are \NIL{}.
+An activation $a$ responds to messages that access its slots. 
+
+
+
+
+\subsection{Actors}
+\label{actors}
+
+Actors are units of explicit concurrency.  Actors communicate only via {\em asynchronous messages}.  Asynchronous messages immediately return a {\em promise} as a result (\ref{eventualReferences}).  When the receiving actor has processed the message, the promise is {\em resolved}. If processing the message produced a result that is made available to the sender, the promise is {\em fulfilled.} If processing the message raised an exception to transmitted to the sender, the promise is {\em broken}.  A promise may also be broken due to a failure of the communication system between actors.
+
+{\it The use of asynchronous messages between actors means that a sending actor cannot be blocked waiting for another actor to reply.
+}
+
+An actor is associated with a {\em heap}, a memory that is distinct from that of other actors. 
+
+If computation of a promise produces  an object $o$ in the heap of the current actor, the result is $o$. Otherwise, the result of promise resolution is the remote representation of the object produced by computation of the promise. The {\em remote representation} of an object $o$ is $o$, if $o$ is a value; otherwise the remote representation of $o$ is a far reference to $o$.
+
+
+{\it Hence an actor never has a far reference into its own heap.
+}
+
+When an object is used as an argument to an asynchronous send to another actor, its remote representation is incorporated into the message delivered to the other actor. 
+
+{\it But again, if the receiver is in fact in the same heap, the object is passed directly.}
+
+Consequently, actors are isolated from each other and share no mutable state with other actors.
+
+{\it Modulo reflection, as discussed in section \ref{vals} above.}
+
+An actor has a {\em mailbox}, where messages sent to it arrive. It processes these messages in the order they arrive in the mailbox. 
+
+{\it 
+There is no notion of a pattern matching construct  by means of which an actor can choose which messages to receive. Indeed, there is no construct for receiving messages explicitly. This means that an actor cannot block while waiting for a message of some particular form. Since an actor cannot block on sending or on receiving, deadlock cannot occur.
+
+Furthermore, since an actor never blocks in the middle of execution, one can implement a non-preemptive scheduler that swaps actors out only when they have completed the processing of an asynchronous message (a turn, in E parlance). This means that the system need not maintain a stack per actor, which makes it easy to scale to large numbers of actors.
+
+More sophisticated strategies would allow preemption as long as free threads are available, or
+serialize preempted actors to prevent starvation/denial of service.
+}
+
+The order in which messages are delivered is the E-Order defined by Miller in \cite{RobustComposition}.
+
+Actors are created from top-level mixins. 
+
+{\it
+We use mixins to instantiate actors because one cannot, in general, construct an actor from an object; if the object is not deeply immutable, this would result in shared state across actors.  We can only create an object from a value. To allow mutable state within an actor, we must create the actor from a deeply immutable mixin object, from which we  derive a class that can be instantiated into a (possibly mutable) instance.
+
+We restrict ourselves to top level mixins because nested mixins  should create nested classes, which in turn require non-nil enclosing objects.  A fresh actor has no access to an appropriate enclosing object for the class it is creating. For top level classes (created from top level mixins) \NIL{} is an appropriate enclosing object. For nested classes this might lead to failure, depending on whether the mixin accesses its surrounding lexical scope.  Depending on compilation strategy, the failure might be extremely hard to explain to users.
+
+Instead, a suitable top level mixin leads to the creation of a new actor $A$, from which one can then extract a suitable far reference to any nested class within $A$ as desired.
+}
+
+Given a mixin $M$, an actor is created by applying $M$ to Object, producing a fresh class in the new actor's heap. A far reference to the class is returned to the creating actor.  Typically, the fresh class'  factory is then invoked asynchronously to produce a (far-reference to an) instance of the actor.
+
+{\it  
+How do we efficiently enforce these requirements? Using a bit that marks values (a deeply immutable bit)?
+}
+
+\subsection{Programs}
+\label{topLevel}
+
+A {\em top level expression} is one of:
+\begin{itemize}
+\item An object literal (\ref{objLiteral}) that is not lexically enclosed inside a class declaration (\ref{classes}) or an object literal.
+\item A class declaration that is not lexically enclosed inside a class declaration or an object literal.
+\item A literal expression whose meaning is not dependent on an implicit message send, and is not lexically enclosed inside a class declaration or an object literal.
+\item An ordinary message send (\ref{normal}) whose receiver and arguments are top level expressions.
+\item A top level expression that is parenthesized (\ref{parens}).
+\end{itemize}
+
+A top level expressions is executed in the context of a top level activation. A Newspeak {\em source program} is a top level expression.
+{\it
+This also means that a top level expression is not evaluated in the context of an enclosing object; this precludes implicit receiver sends (\ref{here}).  Literal expressions (\ref{literals}) that depend on an implicit send to the enclosing object for their meaning are inexpressible at the top level as well. Eventually, it may be that all literals are defined this way.
+
+Likewise, by definition there is no surrounding class at the top level, so \SELF{} (\ref{selfKw}), self sends (\ref{self}), outer sends (\ref{out}) and super sends (\ref{super}) are excluded as well.
+
+What can be expressed are module declarations (\ref{module}), and sends that can be used to send these declarations to a module that can instantiate them link them together.
+
+At this time, object literals have not been implemented. 
+}
+
+ 
+
+
+\section{Lexical Conventions}
+\label{lex}
+
+\subsection{Reserved Words}
+\label{reserved}
+ 
+The following  are reserved words: \SELF, \SUPER, \OUTER, \TRUE, \FALSE, \NIL.
+% implicit receiver is unutterable
+
+{\it 
+One can debate whether \TRUE, \FALSE{} and \NIL{} should be reserved words or just message sends. 
+
+We may also change the syntax for returning from a method from \cd{\^{}e} to \cd{return:: e}. This would make {\bf return} a reserved word (or at least effectively preclude its use for mutable slots, or keyword methods).
+}
+
+
+\subsection{Lexical Rules}
+\label{lexrules}
+
+Here is the lexical grammar for Newspeak. It and all subsequent syntax are written in Newspeak, using the parser combinator library described in \cite{bracha07a}.
+
+\begin{newspeak}  
+  
+ colon =  tokenFromChar: ":".
+ comma =  tokenFromChar: ",".
+ dollar = tokenFromChar: "\$".
+ dot = tokenFromChar: ".".
+ equalSign = tokenFromChar: "=".
+ hat = tokenFromChar: "\^{}".
+ lbracket = tokenFromChar: "[".
+ lcurly = tokenFromChar: "\{".
+ lparen = tokenFromChar: "(".
+ langleBracket = tokenFromChar: "$<$".
+ mixinOperator = tokenFromSymbol: '$<$".
+ pound = tokenFromChar: "\#".
+ rangleBracket = tokenFromChar: "$>$".
+ rbracket = tokenFromChar: "]".
+ rcurly = tokenFromChar: "\}".
+ rparen = tokenFromChar: ")".
+ semicolon = tokenFromChar: ";".
+ slash = tokenFromChar: "/".
+ vbar = tokenFromChar: "$|$".
+                                                                                                       
+ letter =  (charBetween: "a" and: "z") $|$ (charBetween: "A" and: "Z").
+                                                             
+  specialCharacter =  (char: "+" )  $|$ (char: "/") $|$  (char: "$\backslash$'") $|$ (char: "*")   $|$ (char: "\~{}" ] $|$ 
+                                       (char: "$<$") $|$ (char: "$>$") $|$ (char: "=") $|$ (char: "@")  $|$ (char: "\%") $|$ 
+                                     (char: "$|$")  $|$ (char: "\&") $|$ (char: "?")  $|$ (char: "!") $|$  (char: ",'".      
+                                     
+ underscore = char: "\_".                                                       
+
+ id = (letter $|$ underscore),  (letter $|$ digit $|$ underscore) star.
+                                           
+ identifier =  tokenFor: id.
+
+ kw = id, (char: ":"). 
+
+ kws = kw plus.   
+  
+ keyword = tokenFor: kw. 
+
+ setterKw = kw, (char: ":"). 
+
+ setterKeyword = tokenFor: setterKw.  
+
+ beginComment =  (char: "("), (char: "*").
+
+ endComment = (char: "*"),  (char: ")").
+ 
+ metadataTag = (char: ":"), id, (char: ":").
+ 
+ comment = beginComment,  metadataTag opt, ((endComment not, any) $|$ comment) star,	endComment.
+ 
+ binSel =  (specialCharacter $|$ (char: "-'"), (specialCharacter star).
+                                           
+ binarySelector = tokenFor: binSel.
+\end{newspeak}
+
+
+\subsection{Metadata}
+\label{metadata}
+
+{\it Partially implemented. Syntax is supported, but it is ignored.} Metadata appears in nestable comments of the form \code{ (*:id: xyz *)} where \code{id} is the name of a particular metadata interpreter that is responsible, at compile time, for parsing and processing the text \code{xyz}. A metadata comment can appear between any two expressions, and is associated with the expression immediately after it.
+
+What scope \code{id} belongs to, how the comment is associated with the AST and by whom (the compiler, or the tool) are open questions.
+
+Ordinary comments are given as metadata that does not specify a metadata interpreter. That way, they are attached to a known place in the program and are not thrown away, so they can be preserved during refactoring.
+
+
+{\it
+We expect to use the metadata mechanism for a pluggable type system. We currently support a built-in optional type annotation syntax based on the Strongtalk type system. This is an ad hoc measure, and serves only for documentation at the moment - no typechecker has been implemented. Newspeak is significantly more dynamic, and harder to typecheck, than Smalltalk, so it is not possible to directly carry over the Strongtalk system to Newspeak. 
+}
+
+\section{Expressions}
+\label{expression}
+
+%Do we need to discuss meaning separately - objects, values etc.
+Expressions are either {\em literals} (\ref{literals}) or {\em message sends} (\ref{sends}). Expressions are evaluated in the context of an activation (\ref{activations}) $a$, known as the {\em current activation}.
+
+\begin{newspeak}
+expression = setterKeyword opt, cascadedMessageExpression.
+\end{newspeak}
+
+\subsection{Literals}
+\label{literals}
+
+\begin{newspeak}
+literal =  pattern $|$ number $|$ symbolConstant $|$ characterConstant $|$ string $|$ tuple.
+\end{newspeak}
+
+{\it
+There are two basic approaches to specifying the meaning of literals in Newspeak. 
+
+One is to define them with respect to fixed classes in the underlying platform, or as reserved words (in the case of booleans and \NIL{}). This is what the existing implementation does. It is the path of least resistance; it is easier to implement and easier to make efficient.
+
+The alternative is to specify literals as the results of implicit receiver message  sends (\ref{here}). This means that they can be overridden by user code, effectively changing the meaning of literals. This is closer to the late bound spirit of the language, and allows for some neat usage patterns when embedding domain specific languages in Newspeak.
+
+We intend to investigate this option in the future. It does raise serious issues. It seems very important that literals should be value objects.  The compiler should be able to rely on that. Can we enforce this on user code? Not in general, though we coud give warnings for obvious cases. So if the user is foolish enough to replace a value type with a mutable one, should they expect chaos? It seems reasonable to me (and poetic justice) but is it too error prone?
+}
+
+\subsubsection{ Numeric Literals}
+\label{number}
+
+Numeric literals are value objects. Their form is given by the following grammar:
+\begin{newspeak}
+digit = charBetween: '0' and: '9'.
+
+digits =  digit plus.
+
+uppercaseLetter = charBetween: 'A' and: 'Z'.
+
+extendedDigits = (digit $|$ uppercaseLetter) plus.
+
+radix = (digits, char: "r").
+                   
+fraction =  dot, digits.
+
+extendedFraction =  dot, extendedDigits.
+                        
+exponent = (char: "e"), (char: "-" ) opt, digits.
+
+decimalNum = (char: "-")  opt, digits, fraction opt, exponent opt.
+
+radixNum = radix,
+               (char: "-")  opt,  
+               extendedDigits, 
+               extendedFraction opt,
+               exponent opt.
+                                                                                                                   
+num =   radixNum $|$ decimalNum.
+                                                                                                         
+number =  tokenFor: num.
+\end{newspeak}
+
+
+A number that includes neither a fraction nor an exponent denotes an object that obeys the protocol of class \code{Integer}.
+That instance denotes an integer whose value is  $sgn \cdot \Sigma r^i \cdot  d_i$, where $sgn$ is  -1 if a leading minus was present and 1 otherwise, $d_i, i \in 0 .. n$ are the digits of the number (given by \code{digits}) from right to left, and $r $ is the radix given by \code{radix} (or 10 if no radix is given). The radix itself is interpreted similarly, except that its radix is always 10.
+
+{\it  The radix is always with respect to base 10 since no meta-radix can be specified.}
+
+{\it  Note that integers are not limited in size.}
+
+Non-integral numbers denote an object that obeys the protocol of class \code{FixedPointNumber}.
+
+
+{\it Actually, we don't have a class \cd{FixedPointNumber} at the moment, and non-integral numbers are currently represented as instances of the Squeak class \cd{Fraction}. This is a bug.
+
+Most users of Newspeak are not very performance sensitive, and are better off with numbers that they understand. Financial applications in particular need accurate decimal numbers. Machine supported floating point numbers can behave in counterintuitive ways and require a great deal of expertise to manage their subtleties.
+
+On the other hand, there are certainly applications where floating point performance is critical. 
+Recent experience shows that using arbitrary precision rationals in numeric computations doesn't always work very well. The precision computed my greatly exceed what is required, becoming very expensive for no benefit.
+
+One possibility is to
+allow users to choose a numeric implementation.  The crude way to do this would force those users who really want machine floats/doubles to specify their literals in an awkward way. This is the opposite default from most languages, which make it hard for users to get accurate numbers. A better option would be to define fractional literals as message sends (as suggested above for all literals), and allow people to choose.
+}
+
+\subsubsection{Boolean Literals}
+\label{bool}
+
+The reserved word \TRUE{ } denotes the unique instance of class \code{True}. The reserved word \FALSE{ } denotes the unique instance of class \code{False}. They are both value objects, and correspond to the boolean values true and false, respectively.  
+
+\subsubsection{\NIL}
+\label{nil}
+
+The reserved word \NIL{ } denotes the unique instance of class \code{UndefinedObject}. It is a value object. \NIL{ } responds to almost all messages with a \code{messageNotUnderstood} error. The exceptions are \code{isNil}, which answers \TRUE{} and methods inherited from class \code{Value}.
+
+
+\subsubsection{ Character Literals}
+\label{char}
+
+{\it We plan on doing away with character literals, and having people use string literals instead. 
+}
+
+Character literals have the form \code{``c''}, where $c$ is a printable character in the ASCII character set. 
+The character representing the double quote is represented by \code{``"} (doubling the nested quote).
+The value of a character literal \code{``c''} is equivalent to the expression  \code{$C$ codePoint: $j$},  where $C$ is the class \code{Character}  and $j$ is an integer corresponding to to the unicode code point for  $c$. A character is a value object. 
+
+The syntax for character literals is given below:
+ 
+\begin{newspeak}
+character = digit $|$ letter $|$ specialCharacter $|$ (char: ``[")) $|$ (char: ``]")  $|$
+                (char: ``\{") $|$ (char: ``\}") $|$ (char: ``(" ) $|$ (char: ``)") $|$ 
+                (char: ``\^{}") $|$ (char: ``;") $|$ (char: ``\$") $|$ (char: ``\#") $|$
+                (char: ``:") $|$ (char: ``.") $|$ (char: ``-") $|$ underscore $|$ (char: ``\textquoteright").   
+twoDblQuotes =  (char: ``"'),  (char: ``"').       
+aChar = (char: ``"",  (character $|$ twoDblQuotes $|$ (char: `"') $|$ (char:`  ')), (char: ``"").
+characterConstant = tokenFor: aChar.
+\end{newspeak}
+ 
+\subsubsection{ String Literals}
+\label{string}
+
+String literals have the form \code{``$\sigma$''}or \code{`$\sigma$'} where $\sigma$ is a sequence of zero or more Unicode extended graphemes. The value of a string literal is equivalent to the result of the expression  \code{$S$ fromCollection: \{$c_1$.  $\ldots$ . $c_k$\}} where $S$ is the class \code{CanonicalString} and $c_i, 1 \le i \le k$ are integers representing the encoding of the string in Unicode normal form C.   
+
+{\it 
+The actual source program may be encoded in various ways. The implementation may choose to represent strings in different ways as well. The \code{String}, \code{Symbol} and \code{Character} classes provide an API that encapsulates this decision (up to performance differences). The requirement above ensures that the semantic effect is as if the source was converted to Unicode NFC, and that strings were stored using that encoding.
+}
+
+String literals are value objects. Such objects will be canonicalized by the default implementation.
+
+{\it Currently, we only support  the syntax \code{`abc'} but not \code{``abc''}}
+
+The current , temporary, syntax of string literals is given below:
+\begin{newspeak}
+twoQuotes =  (char: `'''),  (char: `"').     
+stringBody = (character $|$ aWhitespaceChar $|$ (char: "'") $|$ twoQuotes) star.
+str = (char: ``'" ),  stringBody,  (char: "'").
+string = tokenFor: str.
+\end{newspeak}
+
+{\it 
+Should we allow more escapes, so that expressions can be embedded within? The plan is to allow some form of string interpolation.
+
+}
+
+
+
+\subsubsection{ Symbol Literals}
+\label{symbol}
+{\it These may  go away (sniff). I will miss the concise syntax, but it is non-standard. And string literals will behave as symbols anyway. We will likely keep an immutable string class that is not canonicalized, but it will not be used for literals. A mutable string class (aka StringBuffer) is also  worth having, but would only be used by people working with very large strings, and not for literals.
+
+}
+Symbol literals have the form \code{\#s}, where \code{s} is either a string literal (\ref{string}), an identifier, a binary selector (\ref{binary}) or a sequence of keywords (\ref{keyword}). Symbols are value objects that are instances of class \code{Symbol}. Their syntax is given below:
+
+
+\begin{newspeak}
+sym = str $|$ kws $|$ binSel $|$ id. 
+ 
+symbol = tokenFor: sym.
+symbolConstant = pound, symbol
+\end{newspeak}
+
+
+\subsubsection{ Tuple Literals}
+\label{tuple}
+
+A tuple literal is either the {\em empty tuple},  $\{\}$, or has the form $\{e_1 . \ldots e_n\}$ for $n \ge 1$.  
+The syntax of tuple literals is given below:
+\begin{newspeak}
+tuple =  lcurly, (expression, (dot, expression) star, dot opt) opt,  rcurly.
+\end{newspeak}
+
+The empty tuple denotes 
+\begin{newspeak}
+($R$ new: $0$) 
+\end{newspeak}
+
+and $\{e_1 . \ldots e_n\}$  is equivalent to the following
+\begin{newspeak}
+$R$ fromArray: ((Array new: $n$) at: 1 put: $e_1$;  $\ldots$; at: $n$ put: $e_n$; yourself)
+%( \ldots (($R$ new: $n$) at: 1 put: $e_1$)  $\ldots$) at: $n$ put: $e_n$
+\end{newspeak}
+%  Perhaps we should have a blanket notation clause saying x1 ... xN can mean empty (or use the BNF).  Literal tuples are not deeply immutable like numbers, characters and symbols.
+% Raise the abstraction level and define what tuples are. 
+% How will the library and the language spec interact? Describe the key library classes in the spec?
+% Define them fully, or just partially?
+
+where $R$ is the class \code{ReadOnlyTuple}. Tools  such as debuggers may treat the expression as an atomic composition of the results of $e_i, i \in 1 \to n$. 
+
+{\it
+In other words, a debugger need not step through the calls to \code{fromArray:}, \code{new:}, \code{at:put:} and \code{yourself}, but they cannot ignore the $e_i$.
+}
+
+Tuple literals are shallowly immutable.
+
+{\it 
+At the moment, tuples are implemented directly as instances of \cd{Array} and therefore mutable. This is a bug.
+}
+
+\subsubsection{ Closure Literals}
+\label{block}
+
+A closure literal denotes a newly created instance of class \code{Closure}. When a closure is created, it is associated with a {\em current instance} and a {\em current class}, whose values are those of the current instance and current class (respectively) of the current activation  (\ref{activations}) if it exists. Otherwise, both the current instance and current class are \NIL{} (\ref{nil}). 
+
+The syntax of closure literals is given below: 
+
+\begin{newspeak}
+ block = lbracket,  blockParameters opt, codeBody,  rbracket.
+ 
+blockParameters =  blockParameter plus, vbar.
+ 
+blockParameter = colon, slotDecl.                                 
+\end{newspeak}
+
+where
+\begin{newspeak}
+slotDecl = identifier.     
+codeBody = temporaries opt,  statements.    
+  
+temporaries = slotDecls.
+  
+slotDecls = seqSlotDecls $|$ 
+                      simSlotDecls.
+  
+statements = returnStatement  $|$   
+                  statementSequence $|$
+                  empty.
+                         
+statementSequence = expression, furtherStatements  opt.
+  
+furtherStatements = dot,  statements.                           
+\end{newspeak}
+
+{\it
+Syntax note: the delimiters for closures will almost certainly change from square brackets to curly braces, to keep them aligned with method and class delimiters, when these are changed to conform to mainstream notation.
+}
+
+{\it
+Closures are special - they know about the continuation of their lexically enclosing method and its receiver, as well as having a continuation object given to them by their caller. Thus the behavior of return statements in a closure  is ``non-local'' (they return from the nearest enclosing method) ,  and the result of executing a body without executing a return statement  will return the last expression's value, not \SELF).
+}
+
+A closure takes zero or more parameters. An $n$-ary closure $b$ may be invoked by sending it a \code{value} message of the appropriate arity. This will cause instantation of a closure activation $a$ derived from $b$ in response to the message. Then
+\begin{itemize} 
+\item If  the closure body is empty,  control is passed back to $a$'s continuation object (\ref{activations}). The value returned is \NIL{ } (\ref{nil}).
+\item Otherwise, the closure body is executed in the context of $a$. If execution of the closure body completes, let $e$ be the value of the last statement in the closure body. In this case, control is passed back to $a$'s continuation object. The value returned is $e$.
+\end{itemize}
+{\it If the closure  body completes, its statement is necessarily an expression statement, since otherwise it would have been a return statement which would have passed control elsewhere before the closure completed.}
+
+\subsubsection{Pattern Literals}
+\label{patLiteral}
+
+{\it Experimental.} A pattern literal is either a wildcard pattern, a literal pattern or a keyword pattern. The exact meaning depends on the binding of the message \code{Pattern} in the environment where the literal is evaluated. By default, \code{Pattern} is defined in class \code{Object} and denotes class \code{Pattern} of the Newspeak library. 
+
+\begin{newspeak}
+pattern = (tokenFromChar: "$<$"), patternLiteral, (char: "$>$"). 
+patternLiteral = wildcardPattern $|$ literalPattern $|$ keywordPattern.
+\end{newspeak}
+
+
+\paragraph{Wildcard Patterns}
+\label{wildcardPattern}
+
+A wildcard pattern matches any object. It is equivalent to evaluating \code{Pattern wildcard}.
+
+\begin{newspeak}
+wildcardPattern = tokenFromChar: "\_'.
+\end{newspeak}
+
+\paragraph{Literal Patterns}
+\label{literalPattern}
+
+A literal pattern matches a particular Newspeak literal. The pattern matches any object whose \#= method returns \TRUE{} when invoked upon the literal named in the pattern. A literal pattern $<l>$  is equivalent to evaluating \code{Pattern literal: l}, where $l$ is either a number literal, a symbol literal, a character literal, a string literal or a tuple literal. 
+
+\begin{newspeak}
+literalPattern = tokenFor: number $|$ symbolConstant $|$ characterConstant $|$ string $|$ tuple.
+\end{newspeak}
+
+\paragraph{Keyword Patterns}
+\label{keywordPattern}
+
+A keyword pattern is equivalent to evaluating \code{Pattern keywords: kws patterns: pats }, where $kws$ is a list of symbols denoting keywords, and $pats$ is a list of expressions.  Sending a message with the selector $kws$ to the pattern should return a {\em binding object} describing if and how the pattern matches the message arguments.
+
+\begin{newspeak}
+keywordPattern = kwPatternPair plus. 
+kwPatternPair = keyword, kwPatternValue opt. 
+kwPatternValue = wildcardPattern $|$ literalPattern $|$ variablePattern $|$ nestedPatternLiteral. 
+variablePattern = tokenFor: ( ('?'), id ). 
+nestedPatternLiteral = tokenFor: pattern.
+\end{newspeak}
+
+
+A keyword pattern may contain a {\em variable pattern} of the form $?x$ nested within it. 
+
+\subsubsection{Object Literals}
+\label{objLiteral}
+
+{\it Unimplemented.}
+% Enclosing object? Enclosing declarations- what role do these have?
+An {\em object literal} evaluates to a newly allocated object $o$. 
+
+{\it if it's a value class, how can we tell?}
+
+The class $C_o$ of $o$ is implicitly declared by the object literal expression. The expression specifies the superclass of $C_o$, what parameters are to be passed to the superclass' factory method, what slots, methods and nested classes the class declares and how it initializes its instances.
+
+The enclosing object (\ref{enclosing}) of $C_o$  is the current activation,
+if there is one; otherwise it is \NIL{} (\ref{nil}).
+
+If the enclosing object is \NIL{}, the superclass clause must be implicit, and the superclass defaults to \code{Object}. Otherwise, if no superclass is explicitly specified by the object literal, the superclass defaults to the result of evaluating the implicit receiver message  \cd{Object}. 
+
+ {\it
+If we say that the default superclass is \cd{Object} as defined by the underlying platform, we would have the strange situation that explicitly writing \cd{Object} could give a different result then using the default.
+This is what would happen if  a module had its own binding of \cd{Object}. 
+
+For literals in general, we have a choice as discussed in the beginning of section \ref{literals}, but consistency pushes in the direction of flexiblility.
+}
+
+\begin{newspeak}
+objectLiteral = (identifier, keywordMsg opt) opt,  classBody.
+\end{newspeak}
+
+
+\subsection{\SELF} 
+\label{selfKw}
+
+When not part of a self send (\ref{self}), the reserved word  \SELF{} denotes  the current instance of the currently executing activation (\ref{mtds}, \ref{activations}). 
+
+\subsection{Parenthesized Expressions}
+\label{parens}
+
+Evaluating an expression in parentheses $(e)$ is equivalent to evaluating $e$.
+
+\begin{newspeak}
+parenthesizedExpression =  lparen, expression, rparen.
+\end{newspeak}
+
+\subsection{Message Send Expressions}
+\label{sends}
+
+\subsubsection{Evaluation of Message Sends}
+\label{evalMsg}
+
+A message send expression $e$ defines a receiver and a message to that receiver.
+
+{\it and whether the message is  synchronous or asynchronous?}
+
+The receiver may be given explicitly or it may be implicit. The message is always given explicitly by a {\em message clause} (\ref{msgClause}).  
+
+Evaluation of the message send proceeds as follows:
+\begin{itemize}
+\item
+If the receiver is implicit, then $e$ is an {\em implicit receiver send} and it is evaluated as described in section \ref{here}.
+\item 
+If the receiver is the reserved word \SELF{}, enclosed in zero or more pairs of parentheses, then $e$ is a {\em self send} and it is evaluated as described in section \ref{self}.
+\item
+If the receiver has the form \code{outer N} (where $N$ is an identifier),  then $e$ is an {\em outer send} and it is evaluated as described in section \ref{out}.
+\item
+If the receiver is the reserved word \SUPER, then $e$ is a {\em super send} and it is evaluated as described in section \ref{super}.
+\item Otherwise, $e$ is an {\em ordinary send} and it is evaluated as described in section \ref{normal}.
+\end{itemize}
+
+\subsubsection{Message Clauses}
+\label{msgClause}
+
+Message clauses come in three syntactic forms. 
+
+\begin{newspeak}
+message = keywordMsg $|$ unarySelector $|$ binaryMsg.
+\end{newspeak}
+
+\paragraph{Unary Message Clauses}
+\label{unaryMsg}
+
+A {\em unary message clause} consists of a selector that is an identifier.
+\begin{newspeak}
+unarySelector = identifier.
+\end{newspeak}
+Evaluation of a unary message clause consists of constructing a message object with no arguments and a selector that is a symbol derived from the identifier given by the message clause.
+
+\paragraph{Binary Message Clauses}
+\label{binaryMsg}
+
+A {\em binary message clause} consists of a selector that consists of special characters as defined in section \ref{lexrules}, along with a single argument given by a unary expression.
+
+\begin{newspeak}
+binaryMsg = binarySelector, unaryExpression.
+\end{newspeak}
+Evaluation of a binary message clause consists of evaluating its unary expression to yield an object $a$, and constructing a message object with the argument $a$ and the selector given by the message clause.
+
+\paragraph{Keyword Message Clauses}
+\label{keywordMsg}
+
+A {\em keyword message clause} consists of one or more keywords each followed by a binary expression. A keyword is defined as an identifier suffixed by a colon character.
+\begin{newspeak}
+ keywordMsg =  (keyword, binaryExpression) plus.
+\end{newspeak}
+Evaluation of a keyword message clause consists of evaluating its binary expressions in the order they appear, starting at the left,  to yield objects $a_1 \ldots a_n, 1 \le n$, and constructing a message object with  arguments $a_1 \ldots a_n$ and a selector that is a symbol representing the concatenation of all the keywords given in the message clause.
+
+\subsubsection{Message Send Syntax}
+
+Message sends  come in four syntactic forms. 
+
+\paragraph{Unary Expressions}
+\label{unary}
+
+A unary expression $u$ consists of either:
+\begin{itemize}
+\item A primary expression $p$ which is either a literal (\ref{literals}), a parenthesized expression (\ref{parens}) or \SELF{} (\ref{selfKw}). In this case  the value of $u$ is the value of $p$.
+\end{itemize}
+or one of the following:
+\begin{itemize}
+\item A unary message,  which is directed at the implicit receiver.
+\item A receiver given by a unary expression, \OUTER{}, or \SUPER{} followed by a unary message
+\end{itemize}
+In these cases, $u$ is a message send expression, and it is evaluated as described in section \ref{evalMsg}.
+\begin{newspeak}
+primary =  unarySelector $|$
+               literal $|$
+               block $|$ 
+               parenthesizedExpression.
+ 
+unaryExpression = primary, unarySelector star.
+\end{newspeak}
+
+
+\paragraph{Binary Expressions}
+\label{binary}
+
+A binary expression $b$ consists of one of the following:
+\begin{itemize}
+\item A  unary expression $u$. In this case  the value of $b$ is the value of $u$.
+\item A receiver given by a binary expression followed by a binary message. In this case, $b$ is a message send expression, and it is evaluated as described in section \ref{evalMsg}.
+
+{\it
+Binary sends cannot have an implicit receiver (unlike the Self language).  This gives us a lot more flexibility in parsing any new constructs. It also avoids code that looks like reverse Polish notation.
+}
+
+\end{itemize}
+\begin{newspeak}
+binaryExpression =  unaryExpression, binaryMsg star.
+\end{newspeak}
+
+
+\paragraph{Keyword Expressions}
+\label{keyword}
+
+A keyword expression $k$ consists of either:
+\begin{itemize}
+\item A  binary expression $b$. In this case  the value of $k$ is the value of $b$.
+\end{itemize}
+or one of the following:
+\begin{itemize}
+\item A keyword message, which is directed at the implicit receiver.
+\item A receiver given by a binary expression followed by a keyword message. 
+\end{itemize}
+In these cases, $k$ is a message send expression, and it is evaluated as described in section \ref{evalMsg}.
+\begin{newspeak}
+keywordExpression =  binaryExpression, keywordMsg opt.
+implicitKeywordSend = keywordMsg.
+\end{newspeak}
+
+
+\paragraph{Setter Sends}
+\label{setter}
+
+A setter message has the form \code{id:: e}.  It is equivalent to the expression \code{[:p $|$ id:p. p] value:(e)} where $p \ne id$.   Tools may treat it as a single message send however.
+
+\begin{newspeak}
+sendExpression = implicitKeywordSend $|$ cascadedMessageExpression. 
+expression = setterKeyword opt, sendExpression.
+setterKw = kw, (char: ":").
+setterKeyword = tokenFor: setterKw. 
+\end{newspeak}
+
+{\it
+The rationale for this formulation is to allow setter messages to play a role similar to traditional assignment. In particular:
+\begin{itemize}
+\item To eliminate excess parentheses, for example, \code{w:: x at: y put: z} instead of \code{w:(x at:y put: z)}. For this purpose alone, it would have sufficed to specify that  \code{id:: e} be equivalent to \code{id:(e)}. 
+\item To enable chaining of setter sends, e.g., \code{w::x::y}, similar to \code{w := x := y}.
+\end{itemize}
+}
+
+\subsubsection{Compound Message Send Expressions}
+
+\paragraph{Cascades}
+\label{cascade}
+
+A {\em cascade} has the form \code{e $\mu_0$; $\ldots \mu_n$} where $\mu_i, i \in 0 .. n$ are message clauses and \code{e} is an expression. It is equivalent to \code{[:p $|$ p $\mu_0$. $\ldots$ p $\mu_n$] value:(e)}.
+
+\begin{newspeak}
+nontrivialUnaryMessages = unarySelector plus, binaryMsg star,  keywordMsg opt.
+nontrivialBinaryMessages = binaryMsg plus, keywordMsg opt.
+keywordMessages = keywordMsg.
+nonEmptyMessages = nontrivialUnaryMessages $|$
+                             nontrivialBinaryMessages  $|$
+                             keywordMessages.
+cascadeMsg = semicolon, (keywordMsg $|$ binaryMsg $|$ unarySelector).
+msgCascade = nonEmptyMessages, cascadeMsg star.
+                                                                                                                        
+cascadedMessageExpression = primary, msgCascade opt.                                                                                                                    
+\end{newspeak}
+
+\paragraph{Chains}
+
+{\it Unimplemented.} A {\em chain} has the form \code{e :$|$ $\mu$}. It is equivalent to \code{(e) $\mu$}.
+
+{\it
+Chains are a new proposed feature that has not yet been implemented. They are intended as a sugar that allows one to chain sends without excess parentheses (similar to the \$ operator in Haskell), as in:
+
+\code{label: "foo" :$|$ color: Color red :$|$ font: \#Courier}
+
+which otherwise might have to be written as
+
+\code{((label: "foo") color: Color red) font: \#Courier}
+
+Other examples include:
+
+\code{index between: 1 and: string size :$|$ ifTrue: [string at: index]}
+
+\code{ collection select: [:each $|$ each $>$ 0] :$|$ collect: [:each $|$ each factorial]}
+
+While in some cases, a cascade could be used, this doesn't work if one is coding in a functional style, where each expression produces a new value. One can consider chains as "cascades for functional programming".
+Is this worthwhile? Or are we falling into a cesspool of sweetener? It looks like the idea of chains can be generalized in a powerful and uniform way. Both chains and cascades are a form of syntactic combinator. While chains in isolation may seem excessive, we may yet be able to generalize this in an attractive way. It's an open question if chains stay in the language.
+}
+
+
+
+\subsection{Ordinary Sends}
+\label{normal}
+
+An ordinary send consists of an explicit receiver expression and a message clause (\ref{msgClause}). The receiver expression is evaluated first, yielding an object $o$. Then the message clause is evaluated, yielding a message $\mu$ with selector $s$.
+
+Let $f = lookupPublic(s, R)$ where $R$ is the class of $o$ and $lookupPublic(n, C)$ is defined as
+\begin{itemize}
+\item Undefined, if $C =$\code{Top}.
+\item $m$, if the mixin of $C$ defines a method $m$ with selector $n$ and \PUBLIC{} access.
+\item Undefined, if the mixin of $C$ defines a method $m$ with selector $n$ and \PROTECTED{} access.
+\item $lookupPublic(n, superclass(C))$ otherwise.
+\end{itemize}
+% This deliberately ignores private methods.
+
+If $f$ is defined, then the value of the send is the result of invoking $f$ in response to (\ref{mtds}) message $\mu$ on $o$. 
+
+Otherwise, the \code{\#doesNotUnderstand:} method  defined for (\ref{mtds}) the class of $o$ is invoked
+with an argument that is a message mirror on $\mu$, and the result  returned by the corresponding method activation is the value of the message send.
+
+The class \code{Object} must provide a default implementation of \code{\#doesNotUnderstand:} as a \ \PROTECTED{} method which causes a \code{MessageNotUnderstood} exception to be thrown.
+
+{\it
+This ensures that there always is a \cd{\#doesNotUnderstand:}, method defined for the class.
+Subclasses may override it to customize behavior. For example, a class can choose to have its instances  forward messages to other objects.
+}
+
+{\it
+It is important that \cd{\#doesNotUnderstand:} is \PROTECTED{}. Otherwise it would be possible to distinguish between an object and a proxy. 
+
+Let \cd{o} be an object, and let \cd{p} be a proxy for that object, that
+operates using \cd{\#doesNotUnderstand:} to forward all messages to \cd{o}.
+Given a \PUBLIC{} \cd{\#doesNotUnderstand:} method, one can compare the behavior
+of \cd{o} and \cd{p}. Say \cd{o} supports a message \cd{\#foo} that returns 3.
+
+\cd{o foo. (* 3 *)}
+
+\cd{p foo. (* 3 *)}
+
+\cd{o doesNotUnderstand: \#foo. (* message not understood *)}
+
+\cd{p doesNotUnderstand: \#foo. (* 3 *)}
+
+However, because  \cd{\#doesNotUnderstand:} is protected, the last call fails. If, on the other hand,   \cd{o} decides to make its  \cd{\#doesNotUnderstand:}  method \PUBLIC{}, both calls will return 3, and so \cd{o} and \cd{p} are indistinguishable.
+% Subtle. If o has a public DNU, and you send DNU to p (which has a protected DNU), the initial send fails because there is no public DNU.  But failure in fact does call DNU on p, which then forwards the call to o, and so the p and o remain indistinguishable.
+}
+
+{\it
+Subclasses should not, as a matter of good practice, reduce the accessibility of inherited methods, but there is nothing to prevent them from doing so. In particular, one could override \cd{\#doesNotUnderstand:} with a protected or private method. However, the wording of the semantics above ensures that the class' implementation of  \cd{\#doesNotUnderstand:}  will be invoked by the system regardless of its accessibility, and so such an attempt to restrict access would be pointless.
+
+% this means that there is a special lookup for #doesNotUnderstand (and used by mirrors as well for unrestricted #perform:).
+
+An alternative semantics would be to do an ordinary send of  \cd{\#doesNotUnderstand:}. In that case, changing the access would have an effect, and we would have to specify what happened if no
+ \cd{\#doesNotUnderstand:} method was defined (presumably a run time error). I see no advantage to
+ this, as an attacker can always determine what messages an object supports.
+}
+
+{\it
+A consequence of the above definitions is that message mirrors are freely available to all objects. This is not a security issue, as the only capabilities provided by a message mirror are the name of the method the sender intended to invoke, and the arguments it was going to pass. Since the sender intended to pass these arguments to the object that is receiver of \cd{\#doesNotUnderstand:}, and the name is an immutable symbol, we see no risk in providing this capability universally.
+}
+
+
+\subsection{Asynchronous Sends}
+\label{asynchronousSends}
+
+An asynchronous send consists of an explicit receiver expression followed by the asynchronous send token $<$-: followed by a message clause. 
+The receiver expression is evaluated first, yielding an object $o$. Then the message clause is evaluated, yielding a message $\mu$.
+
+If $o$ is a promise, then at some point after $o$ is resolved to an object $o'$, the send will be processed further as if the receiver were $o'$. If $o$ is a near reference, then the send will immediately be processed further as if the receiver were the remote representation of $o$. 
+
+If $o$ is a far reference (\ref{eventualReferences}) then let $A$ be the actor associated with the referent of $o$. We will often say that the message $\mu$ is sent to $A$ in this case. 
+ If $A$ is the current actor $A_{current}$, then let $\mu'$ be $\mu$, otherwise let $\mu'$ be a new message in the heap of $A$, equivalent to $\mu$ except that for each argument $a$ in $\mu$, the remote representation of $a$ is placed in the corresponding position in $\mu'$. 
+
+The message $\mu'$ is later placed on $A$'s message queue for subsequent evaluation. The timing of this placement is  constrained by the following rules:
+
+Let $A_1, A_2$ and $A_3$ be actors.
+\begin{enumerate}
+\item If  $A_1$ sends a message $m_1$ to  $A_2$, and subsequently sends message $m_2$ to $A_2$, then $A_2$ will receive and process $m_1$ before $m_2$.
+\item  If $A_1$ sends a message $m_1$ to a far reference $o$ associated with $A_2$, and  $A_1$ has not yet passed $o$ to $A_3$, and $A_1$ subsequently passes $o$ to $A_3$, then $m_1$ will be received and processed by $A_2$ before any message from $A_3$ to $o$.
+\end{enumerate}
+
+{\it  These constraints enforce the E-Order of \cite{RobustComposition}}
+
+
+The result of the asynchronous send is a promise $p$ that is immediately returned to the sender.
+
+When $A$ processes $\mu'$ , an ordinary send (\ref{normal}) $o'$ $\mu'$ is executed, where $o'$ is the referent of $o$. 
+
+If the execution of the send did not result in an exception being thrown, then let $r$ be the result of the send.   Then if $A \ne A_{current}$  then $p$ is subsequently resolved to the remote representation of $r$, otherwise $p$ is immediately resolved to $r$.
+
+Otherwise, the the execution of the send resulted in an exception $e$ being thrown. Then if $A \ne A_{current}$  then $p$ is subsequently broken with the remote representation of $e$, otherwise $p$ is immediately broken with exception $e$.
+
+{\it need to specify what broken promises mean. 
+}
+
+\subsection{Implicit Receiver Sends}
+\label{here}
+
+An implicit receiver send consists of a message clause (\ref{msgClause}) $m$.  
+Let $s$ be the selector of the message that results from the evaluation of $m$.
+\begin{itemize}
+\item
+Let $d$ be the innermost lexically enclosing construct in which a method, slot or class named $s$ is declared, if such a construct exists. 
+  \begin{itemize}
+    \item  If $d$ is a class then let $N$ be the name of $d$. Then the implicit receiver send is equivalent to an outer send (\ref{out}) of the form \code{outer $N$ $m$}.
+    \item If $d$ is an object literal, then let  $o$ be the value of the object literal, let $f$ be the method with selector $s$ defined on (\ref{msg}) $o$, and let $\mu$ be the value of $m$. The value of the implicit receiver send is the result of invoking $f$  on $o$ in response to (\ref{mtds})  $\mu$.
+  \item Otherwise, $d$ is necessarily a method or a closure literal. Then the implicit receiver send is equivalent to a send of the message $m$ to the current activation (\ref{activations}) of $d$.
+ \end{itemize}
+\item
+Otherwise, the implicit receiver send is equivalent to a self send (\ref{self}) of the form \code{self $m$}.
+\end{itemize}
+% Changed to give precedence to lexically enclosing names, and require explicit receiver for
+% outer sends to inherited members (and maybe even for self sends to inherited members)
+
+{\it
+The curved line in figure \ref{implicitSends} indicates the lookup path taken for an implicit receiver send. First, the surrounding lexical scope chain is traversed (as indicated by the broad red arrow), from a class $C$ through its enclosing class $OC$, and up to the top level class $OOC$. Only if this fails is the receiver's inheritance chain followed (broad grey arrow).
+
+\begin{figure}
+\includegraphics[]{../diagrams/lookup.pdf}
+\caption{Method lookup}
+\label{implicitSends}
+\end{figure}
+}
+
+\subsection{Self Sends}
+\label{self}
+
+%can self be considered a unary implicit receiver send to the current method or closure, which returns the receiver?
+% no, because that does not account for privacy
+A self send consists of the reserved word \SELF{ } (\ref{selfKw}), enclosed in zero or more pairs of parentheses, followed by a message clause  (\ref{msgClause}) $m$.  Let $C$ be the name of the immediately enclosing class declaration. A self send is equivalent to an outer send (\ref{out}) of the form \code{outer $C$ $m$}.
+
+{\it
+Sadly, a self send is not treated compositionally: \SELF{} $m$ is not evaluated by first evaluating \SELF{} and then evaluating $m$. 
+Consider
+\begin{newspeak}
+$|$ x $|$
+
+x:: self.
+x foo
+\end{newspeak}
+
+Here, \cd{x foo} is not the same as \cd{\SELF{} foo}. The former is an ordinary send, which will succeed only if \cd{foo} is \PUBLIC.  The latter is a self send, which can access  \PROTECTED{} members
+of the  the immediately enclosing class, as well as any \PRIVATE{} members declared within it.
+}
+
+{\it
+The option of enclosing a self send in parentheses is of little practical use. However, by specifying that all such forms are all treated as self sends, we avoid an ugly wart.
+
+If the self send construct did not allow for parentheses, (\SELF{}) $m$ would behave differently from a self send - it would be an ordinary send, and so could not invoke non-public methods. The parentheses would have a semantic effect beyond order of evaluation!  
+
+This would be easily fixed by having a special syntax for self sends, e.g., \textbf{SelfSend} $m$. However, this flies in the face of deeply ingrained habits, and would likely cause many mistakes. 
+
+No doubt programmers would be surprised that (\SELF{}) $m$ only called public methods (because it was just an ordinary send),  though the likelihood of that mistake is negligible. On the other hand, if we were to introduce a special syntax for self sends, programmers would constantly be surprised and annoyed that \SELF{} $m$ was an ordinary send.
+
+Instead, the solution is to recognize the parenthesized form as a self send as well. All self sends work as expected, and so do parentheses.
+}
+
+\subsection{Outer Sends}
+\label{out}
+
+% Grammar allows just plain outer. Also, simplify so outer X is simply the enclosing instance corresponding to class N? No, this will not allow access to private methods.
+
+An outer send consists of the reserved word \OUTER, an identifier $N$, and a message clause  (\ref{msgClause}). It is a compile time error if $N$ is not the name of a class whose declaration $D$  lexically encloses the outer send. Let $C$ be the class declaration  immediately enclosing the outer send. $D$ is necessarily the  $k$th lexically enclosing class declaration (\ref{classes}) of $C$ for some $k \ge 0$.  
+%Let $R$ be the class of \SELF{}, let $C'$ be the most specific superclass 
+% Argh, most specific is wrong. Like for super calls, we need to track the actual class of in which 
+% the current activation's method was looked up, because its enclosing object
+% may differ. So maybe 
+ Let $C'$ be the current class of the current activation, and let $o$ be the $k$th enclosing object  (\ref{enclosing}) of \SELF{} with respect to $C'$. 
+
+%of $R$ whose mixin is induced by $C$, and let $o$ be the $k$th enclosing object  (\ref{enclosing}) of \SELF{} with respect to $C'$. 
+
+{\it
+The situation is as represented in figure \ref{kth-enclosing},  assuming $N = S_k$ for some $k \le 3$.
+
+A call \cd{\OUTER{} N s} is intended to refer to a method $s$ that is defined in an enclosing class $N$. Usually this can be referred to simply as $s$, but in some cases it may be hidden due to an intervening lexical definition.  In practice this is very rare. Also note that the call cannot be bound statically unless it is \PRIVATE{}, since it may be overridden.
+}
+
+Evaluation of the send begins by evaluating  the message clause. Let $\mu$  the resulting message and let $s$ be the selector of $\mu$.
+If $N$ declares a \PRIVATE{ } method $f$ named $s$ then the value of the send is the result of invoking $f$  in response to (\ref{mtds})  message $\mu$ on  $o$. 
+
+Otherwise, Let $f = lookupProtected(s, R)$ where $R$ is the class of $o$ and $lookupProtected(n, C)$ is defined as
+\begin{itemize}
+\item Undefined, if $C =$\code{Top}.
+\item $m$, if the mixin of $C$ defines a method $m$ with selector $n$ and either \PUBLIC{} or \PROTECTED{}  access.
+\item $lookupProtected(n, superclass(C))$ otherwise.
+\end{itemize}
+% This deliberately ignores private methods.
+
+If $f$ is defined, then the value of the send is the result of invoking $f$ in response to (\ref{mtds}) message $\mu$ on $o$. 
+
+%Otherwise, if a \PUBLIC{ } or \PROTECTED{ } method $g$ named $s$ is defined on (\ref{msg}) $o$,  the value of the send is the result of  invoking $g$  in response to message $\mu$ on $o$. 
+
+Otherwise, the \code{\#doesNotUnderstand:} method  defined for (\ref{mtds}) the class of $o$ is invoked
+with an argument that is a message mirror on $\mu$, and the result  returned by the corresponding method activation is the value of the message send.
+
+{\it
+Readers (and especially prospective implementors) may wish to consider what happens when such an \OUTER{} call is executed at run time.  We need to identify the code that should be run; to do that, we must determine the object that should receive the message $\mu$. We know the receiver of the currently executing method, and we know what mixin the method was declared in. 
+
+The latter tells us what lexical scope we are in, because the mixin was induced by a class declaration $C$. Using this information we should be able to locate the nearest enclosing class declaration named $N$. This need not necessarily be done dynamically.
+
+The appropriate receiver for our outer send  must be an instance of $N$, or more precisely, an instance $o_k$ of some subclass $C_k$ of an application of \cd{N mixin}. As you'll see, this is exactly the $k$th enclosing object of \SELF{}  with respect to $C$.
+
+To find $o_k$, we'll start with the class $C_0$ of $o_0 = $ \SELF{}. Somewhere along the superclass chain of $C_0$  there must be a class $S_0$, that is an application of \cd{C mixin}.  Usually, this is the class where the current method, which contains our outer send, was found (in the case of super calls, this may not be the case, but we'll ignore that possibility to keep this example simple; the definition of $kth$ enclosing object handles the situation correctly). From here, we can climb up the lexical chain of $C$.
+
+% If there are repeated applications of a given mixin in a superclass chain, this is not true!
+
+We can now look at $o_1$, the enclosing object of $S_0$. The class of $o_1$ is $C_1$. We can apply the same procedure we applied to $C_0$ to $C_1$, except that now we're looking for an application of a mixin that corresponds to the next step in the lexical chain ($C$'s immediately enclosing class). There has to be one (why? exercise for the reader).
+
+After $k$ times (and k might be zero) we will reach $o_k$. We don't have to precompute $k$ - that is simply an optimization. Instead, we might, at every stage, check if $C_n$ is in fact an application of a mixin named $N$.
+
+If the method is \PRIVATE{},
+it cannot be overridden and so the code could be predetermined - but the receiver could not. If the method is not \PRIVATE, a standard lookup can be done on $o_k$.  This completes the exegesis of this particularly thorny issue.
+}
+
+\subsection{Super Sends}
+\label{super}
+%does this force an operational description? Do we use Cook's semantics?
+% Need to access protected superclass methods
+
+% Grammar allows just plain super
+
+A super send consists of the reserved word \SUPER, followed by a message clause  (\ref{msgClause}) $m$.  Let $a$ be the current activation (\ref{activations}) and $C$ be $a$'s current class. 
+ It is a run time error if $C$ is \cd{Object} or \cd{Top}.
+Otherwise, let $S$ be the superclass of $C$. Evaluation of the send begins by evaluating  the message clause. Let  $\mu$ be the resulting message, let $s$ be the selector of $\mu$ and let $o$ be the current instance of $a$.  If a \PUBLIC{ } or \PROTECTED{ } method $f$ named $s$ is defined for (\ref{mtds}) $S$,  the value of the send is the result of  invoking $f$  in response to (\ref{mtds})  message $\mu$ on $o$. The method activation's current class is set to  $definingClass(s, S)$. Otherwise, the \code{\#doesNotUnderstand:} method  defined for  $S$ 
+ is invoked
+with an argument that is a message mirror on $\mu$, and the result  returned by the corresponding method activation is the value of the message send.  
+
+
+\subsection{Class Expressions}
+\label{classExpressions}
+
+Class expressions are used to define classes, and are described in the following section.
+
+{\em In practice, class expressions are restricted to the top level and as nested classes in current syntax and implementations.  The intent is to relax this restriction at some point, but this has not proven at all necessary so far. 
+% Unimplemented
+ }
+ 
+ 
+ \section{Classes}
+ \label{classes}
+  
+A class expression begins with the word \CLASS{}, followed by an identifier that is the name of the class being created by the expression.  The identifier may be followed by a method signature for the {\em primary factory} method of the class.  If the signature is omitted it defaults to \cd{new}.
+Next is a specification of  the class' superclass and mixin.
+
+The mixin can be specified via a {\em class body} (\ref{classBodies}) that declares instance and
+class members and specifies how to initialize an instance, based on
+the parameters given to the primary factory.  The formal parameters named in the
+primary factory signature are in scope in the instance initializer but not in the rest of the class body. 
+
+Alternatively, the mixin can be
+specified along with the superclass via a {\em mixin application} (\ref{mixinApplication}), and in
+that case,  the formal parameters named in the
+primary factory signature are in scope throughout the mixin application.
+
+The superclass may be specified as part of a mixin application as
+noted above, or it may be specified alongside a
+class body. If a class body appears, the superclass can be specified
+implicitly, or it can be specified explicitly via a {\em superclass clause}.  The superclass clause defines how
+to compute the superclass and how to invoke its initializer. The
+superclass clause may be an {\em inheritance clause} (\ref{inheritanceClauses}) or a mixin
+application. If the superclass clause is given implicitly
+it defaults to \code{Object}.  The formal parameters named in the
+primary factory signature are in scope in the superclass clause.
+
+ \begin{newspeak}
+ classDecl = ((tokenFromSymbol: \#class), identifier, messagePattern, equalSign, 
+                     inheritanceListAndOrBody) $|$
+                  ((tokenFromSymbol: \#class), identifier, empty, equalSign,
+                     inheritanceListAndOrBody).
+inheritanceListAndOrBody = defaultSuperclassAndBody $|$ 
+                                     explicitInheritanceListAndOrBody.
+defaultSuperclassAndBody = classBody.
+explicitInheritanceListAndOrBody = inheritanceClause, mixinSpec.
+mixinSpec =  classBody $|$ mixinAppSuffix.
+mixinAppSuffix = ((tokenFromSymbol: \#$<$:),  inheritanceClause) plus,  
+                      (dot $|$ classBody).
+ %classExpression = classDeclaration $|$ mixinApplication.
+ %classExpression = classPrefix, mixinSpecifier.
+ %mixinSpecifier = classBody $|$ mixinApplication.
+\end{newspeak}
+
+A class expression is always evaluated in the context of an enclosing object $eo$  (\ref{enclosing}). If a class expression is directly nested in a method (\ref{mtds}) or closure, the enclosing object $eo$ is the activation (\ref{activations}) $a$ in which evaluation takes place.
+ 
+ {\it Unimplemented. The current syntax does not allow a class declaration to appear as an ordinary expression, but the intent is that it will be permitted.
+ }
+ 
+If a class expression is lexically nested directly within another class or within an object literal, then the declaration is necessarily evaluated in response to a message (\ref{msg}) whose selector is the class' name. The enclosing object  $eo$ is then the receiver of that message.
+
+Otherwise, the class expression is necessarily evaluated at the top level, and $eo$ is \NIL{}  (\ref{nil}).
+ 
+The class expression evaluates to a class. This class is an instance of a metaclass that is the application of the metaclass mixin defined by the class' class side to the class \code{Class} as defined by the underlying platform. 
+
+The class has a name, given by the  class expression, and an enclosing object which is $eo$. 
+ 
+The class is an application of the mixin defined by the class' instance side to its superclass.
+If $eo$ is \NIL{} the superclass clause must be implicit, and the superclass is \code{Object}.
+
+Every instance of a class $C$ has a distinct nested class for each nested class declaration
+given in the declaration of $C$ and its superclasses.
+
+{\it The nested classes are distinct, because they implicitly refer to the instance; every instance created
+ by a nested class refers to the enclosing object via lexical scoping.  This information comes
+ to it from its class (see the discussion of enclosing objects). Hence, each nested class has
+ one piece of state - it's enclosing object,  and so there must be a distinct class per instance
+ of the enclosing class. 
+ Also, the superclass of a nested class might be distinct in different instances, as it might be a parameter to a module. 
+ }
+
+A declaration of a nested class $N$ nested directly within another class $OC$ implicitly defines a method with the same name and accessibility in $OC$. The first time this method is invoked on a given receiver $r$, it evaluates the class declaration, using $r$ as the enclosing object, and returns the resulting class as its result. Subsequent calls on $r$ always return the same class object.
+
+{\it 
+Ergo, the class is effectively cached within $r$.
+}
+
+{\it
+Since a class object has no slots of its own, the only state it can access is that which is available through its enclosing object. This implies that a module definition has no state, since its enclosing object is \NIL.
+}
+
+A class declaration $C$ is its own 0th lexically enclosing class declaration.  For $n > 0$, a class $C_n$ is the $n$th lexically enclosing class declaration of a class declaration $C_0$, if it is the immediately enclosing class declaration of the $n-1$st lexically enclosing class declaration of $C_0$.
+
+
+\subsection{Inheritance Clauses}
+\label{inheritanceClauses}
+
+ An inheritance clause consists of an expression $e_c$ denoting a class, optionally followed by a message clause $m$.  If omitted, $m$ defaults to \code{new}.  It is a run time error if $e_c$ does not evaluate to a class object $C$.  
+It is a run time error if the message selector  specified by the inheritance clause is not the selector of the primary factory of the class $C$.
+ 
+  \begin{newspeak}
+inheritanceClause = inheritancePrefix opt, unarySelector, message opt.
+% We will revise this to
+%inheritanceClause = inheritanceClauseReceiver, message opt.
+%inheritanceClauseReceiver = parenthesizedExpression |  inheritancePrefix opt, unarySelector.
+inheritancePrefix = outerReceiver $|$  
+                              (tokenFromSymbol: \#self) $|$  
+                              (tokenFromSymbol: \#super).
+outerReceiver = (tokenFromSymbol: \#outer) , identifier.
+\end{newspeak}
+ 
+The expression $e_c$ is syntactically restricted to a unary send whose receiver is either implicit, \SELF{}, \SUPER{}, or the receiver of an outer send. %It is a run time error if $e_c$ does not evaluate to a class object $S$. 
+
+In the future, the receiver may also be a parenthesized expression.
+ 
+ {\em Parenthesized expressions are not yet supported because they would introduce ambiguities in parsing. These will be resolved when the syntax is changed so that class bodies are delimited via curly braces. }
+ 
+ {\em
+We also considered allowing $e_c$ to be an arbitrary expression, but that is inherently ambiguous. Consider:
+
+class C foo: x = S m: x ...
+
+  is m:x the factory message to the superclass S, or is S m: x as a whole a message that returns the superclass, to which we will send the message new implicitly? 
+  
+ We could of course change the syntax more throughly such that the superclass and factory call are syntactically separate; we may consider this in future revisions. 
+  }
+  
+%An inheritance clause must occur within the scope of an enclosing class declaration or a run-time error occurs. 
+If the inheritance clause occurs within an enclosing class $E$
+the expression $e_c$ and then the message pattern $m$ are each evaluated, separately, as if they occurred inside an instance method of $E$ where the enclosing object of the class expression, $eo$, is the method's receiver.   
+
+% so how do we enforce this given that the arguments to the message are evaluated inside an instance method of the receiver?
+
+If the inheritance clause does not appear within an enclosing class, 
+the expression $e_c$ and then the message pattern $m$ are each evaluated, separately, as if they were top level expressions.
+
+{\em 
+Consequently, they will almost certainly fail since no interesting classes are available at top level.
+}
+
+The value of $e_c$ is known as the {\em class determined by the inheritance clause.}
+
+% This does not allow for actual class expressions inside methods, as these would
+% take place in the scope of the method.
+
+The value of the message pattern $m$  is known as {\em the message determined by the inheritance clause.}
+
+ 
+% \begin{newspeak}
+% classPrefix =  ( (tokenFromSymbol: \#class),    (identifier, messagePattern, equalSign,  superclassClause opt) $|$
+%               ( (tokenFromSymbol: \#class),    (identifier, empty, equalSign,  superclassClause opt).   
+%\end{newspeak}
+
+%\subsection{Class Bodies} %mixins
+%\label{classes}
+% redefine in terms of object literals? What about scope issues
+
+% More immediately, redefine so that the header is prefix + initializer
+
+% Should we really do an overhaul with factories as distinct constructs inside the body?
+% class id extends S {
+%    factory msgPattern super msgPattern {
+%    ...
+%    }
+% ...
+%}
+%
+% This doesn't fit well with mixin applications though, and is wordy. Maybe use super
+%  as a separator between the superclass expression and the initializer? or put
+% super init call inside init? Again misfit with mixins.
+%
+% class id  msgPattern  = S   { 
+%   super msgPattern. (* ambiguous if no slots? No just forces explicit first super new*)
+ %   | ... |  
+ %    ...
+ %   }
+%  { 
+% ...
+%}
+%
+% In the end, a class has a name, a factor signature, a supereclass, a super initializer and
+% a body that includes its own initializer.
+%
+% class id  msgPattern  = S  {super msgPattern}   { 
+%   {
+ %   | ... |  
+ %    ...
+ %   }
+% ...
+%}
+%
+% so we could move the initializer into the body,  and add a super initializer clause
+% and this would work for mixins as well, with the mixin expression replacing the body.
+% Still ambiguous wrt tuple expressions. - not if we insist that S is a message send, so
+% no literals can appear unless they are receivers of further sends. Also superclass
+% init is only allowed unless there is a superclass clause
+
+\subsection{Mixin Application}
+\label{mixinApplication}
+
+A mixin may be {\em applied} to a  superclass to produce a new class that is an application of the mixin. 
+
+Syntactically, a mixin application consists of an explicit superclass clause denoting a class $S$, followed by the
+mixin application operator \code{$<$:},  followed by an inheritance clause that
+specifies a class $C$ whose mixin $M$ will be applied to the superclass. The inheritance clause's message clause $m$  specifies how to initialize the
+subobject defined by the mixin.
+
+%A mixin application consists of a {\em mixin specifier} and a {\em superclass clause}, separated by the  mixin application operator $:>$. 
+
+%A mixin specifier consists of  an expression $e_c$ followed by the identifier \code{mixin} optionally followed by a message signature $s_{f}$. It is a run time error if $e_c$ does not evaluate to a class object $C$.  It is also a run time error if the selector of $s_{f}$ is not the selector of the primary factory of $C$.
+ 
+
+%It is also a run time error if \code{msg} evaluates to a message $\mu$ whose selector differs from the selector of the primary factory of $S$.
+% No - the error only occurs when the class is instantiated.
+
+The result of a mixin application expression is a class $I$ with mixin $M$ and superclass $S$.
+The enclosing object of $I$ is the enclosing object of $C$. 
+Class $I$ has a primary factory method  (\ref{classes}) with the same selector as $m$. 
+When invoked, the primary factory of $I$ creates a new instance $o$  of $I$,  and runs the instance initializer (\ref{classBodies}) of $I$ on $o$; then it returns $o$. 
+
+Let $m_s$ be the message pattern defined by the superclass clause.
+The instance initializer for $I$ evaluates $m_s$ to $\mu_s$, the message determined by the superclass clause.  Next, the instance initializer of $I$ invokes the instance initializer  of $S$ on $o$ with the arguments of $\mu_s$. Then, $m$ is evaluated to $\mu_m$, the message determined by the inheritance clause. The instance initializer of $M$ is then  evaluated on $o$ with the arguments of $\mu_m$. 
+
+% Also, the behavior of instance initialization must be specified. The spec should be shared with that
+% given in the class decl section below.
+% One must be careful to handle msg in its correct context - the object surrounding the expression;
+% whereas, in a class decl, one also needs the parameters of the factory in scope. Tricky to implement
+% one needs a real closure
+% One final generalization lacking: we could assume the application has a unique
+% factory that calls both the superclass initializer and the main initializer
+
+Any change made to the structure or code of a mixin effects all of its applications.
+
+{\it This is because they all share their code and structural definition with the mixin.}
+ 
+%There are two kinds of class expressions: class declarations and mixin applications.
+
+\subsection{Class Bodies}
+\label{classBodies}
+
+A class body consists of an {\em initializer} and two {\em sides}, the {\em instance side} and the {\em class side}.
+
+Each side defines a {\em mixin}. 
+The methods and nested classes of the class'  mixin are defined via the instance side. The initializer declares the slots (\ref{slots}) of the class'   mixin and an optional initialization statement.
+The class side, together with the primary factory method,  defines the mixin for the metaclass, whose methods are typically {\em secondary factory methods.} 
+
+The syntax of a class body is is defined as follows
+
+
+\begin{newspeak}
+classBody = classHeader, sideDecl, classSideDecl opt.
+% classSpecifier = classHeader, sideDecl, classSideDecl opt.
+\end{newspeak}
+where
+
+\begin{newspeak}
+classHeader =  lparen,  classComment opt, 
+                        slotDecls opt, initExprs,  rparen.   
+
+%classHeader =  lparen,  classComment opt, 
+%                        slotDecls opt, initExprs,  rparen.   
+                                             
+classComment:: whitespace, comment.     
+initExprs = (expression, (dot expression) star, dot opt) opt.  
+sideDecl = lparen, nestedClassDecl star, transientSlotDecl star, category star, rparen.
+nestedClassDecl = accessModifier opt, classDeclaration.
+category:: string, methodDecl star.
+classSideDecl = colon, lparen, category star, rparen.                               
+\end{newspeak}
+ 
+ {\it
+ The use of parentheses as delimiters for the sides and initializer derives from the syntax of Self, via certain Smalltalk dialects of nordic heritage. However, they will be replaced by curly braces, in conformance with widespread custom. sniff.
+ }
+ 
+{\it
+ Class comments and categories are temporary measures. They should be subsumed by the systematic use of metadata (\ref{metadata}).
+ }
+ 
+A class body implicitly induces an instance initialization method, whose arguments are the same as those of the primary factory method of the class.
+ 
+When a class object receives a message $\mu$ whose selector is the name of its primary factory method, the instance initializer is invoked on an instance $o$ of the class, whose identity is distinct from all other instances of the class. The object $o$ has distinct distinct copies of all slots declared by the class and its superclasses. All slots have \NIL{} as their initial value. 
+
+The message used for the instance initializer invocation is $\mu$, so that the arguments to the instance initializer are the same arguments given to the primary factory method.  The invocation gives rise to an activation $i$, per sections \ref{mtds} and \ref{activations}.
+Execution of the instance initializer begins with evaluation of the message clause given in the class' superclass clause in the context of $i$. The superclass' instance initializer is then invoked on $o$ with the resulting message.
+Then, all the slot clauses (\ref{slots}) given in the class' initializer are executed in the context of $i$, in the order they were declared. Afterwards, the (possibly empty) statement given in the class' initializer is executed.
+Finally, $i$ returns $o$ to the primary factory method, which returns it to its caller.
+ 
+{\it Note that this formulation implies that the body of a class has no access to the actual parameters passed during instance creation - only the initializer does. This encourages a style where all external dependencies of a module are listed explicitly in the initializer, as slots that are extracted from the factory parameters. These act as ``imports", and make it easy to see what a module's requirements from its environment are. In addition, it allows the implementation to garbage collect any unused parameters, instead of retaining them for the life of the instance.
+
+The parameters are available when computing the arguments to be passed to the superclass initializer, but not when computing the superclass. This is deliberate, as otherwise, yet another form of mixins can occur,
+ with confusing puzzlers resulting if the name of a parameter was used as the name
+ of the superclass.}
+
+ 
+
+\subsubsection{Access Control}
+
+Members of a class may optionally be declared with an {\em access modifier}, which may be one of \PUBLIC, \PROTECTED{} or \PRIVATE.  If no access modifier is declared, the default is \PROTECTED{}. The access level of a top-level class is always \PUBLIC{}.
+
+
+\subsubsection{Slots}
+\label{slots}
+
+Slots are declared by {\em slot declarations.} 
+Slots may be mutable or immutable. Immutable slots must be initialized explicitly. Mutable slots may be initialized explicitly or implicitly. 
+
+Slots may be initialized sequentially or simultaneously. A {\em sequential slot clause} has the form 
+\begin{newspeak}
+seqSlotDecls = vbar, slotDefs, vbar.
+slotDefs = slotDef star.
+\end{newspeak}
+
+The clause consists of a (possibly empty) series of {\em slot declarations.}  A slot declaration declares a slot, and possibly initializes it to the value of the optional expression at the end of the slot declaration.
+\begin{newspeak}
+slotDef =  accessModifier opt, slotDecl, 
+     (( equalSign $|$ (tokenFromSymbol: \#'::=')), expression, dot) opt.
+\end{newspeak}
+
+
+When the clause is executed, the slot declarations within it are executed in sequence, one after the other.
+
+A {\em simultaneous slot  clause} has the form 
+\begin{newspeak}
+simSlotDecls = vbar, vbar, slotDefs, vbar, vbar.
+\end{newspeak}
+ 
+A simultaneous slot declaration with a right hand side expression $e$ initializes the slot to the value of  \cd{$p$ computing: $e$}, where $p$ is the class \cd{Past`Future}. The result is a {\em future} that will compute the expression $e$ on demand.   All these futures are resolved once the last slot declaration in the simultaneous slot  clause has been executed.
+
+\cd{Past`Future} implements a pipelined promise so that any well founded mutual recursion between simultaneous slots will resolve properly.
+
+
+ %Account for semantics. Operationally, or via fix point construction?
+ 
+
+\paragraph{Immutable Slots}
+\label{immutableSlots}
+
+Immutable slots are introduced via the syntax
+\begin{newspeak}
+identifier = expression.
+\end{newspeak}
+
+The above form is an {\em immutable slot declaration.}
+
+When an instance is created, its immutable slots are set to the value of their initialization expression - the expression following the = sign in the slot's declaration.
+
+An immutable slot may be accessed exclusively by invoking a getter method via a unary message consisting of the name of the slot. The getter method is implicitly defined by the slot declaration, and returns the value of the slot. The accessibility of the method is the same as the slot's. There is no setter method associated with the slot and slot initialization is not accomplished by means of a setter method.
+
+{\it
+Consequently, defining a setter will not impact such an initialization, unless the method is explicitly invoked in the course of executing the initializer.
+}
+
+
+\paragraph{Mutable Slots}
+\label{mutableSlots}
+
+Mutable slots are introduced in two ways.
+\begin{itemize}
+\item
+With an initializer,  via the syntax \code{identifier ::= expression.}
+%\begin{newspeak}
+%
+%\end{newspeak}
+
+Slots declared in this manner are initialized to the value of their initialization expression when an instance of the class declaring the slot is created.
+\item
+Without an initializer, via the syntax \code{identifier}
+%\begin{newspeak}
+%identifier
+%\end{newspeak}
+
+Slots declared in this manner are initialized to \NIL{ } (\ref{nil}) when an instance of the class declaring the slot is created.
+\end{itemize}
+
+The above forms are both {\em mutable slot declarations.}
+
+Access to the value of a mutable slot is via a getter method,  following the same rules given above for immutable slots.  Except for initialization as part of its declaration, a mutable slot may be set exclusively by a invoking a setter method via a single argument keyword message consisting of the slot name with : appended to it.   The initialization itself is not accomplished by the setter method.
+
+{\it
+Consequently, overriding a setter will not impact such an initialization, unless the method is explicitly invoked in the course of executing the initializer.
+}
+
+The setter method is implicitly defined by the slot declaration. It sets the value of the slot to be the incoming argument. It returns the receiver of the message. The accessibility of the method is the same as the slot's.
+
+
+
+{\it 
+In some cases, one would prefer that the setter method return its argument rather than its receiver.
+In such cases, one may use a setter send (\ref{setter}). One might quibble that this choice couples the syntactic convenience of setter sends with a policy choice regarding their result. This is true, but supporting the cross product of desired return type and desired precedence seems too complex. In practice, the current specification seems satisfactory.
+}
+
+\subsubsection{Transient Slots}
+\label{transientSlots}
+
+{\it Experimental.}  A {\em transient slot} is a  slot that is initialized lazily, upon first use. 
+
+\begin{newspeak}
+transientModifier = (tokenFromSymbol: \#transient), whitespace.
+
+transientSlotDecl = accessModifier opt, transientModifier, slotDecl, 
+                    ((tokenFromSymbol: \#=) $|$ 
+                      (tokenFromSymbol: \#'::=')
+                     ), expression, dot.
+\end{newspeak}
+
+A transient slot declaration has the form \code{transient $m ::= e.$} or \code{transient $m = e.$}, possinly prefixed with an access modifier.
+ A transient slot  always has an initialization expression $e$, but the slot value is initially \NIL{}.
+When the slot is read by invoking its getter method $m$, if the slot contains \NIL{}, $e$ is evaluated to an object $o$, the slot's value is set to $o$ (but not by means of a setter method), and $o$ is returned as the result of the send.  Otherwise, the result of getter method invocation $m$ is the value the slot contains.  
+% The stuff below is not what we agreed to implement. We may bring it back later. Commented out for now.
+%It is a runtime error to invoke the  setter method, $m{:}$,  of a mutable transient slot with an argument other than \NIL{}.
+
+%{\it
+%The restriction on the setter argument ensures that accessing a transient slot always yields a value that is a result of executing its initializer expression.
+%}
+
+{\it 
+Transient slots are designed to help support {\em orthogonal synchronization} \cite{bracha05}. The intent is that when synchronization occurs, all transient slots will be set to \NIL{}, and recomputed on demand based on persistent values that are synchronized. Transient slots themselves need never be persisted or synchronized.
+
+It is certainly possible to use transient slots as lazily initialized slots, but they should not be seen as the primary source of truth; they are by design, derivative values, such as caches.
+
+Note that transient slots may be immutable. The changes to a slot as a result of synchronization should be seen as reflective program changes, not as imperative mutations.
+
+At this stage, transient slots are in an experimental implementation, and no synchronization or persistence support is in place.
+}
+
+\subsubsection{Method Declarations}
+\label{methodDecls}
+
+The syntax of method declarations is as follows:
+
+\begin{newspeak}
+methodDecl = accessModifier opt, messagePattern, equalSign, 
+                  lparen, codeBody, rparen.
+accessModifier =  ((tokenFromSymbol: {\#private}) $|$ 
+                        (tokenFromSymbol: \#public) $|$
+                        (tokenFromSymbol: \#protected)), whitespace.
+                    
+messagePattern::  unaryMsgPattern $|$
+                       binaryMsgPattern $|$
+                       keywordMsgPattern.
+unaryMsgPattern = unarySelector.
+
+binaryMsgPattern = binarySelector, slotDecl.  
+                                                         
+keywordMsgPattern = (keyword, slotDecl) plus.   
+\end{newspeak}
+
+
+\subsection{Module Declarations} 
+\label{module}
+
+A module declaration is a class expression that is not nested in any other class expression or object literal.  The class object a module declaration evaluates to is known as a {\em module definition.} Module definitions are value objects.  Instances of a module definition are referred to as {\em modules}.
+
+
+
+
+
+\section{Statements}
+\label{statement}
+
+Statements are units of code that are {\em executed in the context of an activation}  (\ref{activations}) .
+
+% context: receiver, current method or closure activation; continuation?
+
+\subsection{Expression Statements}
+\label{expr}
+
+An expression statement consists of an expression $e$  (\ref{expression}). Execution of an expression statement $e$ in the context of an activation $a$ consists of evaluating $e$ in the context of $a$. 
+
+
+\subsection{Return Statements}
+\label{return}
+
+A return statement has the form \^{}$e$, where $e$ is an expression (\ref{expression}). Execution of such a return statement in the context of an activation $a$ causes $e$ to be evaluated in the context of $a$.   Then, if $a$ is a method activation, control is passed to $a$'s continuation object (\ref{activations}), with the result of the evaluation of $e$. Then $a$ is marked uncontinuable (\ref{activations}).
+
+Otherwise, $a$ is a closure activation; let $a_m$ be $a$'s enclosing method activation, and let $c$ be the continuation object of $a_m$.
+Control is passed to $c$. Then $a_m$ is marked uncontinuable.
+
+If execution of a return statement causes control to be passed to \NIL{}, a \code{cannotReturn} exception is thrown.
+
+\begin{newspeak}
+ returnStatement = hat,  expression, dot opt.
+\end{newspeak}
+
+{\it
+We may replace this syntax with a more conventional one. Logically, return is a message send to the current activation, which gives it a result to hand to its caller. We may represent is as such, via a send of the form \cd{return: e}, which is close to mainstream yet conceptually consistent with our model.
+}
+
+% can be construed as a reserved word for a message sent to the current method to pass its argument to  its caller. We can then do away with statements altogether - the lowest priority expression is the sequence expression, with '.' being the predefined sequence operator. So
+% foo: ( a. b+2. c) is legal and means evaluate a, then b+2, then c, and invoke here foo: c.
+% This breaks tuples, as we cannot separate them - well, we don't allow sequences in them.
+% Not clear what this is worth
+
+\subsection{Statement Sequences}
+\label{stmtSeq}
+
+A statement sequence has the form $s_1.$ $\ldots$ $ s_n$. Execution of  $s_1.$ $\ldots$ $ s_n$ in the context of an activation $a$  consists of the execution of $s_i$,  $1 \le i \le n$, in the order they appear,  in the context of $a$. 
+% not clear - if you do a NLR or something in the middle, you never complete. Need continuations to make this precise
+
+\section{Pragmatics}
+
+\subsection{Compilation Units}
+
+A source program  (\ref{topLevel}) can be used to define a compilation unit - a completely self contained expression  (\ref{expression})  that can be evaluated and serialized into a binary form. A compilation unit begins with a {\em language id}, which identifies which language the compilation unit is written in.
+
+{\it
+Currently expressions or statements may be evaluated in the IDE. Only module declarations may be used as compilation units. This is indicated in the syntax below. Eventually, a compilation unit will consist of a language id followed by a top level expression.
+}
+
+\begin{newspeak}
+compilationUnit =  languageId, toplevelClass.
+languageId:: identifier.
+toplevelClass = classCategory, classDeclaration.
+classCategory = string.
+\end{newspeak}
+
+{\it
+The use of class category is also a temporary expedient. It should be subsumed by metadata (\ref{metadata}).
+}
+
+\subsection{Reflection}
+\label{reflect}
+
+Newspeak platforms provide the ability to both introspect and modify the running program via mirrors \cite{bracha-ungar04}.  Mirrors provide the ability to examine and modify the structure of class declarations and methods, including the bodies of methods. They also provide for examining and modifying individual objects. In particular: 
+\begin{itemize}
+\item Multiple reflective changes to the program can be applied simultaneously and atomically. Such changes are transactional - if any change fails, none take place.
+\item It is possible to change the class of an individual object. 
+\item It is possible to gain access to the current activation object and its properties, including its continuation object.
+\end{itemize}
+
+
+{\it
+Atomic install is vital to avoid brittleness due to order dependencies among individual reflective modifications.
+
+Access to reflective functionality must be tightly controlled for security reasons, which is why the use of mirror based reflection is specified. Mirrors serve as capabilities for reflection.
+
+Reflective access to activations supports applications that otherwise require continuations.
+}
+
+\subsection{Accessing the Host Platform}
+\label{platform}
+
+Every Newspeak implementation provides a {\em platform object} that supports functionality
+provided by the host platform, such as GUI, file system and network access etc. This may also include platform specific functionality. 
+
+{\it Newspeak applications are given access to a platform object via a parameter of their \code{main:args:} method. See \ref{deploy} below.
+
+In the current implementation, one can obtain a platform object in a Newspeak workspace via the expression \code{platform}. 
+}
+
+The platform object provides accessors to various modules.  These modules in turn provide access to various classes, some of which are standard and mentioned in this specification, and others which are platform specific.
+
+
+\subsubsection{Accessing the Virtual Machine}
+\label{vm}
+
+The system provides an accessor for the Newspeak virtual machine itself via a
+a mirror on the currently running virtual machine, known as the {\em VM mirror}. 
+
+{\it 
+The VM mirror supports the set of operations traditionally implemented as primitives in Smalltalk. There is no syntax for a primitive call in Newspeak. A primitive call is a message send to the VM mirror.
+It is important to distinguish the notion of a a system primitive from the notion of a foreign function call (see below). These are often conflated (e.g., Java native methods), but the notions are distinct.
+
+Caveat: The VM mirror API is not mature, and the set of primitives not yet standardized. Some primitives will also be platform specific. In practice, we use our access to Squeak to call methods that involve primitives. This is a bug.
+}
+
+\subsection{Running and Deploying Applications}
+\label{deploy}
+
+A Newspeak application is an object $o$ with a method \code{main:args:} that accepts a platform object (\ref{platform})  as its first parameter, and a list of any environment-specific (e.g., command line) arguments as its second.  The role of \code{main:args:} is typically to instantiate and run a module  (\ref{module}) that contains the application code. This will often involve instantiating and interlinking several modules; these modules usually require some access to the underlying platform, which is available via the platform object that was passed into \code{main:args:}. The modules themselves might be members of $o$, or they may be obtained from the platform object - either directly or by by loading them dynamically  (e.g., from the network or file system), or even by creating them dynamically.
+
+
+\subsection{Communicating with Other Languages}
+\label{aliens}
+
+Newspeak programs can interact with software written in other languages. Newspeak code can {\em call out} to foreign languages by means of {\em alien objects}. 
+
+{\it
+There is no notion of an external/foreign/native function/method declaration or call in Newspeak.
+Calling a function written in another language is done by sending a message to an alien object.
+}
+
+Different alien classes can be introduced to support different foreign languages. The most common aliens are C aliens. A C alien object can be produced upon request by the Newspeak platform object, which should
+support methods that, e.g., take a list of files, denoting dynamically linked libraries (DLLs), and a list of C header files, and produce an alien object. The alien object  responds to messages corresponding to the set of functions supported by the DLLs in question.  The object also supports messages
+that produce classes corresponding to the various datatypes defined by the DLL.  These classes can be used to produce or interpret data being sent to or received from the alien object.
+
+{\it C aliens are fully operational, but the mechanism for generating them automatically is not yet implemented.}
+
+In particular, closures may be exchanged with alien objects, allowing idioms such as call backs. Inherent is such a model is the concept of Newspeak objects made available in the context of foreign languages. These objects are known as {\em expats}, which allow 
+foreign languages to {\em call in} to Newspeak.
+
+Newspeak IDEs should provide the ability to export a Newspeak module definition  (\ref{module}) as a DLL, or to export a Newspeak application as an executable, depending on the environment.
+
+{\it 
+Other examples of an alien classes of interest are \cd{ObjectiveCAlien}, which can be used to communicate with Objective C code on MacOS based platforms such as Macs and iPhones, and
+\cd{AliensForV8`Alien} which allows interaction with Javascript on web browser based implementations.
+
+One can imagine the introduction of classes such as \cd{CLRAlien} to facilitate interoperability with .Net based languages, \cd{JavAlien} which would allow interaction with Java code (say, on Android). 
+}
+
+Another mode of communicating with foreign languages is asynchronous message passing. Here, Newspeak actors (\ref{actors}) communicate with actors written in other languages. This mode is safer but less performant.
+
+\subsection{Exception Handling}
+\label{exceptions}
+
+Because Newspeak provides reflective access (\ref{reflect}) to the activation (\ref{activations}), exception handling is purely a library issue. The platform provides a standard library that supports throwing, catching and resuming exceptions, much as in Smalltalk.
+
+\bibliographystyle{alpha}
+\bibliography{/Users/gbracha/research/bibs/master} 
+\end{document}

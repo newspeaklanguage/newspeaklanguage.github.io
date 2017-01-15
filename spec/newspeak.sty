@@ -1,0 +1,53 @@
+\def\keyword#1{\textbf{#1}}
+\def\comment#1{\textit{#1}}
+\def\capt#1{\rmfamily \caption{#1}}
+\newcommand{\cd}[1]{\textsf{#1}}
+\def\lt{$<$}
+\def\gt{$>$}
+\def\<{$\langle$}
+\def\>{$\rangle$}
+
+  \def\WHILE{\keyword{while}}
+  \def\IF{\keyword{if}}
+  \def\FOR{\keyword{for}}
+  \def\NEW{\keyword{new}}
+  \def\THIS{\keyword{this}}
+  \def\ASSERT{\keyword{assert}}
+  \def\RETURN{\keyword{return}}
+  
+  \def\INSTANCEOF{\keyword{instanceof}}
+  \def\INT{\keyword{int}}
+  \def\BOOLEAN{\keyword{boolean}}
+  \def\VOID{\keyword{void}}
+
+  \def\PUBLIC{\keyword{public}}
+  \def\PRIVATE{\keyword{private}}
+  \def\PROTECTED{\keyword{protected}}
+  \def\INTERFACE{\keyword{interface}}
+  \def\CLASS{\keyword{class}}
+  \def\STATIC{\keyword{static}}
+  \def\ABSTRACT{\keyword{abstract}}
+
+  \def\EXTENDS{\keyword{extends}}
+  \def\IMPLEMENTS{\keyword{implements}}
+
+  \def\SELF{\keyword{self}}
+  \def\SUPER{\keyword{super}}
+  \def\OUTER{\keyword{outer}}
+  \def\THISCONTEXT{\keyword{thisContext}}
+  \def\NIL{\keyword{nil}}
+  \def\TRUE{\keyword{true}}
+  \def\FALSE{\keyword{false}}  
+
+
+
+\newenvironment{newspeak}[1][!ht] {
+%  \begin{verbatim}[#1]
+  \def\@programcr{\@addfield\strut}
+  \let\\=\@programcr
+  \relax\@vobeyspaces\obeylines
+
+  \sffamily
+}{
+  %\end{verbatim}
+}

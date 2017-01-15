@@ -1,0 +1,89 @@
+\newcommand{\etalchar}[1]{$^{#1}$}
+\begin{thebibliography}{BvdAB{\etalchar{+}}10}
+
+\bibitem[Bra]{bracha05}
+Gilad Bracha.
+\newblock Objects as software services.
+\newblock Invited talk at OOPSLA 2005 Dynamic Languages Symposium; updated
+  video available at \\
+  http://video.google.com/videoplay?docid=-162051834912297779. \\ Unpublished
+  manuscript available at \\ http://bracha.org/objectsAsSoftwareServices.pdf.
+
+\bibitem[Bra04]{bracha04b}
+Gilad Bracha.
+\newblock Pluggable type systems, October 2004.
+\newblock {OOPSLA} Workshop on Revival of Dynamic Languages. Available at \\
+  http://pico.vub.ac.be/\%7Ewdmeuter/RDL04/papers/Bracha.pdf.
+
+\bibitem[Bra07a]{bracha07a}
+Gilad Bracha.
+\newblock Executable grammars in {N}ewspeak.
+\newblock {\em Electron. Notes Theor. Comput. Sci.}, 193:3--18, 2007.
+
+\bibitem[Bra07b]{bracha07b}
+Gilad Bracha.
+\newblock On the interaction of method lookup and scope with inheritance and
+  nesting, July 2007.
+\newblock {ECOOP} 2007 3rd Workshop on Dynamic Languages and Applications.
+
+\bibitem[BU04]{bracha-ungar04}
+Gilad Bracha and David Ungar.
+\newblock Mirrors: Design principles for meta-level facilities of
+  object-oriented programming languages.
+\newblock In {\em Proc. of the ACM Conf. on Object-Oriented Programming,
+  Systems, Languages and Applications}, October 2004.
+
+\bibitem[BvdAB{\etalchar{+}}10]{bracha10a}
+Gilad Bracha, Peter von~der Ah{\'{e}}, Vassili Bykov, Yaron Kashai, William
+  Maddox, and Eliot Miranda.
+\newblock Modules as objects in {N}ewspeak.
+\newblock In {\em European Conference on Object-Oriented Programming}, June
+  2010.
+
+\bibitem[GJSB05]{GoslingJoySteeleBracha05}
+James Gosling, Bill Joy, Guy Steele, and Gilad Bracha.
+\newblock {\em The {J}ava Language Specification, Third Edition}.
+\newblock Addison-Wesley, Reading, Massachusetts, 2005.
+
+\bibitem[GR83]{GoldbergRobson83}
+A.~Goldberg and D.~Robson.
+\newblock {\em {S}malltalk-80: the Language and Its Implementation}.
+\newblock Addison-Wesley, 1983.
+
+\bibitem[Mad99]{Mads99a}
+Ole~Lehrmann Madsen.
+\newblock Semantic analysis of virtual classes and nested classes.
+\newblock In {\em OOPSLA '99: Proceedings of the 14th ACM SIGPLAN conference on
+  Object-oriented programming, systems, languages, and applications}, pages
+  114--131, New York, NY, USA, 1999. ACM.
+
+\bibitem[Mil06]{RobustComposition}
+Mark~Samuel Miller.
+\newblock {\em Robust Composition: Towards a Unified Approach to Access Control
+  and Concurrency Control}.
+\newblock PhD thesis, Johns Hopkins University, Baltimore, Maryland, USA, May
+  2006.
+
+\bibitem[MMPN93]{BetaBook}
+Ole~Lehrmann Madsen, Birger M{\o}ller-Pedersen, and Kristen Nygaard.
+\newblock {\em Object-Oriented Programming in the {B}eta Programming Language}.
+\newblock Addison-Wesley, 1993.
+
+\bibitem[OSV08]{ScalaBook}
+Martin Odersky, Lex Spoon, and Bill Venners.
+\newblock {\em Programming in Scala}.
+\newblock Artima Press, Mountain View, California, 2008.
+
+\bibitem[SD03]{innerclasses-ftfjp03}
+Matthew Smith and Sophia Drossopoulou.
+\newblock Inner {C}lasses visit {A}liasing.
+\newblock In {\em ECOOP Workshop on Formal Techniques for Java Programs (FTfJP
+  2003)}, 2003.
+
+\bibitem[US87]{UngarSmith87}
+David Ungar and Randall Smith.
+\newblock {SELF}: The power of simplicity.
+\newblock In {\em Proc. of the ACM Conf. on Object-Oriented Programming,
+  Systems, Languages and Applications}, October 1987.
+
+\end{thebibliography}
