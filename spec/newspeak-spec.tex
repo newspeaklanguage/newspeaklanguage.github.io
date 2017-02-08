@@ -4,7 +4,7 @@
 \usepackage{epsfig}
 %\usepackage{amssymb,amsmath,amsthm}
 \newcommand{\code}[1]{{\sf #1}}
-\title{Newspeak Programming Language Draft Specification Version 0.099}
+\title{Newspeak Programming Language Draft Specification Version 0.1}
 \author{Gilad Bracha}
 \begin{document}
 \maketitle
@@ -973,11 +973,13 @@ A keyword pattern may contain a {\em variable pattern} of the form $?x$ nested w
 
 {\it Unimplemented.}
 % Enclosing object? Enclosing declarations- what role do these have?
-An {\em object literal} evaluates to a newly allocated object $o$. 
+An {\em object literal} expression $e$ evaluates to a newly allocated object $o$. 
 
 {\it if it's a value class, how can we tell?}
 
-The class $C_o$ of $o$ is implicitly declared by the object literal expression. The expression specifies the superclass of $C_o$, what parameters are to be passed to the superclass' factory method, what slots, methods and nested classes the class declares and how it initializes its instances.
+The class $C_o$ of $o$ is implicitly declared by $e$. The expression $e$ specifies the superclass of $C_o$, what parameters are to be passed to the superclass' factory method, and what the mixin $M_e$ of $C_o$ is. In particular, $e$ specifies what slots, methods and nested classes the mixin declares and how it initializes its instances.
+
+Each evaluation of $e$ produces a new class $C_o$, but its mixin $M_e$ is identical for all evaluations of $e$.
 
 The enclosing object (\ref{enclosing}) of $C_o$  is the current activation,
 if there is one; otherwise it is \NIL{} (\ref{nil}).
