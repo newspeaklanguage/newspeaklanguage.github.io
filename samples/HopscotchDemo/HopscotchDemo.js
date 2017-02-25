@@ -27,6 +27,7 @@ var mixins = new function () {
    new SM("Aliens", false, false),
    new SM("Collections", false, false),
    new SM("Graphics", false, false),
+   new SM("TextModule", false, false),
    new SM("Hopscotch", false, false),
    new SM("Mirrors", false, false),
    new SM("MirrorGroups", false, false),
@@ -36,6 +37,9 @@ var mixins = new function () {
    new SM("disclosureClosedImage", false, false),
    new SM("disclosureTransitionImage", false, false),
    new SM("disclosureOpenImage", false, false),
+   new SM("dropDownImage", false, false),
+   new SM("dropDownOutImage", false, false),
+   new SM("dropDownOverImage", false, false),
    new SM("RuntimeForV8`Platform", true, true)
   ];
   this.methods = [
@@ -53,6 +57,8 @@ var mixins = new function () {
    new MM("Collections", true, 0),
    new MM("init`Graphics:", true, 0),
    new MM("Graphics", true, 0),
+   new MM("init`TextModule:", true, 0),
+   new MM("TextModule", true, 0),
    new MM("init`Hopscotch:", true, 0),
    new MM("Hopscotch", true, 0),
    new MM("init`Mirrors:", true, 0),
@@ -71,6 +77,12 @@ var mixins = new function () {
    new MM("disclosureTransitionImage", true, 0),
    new MM("init`disclosureOpenImage:", true, 0),
    new MM("disclosureOpenImage", true, 0),
+   new MM("init`dropDownImage:", true, 0),
+   new MM("dropDownImage", true, 0),
+   new MM("init`dropDownOutImage:", true, 0),
+   new MM("dropDownOutImage", true, 0),
+   new MM("init`dropDownOverImage:", true, 0),
+   new MM("dropDownOverImage", true, 0),
    new MM("init`RuntimeForV8`Platform:", true, 0),
    new MM("RuntimeForV8`Platform", true, 0),
    new MM("RuntimeForV8`Platform:", true, 0)
@@ -90,6 +102,7 @@ var mixins = new function () {
    self._$init$Aliens$($manifest.$AliensForV8());
    self._$init$Collections$($manifest.$Collections());
    self._$init$Graphics$($manifest.$GraphicsForHTML5());
+   self._$init$TextModule$($manifest.$TextModule());
    self._$init$Hopscotch$($manifest.$HopscotchForHTML5());
    self._$init$Mirrors$($manifest.$MirrorsForV8());
    self._$init$MirrorGroups$($manifest.$MirrorGroups());
@@ -99,6 +112,9 @@ var mixins = new function () {
    self._$init$disclosureClosedImage$($manifest.$disclosureClosedImage());
    self._$init$disclosureTransitionImage$($manifest.$disclosureTransitionImage());
    self._$init$disclosureOpenImage$($manifest.$disclosureOpenImage());
+   self._$init$dropDownImage$($manifest.$hsDropdownImage());
+   self._$init$dropDownOutImage$($manifest.$hsDropdownOutImage());
+   self._$init$dropDownOverImage$($manifest.$hsDropdownOverImage());
    return self;
   };
   this.$using$ = function ($vmmirror) {
@@ -150,6 +166,13 @@ var mixins = new function () {
   };
   this.$Graphics = function () {
    return this.$Graphics$slot;
+  };
+  this.$init$TextModule$ = function (v) {
+   this.$TextModule$slot = v;
+   return this;
+  };
+  this.$TextModule = function () {
+   return this.$TextModule$slot;
   };
   this.$init$Hopscotch$ = function (v) {
    this.$Hopscotch$slot = v;
@@ -214,6 +237,27 @@ var mixins = new function () {
   this.$disclosureOpenImage = function () {
    return this.$disclosureOpenImage$slot;
   };
+  this.$init$dropDownImage$ = function (v) {
+   this.$dropDownImage$slot = v;
+   return this;
+  };
+  this.$dropDownImage = function () {
+   return this.$dropDownImage$slot;
+  };
+  this.$init$dropDownOutImage$ = function (v) {
+   this.$dropDownOutImage$slot = v;
+   return this;
+  };
+  this.$dropDownOutImage = function () {
+   return this.$dropDownOutImage$slot;
+  };
+  this.$init$dropDownOverImage$ = function (v) {
+   this.$dropDownOverImage$slot = v;
+   return this;
+  };
+  this.$dropDownOverImage = function () {
+   return this.$dropDownOverImage$slot;
+  };
   this.$init$RuntimeForV8$Platform$ = function (v) {
    this.$RuntimeForV8$Platform$slot = v;
    return this;
@@ -239,7 +283,8 @@ var mixins = new function () {
     new SM("graphics", false, false),
     new SM("hopscotch", false, false),
     new SM("mirrors", false, false),
-    new SM("streams", false, false)
+    new SM("streams", false, false),
+    new SM("text", false, false)
    ];
    this.methods = [
     new MM("superInit`RuntimeForV8`Platform", true, 6),
@@ -263,7 +308,9 @@ var mixins = new function () {
     new MM("init`mirrors:", true, 0),
     new MM("mirrors", true, 0),
     new MM("init`streams:", true, 0),
-    new MM("streams", true, 0)
+    new MM("streams", true, 0),
+    new MM("init`text:", true, 0),
+    new MM("text", true, 0)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -296,6 +343,9 @@ var mixins = new function () {
     }));
     self._$init$streams$(self._$Future().$computing$(function () {
      return self.$enclosingObjects$RuntimeForV8$Platform[0]._$Streams().$usingPlatform$(self);
+    }));
+    self._$init$text$(self._$Future().$computing$(function () {
+     return self.$enclosingObjects$RuntimeForV8$Platform[0]._$TextModule().$usingPlatform$(self);
     }));
     self._$kernel().$platform$(self);
     self._$actors().$yourself();
@@ -373,6 +423,13 @@ var mixins = new function () {
    this.$streams = function () {
     return this.$streams$slot;
    };
+   this.$init$text$ = function (v) {
+    this.$text$slot = v;
+    return this;
+   };
+   this.$text = function () {
+    return this.$text$slot;
+   };
    this.invoke = function (runtimeSuperclass, enclosingObjects) {
     function constructRuntimeClass (superBasicNew) {
      this.debug = "Runtime class for RuntimeForV8`Platform";
@@ -399,6 +456,8 @@ var mixins = new function () {
      this.$mirrors = this._$mirrors = $.$mirrors;
      this.$init$streams$ = this._$init$streams$ = $.$init$streams$;
      this.$streams = this._$streams = $.$streams;
+     this.$init$text$ = this._$init$text$ = $.$init$text$;
+     this.$text = this._$text = $.$text;
      this.$enclosingObjects$RuntimeForV8$Platform = enclosingObjects;
      this.$super$RuntimeForV8$Platform$slot = runtimeSuperclass;
      this["RuntimeForV8`Platform"] = function () {
@@ -411,6 +470,7 @@ var mixins = new function () {
       this.$hopscotch$slot = nil;
       this.$mirrors$slot = nil;
       this.$streams$slot = nil;
+      this.$text$slot = nil;
      };
      this.basicNew = this["RuntimeForV8`Platform"];
      this.basicNew.prototype = this;
@@ -478,6 +538,10 @@ var mixins = new function () {
     this.$init$Graphics$ = dnuCatcher("$init$Graphics$");
     this._$Graphics = $.$Graphics;
     this.$Graphics = dnuCatcher("$Graphics");
+    this._$init$TextModule$ = $.$init$TextModule$;
+    this.$init$TextModule$ = dnuCatcher("$init$TextModule$");
+    this._$TextModule = $.$TextModule;
+    this.$TextModule = dnuCatcher("$TextModule");
     this.$init$Hopscotch$ = this._$init$Hopscotch$ = $.$init$Hopscotch$;
     this.$Hopscotch = this._$Hopscotch = $.$Hopscotch;
     this._$init$Mirrors$ = $.$init$Mirrors$;
@@ -500,6 +564,12 @@ var mixins = new function () {
     this.$disclosureTransitionImage = this._$disclosureTransitionImage = $.$disclosureTransitionImage;
     this.$init$disclosureOpenImage$ = this._$init$disclosureOpenImage$ = $.$init$disclosureOpenImage$;
     this.$disclosureOpenImage = this._$disclosureOpenImage = $.$disclosureOpenImage;
+    this.$init$dropDownImage$ = this._$init$dropDownImage$ = $.$init$dropDownImage$;
+    this.$dropDownImage = this._$dropDownImage = $.$dropDownImage;
+    this.$init$dropDownOutImage$ = this._$init$dropDownOutImage$ = $.$init$dropDownOutImage$;
+    this.$dropDownOutImage = this._$dropDownOutImage = $.$dropDownOutImage;
+    this.$init$dropDownOverImage$ = this._$init$dropDownOverImage$ = $.$init$dropDownOverImage$;
+    this.$dropDownOverImage = this._$dropDownOverImage = $.$dropDownOverImage;
     this.$init$RuntimeForV8$Platform$ = this._$init$RuntimeForV8$Platform$ = $.$init$RuntimeForV8$Platform$;
     this.$RuntimeForV8$Platform = this._$RuntimeForV8$Platform = $.$RuntimeForV8$Platform;
     this.$RuntimeForV8$Platform$ = this._$RuntimeForV8$Platform$ = $.$RuntimeForV8$Platform$;
@@ -512,6 +582,7 @@ var mixins = new function () {
      this.$Aliens$slot = nil;
      this.$Collections$slot = nil;
      this.$Graphics$slot = nil;
+     this.$TextModule$slot = nil;
      this.$Hopscotch$slot = nil;
      this.$Mirrors$slot = nil;
      this.$MirrorGroups$slot = nil;
@@ -521,6 +592,9 @@ var mixins = new function () {
      this.$disclosureClosedImage$slot = nil;
      this.$disclosureTransitionImage$slot = nil;
      this.$disclosureOpenImage$slot = nil;
+     this.$dropDownImage$slot = nil;
+     this.$dropDownOutImage$slot = nil;
+     this.$dropDownOverImage$slot = nil;
      this.$RuntimeForV8$Platform$slot = nil;
     };
     this.basicNew = this.RuntimeForV8;
@@ -582,6 +656,7 @@ var mixins = new function () {
    new SM("KernelForV8`Object", true, true),
    new SM("KernelForV8`Stopwatch", true, true),
    new SM("KernelForV8`String", true, true),
+   new SM("KernelForV8`StringBuilder", true, true),
    new SM("KernelForV8`UndefinedObject", true, true)
   ];
   this.methods = [
@@ -592,6 +667,7 @@ var mixins = new function () {
    new MM("augment:withPropertiesOf:", false, 17),
    new MM("augmentPrototypes", false, 18),
    new MM("classOf:", false, 19),
+   new MM("print:", false, 20),
    new MM("Array", true, 0),
    new MM("Boolean", true, 0),
    new MM("Class", true, 0),
@@ -606,6 +682,7 @@ var mixins = new function () {
    new MM("Object", true, 0),
    new MM("Stopwatch", true, 0),
    new MM("String", true, 0),
+   new MM("StringBuilder", true, 0),
    new MM("UndefinedObject", true, 0),
    new MM("init`vmmirror:", true, 0),
    new MM("vmmirror", true, 0),
@@ -654,6 +731,9 @@ var mixins = new function () {
    new MM("init`KernelForV8`String:", true, 0),
    new MM("KernelForV8`String", true, 0),
    new MM("KernelForV8`String:", true, 0),
+   new MM("init`KernelForV8`StringBuilder:", true, 0),
+   new MM("KernelForV8`StringBuilder", true, 0),
+   new MM("KernelForV8`StringBuilder:", true, 0),
    new MM("init`KernelForV8`UndefinedObject:", true, 0),
    new MM("KernelForV8`UndefinedObject", true, 0),
    new MM("KernelForV8`UndefinedObject:", true, 0)
@@ -673,6 +753,7 @@ var mixins = new function () {
    "KernelForV8`Object",
    "KernelForV8`Stopwatch",
    "KernelForV8`String",
+   "KernelForV8`StringBuilder",
    "KernelForV8`UndefinedObject"
   ];
   this.applications = [];
@@ -747,6 +828,10 @@ var mixins = new function () {
    };
    return $object.newspeakClass;
   };
+  this.$print$ = function (self, $string) {
+   (typeof console === "undefined" ? print($string) : console.log($string));
+   return self;
+  };
   this.$Array = function () {
    if (nil === this.$KernelForV8$Array$slot) {
     var self = this;
@@ -820,7 +905,7 @@ var mixins = new function () {
   this.$MessageNotUnderstood = function () {
    if (nil === this.$KernelForV8$MessageNotUnderstood$slot) {
     var self = this;
-    var superclass = self._$Error();
+    var superclass = self._$Exception();
     var enclosingObjects = [this].concat(this.$enclosingObjects$KernelForV8);
     var mixin = $.$KernelForV8$MessageNotUnderstood;
     this.$KernelForV8$MessageNotUnderstood$slot = vmmirror.$applyMixin$toSuperclass$withEnclosingObjects$(mixin, superclass, enclosingObjects);
@@ -886,6 +971,16 @@ var mixins = new function () {
     this.$KernelForV8$String$slot = vmmirror.$applyMixin$toSuperclass$withEnclosingObjects$(mixin, superclass, enclosingObjects);
    };
    return this.$KernelForV8$String$slot;
+  };
+  this.$StringBuilder = function () {
+   if (nil === this.$KernelForV8$StringBuilder$slot) {
+    var self = this;
+    var superclass = self._$Object();
+    var enclosingObjects = [this].concat(this.$enclosingObjects$KernelForV8);
+    var mixin = $.$KernelForV8$StringBuilder;
+    this.$KernelForV8$StringBuilder$slot = vmmirror.$applyMixin$toSuperclass$withEnclosingObjects$(mixin, superclass, enclosingObjects);
+   };
+   return this.$KernelForV8$StringBuilder$slot;
   };
   this.$UndefinedObject = function () {
    if (nil === this.$KernelForV8$UndefinedObject$slot) {
@@ -1069,6 +1164,17 @@ var mixins = new function () {
    this.$KernelForV8$String$slot = v;
    return this;
   };
+  this.$init$KernelForV8$StringBuilder$ = function (v) {
+   this.$KernelForV8$StringBuilder$slot = v;
+   return this;
+  };
+  this.$KernelForV8$StringBuilder = function () {
+   return this.$KernelForV8$StringBuilder$slot;
+  };
+  this.$KernelForV8$StringBuilder$ = function (v) {
+   this.$KernelForV8$StringBuilder$slot = v;
+   return this;
+  };
   this.$init$KernelForV8$UndefinedObject$ = function (v) {
    this.$KernelForV8$UndefinedObject$slot = v;
    return this;
@@ -1085,40 +1191,48 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for KernelForV8`Array";
    this.name = "KernelForV8`Array";
-   this.header = 20;
+   this.header = 21;
    this.slots = [];
    this.methods = [
-    new MM("superInit`KernelForV8`Array", true, 21),
-    new MM("instance`initializer", true, 22),
-    new MM(",", false, 23),
-    new MM("=", false, 24),
-    new MM("asArray", false, 25),
-    new MM("asOrderedCollection", false, 26),
-    new MM("at:", false, 27),
-    new MM("at:put:", false, 28),
-    new MM("binarySearchFor:between:and:toCompare:", false, 29),
-    new MM("class", false, 30),
-    new MM("collect:", false, 31),
-    new MM("copyFrom:to:", false, 32),
-    new MM("copyWith:", false, 33),
-    new MM("copyWithSize:", false, 34),
-    new MM("do:", false, 35),
-    new MM("do:separatedBy:", false, 36),
-    new MM("doWithIndex:", false, 37),
-    new MM("first", false, 38),
-    new MM("includes:", false, 39),
-    new MM("inject:into:", false, 40),
-    new MM("isArray", false, 41),
-    new MM("isCollection", false, 42),
-    new MM("isEmpty", false, 43),
-    new MM("keysAndValuesDo:", false, 44),
-    new MM("last", false, 45),
-    new MM("printString", false, 46),
-    new MM("replaceFrom:to:with:", false, 47),
-    new MM("replaceFrom:to:with:startingAt:", false, 48),
-    new MM("select:", false, 49),
-    new MM("size", false, 50),
-    new MM("sort:", false, 51)
+    new MM("superInit`KernelForV8`Array", true, 22),
+    new MM("instance`initializer", true, 23),
+    new MM(",", false, 24),
+    new MM("allButFirst", false, 25),
+    new MM("allButLast", false, 26),
+    new MM("asArray", false, 27),
+    new MM("asOrderedCollection", false, 28),
+    new MM("at:", false, 29),
+    new MM("at:put:", false, 30),
+    new MM("binarySearchFor:between:and:toCompare:", false, 31),
+    new MM("class", false, 32),
+    new MM("collect:", false, 33),
+    new MM("copyFrom:to:", false, 34),
+    new MM("copyWith:", false, 35),
+    new MM("copyWithSize:", false, 36),
+    new MM("defaultMedianOf:and:and:", false, 37),
+    new MM("defaultSort:to:", false, 38),
+    new MM("do:", false, 39),
+    new MM("do:separatedBy:", false, 40),
+    new MM("first", false, 41),
+    new MM("flatMap:", false, 42),
+    new MM("flatten", false, 43),
+    new MM("includes:", false, 44),
+    new MM("indexOf:", false, 45),
+    new MM("inject:into:", false, 46),
+    new MM("isArray", false, 47),
+    new MM("isCollection", false, 48),
+    new MM("isEmpty", false, 49),
+    new MM("isKindOfArray", false, 50),
+    new MM("isKindOfCollection", false, 51),
+    new MM("keysAndValuesDo:", false, 52),
+    new MM("last", false, 53),
+    new MM("mergeSortFrom:to:by:", false, 54),
+    new MM("printString", false, 55),
+    new MM("replaceFrom:to:with:", false, 56),
+    new MM("replaceFrom:to:with:startingAt:", false, 57),
+    new MM("select:", false, 58),
+    new MM("size", false, 59),
+    new MM("sort:", false, 60)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -1136,39 +1250,13 @@ var mixins = new function () {
     var self = this;
     return self.concat($otherSequence.$asArray());
    };
-   this.$$equal = function ($other) {
+   this.$allButFirst = function () {
     var self = this;
-    if (self === $other) {
-     return true;
-    } else {
-     nil;
-    };
-    if (!$other.$isArray()) {
-     return false;
-    } else {
-     nil;
-    };
-    if (!self._$size().$$equal($other.$size())) {
-     return false;
-    } else {
-     nil;
-    };
-    {
-     var $$limit = nil;
-     var $index = nil;
-     nil;
-     $index = 1;
-     $$limit = self._$size();
-     for (; $$limit.$$greater$equal($index); ) {
-      if (!self._$at$($index).$$equal($other.$at$($index))) {
-       return false;
-      } else {
-       nil;
-      };
-      $index = (1).$$plus($index);
-     };
-    };
-    return true;
+    return self.slice(1);
+   };
+   this.$allButLast = function () {
+    var self = this;
+    return self.slice(0, self._$size() - 1);
    };
    this.$asArray = function () {
     var self = this;
@@ -1176,14 +1264,48 @@ var mixins = new function () {
    };
    this.$asOrderedCollection = function () {
     var self = this;
-    return self.$enclosingObjects$KernelForV8$Array[0]._$platform().$collections().$OrderedCollection().$withAll$(self);
+    return self.$enclosingObjects$KernelForV8$Array[0]._$platform().$collections().$List().$withAll$(self);
    };
    this.$at$ = function ($index) {
     var self = this;
-    return this[$index - 1];
+    var $jsIndex = nil;
+    if (!(typeof $index === "number")) {
+     return self.$enclosingObjects$KernelForV8$Array[0]._$Error().$signal$("ArgumentError");
+    } else {
+     nil;
+    };
+    $jsIndex = $index - 1;
+    if ($jsIndex < 0) {
+     return self.$enclosingObjects$KernelForV8$Array[0]._$Error().$signal$("ArgumentError");
+    } else {
+     nil;
+    };
+    if ($jsIndex >= this.length) {
+     return self.$enclosingObjects$KernelForV8$Array[0]._$Error().$signal$("ArgumentError");
+    } else {
+     nil;
+    };
+    return this[$jsIndex];
    };
    this.$at$put$ = function ($index, $value) {
     var self = this;
+    var $jsIndex = nil;
+    if (!(typeof $index === "number")) {
+     return self.$enclosingObjects$KernelForV8$Array[0]._$Error().$signal$("ArgumentError");
+    } else {
+     nil;
+    };
+    $jsIndex = $index - 1;
+    if ($jsIndex < 0) {
+     return self.$enclosingObjects$KernelForV8$Array[0]._$Error().$signal$("ArgumentError");
+    } else {
+     nil;
+    };
+    if ($jsIndex >= this.length) {
+     return self.$enclosingObjects$KernelForV8$Array[0]._$Error().$signal$("ArgumentError");
+    } else {
+     nil;
+    };
     return this[$index - 1] = $value;
    };
    this.$binarySearchFor$between$and$toCompare$ = function ($el, $start, $end, $compare) {
@@ -1231,6 +1353,110 @@ var mixins = new function () {
     var self = this;
     return self.$enclosingObjects$KernelForV8$Array[0]._$Array().$new$($s).$replaceFrom$to$with$(1, $s.$min$(self._$size()), self);
    };
+   this.$defaultMedianOf$and$and$ = function ($a, $b, $c) {
+    var self = this;
+    var $atA = nil;
+    var $atB = nil;
+    var $atC = nil;
+    $atA = self._$at$($a);
+    $atB = self._$at$($b);
+    $atC = self._$at$($c);
+    return $atB.$$less$equal($atA).$ifFalse$ifTrue$(function () {
+     return $atC.$$less$equal($atB).$ifFalse$ifTrue$(function () {
+      return $b;
+     }, function () {
+      return $atC.$$less$equal($atA).$ifFalse$ifTrue$(function () {
+       return $c;
+      }, function () {
+       return $a;
+      });
+     });
+    }, function () {
+     return $atB.$$less$equal($atC).$ifFalse$ifTrue$(function () {
+      return $b;
+     }, function () {
+      return $atA.$$less$equal($atC).$ifFalse$ifTrue$(function () {
+       return $c;
+      }, function () {
+       return $a;
+      });
+     });
+    });
+   };
+   this.$defaultSort$to$ = function ($l, $r) {
+    var self = this;
+    var $i = nil;
+    var $j = nil;
+    var $x = nil;
+    var $m = nil;
+    var $n = nil;
+    $i = $l;
+    $j = $r;
+    $n = ($r - $l) + 1;
+    if ($n === 0) {
+     return self;
+    } else {
+     nil;
+    };
+    $m = ($l + $r).$$over$over(2);
+    if ($n > 7) {
+     var $pl = nil;
+     var $pn = nil;
+     var $s = nil;
+     $pl = $l;
+     $pn = $r;
+     if ($n > 40) {
+      $s = $n.$$over$over(8);
+      $pl = self._$defaultMedianOf$and$and$($pl, $pl + $s, ($pl + $s) + $s);
+      $m = self._$defaultMedianOf$and$and$($m - $s, $m, $m + $s);
+      $pn = self._$defaultMedianOf$and$and$(($pn - $s) - $s, $pn - $s, $pn);
+     } else {
+      nil;
+     };
+     $m = self._$defaultMedianOf$and$and$($pl, $m, $pn);
+    } else {
+     nil;
+    };
+    $x = self._$at$($m);
+    {
+     nil;
+     for (; $i.$$less$equal($j); ) {
+      var $ati = nil;
+      var $atj = nil;
+      {
+       nil;
+       for (; !$x.$$less$equal($ati = self._$at$($i)); ) {
+        $i = $i + 1;
+       };
+      };
+      {
+       nil;
+       for (; !($atj = self._$at$($j)).$$less$equal($x); ) {
+        $j = $j - 1;
+       };
+      };
+      if ($i.$$less$equal($j)) {
+       self._$at$put$($i, $atj);
+       self._$at$put$($j, $ati);
+       $i = $i + 1;
+       $j = $j - 1;
+      } else {
+       nil;
+      };
+     };
+    };
+    if ($l.$$less($j)) {
+     self._$defaultSort$to$($l, $j);
+    } else {
+     nil;
+    };
+    if ($i.$$less($r)) {
+     self._$defaultSort$to$($i, $r);
+    } else {
+     nil;
+    };
+    return self;
+   };
    this.$do$ = function ($block) {
     var self = this;
     self.forEach($block);
@@ -1250,24 +1476,41 @@ var mixins = new function () {
     });
     return self;
    };
-   this.$doWithIndex$ = function ($block) {
-    var self = this;
-    {
-     var $$limit = nil;
-     var $n = nil;
-     nil;
-     $n = 1;
-     $$limit = self._$size();
-     for (; $$limit.$$greater$equal($n); ) {
-      $block.$value$value$(self._$at$($n), $n);
-      $n = (1).$$plus($n);
-     };
-    };
-    return self;
-   };
    this.$first = function () {
     var self = this;
     return self._$at$(1);
+   };
+   this.$flatMap$ = function ($map) {
+    var self = this;
+    return self._$flatten().$collect$($map);
+   };
+   this.$flatten = function () {
+    var self = this;
+    var $totalSize = nil;
+    var $c = nil;
+    var $index = nil;
+    $totalSize = 0;
+    $index = 1;
+    self._$do$(function ($e) {
+     return $totalSize = $totalSize + $e.$isKindOfCollection().$ifTrue$ifFalse$(function () {
+      return $e.$size();
+     }, function () {
+      return 1;
+     });
+    });
+    $c = self.$enclosingObjects$KernelForV8$Array[0]._$Array().$new$($totalSize);
+    self._$do$(function ($e) {
+     return $e.$isKindOfCollection().$ifTrue$ifFalse$(function () {
+      return $e.$do$(function ($x) {
+       $c.$at$put$($index, $x);
+       return $index = $index + 1;
+      });
+     }, function () {
+      $c.$at$put$($index, $e);
+      return $index = $index + 1;
+     });
+    });
+    return $c;
    };
    this.$includes$ = function ($element) {
     var self = this;
@@ -1276,12 +1519,20 @@ var mixins = new function () {
      self._$do$(function ($each) {
       return $each.$$equal($element).$ifTrue$(function () {
        {
-        NLR.value = true;
+        var t = true;
+        if (NLR === null) {
+         self.cannotReturn(self, t);
+        };
+        NLR.value = t;
         throw NLR;
        };
       });
      });
-     return false;
+     {
+      var t = false;
+      NLR = null;
+      return t;
+     };
     } catch (NLR_exception) {
      if (NLR === NLR_exception) {
       return NLR_exception.value;
@@ -1289,6 +1540,25 @@ var mixins = new function () {
       throw NLR_exception;
      };
     };
+   };
+   this.$indexOf$ = function ($element) {
+    var self = this;
+    {
+     var $$limit = nil;
+     var $index = nil;
+     nil;
+     $index = 1;
+     $$limit = self._$size();
+     for (; $$limit.$$greater$equal($index); ) {
+      if (self._$at$($index).$$equal($element)) {
+       return $index;
+      } else {
+       nil;
+      };
+      $index = (1).$$plus($index);
+     };
+    };
+    return 0;
    };
    this.$inject$into$ = function ($initialValue, $accumulator) {
     var self = this;
@@ -1305,6 +1575,14 @@ var mixins = new function () {
    this.$isEmpty = function () {
     var self = this;
     return 0 === self._$size();
+   };
+   this.$isKindOfArray = function () {
+    var self = this;
+    return true;
+   };
+   this.$isKindOfCollection = function () {
+    var self = this;
+    return true;
    };
    this.$keysAndValuesDo$ = function ($binaryBlock) {
     var self = this;
@@ -1324,6 +1602,27 @@ var mixins = new function () {
    this.$last = function () {
     var self = this;
     return self._$at$(self._$size());
+   };
+   this.$mergeSortFrom$to$by$ = function ($startIndex, $stopIndex, $aBlock) {
+    var self = this;
+    if (self._$size() <= 1) {
+     return self;
+    } else {
+     nil;
+    };
+    if ($startIndex.$$equal($stopIndex)) {
+     return self;
+    } else {
+     nil;
+    };
+    self._$assert$(function () {
+     return ($startIndex >= 1) && $startIndex.$$less($stopIndex);
+    });
+    self._$assert$(function () {
+     return $stopIndex.$$less$equal(self._$size());
+    });
+    self._$mergeSortFrom$to$src$dst$by$($startIndex, $stopIndex, self._$clone(), self, $aBlock);
+    return self;
    };
    this.$printString = function () {
     var self = this;
@@ -1386,7 +1685,8 @@ var mixins = new function () {
      this.$superInit$KernelForV8$Array = dnuCatcher("$superInit$KernelForV8$Array");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
      this.$$comma = this._$$comma = $.$$comma;
-     this.$$equal = this._$$equal = $.$$equal;
+     this.$allButFirst = this._$allButFirst = $.$allButFirst;
+     this.$allButLast = this._$allButLast = $.$allButLast;
      this.$asArray = this._$asArray = $.$asArray;
      this.$asOrderedCollection = this._$asOrderedCollection = $.$asOrderedCollection;
      this.$at$ = this._$at$ = $.$at$;
@@ -1398,17 +1698,25 @@ var mixins = new function () {
      this.$copyFrom$to$ = this._$copyFrom$to$ = $.$copyFrom$to$;
      this.$copyWith$ = this._$copyWith$ = $.$copyWith$;
      this.$copyWithSize$ = this._$copyWithSize$ = $.$copyWithSize$;
+     this._$defaultMedianOf$and$and$ = $.$defaultMedianOf$and$and$;
+     this.$defaultMedianOf$and$and$ = dnuCatcher("$defaultMedianOf$and$and$");
+     this.$defaultSort$to$ = this._$defaultSort$to$ = $.$defaultSort$to$;
      this.$do$ = this._$do$ = $.$do$;
      this.$do$separatedBy$ = this._$do$separatedBy$ = $.$do$separatedBy$;
-     this.$doWithIndex$ = this._$doWithIndex$ = $.$doWithIndex$;
      this.$first = this._$first = $.$first;
+     this.$flatMap$ = this._$flatMap$ = $.$flatMap$;
+     this.$flatten = this._$flatten = $.$flatten;
      this.$includes$ = this._$includes$ = $.$includes$;
+     this.$indexOf$ = this._$indexOf$ = $.$indexOf$;
      this.$inject$into$ = this._$inject$into$ = $.$inject$into$;
      this.$isArray = this._$isArray = $.$isArray;
      this.$isCollection = this._$isCollection = $.$isCollection;
      this.$isEmpty = this._$isEmpty = $.$isEmpty;
+     this.$isKindOfArray = this._$isKindOfArray = $.$isKindOfArray;
+     this.$isKindOfCollection = this._$isKindOfCollection = $.$isKindOfCollection;
      this.$keysAndValuesDo$ = this._$keysAndValuesDo$ = $.$keysAndValuesDo$;
      this.$last = this._$last = $.$last;
+     this.$mergeSortFrom$to$by$ = this._$mergeSortFrom$to$by$ = $.$mergeSortFrom$to$by$;
      this.$printString = this._$printString = $.$printString;
      this.$replaceFrom$to$with$ = this._$replaceFrom$to$with$ = $.$replaceFrom$to$with$;
      this.$replaceFrom$to$with$startingAt$ = this._$replaceFrom$to$with$startingAt$ = $.$replaceFrom$to$with$startingAt$;
@@ -1434,18 +1742,13 @@ var mixins = new function () {
     this.slots = [];
     this.methods = [
      new MM("uninstantiable", true, 0),
-     new MM("new", false, 52),
-     new MM("new:", false, 53),
-     new MM("new:withAll:", false, 54),
-     new MM("with:", false, 55)
+     new MM("new:", false, 61),
+     new MM("new:withAll:", false, 62),
+     new MM("with:", false, 63)
     ];
     this.nestedClasses = [];
     this.$uninstantiable = function () {
      return (new this.nonMeta.basicNew()).$instance$initializer();
-    };
-    this.$new = function () {
-     var self = this;
-     return [];
     };
     this.$new$ = function ($size) {
      var self = this;
@@ -1454,11 +1757,20 @@ var mixins = new function () {
     this.$new$withAll$ = function ($size, $initialElement) {
      var self = this;
      var $array = nil;
-     var $i = nil;
+     var $index = nil;
+     if (!(typeof $size === "number")) {
+      return self.$enclosingObjects$KernelForV8$Array[0]._$Error().$signal$("ArgumentError");
+     } else {
+      nil;
+     };
+     if ($size < 0) {
+      return self.$enclosingObjects$KernelForV8$Array[0]._$Error().$signal$("ArgumentError");
+     } else {
+      nil;
+     };
      $array = new Array($size);
-     $i = 0;
-     for (; $i < $size; $i++) {
-      $array[$i] = $initialElement;
+     for ($index = 0; $index < $size; $index++) {
+      $array[$index] = $initialElement;
      };
      return $array;
     };
@@ -1470,7 +1782,6 @@ var mixins = new function () {
      function constructRuntimeClass (superBasicNew) {
       this.debug = "Runtime meta class for KernelForV8`Array";
       this.$uninstantiable = this._$uninstantiable = $.$uninstantiable;
-      this.$new = this._$new = $.$new;
       this.$new$ = this._$new$ = $.$new$;
       this.$new$withAll$ = this._$new$withAll$ = $.$new$withAll$;
       this.$with$ = this._$with$ = $.$with$;
@@ -1494,21 +1805,22 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for KernelForV8`Boolean";
    this.name = "KernelForV8`Boolean";
-   this.header = 56;
+   this.header = 64;
    this.slots = [];
    this.methods = [
-    new MM("superInit`KernelForV8`Boolean", true, 57),
-    new MM("instance`initializer", true, 58),
-    new MM("&", false, 59),
-    new MM("ifFalse:", false, 60),
-    new MM("ifFalse:ifTrue:", false, 61),
-    new MM("ifTrue:", false, 62),
-    new MM("ifTrue:ifFalse:", false, 63),
-    new MM("isBoolean", false, 64),
-    new MM("not", false, 65),
-    new MM("printString", false, 66),
-    new MM("value", false, 67),
-    new MM("|", false, 68)
+    new MM("superInit`KernelForV8`Boolean", true, 65),
+    new MM("instance`initializer", true, 66),
+    new MM("&", false, 67),
+    new MM("asString", false, 68),
+    new MM("ifFalse:", false, 69),
+    new MM("ifFalse:ifTrue:", false, 70),
+    new MM("ifTrue:", false, 71),
+    new MM("ifTrue:ifFalse:", false, 72),
+    new MM("isBoolean", false, 73),
+    new MM("not", false, 74),
+    new MM("printString", false, 75),
+    new MM("value", false, 76),
+    new MM("|", false, 77)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -1525,6 +1837,14 @@ var mixins = new function () {
    this.$$amp = function ($other) {
     var self = this;
     return self && $other;
+   };
+   this.$asString = function () {
+    var self = this;
+    return self._$ifTrue$ifFalse$(function () {
+     return "true";
+    }, function () {
+     return "false";
+    });
    };
    this.$ifFalse$ = function ($else) {
     var self = this;
@@ -1573,6 +1893,7 @@ var mixins = new function () {
      this.$superInit$KernelForV8$Boolean = dnuCatcher("$superInit$KernelForV8$Boolean");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
      this.$$amp = this._$$amp = $.$$amp;
+     this.$asString = this._$asString = $.$asString;
      this.$ifFalse$ = this._$ifFalse$ = $.$ifFalse$;
      this.$ifFalse$ifTrue$ = this._$ifFalse$ifTrue$ = $.$ifFalse$ifTrue$;
      this.$ifTrue$ = this._$ifTrue$ = $.$ifTrue$;
@@ -1628,7 +1949,7 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for KernelForV8`Class";
    this.name = "KernelForV8`Class";
-   this.header = 69;
+   this.header = 78;
    this.slots = [
     new SM("superclass", true, false),
     new SM("mixin", true, false),
@@ -1637,12 +1958,13 @@ var mixins = new function () {
     new SM("name", true, false)
    ];
    this.methods = [
-    new MM("superInit`KernelForV8`Class", true, 70),
-    new MM("instance`initializer", true, 71),
-    new MM("isBehavior", false, 72),
-    new MM("isMeta", false, 73),
-    new MM("mixinApply:", false, 74),
-    new MM("simpleName", false, 75),
+    new MM("superInit`KernelForV8`Class", true, 79),
+    new MM("instance`initializer", true, 80),
+    new MM("isBehavior", false, 81),
+    new MM("isKindOfBehavior", false, 82),
+    new MM("isMeta", false, 83),
+    new MM("mixinApply:", false, 84),
+    new MM("simpleName", false, 85),
     new MM("init`superclass:", true, 0),
     new MM("superclass", true, 0),
     new MM("superclass:", true, 0),
@@ -1672,6 +1994,10 @@ var mixins = new function () {
     return self;
    };
    this.$isBehavior = function () {
+    var self = this;
+    return true;
+   };
+   this.$isKindOfBehavior = function () {
     var self = this;
     return true;
    };
@@ -1749,6 +2075,7 @@ var mixins = new function () {
      this.$superInit$KernelForV8$Class = dnuCatcher("$superInit$KernelForV8$Class");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
      this.$isBehavior = this._$isBehavior = $.$isBehavior;
+     this.$isKindOfBehavior = this._$isKindOfBehavior = $.$isKindOfBehavior;
      this.$isMeta = this._$isMeta = $.$isMeta;
      this.$mixinApply$ = this._$mixinApply$ = $.$mixinApply$;
      this.$simpleName = this._$simpleName = $.$simpleName;
@@ -1818,22 +2145,24 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for KernelForV8`Closure";
    this.name = "KernelForV8`Closure";
-   this.header = 76;
+   this.header = 86;
    this.slots = [];
    this.methods = [
-    new MM("superInit`KernelForV8`Closure", true, 77),
-    new MM("instance`initializer", true, 78),
-    new MM("cull:", false, 79),
-    new MM("ensure:", false, 80),
-    new MM("isBlock", false, 81),
-    new MM("numArgs", false, 82),
-    new MM("on:do:", false, 83),
-    new MM("value", false, 84),
-    new MM("value:", false, 85),
-    new MM("value:value:", false, 86),
-    new MM("value:value:value:", false, 87),
-    new MM("valueWithArguments:", false, 88),
-    new MM("whileFalse:", false, 89)
+    new MM("superInit`KernelForV8`Closure", true, 87),
+    new MM("instance`initializer", true, 88),
+    new MM("cull:", false, 89),
+    new MM("cull:cull:", false, 90),
+    new MM("cull:cull:cull:", false, 91),
+    new MM("ensure:", false, 92),
+    new MM("isClosure", false, 93),
+    new MM("numArgs", false, 94),
+    new MM("on:do:", false, 95),
+    new MM("value", false, 96),
+    new MM("value:", false, 97),
+    new MM("value:value:", false, 98),
+    new MM("value:value:value:", false, 99),
+    new MM("valueWithArguments:", false, 100),
+    new MM("whileFalse:", false, 101)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -1851,6 +2180,14 @@ var mixins = new function () {
     var self = this;
     return this($a1);
    };
+   this.$cull$cull$ = function ($a1, $a2) {
+    var self = this;
+    return this($a1, $a2);
+   };
+   this.$cull$cull$cull$ = function ($a1, $a2, $a3) {
+    var self = this;
+    return this($a1, $a2, $a3);
+   };
    this.$ensure$ = function ($onUnwind) {
     var self = this;
     var $result = nil;
@@ -1863,7 +2200,7 @@ var mixins = new function () {
     $onUnwind.$value();
     return $result;
    };
-   this.$isBlock = function () {
+   this.$isClosure = function () {
     var self = this;
     return true;
    };
@@ -1877,6 +2214,9 @@ var mixins = new function () {
     try {
      return self._$value();
     } catch (e) {
+     if (e.newspeakClass === undefined) {
+      throw e;
+     };
      for ($c = $0.$classOf$(self.$enclosingObjects$KernelForV8$Closure[0], e); $c !== nil; ) {
       if ($c === $errorClass) {
        return $handler.$value$(e);
@@ -1924,8 +2264,10 @@ var mixins = new function () {
      this.$superInit$KernelForV8$Closure = dnuCatcher("$superInit$KernelForV8$Closure");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
      this.$cull$ = this._$cull$ = $.$cull$;
+     this.$cull$cull$ = this._$cull$cull$ = $.$cull$cull$;
+     this.$cull$cull$cull$ = this._$cull$cull$cull$ = $.$cull$cull$cull$;
      this.$ensure$ = this._$ensure$ = $.$ensure$;
-     this.$isBlock = this._$isBlock = $.$isBlock;
+     this.$isClosure = this._$isClosure = $.$isClosure;
      this.$numArgs = this._$numArgs = $.$numArgs;
      this.$on$do$ = this._$on$do$ = $.$on$do$;
      this.$value = this._$value = $.$value;
@@ -1980,28 +2322,29 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for KernelForV8`Exception";
    this.name = "KernelForV8`Exception";
-   this.header = 90;
-   this.slots = [new SM("description", false, false)];
+   this.header = 102;
+   this.slots = [new SM("messageText", true, false)];
    this.methods = [
-    new MM("superInit`KernelForV8`Exception", true, 91),
-    new MM("instance`initializer", true, 92),
-    new MM("isError", false, 93),
-    new MM("printString", false, 94),
-    new MM("signal", false, 95),
-    new MM("init`description:", true, 0),
-    new MM("description", true, 0)
+    new MM("superInit`KernelForV8`Exception", true, 103),
+    new MM("instance`initializer", true, 104),
+    new MM("isError", false, 105),
+    new MM("printString", false, 106),
+    new MM("signal", false, 107),
+    new MM("signal:", false, 108),
+    new MM("init`messageText:", true, 0),
+    new MM("messageText", true, 0),
+    new MM("messageText:", true, 0)
    ];
    this.nestedClasses = [];
    this.applications = [];
-   this.$superInit$KernelForV8$Exception = function ($d) {
+   this.$superInit$KernelForV8$Exception = function () {
     var self = this;
     self.$super$KernelForV8$Exception$slot._$instance$initializer.call(self);
     return self;
    };
-   this.$instance$initializer = function ($d) {
+   this.$instance$initializer = function () {
     var self = this;
-    self._$superInit$KernelForV8$Exception($d);
-    self._$init$description$($d);
+    self._$superInit$KernelForV8$Exception();
     return self;
    };
    this.$isError = function () {
@@ -2010,7 +2353,12 @@ var mixins = new function () {
    };
    this.$printString = function () {
     var self = this;
-    return self._$description();
+    if (nil.$$equal(self._$messageText())) {
+     return self.$super$KernelForV8$Exception$slot._$printString.call(self);
+    } else {
+     nil;
+    };
+    return self.$super$KernelForV8$Exception$slot._$printString.call(self).$$comma(self._$messageText());
    };
    this.$signal = function () {
     var self = this;
@@ -2018,12 +2366,21 @@ var mixins = new function () {
     throw self;
     return self;
    };
-   this.$init$description$ = function (v) {
-    this.$description$slot = v;
+   this.$signal$ = function ($message) {
+    var self = this;
+    self._$messageText$($message);
+    return self._$signal();
+   };
+   this.$init$messageText$ = function (v) {
+    this.$messageText$slot = v;
     return this;
    };
-   this.$description = function () {
-    return this.$description$slot;
+   this.$messageText = function () {
+    return this.$messageText$slot;
+   };
+   this.$messageText$ = function (v) {
+    this.$messageText$slot = v;
+    return this;
    };
    this.invoke = function (runtimeSuperclass, enclosingObjects) {
     function constructRuntimeClass (superBasicNew) {
@@ -2034,13 +2391,15 @@ var mixins = new function () {
      this.$isError = this._$isError = $.$isError;
      this.$printString = this._$printString = $.$printString;
      this.$signal = this._$signal = $.$signal;
-     this.$init$description$ = this._$init$description$ = $.$init$description$;
-     this.$description = this._$description = $.$description;
+     this.$signal$ = this._$signal$ = $.$signal$;
+     this.$init$messageText$ = this._$init$messageText$ = $.$init$messageText$;
+     this.$messageText = this._$messageText = $.$messageText;
+     this.$messageText$ = this._$messageText$ = $.$messageText$;
      this.$enclosingObjects$KernelForV8$Exception = enclosingObjects;
      this.$super$KernelForV8$Exception$slot = runtimeSuperclass;
      this["KernelForV8`Exception"] = function () {
       superBasicNew.call(this);
-      this.$description$slot = nil;
+      this.$messageText$slot = nil;
      };
      this.basicNew = this["KernelForV8`Exception"];
      this.basicNew.prototype = this;
@@ -2055,21 +2414,21 @@ var mixins = new function () {
     this.debug = "Runtime meta mixin for KernelForV8`Exception";
     this.slots = [];
     this.methods = [
-     new MM("description:", true, 0),
-     new MM("signal:", false, 96)
+     new MM("new", true, 0),
+     new MM("signal:", false, 109)
     ];
     this.nestedClasses = [];
-    this.$description$ = function ($d) {
-     return (new this.nonMeta.basicNew()).$instance$initializer($d);
+    this.$new = function () {
+     return (new this.nonMeta.basicNew()).$instance$initializer();
     };
-    this.$signal$ = function ($description) {
+    this.$signal$ = function ($message) {
      var self = this;
-     return self._$description$($description).$signal();
+     return self._$new().$messageText$($message).$signal();
     };
     this.invoke = function (runtimeSuperclass, enclosingObjects) {
      function constructRuntimeClass (superBasicNew) {
       this.debug = "Runtime meta class for KernelForV8`Exception";
-      this.$description$ = this._$description$ = $.$description$;
+      this.$new = this._$new = $.$new;
       this.$signal$ = this._$signal$ = $.$signal$;
       this.$enclosingObjects$KernelForV8$Exception = enclosingObjects;
       this.$super$KernelForV8$Exception = runtimeSuperclass;
@@ -2091,18 +2450,19 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for KernelForV8`Future";
    this.name = "KernelForV8`Future";
-   this.header = 97;
+   this.header = 110;
    this.slots = [
     new SM("blockOrValue000", true, false),
     new SM("state000", true, false)
    ];
    this.methods = [
-    new MM("superInit`KernelForV8`Future", true, 98),
-    new MM("instance`initializer", true, 99),
-    new MM("doesNotUnderstand:", false, 100),
-    new MM("isFuture", false, 101),
-    new MM("resolve", false, 102),
-    new MM("yourself", false, 103),
+    new MM("superInit`KernelForV8`Future", true, 111),
+    new MM("instance`initializer", true, 112),
+    new MM("doesNotUnderstand:", false, 113),
+    new MM("isFuture", false, 114),
+    new MM("isKindOfFuture", false, 115),
+    new MM("resolve", false, 116),
+    new MM("yourself", false, 117),
     new MM("init`blockOrValue000:", true, 0),
     new MM("blockOrValue000", true, 0),
     new MM("blockOrValue000:", true, 0),
@@ -2129,6 +2489,10 @@ var mixins = new function () {
     return $message.$sendTo$(self._$resolve());
    };
    this.$isFuture = function () {
+    var self = this;
+    return true;
+   };
+   this.$isKindOfFuture = function () {
     var self = this;
     return true;
    };
@@ -2190,6 +2554,7 @@ var mixins = new function () {
      this.$doesNotUnderstand$ = dnuCatcher("$doesNotUnderstand$");
      this.dnu = $.$doesNotUnderstand$;
      this.$isFuture = this._$isFuture = $.$isFuture;
+     this.$isKindOfFuture = this._$isKindOfFuture = $.$isKindOfFuture;
      this._$resolve = $.$resolve;
      this.$resolve = dnuCatcher("$resolve");
      this.$yourself = this._$yourself = $.$yourself;
@@ -2241,17 +2606,17 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for KernelForV8`Message";
    this.name = "KernelForV8`Message";
-   this.header = 104;
+   this.header = 118;
    this.slots = [
     new SM("mangledSelector", false, false),
     new SM("arguments", false, false)
    ];
    this.methods = [
-    new MM("superInit`KernelForV8`Message", true, 105),
-    new MM("instance`initializer", true, 106),
-    new MM("printString", false, 107),
-    new MM("selector", false, 108),
-    new MM("sendTo:", false, 109),
+    new MM("superInit`KernelForV8`Message", true, 119),
+    new MM("instance`initializer", true, 120),
+    new MM("printString", false, 121),
+    new MM("selector", false, 122),
+    new MM("sendTo:", false, 123),
     new MM("init`mangledSelector:", true, 0),
     new MM("mangledSelector", true, 0),
     new MM("init`arguments:", true, 0),
@@ -2331,9 +2696,9 @@ var mixins = new function () {
     this.slots = [];
     this.methods = [
      new MM("mangledSelector:arguments:", true, 0),
-     new MM("mangle:", false, 110),
-     new MM("selector:", false, 111),
-     new MM("selector:arguments:", false, 112)
+     new MM("mangle:", false, 124),
+     new MM("selector:", false, 125),
+     new MM("selector:arguments:", false, 126)
     ];
     this.nestedClasses = [];
     this.$mangledSelector$arguments$ = function ($s, $a) {
@@ -2379,14 +2744,16 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for KernelForV8`MessageNotUnderstood";
    this.name = "KernelForV8`MessageNotUnderstood";
-   this.header = 113;
+   this.header = 127;
    this.slots = [
     new SM("receiver", false, false),
     new SM("message", false, false)
    ];
    this.methods = [
-    new MM("superInit`KernelForV8`MessageNotUnderstood", true, 114),
-    new MM("instance`initializer", true, 115),
+    new MM("superInit`KernelForV8`MessageNotUnderstood", true, 128),
+    new MM("instance`initializer", true, 129),
+    new MM("messageText", false, 130),
+    new MM("printString", false, 131),
     new MM("init`receiver:", true, 0),
     new MM("receiver", true, 0),
     new MM("init`message:", true, 0),
@@ -2396,7 +2763,7 @@ var mixins = new function () {
    this.applications = [];
    this.$superInit$KernelForV8$MessageNotUnderstood = function ($r, $m) {
     var self = this;
-    self.$super$KernelForV8$MessageNotUnderstood$slot._$instance$initializer.call(self, "MessageNotUnderstood: ".$$comma($0.$classOf$(self.$enclosingObjects$KernelForV8$MessageNotUnderstood[0], $r).$name()).$$comma(">>").$$comma($m.$selector()));
+    self.$super$KernelForV8$MessageNotUnderstood$slot._$instance$initializer.call(self);
     return self;
    };
    this.$instance$initializer = function ($r, $m) {
@@ -2405,6 +2772,14 @@ var mixins = new function () {
     self._$init$receiver$($r);
     self._$init$message$($m);
     return self;
+   };
+   this.$messageText = function () {
+    var self = this;
+    return self._$printString();
+   };
+   this.$printString = function () {
+    var self = this;
+    return "MessageNotUnderstood: ".$$comma($0.$classOf$(self.$enclosingObjects$KernelForV8$MessageNotUnderstood[0], self._$receiver()).$name()).$$comma(" ").$$comma(self._$message().$selector());
    };
    this.$init$receiver$ = function (v) {
     this.$receiver$slot = v;
@@ -2426,6 +2801,8 @@ var mixins = new function () {
      this._$superInit$KernelForV8$MessageNotUnderstood = $.$superInit$KernelForV8$MessageNotUnderstood;
      this.$superInit$KernelForV8$MessageNotUnderstood = dnuCatcher("$superInit$KernelForV8$MessageNotUnderstood");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this.$messageText = this._$messageText = $.$messageText;
+     this.$printString = this._$printString = $.$printString;
      this.$init$receiver$ = this._$init$receiver$ = $.$init$receiver$;
      this.$receiver = this._$receiver = $.$receiver;
      this.$init$message$ = this._$init$message$ = $.$init$message$;
@@ -2478,7 +2855,7 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for KernelForV8`Metaclass";
    this.name = "KernelForV8`Metaclass";
-   this.header = 116;
+   this.header = 132;
    this.slots = [
     new SM("superclass", true, false),
     new SM("mixin", true, false),
@@ -2487,10 +2864,11 @@ var mixins = new function () {
     new SM("thisClass", true, false)
    ];
    this.methods = [
-    new MM("superInit`KernelForV8`Metaclass", true, 117),
-    new MM("instance`initializer", true, 118),
-    new MM("isBehavior", false, 119),
-    new MM("isMeta", false, 120),
+    new MM("superInit`KernelForV8`Metaclass", true, 133),
+    new MM("instance`initializer", true, 134),
+    new MM("isBehavior", false, 135),
+    new MM("isKindOfBehavior", false, 136),
+    new MM("isMeta", false, 137),
     new MM("init`superclass:", true, 0),
     new MM("superclass", true, 0),
     new MM("superclass:", true, 0),
@@ -2520,6 +2898,10 @@ var mixins = new function () {
     return self;
    };
    this.$isBehavior = function () {
+    var self = this;
+    return true;
+   };
+   this.$isKindOfBehavior = function () {
     var self = this;
     return true;
    };
@@ -2589,6 +2971,7 @@ var mixins = new function () {
      this.$superInit$KernelForV8$Metaclass = dnuCatcher("$superInit$KernelForV8$Metaclass");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
      this.$isBehavior = this._$isBehavior = $.$isBehavior;
+     this.$isKindOfBehavior = this._$isKindOfBehavior = $.$isKindOfBehavior;
      this.$isMeta = this._$isMeta = $.$isMeta;
      this.$init$superclass$ = this._$init$superclass$ = $.$init$superclass$;
      this.$superclass = this._$superclass = $.$superclass;
@@ -2656,16 +3039,16 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for KernelForV8`Mixin";
    this.name = "KernelForV8`Mixin";
-   this.header = 121;
+   this.header = 138;
    this.slots = [];
    this.methods = [
-    new MM("superInit`KernelForV8`Mixin", true, 122),
-    new MM("instance`initializer", true, 123),
-    new MM("applyTo:", false, 124),
-    new MM("applyTo:withName:", false, 125),
-    new MM("isMeta", false, 126),
-    new MM("name", false, 127),
-    new MM("printString", false, 128)
+    new MM("superInit`KernelForV8`Mixin", true, 139),
+    new MM("instance`initializer", true, 140),
+    new MM("applyTo:", false, 141),
+    new MM("applyTo:withName:", false, 142),
+    new MM("isMeta", false, 143),
+    new MM("name", false, 144),
+    new MM("printString", false, 145)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -2764,54 +3147,58 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for KernelForV8`Number";
    this.name = "KernelForV8`Number";
-   this.header = 129;
+   this.header = 146;
    this.slots = [];
    this.methods = [
-    new MM("superInit`KernelForV8`Number", true, 130),
-    new MM("instance`initializer", true, 131),
-    new MM("*", false, 132),
-    new MM("**", false, 133),
-    new MM("+", false, 134),
-    new MM("-", false, 135),
-    new MM("/", false, 136),
-    new MM("//", false, 137),
-    new MM("<", false, 138),
-    new MM("<<", false, 139),
-    new MM("<=", false, 140),
-    new MM("=", false, 141),
-    new MM(">", false, 142),
-    new MM(">=", false, 143),
-    new MM(">>", false, 144),
-    new MM("\\\\", false, 145),
-    new MM("abs", false, 146),
-    new MM("asFloat", false, 147),
-    new MM("asInteger", false, 148),
-    new MM("asString", false, 149),
-    new MM("between:and:", false, 150),
-    new MM("bitAnd:", false, 151),
-    new MM("bitInvert", false, 152),
-    new MM("bitOr:", false, 153),
-    new MM("bitXor:", false, 154),
-    new MM("ceiling", false, 155),
-    new MM("cos", false, 156),
-    new MM("exp", false, 157),
-    new MM("floor", false, 158),
-    new MM("hash", false, 159),
-    new MM("isNumber", false, 160),
-    new MM("ln", false, 161),
-    new MM("max:", false, 162),
-    new MM("min:", false, 163),
-    new MM("printString", false, 164),
-    new MM("quo:", false, 165),
-    new MM("rem:", false, 166),
-    new MM("sign", false, 167),
-    new MM("sin", false, 168),
-    new MM("sqrt", false, 169),
-    new MM("tan", false, 170),
-    new MM("timesRepeat:", false, 171),
-    new MM("to:", false, 172),
-    new MM("to:do:", false, 173),
-    new MM("truncated", false, 174)
+    new MM("superInit`KernelForV8`Number", true, 147),
+    new MM("instance`initializer", true, 148),
+    new MM("*", false, 149),
+    new MM("**", false, 150),
+    new MM("+", false, 151),
+    new MM("-", false, 152),
+    new MM("/", false, 153),
+    new MM("//", false, 154),
+    new MM("<", false, 155),
+    new MM("<<", false, 156),
+    new MM("<=", false, 157),
+    new MM("=", false, 158),
+    new MM(">", false, 159),
+    new MM(">=", false, 160),
+    new MM(">>", false, 161),
+    new MM("\\\\", false, 162),
+    new MM("abs", false, 163),
+    new MM("asFloat", false, 164),
+    new MM("asInteger", false, 165),
+    new MM("asString", false, 166),
+    new MM("between:and:", false, 167),
+    new MM("bitAnd:", false, 168),
+    new MM("bitInvert", false, 169),
+    new MM("bitOr:", false, 170),
+    new MM("bitXor:", false, 171),
+    new MM("ceiling", false, 172),
+    new MM("cos", false, 173),
+    new MM("exp", false, 174),
+    new MM("floor", false, 175),
+    new MM("hash", false, 176),
+    new MM("isKindOfFloat", false, 177),
+    new MM("isKindOfInteger", false, 178),
+    new MM("isKindOfNumber", false, 179),
+    new MM("isNumber", false, 180),
+    new MM("ln", false, 181),
+    new MM("max:", false, 182),
+    new MM("min:", false, 183),
+    new MM("printString", false, 184),
+    new MM("quo:", false, 185),
+    new MM("rem:", false, 186),
+    new MM("rounded", false, 187),
+    new MM("sign", false, 188),
+    new MM("sin", false, 189),
+    new MM("sqrt", false, 190),
+    new MM("tan", false, 191),
+    new MM("timesRepeat:", false, 192),
+    new MM("to:", false, 193),
+    new MM("to:do:", false, 194),
+    new MM("truncated", false, 195)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -2940,7 +3327,19 @@ var mixins = new function () {
    };
    this.$hash = function () {
     var self = this;
-    return self._$rem$(16777215);
+    return self | 0;
+   };
+   this.$isKindOfFloat = function () {
+    var self = this;
+    return true;
+   };
+   this.$isKindOfInteger = function () {
+    var self = this;
+    return self._$$equal(self._$asInteger());
+   };
+   this.$isKindOfNumber = function () {
+    var self = this;
+    return true;
    };
    this.$isNumber = function () {
     var self = this;
@@ -2977,6 +3376,10 @@ var mixins = new function () {
    this.$rem$ = function ($other) {
     var self = this;
     return self - (self._$quo$($other) * $other);
+   };
+   this.$rounded = function () {
+    var self = this;
+    return Math.round(self);
    };
    this.$sign = function () {
     var self = this;
@@ -3028,7 +3431,11 @@ var mixins = new function () {
    };
    this.$truncated = function () {
     var self = this;
-    return self | 0;
+    return (self > 0).$ifTrue$ifFalse$(function () {
+     return self._$floor();
+    }, function () {
+     return self._$ceiling();
+    });
    };
    this.invoke = function (runtimeSuperclass, enclosingObjects) {
     function constructRuntimeClass (superBasicNew) {
@@ -3064,6 +3471,9 @@ var mixins = new function () {
      this.$exp = this._$exp = $.$exp;
      this.$floor = this._$floor = $.$floor;
      this.$hash = this._$hash = $.$hash;
+     this.$isKindOfFloat = this._$isKindOfFloat = $.$isKindOfFloat;
+     this.$isKindOfInteger = this._$isKindOfInteger = $.$isKindOfInteger;
+     this.$isKindOfNumber = this._$isKindOfNumber = $.$isKindOfNumber;
      this.$isNumber = this._$isNumber = $.$isNumber;
      this.$ln = this._$ln = $.$ln;
      this.$max$ = this._$max$ = $.$max$;
@@ -3071,6 +3481,7 @@ var mixins = new function () {
      this.$printString = this._$printString = $.$printString;
      this.$quo$ = this._$quo$ = $.$quo$;
      this.$rem$ = this._$rem$ = $.$rem$;
+     this.$rounded = this._$rounded = $.$rounded;
      this.$sign = this._$sign = $.$sign;
      this.$sin = this._$sin = $.$sin;
      this.$sqrt = this._$sqrt = $.$sqrt;
@@ -3096,15 +3507,23 @@ var mixins = new function () {
     var $ = this;
     this.debug = "Runtime meta mixin for KernelForV8`Number";
     this.slots = [];
-    this.methods = [new MM("uninstantiable", true, 0)];
+    this.methods = [
+     new MM("uninstantiable", true, 0),
+     new MM("parse:", false, 196)
+    ];
     this.nestedClasses = [];
     this.$uninstantiable = function () {
      return (new this.nonMeta.basicNew()).$instance$initializer();
+    };
+    this.$parse$ = function ($str) {
+     var self = this;
+     return parseFloat($str);
     };
     this.invoke = function (runtimeSuperclass, enclosingObjects) {
      function constructRuntimeClass (superBasicNew) {
       this.debug = "Runtime meta class for KernelForV8`Number";
       this.$uninstantiable = this._$uninstantiable = $.$uninstantiable;
+      this.$parse$ = this._$parse$ = $.$parse$;
       this.$enclosingObjects$KernelForV8$Number = enclosingObjects;
       this.$super$KernelForV8$Number = runtimeSuperclass;
       this.basicNew = function () {
@@ -3125,40 +3544,38 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for KernelForV8`Object";
    this.name = "KernelForV8`Object";
-   this.header = 175;
+   this.header = 197;
    this.slots = [];
    this.methods = [
-    new MM("superInit`KernelForV8`Object", true, 176),
-    new MM("instance`initializer", true, 177),
-    new MM("=", false, 178),
-    new MM("==", false, 179),
-    new MM("Array", false, 180),
-    new MM("Character", false, 181),
-    new MM("Error", false, 182),
-    new MM("Future", false, 183),
-    new MM("Object", false, 184),
-    new MM("String", false, 185),
-    new MM("assert:message:", false, 186),
-    new MM("class", false, 187),
-    new MM("clone", false, 188),
-    new MM("doesNotUnderstand:", false, 189),
-    new MM("hash", false, 190),
-    new MM("identityHash", false, 191),
-    new MM("ifNil:", false, 192),
-    new MM("ifNil:ifNotNil:", false, 193),
-    new MM("ifNotNil:", false, 194),
-    new MM("isAlien", false, 195),
-    new MM("isBlock", false, 196),
-    new MM("isExpat", false, 197),
-    new MM("isFuture", false, 198),
-    new MM("isNil", false, 199),
-    new MM("notNil", false, 200),
-    new MM("out", false, 201),
-    new MM("perform:withArguments:", false, 202),
-    new MM("print:", false, 203),
-    new MM("printString", false, 204),
-    new MM("yourself", false, 205),
-    new MM("~=", false, 206)
+    new MM("superInit`KernelForV8`Object", true, 198),
+    new MM("instance`initializer", true, 199),
+    new MM("=", false, 200),
+    new MM("==", false, 201),
+    new MM("Array", false, 202),
+    new MM("Character", false, 203),
+    new MM("Error", false, 204),
+    new MM("Float", false, 205),
+    new MM("Future", false, 206),
+    new MM("Object", false, 207),
+    new MM("String", false, 208),
+    new MM("assert:message:", false, 209),
+    new MM("cannotReturn:", false, 210),
+    new MM("class", false, 211),
+    new MM("doesNotUnderstand:", false, 212),
+    new MM("hash", false, 213),
+    new MM("ifNil:", false, 214),
+    new MM("ifNil:ifNotNil:", false, 215),
+    new MM("ifNotNil:", false, 216),
+    new MM("isAlien", false, 217),
+    new MM("isExpat", false, 218),
+    new MM("isFuture", false, 219),
+    new MM("isKindOfFuture", false, 220),
+    new MM("isNil", false, 221),
+    new MM("notNil", false, 222),
+    new MM("out", false, 223),
+    new MM("printString", false, 224),
+    new MM("yourself", false, 225),
+    new MM("~=", false, 226)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -3192,6 +3609,10 @@ var mixins = new function () {
     var self = this;
     return self.$enclosingObjects$KernelForV8$Object[0]._$Error();
    };
+   this.$Float = function () {
+    var self = this;
+    return self.$enclosingObjects$KernelForV8$Object[0]._$Number();
+   };
    this.$Future = function () {
     var self = this;
     return self.$enclosingObjects$KernelForV8$Object[0]._$Future();
@@ -3206,7 +3627,7 @@ var mixins = new function () {
    };
    this.$assert$message$ = function ($condition, $message) {
     var self = this;
-    if (!$condition.$isBlock()) {
+    if (!$condition.$isClosure()) {
      self._$Error().$signal$("Block required");
     } else {
      nil;
@@ -3218,25 +3639,13 @@ var mixins = new function () {
     };
     return self;
    };
+   this.$cannotReturn$ = function (self, $value) {
+    self.$enclosingObjects$KernelForV8$Object[0]._$Exception().$signal$("CannotReturn: ".$$comma($value.$printString()));
+    return self;
+   };
    this.$class = function () {
     var self = this;
     return this.newspeakClass;
-   };
-   this.$clone = function () {
-    var self = this;
-    var $originalProto = nil;
-    var $cloneConstructor = nil;
-    var $newObject = nil;
-    var $propNames = nil;
-    $originalProto = Object.getPrototypeOf(self);
-    $cloneConstructor = function () {};
-    $cloneConstructor.prototype = $originalProto;
-    $newObject = new $cloneConstructor();
-    $propNames = Object.getOwnPropertyNames(self);
-    $propNames.forEach(function (name) {
-     $newObject[name] = self[name];
-    });
-    return $newObject;
    };
    this.$doesNotUnderstand$ = function ($message) {
     var self = this;
@@ -3248,10 +3657,6 @@ var mixins = new function () {
     return self.$enclosingObjects$KernelForV8$Object[0]._$MessageNotUnderstood().$receiver$message$(self, $message).$signal();
    };
    this.$hash = function () {
-    var self = this;
-    return self._$identityHash();
-   };
-   this.$identityHash = function () {
     var self = this;
     while(this.hashCode === 0) this.hashCode = Math.random() * 0x3FFFFFF | 0;
     return this.hashCode;
@@ -3272,15 +3677,15 @@ var mixins = new function () {
     var self = this;
     return false;
    };
-   this.$isBlock = function () {
-    var self = this;
-    return false;
-   };
    this.$isExpat = function () {
     var self = this;
     return false;
    };
    this.$isFuture = function () {
+    var self = this;
+    return false;
+   };
+   this.$isKindOfFuture = function () {
     var self = this;
     return false;
    };
@@ -3294,16 +3699,7 @@ var mixins = new function () {
    };
    this.$out = function () {
     var self = this;
-    self._$print$(self);
-    return self;
-   };
-   this.$perform$withArguments$ = function ($selector, $arguments) {
-    var self = this;
-    return self[self.$enclosingObjects$KernelForV8$Object[0]._$vmmirror().$mangleSelector$($selector)].apply(self, $arguments);
-   };
-   this.$print$ = function ($obj) {
-    var self = this;
-    (typeof console === "undefined" ? print($obj.$printString()) : console.log($obj.$printString()));
+    $0.$print$(self.$enclosingObjects$KernelForV8$Object[0], self._$printString());
     return self;
    };
    this.$printString = function () {
@@ -3332,6 +3728,8 @@ var mixins = new function () {
      this.$Character = dnuCatcher("$Character");
      this._$Error = $.$Error;
      this.$Error = dnuCatcher("$Error");
+     this._$Float = $.$Float;
+     this.$Float = dnuCatcher("$Float");
      this._$Future = $.$Future;
      this.$Future = dnuCatcher("$Future");
      this._$Object = $.$Object;
@@ -3340,26 +3738,23 @@ var mixins = new function () {
      this.$String = dnuCatcher("$String");
      this._$assert$message$ = $.$assert$message$;
      this.$assert$message$ = dnuCatcher("$assert$message$");
+     this.cannotReturn = $.$cannotReturn$;
      this._$class = $.$class;
      this.$class = dnuCatcher("$class");
-     this.$clone = this._$clone = $.$clone;
      this._$doesNotUnderstand$ = $.$doesNotUnderstand$;
      this.$doesNotUnderstand$ = dnuCatcher("$doesNotUnderstand$");
      this.dnu = $.$doesNotUnderstand$;
      this.$hash = this._$hash = $.$hash;
-     this.$identityHash = this._$identityHash = $.$identityHash;
      this.$ifNil$ = this._$ifNil$ = $.$ifNil$;
      this.$ifNil$ifNotNil$ = this._$ifNil$ifNotNil$ = $.$ifNil$ifNotNil$;
      this.$ifNotNil$ = this._$ifNotNil$ = $.$ifNotNil$;
      this.$isAlien = this._$isAlien = $.$isAlien;
-     this.$isBlock = this._$isBlock = $.$isBlock;
      this.$isExpat = this._$isExpat = $.$isExpat;
      this.$isFuture = this._$isFuture = $.$isFuture;
+     this.$isKindOfFuture = this._$isKindOfFuture = $.$isKindOfFuture;
      this.$isNil = this._$isNil = $.$isNil;
      this.$notNil = this._$notNil = $.$notNil;
      this.$out = this._$out = $.$out;
-     this.$perform$withArguments$ = this._$perform$withArguments$ = $.$perform$withArguments$;
-     this.$print$ = this._$print$ = $.$print$;
      this.$printString = this._$printString = $.$printString;
      this.$yourself = this._$yourself = $.$yourself;
      this.$$tilde$equal = this._$$tilde$equal = $.$$tilde$equal;
@@ -3409,19 +3804,19 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for KernelForV8`Stopwatch";
    this.name = "KernelForV8`Stopwatch";
-   this.header = 207;
+   this.header = 227;
    this.slots = [
     new SM("cumulativeMillis", true, false),
     new SM("startMillis", true, false)
    ];
    this.methods = [
-    new MM("superInit`KernelForV8`Stopwatch", true, 208),
-    new MM("instance`initializer", true, 209),
-    new MM("currentMonotonicMillis", false, 210),
-    new MM("elapsedMicroseconds", false, 211),
-    new MM("elapsedMilliseconds", false, 212),
-    new MM("start", false, 213),
-    new MM("stop", false, 214),
+    new MM("superInit`KernelForV8`Stopwatch", true, 228),
+    new MM("instance`initializer", true, 229),
+    new MM("currentMonotonicMillis", false, 230),
+    new MM("elapsedMicroseconds", false, 231),
+    new MM("elapsedMilliseconds", false, 232),
+    new MM("start", false, 233),
+    new MM("stop", false, 234),
     new MM("init`cumulativeMillis:", true, 0),
     new MM("cumulativeMillis", true, 0),
     new MM("cumulativeMillis:", true, 0),
@@ -3476,7 +3871,7 @@ var mixins = new function () {
      nil;
     };
     $1.$cumulativeMillis$(self, $1.$cumulativeMillis(self) + ($1.$currentMonotonicMillis(self) - $1.$startMillis(self)));
-    self._$startMicros$(nil);
+    $1.$startMillis$(self, nil);
     return self;
    };
    this.$init$cumulativeMillis$ = function (self, v) {
@@ -3559,34 +3954,36 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for KernelForV8`String";
    this.name = "KernelForV8`String";
-   this.header = 215;
+   this.header = 235;
    this.slots = [];
    this.methods = [
-    new MM("superInit`KernelForV8`String", true, 216),
-    new MM("instance`initializer", true, 217),
-    new MM(",", false, 218),
-    new MM("=", false, 219),
-    new MM("asNumber", false, 220),
-    new MM("asString", false, 221),
-    new MM("asSymbol", false, 222),
-    new MM("at:", false, 223),
-    new MM("beginsWith:", false, 224),
-    new MM("class", false, 225),
-    new MM("copyFrom:to:", false, 226),
-    new MM("do:", false, 227),
-    new MM("endsWith:", false, 228),
-    new MM("first", false, 229),
-    new MM("hash", false, 230),
-    new MM("identityHash", false, 231),
-    new MM("includes:", false, 232),
-    new MM("isString", false, 233),
-    new MM("last", false, 234),
-    new MM("printString", false, 235),
-    new MM("replaceAll:with:", false, 236),
-    new MM("runeAt:", false, 237),
-    new MM("size", false, 238),
-    new MM("splitBy:", false, 239),
-    new MM("startsWith:", false, 240)
+    new MM("superInit`KernelForV8`String", true, 236),
+    new MM("instance`initializer", true, 237),
+    new MM(",", false, 238),
+    new MM("=", false, 239),
+    new MM("asString", false, 240),
+    new MM("asSymbol", false, 241),
+    new MM("at:", false, 242),
+    new MM("class", false, 243),
+    new MM("copyFrom:to:", false, 244),
+    new MM("do:", false, 245),
+    new MM("endsWith:", false, 246),
+    new MM("first", false, 247),
+    new MM("hash", false, 248),
+    new MM("includes:", false, 249),
+    new MM("indexOf:", false, 250),
+    new MM("indexOf:startingAt:", false, 251),
+    new MM("isKindOfString", false, 252),
+    new MM("isString", false, 253),
+    new MM("last", false, 254),
+    new MM("lastIndexOf:", false, 255),
+    new MM("out", false, 256),
+    new MM("printString", false, 257),
+    new MM("replaceAll:with:", false, 258),
+    new MM("runeAt:", false, 259),
+    new MM("size", false, 260),
+    new MM("splitBy:", false, 261),
+    new MM("startsWith:", false, 262)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -3608,10 +4005,6 @@ var mixins = new function () {
     var self = this;
     return self === $other;
    };
-   this.$asNumber = function () {
-    var self = this;
-    return parseInt(self);
-   };
    this.$asString = function () {
     var self = this;
     return self;
@@ -3623,10 +4016,6 @@ var mixins = new function () {
    this.$at$ = function ($index) {
     var self = this;
     return this[$index - 1];
-   };
-   this.$beginsWith$ = function ($substring) {
-    var self = this;
-    return 0 == self.indexOf($substring);
    };
    this.$class = function () {
     var self = this;
@@ -3660,10 +4049,6 @@ var mixins = new function () {
     var l = this.length;
     return (l == 0 ? 0 : (l * 32 ^ this.charCodeAt(0)) * 32 ^ this.charCodeAt(l - 1));
    };
-   this.$identityHash = function () {
-    var self = this;
-    return self._$hash();
-   };
    this.$includes$ = function ($object) {
     var self = this;
     var NLR = new Object();
@@ -3671,12 +4056,20 @@ var mixins = new function () {
      self._$do$(function ($element) {
       return $object.$$equal($element).$ifTrue$(function () {
        {
-        NLR.value = true;
+        var t = true;
+        if (NLR === null) {
+         self.cannotReturn(self, t);
+        };
+        NLR.value = t;
         throw NLR;
        };
       });
      });
-     return false;
+     {
+      var t = false;
+      NLR = null;
+      return t;
+     };
     } catch (NLR_exception) {
      if (NLR === NLR_exception) {
       return NLR_exception.value;
@@ -3685,6 +4078,18 @@ var mixins = new function () {
      };
     };
    };
+   this.$indexOf$ = function ($substring) {
+    var self = this;
+    return 1 + self.indexOf($substring);
+   };
+   this.$indexOf$startingAt$ = function ($substring, $index) {
+    var self = this;
+    return 1 + self.indexOf($substring, $index - 1);
+   };
+   this.$isKindOfString = function () {
+    var self = this;
+    return true;
+   };
    this.$isString = function () {
     var self = this;
     return true;
@@ -3692,6 +4097,15 @@ var mixins = new function () {
    this.$last = function () {
     var self = this;
     return self._$at$(self._$size());
+   };
+   this.$lastIndexOf$ = function ($substring) {
+    var self = this;
+    return 1 + self.lastIndexOf($substring);
+   };
+   this.$out = function () {
+    var self = this;
+    $0.$print$(self.$enclosingObjects$KernelForV8$String[0], self);
+    return self;
    };
    this.$printString = function () {
     var self = this;
@@ -3728,11 +4142,9 @@ var mixins = new function () {
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
      this.$$comma = this._$$comma = $.$$comma;
      this.$$equal = this._$$equal = $.$$equal;
-     this.$asNumber = this._$asNumber = $.$asNumber;
      this.$asString = this._$asString = $.$asString;
      this.$asSymbol = this._$asSymbol = $.$asSymbol;
      this.$at$ = this._$at$ = $.$at$;
-     this.$beginsWith$ = this._$beginsWith$ = $.$beginsWith$;
      this._$class = $.$class;
      this.$class = dnuCatcher("$class");
      this.$copyFrom$to$ = this._$copyFrom$to$ = $.$copyFrom$to$;
@@ -3740,10 +4152,14 @@ var mixins = new function () {
      this.$endsWith$ = this._$endsWith$ = $.$endsWith$;
      this.$first = this._$first = $.$first;
      this.$hash = this._$hash = $.$hash;
-     this.$identityHash = this._$identityHash = $.$identityHash;
      this.$includes$ = this._$includes$ = $.$includes$;
+     this.$indexOf$ = this._$indexOf$ = $.$indexOf$;
+     this.$indexOf$startingAt$ = this._$indexOf$startingAt$ = $.$indexOf$startingAt$;
+     this.$isKindOfString = this._$isKindOfString = $.$isKindOfString;
      this.$isString = this._$isString = $.$isString;
      this.$last = this._$last = $.$last;
+     this.$lastIndexOf$ = this._$lastIndexOf$ = $.$lastIndexOf$;
+     this.$out = this._$out = $.$out;
      this.$printString = this._$printString = $.$printString;
      this.$replaceAll$with$ = this._$replaceAll$with$ = $.$replaceAll$with$;
      this.$runeAt$ = this._$runeAt$ = $.$runeAt$;
@@ -3769,13 +4185,13 @@ var mixins = new function () {
     this.slots = [];
     this.methods = [
      new MM("uninstantiable", true, 0),
-     new MM("cr", false, 241),
-     new MM("fromRune:", false, 242),
-     new MM("fromRunes:", false, 243),
-     new MM("lf", false, 244),
-     new MM("space", false, 245),
-     new MM("tab", false, 246),
-     new MM("withAll:", false, 247)
+     new MM("cr", false, 263),
+     new MM("fromRune:", false, 264),
+     new MM("fromRunes:", false, 265),
+     new MM("lf", false, 266),
+     new MM("space", false, 267),
+     new MM("tab", false, 268),
+     new MM("withAll:", false, 269)
     ];
     this.nestedClasses = [];
     this.$uninstantiable = function () {
@@ -3835,22 +4251,159 @@ var mixins = new function () {
    }();
    this.meta.nonMeta = this;
   }();
+  this.$KernelForV8$StringBuilder = new function () {
+   var $ = this;
+   var $1 = this;
+   this.debug = "Runtime mixin for KernelForV8`StringBuilder";
+   this.name = "KernelForV8`StringBuilder";
+   this.header = 270;
+   this.slots = [
+    new SM("parts", false, false),
+    new SM("sizeX", true, false)
+   ];
+   this.methods = [
+    new MM("superInit`KernelForV8`StringBuilder", true, 271),
+    new MM("instance`initializer", true, 272),
+    new MM("add:", false, 273),
+    new MM("asString", false, 274),
+    new MM("size", false, 275),
+    new MM("writeln:", false, 276),
+    new MM("init`parts:", true, 0),
+    new MM("parts", true, 0),
+    new MM("init`sizeX:", true, 0),
+    new MM("sizeX", true, 0),
+    new MM("sizeX:", true, 0)
+   ];
+   this.nestedClasses = [];
+   this.applications = [];
+   this.$superInit$KernelForV8$StringBuilder = function () {
+    var self = this;
+    self.$super$KernelForV8$StringBuilder$slot._$instance$initializer.call(self);
+    return self;
+   };
+   this.$instance$initializer = function () {
+    var self = this;
+    self._$superInit$KernelForV8$StringBuilder();
+    self._$init$parts$(self.$enclosingObjects$KernelForV8$StringBuilder[0]._$platform().$collections().$List().$new());
+    self._$init$sizeX$(0);
+    return self;
+   };
+   this.$add$ = function ($string) {
+    var self = this;
+    self._$sizeX$(self._$sizeX() + $string.$size());
+    return self._$parts().$add$($string);
+   };
+   this.$asString = function () {
+    var self = this;
+    return self._$parts().$asArray().join("");
+   };
+   this.$size = function () {
+    var self = this;
+    return self._$sizeX();
+   };
+   this.$writeln$ = function ($line) {
+    var self = this;
+    self._$add$($line);
+    self._$add$(self.$enclosingObjects$KernelForV8$StringBuilder[0]._$String().$lf());
+    return self;
+   };
+   this.$init$parts$ = function (v) {
+    this.$parts$slot = v;
+    return this;
+   };
+   this.$parts = function () {
+    return this.$parts$slot;
+   };
+   this.$init$sizeX$ = function (v) {
+    this.$sizeX$slot = v;
+    return this;
+   };
+   this.$sizeX = function () {
+    return this.$sizeX$slot;
+   };
+   this.$sizeX$ = function (v) {
+    this.$sizeX$slot = v;
+    return this;
+   };
+   this.invoke = function (runtimeSuperclass, enclosingObjects) {
+    function constructRuntimeClass (superBasicNew) {
+     this.debug = "Runtime class for KernelForV8`StringBuilder";
+     this._$superInit$KernelForV8$StringBuilder = $.$superInit$KernelForV8$StringBuilder;
+     this.$superInit$KernelForV8$StringBuilder = dnuCatcher("$superInit$KernelForV8$StringBuilder");
+     this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this.$add$ = this._$add$ = $.$add$;
+     this.$asString = this._$asString = $.$asString;
+     this.$size = this._$size = $.$size;
+     this.$writeln$ = this._$writeln$ = $.$writeln$;
+     this._$init$parts$ = $.$init$parts$;
+     this.$init$parts$ = dnuCatcher("$init$parts$");
+     this._$parts = $.$parts;
+     this.$parts = dnuCatcher("$parts");
+     this._$init$sizeX$ = $.$init$sizeX$;
+     this.$init$sizeX$ = dnuCatcher("$init$sizeX$");
+     this._$sizeX = $.$sizeX;
+     this.$sizeX = dnuCatcher("$sizeX");
+     this._$sizeX$ = $.$sizeX$;
+     this.$sizeX$ = dnuCatcher("$sizeX$");
+     this.$enclosingObjects$KernelForV8$StringBuilder = enclosingObjects;
+     this.$super$KernelForV8$StringBuilder$slot = runtimeSuperclass;
+     this["KernelForV8`StringBuilder"] = function () {
+      superBasicNew.call(this);
+      this.$parts$slot = nil;
+      this.$sizeX$slot = nil;
+     };
+     this.basicNew = this["KernelForV8`StringBuilder"];
+     this.basicNew.prototype = this;
+     this.meta = null;
+     this.newspeakClass = null;
+    };
+    constructRuntimeClass.prototype = runtimeSuperclass;
+    return new constructRuntimeClass(runtimeSuperclass.basicNew);
+   };
+   this.meta = new function () {
+    var $ = this;
+    this.debug = "Runtime meta mixin for KernelForV8`StringBuilder";
+    this.slots = [];
+    this.methods = [new MM("new", true, 0)];
+    this.nestedClasses = [];
+    this.$new = function () {
+     return (new this.nonMeta.basicNew()).$instance$initializer();
+    };
+    this.invoke = function (runtimeSuperclass, enclosingObjects) {
+     function constructRuntimeClass (superBasicNew) {
+      this.debug = "Runtime meta class for KernelForV8`StringBuilder";
+      this.$new = this._$new = $.$new;
+      this.$enclosingObjects$KernelForV8$StringBuilder = enclosingObjects;
+      this.$super$KernelForV8$StringBuilder = runtimeSuperclass;
+      this.basicNew = function () {
+       superBasicNew.call(this);
+      };
+      this.basicNew.prototype = this;
+      this.nonMeta = null;
+      this.newspeakClass = null;
+     };
+     constructRuntimeClass.prototype = runtimeSuperclass;
+     return new constructRuntimeClass(runtimeSuperclass.basicNew);
+    };
+   }();
+   this.meta.nonMeta = this;
+  }();
   this.$KernelForV8$UndefinedObject = new function () {
    var $ = this;
    var $1 = this;
    this.debug = "Runtime mixin for KernelForV8`UndefinedObject";
    this.name = "KernelForV8`UndefinedObject";
-   this.header = 248;
+   this.header = 277;
    this.slots = [];
    this.methods = [
-    new MM("superInit`KernelForV8`UndefinedObject", true, 249),
-    new MM("instance`initializer", true, 250),
-    new MM("ifNil:", false, 251),
-    new MM("ifNil:ifNotNil:", false, 252),
-    new MM("ifNotNil:", false, 253),
-    new MM("isNil", false, 254),
-    new MM("notNil", false, 255),
-    new MM("printString", false, 256)
+    new MM("superInit`KernelForV8`UndefinedObject", true, 278),
+    new MM("instance`initializer", true, 279),
+    new MM("ifNil:", false, 280),
+    new MM("ifNil:ifNotNil:", false, 281),
+    new MM("ifNotNil:", false, 282),
+    new MM("isNil", false, 283),
+    new MM("notNil", false, 284),
+    new MM("printString", false, 285)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -3955,6 +4508,7 @@ var mixins = new function () {
   this.$KernelForV8$Object.enclosingMixin = this;
   this.$KernelForV8$Stopwatch.enclosingMixin = this;
   this.$KernelForV8$String.enclosingMixin = this;
+  this.$KernelForV8$StringBuilder.enclosingMixin = this;
   this.$KernelForV8$UndefinedObject.enclosingMixin = this;
   this.invoke = function (runtimeSuperclass, enclosingObjects) {
    function constructRuntimeClass (superBasicNew) {
@@ -3981,6 +4535,7 @@ var mixins = new function () {
     this.$Object = this._$Object = $.$Object;
     this.$Stopwatch = this._$Stopwatch = $.$Stopwatch;
     this.$String = this._$String = $.$String;
+    this.$StringBuilder = this._$StringBuilder = $.$StringBuilder;
     this.$UndefinedObject = this._$UndefinedObject = $.$UndefinedObject;
     this._$init$vmmirror$ = $.$init$vmmirror$;
     this.$init$vmmirror$ = dnuCatcher("$init$vmmirror$");
@@ -4031,6 +4586,9 @@ var mixins = new function () {
     this.$init$KernelForV8$String$ = this._$init$KernelForV8$String$ = $.$init$KernelForV8$String$;
     this.$KernelForV8$String = this._$KernelForV8$String = $.$KernelForV8$String;
     this.$KernelForV8$String$ = this._$KernelForV8$String$ = $.$KernelForV8$String$;
+    this.$init$KernelForV8$StringBuilder$ = this._$init$KernelForV8$StringBuilder$ = $.$init$KernelForV8$StringBuilder$;
+    this.$KernelForV8$StringBuilder = this._$KernelForV8$StringBuilder = $.$KernelForV8$StringBuilder;
+    this.$KernelForV8$StringBuilder$ = this._$KernelForV8$StringBuilder$ = $.$KernelForV8$StringBuilder$;
     this.$init$KernelForV8$UndefinedObject$ = this._$init$KernelForV8$UndefinedObject$ = $.$init$KernelForV8$UndefinedObject$;
     this.$KernelForV8$UndefinedObject = this._$KernelForV8$UndefinedObject = $.$KernelForV8$UndefinedObject;
     this.$KernelForV8$UndefinedObject$ = this._$KernelForV8$UndefinedObject$ = $.$KernelForV8$UndefinedObject$;
@@ -4054,6 +4612,7 @@ var mixins = new function () {
      this.$KernelForV8$Object$slot = nil;
      this.$KernelForV8$Stopwatch$slot = nil;
      this.$KernelForV8$String$slot = nil;
+     this.$KernelForV8$StringBuilder$slot = nil;
      this.$KernelForV8$UndefinedObject$slot = nil;
     };
     this.basicNew = this.KernelForV8;
@@ -4097,7 +4656,7 @@ var mixins = new function () {
   var $0 = this;
   this.debug = "Runtime mixin for ActorsForV8";
   this.name = "ActorsForV8";
-  this.header = 257;
+  this.header = 286;
   this.slots = [
    new SM("WeakMap", false, false),
    new SM("List", false, false),
@@ -4124,17 +4683,17 @@ var mixins = new function () {
    new SM("ActorsForV8`WhenReactor", true, true)
   ];
   this.methods = [
-   new MM("superInit`ActorsForV8", true, 258),
-   new MM("instance`initializer", true, 259),
-   new MM("asInternalRef:", false, 260),
-   new MM("check:allowedIn:", false, 261),
-   new MM("createFarReferenceTo:in:for:", false, 262),
-   new MM("createRemotePromiseOf:in:for:", false, 263),
-   new MM("currentActor", false, 264),
-   new MM("isRef:", false, 265),
-   new MM("isValueObject:", false, 266),
-   new MM("wrapArgument:from:to:", false, 267),
-   new MM("wrapArguments:from:to:", false, 268),
+   new MM("superInit`ActorsForV8", true, 287),
+   new MM("instance`initializer", true, 288),
+   new MM("asInternalRef:", false, 289),
+   new MM("check:allowedIn:", false, 290),
+   new MM("createFarReferenceTo:in:for:", false, 291),
+   new MM("createRemotePromiseOf:in:for:", false, 292),
+   new MM("currentActor", false, 293),
+   new MM("isRef:", false, 294),
+   new MM("isValueObject:", false, 295),
+   new MM("wrapArgument:from:to:", false, 296),
+   new MM("wrapArguments:from:to:", false, 297),
    new MM("Actor", true, 0),
    new MM("DOMActor", true, 0),
    new MM("EventualSendReactor", true, 0),
@@ -4247,8 +4806,8 @@ var mixins = new function () {
   this.$instance$initializer = function ($p) {
    var self = this;
    self._$superInit$ActorsForV8($p);
-   $0.$init$WeakMap$(self, $p.$collections().$IdentityDictionary());
-   $0.$init$List$(self, $p.$collections().$OrderedCollection());
+   $0.$init$WeakMap$(self, $p.$collections().$IdentityMap());
+   $0.$init$List$(self, $p.$collections().$List());
    $0.$init$internalRefs$(self, $0.$WeakMap(self).$new());
    self._$init$Promise$(self._$PromiseUtils().$new());
    self._$init$defaultActor$(self._$DOMActor().$named$("Default actor"));
@@ -4781,15 +5340,15 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for ActorsForV8`Actor";
    this.name = "ActorsForV8`Actor";
-   this.header = 269;
+   this.header = 298;
    this.slots = [new SM("internalActor", false, false)];
    this.methods = [
-    new MM("superInit`ActorsForV8`Actor", true, 270),
-    new MM("instance`initializer", true, 271),
-    new MM("interrupt", false, 272),
-    new MM("onError:", false, 273),
-    new MM("seed:", false, 274),
-    new MM("terminate", false, 275),
+    new MM("superInit`ActorsForV8`Actor", true, 299),
+    new MM("instance`initializer", true, 300),
+    new MM("interrupt", false, 301),
+    new MM("onError:", false, 302),
+    new MM("seed:", false, 303),
+    new MM("terminate", false, 304),
     new MM("init`internalActor:", true, 0),
     new MM("internalActor", true, 0)
    ];
@@ -4894,12 +5453,12 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for ActorsForV8`DOMActor";
    this.name = "ActorsForV8`DOMActor";
-   this.header = 276;
+   this.header = 305;
    this.slots = [new SM("name", false, false)];
    this.methods = [
-    new MM("superInit`ActorsForV8`DOMActor", true, 277),
-    new MM("instance`initializer", true, 278),
-    new MM("enqueueMessage:", false, 279),
+    new MM("superInit`ActorsForV8`DOMActor", true, 306),
+    new MM("instance`initializer", true, 307),
+    new MM("enqueueMessage:", false, 308),
     new MM("init`name:", true, 0),
     new MM("name", true, 0)
    ];
@@ -4990,18 +5549,18 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for ActorsForV8`EventualSendReactor";
    this.name = "ActorsForV8`EventualSendReactor";
-   this.header = 280;
+   this.header = 309;
    this.slots = [
     new SM("selector", false, false),
     new SM("arguments", false, false),
     new SM("resolver", false, false)
    ];
    this.methods = [
-    new MM("superInit`ActorsForV8`EventualSendReactor", true, 281),
-    new MM("instance`initializer", true, 282),
-    new MM("reactBroken:", false, 283),
-    new MM("reactMoreResolved:", false, 284),
-    new MM("reactResolved:", false, 285),
+    new MM("superInit`ActorsForV8`EventualSendReactor", true, 310),
+    new MM("instance`initializer", true, 311),
+    new MM("reactBroken:", false, 312),
+    new MM("reactMoreResolved:", false, 313),
+    new MM("reactResolved:", false, 314),
     new MM("init`selector:", true, 0),
     new MM("selector", true, 0),
     new MM("init`arguments:", true, 0),
@@ -5140,13 +5699,13 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for ActorsForV8`InternalActor";
    this.name = "ActorsForV8`InternalActor";
-   this.header = 286;
+   this.header = 315;
    this.slots = [];
    this.methods = [
-    new MM("superInit`ActorsForV8`InternalActor", true, 287),
-    new MM("instance`initializer", true, 288),
-    new MM("currentActor", false, 289),
-    new MM("eventualSendTo:selector:arguments:", false, 290)
+    new MM("superInit`ActorsForV8`InternalActor", true, 316),
+    new MM("instance`initializer", true, 317),
+    new MM("currentActor", false, 318),
+    new MM("eventualSendTo:selector:arguments:", false, 319)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -5222,20 +5781,20 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for ActorsForV8`InternalBrokenRef";
    this.name = "ActorsForV8`InternalBrokenRef";
-   this.header = 291;
+   this.header = 320;
    this.slots = [new SM("problem", false, false)];
    this.methods = [
-    new MM("superInit`ActorsForV8`InternalBrokenRef", true, 292),
-    new MM("instance`initializer", true, 293),
-    new MM("addReactor:", false, 294),
-    new MM("checkCycle", false, 295),
-    new MM("eventualSend:arguments:", false, 296),
-    new MM("immediateSend:", false, 297),
-    new MM("printOn:", false, 298),
-    new MM("refPrintOn:", false, 299),
-    new MM("shorten", false, 300),
-    new MM("whenFulfilled:whenBroken:", false, 301),
-    new MM("wrapFor:", false, 302),
+    new MM("superInit`ActorsForV8`InternalBrokenRef", true, 321),
+    new MM("instance`initializer", true, 322),
+    new MM("addReactor:", false, 323),
+    new MM("checkCycle", false, 324),
+    new MM("eventualSend:arguments:", false, 325),
+    new MM("immediateSend:", false, 326),
+    new MM("printOn:", false, 327),
+    new MM("refPrintOn:", false, 328),
+    new MM("shorten", false, 329),
+    new MM("whenFulfilled:whenBroken:", false, 330),
+    new MM("wrapFor:", false, 331),
     new MM("init`problem:", true, 0),
     new MM("problem", true, 0)
    ];
@@ -5372,23 +5931,23 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for ActorsForV8`InternalFarReference";
    this.name = "ActorsForV8`InternalFarReference";
-   this.header = 303;
+   this.header = 332;
    this.slots = [
     new SM("target", false, false),
     new SM("targetsActor", false, false)
    ];
    this.methods = [
-    new MM("superInit`ActorsForV8`InternalFarReference", true, 304),
-    new MM("instance`initializer", true, 305),
-    new MM("addReactor:", false, 306),
-    new MM("checkCycle", false, 307),
-    new MM("eventualSend:arguments:", false, 308),
-    new MM("immediateSend:", false, 309),
-    new MM("printOn:", false, 310),
-    new MM("refPrintOn:", false, 311),
-    new MM("shorten", false, 312),
-    new MM("whenFulfilled:whenBroken:", false, 313),
-    new MM("wrapFor:", false, 314),
+    new MM("superInit`ActorsForV8`InternalFarReference", true, 333),
+    new MM("instance`initializer", true, 334),
+    new MM("addReactor:", false, 335),
+    new MM("checkCycle", false, 336),
+    new MM("eventualSend:arguments:", false, 337),
+    new MM("immediateSend:", false, 338),
+    new MM("printOn:", false, 339),
+    new MM("refPrintOn:", false, 340),
+    new MM("shorten", false, 341),
+    new MM("whenFulfilled:whenBroken:", false, 342),
+    new MM("wrapFor:", false, 343),
     new MM("init`target:", true, 0),
     new MM("target", true, 0),
     new MM("init`targetsActor:", true, 0),
@@ -5551,25 +6110,25 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for ActorsForV8`InternalLocalPromise";
    this.name = "ActorsForV8`InternalLocalPromise";
-   this.header = 315;
+   this.header = 344;
    this.slots = [
     new SM("state", true, false),
     new SM("resolution", true, false),
     new SM("reactors", true, false)
    ];
    this.methods = [
-    new MM("superInit`ActorsForV8`InternalLocalPromise", true, 316),
-    new MM("instance`initializer", true, 317),
-    new MM("addReactor:", false, 318),
-    new MM("checkCycle", false, 319),
-    new MM("eventualSend:arguments:", false, 320),
-    new MM("immediateSend:", false, 321),
-    new MM("internalResolve:", false, 322),
-    new MM("printOn:", false, 323),
-    new MM("refPrintOn:", false, 324),
-    new MM("shorten", false, 325),
-    new MM("whenFulfilled:whenBroken:", false, 326),
-    new MM("wrapFor:", false, 327),
+    new MM("superInit`ActorsForV8`InternalLocalPromise", true, 345),
+    new MM("instance`initializer", true, 346),
+    new MM("addReactor:", false, 347),
+    new MM("checkCycle", false, 348),
+    new MM("eventualSend:arguments:", false, 349),
+    new MM("immediateSend:", false, 350),
+    new MM("internalResolve:", false, 351),
+    new MM("printOn:", false, 352),
+    new MM("refPrintOn:", false, 353),
+    new MM("shorten", false, 354),
+    new MM("whenFulfilled:whenBroken:", false, 355),
+    new MM("wrapFor:", false, 356),
     new MM("init`state:", true, 0),
     new MM("state", true, 0),
     new MM("state:", true, 0),
@@ -5859,20 +6418,20 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for ActorsForV8`InternalNearRef";
    this.name = "ActorsForV8`InternalNearRef";
-   this.header = 328;
+   this.header = 357;
    this.slots = [new SM("target", false, false)];
    this.methods = [
-    new MM("superInit`ActorsForV8`InternalNearRef", true, 329),
-    new MM("instance`initializer", true, 330),
-    new MM("addReactor:", false, 331),
-    new MM("checkCycle", false, 332),
-    new MM("eventualSend:arguments:", false, 333),
-    new MM("immediateSend:", false, 334),
-    new MM("printOn:", false, 335),
-    new MM("refPrintOn:", false, 336),
-    new MM("shorten", false, 337),
-    new MM("whenFulfilled:whenBroken:", false, 338),
-    new MM("wrapFor:", false, 339),
+    new MM("superInit`ActorsForV8`InternalNearRef", true, 358),
+    new MM("instance`initializer", true, 359),
+    new MM("addReactor:", false, 360),
+    new MM("checkCycle", false, 361),
+    new MM("eventualSend:arguments:", false, 362),
+    new MM("immediateSend:", false, 363),
+    new MM("printOn:", false, 364),
+    new MM("refPrintOn:", false, 365),
+    new MM("shorten", false, 366),
+    new MM("whenFulfilled:whenBroken:", false, 367),
+    new MM("wrapFor:", false, 368),
     new MM("init`target:", true, 0),
     new MM("target", true, 0)
    ];
@@ -6016,21 +6575,21 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for ActorsForV8`InternalRef";
    this.name = "ActorsForV8`InternalRef";
-   this.header = 340;
+   this.header = 369;
    this.slots = [new SM("__owner", false, false)];
    this.methods = [
-    new MM("superInit`ActorsForV8`InternalRef", true, 341),
-    new MM("instance`initializer", true, 342),
-    new MM("checkCurrentActor", false, 343),
-    new MM("checkCycle", false, 344),
-    new MM("eventualSend:arguments:", false, 345),
-    new MM("externalRef", false, 346),
-    new MM("immediateSend:", false, 347),
-    new MM("isInternalRef", false, 348),
-    new MM("refPrintOn:", false, 349),
-    new MM("shorten", false, 350),
-    new MM("whenFulfilled:whenBroken:", false, 351),
-    new MM("wrapFor:", false, 352),
+    new MM("superInit`ActorsForV8`InternalRef", true, 370),
+    new MM("instance`initializer", true, 371),
+    new MM("checkCurrentActor", false, 372),
+    new MM("checkCycle", false, 373),
+    new MM("eventualSend:arguments:", false, 374),
+    new MM("externalRef", false, 375),
+    new MM("immediateSend:", false, 376),
+    new MM("isInternalRef", false, 377),
+    new MM("refPrintOn:", false, 378),
+    new MM("shorten", false, 379),
+    new MM("whenFulfilled:whenBroken:", false, 380),
+    new MM("wrapFor:", false, 381),
     new MM("init`__owner:", true, 0),
     new MM("__owner", true, 0)
    ];
@@ -6172,7 +6731,7 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for ActorsForV8`InternalRemotePromise";
    this.name = "ActorsForV8`InternalRemotePromise";
-   this.header = 353;
+   this.header = 382;
    this.slots = [
     new SM("target", false, false),
     new SM("targetsActor", false, false),
@@ -6180,19 +6739,19 @@ var mixins = new function () {
     new SM("resolution", true, false)
    ];
    this.methods = [
-    new MM("superInit`ActorsForV8`InternalRemotePromise", true, 354),
-    new MM("instance`initializer", true, 355),
-    new MM("addReactor:", false, 356),
-    new MM("checkCycle", false, 357),
-    new MM("eventualSend:arguments:", false, 358),
-    new MM("immediateSend:", false, 359),
-    new MM("internalResolve:", false, 360),
-    new MM("printOn:", false, 361),
-    new MM("redirectFrom:to:resolving:", false, 362),
-    new MM("refPrintOn:", false, 363),
-    new MM("shorten", false, 364),
-    new MM("whenFulfilled:whenBroken:", false, 365),
-    new MM("wrapFor:", false, 366),
+    new MM("superInit`ActorsForV8`InternalRemotePromise", true, 383),
+    new MM("instance`initializer", true, 384),
+    new MM("addReactor:", false, 385),
+    new MM("checkCycle", false, 386),
+    new MM("eventualSend:arguments:", false, 387),
+    new MM("immediateSend:", false, 388),
+    new MM("internalResolve:", false, 389),
+    new MM("printOn:", false, 390),
+    new MM("redirectFrom:to:resolving:", false, 391),
+    new MM("refPrintOn:", false, 392),
+    new MM("shorten", false, 393),
+    new MM("whenFulfilled:whenBroken:", false, 394),
+    new MM("wrapFor:", false, 395),
     new MM("init`target:", true, 0),
     new MM("target", true, 0),
     new MM("init`targetsActor:", true, 0),
@@ -6494,7 +7053,7 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for ActorsForV8`PendingDelivery";
    this.name = "ActorsForV8`PendingDelivery";
-   this.header = 367;
+   this.header = 396;
    this.slots = [
     new SM("receiver", false, false),
     new SM("selector", false, false),
@@ -6502,11 +7061,11 @@ var mixins = new function () {
     new SM("resolver", false, false)
    ];
    this.methods = [
-    new MM("superInit`ActorsForV8`PendingDelivery", true, 368),
-    new MM("instance`initializer", true, 369),
-    new MM("deliverIn:", false, 370),
-    new MM("postedTo:", false, 371),
-    new MM("printOn:", false, 372),
+    new MM("superInit`ActorsForV8`PendingDelivery", true, 397),
+    new MM("instance`initializer", true, 398),
+    new MM("deliverIn:", false, 399),
+    new MM("postedTo:", false, 400),
+    new MM("printOn:", false, 401),
     new MM("init`receiver:", true, 0),
     new MM("receiver", true, 0),
     new MM("init`selector:", true, 0),
@@ -6699,18 +7258,18 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for ActorsForV8`PromiseUtils";
    this.name = "ActorsForV8`PromiseUtils";
-   this.header = 373;
+   this.header = 402;
    this.slots = [];
    this.methods = [
-    new MM("superInit`ActorsForV8`PromiseUtils", true, 374),
-    new MM("instance`initializer", true, 375),
-    new MM("all:", false, 376),
-    new MM("broken:", false, 377),
-    new MM("fulfilled:", false, 378),
-    new MM("timeout:after:", false, 379),
-    new MM("when:fulfilled:", false, 380),
-    new MM("when:fulfilled:broken:", false, 381),
-    new MM("when:partitioned:", false, 382)
+    new MM("superInit`ActorsForV8`PromiseUtils", true, 403),
+    new MM("instance`initializer", true, 404),
+    new MM("all:", false, 405),
+    new MM("broken:", false, 406),
+    new MM("fulfilled:", false, 407),
+    new MM("timeout:after:", false, 408),
+    new MM("when:fulfilled:", false, 409),
+    new MM("when:fulfilled:broken:", false, 410),
+    new MM("when:partitioned:", false, 411)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -6820,18 +7379,18 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for ActorsForV8`RedirectReactor";
    this.name = "ActorsForV8`RedirectReactor";
-   this.header = 383;
+   this.header = 412;
    this.slots = [
     new SM("sourceActor", false, false),
     new SM("destinationActor", false, false),
     new SM("resolver", false, false)
    ];
    this.methods = [
-    new MM("superInit`ActorsForV8`RedirectReactor", true, 384),
-    new MM("instance`initializer", true, 385),
-    new MM("reactBroken:", false, 386),
-    new MM("reactMoreResolved:", false, 387),
-    new MM("reactResolved:", false, 388),
+    new MM("superInit`ActorsForV8`RedirectReactor", true, 413),
+    new MM("instance`initializer", true, 414),
+    new MM("reactBroken:", false, 415),
+    new MM("reactMoreResolved:", false, 416),
+    new MM("reactResolved:", false, 417),
     new MM("init`sourceActor:", true, 0),
     new MM("sourceActor", true, 0),
     new MM("init`destinationActor:", true, 0),
@@ -6974,15 +7533,15 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for ActorsForV8`Ref";
    this.name = "ActorsForV8`Ref";
-   this.header = 389;
+   this.header = 418;
    this.slots = [new SM("internalRef", false, false)];
    this.methods = [
-    new MM("superInit`ActorsForV8`Ref", true, 390),
-    new MM("instance`initializer", true, 391),
-    new MM("doesNotUnderstand:", false, 392),
-    new MM("isPromise", false, 393),
-    new MM("printOn:", false, 394),
-    new MM("yourself", false, 395),
+    new MM("superInit`ActorsForV8`Ref", true, 419),
+    new MM("instance`initializer", true, 420),
+    new MM("doesNotUnderstand:", false, 421),
+    new MM("isPromise", false, 422),
+    new MM("printOn:", false, 423),
+    new MM("yourself", false, 424),
     new MM("init`internalRef:", true, 0),
     new MM("internalRef", true, 0)
    ];
@@ -7097,17 +7656,17 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for ActorsForV8`Resolver";
    this.name = "ActorsForV8`Resolver";
-   this.header = 396;
+   this.header = 425;
    this.slots = [
     new SM("internalResolver", false, false),
     new SM("promise", false, false)
    ];
    this.methods = [
-    new MM("superInit`ActorsForV8`Resolver", true, 397),
-    new MM("instance`initializer", true, 398),
-    new MM("break:", false, 399),
-    new MM("fulfill:", false, 400),
-    new MM("isResolver", false, 401),
+    new MM("superInit`ActorsForV8`Resolver", true, 426),
+    new MM("instance`initializer", true, 427),
+    new MM("break:", false, 428),
+    new MM("fulfill:", false, 429),
+    new MM("isResolver", false, 430),
     new MM("init`internalResolver:", true, 0),
     new MM("internalResolver", true, 0),
     new MM("init`promise:", true, 0),
@@ -7214,12 +7773,12 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for ActorsForV8`Scheduler";
    this.name = "ActorsForV8`Scheduler";
-   this.header = 402;
+   this.header = 431;
    this.slots = [];
    this.methods = [
-    new MM("superInit`ActorsForV8`Scheduler", true, 403),
-    new MM("instance`initializer", true, 404),
-    new MM("eventualSendTo:selector:arguments:", false, 405)
+    new MM("superInit`ActorsForV8`Scheduler", true, 432),
+    new MM("instance`initializer", true, 433),
+    new MM("eventualSendTo:selector:arguments:", false, 434)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -7290,16 +7849,16 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for ActorsForV8`Timer";
    this.name = "ActorsForV8`Timer";
-   this.header = 406;
+   this.header = 435;
    this.slots = [new SM("cancelled", true, false)];
    this.methods = [
-    new MM("superInit`ActorsForV8`Timer", true, 407),
-    new MM("instance`initializer", true, 408),
-    new MM("cancel", false, 409),
-    new MM("isActive", false, 410),
-    new MM("isTimer", false, 411),
-    new MM("schedule:after:", false, 412),
-    new MM("schedule:every:", false, 413),
+    new MM("superInit`ActorsForV8`Timer", true, 436),
+    new MM("instance`initializer", true, 437),
+    new MM("cancel", false, 438),
+    new MM("isActive", false, 439),
+    new MM("isTimer", false, 440),
+    new MM("schedule:after:", false, 441),
+    new MM("schedule:every:", false, 442),
     new MM("init`cancelled:", true, 0),
     new MM("cancelled", true, 0),
     new MM("cancelled:", true, 0)
@@ -7406,8 +7965,8 @@ var mixins = new function () {
     this.slots = [];
     this.methods = [
      new MM("__duration:callback:repeating:", true, 0),
-     new MM("after:do:", false, 414),
-     new MM("every:do:", false, 415)
+     new MM("after:do:", false, 443),
+     new MM("every:do:", false, 444)
     ];
     this.nestedClasses = [];
     this.$__duration$callback$repeating$ = function ($milliseconds, $callback, $repeating) {
@@ -7447,18 +8006,18 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for ActorsForV8`WhenReactor";
    this.name = "ActorsForV8`WhenReactor";
-   this.header = 416;
+   this.header = 445;
    this.slots = [
     new SM("onValue", false, false),
     new SM("onError", false, false),
     new SM("resolver", false, false)
    ];
    this.methods = [
-    new MM("superInit`ActorsForV8`WhenReactor", true, 417),
-    new MM("instance`initializer", true, 418),
-    new MM("reactBroken:", false, 419),
-    new MM("reactMoreResolved:", false, 420),
-    new MM("reactResolved:", false, 421),
+    new MM("superInit`ActorsForV8`WhenReactor", true, 446),
+    new MM("instance`initializer", true, 447),
+    new MM("reactBroken:", false, 448),
+    new MM("reactMoreResolved:", false, 449),
+    new MM("reactResolved:", false, 450),
     new MM("init`onValue:", true, 0),
     new MM("onValue", true, 0),
     new MM("init`onError:", true, 0),
@@ -7778,19 +8337,19 @@ var mixins = new function () {
   var $0 = this;
   this.debug = "Runtime mixin for AliensForV8";
   this.name = "AliensForV8";
-  this.header = 422;
+  this.header = 451;
   this.slots = [
    new SM("global", false, false),
    new SM("AliensForV8`Alien", true, true),
    new SM("AliensForV8`Expat", true, true)
   ];
   this.methods = [
-   new MM("superInit`AliensForV8", true, 423),
-   new MM("instance`initializer", true, 424),
-   new MM("alienate:", false, 425),
-   new MM("copyUntilFirstColon:", false, 426),
-   new MM("expatriate:", false, 427),
-   new MM("expatriateBlock:", false, 428),
+   new MM("superInit`AliensForV8", true, 452),
+   new MM("instance`initializer", true, 453),
+   new MM("alienate:", false, 454),
+   new MM("copyUntilFirstColon:", false, 455),
+   new MM("expatriate:", false, 456),
+   new MM("expatriateBlock:", false, 457),
    new MM("Alien", true, 0),
    new MM("Expat", true, 0),
    new MM("init`global:", true, 0),
@@ -7991,23 +8550,23 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for AliensForV8`Alien";
    this.name = "AliensForV8`Alien";
-   this.header = 429;
+   this.header = 458;
    this.slots = [];
    this.methods = [
-    new MM("superInit`AliensForV8`Alien", true, 430),
-    new MM("instance`initializer", true, 431),
-    new MM("applyConstructorUsingEval:", false, 432),
-    new MM("at:", false, 433),
-    new MM("at:put:", false, 434),
-    new MM("doesNotUnderstand:", false, 435),
-    new MM("isAlien", false, 436),
-    new MM("isExpat", false, 437),
-    new MM("isUndefined", false, 438),
-    new MM("printString", false, 439),
-    new MM("value", false, 440),
-    new MM("value:", false, 441),
-    new MM("value:value:", false, 442),
-    new MM("value:value:value:", false, 443)
+    new MM("superInit`AliensForV8`Alien", true, 459),
+    new MM("instance`initializer", true, 460),
+    new MM("applyConstructorUsingEval:", false, 461),
+    new MM("at:", false, 462),
+    new MM("at:put:", false, 463),
+    new MM("doesNotUnderstand:", false, 464),
+    new MM("isAlien", false, 465),
+    new MM("isExpat", false, 466),
+    new MM("isUndefined", false, 467),
+    new MM("printString", false, 468),
+    new MM("value", false, 469),
+    new MM("value:", false, 470),
+    new MM("value:value:", false, 471),
+    new MM("value:value:value:", false, 472)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -8183,14 +8742,14 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for AliensForV8`Expat";
    this.name = "AliensForV8`Expat";
-   this.header = 444;
+   this.header = 473;
    this.slots = [new SM("_nsTarget", false, false)];
    this.methods = [
-    new MM("superInit`AliensForV8`Expat", true, 445),
-    new MM("instance`initializer", true, 446),
-    new MM("doesNotUnderstand:", false, 447),
-    new MM("isAlien", false, 448),
-    new MM("isExpat", false, 449),
+    new MM("superInit`AliensForV8`Expat", true, 474),
+    new MM("instance`initializer", true, 475),
+    new MM("doesNotUnderstand:", false, 476),
+    new MM("isAlien", false, 477),
+    new MM("isExpat", false, 478),
     new MM("init`_nsTarget:", true, 0),
     new MM("_nsTarget", true, 0)
    ];
@@ -8364,25 +8923,20 @@ var mixins = new function () {
   var $0 = this;
   this.debug = "Runtime mixin for Collections";
   this.name = "Collections";
-  this.header = 450;
+  this.header = 479;
   this.slots = [
    new SM("MutableAddableList", false, false),
-   new SM("OrderedCollection", false, false),
-   new SM("Dictionary", false, false),
-   new SM("IdentityDictionary", false, false),
-   new SM("SortedCollection", false, false),
    new SM("ListReadStream", false, false),
    new SM("ListReadWriteStream", false, false),
    new SM("WeakArray", false, false),
+   new SM("Collections`AbstractList", true, true),
    new SM("Collections`AddableList", true, true),
    new SM("Collections`Association", true, true),
-   new SM("Collections`Bag", true, true),
    new SM("Collections`Collection", true, true),
    new SM("Collections`HashedCollection", true, true),
    new SM("Collections`IdentityMutableHashedMap", true, true),
    new SM("Collections`IdentitySet", true, true),
    new SM("Collections`Interval", true, true),
-   new SM("Collections`List", true, true),
    new SM("Collections`MutableArrayList", true, true),
    new SM("Collections`MutableHashedMap", true, true),
    new SM("Collections`MutableList", true, true),
@@ -8390,17 +8944,20 @@ var mixins = new function () {
    new SM("Collections`SortedList", true, true)
   ];
   this.methods = [
-   new MM("superInit`Collections", true, 451),
-   new MM("instance`initializer", true, 452),
+   new MM("superInit`Collections", true, 480),
+   new MM("instance`initializer", true, 481),
+   new MM("IdentityMap", false, 482),
+   new MM("List", false, 483),
+   new MM("Map", false, 484),
+   new MM("error:", false, 485),
+   new MM("AbstractList", true, 0),
    new MM("AddableList", true, 0),
    new MM("Association", true, 0),
-   new MM("Bag", true, 0),
    new MM("Collection", true, 0),
    new MM("HashedCollection", true, 0),
    new MM("IdentityMutableHashedMap", true, 0),
    new MM("IdentitySet", true, 0),
    new MM("Interval", true, 0),
-   new MM("List", true, 0),
    new MM("MutableArrayList", true, 0),
    new MM("MutableHashedMap", true, 0),
    new MM("MutableList", true, 0),
@@ -8408,29 +8965,21 @@ var mixins = new function () {
    new MM("SortedList", true, 0),
    new MM("init`MutableAddableList:", true, 0),
    new MM("MutableAddableList", true, 0),
-   new MM("init`OrderedCollection:", true, 0),
-   new MM("OrderedCollection", true, 0),
-   new MM("init`Dictionary:", true, 0),
-   new MM("Dictionary", true, 0),
-   new MM("init`IdentityDictionary:", true, 0),
-   new MM("IdentityDictionary", true, 0),
-   new MM("init`SortedCollection:", true, 0),
-   new MM("SortedCollection", true, 0),
    new MM("init`ListReadStream:", true, 0),
    new MM("ListReadStream", true, 0),
    new MM("init`ListReadWriteStream:", true, 0),
    new MM("ListReadWriteStream", true, 0),
    new MM("init`WeakArray:", true, 0),
    new MM("WeakArray", true, 0),
+   new MM("init`Collections`AbstractList:", true, 0),
+   new MM("Collections`AbstractList", true, 0),
+   new MM("Collections`AbstractList:", true, 0),
    new MM("init`Collections`AddableList:", true, 0),
    new MM("Collections`AddableList", true, 0),
    new MM("Collections`AddableList:", true, 0),
    new MM("init`Collections`Association:", true, 0),
    new MM("Collections`Association", true, 0),
    new MM("Collections`Association:", true, 0),
-   new MM("init`Collections`Bag:", true, 0),
-   new MM("Collections`Bag", true, 0),
-   new MM("Collections`Bag:", true, 0),
    new MM("init`Collections`Collection:", true, 0),
    new MM("Collections`Collection", true, 0),
    new MM("Collections`Collection:", true, 0),
@@ -8446,9 +8995,6 @@ var mixins = new function () {
    new MM("init`Collections`Interval:", true, 0),
    new MM("Collections`Interval", true, 0),
    new MM("Collections`Interval:", true, 0),
-   new MM("init`Collections`List:", true, 0),
-   new MM("Collections`List", true, 0),
-   new MM("Collections`List:", true, 0),
    new MM("init`Collections`MutableArrayList:", true, 0),
    new MM("Collections`MutableArrayList", true, 0),
    new MM("Collections`MutableArrayList:", true, 0),
@@ -8466,15 +9012,14 @@ var mixins = new function () {
    new MM("Collections`SortedList:", true, 0)
   ];
   this.nestedClasses = [
+   "Collections`AbstractList",
    "Collections`AddableList",
    "Collections`Association",
-   "Collections`Bag",
    "Collections`Collection",
    "Collections`HashedCollection",
    "Collections`IdentityMutableHashedMap",
    "Collections`IdentitySet",
    "Collections`Interval",
-   "Collections`List",
    "Collections`MutableArrayList",
    "Collections`MutableHashedMap",
    "Collections`MutableList",
@@ -8491,10 +9036,6 @@ var mixins = new function () {
    var self = this;
    self._$superInit$Collections($p);
    $0.$init$MutableAddableList$(self, self._$MutableList().$mixinApply$(self._$AddableList()));
-   self._$init$OrderedCollection$(self._$MutableArrayList());
-   self._$init$Dictionary$(self._$MutableHashedMap());
-   self._$init$IdentityDictionary$(self._$IdentityMutableHashedMap());
-   self._$init$SortedCollection$(self._$SortedList());
    $0.$init$ListReadStream$(self, $p.$streams().$SeqCltnReadStream());
    $0.$init$ListReadWriteStream$(self, $p.$streams().$SeqCltnReadWriteStream());
    self._$init$WeakArray$(self._$Future().$computing$(function () {
@@ -8502,10 +9043,36 @@ var mixins = new function () {
    }));
    return self;
   };
+  this.$IdentityMap = function () {
+   var self = this;
+   return self._$IdentityMutableHashedMap();
+  };
+  this.$List = function () {
+   var self = this;
+   return self._$MutableArrayList();
+  };
+  this.$Map = function () {
+   var self = this;
+   return self._$MutableHashedMap();
+  };
+  this.$error$ = function ($s) {
+   var self = this;
+   return self._$Error().$signal$($s);
+  };
+  this.$AbstractList = function () {
+   if (nil === this.$Collections$AbstractList$slot) {
+    var self = this;
+    var superclass = self._$Collection();
+    var enclosingObjects = [this].concat(this.$enclosingObjects$Collections);
+    var mixin = $.$Collections$AbstractList;
+    this.$Collections$AbstractList$slot = vmmirror.$applyMixin$toSuperclass$withEnclosingObjects$(mixin, superclass, enclosingObjects);
+   };
+   return this.$Collections$AbstractList$slot;
+  };
   this.$AddableList = function () {
    if (nil === this.$Collections$AddableList$slot) {
     var self = this;
-    var superclass = self._$List();
+    var superclass = self._$AbstractList();
     var enclosingObjects = [this].concat(this.$enclosingObjects$Collections);
     var mixin = $.$Collections$AddableList;
     this.$Collections$AddableList$slot = vmmirror.$applyMixin$toSuperclass$withEnclosingObjects$(mixin, superclass, enclosingObjects);
@@ -8521,16 +9088,6 @@ var mixins = new function () {
     this.$Collections$Association$slot = vmmirror.$applyMixin$toSuperclass$withEnclosingObjects$(mixin, superclass, enclosingObjects);
    };
    return this.$Collections$Association$slot;
-  };
-  this.$Bag = function () {
-   if (nil === this.$Collections$Bag$slot) {
-    var self = this;
-    var superclass = self._$Collection();
-    var enclosingObjects = [this].concat(this.$enclosingObjects$Collections);
-    var mixin = $.$Collections$Bag;
-    this.$Collections$Bag$slot = vmmirror.$applyMixin$toSuperclass$withEnclosingObjects$(mixin, superclass, enclosingObjects);
-   };
-   return this.$Collections$Bag$slot;
   };
   this.$Collection = function () {
    if (nil === this.$Collections$Collection$slot) {
@@ -8575,22 +9132,12 @@ var mixins = new function () {
   this.$Interval = function () {
    if (nil === this.$Collections$Interval$slot) {
     var self = this;
-    var superclass = self._$List();
+    var superclass = self._$AbstractList();
     var enclosingObjects = [this].concat(this.$enclosingObjects$Collections);
     var mixin = $.$Collections$Interval;
     this.$Collections$Interval$slot = vmmirror.$applyMixin$toSuperclass$withEnclosingObjects$(mixin, superclass, enclosingObjects);
    };
    return this.$Collections$Interval$slot;
-  };
-  this.$List = function () {
-   if (nil === this.$Collections$List$slot) {
-    var self = this;
-    var superclass = self._$Collection();
-    var enclosingObjects = [this].concat(this.$enclosingObjects$Collections);
-    var mixin = $.$Collections$List;
-    this.$Collections$List$slot = vmmirror.$applyMixin$toSuperclass$withEnclosingObjects$(mixin, superclass, enclosingObjects);
-   };
-   return this.$Collections$List$slot;
   };
   this.$MutableArrayList = function () {
    if (nil === this.$Collections$MutableArrayList$slot) {
@@ -8615,7 +9162,7 @@ var mixins = new function () {
   this.$MutableList = function () {
    if (nil === this.$Collections$MutableList$slot) {
     var self = this;
-    var superclass = self._$List();
+    var superclass = self._$AbstractList();
     var enclosingObjects = [this].concat(this.$enclosingObjects$Collections);
     var mixin = $.$Collections$MutableList;
     this.$Collections$MutableList$slot = vmmirror.$applyMixin$toSuperclass$withEnclosingObjects$(mixin, superclass, enclosingObjects);
@@ -8649,34 +9196,6 @@ var mixins = new function () {
   this.$MutableAddableList = function (self) {
    return self.$MutableAddableList$slot;
   };
-  this.$init$OrderedCollection$ = function (v) {
-   this.$OrderedCollection$slot = v;
-   return this;
-  };
-  this.$OrderedCollection = function () {
-   return this.$OrderedCollection$slot;
-  };
-  this.$init$Dictionary$ = function (v) {
-   this.$Dictionary$slot = v;
-   return this;
-  };
-  this.$Dictionary = function () {
-   return this.$Dictionary$slot;
-  };
-  this.$init$IdentityDictionary$ = function (v) {
-   this.$IdentityDictionary$slot = v;
-   return this;
-  };
-  this.$IdentityDictionary = function () {
-   return this.$IdentityDictionary$slot;
-  };
-  this.$init$SortedCollection$ = function (v) {
-   this.$SortedCollection$slot = v;
-   return this;
-  };
-  this.$SortedCollection = function () {
-   return this.$SortedCollection$slot;
-  };
   this.$init$ListReadStream$ = function (self, v) {
    self.$ListReadStream$slot = v;
    return self;
@@ -8698,6 +9217,17 @@ var mixins = new function () {
   this.$WeakArray = function () {
    return this.$WeakArray$slot;
   };
+  this.$init$Collections$AbstractList$ = function (v) {
+   this.$Collections$AbstractList$slot = v;
+   return this;
+  };
+  this.$Collections$AbstractList = function () {
+   return this.$Collections$AbstractList$slot;
+  };
+  this.$Collections$AbstractList$ = function (v) {
+   this.$Collections$AbstractList$slot = v;
+   return this;
+  };
   this.$init$Collections$AddableList$ = function (v) {
    this.$Collections$AddableList$slot = v;
    return this;
@@ -8718,17 +9248,6 @@ var mixins = new function () {
   };
   this.$Collections$Association$ = function (v) {
    this.$Collections$Association$slot = v;
-   return this;
-  };
-  this.$init$Collections$Bag$ = function (v) {
-   this.$Collections$Bag$slot = v;
-   return this;
-  };
-  this.$Collections$Bag = function () {
-   return this.$Collections$Bag$slot;
-  };
-  this.$Collections$Bag$ = function (v) {
-   this.$Collections$Bag$slot = v;
    return this;
   };
   this.$init$Collections$Collection$ = function (v) {
@@ -8786,17 +9305,6 @@ var mixins = new function () {
    this.$Collections$Interval$slot = v;
    return this;
   };
-  this.$init$Collections$List$ = function (v) {
-   this.$Collections$List$slot = v;
-   return this;
-  };
-  this.$Collections$List = function () {
-   return this.$Collections$List$slot;
-  };
-  this.$Collections$List$ = function (v) {
-   this.$Collections$List$slot = v;
-   return this;
-  };
   this.$init$Collections$MutableArrayList$ = function (v) {
    this.$Collections$MutableArrayList$slot = v;
    return this;
@@ -8852,3027 +9360,84 @@ var mixins = new function () {
    this.$Collections$SortedList$slot = v;
    return this;
   };
-  this.$Collections$AddableList = new function () {
+  this.$Collections$AbstractList = new function () {
    var $ = this;
    var $1 = this;
-   this.debug = "Runtime mixin for Collections`AddableList";
-   this.name = "Collections`AddableList";
-   this.header = 453;
-   this.slots = [
-    new SM("contents", true, false),
-    new SM("startGap", true, false),
-    new SM("lastIndex", true, false)
-   ];
+   this.debug = "Runtime mixin for Collections`AbstractList";
+   this.name = "Collections`AbstractList";
+   this.header = 486;
+   this.slots = [];
    this.methods = [
-    new MM("superInit`Collections`AddableList", true, 454),
-    new MM("instance`initializer", true, 455),
-    new MM("add:", false, 456),
-    new MM("addAll:", false, 457),
-    new MM("at:", false, 458),
-    new MM("at:ifAbsent:", false, 459),
-    new MM("includeAll:", false, 460),
-    new MM("indexOf:ifAbsent:", false, 461),
-    new MM("remove:at:", false, 462),
-    new MM("remove:ifAbsent:", false, 463),
-    new MM("removeAll", false, 464),
-    new MM("removeAll:", false, 465),
-    new MM("removeAt:", false, 466),
-    new MM("removeEvery:", false, 467),
-    new MM("removeEvery:startingAt:", false, 468),
-    new MM("removeFirst", false, 469),
-    new MM("removeLast", false, 470),
-    new MM("size", false, 471),
-    new MM("size:", false, 472),
-    new MM("include:", false, 473),
-    new MM("include:ifNew:", false, 474),
-    new MM("remove:", false, 475),
-    new MM("removeAllSuchThat:", false, 476),
-    new MM("makeSpaceAtStart:", false, 477),
-    new MM("copyWithSize:", false, 478),
-    new MM("initCapacity:", false, 479),
-    new MM("do:", false, 480),
-    new MM("endGap", false, 481),
-    new MM("firstIndex", false, 482),
-    new MM("internalIndexIsValid:", false, 483),
-    new MM("internalRangeCheck:", false, 484),
-    new MM("makeSpace:beforeIndex:", false, 485),
-    new MM("needSpaceAtEnd:", false, 486),
-    new MM("needSpaceAtStart:", false, 487),
-    new MM("postCopy", false, 488),
-    new MM("init`contents:", true, 0),
-    new MM("contents", true, 0),
-    new MM("contents:", true, 0),
-    new MM("init`startGap:", true, 0),
-    new MM("startGap", true, 0),
-    new MM("startGap:", true, 0),
-    new MM("init`lastIndex:", true, 0),
-    new MM("lastIndex", true, 0),
-    new MM("lastIndex:", true, 0)
+    new MM("superInit`Collections`AbstractList", true, 487),
+    new MM("instance`initializer", true, 488),
+    new MM(",", false, 489),
+    new MM("allButFirst", false, 490),
+    new MM("allButLast", false, 491),
+    new MM("at:", false, 492),
+    new MM("at:ifAbsent:", false, 493),
+    new MM("binarySearchFor:between:and:toCompare:", false, 494),
+    new MM("binarySearchFor:toCompare:", false, 495),
+    new MM("collect:", false, 496),
+    new MM("collectUsingAtPut:", false, 497),
+    new MM("collection:matchesElementsAt:", false, 498),
+    new MM("copyFrom:to:", false, 499),
+    new MM("copyReplaceAll:with:", false, 500),
+    new MM("copyReplaceFrom:to:with:", false, 501),
+    new MM("copyWith:", false, 502),
+    new MM("copyWithSize:", false, 503),
+    new MM("copyWithout:", false, 504),
+    new MM("do:", false, 505),
+    new MM("doWithIndex:", false, 506),
+    new MM("findFirst:", false, 507),
+    new MM("findLast:", false, 508),
+    new MM("first", false, 509),
+    new MM("hasSameElementsAndOrderAs:", false, 510),
+    new MM("hash", false, 511),
+    new MM("hashAt:", false, 512),
+    new MM("includesIndex:", false, 513),
+    new MM("indexOf:", false, 514),
+    new MM("indexOf:ifAbsent:", false, 515),
+    new MM("indexOfSubCollection:startingAt:", false, 516),
+    new MM("indexOfSubCollection:startingAt:ifAbsent:", false, 517),
+    new MM("indicesOfSubCollection:", false, 518),
+    new MM("indicesOfSubCollection:startingAt:", false, 519),
+    new MM("isKindOfList", false, 520),
+    new MM("isSequenceable", false, 521),
+    new MM("isSortedBy:", false, 522),
+    new MM("keysAndValuesDo:", false, 523),
+    new MM("last", false, 524),
+    new MM("newCopyOfSize:thatCanAlsoHoldElementsOf:", false, 525),
+    new MM("newForCollectUsingAtPut:", false, 526),
+    new MM("readStream", false, 527),
+    new MM("reverse", false, 528),
+    new MM("reverseDo:", false, 529),
+    new MM("size", false, 530),
+    new MM("species", false, 531),
+    new MM("with:do:", false, 532)
    ];
    this.nestedClasses = [];
    this.applications = [];
-   this.$superInit$Collections$AddableList = function () {
+   this.$superInit$Collections$AbstractList = function () {
     var self = this;
-    self.$super$Collections$AddableList$slot._$instance$initializer.call(self);
+    self.$super$Collections$AbstractList$slot._$instance$initializer.call(self);
     return self;
    };
    this.$instance$initializer = function () {
     var self = this;
-    self._$superInit$Collections$AddableList();
-    self._$initCapacity$(self._$class().$defaultCapacity());
+    self._$superInit$Collections$AbstractList();
     return self;
    };
-   this.$add$ = function ($e) {
+   this.$$comma = function ($other) {
     var self = this;
-    self._$subclassResponsibility();
-    return self;
-   };
-   this.$addAll$ = function ($c) {
-    var self = this;
-    $c.$do$(function ($el) {
-     return self._$add$($el);
-    });
-    return $c;
-   };
-   this.$at$ = function ($i) {
-    var self = this;
-    var $adjusted = nil;
-    $adjusted = $i + self._$startGap();
-    if (!((0 < $i) && $adjusted.$$less$equal(self._$lastIndex()))) {
-     self._$error$("invalid index");
-    } else {
-     nil;
-    };
-    return self._$contents().$at$($adjusted);
-   };
-   this.$at$ifAbsent$ = function ($i, $f) {
-    var self = this;
-    var $internal = nil;
-    $internal = $i + self._$startGap();
-    return self._$internalIndexIsValid$($internal).$ifTrue$ifFalse$(function () {
-     return self._$contents().$at$($internal);
-    }, function () {
-     return $f.$value();
-    });
-   };
-   this.$includeAll$ = function ($c) {
-    var self = this;
-    $c.$do$(function ($el) {
-     return self._$include$($el);
-    });
-    return $c;
-   };
-   this.$indexOf$ifAbsent$ = function ($el, $f) {
-    var self = this;
-    {
-     var $$limit = nil;
-     var $i = nil;
-     nil;
-     $i = 1;
-     $$limit = self._$size();
-     for (; $$limit.$$greater$equal($i); ) {
-      if (self._$at$($i).$$equal($el)) {
-       return $i;
-      } else {
-       nil;
-      };
-      $i = (1).$$plus($i);
-     };
-    };
-    return $f.$value();
-   };
-   this.$remove$at$ = function ($nElements, $i) {
-    var self = this;
-    var $el = nil;
-    var $internal = nil;
-    $el = self._$at$($i);
-    $internal = self._$startGap() + $i;
-    self._$internalRangeCheck$($internal);
-    self._$internalRangeCheck$(($internal + $nElements) - 1);
-    {
-     var $$limit = nil;
-     var $index = nil;
-     nil;
-     $index = $internal;
-     $$limit = self._$lastIndex() - $nElements;
-     for (; $$limit.$$greater$equal($index); ) {
-      self._$contents().$at$put$($index, self._$contents().$at$($index + $nElements));
-      $index = (1).$$plus($index);
-     };
-    };
-    self._$contents().$at$put$(self._$lastIndex(), nil);
-    self._$lastIndex$(self._$lastIndex() - $nElements);
-    return self;
-   };
-   this.$remove$ifAbsent$ = function ($el, $f) {
-    var self = this;
-    var NLR = new Object();
-    try {
-     self._$removeAt$(self._$indexOf$ifAbsent$($el, function () {
-      {
-       NLR.value = $f.$value();
-       throw NLR;
-      };
-     }));
-     return $el;
-    } catch (NLR_exception) {
-     if (NLR === NLR_exception) {
-      return NLR_exception.value;
-     } else {
-      throw NLR_exception;
-     };
-    };
-   };
-   this.$removeAll = function () {
-    var self = this;
-    {
-     var $$limit = nil;
-     var $i = nil;
-     nil;
-     $i = self._$startGap() + 1;
-     $$limit = self._$lastIndex();
-     for (; $$limit.$$greater$equal($i); ) {
-      self._$contents().$at$put$($i, nil);
-      $i = (1).$$plus($i);
-     };
-    };
-    self._$lastIndex$(self._$startGap());
-    return self;
-   };
-   this.$removeAll$ = function ($c) {
-    var self = this;
-    $c.$do$(function ($el) {
-     return self._$remove$($el);
-    });
-    return $c;
-   };
-   this.$removeAt$ = function ($index) {
-    var self = this;
-    var $el = nil;
-    $el = self._$at$($index);
-    self._$remove$at$(1, $index);
-    return $el;
-   };
-   this.$removeEvery$ = function ($val) {
-    var self = this;
-    return self._$removeEvery$startingAt$($val, 1);
-   };
-   this.$removeEvery$startingAt$ = function ($val, $start) {
-    var self = this;
-    var NLR = new Object();
-    try {
-     var $index = nil;
-     $index = self._$indexOf$ifAbsent$($val, function () {
-      {
-       NLR.value = $val;
-       throw NLR;
-      };
-     });
-     self._$removeAt$($index);
-     return self._$removeEvery$startingAt$($val, $index);
-    } catch (NLR_exception) {
-     if (NLR === NLR_exception) {
-      return NLR_exception.value;
-     } else {
-      throw NLR_exception;
-     };
-    };
-   };
-   this.$removeFirst = function () {
-    var self = this;
-    return self._$removeAt$(1);
-   };
-   this.$removeLast = function () {
-    var self = this;
-    return self._$removeAt$(self._$size());
-   };
-   this.$size = function () {
-    var self = this;
-    return self._$lastIndex() - self._$startGap();
-   };
-   this.$size$ = function ($s) {
-    var self = this;
-    var $delta = nil;
-    var $newLastIndex = nil;
-    $delta = $s - self._$size();
-    $newLastIndex = self._$lastIndex() + $delta;
-    if ($delta < 0) {
-     {
-      var $$limit = nil;
-      var $i = nil;
-      nil;
-      $i = $newLastIndex + 1;
-      $$limit = self._$lastIndex();
-      for (; $$limit.$$greater$equal($i); ) {
-       self._$contents().$at$put$($i, nil);
-       $i = (1).$$plus($i);
-      };
-     };
-    } else {
-     nil;
-    };
-    if ($delta > 0) {
-     self._$needSpaceAtEnd$($delta);
-    } else {
-     nil;
-    };
-    self._$lastIndex$(self._$lastIndex() + $delta);
-    return self;
-   };
-   this.$include$ = function ($e) {
-    var self = this;
-    return self._$include$ifNew$($e, function () {
-     return nil;
-    });
-   };
-   this.$include$ifNew$ = function ($e, $blk) {
-    var self = this;
-    if (!self._$includes$($e)) {
-     self._$add$($e);
-     $blk.$value();
-    } else {
-     nil;
-    };
-    return $e;
-   };
-   this.$remove$ = function ($el) {
-    var self = this;
-    return self._$remove$ifAbsent$($el, function () {
-     return self._$error$("element not found");
-    });
-   };
-   this.$removeAllSuchThat$ = function ($test) {
-    var self = this;
-    var $i = nil;
-    $i = 1;
-    {
-     nil;
-     for (; $i.$$less$equal(self._$size()); ) {
-      if ($test.$value$(self._$at$($i))) {
-       self._$removeAt$($i);
-      } else {
-       $i = $i + 1;
-      };
-     };
-    };
-    return self;
-   };
-   this.$makeSpaceAtStart$ = function ($nslots) {
-    var self = this;
-    var $newGap = nil;
-    var $diff = nil;
-    var $newContents = nil;
-    var $sz = nil;
-    var $newLastIndex = nil;
-    if (self._$isEmpty() && $nslots.$$less$equal(self._$contents().$size())) {
-     self._$startGap$($nslots);
-     self._$lastIndex$($nslots);
-     return $nslots;
-    } else {
-     nil;
-    };
-    $sz = self._$size();
-    $newGap = $nslots.$max$($sz);
-    $diff = $newGap - self._$startGap();
-    $newLastIndex = $newGap + $sz;
-    $newContents = self._$Array().$new$(self._$contents().$size() + $diff);
-    $newContents.$replaceFrom$to$with$startingAt$($newGap + 1, $newLastIndex, self._$contents(), self._$firstIndex());
-    self._$startGap$($newGap);
-    self._$contents$($newContents);
-    self._$lastIndex$($newLastIndex);
-    return $diff;
-   };
-   this.$copyWithSize$ = function ($s) {
-    var self = this;
-    var $safeself = nil;
-    $safeself = self;
-    return self._$Array().$new$($s).$replaceFrom$to$with$(1, $s.$min$(self._$size()), $safeself);
-   };
-   this.$initCapacity$ = function ($c) {
-    var self = this;
-    self._$contents$(self._$Array().$new$($c));
-    self._$startGap$(0);
-    self._$lastIndex$(0);
-    return self;
-   };
-   this.$do$ = function ($action) {
-    var self = this;
-    {
-     var $$limit = nil;
-     var $index = nil;
-     nil;
-     $index = self._$startGap() + 1;
-     $$limit = self._$lastIndex();
-     for (; $$limit.$$greater$equal($index); ) {
-      $action.$value$(self._$contents().$at$($index));
-      $index = (1).$$plus($index);
-     };
-    };
-    return self;
-   };
-   this.$endGap = function () {
-    var self = this;
-    return self._$contents().$size() - self._$lastIndex();
-   };
-   this.$firstIndex = function () {
-    var self = this;
-    return 1 + self._$startGap();
-   };
-   this.$internalIndexIsValid$ = function ($index) {
-    var self = this;
-    return $index.$$greater(self._$startGap()) && $index.$$less$equal(self._$lastIndex());
-   };
-   this.$internalRangeCheck$ = function ($index) {
-    var self = this;
-    if (!self._$internalIndexIsValid$($index)) {
-     self._$error$("invalid index");
-    } else {
-     nil;
-    };
-    return self;
-   };
-   this.$makeSpace$beforeIndex$ = function ($slots, $i) {
-    var self = this;
-    return (($i - self._$startGap()) - 1).$$greater((self._$lastIndex() - $i) + 1).$ifTrue$ifFalse$(function () {
-     self._$needSpaceAtEnd$($slots);
-     self._$contents().$replaceFrom$to$with$startingAt$($i + $slots, self._$lastIndex() + $slots, self._$contents(), $i);
-     self._$lastIndex$(self._$lastIndex() + $slots);
-     return $i;
-    }, function () {
-     var $newI = nil;
-     $newI = ($i + self._$needSpaceAtStart$($slots)) - $slots;
-     self._$contents().$replaceFrom$to$with$startingAt$((self._$startGap() + 1) - $slots, $newI - 1, self._$contents(), self._$startGap() + 1);
-     self._$startGap$(self._$startGap() - $slots);
-     return $newI;
-    });
-   };
-   this.$needSpaceAtEnd$ = function ($slots) {
-    var self = this;
-    if ($slots.$$greater(self._$endGap())) {
-     self._$contents$(self._$contents().$copyWithSize$(self._$contents().$size() + $slots.$max$(self._$size())));
-    } else {
-     nil;
-    };
-    return self;
-   };
-   this.$needSpaceAtStart$ = function ($nslots) {
-    var self = this;
-    return $nslots.$$greater(self._$startGap()).$ifTrue$ifFalse$(function () {
-     return self._$makeSpaceAtStart$($nslots);
-    }, function () {
-     return 0;
-    });
-   };
-   this.$postCopy = function () {
-    var self = this;
-    self.$super$Collections$AddableList$slot._$postCopy.call(self);
-    self._$contents$(self._$contents().$copyWithSize$(self._$contents().$size().$max$(self._$lastIndex())));
-    return self;
-   };
-   this.$init$contents$ = function (v) {
-    this.$contents$slot = v;
-    return this;
-   };
-   this.$contents = function () {
-    return this.$contents$slot;
-   };
-   this.$contents$ = function (v) {
-    this.$contents$slot = v;
-    return this;
-   };
-   this.$init$startGap$ = function (v) {
-    this.$startGap$slot = v;
-    return this;
-   };
-   this.$startGap = function () {
-    return this.$startGap$slot;
-   };
-   this.$startGap$ = function (v) {
-    this.$startGap$slot = v;
-    return this;
-   };
-   this.$init$lastIndex$ = function (v) {
-    this.$lastIndex$slot = v;
-    return this;
-   };
-   this.$lastIndex = function () {
-    return this.$lastIndex$slot;
-   };
-   this.$lastIndex$ = function (v) {
-    this.$lastIndex$slot = v;
-    return this;
-   };
-   this.invoke = function (runtimeSuperclass, enclosingObjects) {
-    function constructRuntimeClass (superBasicNew) {
-     this.debug = "Runtime class for Collections`AddableList";
-     this._$superInit$Collections$AddableList = $.$superInit$Collections$AddableList;
-     this.$superInit$Collections$AddableList = dnuCatcher("$superInit$Collections$AddableList");
-     this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
-     this.$add$ = this._$add$ = $.$add$;
-     this.$addAll$ = this._$addAll$ = $.$addAll$;
-     this.$at$ = this._$at$ = $.$at$;
-     this.$at$ifAbsent$ = this._$at$ifAbsent$ = $.$at$ifAbsent$;
-     this.$includeAll$ = this._$includeAll$ = $.$includeAll$;
-     this.$indexOf$ifAbsent$ = this._$indexOf$ifAbsent$ = $.$indexOf$ifAbsent$;
-     this.$remove$at$ = this._$remove$at$ = $.$remove$at$;
-     this.$remove$ifAbsent$ = this._$remove$ifAbsent$ = $.$remove$ifAbsent$;
-     this.$removeAll = this._$removeAll = $.$removeAll;
-     this.$removeAll$ = this._$removeAll$ = $.$removeAll$;
-     this.$removeAt$ = this._$removeAt$ = $.$removeAt$;
-     this.$removeEvery$ = this._$removeEvery$ = $.$removeEvery$;
-     this.$removeEvery$startingAt$ = this._$removeEvery$startingAt$ = $.$removeEvery$startingAt$;
-     this.$removeFirst = this._$removeFirst = $.$removeFirst;
-     this.$removeLast = this._$removeLast = $.$removeLast;
-     this.$size = this._$size = $.$size;
-     this.$size$ = this._$size$ = $.$size$;
-     this.$include$ = this._$include$ = $.$include$;
-     this.$include$ifNew$ = this._$include$ifNew$ = $.$include$ifNew$;
-     this.$remove$ = this._$remove$ = $.$remove$;
-     this.$removeAllSuchThat$ = this._$removeAllSuchThat$ = $.$removeAllSuchThat$;
-     this._$makeSpaceAtStart$ = $.$makeSpaceAtStart$;
-     this.$makeSpaceAtStart$ = dnuCatcher("$makeSpaceAtStart$");
-     this.$copyWithSize$ = this._$copyWithSize$ = $.$copyWithSize$;
-     this.$initCapacity$ = this._$initCapacity$ = $.$initCapacity$;
-     this.$do$ = this._$do$ = $.$do$;
-     this._$endGap = $.$endGap;
-     this.$endGap = dnuCatcher("$endGap");
-     this._$firstIndex = $.$firstIndex;
-     this.$firstIndex = dnuCatcher("$firstIndex");
-     this._$internalIndexIsValid$ = $.$internalIndexIsValid$;
-     this.$internalIndexIsValid$ = dnuCatcher("$internalIndexIsValid$");
-     this._$internalRangeCheck$ = $.$internalRangeCheck$;
-     this.$internalRangeCheck$ = dnuCatcher("$internalRangeCheck$");
-     this._$makeSpace$beforeIndex$ = $.$makeSpace$beforeIndex$;
-     this.$makeSpace$beforeIndex$ = dnuCatcher("$makeSpace$beforeIndex$");
-     this._$needSpaceAtEnd$ = $.$needSpaceAtEnd$;
-     this.$needSpaceAtEnd$ = dnuCatcher("$needSpaceAtEnd$");
-     this._$needSpaceAtStart$ = $.$needSpaceAtStart$;
-     this.$needSpaceAtStart$ = dnuCatcher("$needSpaceAtStart$");
-     this.$postCopy = this._$postCopy = $.$postCopy;
-     this._$init$contents$ = $.$init$contents$;
-     this.$init$contents$ = dnuCatcher("$init$contents$");
-     this._$contents = $.$contents;
-     this.$contents = dnuCatcher("$contents");
-     this._$contents$ = $.$contents$;
-     this.$contents$ = dnuCatcher("$contents$");
-     this._$init$startGap$ = $.$init$startGap$;
-     this.$init$startGap$ = dnuCatcher("$init$startGap$");
-     this._$startGap = $.$startGap;
-     this.$startGap = dnuCatcher("$startGap");
-     this._$startGap$ = $.$startGap$;
-     this.$startGap$ = dnuCatcher("$startGap$");
-     this._$init$lastIndex$ = $.$init$lastIndex$;
-     this.$init$lastIndex$ = dnuCatcher("$init$lastIndex$");
-     this._$lastIndex = $.$lastIndex;
-     this.$lastIndex = dnuCatcher("$lastIndex");
-     this._$lastIndex$ = $.$lastIndex$;
-     this.$lastIndex$ = dnuCatcher("$lastIndex$");
-     this.$enclosingObjects$Collections$AddableList = enclosingObjects;
-     this.$super$Collections$AddableList$slot = runtimeSuperclass;
-     this["Collections`AddableList"] = function () {
-      superBasicNew.call(this);
-      this.$contents$slot = nil;
-      this.$startGap$slot = nil;
-      this.$lastIndex$slot = nil;
-     };
-     this.basicNew = this["Collections`AddableList"];
-     this.basicNew.prototype = this;
-     this.meta = null;
-     this.newspeakClass = null;
-    };
-    constructRuntimeClass.prototype = runtimeSuperclass;
-    return new constructRuntimeClass(runtimeSuperclass.basicNew);
-   };
-   this.meta = new function () {
-    var $ = this;
-    this.debug = "Runtime meta mixin for Collections`AddableList";
-    this.slots = [];
-    this.methods = [
-     new MM("new", true, 0),
-     new MM("defaultCapacity", false, 489),
-     new MM("new:", false, 490),
-     new MM("with:", false, 491),
-     new MM("withAll:", false, 492)
-    ];
-    this.nestedClasses = [];
-    this.$new = function () {
-     return (new this.nonMeta.basicNew()).$instance$initializer();
-    };
-    this.$defaultCapacity = function () {
-     var self = this;
-     return 5;
-    };
-    this.$new$ = function ($capacity) {
-     var self = this;
-     return self._$new().$initCapacity$($capacity);
-    };
-    this.$with$ = function ($val1) {
-     var self = this;
-     return (function (cascadeReceiver) {
-      cascadeReceiver.$add$($val1);
-      return cascadeReceiver.$yourself();
-     })(self._$new$(1));
-    };
-    this.$withAll$ = function ($cltn) {
-     var self = this;
-     return (function (cascadeReceiver) {
-      cascadeReceiver.$addAll$($cltn);
-      return cascadeReceiver.$yourself();
-     })(self._$new$($cltn.$size()));
-    };
-    this.invoke = function (runtimeSuperclass, enclosingObjects) {
-     function constructRuntimeClass (superBasicNew) {
-      this.debug = "Runtime meta class for Collections`AddableList";
-      this.$new = this._$new = $.$new;
-      this.$defaultCapacity = this._$defaultCapacity = $.$defaultCapacity;
-      this.$new$ = this._$new$ = $.$new$;
-      this.$with$ = this._$with$ = $.$with$;
-      this.$withAll$ = this._$withAll$ = $.$withAll$;
-      this.$enclosingObjects$Collections$AddableList = enclosingObjects;
-      this.$super$Collections$AddableList = runtimeSuperclass;
-      this.basicNew = function () {
-       superBasicNew.call(this);
-      };
-      this.basicNew.prototype = this;
-      this.nonMeta = null;
-      this.newspeakClass = null;
-     };
-     constructRuntimeClass.prototype = runtimeSuperclass;
-     return new constructRuntimeClass(runtimeSuperclass.basicNew);
-    };
-   }();
-   this.meta.nonMeta = this;
-  }();
-  this.$Collections$Association = new function () {
-   var $ = this;
-   var $1 = this;
-   this.debug = "Runtime mixin for Collections`Association";
-   this.name = "Collections`Association";
-   this.header = 493;
-   this.slots = [
-    new SM("key", true, false),
-    new SM("value", true, false)
-   ];
-   this.methods = [
-    new MM("superInit`Collections`Association", true, 494),
-    new MM("instance`initializer", true, 495),
-    new MM("copy", false, 496),
-    new MM("=", false, 497),
-    new MM("hash", false, 498),
-    new MM("printOn:", false, 499),
-    new MM("init`key:", true, 0),
-    new MM("key", true, 0),
-    new MM("key:", true, 0),
-    new MM("init`value:", true, 0),
-    new MM("value", true, 0),
-    new MM("value:", true, 0)
-   ];
-   this.nestedClasses = [];
-   this.applications = [];
-   this.$superInit$Collections$Association = function ($k, $v) {
-    var self = this;
-    self.$super$Collections$Association$slot._$instance$initializer.call(self);
-    return self;
-   };
-   this.$instance$initializer = function ($k, $v) {
-    var self = this;
-    self._$superInit$Collections$Association($k, $v);
-    self._$init$key$($k);
-    self._$init$value$($v);
-    return self;
-   };
-   this.$copy = function () {
-    var self = this;
-    return self._$class().$key$value$(self._$key(), self._$value());
-   };
-   this.$$equal = function ($other) {
-    var self = this;
-    return self._$key().$$equal($other.$key()) && self._$value().$$equal($other.$value());
-   };
-   this.$hash = function () {
-    var self = this;
-    return self._$key().$hash().$bitXor$(self._$value().$hash());
-   };
-   this.$printOn$ = function ($strm) {
-    var self = this;
-    self._$key().$printOn$($strm);
-    $strm.$nextPutAll$(" -> ");
-    self._$value().$printOn$($strm);
-    return self;
-   };
-   this.$init$key$ = function (v) {
-    this.$key$slot = v;
-    return this;
-   };
-   this.$key = function () {
-    return this.$key$slot;
-   };
-   this.$key$ = function (v) {
-    this.$key$slot = v;
-    return this;
-   };
-   this.$init$value$ = function (v) {
-    this.$value$slot = v;
-    return this;
-   };
-   this.$value = function () {
-    return this.$value$slot;
-   };
-   this.$value$ = function (v) {
-    this.$value$slot = v;
-    return this;
-   };
-   this.invoke = function (runtimeSuperclass, enclosingObjects) {
-    function constructRuntimeClass (superBasicNew) {
-     this.debug = "Runtime class for Collections`Association";
-     this._$superInit$Collections$Association = $.$superInit$Collections$Association;
-     this.$superInit$Collections$Association = dnuCatcher("$superInit$Collections$Association");
-     this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
-     this.$copy = this._$copy = $.$copy;
-     this.$$equal = this._$$equal = $.$$equal;
-     this.$hash = this._$hash = $.$hash;
-     this.$printOn$ = this._$printOn$ = $.$printOn$;
-     this.$init$key$ = this._$init$key$ = $.$init$key$;
-     this.$key = this._$key = $.$key;
-     this.$key$ = this._$key$ = $.$key$;
-     this.$init$value$ = this._$init$value$ = $.$init$value$;
-     this.$value = this._$value = $.$value;
-     this.$value$ = this._$value$ = $.$value$;
-     this.$enclosingObjects$Collections$Association = enclosingObjects;
-     this.$super$Collections$Association$slot = runtimeSuperclass;
-     this["Collections`Association"] = function () {
-      superBasicNew.call(this);
-      this.$key$slot = nil;
-      this.$value$slot = nil;
-     };
-     this.basicNew = this["Collections`Association"];
-     this.basicNew.prototype = this;
-     this.meta = null;
-     this.newspeakClass = null;
-    };
-    constructRuntimeClass.prototype = runtimeSuperclass;
-    return new constructRuntimeClass(runtimeSuperclass.basicNew);
-   };
-   this.meta = new function () {
-    var $ = this;
-    this.debug = "Runtime meta mixin for Collections`Association";
-    this.slots = [];
-    this.methods = [
-     new MM("key:value:", true, 0),
-     new MM("new", false, 500)
-    ];
-    this.nestedClasses = [];
-    this.$key$value$ = function ($k, $v) {
-     return (new this.nonMeta.basicNew()).$instance$initializer($k, $v);
-    };
-    this.$new = function () {
-     var self = this;
-     self._$warnObsolete();
-     return self._$key$value$(nil, nil);
-    };
-    this.invoke = function (runtimeSuperclass, enclosingObjects) {
-     function constructRuntimeClass (superBasicNew) {
-      this.debug = "Runtime meta class for Collections`Association";
-      this.$key$value$ = this._$key$value$ = $.$key$value$;
-      this.$new = this._$new = $.$new;
-      this.$enclosingObjects$Collections$Association = enclosingObjects;
-      this.$super$Collections$Association = runtimeSuperclass;
-      this.basicNew = function () {
-       superBasicNew.call(this);
-      };
-      this.basicNew.prototype = this;
-      this.nonMeta = null;
-      this.newspeakClass = null;
-     };
-     constructRuntimeClass.prototype = runtimeSuperclass;
-     return new constructRuntimeClass(runtimeSuperclass.basicNew);
-    };
-   }();
-   this.meta.nonMeta = this;
-  }();
-  this.$Collections$Bag = new function () {
-   var $ = this;
-   var $1 = this;
-   this.debug = "Runtime mixin for Collections`Bag";
-   this.name = "Collections`Bag";
-   this.header = 501;
-   this.slots = [new SM("contents_private", true, false)];
-   this.methods = [
-    new MM("superInit`Collections`Bag", true, 502),
-    new MM("instance`initializer", true, 503),
-    new MM("occurrencesOf:", false, 504),
-    new MM("size", false, 505),
-    new MM("add:", false, 506),
-    new MM("add:withOccurrences:", false, 507),
-    new MM("addAll:", false, 508),
-    new MM("include:", false, 509),
-    new MM("include:ifNew:", false, 510),
-    new MM("includeAll:", false, 511),
-    new MM("remove:", false, 512),
-    new MM("remove:ifAbsent:", false, 513),
-    new MM("remove:withOccurrences:ifAbsent:", false, 514),
-    new MM("contents:", false, 515),
-    new MM("isKindOfBag", false, 516),
-    new MM("removeAll:", false, 517),
-    new MM("removeAllSuchThat:", false, 518),
-    new MM("removeEvery:", false, 519),
-    new MM("asBag", false, 520),
-    new MM("initCapacity:", false, 521),
-    new MM("do:", false, 522),
-    new MM("equalsBag:", false, 523),
-    new MM("postCopy", false, 524),
-    new MM("contents", false, 525),
-    new MM("=", false, 526),
-    new MM("includes:", false, 527),
-    new MM("~=", false, 528),
-    new MM("init`contents_private:", true, 0),
-    new MM("contents_private", true, 0),
-    new MM("contents_private:", true, 0)
-   ];
-   this.nestedClasses = [];
-   this.applications = [];
-   this.$superInit$Collections$Bag = function ($capacity) {
-    var self = this;
-    self.$super$Collections$Bag$slot._$instance$initializer.call(self);
-    return self;
-   };
-   this.$instance$initializer = function ($capacity) {
-    var self = this;
-    self._$superInit$Collections$Bag($capacity);
-    $1.$init$contents_private$(self, self.$enclosingObjects$Collections$Bag[0]._$MutableHashedMap().$new$($capacity));
-    return self;
-   };
-   this.$occurrencesOf$ = function ($o) {
-    var self = this;
-    return self._$contents().$at$ifAbsent$($o, function () {
-     return 0;
-    });
-   };
-   this.$size = function () {
-    var self = this;
-    return self._$contents().$inject$into$(0, function ($tot, $occurrences) {
-     return $tot + $occurrences;
-    });
-   };
-   this.$add$ = function ($el) {
-    var self = this;
-    return self._$add$withOccurrences$($el, 1);
-   };
-   this.$add$withOccurrences$ = function ($el, $oc) {
-    var self = this;
-    self._$contents().$at$put$($el, $oc + self._$occurrencesOf$($el));
-    return $el;
-   };
-   this.$addAll$ = function ($els) {
-    var self = this;
-    return $els.$do$(function ($el) {
-     return self._$add$($el);
-    });
-   };
-   this.$include$ = function ($el) {
-    var self = this;
-    var $ocs = nil;
-    $ocs = self._$occurrencesOf$($el);
-    if (!($ocs > 0)) {
-     self._$contents().$at$put$($el, 1);
-    } else {
-     nil;
-    };
-    return $el;
-   };
-   this.$include$ifNew$ = function ($el, $blk) {
-    var self = this;
-    var $isnew = nil;
-    $isnew = self._$includes$($el);
-    self._$include$($el);
-    if ($isnew) {
-     $blk.$value();
-    } else {
-     nil;
-    };
-    return $el;
-   };
-   this.$includeAll$ = function ($els) {
-    var self = this;
-    return $els.$do$(function ($el) {
-     return self._$include$($el);
-    });
-   };
-   this.$remove$ = function ($el) {
-    var self = this;
-    return self._$remove$ifAbsent$($el, function () {
-     return self._$error$("Element not found");
-    });
-   };
-   this.$remove$ifAbsent$ = function ($el, $f) {
-    var self = this;
-    return self._$remove$withOccurrences$ifAbsent$($el, 1, $f);
-   };
-   this.$remove$withOccurrences$ifAbsent$ = function ($el, $ocs, $f) {
-    var self = this;
-    var $curOcs = nil;
-    $curOcs = self._$occurrencesOf$($el);
-    return $ocs.$$greater($curOcs).$ifTrue$ifFalse$(function () {
-     return $f.$value();
-    }, function () {
-     if ($curOcs.$$equal($ocs)) {
-      self._$contents().$removeKey$($el);
-     } else {
-      self._$contents().$at$put$($el, $curOcs - $ocs);
-     };
-     return $el;
-    });
-   };
-   this.$contents$ = function ($c) {
-    var self = this;
-    $1.$contents_private$(self, $c);
-    return self;
-   };
-   this.$isKindOfBag = function () {
-    var self = this;
-    return true;
-   };
-   this.$removeAll$ = function ($els) {
-    var self = this;
-    $els.$do$(function ($el) {
-     return self._$remove$($el);
-    });
-    return $els;
-   };
-   this.$removeAllSuchThat$ = function ($test) {
-    var self = this;
-    self._$copy().$do$(function ($el) {
-     return $test.$value$($el).$ifTrue$(function () {
-      return self._$remove$($el);
-     });
-    });
-    return self;
-   };
-   this.$removeEvery$ = function ($el) {
-    var self = this;
-    self._$contents().$removeKey$ifAbsent$($el, function () {
-     return nil;
-    });
-    return $el;
-   };
-   this.$asBag = function () {
-    var self = this;
-    return self;
-   };
-   this.$initCapacity$ = function ($cap) {
-    var self = this;
-    self._$contents$(self.$enclosingObjects$Collections$Bag[0]._$MutableHashedMap().$new$($cap));
-    return self;
-   };
-   this.$do$ = function ($f) {
-    var self = this;
-    self._$contents().$keysAndValuesDo$(function ($el, $occurrences) {
-     return $occurrences.$timesRepeat$(function () {
-      return $f.$value$($el);
-     });
-    });
-    return self;
-   };
-   this.$equalsBag$ = function ($other) {
-    var self = this;
-    var NLR = new Object();
-    try {
-     if (!self._$contents().$size().$$equal($other.$contents().$size())) {
-      return false;
-     } else {
-      nil;
-     };
-     self._$contents().$keysAndValuesDo$(function ($el, $occurrences) {
-      return $other.$contents().$at$ifAbsent$($el, function () {
-       return 0;
-      }).$$equal($occurrences).$ifFalse$(function () {
-       {
-        NLR.value = false;
-        throw NLR;
-       };
-      });
-     });
-     return true;
-    } catch (NLR_exception) {
-     if (NLR === NLR_exception) {
-      return NLR_exception.value;
-     } else {
-      throw NLR_exception;
-     };
-    };
-   };
-   this.$postCopy = function () {
-    var self = this;
-    self.$super$Collections$Bag$slot._$postCopy.call(self);
-    self._$contents$(self._$contents().$copy());
-    return self;
-   };
-   this.$contents = function () {
-    var self = this;
-    return $1.$contents_private(self);
-   };
-   this.$$equal = function ($other) {
-    var self = this;
-    var NLR = new Object();
-    try {
-     return (self === $other) || self._$equalsBag$(self.$enclosingObjects$Collections$Bag[0]._$Bag().$coerce$else$($other, function () {
-      {
-       NLR.value = false;
-       throw NLR;
-      };
-     }));
-    } catch (NLR_exception) {
-     if (NLR === NLR_exception) {
-      return NLR_exception.value;
-     } else {
-      throw NLR_exception;
-     };
-    };
-   };
-   this.$includes$ = function ($el) {
-    var self = this;
-    return self._$contents().$includesKey$($el);
-   };
-   this.$$tilde$equal = function ($other) {
-    var self = this;
-    return self._$$equal($other).$not();
-   };
-   this.$init$contents_private$ = function (self, v) {
-    self.$contents_private$slot = v;
-    return self;
-   };
-   this.$contents_private = function (self) {
-    return self.$contents_private$slot;
-   };
-   this.$contents_private$ = function (self, v) {
-    self.$contents_private$slot = v;
-    return self;
-   };
-   this.invoke = function (runtimeSuperclass, enclosingObjects) {
-    function constructRuntimeClass (superBasicNew) {
-     this.debug = "Runtime class for Collections`Bag";
-     this._$superInit$Collections$Bag = $.$superInit$Collections$Bag;
-     this.$superInit$Collections$Bag = dnuCatcher("$superInit$Collections$Bag");
-     this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
-     this._$occurrencesOf$ = $.$occurrencesOf$;
-     this.$occurrencesOf$ = dnuCatcher("$occurrencesOf$");
-     this.$size = this._$size = $.$size;
-     this.$add$ = this._$add$ = $.$add$;
-     this._$add$withOccurrences$ = $.$add$withOccurrences$;
-     this.$add$withOccurrences$ = dnuCatcher("$add$withOccurrences$");
-     this.$addAll$ = this._$addAll$ = $.$addAll$;
-     this.$include$ = this._$include$ = $.$include$;
-     this.$include$ifNew$ = this._$include$ifNew$ = $.$include$ifNew$;
-     this.$includeAll$ = this._$includeAll$ = $.$includeAll$;
-     this.$remove$ = this._$remove$ = $.$remove$;
-     this.$remove$ifAbsent$ = this._$remove$ifAbsent$ = $.$remove$ifAbsent$;
-     this._$remove$withOccurrences$ifAbsent$ = $.$remove$withOccurrences$ifAbsent$;
-     this.$remove$withOccurrences$ifAbsent$ = dnuCatcher("$remove$withOccurrences$ifAbsent$");
-     this._$contents$ = $.$contents$;
-     this.$contents$ = dnuCatcher("$contents$");
-     this.$isKindOfBag = this._$isKindOfBag = $.$isKindOfBag;
-     this.$removeAll$ = this._$removeAll$ = $.$removeAll$;
-     this.$removeAllSuchThat$ = this._$removeAllSuchThat$ = $.$removeAllSuchThat$;
-     this._$removeEvery$ = $.$removeEvery$;
-     this.$removeEvery$ = dnuCatcher("$removeEvery$");
-     this._$asBag = $.$asBag;
-     this.$asBag = dnuCatcher("$asBag");
-     this._$initCapacity$ = $.$initCapacity$;
-     this.$initCapacity$ = dnuCatcher("$initCapacity$");
-     this.$do$ = this._$do$ = $.$do$;
-     this._$equalsBag$ = $.$equalsBag$;
-     this.$equalsBag$ = dnuCatcher("$equalsBag$");
-     this._$postCopy = $.$postCopy;
-     this.$postCopy = dnuCatcher("$postCopy");
-     this._$contents = $.$contents;
-     this.$contents = dnuCatcher("$contents");
-     this.$$equal = this._$$equal = $.$$equal;
-     this.$includes$ = this._$includes$ = $.$includes$;
-     this.$$tilde$equal = this._$$tilde$equal = $.$$tilde$equal;
-     this.$enclosingObjects$Collections$Bag = enclosingObjects;
-     this.$super$Collections$Bag$slot = runtimeSuperclass;
-     this["Collections`Bag"] = function () {
-      superBasicNew.call(this);
-      this.$contents_private$slot = nil;
-     };
-     this.basicNew = this["Collections`Bag"];
-     this.basicNew.prototype = this;
-     this.meta = null;
-     this.newspeakClass = null;
-    };
-    constructRuntimeClass.prototype = runtimeSuperclass;
-    return new constructRuntimeClass(runtimeSuperclass.basicNew);
-   };
-   this.meta = new function () {
-    var $ = this;
-    this.debug = "Runtime meta mixin for Collections`Bag";
-    this.slots = [];
-    this.methods = [
-     new MM("new:", true, 0),
-     new MM("defaultCapacity", false, 529),
-     new MM("with:with:", false, 530),
-     new MM("with:with:with:", false, 531),
-     new MM("coerce:else:", false, 532),
-     new MM("new", false, 533),
-     new MM("with:", false, 534),
-     new MM("withAll:", false, 535)
-    ];
-    this.nestedClasses = [];
-    this.$new$ = function ($capacity) {
-     return (new this.nonMeta.basicNew()).$instance$initializer($capacity);
-    };
-    this.$defaultCapacity = function () {
-     var self = this;
-     return 8;
-    };
-    this.$with$with$ = function ($el1, $el2) {
-     var self = this;
-     return (function (cascadeReceiver) {
-      cascadeReceiver.$add$($el2);
-      return cascadeReceiver.$yourself();
-     })(self._$with$($el1));
-    };
-    this.$with$with$with$ = function ($el1, $el2, $el3) {
-     var self = this;
-     return (function (cascadeReceiver) {
-      cascadeReceiver.$add$($el3);
-      return cascadeReceiver.$yourself();
-     })(self._$with$with$($el1, $el2));
-    };
-    this.$coerce$else$ = function ($o, $fail) {
-     var self = this;
-     return ($o.$$tilde$equal(nil) && $o.$isKindOfBag()).$ifTrue$ifFalse$(function () {
-      return $o;
-     }, function () {
-      return $fail.$value();
-     });
-    };
-    this.$new = function () {
-     var self = this;
-     return self._$new$(self._$defaultCapacity());
-    };
-    this.$with$ = function ($val1) {
-     var self = this;
-     return (function (cascadeReceiver) {
-      cascadeReceiver.$add$($val1);
-      return cascadeReceiver.$yourself();
-     })(self._$new$(1));
-    };
-    this.$withAll$ = function ($cltn) {
-     var self = this;
-     return (function (cascadeReceiver) {
-      cascadeReceiver.$addAll$($cltn);
-      return cascadeReceiver.$yourself();
-     })(self._$new$($cltn.$size()));
-    };
-    this.invoke = function (runtimeSuperclass, enclosingObjects) {
-     function constructRuntimeClass (superBasicNew) {
-      this.debug = "Runtime meta class for Collections`Bag";
-      this.$new$ = this._$new$ = $.$new$;
-      this.$defaultCapacity = this._$defaultCapacity = $.$defaultCapacity;
-      this.$with$with$ = this._$with$with$ = $.$with$with$;
-      this.$with$with$with$ = this._$with$with$with$ = $.$with$with$with$;
-      this.$coerce$else$ = this._$coerce$else$ = $.$coerce$else$;
-      this.$new = this._$new = $.$new;
-      this.$with$ = this._$with$ = $.$with$;
-      this.$withAll$ = this._$withAll$ = $.$withAll$;
-      this.$enclosingObjects$Collections$Bag = enclosingObjects;
-      this.$super$Collections$Bag = runtimeSuperclass;
-      this.basicNew = function () {
-       superBasicNew.call(this);
-      };
-      this.basicNew.prototype = this;
-      this.nonMeta = null;
-      this.newspeakClass = null;
-     };
-     constructRuntimeClass.prototype = runtimeSuperclass;
-     return new constructRuntimeClass(runtimeSuperclass.basicNew);
-    };
-   }();
-   this.meta.nonMeta = this;
-  }();
-  this.$Collections$Collection = new function () {
-   var $ = this;
-   var $1 = this;
-   this.debug = "Runtime mixin for Collections`Collection";
-   this.name = "Collections`Collection";
-   this.header = 536;
-   this.slots = [];
-   this.methods = [
-    new MM("superInit`Collections`Collection", true, 537),
-    new MM("instance`initializer", true, 538),
-    new MM("asCollection", false, 539),
-    new MM("copy", false, 540),
-    new MM("postCopy", false, 541),
-    new MM("value", false, 542),
-    new MM("hash", false, 543),
-    new MM("occurrencesOf:", false, 544),
-    new MM("size", false, 545),
-    new MM("species", false, 546),
-    new MM("allSatisfy:", false, 547),
-    new MM("anySatisfy:", false, 548),
-    new MM("do:separatedBy:", false, 549),
-    new MM("isCollection", false, 550),
-    new MM("isKindOfCollection", false, 551),
-    new MM("noneSatisfy:", false, 552),
-    new MM("union:", false, 553),
-    new MM("asArray", false, 554),
-    new MM("asBag", false, 555),
-    new MM("asMutableArrayList", false, 556),
-    new MM("asSet", false, 557),
-    new MM("asSortedList", false, 558),
-    new MM("asSortedList:", false, 559),
-    new MM("collect:", false, 560),
-    new MM("detect:", false, 561),
-    new MM("detect:ifNone:", false, 562),
-    new MM("do:", false, 563),
-    new MM("inject:into:", false, 564),
-    new MM("intersection:", false, 565),
-    new MM("reduce:", false, 566),
-    new MM("reduce:ifEmpty:", false, 567),
-    new MM("reject:", false, 568),
-    new MM("select:", false, 569),
-    new MM("printOn:", false, 570),
-    new MM("collectUsingAdd:", false, 571),
-    new MM("maxPrintElements", false, 572),
-    new MM("newForCollectUsingAdd:", false, 573),
-    new MM("printElementsDo:", false, 574),
-    new MM("hasSameElementsAs:", false, 575),
-    new MM("includes:", false, 576),
-    new MM("isEmpty", false, 577)
-   ];
-   this.nestedClasses = [];
-   this.applications = [];
-   this.$superInit$Collections$Collection = function () {
-    var self = this;
-    self.$super$Collections$Collection$slot._$instance$initializer.call(self);
-    return self;
-   };
-   this.$instance$initializer = function () {
-    var self = this;
-    self._$superInit$Collections$Collection();
-    return self;
-   };
-   this.$asCollection = function () {
-    var self = this;
-    return self;
-   };
-   this.$copy = function () {
-    var self = this;
-    "BOGUS";
-    return self._$class().$withAll$(self);
-   };
-   this.$postCopy = function () {
-    var self = this;
-    "BOGUS";
-    return self;
-   };
-   this.$value = function () {
-    var self = this;
-    "BOGUS";
-    return self;
-   };
-   this.$hash = function () {
-    var self = this;
-    var NLR = new Object();
-    try {
-     var $count = nil;
-     $count = 0;
-     return self._$inject$into$(0, function ($previousHash, $element) {
-      var $newHash = nil;
-      $newHash = $previousHash.$bitXor$($element.$hash());
-      $count = $count + 1;
-      if ($count > 2) {
-       {
-        NLR.value = $newHash;
-        throw NLR;
-       };
-      } else {
-       nil;
-      };
-      return $newHash;
-     });
-    } catch (NLR_exception) {
-     if (NLR === NLR_exception) {
-      return NLR_exception.value;
-     } else {
-      throw NLR_exception;
-     };
-    };
-   };
-   this.$occurrencesOf$ = function ($o) {
-    var self = this;
-    var $c = nil;
-    "BOGUS";
-    $c = 0;
-    self._$do$(function ($e) {
-     return $e.$$equal($o).$ifTrue$(function () {
-      return $c = $c + 1;
-     });
-    });
-    return $c;
-   };
-   this.$size = function () {
-    var self = this;
-    var $count = nil;
-    $count = 0;
-    self._$do$(function ($element) {
-     return $count = $count + 1;
-    });
-    return $count;
-   };
-   this.$species = function () {
-    var self = this;
-    return self.$enclosingObjects$Collections$Collection[0]._$Set();
-   };
-   this.$allSatisfy$ = function ($predicate) {
-    var self = this;
-    var NLR = new Object();
-    try {
-     self._$do$(function ($each) {
-      return $predicate.$value$($each).$ifFalse$(function () {
-       {
-        NLR.value = false;
-        throw NLR;
-       };
-      });
-     });
-     return true;
-    } catch (NLR_exception) {
-     if (NLR === NLR_exception) {
-      return NLR_exception.value;
-     } else {
-      throw NLR_exception;
-     };
-    };
-   };
-   this.$anySatisfy$ = function ($predicate) {
-    var self = this;
-    var NLR = new Object();
-    try {
-     self._$do$(function ($each) {
-      return $predicate.$value$($each).$ifTrue$(function () {
-       {
-        NLR.value = true;
-        throw NLR;
-       };
-      });
-     });
-     return false;
-    } catch (NLR_exception) {
-     if (NLR === NLR_exception) {
-      return NLR_exception.value;
-     } else {
-      throw NLR_exception;
-     };
-    };
-   };
-   this.$do$separatedBy$ = function ($action, $betweenAction) {
-    var self = this;
-    var $firstTime = nil;
-    $firstTime = true;
-    $firstTime = true;
-    self._$do$(function ($element) {
-     if ($firstTime) {
-      $firstTime = false;
-     } else {
-      $betweenAction.$value();
-     };
-     return $action.$value$($element);
-    });
-    return self;
-   };
-   this.$isCollection = function () {
-    var self = this;
-    return true;
-   };
-   this.$isKindOfCollection = function () {
-    var self = this;
-    return true;
-   };
-   this.$noneSatisfy$ = function ($predicate) {
-    var self = this;
-    var NLR = new Object();
-    try {
-     self._$do$(function ($each) {
-      return $predicate.$value$($each).$ifTrue$(function () {
-       {
-        NLR.value = false;
-        throw NLR;
-       };
-      });
-     });
-     return true;
-    } catch (NLR_exception) {
-     if (NLR === NLR_exception) {
-      return NLR_exception.value;
-     } else {
-      throw NLR_exception;
-     };
-    };
-   };
-   this.$union$ = function ($other) {
-    var self = this;
-    return (function (cascadeReceiver) {
-     cascadeReceiver.$addAll$($other);
-     return cascadeReceiver.$yourself();
-    })(self._$asSet());
-   };
-   this.$asArray = function () {
-    var self = this;
-    var $array = nil;
-    var $index = nil;
-    $array = self._$Array().$new$(self._$size());
-    $index = 1;
-    self._$do$(function ($element) {
-     $array.$at$put$($index, $element);
-     return $index = $index + 1;
-    });
-    return $array;
-   };
-   this.$asBag = function () {
-    var self = this;
-    return self.$enclosingObjects$Collections$Collection[0]._$Bag().$withAll$(self);
-   };
-   this.$asMutableArrayList = function () {
-    var self = this;
-    return self.$enclosingObjects$Collections$Collection[0]._$MutableArrayList().$withAll$(self);
-   };
-   this.$asSet = function () {
-    var self = this;
-    return self.$enclosingObjects$Collections$Collection[0]._$Set().$withAll$(self);
-   };
-   this.$asSortedList = function () {
-    var self = this;
-    return self.$enclosingObjects$Collections$Collection[0]._$SortedList().$withAll$(self);
-   };
-   this.$asSortedList$ = function ($sortPredicate) {
-    var self = this;
-    return (function (cascadeReceiver) {
-     cascadeReceiver.$addAll$(self);
-     return cascadeReceiver.$yourself();
-    })(self.$enclosingObjects$Collections$Collection[0]._$SortedList().$new$sortBlock$(self._$size(), $sortPredicate));
-   };
-   this.$collect$ = function ($map) {
-    var self = this;
-    return self._$collectUsingAdd$($map);
-   };
-   this.$detect$ = function ($predicate) {
-    var self = this;
-    return self._$detect$ifNone$($predicate, function () {
-     return self._$Error().$signal$("No matching element detected");
-    });
-   };
-   this.$detect$ifNone$ = function ($predicate, $fail) {
-    var self = this;
-    var NLR = new Object();
-    try {
-     self._$do$(function ($element) {
-      return $predicate.$value$($element).$ifTrue$(function () {
-       {
-        NLR.value = $element;
-        throw NLR;
-       };
-      });
-     });
-     return $fail.$value();
-    } catch (NLR_exception) {
-     if (NLR === NLR_exception) {
-      return NLR_exception.value;
-     } else {
-      throw NLR_exception;
-     };
-    };
-   };
-   this.$do$ = function ($action) {
-    var self = this;
-    self._$subclassResponsibility();
-    return self;
-   };
-   this.$inject$into$ = function ($initialValue, $foldBlock) {
-    var self = this;
-    var $runningValue = nil;
-    $runningValue = $initialValue;
-    self._$do$(function ($element) {
-     return $runningValue = $foldBlock.$value$value$($runningValue, $element);
-    });
-    return $runningValue;
+    return self._$copyReplaceFrom$to$with$(self._$size() + 1, self._$size(), $other);
    };
-   this.$intersection$ = function ($other) {
+   this.$allButFirst = function () {
     var self = this;
-    return self._$select$(function ($each) {
-     return $other.$includes$($each);
-    });
+    return self._$copyFrom$to$(2, self._$size());
    };
-   this.$reduce$ = function ($reduceFn) {
+   this.$allButLast = function () {
     var self = this;
-    return self._$reduce$ifEmpty$($reduceFn, function () {
-     return self._$Error().$signal$("Cannot reduce an empty collection");
-    });
-   };
-   this.$reduce$ifEmpty$ = function ($reduceFn, $onEmpty) {
-    var self = this;
-    var $current = nil;
-    self._$do$(function ($element) {
-     var $rel = nil;
-     $rel = $element;
-     return $current.$isNil().$ifTrue$ifFalse$(function () {
-      return $current = $rel;
-     }, function () {
-      return $current = $reduceFn.$value$value$($current, $rel);
-     });
-    });
-    return $current.$isNil().$ifFalse$ifTrue$(function () {
-     return $current;
-    }, function () {
-     return $onEmpty.$value();
-    });
-   };
-   this.$reject$ = function ($predicate) {
-    var self = this;
-    return self._$select$(function ($e) {
-     return $predicate.$value$($e).$not();
-    });
-   };
-   this.$select$ = function ($predicate) {
-    var self = this;
-    var $result = nil;
-    $result = self._$newForCollectUsingAdd$(self._$size());
-    self._$do$(function ($element) {
-     return $predicate.$value$($element).$ifTrue$(function () {
-      return $result.$add$($element);
-     });
-    });
-    return $result;
-   };
-   this.$printOn$ = function ($stream) {
-    var self = this;
-    var NLR = new Object();
-    try {
-     var $count = nil;
-     var $first = nil;
-     (function (cascadeReceiver) {
-      cascadeReceiver.$nextPutAll$(self._$class().$mixin().$simpleName());
-      return cascadeReceiver.$nextPut$("(");
-     })($stream);
-     $count = 0;
-     $first = true;
-     self._$printElementsDo$(function ($element) {
-      if ($first) {
-       $first = false;
-      } else {
-       $stream.$space();
-      };
-      $element.$printOn$($stream);
-      $count = $count + 1;
-      return $count.$$greater$equal(self._$maxPrintElements()).$ifTrue$(function () {
-       (function (cascadeReceiver) {
-        cascadeReceiver.$nextPut$("<");
-        cascadeReceiver.$print$(self._$size() - $count);
-        return cascadeReceiver.$nextPutAll$(" more elements>)");
-       })($stream);
-       {
-        NLR.value = self;
-        throw NLR;
-       };
-      });
-     });
-     $stream.$nextPut$(")");
-     return self;
-    } catch (NLR_exception) {
-     if (NLR === NLR_exception) {
-      return NLR_exception.value;
-     } else {
-      throw NLR_exception;
-     };
-    };
-   };
-   this.$collectUsingAdd$ = function ($map) {
-    var self = this;
-    var $c = nil;
-    $c = self._$newForCollectUsingAdd$(self._$size());
-    self._$do$(function ($e) {
-     return $c.$add$($map.$value$($e));
-    });
-    return $c;
-   };
-   this.$maxPrintElements = function () {
-    var self = this;
-    return 100;
-   };
-   this.$newForCollectUsingAdd$ = function ($size) {
-    var self = this;
-    return self.$enclosingObjects$Collections$Collection[0]._$MutableArrayList().$new$($size);
-   };
-   this.$printElementsDo$ = function ($f) {
-    var self = this;
-    self._$do$($f);
-    return self;
-   };
-   this.$hasSameElementsAs$ = function ($other) {
-    var self = this;
-    "BOGUS";
-    "ACCESSBOGUS";
-    return self._$size().$$equal($other.$size()) && self._$asBag().$$equal($other.$asBag());
-   };
-   this.$includes$ = function ($o) {
-    var self = this;
-    var NLR = new Object();
-    try {
-     self._$do$(function ($element) {
-      return $element.$$equal($o).$ifTrue$(function () {
-       {
-        NLR.value = true;
-        throw NLR;
-       };
-      });
-     });
-     return false;
-    } catch (NLR_exception) {
-     if (NLR === NLR_exception) {
-      return NLR_exception.value;
-     } else {
-      throw NLR_exception;
-     };
-    };
-   };
-   this.$isEmpty = function () {
-    var self = this;
-    return 0 === self._$size();
-   };
-   this.invoke = function (runtimeSuperclass, enclosingObjects) {
-    function constructRuntimeClass (superBasicNew) {
-     this.debug = "Runtime class for Collections`Collection";
-     this._$superInit$Collections$Collection = $.$superInit$Collections$Collection;
-     this.$superInit$Collections$Collection = dnuCatcher("$superInit$Collections$Collection");
-     this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
-     this.$asCollection = this._$asCollection = $.$asCollection;
-     this.$copy = this._$copy = $.$copy;
-     this.$postCopy = this._$postCopy = $.$postCopy;
-     this.$value = this._$value = $.$value;
-     this.$hash = this._$hash = $.$hash;
-     this._$occurrencesOf$ = $.$occurrencesOf$;
-     this.$occurrencesOf$ = dnuCatcher("$occurrencesOf$");
-     this.$size = this._$size = $.$size;
-     this.$species = this._$species = $.$species;
-     this.$allSatisfy$ = this._$allSatisfy$ = $.$allSatisfy$;
-     this.$anySatisfy$ = this._$anySatisfy$ = $.$anySatisfy$;
-     this.$do$separatedBy$ = this._$do$separatedBy$ = $.$do$separatedBy$;
-     this.$isCollection = this._$isCollection = $.$isCollection;
-     this.$isKindOfCollection = this._$isKindOfCollection = $.$isKindOfCollection;
-     this.$noneSatisfy$ = this._$noneSatisfy$ = $.$noneSatisfy$;
-     this.$union$ = this._$union$ = $.$union$;
-     this.$asArray = this._$asArray = $.$asArray;
-     this.$asBag = this._$asBag = $.$asBag;
-     this.$asMutableArrayList = this._$asMutableArrayList = $.$asMutableArrayList;
-     this.$asSet = this._$asSet = $.$asSet;
-     this.$asSortedList = this._$asSortedList = $.$asSortedList;
-     this.$asSortedList$ = this._$asSortedList$ = $.$asSortedList$;
-     this.$collect$ = this._$collect$ = $.$collect$;
-     this.$detect$ = this._$detect$ = $.$detect$;
-     this.$detect$ifNone$ = this._$detect$ifNone$ = $.$detect$ifNone$;
-     this.$do$ = this._$do$ = $.$do$;
-     this.$inject$into$ = this._$inject$into$ = $.$inject$into$;
-     this.$intersection$ = this._$intersection$ = $.$intersection$;
-     this.$reduce$ = this._$reduce$ = $.$reduce$;
-     this.$reduce$ifEmpty$ = this._$reduce$ifEmpty$ = $.$reduce$ifEmpty$;
-     this.$reject$ = this._$reject$ = $.$reject$;
-     this.$select$ = this._$select$ = $.$select$;
-     this.$printOn$ = this._$printOn$ = $.$printOn$;
-     this._$collectUsingAdd$ = $.$collectUsingAdd$;
-     this.$collectUsingAdd$ = dnuCatcher("$collectUsingAdd$");
-     this._$maxPrintElements = $.$maxPrintElements;
-     this.$maxPrintElements = dnuCatcher("$maxPrintElements");
-     this._$newForCollectUsingAdd$ = $.$newForCollectUsingAdd$;
-     this.$newForCollectUsingAdd$ = dnuCatcher("$newForCollectUsingAdd$");
-     this._$printElementsDo$ = $.$printElementsDo$;
-     this.$printElementsDo$ = dnuCatcher("$printElementsDo$");
-     this.$hasSameElementsAs$ = this._$hasSameElementsAs$ = $.$hasSameElementsAs$;
-     this.$includes$ = this._$includes$ = $.$includes$;
-     this.$isEmpty = this._$isEmpty = $.$isEmpty;
-     this.$enclosingObjects$Collections$Collection = enclosingObjects;
-     this.$super$Collections$Collection$slot = runtimeSuperclass;
-     this["Collections`Collection"] = function () {
-      superBasicNew.call(this);
-     };
-     this.basicNew = this["Collections`Collection"];
-     this.basicNew.prototype = this;
-     this.meta = null;
-     this.newspeakClass = null;
-    };
-    constructRuntimeClass.prototype = runtimeSuperclass;
-    return new constructRuntimeClass(runtimeSuperclass.basicNew);
-   };
-   this.meta = new function () {
-    var $ = this;
-    this.debug = "Runtime meta mixin for Collections`Collection";
-    this.slots = [];
-    this.methods = [new MM("new", true, 0)];
-    this.nestedClasses = [];
-    this.$new = function () {
-     return (new this.nonMeta.basicNew()).$instance$initializer();
-    };
-    this.invoke = function (runtimeSuperclass, enclosingObjects) {
-     function constructRuntimeClass (superBasicNew) {
-      this.debug = "Runtime meta class for Collections`Collection";
-      this.$new = this._$new = $.$new;
-      this.$enclosingObjects$Collections$Collection = enclosingObjects;
-      this.$super$Collections$Collection = runtimeSuperclass;
-      this.basicNew = function () {
-       superBasicNew.call(this);
-      };
-      this.basicNew.prototype = this;
-      this.nonMeta = null;
-      this.newspeakClass = null;
-     };
-     constructRuntimeClass.prototype = runtimeSuperclass;
-     return new constructRuntimeClass(runtimeSuperclass.basicNew);
-    };
-   }();
-   this.meta.nonMeta = this;
-  }();
-  this.$Collections$HashedCollection = new function () {
-   var $ = this;
-   var $1 = this;
-   this.debug = "Runtime mixin for Collections`HashedCollection";
-   this.name = "Collections`HashedCollection";
-   this.header = 578;
-   this.slots = [
-    new SM("table_0", true, false),
-    new SM("size_0", true, false),
-    new SM("deleted", true, false)
-   ];
-   this.methods = [
-    new MM("superInit`Collections`HashedCollection", true, 579),
-    new MM("instance`initializer", true, 580),
-    new MM("at:", false, 581),
-    new MM("at:ifAbsent:", false, 582),
-    new MM("indexOf:", false, 583),
-    new MM("indexOf:ifAbsent:", false, 584),
-    new MM("keyAtValue:", false, 585),
-    new MM("keyAtValue:ifAbsent:", false, 586),
-    new MM("size", false, 587),
-    new MM("table", false, 588),
-    new MM("firstTableSize", false, 589),
-    new MM("checkValidity", false, 590),
-    new MM("add:", false, 591),
-    new MM("addAll:", false, 592),
-    new MM("include:", false, 593),
-    new MM("include:ifNew:", false, 594),
-    new MM("includeAll:", false, 595),
-    new MM("do:", false, 596),
-    new MM("keysDo:", false, 597),
-    new MM("setTable:", false, 598),
-    new MM("size:", false, 599),
-    new MM("table:", false, 600),
-    new MM("advanceAmount", false, 601),
-    new MM("indexOf:tableMask:", false, 602),
-    new MM("minTableSize", false, 603),
-    new MM("minTableSizeForCapacity:", false, 604),
-    new MM("newTableWithSize:", false, 605),
-    new MM("occupied", false, 606),
-    new MM("tableSizeForCapacity:", false, 607),
-    new MM("initCapacity:", false, 608),
-    new MM("markDeleted:", false, 609),
-    new MM("postCopy", false, 610),
-    new MM("printElementsDo:", false, 611),
-    new MM("buildValForKey:element:", false, 612),
-    new MM("elementFor:", false, 613),
-    new MM("elementForCopy:", false, 614),
-    new MM("hashFor:", false, 615),
-    new MM("key:matches:", false, 616),
-    new MM("keyFor:", false, 617),
-    new MM("objToIncludeFor:withExisting:", false, 618),
-    new MM("tableAt:put:inDeletedSlot:", false, 619),
-    new MM("tableAt:put:inEmptySlot:", false, 620),
-    new MM("tableAt:put:inMatchingSlot:value:", false, 621),
-    new MM("tableAt:put:inUnusedSlot:", false, 622),
-    new MM("atIndex:inTable:occupiedSlotDo:emptySlotDo:deletedSlotDo:", false, 623),
-    new MM("contentsDo:", false, 624),
-    new MM("createFirstTable", false, 625),
-    new MM("growIfNeeded", false, 626),
-    new MM("growTable", false, 627),
-    new MM("lookup:inTable:matchingSlotDo:emptySlotDo:deletedSlotsDo:mismatchingSlotsDo:", false, 628),
-    new MM("lookup:matchingSlotDo:emptySlotDo:deletedSlotsDo:", false, 629),
-    new MM("tableAt:put:ifNew:", false, 630),
-    new MM("valAt:ifAbsent:", false, 631),
-    new MM("remove:", false, 632),
-    new MM("remove:ifAbsent:", false, 633),
-    new MM("removeAll:", false, 634),
-    new MM("removeAllSuchThat:", false, 635),
-    new MM("removeAt:", false, 636),
-    new MM("removeAt:ifAbsent:", false, 637),
-    new MM("removeEvery:", false, 638),
-    new MM("removeKey:", false, 639),
-    new MM("removeKey:ifAbsent:", false, 640),
-    new MM("includesIndex:", false, 641),
-    new MM("includesKey:", false, 642),
-    new MM("init`table_0:", true, 0),
-    new MM("table_0", true, 0),
-    new MM("table_0:", true, 0),
-    new MM("init`size_0:", true, 0),
-    new MM("size_0", true, 0),
-    new MM("size_0:", true, 0),
-    new MM("init`deleted:", true, 0),
-    new MM("deleted", true, 0),
-    new MM("deleted:", true, 0)
-   ];
-   this.nestedClasses = [];
-   this.applications = [];
-   this.$superInit$Collections$HashedCollection = function ($cap) {
-    var self = this;
-    self.$super$Collections$HashedCollection$slot._$instance$initializer.call(self);
-    return self;
-   };
-   this.$instance$initializer = function ($cap) {
-    var self = this;
-    self._$superInit$Collections$HashedCollection($cap);
-    self._$initCapacity$($cap);
-    return self;
-   };
-   this.$at$ = function ($key) {
-    var self = this;
-    return self._$at$ifAbsent$($key, function () {
-     return self._$Error().$signal$("key not found");
-    });
-   };
-   this.$at$ifAbsent$ = function ($key, $f) {
-    var self = this;
-    var NLR = new Object();
-    try {
-     return self._$elementFor$(self._$valAt$ifAbsent$($key, function () {
-      {
-       NLR.value = $f.$value();
-       throw NLR;
-      };
-     }));
-    } catch (NLR_exception) {
-     if (NLR === NLR_exception) {
-      return NLR_exception.value;
-     } else {
-      throw NLR_exception;
-     };
-    };
-   };
-   this.$indexOf$ = function ($el) {
-    var self = this;
-    return self._$indexOf$ifAbsent$($el, function () {
-     return self._$error$("Element not found");
-    });
-   };
-   this.$indexOf$ifAbsent$ = function ($el, $blk) {
-    var self = this;
-    var NLR = new Object();
-    try {
-     self._$contentsDo$(function ($v) {
-      return self._$elementFor$($v).$$equal($el).$ifTrue$(function () {
-       {
-        NLR.value = self._$keyFor$($v);
-        throw NLR;
-       };
-      });
-     });
-     return $blk.$value();
-    } catch (NLR_exception) {
-     if (NLR === NLR_exception) {
-      return NLR_exception.value;
-     } else {
-      throw NLR_exception;
-     };
-    };
-   };
-   this.$keyAtValue$ = function ($v) {
-    var self = this;
-    return self._$indexOf$($v);
-   };
-   this.$keyAtValue$ifAbsent$ = function ($v, $blk) {
-    var self = this;
-    return self._$indexOf$ifAbsent$($v, $blk);
-   };
-   this.$size = function () {
-    var self = this;
-    return self._$size_0();
-   };
-   this.$table = function () {
-    var self = this;
-    return self._$table_0();
-   };
-   this.$firstTableSize = function () {
-    var self = this;
-    return 8;
-   };
-   this.$checkValidity = function () {
-    var self = this;
-    var $c = nil;
-    $c = 0;
-    self._$contentsDo$(function ($val) {
-     self._$assert$message$(function () {
-      return self._$at$(self._$keyFor$($val)).$$equal(self._$elementFor$($val));
-     }, "");
-     return $c = $c + 1;
-    });
-    self._$assert$message$(function () {
-     return $c.$$equal(self._$size());
-    }, "");
-    return self;
-   };
-   this.$add$ = function ($val) {
-    var self = this;
-    return self._$include$($val);
-   };
-   this.$addAll$ = function ($c) {
-    var self = this;
-    $c.$do$(function ($e) {
-     return self._$add$($e);
-    });
-    return $c;
-   };
-   this.$include$ = function ($val) {
-    var self = this;
-    return self._$include$ifNew$($val, function () {
-     return nil;
-    });
-   };
-   this.$include$ifNew$ = function ($val, $ifNew) {
-    var self = this;
-    return self._$tableAt$put$ifNew$(self._$keyFor$($val), self._$elementFor$($val), $ifNew);
-   };
-   this.$includeAll$ = function ($c) {
-    var self = this;
-    $c.$do$(function ($el) {
-     return self._$include$($el);
-    });
-    return $c;
-   };
-   this.$do$ = function ($f) {
-    var self = this;
-    self._$contentsDo$(function ($val) {
-     return $f.$value$(self._$elementFor$($val));
-    });
-    return self;
-   };
-   this.$keysDo$ = function ($f) {
-    var self = this;
-    self._$contentsDo$(function ($val) {
-     return $f.$value$(self._$keyFor$($val));
-    });
-    return self;
-   };
-   this.$setTable$ = function ($t) {
-    var self = this;
-    self._$table_0$($t);
-    return self;
-   };
-   this.$size$ = function ($s) {
-    var self = this;
-    self._$size_0$($s);
-    return self;
-   };
-   this.$table$ = function ($t) {
-    var self = this;
-    self._$setTable$($t);
-    self._$assert$message$(function () {
-     return self._$deleted().$$equal(0);
-    }, "");
-    return self;
-   };
-   this.$advanceAmount = function () {
-    var self = this;
-    return 99990;
-   };
-   this.$indexOf$tableMask$ = function ($key, $mask) {
-    var self = this;
-    return self._$hashFor$($key).$bitAnd$($mask) + 1;
-   };
-   this.$minTableSize = function () {
-    var self = this;
-    return 4;
-   };
-   this.$minTableSizeForCapacity$ = function ($cap) {
-    var self = this;
-    return $cap + $cap;
-   };
-   this.$newTableWithSize$ = function ($tableSize) {
-    var self = this;
-    return self._$Array().$new$($tableSize);
-   };
-   this.$occupied = function () {
-    var self = this;
-    return self._$size() + self._$deleted();
-   };
-   this.$tableSizeForCapacity$ = function ($cap) {
-    var self = this;
-    var $min = nil;
-    var $tsize = nil;
-    $min = self._$minTableSizeForCapacity$($cap);
-    $tsize = self._$minTableSize();
-    {
-     nil;
-     for (; $tsize.$$less($min); ) {
-      $tsize = $tsize + $tsize;
-     };
-    };
-    return $tsize;
-   };
-   this.$initCapacity$ = function ($cap) {
-    var self = this;
-    self._$size$(0);
-    self._$deleted$(0);
-    if ($cap > 0) {
-     self._$table$(self._$newTableWithSize$(self._$tableSizeForCapacity$($cap)));
-    } else {
-     nil;
-    };
-    return self;
-   };
-   this.$markDeleted$ = function ($index) {
-    var self = this;
-    var $tbl = nil;
-    $tbl = self._$table();
-    $tbl.$at$put$($index, $tbl);
-    self._$deleted$(self._$deleted() + 1);
-    return self;
-   };
-   this.$postCopy = function () {
-    var self = this;
-    var $tbl = nil;
-    var $newtbl = nil;
-    self.$super$Collections$HashedCollection$slot._$postCopy.call(self);
-    $tbl = self._$table();
-    if ($tbl === nil) {
-     return self;
-    } else {
-     nil;
-    };
-    $newtbl = self._$newTableWithSize$($tbl.$size());
-    {
-     var $$limit = nil;
-     var $index = nil;
-     nil;
-     $index = 1;
-     $$limit = $tbl.$size();
-     for (; $$limit.$$greater$equal($index); ) {
-      self._$atIndex$inTable$occupiedSlotDo$emptySlotDo$deletedSlotDo$($index, $tbl, function ($val) {
-       return $newtbl.$at$put$($index, self._$elementForCopy$($val));
-      }, function () {
-       return nil;
-      }, function () {
-       return $newtbl.$at$put$($index, $newtbl);
-      });
-      $index = (1).$$plus($index);
-     };
-    };
-    self._$setTable$($newtbl);
-    return self;
-   };
-   this.$printElementsDo$ = function ($f) {
-    var self = this;
-    self._$contentsDo$($f);
-    return self;
-   };
-   this.$buildValForKey$element$ = function ($k, $el) {
-    var self = this;
-    self._$subclassResponsibility();
-    return self;
-   };
-   this.$elementFor$ = function ($val) {
-    var self = this;
-    self._$subclassResponsibility();
-    return self;
-   };
-   this.$elementForCopy$ = function ($el) {
-    var self = this;
-    self._$subclassResponsibility();
-    return self;
-   };
-   this.$hashFor$ = function ($key) {
-    var self = this;
-    self._$subclassResponsibility();
-    return self;
-   };
-   this.$key$matches$ = function ($key1, $key2) {
-    var self = this;
-    self._$subclassResponsibility();
-    return self;
-   };
-   this.$keyFor$ = function ($val) {
-    var self = this;
-    self._$subclassResponsibility();
-    return self;
-   };
-   this.$objToIncludeFor$withExisting$ = function ($new, $other) {
-    var self = this;
-    self._$subclassResponsibility();
-    return self;
-   };
-   this.$tableAt$put$inDeletedSlot$ = function ($key, $el, $index) {
-    var self = this;
-    var $val = nil;
-    $val = self._$tableAt$put$inUnusedSlot$($key, $el, $index);
-    self._$deleted$(self._$deleted() - 1);
-    return $val;
-   };
-   this.$tableAt$put$inEmptySlot$ = function ($key, $el, $index) {
-    var self = this;
-    var $val = nil;
-    $val = self._$tableAt$put$inUnusedSlot$($key, $el, $index);
-    self._$growIfNeeded();
-    return $val;
-   };
-   this.$tableAt$put$inMatchingSlot$value$ = function ($key, $el, $index, $val) {
-    var self = this;
-    var $newVal = nil;
-    $newVal = self._$objToIncludeFor$withExisting$(self._$buildValForKey$element$($key, $el), $val);
-    self._$table().$at$put$($index, $newVal);
-    return $newVal;
-   };
-   this.$tableAt$put$inUnusedSlot$ = function ($key, $el, $index) {
-    var self = this;
-    var $newVal = nil;
-    $newVal = self._$buildValForKey$element$($key, $el);
-    self._$table().$at$put$($index, $newVal);
-    self._$size$(self._$size() + 1);
-    return $newVal;
-   };
-   this.$atIndex$inTable$occupiedSlotDo$emptySlotDo$deletedSlotDo$ = function ($i, $tbl, $occupied, $empty, $deleted) {
-    var self = this;
-    var $el = nil;
-    $el = $tbl.$at$($i);
-    if ($el === nil) {
-     return $empty.$value();
-    } else {
-     nil;
-    };
-    if ($el === $tbl) {
-     return $deleted.$value();
-    } else {
-     nil;
-    };
-    return $occupied.$value$($el);
-   };
-   this.$contentsDo$ = function ($f) {
-    var self = this;
-    var $tbl = nil;
-    "ACCESSBOGUS";
-    $tbl = self._$table();
-    if ($tbl === nil) {
-     return self;
-    } else {
-     nil;
-    };
-    {
-     var $$limit = nil;
-     var $index = nil;
-     nil;
-     $index = 1;
-     $$limit = $tbl.$size();
-     for (; $$limit.$$greater$equal($index); ) {
-      self._$atIndex$inTable$occupiedSlotDo$emptySlotDo$deletedSlotDo$($index, $tbl, function ($val) {
-       return $f.$value$($val);
-      }, function () {
-       return nil;
-      }, function () {
-       return nil;
-      });
-      $index = (1).$$plus($index);
-     };
-    };
-    return self;
-   };
-   this.$createFirstTable = function () {
-    var self = this;
-    self._$table$(self._$newTableWithSize$(self._$firstTableSize()));
-    return self;
-   };
-   this.$growIfNeeded = function () {
-    var self = this;
-    if (self._$minTableSizeForCapacity$(self._$occupied()).$$greater(self._$table().$size())) {
-     self._$growTable();
-    } else {
-     nil;
-    };
-    return self;
-   };
-   this.$growTable = function () {
-    var self = this;
-    var $new = nil;
-    $new = self._$newTableWithSize$(self._$table().$size() + self._$table().$size());
-    self._$contentsDo$(function ($a_value) {
-     return self._$lookup$inTable$matchingSlotDo$emptySlotDo$deletedSlotsDo$mismatchingSlotsDo$(self._$keyFor$($a_value), $new, function ($index, $val) {
-      return self._$shouldNotHappen();
-     }, function ($index) {
-      return $new.$at$put$($index, $a_value);
-     }, function ($index) {
-      return self._$shouldNotHappen();
-     }, function ($index) {
-      return nil;
-     });
-    });
-    self._$deleted$(0);
-    self._$table$($new);
-    return self;
-   };
-   this.$lookup$inTable$matchingSlotDo$emptySlotDo$deletedSlotsDo$mismatchingSlotsDo$ = function ($key, $tbl, $matching, $empty, $marked, $mismatch) {
-    var self = this;
-    var NLR = new Object();
-    try {
-     var $i = nil;
-     var $mask = nil;
-     $mask = $tbl.$size() - 1;
-     $i = self._$indexOf$tableMask$($key, $mask);
-     {
-      nil;
-      self._$atIndex$inTable$occupiedSlotDo$emptySlotDo$deletedSlotDo$($i, $tbl, function ($val) {
-       return self._$key$matches$($key, self._$keyFor$($val)).$ifTrue$ifFalse$(function () {
-        {
-         NLR.value = $matching.$value$value$($i, $val);
-         throw NLR;
-        };
-       }, function () {
-        return $mismatch.$value$($i);
-       });
-      }, function () {
-       {
-        NLR.value = $empty.$value$($i);
-        throw NLR;
-       };
-      }, function () {
-       return $marked.$value$($i);
-      });
-      $i = ($i + self._$advanceAmount()).$bitAnd$($mask) + 1;
-      for (; true; ) {
-       nil;
-       self._$atIndex$inTable$occupiedSlotDo$emptySlotDo$deletedSlotDo$($i, $tbl, function ($val) {
-        return self._$key$matches$($key, self._$keyFor$($val)).$ifTrue$ifFalse$(function () {
-         {
-          NLR.value = $matching.$value$value$($i, $val);
-          throw NLR;
-         };
-        }, function () {
-         return $mismatch.$value$($i);
-        });
-       }, function () {
-        {
-         NLR.value = $empty.$value$($i);
-         throw NLR;
-        };
-       }, function () {
-        return $marked.$value$($i);
-       });
-       $i = ($i + self._$advanceAmount()).$bitAnd$($mask) + 1;
-      };
-     };
-     return self;
-    } catch (NLR_exception) {
-     if (NLR === NLR_exception) {
-      return NLR_exception.value;
-     } else {
-      throw NLR_exception;
-     };
-    };
-   };
-   this.$lookup$matchingSlotDo$emptySlotDo$deletedSlotsDo$ = function ($key, $matching, $empty, $marked) {
-    var self = this;
-    return self._$lookup$inTable$matchingSlotDo$emptySlotDo$deletedSlotsDo$mismatchingSlotsDo$($key, self._$table(), $matching, $empty, $marked, function ($index) {
-     return nil;
-    });
-   };
-   this.$tableAt$put$ifNew$ = function ($key, $el, $onNew) {
-    var self = this;
-    var $reusableSlot = nil;
-    if (self._$table() === nil) {
-     self._$createFirstTable();
-    } else {
-     nil;
-    };
-    return self._$lookup$matchingSlotDo$emptySlotDo$deletedSlotsDo$($key, function ($index, $val) {
-     return self._$tableAt$put$inMatchingSlot$value$($key, $el, $index, $val);
-    }, function ($index) {
-     var $newVal = nil;
-     if ($reusableSlot === nil) {
-      $newVal = self._$tableAt$put$inEmptySlot$($key, $el, $index);
-     } else {
-      $newVal = self._$tableAt$put$inDeletedSlot$($key, $el, $reusableSlot);
-     };
-     $onNew.$value();
-     return $newVal;
-    }, function ($index) {
-     return ($reusableSlot === nil).$ifTrue$(function () {
-      return $reusableSlot = $index;
-     });
-    });
-   };
-   this.$valAt$ifAbsent$ = function ($key, $f) {
-    var self = this;
-    if (self._$table() === nil) {
-     return $f.$value();
-    } else {
-     nil;
-    };
-    return self._$lookup$matchingSlotDo$emptySlotDo$deletedSlotsDo$($key, function ($index, $val) {
-     return $val;
-    }, function ($index) {
-     return $f.$value();
-    }, function ($index) {
-     return nil;
-    });
-   };
-   this.$remove$ = function ($val) {
-    var self = this;
-    return self._$remove$ifAbsent$($val, function () {
-     return self._$error$("value not in collection");
-    });
-   };
-   this.$remove$ifAbsent$ = function ($val, $f) {
-    var self = this;
-    self._$removeKey$ifAbsent$(self._$keyFor$($val), $f);
-    return $val;
-   };
-   this.$removeAll$ = function ($c) {
-    var self = this;
-    $c.$do$(function ($el) {
-     return self._$remove$($el);
-    });
-    return $c;
-   };
-   this.$removeAllSuchThat$ = function ($test) {
-    var self = this;
-    self._$copy().$contentsDo$(function ($el) {
-     return $test.$value$($el).$ifTrue$(function () {
-      return self._$remove$($el);
-     });
-    });
-    return self;
-   };
-   this.$removeAt$ = function ($k) {
-    var self = this;
-    return self._$removeKey$($k);
-   };
-   this.$removeAt$ifAbsent$ = function ($k, $f) {
-    var self = this;
-    return self._$removeKey$ifAbsent$($k, $f);
-   };
-   this.$removeEvery$ = function ($val) {
-    var self = this;
-    self._$remove$ifAbsent$($val, function () {
-     return nil;
-    });
-    return $val;
-   };
-   this.$removeKey$ = function ($key) {
-    var self = this;
-    return self._$removeKey$ifAbsent$($key, function () {
-     return self._$error$("key not found");
-    });
-   };
-   this.$removeKey$ifAbsent$ = function ($key, $f) {
-    var self = this;
-    if (self._$table() === nil) {
-     return $f.$value();
-    } else {
-     nil;
-    };
-    return self._$lookup$matchingSlotDo$emptySlotDo$deletedSlotsDo$($key, function ($index, $val) {
-     self._$markDeleted$($index);
-     self._$size$(self._$size() - 1);
-     return self._$elementFor$($val);
-    }, function ($index) {
-     return $f.$value();
-    }, function ($index) {
-     return nil;
-    });
-   };
-   this.$includesIndex$ = function ($k) {
-    var self = this;
-    var NLR = new Object();
-    try {
-     self._$valAt$ifAbsent$($k, function () {
-      {
-       NLR.value = false;
-       throw NLR;
-      };
-     });
-     return true;
-    } catch (NLR_exception) {
-     if (NLR === NLR_exception) {
-      return NLR_exception.value;
-     } else {
-      throw NLR_exception;
-     };
-    };
-   };
-   this.$includesKey$ = function ($k) {
-    var self = this;
-    return self._$includesIndex$($k);
-   };
-   this.$init$table_0$ = function (v) {
-    this.$table_0$slot = v;
-    return this;
-   };
-   this.$table_0 = function () {
-    return this.$table_0$slot;
-   };
-   this.$table_0$ = function (v) {
-    this.$table_0$slot = v;
-    return this;
-   };
-   this.$init$size_0$ = function (v) {
-    this.$size_0$slot = v;
-    return this;
-   };
-   this.$size_0 = function () {
-    return this.$size_0$slot;
-   };
-   this.$size_0$ = function (v) {
-    this.$size_0$slot = v;
-    return this;
-   };
-   this.$init$deleted$ = function (v) {
-    this.$deleted$slot = v;
-    return this;
-   };
-   this.$deleted = function () {
-    return this.$deleted$slot;
-   };
-   this.$deleted$ = function (v) {
-    this.$deleted$slot = v;
-    return this;
-   };
-   this.invoke = function (runtimeSuperclass, enclosingObjects) {
-    function constructRuntimeClass (superBasicNew) {
-     this.debug = "Runtime class for Collections`HashedCollection";
-     this._$superInit$Collections$HashedCollection = $.$superInit$Collections$HashedCollection;
-     this.$superInit$Collections$HashedCollection = dnuCatcher("$superInit$Collections$HashedCollection");
-     this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
-     this.$at$ = this._$at$ = $.$at$;
-     this.$at$ifAbsent$ = this._$at$ifAbsent$ = $.$at$ifAbsent$;
-     this.$indexOf$ = this._$indexOf$ = $.$indexOf$;
-     this.$indexOf$ifAbsent$ = this._$indexOf$ifAbsent$ = $.$indexOf$ifAbsent$;
-     this.$keyAtValue$ = this._$keyAtValue$ = $.$keyAtValue$;
-     this.$keyAtValue$ifAbsent$ = this._$keyAtValue$ifAbsent$ = $.$keyAtValue$ifAbsent$;
-     this.$size = this._$size = $.$size;
-     this._$table = $.$table;
-     this.$table = dnuCatcher("$table");
-     this._$firstTableSize = $.$firstTableSize;
-     this.$firstTableSize = dnuCatcher("$firstTableSize");
-     this._$checkValidity = $.$checkValidity;
-     this.$checkValidity = dnuCatcher("$checkValidity");
-     this.$add$ = this._$add$ = $.$add$;
-     this.$addAll$ = this._$addAll$ = $.$addAll$;
-     this.$include$ = this._$include$ = $.$include$;
-     this.$include$ifNew$ = this._$include$ifNew$ = $.$include$ifNew$;
-     this.$includeAll$ = this._$includeAll$ = $.$includeAll$;
-     this.$do$ = this._$do$ = $.$do$;
-     this.$keysDo$ = this._$keysDo$ = $.$keysDo$;
-     this._$setTable$ = $.$setTable$;
-     this.$setTable$ = dnuCatcher("$setTable$");
-     this._$size$ = $.$size$;
-     this.$size$ = dnuCatcher("$size$");
-     this._$table$ = $.$table$;
-     this.$table$ = dnuCatcher("$table$");
-     this._$advanceAmount = $.$advanceAmount;
-     this.$advanceAmount = dnuCatcher("$advanceAmount");
-     this._$indexOf$tableMask$ = $.$indexOf$tableMask$;
-     this.$indexOf$tableMask$ = dnuCatcher("$indexOf$tableMask$");
-     this._$minTableSize = $.$minTableSize;
-     this.$minTableSize = dnuCatcher("$minTableSize");
-     this._$minTableSizeForCapacity$ = $.$minTableSizeForCapacity$;
-     this.$minTableSizeForCapacity$ = dnuCatcher("$minTableSizeForCapacity$");
-     this._$newTableWithSize$ = $.$newTableWithSize$;
-     this.$newTableWithSize$ = dnuCatcher("$newTableWithSize$");
-     this._$occupied = $.$occupied;
-     this.$occupied = dnuCatcher("$occupied");
-     this._$tableSizeForCapacity$ = $.$tableSizeForCapacity$;
-     this.$tableSizeForCapacity$ = dnuCatcher("$tableSizeForCapacity$");
-     this._$initCapacity$ = $.$initCapacity$;
-     this.$initCapacity$ = dnuCatcher("$initCapacity$");
-     this._$markDeleted$ = $.$markDeleted$;
-     this.$markDeleted$ = dnuCatcher("$markDeleted$");
-     this._$postCopy = $.$postCopy;
-     this.$postCopy = dnuCatcher("$postCopy");
-     this._$printElementsDo$ = $.$printElementsDo$;
-     this.$printElementsDo$ = dnuCatcher("$printElementsDo$");
-     this._$buildValForKey$element$ = $.$buildValForKey$element$;
-     this.$buildValForKey$element$ = dnuCatcher("$buildValForKey$element$");
-     this._$elementFor$ = $.$elementFor$;
-     this.$elementFor$ = dnuCatcher("$elementFor$");
-     this._$elementForCopy$ = $.$elementForCopy$;
-     this.$elementForCopy$ = dnuCatcher("$elementForCopy$");
-     this._$hashFor$ = $.$hashFor$;
-     this.$hashFor$ = dnuCatcher("$hashFor$");
-     this._$key$matches$ = $.$key$matches$;
-     this.$key$matches$ = dnuCatcher("$key$matches$");
-     this._$keyFor$ = $.$keyFor$;
-     this.$keyFor$ = dnuCatcher("$keyFor$");
-     this._$objToIncludeFor$withExisting$ = $.$objToIncludeFor$withExisting$;
-     this.$objToIncludeFor$withExisting$ = dnuCatcher("$objToIncludeFor$withExisting$");
-     this._$tableAt$put$inDeletedSlot$ = $.$tableAt$put$inDeletedSlot$;
-     this.$tableAt$put$inDeletedSlot$ = dnuCatcher("$tableAt$put$inDeletedSlot$");
-     this._$tableAt$put$inEmptySlot$ = $.$tableAt$put$inEmptySlot$;
-     this.$tableAt$put$inEmptySlot$ = dnuCatcher("$tableAt$put$inEmptySlot$");
-     this._$tableAt$put$inMatchingSlot$value$ = $.$tableAt$put$inMatchingSlot$value$;
-     this.$tableAt$put$inMatchingSlot$value$ = dnuCatcher("$tableAt$put$inMatchingSlot$value$");
-     this._$tableAt$put$inUnusedSlot$ = $.$tableAt$put$inUnusedSlot$;
-     this.$tableAt$put$inUnusedSlot$ = dnuCatcher("$tableAt$put$inUnusedSlot$");
-     this._$atIndex$inTable$occupiedSlotDo$emptySlotDo$deletedSlotDo$ = $.$atIndex$inTable$occupiedSlotDo$emptySlotDo$deletedSlotDo$;
-     this.$atIndex$inTable$occupiedSlotDo$emptySlotDo$deletedSlotDo$ = dnuCatcher("$atIndex$inTable$occupiedSlotDo$emptySlotDo$deletedSlotDo$");
-     this.$contentsDo$ = this._$contentsDo$ = $.$contentsDo$;
-     this._$createFirstTable = $.$createFirstTable;
-     this.$createFirstTable = dnuCatcher("$createFirstTable");
-     this._$growIfNeeded = $.$growIfNeeded;
-     this.$growIfNeeded = dnuCatcher("$growIfNeeded");
-     this._$growTable = $.$growTable;
-     this.$growTable = dnuCatcher("$growTable");
-     this._$lookup$inTable$matchingSlotDo$emptySlotDo$deletedSlotsDo$mismatchingSlotsDo$ = $.$lookup$inTable$matchingSlotDo$emptySlotDo$deletedSlotsDo$mismatchingSlotsDo$;
-     this.$lookup$inTable$matchingSlotDo$emptySlotDo$deletedSlotsDo$mismatchingSlotsDo$ = dnuCatcher("$lookup$inTable$matchingSlotDo$emptySlotDo$deletedSlotsDo$mismatchingSlotsDo$");
-     this._$lookup$matchingSlotDo$emptySlotDo$deletedSlotsDo$ = $.$lookup$matchingSlotDo$emptySlotDo$deletedSlotsDo$;
-     this.$lookup$matchingSlotDo$emptySlotDo$deletedSlotsDo$ = dnuCatcher("$lookup$matchingSlotDo$emptySlotDo$deletedSlotsDo$");
-     this._$tableAt$put$ifNew$ = $.$tableAt$put$ifNew$;
-     this.$tableAt$put$ifNew$ = dnuCatcher("$tableAt$put$ifNew$");
-     this._$valAt$ifAbsent$ = $.$valAt$ifAbsent$;
-     this.$valAt$ifAbsent$ = dnuCatcher("$valAt$ifAbsent$");
-     this.$remove$ = this._$remove$ = $.$remove$;
-     this.$remove$ifAbsent$ = this._$remove$ifAbsent$ = $.$remove$ifAbsent$;
-     this.$removeAll$ = this._$removeAll$ = $.$removeAll$;
-     this.$removeAllSuchThat$ = this._$removeAllSuchThat$ = $.$removeAllSuchThat$;
-     this.$removeAt$ = this._$removeAt$ = $.$removeAt$;
-     this.$removeAt$ifAbsent$ = this._$removeAt$ifAbsent$ = $.$removeAt$ifAbsent$;
-     this.$removeEvery$ = this._$removeEvery$ = $.$removeEvery$;
-     this.$removeKey$ = this._$removeKey$ = $.$removeKey$;
-     this.$removeKey$ifAbsent$ = this._$removeKey$ifAbsent$ = $.$removeKey$ifAbsent$;
-     this.$includesIndex$ = this._$includesIndex$ = $.$includesIndex$;
-     this.$includesKey$ = this._$includesKey$ = $.$includesKey$;
-     this._$init$table_0$ = $.$init$table_0$;
-     this.$init$table_0$ = dnuCatcher("$init$table_0$");
-     this._$table_0 = $.$table_0;
-     this.$table_0 = dnuCatcher("$table_0");
-     this._$table_0$ = $.$table_0$;
-     this.$table_0$ = dnuCatcher("$table_0$");
-     this._$init$size_0$ = $.$init$size_0$;
-     this.$init$size_0$ = dnuCatcher("$init$size_0$");
-     this._$size_0 = $.$size_0;
-     this.$size_0 = dnuCatcher("$size_0");
-     this._$size_0$ = $.$size_0$;
-     this.$size_0$ = dnuCatcher("$size_0$");
-     this._$init$deleted$ = $.$init$deleted$;
-     this.$init$deleted$ = dnuCatcher("$init$deleted$");
-     this._$deleted = $.$deleted;
-     this.$deleted = dnuCatcher("$deleted");
-     this._$deleted$ = $.$deleted$;
-     this.$deleted$ = dnuCatcher("$deleted$");
-     this.$enclosingObjects$Collections$HashedCollection = enclosingObjects;
-     this.$super$Collections$HashedCollection$slot = runtimeSuperclass;
-     this["Collections`HashedCollection"] = function () {
-      superBasicNew.call(this);
-      this.$table_0$slot = nil;
-      this.$size_0$slot = nil;
-      this.$deleted$slot = nil;
-     };
-     this.basicNew = this["Collections`HashedCollection"];
-     this.basicNew.prototype = this;
-     this.meta = null;
-     this.newspeakClass = null;
-    };
-    constructRuntimeClass.prototype = runtimeSuperclass;
-    return new constructRuntimeClass(runtimeSuperclass.basicNew);
-   };
-   this.meta = new function () {
-    var $ = this;
-    this.debug = "Runtime meta mixin for Collections`HashedCollection";
-    this.slots = [];
-    this.methods = [
-     new MM("new:", true, 0),
-     new MM("defaultCapacity", false, 643)
-    ];
-    this.nestedClasses = [];
-    this.$new$ = function ($cap) {
-     return (new this.nonMeta.basicNew()).$instance$initializer($cap);
-    };
-    this.$defaultCapacity = function () {
-     var self = this;
-     return 0;
-    };
-    this.invoke = function (runtimeSuperclass, enclosingObjects) {
-     function constructRuntimeClass (superBasicNew) {
-      this.debug = "Runtime meta class for Collections`HashedCollection";
-      this.$new$ = this._$new$ = $.$new$;
-      this.$defaultCapacity = this._$defaultCapacity = $.$defaultCapacity;
-      this.$enclosingObjects$Collections$HashedCollection = enclosingObjects;
-      this.$super$Collections$HashedCollection = runtimeSuperclass;
-      this.basicNew = function () {
-       superBasicNew.call(this);
-      };
-      this.basicNew.prototype = this;
-      this.nonMeta = null;
-      this.newspeakClass = null;
-     };
-     constructRuntimeClass.prototype = runtimeSuperclass;
-     return new constructRuntimeClass(runtimeSuperclass.basicNew);
-    };
-   }();
-   this.meta.nonMeta = this;
-  }();
-  this.$Collections$IdentityMutableHashedMap = new function () {
-   var $ = this;
-   var $1 = this;
-   this.debug = "Runtime mixin for Collections`IdentityMutableHashedMap";
-   this.name = "Collections`IdentityMutableHashedMap";
-   this.header = 644;
-   this.slots = [];
-   this.methods = [
-    new MM("superInit`Collections`IdentityMutableHashedMap", true, 645),
-    new MM("instance`initializer", true, 646),
-    new MM("hashFor:", false, 647),
-    new MM("key:matches:", false, 648)
-   ];
-   this.nestedClasses = [];
-   this.applications = [];
-   this.$superInit$Collections$IdentityMutableHashedMap = function ($cap) {
-    var self = this;
-    self.$super$Collections$IdentityMutableHashedMap$slot._$instance$initializer.call(self, $cap);
-    return self;
-   };
-   this.$instance$initializer = function ($cap) {
-    var self = this;
-    self._$superInit$Collections$IdentityMutableHashedMap($cap);
-    return self;
-   };
-   this.$hashFor$ = function ($key) {
-    var self = this;
-    return $key.$identityHash();
-   };
-   this.$key$matches$ = function ($k, $another) {
-    var self = this;
-    return $k === $another;
-   };
-   this.invoke = function (runtimeSuperclass, enclosingObjects) {
-    function constructRuntimeClass (superBasicNew) {
-     this.debug = "Runtime class for Collections`IdentityMutableHashedMap";
-     this._$superInit$Collections$IdentityMutableHashedMap = $.$superInit$Collections$IdentityMutableHashedMap;
-     this.$superInit$Collections$IdentityMutableHashedMap = dnuCatcher("$superInit$Collections$IdentityMutableHashedMap");
-     this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
-     this._$hashFor$ = $.$hashFor$;
-     this.$hashFor$ = dnuCatcher("$hashFor$");
-     this._$key$matches$ = $.$key$matches$;
-     this.$key$matches$ = dnuCatcher("$key$matches$");
-     this.$enclosingObjects$Collections$IdentityMutableHashedMap = enclosingObjects;
-     this.$super$Collections$IdentityMutableHashedMap$slot = runtimeSuperclass;
-     this["Collections`IdentityMutableHashedMap"] = function () {
-      superBasicNew.call(this);
-     };
-     this.basicNew = this["Collections`IdentityMutableHashedMap"];
-     this.basicNew.prototype = this;
-     this.meta = null;
-     this.newspeakClass = null;
-    };
-    constructRuntimeClass.prototype = runtimeSuperclass;
-    return new constructRuntimeClass(runtimeSuperclass.basicNew);
-   };
-   this.meta = new function () {
-    var $ = this;
-    this.debug = "Runtime meta mixin for Collections`IdentityMutableHashedMap";
-    this.slots = [];
-    this.methods = [
-     new MM("new:", true, 0),
-     new MM("new", false, 649),
-     new MM("defaultCapacity", false, 650)
-    ];
-    this.nestedClasses = [];
-    this.$new$ = function ($cap) {
-     return (new this.nonMeta.basicNew()).$instance$initializer($cap);
-    };
-    this.$new = function () {
-     var self = this;
-     return self._$new$(self._$defaultCapacity());
-    };
-    this.$defaultCapacity = function () {
-     var self = this;
-     return 0;
-    };
-    this.invoke = function (runtimeSuperclass, enclosingObjects) {
-     function constructRuntimeClass (superBasicNew) {
-      this.debug = "Runtime meta class for Collections`IdentityMutableHashedMap";
-      this.$new$ = this._$new$ = $.$new$;
-      this.$new = this._$new = $.$new;
-      this.$defaultCapacity = this._$defaultCapacity = $.$defaultCapacity;
-      this.$enclosingObjects$Collections$IdentityMutableHashedMap = enclosingObjects;
-      this.$super$Collections$IdentityMutableHashedMap = runtimeSuperclass;
-      this.basicNew = function () {
-       superBasicNew.call(this);
-      };
-      this.basicNew.prototype = this;
-      this.nonMeta = null;
-      this.newspeakClass = null;
-     };
-     constructRuntimeClass.prototype = runtimeSuperclass;
-     return new constructRuntimeClass(runtimeSuperclass.basicNew);
-    };
-   }();
-   this.meta.nonMeta = this;
-  }();
-  this.$Collections$IdentitySet = new function () {
-   var $ = this;
-   var $1 = this;
-   this.debug = "Runtime mixin for Collections`IdentitySet";
-   this.name = "Collections`IdentitySet";
-   this.header = 651;
-   this.slots = [];
-   this.methods = [
-    new MM("superInit`Collections`IdentitySet", true, 652),
-    new MM("instance`initializer", true, 653),
-    new MM("hashFor:", false, 654),
-    new MM("key:matches:", false, 655)
-   ];
-   this.nestedClasses = [];
-   this.applications = [];
-   this.$superInit$Collections$IdentitySet = function ($cap) {
-    var self = this;
-    self.$super$Collections$IdentitySet$slot._$instance$initializer.call(self, $cap);
-    return self;
-   };
-   this.$instance$initializer = function ($cap) {
-    var self = this;
-    self._$superInit$Collections$IdentitySet($cap);
-    return self;
-   };
-   this.$hashFor$ = function ($key) {
-    var self = this;
-    return $key.$identityHash();
-   };
-   this.$key$matches$ = function ($k, $another) {
-    var self = this;
-    return $k === $another;
-   };
-   this.invoke = function (runtimeSuperclass, enclosingObjects) {
-    function constructRuntimeClass (superBasicNew) {
-     this.debug = "Runtime class for Collections`IdentitySet";
-     this._$superInit$Collections$IdentitySet = $.$superInit$Collections$IdentitySet;
-     this.$superInit$Collections$IdentitySet = dnuCatcher("$superInit$Collections$IdentitySet");
-     this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
-     this._$hashFor$ = $.$hashFor$;
-     this.$hashFor$ = dnuCatcher("$hashFor$");
-     this._$key$matches$ = $.$key$matches$;
-     this.$key$matches$ = dnuCatcher("$key$matches$");
-     this.$enclosingObjects$Collections$IdentitySet = enclosingObjects;
-     this.$super$Collections$IdentitySet$slot = runtimeSuperclass;
-     this["Collections`IdentitySet"] = function () {
-      superBasicNew.call(this);
-     };
-     this.basicNew = this["Collections`IdentitySet"];
-     this.basicNew.prototype = this;
-     this.meta = null;
-     this.newspeakClass = null;
-    };
-    constructRuntimeClass.prototype = runtimeSuperclass;
-    return new constructRuntimeClass(runtimeSuperclass.basicNew);
-   };
-   this.meta = new function () {
-    var $ = this;
-    this.debug = "Runtime meta mixin for Collections`IdentitySet";
-    this.slots = [];
-    this.methods = [
-     new MM("new:", true, 0),
-     new MM("defaultCapacity", false, 656),
-     new MM("new", false, 657),
-     new MM("withAll:", false, 658)
-    ];
-    this.nestedClasses = [];
-    this.$new$ = function ($cap) {
-     return (new this.nonMeta.basicNew()).$instance$initializer($cap);
-    };
-    this.$defaultCapacity = function () {
-     var self = this;
-     return 0;
-    };
-    this.$new = function () {
-     var self = this;
-     return self._$new$(self._$defaultCapacity());
-    };
-    this.$withAll$ = function ($cltn) {
-     var self = this;
-     return (function (cascadeReceiver) {
-      cascadeReceiver.$includeAll$($cltn);
-      return cascadeReceiver.$yourself();
-     })(self._$new$($cltn.$size()));
-    };
-    this.invoke = function (runtimeSuperclass, enclosingObjects) {
-     function constructRuntimeClass (superBasicNew) {
-      this.debug = "Runtime meta class for Collections`IdentitySet";
-      this.$new$ = this._$new$ = $.$new$;
-      this.$defaultCapacity = this._$defaultCapacity = $.$defaultCapacity;
-      this.$new = this._$new = $.$new;
-      this.$withAll$ = this._$withAll$ = $.$withAll$;
-      this.$enclosingObjects$Collections$IdentitySet = enclosingObjects;
-      this.$super$Collections$IdentitySet = runtimeSuperclass;
-      this.basicNew = function () {
-       superBasicNew.call(this);
-      };
-      this.basicNew.prototype = this;
-      this.nonMeta = null;
-      this.newspeakClass = null;
-     };
-     constructRuntimeClass.prototype = runtimeSuperclass;
-     return new constructRuntimeClass(runtimeSuperclass.basicNew);
-    };
-   }();
-   this.meta.nonMeta = this;
-  }();
-  this.$Collections$Interval = new function () {
-   var $ = this;
-   var $1 = this;
-   this.debug = "Runtime mixin for Collections`Interval";
-   this.name = "Collections`Interval";
-   this.header = 659;
-   this.slots = [
-    new SM("start", false, false),
-    new SM("stop", false, false),
-    new SM("increment", false, false)
-   ];
-   this.methods = [
-    new MM("superInit`Collections`Interval", true, 660),
-    new MM("instance`initializer", true, 661),
-    new MM("at:", false, 662),
-    new MM("do:", false, 663),
-    new MM("size", false, 664),
-    new MM("copyWithSize:", false, 665),
-    new MM("init`start:", true, 0),
-    new MM("start", true, 0),
-    new MM("init`stop:", true, 0),
-    new MM("stop", true, 0),
-    new MM("init`increment:", true, 0),
-    new MM("increment", true, 0)
-   ];
-   this.nestedClasses = [];
-   this.applications = [];
-   this.$superInit$Collections$Interval = function ($p_start, $p_stop, $p_step) {
-    var self = this;
-    self.$super$Collections$Interval$slot._$instance$initializer.call(self);
-    return self;
-   };
-   this.$instance$initializer = function ($p_start, $p_stop, $p_step) {
-    var self = this;
-    self._$superInit$Collections$Interval($p_start, $p_stop, $p_step);
-    self._$init$start$($p_start);
-    self._$init$stop$($p_stop);
-    self._$init$increment$($p_step);
-    return self;
-   };
-   this.$at$ = function ($index) {
-    var self = this;
-    if (!(self._$start() - self._$stop()).$sign().$$equal(self._$increment().$sign())) {
-     var $value = nil;
-     $value = self._$start() + (self._$increment() * ($index - 1));
-     if (self._$increment() >= 0) {
-      if ($value.$between$and$(self._$start(), self._$stop())) {
-       return $value;
-      } else {
-       nil;
-      };
-     } else {
-      if ($value.$between$and$(self._$stop(), self._$start())) {
-       return $value;
-      } else {
-       nil;
-      };
-     };
-    } else {
-     nil;
-    };
-    self._$Error().$signal$("Index out-of-range");
-    return self;
-   };
-   this.$do$ = function ($action) {
-    var self = this;
-    var $value = nil;
-    var $incr = nil;
-    var $stp = nil;
-    $value = self._$start();
-    $incr = self._$increment();
-    $stp = self._$stop();
-    if ($incr >= 0) {
-     {
-      nil;
-      for (; $value.$$less$equal($stp); ) {
-       $action.$value$($value);
-       $value = $value + $incr;
-      };
-     };
-    } else {
-     {
-      nil;
-      for (; $value.$$greater$equal($stp); ) {
-       $action.$value$($value);
-       $value = $value + $incr;
-      };
-     };
-    };
-    return self;
-   };
-   this.$size = function () {
-    var self = this;
-    return ((self._$stop() - self._$start()).$$over$over(self._$increment()) + 1).$max$(0);
-   };
-   this.$copyWithSize$ = function ($s) {
-    var self = this;
-    self._$unimplemented();
-    return self;
-   };
-   this.$init$start$ = function (v) {
-    this.$start$slot = v;
-    return this;
-   };
-   this.$start = function () {
-    return this.$start$slot;
-   };
-   this.$init$stop$ = function (v) {
-    this.$stop$slot = v;
-    return this;
-   };
-   this.$stop = function () {
-    return this.$stop$slot;
-   };
-   this.$init$increment$ = function (v) {
-    this.$increment$slot = v;
-    return this;
-   };
-   this.$increment = function () {
-    return this.$increment$slot;
-   };
-   this.invoke = function (runtimeSuperclass, enclosingObjects) {
-    function constructRuntimeClass (superBasicNew) {
-     this.debug = "Runtime class for Collections`Interval";
-     this._$superInit$Collections$Interval = $.$superInit$Collections$Interval;
-     this.$superInit$Collections$Interval = dnuCatcher("$superInit$Collections$Interval");
-     this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
-     this.$at$ = this._$at$ = $.$at$;
-     this.$do$ = this._$do$ = $.$do$;
-     this.$size = this._$size = $.$size;
-     this._$copyWithSize$ = $.$copyWithSize$;
-     this.$copyWithSize$ = dnuCatcher("$copyWithSize$");
-     this.$init$start$ = this._$init$start$ = $.$init$start$;
-     this.$start = this._$start = $.$start;
-     this.$init$stop$ = this._$init$stop$ = $.$init$stop$;
-     this.$stop = this._$stop = $.$stop;
-     this.$init$increment$ = this._$init$increment$ = $.$init$increment$;
-     this.$increment = this._$increment = $.$increment;
-     this.$enclosingObjects$Collections$Interval = enclosingObjects;
-     this.$super$Collections$Interval$slot = runtimeSuperclass;
-     this["Collections`Interval"] = function () {
-      superBasicNew.call(this);
-      this.$start$slot = nil;
-      this.$stop$slot = nil;
-      this.$increment$slot = nil;
-     };
-     this.basicNew = this["Collections`Interval"];
-     this.basicNew.prototype = this;
-     this.meta = null;
-     this.newspeakClass = null;
-    };
-    constructRuntimeClass.prototype = runtimeSuperclass;
-    return new constructRuntimeClass(runtimeSuperclass.basicNew);
-   };
-   this.meta = new function () {
-    var $ = this;
-    this.debug = "Runtime meta mixin for Collections`Interval";
-    this.slots = [];
-    this.methods = [
-     new MM("from:to:by:", true, 0),
-     new MM("from:to:", false, 666)
-    ];
-    this.nestedClasses = [];
-    this.$from$to$by$ = function ($p_start, $p_stop, $p_step) {
-     return (new this.nonMeta.basicNew()).$instance$initializer($p_start, $p_stop, $p_step);
-    };
-    this.$from$to$ = function ($start, $stop) {
-     var self = this;
-     return self._$from$to$by$($start, $stop, 1);
-    };
-    this.invoke = function (runtimeSuperclass, enclosingObjects) {
-     function constructRuntimeClass (superBasicNew) {
-      this.debug = "Runtime meta class for Collections`Interval";
-      this.$from$to$by$ = this._$from$to$by$ = $.$from$to$by$;
-      this.$from$to$ = this._$from$to$ = $.$from$to$;
-      this.$enclosingObjects$Collections$Interval = enclosingObjects;
-      this.$super$Collections$Interval = runtimeSuperclass;
-      this.basicNew = function () {
-       superBasicNew.call(this);
-      };
-      this.basicNew.prototype = this;
-      this.nonMeta = null;
-      this.newspeakClass = null;
-     };
-     constructRuntimeClass.prototype = runtimeSuperclass;
-     return new constructRuntimeClass(runtimeSuperclass.basicNew);
-    };
-   }();
-   this.meta.nonMeta = this;
-  }();
-  this.$Collections$List = new function () {
-   var $ = this;
-   var $1 = this;
-   this.debug = "Runtime mixin for Collections`List";
-   this.name = "Collections`List";
-   this.header = 667;
-   this.slots = [];
-   this.methods = [
-    new MM("superInit`Collections`List", true, 668),
-    new MM("instance`initializer", true, 669),
-    new MM("at:", false, 670),
-    new MM("at:ifAbsent:", false, 671),
-    new MM("collection:matchesElementsAt:", false, 672),
-    new MM("findFirst:", false, 673),
-    new MM("findLast:", false, 674),
-    new MM("first", false, 675),
-    new MM("hash", false, 676),
-    new MM("indexOf:", false, 677),
-    new MM("indexOf:ifAbsent:", false, 678),
-    new MM("indexOfSubCollection:startingAt:", false, 679),
-    new MM("indexOfSubCollection:startingAt:ifAbsent:", false, 680),
-    new MM("indicesOfSubCollection:", false, 681),
-    new MM("indicesOfSubCollection:startingAt:", false, 682),
-    new MM("last", false, 683),
-    new MM("size", false, 684),
-    new MM("species", false, 685),
-    new MM(",", false, 686),
-    new MM("allButFirst", false, 687),
-    new MM("allButLast", false, 688),
-    new MM("isKindOfList", false, 689),
-    new MM("isSequenceable", false, 690),
-    new MM("copyFrom:to:", false, 691),
-    new MM("copyReplaceAll:with:", false, 692),
-    new MM("copyReplaceFrom:to:with:", false, 693),
-    new MM("copyWith:", false, 694),
-    new MM("copyWithSize:", false, 695),
-    new MM("copyWithout:", false, 696),
-    new MM("reverse", false, 697),
-    new MM("collect:", false, 698),
-    new MM("do:", false, 699),
-    new MM("doWithIndex:", false, 700),
-    new MM("keysAndValuesDo:", false, 701),
-    new MM("reverseDo:", false, 702),
-    new MM("with:do:", false, 703),
-    new MM("collectUsingAtPut:", false, 704),
-    new MM("hashAt:", false, 705),
-    new MM("newForCollectUsingAtPut:", false, 706),
-    new MM("newCopyOfSize:thatCanAlsoHoldElementsOf:", false, 707),
-    new MM("readStream", false, 708),
-    new MM("hasSameElementsAndOrderAs:", false, 709),
-    new MM("includesIndex:", false, 710),
-    new MM("isSortedBy:", false, 711),
-    new MM("binarySearchFor:between:and:toCompare:", false, 712),
-    new MM("binarySearchFor:toCompare:", false, 713)
-   ];
-   this.nestedClasses = [];
-   this.applications = [];
-   this.$superInit$Collections$List = function () {
-    var self = this;
-    self.$super$Collections$List$slot._$instance$initializer.call(self);
-    return self;
-   };
-   this.$instance$initializer = function () {
-    var self = this;
-    self._$superInit$Collections$List();
-    return self;
+    return self._$copyFrom$to$(1, self._$size() - 1);
    };
    this.$at$ = function ($index) {
     var self = this;
@@ -11886,6 +9451,52 @@ var mixins = new function () {
     }, function () {
      return $fail.$value();
     });
+   };
+   this.$binarySearchFor$between$and$toCompare$ = function ($el, $start, $end, $compare) {
+    var self = this;
+    var $low = nil;
+    var $high = nil;
+    $low = $start;
+    $high = $end;
+    {
+     nil;
+     for (; $low.$$less$equal($high); ) {
+      var $mid = nil;
+      $mid = ($low + $high).$$over$over(2);
+      if ($compare.$value$value$(self._$at$($mid), $el)) {
+       $low = $mid + 1;
+      } else {
+       $high = $mid - 1;
+      };
+     };
+    };
+    return $low;
+   };
+   this.$binarySearchFor$toCompare$ = function ($el, $compare) {
+    var self = this;
+    "BOGUS";
+    return self._$binarySearchFor$between$and$toCompare$($el, 1, self._$size(), $compare);
+   };
+   this.$collect$ = function ($map) {
+    var self = this;
+    return self._$collectUsingAtPut$($map);
+   };
+   this.$collectUsingAtPut$ = function ($map) {
+    var self = this;
+    var $c = nil;
+    $c = self._$newForCollectUsingAtPut$(self._$size());
+    {
+     var $$limit = nil;
+     var $i = nil;
+     nil;
+     $i = 1;
+     $$limit = self._$size();
+     for (; $$limit.$$greater$equal($i); ) {
+      $c.$at$put$($i, $map.$value$(self._$at$($i)));
+      $i = (1).$$plus($i);
+     };
+    };
+    return $c;
    };
    this.$collection$matchesElementsAt$ = function ($cltn, $index) {
     var self = this;
@@ -11906,179 +9517,6 @@ var mixins = new function () {
       $i = (1).$$plus($i);
      };
     };
-    return true;
-   };
-   this.$findFirst$ = function ($predicate) {
-    var self = this;
-    {
-     var $$limit = nil;
-     var $i = nil;
-     nil;
-     $i = 1;
-     $$limit = self._$size();
-     for (; $$limit.$$greater$equal($i); ) {
-      if ($predicate.$value$(self._$at$($i))) {
-       return $i;
-      } else {
-       nil;
-      };
-      $i = (1).$$plus($i);
-     };
-    };
-    return 0;
-   };
-   this.$findLast$ = function ($predicate) {
-    var self = this;
-    {
-     var $i = nil;
-     nil;
-     $i = self._$size();
-     for (; (1).$$less$equal($i); ) {
-      if ($predicate.$value$(self._$at$($i))) {
-       return $i;
-      } else {
-       nil;
-      };
-      $i = (-1).$$plus($i);
-     };
-    };
-    return 0;
-   };
-   this.$first = function () {
-    var self = this;
-    return self._$at$(1);
-   };
-   this.$hash = function () {
-    var self = this;
-    var $sz = nil;
-    var $val = nil;
-    $sz = self._$size();
-    if ($sz < 2) {
-     return $sz.$$equal(1).$ifTrue$ifFalse$(function () {
-      return self._$hashAt$(1);
-     }, function () {
-      return 1;
-     });
-    } else {
-     nil;
-    };
-    $val = self._$hashAt$(1);
-    $val = $val.$bitShift$(3).$bitXor$(self._$hashAt$(2).$bitXor$($val));
-    $val = $val.$bitShift$(3).$bitXor$(self._$hashAt$($sz).$bitXor$($val));
-    $val = $val.$bitShift$(3).$bitXor$(self._$hashAt$($sz - 1).$bitXor$($val));
-    $val = $val.$bitShift$(3).$bitXor$(self._$hashAt$($sz.$bitShift$(-1) + 1).$bitXor$($val));
-    $val = $val.$bitShift$(3).$bitXor$($sz.$bitXor$($val));
-    $val = $val.$bitAnd$(1048575);
-    return $val;
-   };
-   this.$indexOf$ = function ($element) {
-    var self = this;
-    return self._$indexOf$ifAbsent$($element, function () {
-     return 0;
-    });
-   };
-   this.$indexOf$ifAbsent$ = function ($element, $f) {
-    var self = this;
-    {
-     var $$limit = nil;
-     var $index = nil;
-     nil;
-     $index = 1;
-     $$limit = self._$size();
-     for (; $$limit.$$greater$equal($index); ) {
-      if (self._$at$($index).$$equal($element)) {
-       return $index;
-      } else {
-       nil;
-      };
-      $index = (1).$$plus($index);
-     };
-    };
-    return $f.$value();
-   };
-   this.$indexOfSubCollection$startingAt$ = function ($sub, $index) {
-    var self = this;
-    return self._$indexOfSubCollection$startingAt$ifAbsent$($sub, $index, function () {
-     return self._$error$("subcollection not found");
-    });
-   };
-   this.$indexOfSubCollection$startingAt$ifAbsent$ = function ($sub, $index, $f) {
-    var self = this;
-    {
-     var $$limit = nil;
-     var $i = nil;
-     nil;
-     $i = $index;
-     $$limit = (self._$size() - $sub.$size()) + 1;
-     for (; $$limit.$$greater$equal($i); ) {
-      if (self._$collection$matchesElementsAt$($sub, $i)) {
-       return $i;
-      } else {
-       nil;
-      };
-      $i = (1).$$plus($i);
-     };
-    };
-    return $f.$value();
-   };
-   this.$indicesOfSubCollection$ = function ($sub) {
-    var self = this;
-    return self._$indicesOfSubCollection$startingAt$($sub, 1);
-   };
-   this.$indicesOfSubCollection$startingAt$ = function ($sub, $index) {
-    var self = this;
-    var $indices = nil;
-    var $subSize = nil;
-    var $current = nil;
-    $indices = self.$enclosingObjects$Collections$List[0]._$MutableArrayList().$new();
-    $subSize = $sub.$size();
-    $current = $index;
-    {
-     nil;
-     $current = self._$indexOfSubCollection$startingAt$ifAbsent$($sub, $current, function () {
-      return 0;
-     });
-     for (; !$current.$$equal(0); ) {
-      $indices.$addLast$($current);
-      $current = $current + $subSize;
-      $current = self._$indexOfSubCollection$startingAt$ifAbsent$($sub, $current, function () {
-       return 0;
-      });
-     };
-    };
-    return $indices;
-   };
-   this.$last = function () {
-    var self = this;
-    return self._$at$(self._$size());
-   };
-   this.$size = function () {
-    var self = this;
-    self._$subclassResponsibility();
-    return self;
-   };
-   this.$species = function () {
-    var self = this;
-    return self._$Array();
-   };
-   this.$$comma = function ($other) {
-    var self = this;
-    return self._$copyReplaceFrom$to$with$(self._$size() + 1, self._$size(), $other);
-   };
-   this.$allButFirst = function () {
-    var self = this;
-    return self._$copyFrom$to$(2, self._$size());
-   };
-   this.$allButLast = function () {
-    var self = this;
-    return self._$copyFrom$to$(1, self._$size() - 1);
-   };
-   this.$isKindOfList = function () {
-    var self = this;
-    return true;
-   };
-   this.$isSequenceable = function () {
-    var self = this;
     return true;
    };
    this.$copyFrom$to$ = function ($start, $stop) {
@@ -12158,30 +9596,6 @@ var mixins = new function () {
     $safeself = self;
     return $safeself.$copyReplaceAll$with$(self._$Array().$with$($el), []);
    };
-   this.$reverse = function () {
-    var self = this;
-    var $copy = nil;
-    "BOGUS";
-    $copy = self._$newCopyOfSize$thatCanAlsoHoldElementsOf$(self._$size(), self);
-    {
-     var $$limit = nil;
-     var $i = nil;
-     nil;
-     $i = 1;
-     $$limit = self._$size();
-     for (; $$limit.$$greater$equal($i); ) {
-      var $el = nil;
-      $el = self._$at$($i);
-      $copy.$at$put$((self._$size() + 1) - $i, $el);
-      $i = (1).$$plus($i);
-     };
-    };
-    return $copy;
-   };
-   this.$collect$ = function ($map) {
-    var self = this;
-    return self._$collectUsingAtPut$($map);
-   };
    this.$do$ = function ($f) {
     var self = this;
     {
@@ -12212,56 +9626,8 @@ var mixins = new function () {
     };
     return self;
    };
-   this.$keysAndValuesDo$ = function ($action) {
+   this.$findFirst$ = function ($predicate) {
     var self = this;
-    {
-     var $$limit = nil;
-     var $index = nil;
-     nil;
-     $index = 1;
-     $$limit = self._$size();
-     for (; $$limit.$$greater$equal($index); ) {
-      $action.$value$value$($index, self._$at$($index));
-      $index = (1).$$plus($index);
-     };
-    };
-    return self;
-   };
-   this.$reverseDo$ = function ($action) {
-    var self = this;
-    {
-     var $index = nil;
-     nil;
-     $index = self._$size();
-     for (; (1).$$less$equal($index); ) {
-      $action.$value$(self._$at$($index));
-      $index = (-1).$$plus($index);
-     };
-    };
-    return self;
-   };
-   this.$with$do$ = function ($other, $action) {
-    var self = this;
-    self._$assert$message$(function () {
-     return self._$size().$$equal($other.$size());
-    }, "Cannot jointly interate collections of different size");
-    {
-     var $$limit = nil;
-     var $index = nil;
-     nil;
-     $index = 1;
-     $$limit = self._$size();
-     for (; $$limit.$$greater$equal($index); ) {
-      $action.$value$value$(self._$at$($index), $other.$at$($index));
-      $index = (1).$$plus($index);
-     };
-    };
-    return self;
-   };
-   this.$collectUsingAtPut$ = function ($map) {
-    var self = this;
-    var $c = nil;
-    $c = self._$newForCollectUsingAtPut$(self._$size());
     {
      var $$limit = nil;
      var $i = nil;
@@ -12269,27 +9635,36 @@ var mixins = new function () {
      $i = 1;
      $$limit = self._$size();
      for (; $$limit.$$greater$equal($i); ) {
-      $c.$at$put$($i, $map.$value$(self._$at$($i)));
+      if ($predicate.$value$(self._$at$($i))) {
+       return $i;
+      } else {
+       nil;
+      };
       $i = (1).$$plus($i);
      };
     };
-    return $c;
+    return 0;
    };
-   this.$hashAt$ = function ($index) {
+   this.$findLast$ = function ($predicate) {
     var self = this;
-    return self._$at$($index).$hash();
+    {
+     var $i = nil;
+     nil;
+     $i = self._$size();
+     for (; (1).$$less$equal($i); ) {
+      if ($predicate.$value$(self._$at$($i))) {
+       return $i;
+      } else {
+       nil;
+      };
+      $i = (-1).$$plus($i);
+     };
+    };
+    return 0;
    };
-   this.$newForCollectUsingAtPut$ = function ($size) {
+   this.$first = function () {
     var self = this;
-    return self._$Array().$new$($size);
-   };
-   this.$newCopyOfSize$thatCanAlsoHoldElementsOf$ = function ($size, $other) {
-    var self = this;
-    return self._$Array().$new$($size);
-   };
-   this.$readStream = function () {
-    var self = this;
-    return $0.$ListReadStream(self.$enclosingObjects$Collections$List[0]).$on$(self);
+    return self._$at$(1);
    };
    this.$hasSameElementsAndOrderAs$ = function ($other) {
     var self = this;
@@ -12316,9 +9691,121 @@ var mixins = new function () {
     };
     return true;
    };
+   this.$hash = function () {
+    var self = this;
+    var $sz = nil;
+    var $val = nil;
+    $sz = self._$size();
+    if ($sz < 2) {
+     return $sz.$$equal(1).$ifTrue$ifFalse$(function () {
+      return self._$hashAt$(1);
+     }, function () {
+      return 1;
+     });
+    } else {
+     nil;
+    };
+    $val = self._$hashAt$(1);
+    $val = $val.$bitShift$(3).$bitXor$(self._$hashAt$(2).$bitXor$($val));
+    $val = $val.$bitShift$(3).$bitXor$(self._$hashAt$($sz).$bitXor$($val));
+    $val = $val.$bitShift$(3).$bitXor$(self._$hashAt$($sz - 1).$bitXor$($val));
+    $val = $val.$bitShift$(3).$bitXor$(self._$hashAt$($sz.$bitShift$(-1) + 1).$bitXor$($val));
+    $val = $val.$bitShift$(3).$bitXor$($sz.$bitXor$($val));
+    $val = $val.$bitAnd$(1048575);
+    return $val;
+   };
+   this.$hashAt$ = function ($index) {
+    var self = this;
+    return self._$at$($index).$hash();
+   };
    this.$includesIndex$ = function ($index) {
     var self = this;
     return $index.$between$and$(1, self._$size());
+   };
+   this.$indexOf$ = function ($element) {
+    var self = this;
+    return self._$indexOf$ifAbsent$($element, function () {
+     return 0;
+    });
+   };
+   this.$indexOf$ifAbsent$ = function ($element, $f) {
+    var self = this;
+    {
+     var $$limit = nil;
+     var $index = nil;
+     nil;
+     $index = 1;
+     $$limit = self._$size();
+     for (; $$limit.$$greater$equal($index); ) {
+      if (self._$at$($index).$$equal($element)) {
+       return $index;
+      } else {
+       nil;
+      };
+      $index = (1).$$plus($index);
+     };
+    };
+    return $f.$value();
+   };
+   this.$indexOfSubCollection$startingAt$ = function ($sub, $index) {
+    var self = this;
+    return self._$indexOfSubCollection$startingAt$ifAbsent$($sub, $index, function () {
+     return self.$enclosingObjects$Collections$AbstractList[0]._$error$("subcollection not found");
+    });
+   };
+   this.$indexOfSubCollection$startingAt$ifAbsent$ = function ($sub, $index, $f) {
+    var self = this;
+    {
+     var $$limit = nil;
+     var $i = nil;
+     nil;
+     $i = $index;
+     $$limit = (self._$size() - $sub.$size()) + 1;
+     for (; $$limit.$$greater$equal($i); ) {
+      if (self._$collection$matchesElementsAt$($sub, $i)) {
+       return $i;
+      } else {
+       nil;
+      };
+      $i = (1).$$plus($i);
+     };
+    };
+    return $f.$value();
+   };
+   this.$indicesOfSubCollection$ = function ($sub) {
+    var self = this;
+    return self._$indicesOfSubCollection$startingAt$($sub, 1);
+   };
+   this.$indicesOfSubCollection$startingAt$ = function ($sub, $index) {
+    var self = this;
+    var $indices = nil;
+    var $subSize = nil;
+    var $current = nil;
+    $indices = self.$enclosingObjects$Collections$AbstractList[0]._$MutableArrayList().$new();
+    $subSize = $sub.$size();
+    $current = $index;
+    {
+     nil;
+     $current = self._$indexOfSubCollection$startingAt$ifAbsent$($sub, $current, function () {
+      return 0;
+     });
+     for (; !$current.$$equal(0); ) {
+      $indices.$addLast$($current);
+      $current = $current + $subSize;
+      $current = self._$indexOfSubCollection$startingAt$ifAbsent$($sub, $current, function () {
+       return 0;
+      });
+     };
+    };
+    return $indices;
+   };
+   this.$isKindOfList = function () {
+    var self = this;
+    return true;
+   };
+   this.$isSequenceable = function () {
+    var self = this;
+    return true;
    };
    this.$isSortedBy$ = function ($compare) {
     var self = this;
@@ -12346,45 +9833,134 @@ var mixins = new function () {
     };
     return true;
    };
-   this.$binarySearchFor$between$and$toCompare$ = function ($el, $start, $end, $compare) {
+   this.$keysAndValuesDo$ = function ($action) {
     var self = this;
-    var $low = nil;
-    var $high = nil;
-    $low = $start;
-    $high = $end;
     {
+     var $$limit = nil;
+     var $index = nil;
      nil;
-     for (; $low.$$less$equal($high); ) {
-      var $mid = nil;
-      $mid = ($low + $high).$$over$over(2);
-      if ($compare.$value$value$(self._$at$($mid), $el)) {
-       $low = $mid + 1;
-      } else {
-       $high = $mid - 1;
-      };
+     $index = 1;
+     $$limit = self._$size();
+     for (; $$limit.$$greater$equal($index); ) {
+      $action.$value$value$($index, self._$at$($index));
+      $index = (1).$$plus($index);
      };
     };
-    return $low;
+    return self;
    };
-   this.$binarySearchFor$toCompare$ = function ($el, $compare) {
+   this.$last = function () {
     var self = this;
+    return self._$at$(self._$size());
+   };
+   this.$newCopyOfSize$thatCanAlsoHoldElementsOf$ = function ($size, $other) {
+    var self = this;
+    return self._$Array().$new$($size);
+   };
+   this.$newForCollectUsingAtPut$ = function ($size) {
+    var self = this;
+    return self._$Array().$new$($size);
+   };
+   this.$readStream = function () {
+    var self = this;
+    return $0.$ListReadStream(self.$enclosingObjects$Collections$AbstractList[0]).$on$(self);
+   };
+   this.$reverse = function () {
+    var self = this;
+    var $copy = nil;
     "BOGUS";
-    return self._$binarySearchFor$between$and$toCompare$($el, 1, self._$size(), $compare);
+    $copy = self._$newCopyOfSize$thatCanAlsoHoldElementsOf$(self._$size(), self);
+    {
+     var $$limit = nil;
+     var $i = nil;
+     nil;
+     $i = 1;
+     $$limit = self._$size();
+     for (; $$limit.$$greater$equal($i); ) {
+      var $el = nil;
+      $el = self._$at$($i);
+      $copy.$at$put$((self._$size() + 1) - $i, $el);
+      $i = (1).$$plus($i);
+     };
+    };
+    return $copy;
+   };
+   this.$reverseDo$ = function ($action) {
+    var self = this;
+    {
+     var $index = nil;
+     nil;
+     $index = self._$size();
+     for (; (1).$$less$equal($index); ) {
+      $action.$value$(self._$at$($index));
+      $index = (-1).$$plus($index);
+     };
+    };
+    return self;
+   };
+   this.$size = function () {
+    var self = this;
+    self._$subclassResponsibility();
+    return self;
+   };
+   this.$species = function () {
+    var self = this;
+    return self._$Array();
+   };
+   this.$with$do$ = function ($other, $action) {
+    var self = this;
+    self._$assert$message$(function () {
+     return self._$size().$$equal($other.$size());
+    }, "Cannot jointly interate collections of different size");
+    {
+     var $$limit = nil;
+     var $index = nil;
+     nil;
+     $index = 1;
+     $$limit = self._$size();
+     for (; $$limit.$$greater$equal($index); ) {
+      $action.$value$value$(self._$at$($index), $other.$at$($index));
+      $index = (1).$$plus($index);
+     };
+    };
+    return self;
    };
    this.invoke = function (runtimeSuperclass, enclosingObjects) {
     function constructRuntimeClass (superBasicNew) {
-     this.debug = "Runtime class for Collections`List";
-     this._$superInit$Collections$List = $.$superInit$Collections$List;
-     this.$superInit$Collections$List = dnuCatcher("$superInit$Collections$List");
+     this.debug = "Runtime class for Collections`AbstractList";
+     this._$superInit$Collections$AbstractList = $.$superInit$Collections$AbstractList;
+     this.$superInit$Collections$AbstractList = dnuCatcher("$superInit$Collections$AbstractList");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this.$$comma = this._$$comma = $.$$comma;
+     this.$allButFirst = this._$allButFirst = $.$allButFirst;
+     this.$allButLast = this._$allButLast = $.$allButLast;
      this.$at$ = this._$at$ = $.$at$;
      this.$at$ifAbsent$ = this._$at$ifAbsent$ = $.$at$ifAbsent$;
+     this._$binarySearchFor$between$and$toCompare$ = $.$binarySearchFor$between$and$toCompare$;
+     this.$binarySearchFor$between$and$toCompare$ = dnuCatcher("$binarySearchFor$between$and$toCompare$");
+     this.$binarySearchFor$toCompare$ = this._$binarySearchFor$toCompare$ = $.$binarySearchFor$toCompare$;
+     this.$collect$ = this._$collect$ = $.$collect$;
+     this._$collectUsingAtPut$ = $.$collectUsingAtPut$;
+     this.$collectUsingAtPut$ = dnuCatcher("$collectUsingAtPut$");
      this._$collection$matchesElementsAt$ = $.$collection$matchesElementsAt$;
      this.$collection$matchesElementsAt$ = dnuCatcher("$collection$matchesElementsAt$");
+     this.$copyFrom$to$ = this._$copyFrom$to$ = $.$copyFrom$to$;
+     this.$copyReplaceAll$with$ = this._$copyReplaceAll$with$ = $.$copyReplaceAll$with$;
+     this._$copyReplaceFrom$to$with$ = $.$copyReplaceFrom$to$with$;
+     this.$copyReplaceFrom$to$with$ = dnuCatcher("$copyReplaceFrom$to$with$");
+     this.$copyWith$ = this._$copyWith$ = $.$copyWith$;
+     this.$copyWithSize$ = this._$copyWithSize$ = $.$copyWithSize$;
+     this.$copyWithout$ = this._$copyWithout$ = $.$copyWithout$;
+     this.$do$ = this._$do$ = $.$do$;
+     this.$doWithIndex$ = this._$doWithIndex$ = $.$doWithIndex$;
      this.$findFirst$ = this._$findFirst$ = $.$findFirst$;
      this.$findLast$ = this._$findLast$ = $.$findLast$;
      this.$first = this._$first = $.$first;
+     this.$hasSameElementsAndOrderAs$ = this._$hasSameElementsAndOrderAs$ = $.$hasSameElementsAndOrderAs$;
      this.$hash = this._$hash = $.$hash;
+     this._$hashAt$ = $.$hashAt$;
+     this.$hashAt$ = dnuCatcher("$hashAt$");
+     this._$includesIndex$ = $.$includesIndex$;
+     this.$includesIndex$ = dnuCatcher("$includesIndex$");
      this.$indexOf$ = this._$indexOf$ = $.$indexOf$;
      this.$indexOf$ifAbsent$ = this._$indexOf$ifAbsent$ = $.$indexOf$ifAbsent$;
      this._$indexOfSubCollection$startingAt$ = $.$indexOfSubCollection$startingAt$;
@@ -12395,50 +9971,27 @@ var mixins = new function () {
      this.$indicesOfSubCollection$ = dnuCatcher("$indicesOfSubCollection$");
      this._$indicesOfSubCollection$startingAt$ = $.$indicesOfSubCollection$startingAt$;
      this.$indicesOfSubCollection$startingAt$ = dnuCatcher("$indicesOfSubCollection$startingAt$");
-     this.$last = this._$last = $.$last;
-     this.$size = this._$size = $.$size;
-     this.$species = this._$species = $.$species;
-     this.$$comma = this._$$comma = $.$$comma;
-     this.$allButFirst = this._$allButFirst = $.$allButFirst;
-     this.$allButLast = this._$allButLast = $.$allButLast;
      this.$isKindOfList = this._$isKindOfList = $.$isKindOfList;
      this.$isSequenceable = this._$isSequenceable = $.$isSequenceable;
-     this.$copyFrom$to$ = this._$copyFrom$to$ = $.$copyFrom$to$;
-     this.$copyReplaceAll$with$ = this._$copyReplaceAll$with$ = $.$copyReplaceAll$with$;
-     this._$copyReplaceFrom$to$with$ = $.$copyReplaceFrom$to$with$;
-     this.$copyReplaceFrom$to$with$ = dnuCatcher("$copyReplaceFrom$to$with$");
-     this.$copyWith$ = this._$copyWith$ = $.$copyWith$;
-     this.$copyWithSize$ = this._$copyWithSize$ = $.$copyWithSize$;
-     this.$copyWithout$ = this._$copyWithout$ = $.$copyWithout$;
-     this.$reverse = this._$reverse = $.$reverse;
-     this.$collect$ = this._$collect$ = $.$collect$;
-     this.$do$ = this._$do$ = $.$do$;
-     this.$doWithIndex$ = this._$doWithIndex$ = $.$doWithIndex$;
-     this.$keysAndValuesDo$ = this._$keysAndValuesDo$ = $.$keysAndValuesDo$;
-     this.$reverseDo$ = this._$reverseDo$ = $.$reverseDo$;
-     this.$with$do$ = this._$with$do$ = $.$with$do$;
-     this._$collectUsingAtPut$ = $.$collectUsingAtPut$;
-     this.$collectUsingAtPut$ = dnuCatcher("$collectUsingAtPut$");
-     this._$hashAt$ = $.$hashAt$;
-     this.$hashAt$ = dnuCatcher("$hashAt$");
-     this._$newForCollectUsingAtPut$ = $.$newForCollectUsingAtPut$;
-     this.$newForCollectUsingAtPut$ = dnuCatcher("$newForCollectUsingAtPut$");
-     this.$newCopyOfSize$thatCanAlsoHoldElementsOf$ = this._$newCopyOfSize$thatCanAlsoHoldElementsOf$ = $.$newCopyOfSize$thatCanAlsoHoldElementsOf$;
-     this.$readStream = this._$readStream = $.$readStream;
-     this.$hasSameElementsAndOrderAs$ = this._$hasSameElementsAndOrderAs$ = $.$hasSameElementsAndOrderAs$;
-     this._$includesIndex$ = $.$includesIndex$;
-     this.$includesIndex$ = dnuCatcher("$includesIndex$");
      this._$isSortedBy$ = $.$isSortedBy$;
      this.$isSortedBy$ = dnuCatcher("$isSortedBy$");
-     this._$binarySearchFor$between$and$toCompare$ = $.$binarySearchFor$between$and$toCompare$;
-     this.$binarySearchFor$between$and$toCompare$ = dnuCatcher("$binarySearchFor$between$and$toCompare$");
-     this.$binarySearchFor$toCompare$ = this._$binarySearchFor$toCompare$ = $.$binarySearchFor$toCompare$;
-     this.$enclosingObjects$Collections$List = enclosingObjects;
-     this.$super$Collections$List$slot = runtimeSuperclass;
-     this["Collections`List"] = function () {
+     this.$keysAndValuesDo$ = this._$keysAndValuesDo$ = $.$keysAndValuesDo$;
+     this.$last = this._$last = $.$last;
+     this.$newCopyOfSize$thatCanAlsoHoldElementsOf$ = this._$newCopyOfSize$thatCanAlsoHoldElementsOf$ = $.$newCopyOfSize$thatCanAlsoHoldElementsOf$;
+     this._$newForCollectUsingAtPut$ = $.$newForCollectUsingAtPut$;
+     this.$newForCollectUsingAtPut$ = dnuCatcher("$newForCollectUsingAtPut$");
+     this.$readStream = this._$readStream = $.$readStream;
+     this.$reverse = this._$reverse = $.$reverse;
+     this.$reverseDo$ = this._$reverseDo$ = $.$reverseDo$;
+     this.$size = this._$size = $.$size;
+     this.$species = this._$species = $.$species;
+     this.$with$do$ = this._$with$do$ = $.$with$do$;
+     this.$enclosingObjects$Collections$AbstractList = enclosingObjects;
+     this.$super$Collections$AbstractList$slot = runtimeSuperclass;
+     this["Collections`AbstractList"] = function () {
       superBasicNew.call(this);
      };
-     this.basicNew = this["Collections`List"];
+     this.basicNew = this["Collections`AbstractList"];
      this.basicNew.prototype = this;
      this.meta = null;
      this.newspeakClass = null;
@@ -12448,7 +10001,7 @@ var mixins = new function () {
    };
    this.meta = new function () {
     var $ = this;
-    this.debug = "Runtime meta mixin for Collections`List";
+    this.debug = "Runtime meta mixin for Collections`AbstractList";
     this.slots = [];
     this.methods = [new MM("new", true, 0)];
     this.nestedClasses = [];
@@ -12457,10 +10010,2710 @@ var mixins = new function () {
     };
     this.invoke = function (runtimeSuperclass, enclosingObjects) {
      function constructRuntimeClass (superBasicNew) {
-      this.debug = "Runtime meta class for Collections`List";
+      this.debug = "Runtime meta class for Collections`AbstractList";
       this.$new = this._$new = $.$new;
-      this.$enclosingObjects$Collections$List = enclosingObjects;
-      this.$super$Collections$List = runtimeSuperclass;
+      this.$enclosingObjects$Collections$AbstractList = enclosingObjects;
+      this.$super$Collections$AbstractList = runtimeSuperclass;
+      this.basicNew = function () {
+       superBasicNew.call(this);
+      };
+      this.basicNew.prototype = this;
+      this.nonMeta = null;
+      this.newspeakClass = null;
+     };
+     constructRuntimeClass.prototype = runtimeSuperclass;
+     return new constructRuntimeClass(runtimeSuperclass.basicNew);
+    };
+   }();
+   this.meta.nonMeta = this;
+  }();
+  this.$Collections$AddableList = new function () {
+   var $ = this;
+   var $1 = this;
+   this.debug = "Runtime mixin for Collections`AddableList";
+   this.name = "Collections`AddableList";
+   this.header = 533;
+   this.slots = [
+    new SM("contents", true, false),
+    new SM("startGap", true, false),
+    new SM("lastIndex", true, false)
+   ];
+   this.methods = [
+    new MM("superInit`Collections`AddableList", true, 534),
+    new MM("instance`initializer", true, 535),
+    new MM("add:", false, 536),
+    new MM("addAll:", false, 537),
+    new MM("at:", false, 538),
+    new MM("at:ifAbsent:", false, 539),
+    new MM("copyWithSize:", false, 540),
+    new MM("do:", false, 541),
+    new MM("endGap", false, 542),
+    new MM("firstIndex", false, 543),
+    new MM("include:", false, 544),
+    new MM("include:ifNew:", false, 545),
+    new MM("includeAll:", false, 546),
+    new MM("indexOf:ifAbsent:", false, 547),
+    new MM("initCapacity:", false, 548),
+    new MM("internalIndexIsValid:", false, 549),
+    new MM("internalRangeCheck:", false, 550),
+    new MM("makeSpace:beforeIndex:", false, 551),
+    new MM("makeSpaceAtStart:", false, 552),
+    new MM("needSpaceAtEnd:", false, 553),
+    new MM("needSpaceAtStart:", false, 554),
+    new MM("postCopy", false, 555),
+    new MM("remove:", false, 556),
+    new MM("remove:at:", false, 557),
+    new MM("remove:ifAbsent:", false, 558),
+    new MM("removeAll", false, 559),
+    new MM("removeAll:", false, 560),
+    new MM("removeAllSuchThat:", false, 561),
+    new MM("removeAt:", false, 562),
+    new MM("removeEvery:", false, 563),
+    new MM("removeEvery:startingAt:", false, 564),
+    new MM("removeFirst", false, 565),
+    new MM("removeLast", false, 566),
+    new MM("size", false, 567),
+    new MM("size:", false, 568),
+    new MM("sort:", false, 569),
+    new MM("init`contents:", true, 0),
+    new MM("contents", true, 0),
+    new MM("contents:", true, 0),
+    new MM("init`startGap:", true, 0),
+    new MM("startGap", true, 0),
+    new MM("startGap:", true, 0),
+    new MM("init`lastIndex:", true, 0),
+    new MM("lastIndex", true, 0),
+    new MM("lastIndex:", true, 0)
+   ];
+   this.nestedClasses = [];
+   this.applications = [];
+   this.$superInit$Collections$AddableList = function () {
+    var self = this;
+    self.$super$Collections$AddableList$slot._$instance$initializer.call(self);
+    return self;
+   };
+   this.$instance$initializer = function () {
+    var self = this;
+    self._$superInit$Collections$AddableList();
+    self._$initCapacity$(self._$class().$defaultCapacity());
+    return self;
+   };
+   this.$add$ = function ($e) {
+    var self = this;
+    self._$subclassResponsibility();
+    return self;
+   };
+   this.$addAll$ = function ($c) {
+    var self = this;
+    $c.$do$(function ($el) {
+     return self._$add$($el);
+    });
+    return $c;
+   };
+   this.$at$ = function ($i) {
+    var self = this;
+    var $adjusted = nil;
+    $adjusted = $i + self._$startGap();
+    if (!((0 < $i) && $adjusted.$$less$equal(self._$lastIndex()))) {
+     self.$enclosingObjects$Collections$AddableList[0]._$error$("invalid index");
+    } else {
+     nil;
+    };
+    return self._$contents().$at$($adjusted);
+   };
+   this.$at$ifAbsent$ = function ($i, $f) {
+    var self = this;
+    var $internal = nil;
+    $internal = $i + self._$startGap();
+    return self._$internalIndexIsValid$($internal).$ifTrue$ifFalse$(function () {
+     return self._$contents().$at$($internal);
+    }, function () {
+     return $f.$value();
+    });
+   };
+   this.$copyWithSize$ = function ($s) {
+    var self = this;
+    var $safeself = nil;
+    $safeself = self;
+    return self._$Array().$new$($s).$replaceFrom$to$with$(1, $s.$min$(self._$size()), $safeself);
+   };
+   this.$do$ = function ($action) {
+    var self = this;
+    {
+     var $$limit = nil;
+     var $index = nil;
+     nil;
+     $index = self._$startGap() + 1;
+     $$limit = self._$lastIndex();
+     for (; $$limit.$$greater$equal($index); ) {
+      $action.$value$(self._$contents().$at$($index));
+      $index = (1).$$plus($index);
+     };
+    };
+    return self;
+   };
+   this.$endGap = function () {
+    var self = this;
+    return self._$contents().$size() - self._$lastIndex();
+   };
+   this.$firstIndex = function () {
+    var self = this;
+    return 1 + self._$startGap();
+   };
+   this.$include$ = function ($e) {
+    var self = this;
+    return self._$include$ifNew$($e, function () {
+     return nil;
+    });
+   };
+   this.$include$ifNew$ = function ($e, $blk) {
+    var self = this;
+    if (!self._$includes$($e)) {
+     self._$add$($e);
+     $blk.$value();
+    } else {
+     nil;
+    };
+    return $e;
+   };
+   this.$includeAll$ = function ($c) {
+    var self = this;
+    $c.$do$(function ($el) {
+     return self._$include$($el);
+    });
+    return $c;
+   };
+   this.$indexOf$ifAbsent$ = function ($el, $f) {
+    var self = this;
+    {
+     var $$limit = nil;
+     var $i = nil;
+     nil;
+     $i = 1;
+     $$limit = self._$size();
+     for (; $$limit.$$greater$equal($i); ) {
+      if (self._$at$($i).$$equal($el)) {
+       return $i;
+      } else {
+       nil;
+      };
+      $i = (1).$$plus($i);
+     };
+    };
+    return $f.$value();
+   };
+   this.$initCapacity$ = function ($c) {
+    var self = this;
+    self._$contents$(self._$Array().$new$($c));
+    self._$startGap$(0);
+    self._$lastIndex$(0);
+    return self;
+   };
+   this.$internalIndexIsValid$ = function ($index) {
+    var self = this;
+    return $index.$$greater(self._$startGap()) && $index.$$less$equal(self._$lastIndex());
+   };
+   this.$internalRangeCheck$ = function ($index) {
+    var self = this;
+    if (!self._$internalIndexIsValid$($index)) {
+     self.$enclosingObjects$Collections$AddableList[0]._$error$("invalid index");
+    } else {
+     nil;
+    };
+    return self;
+   };
+   this.$makeSpace$beforeIndex$ = function ($slots, $i) {
+    var self = this;
+    return (($i - self._$startGap()) - 1).$$greater((self._$lastIndex() - $i) + 1).$ifTrue$ifFalse$(function () {
+     self._$needSpaceAtEnd$($slots);
+     self._$contents().$replaceFrom$to$with$startingAt$($i + $slots, self._$lastIndex() + $slots, self._$contents(), $i);
+     self._$lastIndex$(self._$lastIndex() + $slots);
+     return $i;
+    }, function () {
+     var $newI = nil;
+     $newI = ($i + self._$needSpaceAtStart$($slots)) - $slots;
+     self._$contents().$replaceFrom$to$with$startingAt$((self._$startGap() + 1) - $slots, $newI - 1, self._$contents(), self._$startGap() + 1);
+     self._$startGap$(self._$startGap() - $slots);
+     return $newI;
+    });
+   };
+   this.$makeSpaceAtStart$ = function ($nslots) {
+    var self = this;
+    var $newGap = nil;
+    var $diff = nil;
+    var $newContents = nil;
+    var $sz = nil;
+    var $newLastIndex = nil;
+    if (self._$isEmpty() && $nslots.$$less$equal(self._$contents().$size())) {
+     self._$startGap$($nslots);
+     self._$lastIndex$($nslots);
+     return $nslots;
+    } else {
+     nil;
+    };
+    $sz = self._$size();
+    $newGap = $nslots.$max$($sz);
+    $diff = $newGap - self._$startGap();
+    $newLastIndex = $newGap + $sz;
+    $newContents = self._$Array().$new$(self._$contents().$size() + $diff);
+    $newContents.$replaceFrom$to$with$startingAt$($newGap + 1, $newLastIndex, self._$contents(), self._$firstIndex());
+    self._$startGap$($newGap);
+    self._$contents$($newContents);
+    self._$lastIndex$($newLastIndex);
+    return $diff;
+   };
+   this.$needSpaceAtEnd$ = function ($slots) {
+    var self = this;
+    if ($slots.$$greater(self._$endGap())) {
+     self._$contents$(self._$contents().$copyWithSize$(self._$contents().$size() + $slots.$max$(self._$size())));
+    } else {
+     nil;
+    };
+    return self;
+   };
+   this.$needSpaceAtStart$ = function ($nslots) {
+    var self = this;
+    return $nslots.$$greater(self._$startGap()).$ifTrue$ifFalse$(function () {
+     return self._$makeSpaceAtStart$($nslots);
+    }, function () {
+     return 0;
+    });
+   };
+   this.$postCopy = function () {
+    var self = this;
+    self.$super$Collections$AddableList$slot._$postCopy.call(self);
+    self._$contents$(self._$contents().$copyWithSize$(self._$contents().$size().$max$(self._$lastIndex())));
+    return self;
+   };
+   this.$remove$ = function ($el) {
+    var self = this;
+    return self._$remove$ifAbsent$($el, function () {
+     return self.$enclosingObjects$Collections$AddableList[0]._$error$("element not found");
+    });
+   };
+   this.$remove$at$ = function ($nElements, $i) {
+    var self = this;
+    var $el = nil;
+    var $internal = nil;
+    $el = self._$at$($i);
+    $internal = self._$startGap() + $i;
+    self._$internalRangeCheck$($internal);
+    self._$internalRangeCheck$(($internal + $nElements) - 1);
+    {
+     var $$limit = nil;
+     var $index = nil;
+     nil;
+     $index = $internal;
+     $$limit = self._$lastIndex() - $nElements;
+     for (; $$limit.$$greater$equal($index); ) {
+      self._$contents().$at$put$($index, self._$contents().$at$($index + $nElements));
+      $index = (1).$$plus($index);
+     };
+    };
+    self._$contents().$at$put$(self._$lastIndex(), nil);
+    self._$lastIndex$(self._$lastIndex() - $nElements);
+    return self;
+   };
+   this.$remove$ifAbsent$ = function ($el, $f) {
+    var self = this;
+    var NLR = new Object();
+    try {
+     self._$removeAt$(self._$indexOf$ifAbsent$($el, function () {
+      {
+       var t = $f.$value();
+       if (NLR === null) {
+        self.cannotReturn(self, t);
+       };
+       NLR.value = t;
+       throw NLR;
+      };
+     }));
+     {
+      var t = $el;
+      NLR = null;
+      return t;
+     };
+    } catch (NLR_exception) {
+     if (NLR === NLR_exception) {
+      return NLR_exception.value;
+     } else {
+      throw NLR_exception;
+     };
+    };
+   };
+   this.$removeAll = function () {
+    var self = this;
+    {
+     var $$limit = nil;
+     var $i = nil;
+     nil;
+     $i = self._$startGap() + 1;
+     $$limit = self._$lastIndex();
+     for (; $$limit.$$greater$equal($i); ) {
+      self._$contents().$at$put$($i, nil);
+      $i = (1).$$plus($i);
+     };
+    };
+    self._$lastIndex$(self._$startGap());
+    return self;
+   };
+   this.$removeAll$ = function ($c) {
+    var self = this;
+    $c.$do$(function ($el) {
+     return self._$remove$($el);
+    });
+    return $c;
+   };
+   this.$removeAllSuchThat$ = function ($test) {
+    var self = this;
+    var $i = nil;
+    $i = 1;
+    {
+     nil;
+     for (; $i.$$less$equal(self._$size()); ) {
+      if ($test.$value$(self._$at$($i))) {
+       self._$removeAt$($i);
+      } else {
+       $i = $i + 1;
+      };
+     };
+    };
+    return self;
+   };
+   this.$removeAt$ = function ($index) {
+    var self = this;
+    var $el = nil;
+    $el = self._$at$($index);
+    self._$remove$at$(1, $index);
+    return $el;
+   };
+   this.$removeEvery$ = function ($val) {
+    var self = this;
+    return self._$removeEvery$startingAt$($val, 1);
+   };
+   this.$removeEvery$startingAt$ = function ($val, $start) {
+    var self = this;
+    var NLR = new Object();
+    try {
+     var $index = nil;
+     $index = self._$indexOf$ifAbsent$($val, function () {
+      {
+       var t = $val;
+       if (NLR === null) {
+        self.cannotReturn(self, t);
+       };
+       NLR.value = t;
+       throw NLR;
+      };
+     });
+     self._$removeAt$($index);
+     {
+      var t = self._$removeEvery$startingAt$($val, $index);
+      NLR = null;
+      return t;
+     };
+    } catch (NLR_exception) {
+     if (NLR === NLR_exception) {
+      return NLR_exception.value;
+     } else {
+      throw NLR_exception;
+     };
+    };
+   };
+   this.$removeFirst = function () {
+    var self = this;
+    return self._$removeAt$(1);
+   };
+   this.$removeLast = function () {
+    var self = this;
+    return self._$removeAt$(self._$size());
+   };
+   this.$size = function () {
+    var self = this;
+    return self._$lastIndex() - self._$startGap();
+   };
+   this.$size$ = function ($s) {
+    var self = this;
+    var $delta = nil;
+    var $newLastIndex = nil;
+    $delta = $s - self._$size();
+    $newLastIndex = self._$lastIndex() + $delta;
+    if ($delta < 0) {
+     {
+      var $$limit = nil;
+      var $i = nil;
+      nil;
+      $i = $newLastIndex + 1;
+      $$limit = self._$lastIndex();
+      for (; $$limit.$$greater$equal($i); ) {
+       self._$contents().$at$put$($i, nil);
+       $i = (1).$$plus($i);
+      };
+     };
+    } else {
+     nil;
+    };
+    if ($delta > 0) {
+     self._$needSpaceAtEnd$($delta);
+    } else {
+     nil;
+    };
+    self._$lastIndex$(self._$lastIndex() + $delta);
+    return self;
+   };
+   this.$sort$ = function ($compare) {
+    var self = this;
+    if (self._$lastIndex().$$less(self._$firstIndex())) {
+     return self;
+    } else {
+     nil;
+    };
+    self._$contents().$mergeSortFrom$to$by$(self._$firstIndex(), self._$lastIndex(), $compare);
+    return self;
+   };
+   this.$init$contents$ = function (v) {
+    this.$contents$slot = v;
+    return this;
+   };
+   this.$contents = function () {
+    return this.$contents$slot;
+   };
+   this.$contents$ = function (v) {
+    this.$contents$slot = v;
+    return this;
+   };
+   this.$init$startGap$ = function (v) {
+    this.$startGap$slot = v;
+    return this;
+   };
+   this.$startGap = function () {
+    return this.$startGap$slot;
+   };
+   this.$startGap$ = function (v) {
+    this.$startGap$slot = v;
+    return this;
+   };
+   this.$init$lastIndex$ = function (v) {
+    this.$lastIndex$slot = v;
+    return this;
+   };
+   this.$lastIndex = function () {
+    return this.$lastIndex$slot;
+   };
+   this.$lastIndex$ = function (v) {
+    this.$lastIndex$slot = v;
+    return this;
+   };
+   this.invoke = function (runtimeSuperclass, enclosingObjects) {
+    function constructRuntimeClass (superBasicNew) {
+     this.debug = "Runtime class for Collections`AddableList";
+     this._$superInit$Collections$AddableList = $.$superInit$Collections$AddableList;
+     this.$superInit$Collections$AddableList = dnuCatcher("$superInit$Collections$AddableList");
+     this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this.$add$ = this._$add$ = $.$add$;
+     this.$addAll$ = this._$addAll$ = $.$addAll$;
+     this.$at$ = this._$at$ = $.$at$;
+     this.$at$ifAbsent$ = this._$at$ifAbsent$ = $.$at$ifAbsent$;
+     this.$copyWithSize$ = this._$copyWithSize$ = $.$copyWithSize$;
+     this.$do$ = this._$do$ = $.$do$;
+     this._$endGap = $.$endGap;
+     this.$endGap = dnuCatcher("$endGap");
+     this._$firstIndex = $.$firstIndex;
+     this.$firstIndex = dnuCatcher("$firstIndex");
+     this.$include$ = this._$include$ = $.$include$;
+     this.$include$ifNew$ = this._$include$ifNew$ = $.$include$ifNew$;
+     this.$includeAll$ = this._$includeAll$ = $.$includeAll$;
+     this.$indexOf$ifAbsent$ = this._$indexOf$ifAbsent$ = $.$indexOf$ifAbsent$;
+     this.$initCapacity$ = this._$initCapacity$ = $.$initCapacity$;
+     this._$internalIndexIsValid$ = $.$internalIndexIsValid$;
+     this.$internalIndexIsValid$ = dnuCatcher("$internalIndexIsValid$");
+     this._$internalRangeCheck$ = $.$internalRangeCheck$;
+     this.$internalRangeCheck$ = dnuCatcher("$internalRangeCheck$");
+     this._$makeSpace$beforeIndex$ = $.$makeSpace$beforeIndex$;
+     this.$makeSpace$beforeIndex$ = dnuCatcher("$makeSpace$beforeIndex$");
+     this._$makeSpaceAtStart$ = $.$makeSpaceAtStart$;
+     this.$makeSpaceAtStart$ = dnuCatcher("$makeSpaceAtStart$");
+     this._$needSpaceAtEnd$ = $.$needSpaceAtEnd$;
+     this.$needSpaceAtEnd$ = dnuCatcher("$needSpaceAtEnd$");
+     this._$needSpaceAtStart$ = $.$needSpaceAtStart$;
+     this.$needSpaceAtStart$ = dnuCatcher("$needSpaceAtStart$");
+     this.$postCopy = this._$postCopy = $.$postCopy;
+     this.$remove$ = this._$remove$ = $.$remove$;
+     this.$remove$at$ = this._$remove$at$ = $.$remove$at$;
+     this.$remove$ifAbsent$ = this._$remove$ifAbsent$ = $.$remove$ifAbsent$;
+     this.$removeAll = this._$removeAll = $.$removeAll;
+     this.$removeAll$ = this._$removeAll$ = $.$removeAll$;
+     this.$removeAllSuchThat$ = this._$removeAllSuchThat$ = $.$removeAllSuchThat$;
+     this.$removeAt$ = this._$removeAt$ = $.$removeAt$;
+     this.$removeEvery$ = this._$removeEvery$ = $.$removeEvery$;
+     this.$removeEvery$startingAt$ = this._$removeEvery$startingAt$ = $.$removeEvery$startingAt$;
+     this.$removeFirst = this._$removeFirst = $.$removeFirst;
+     this.$removeLast = this._$removeLast = $.$removeLast;
+     this.$size = this._$size = $.$size;
+     this.$size$ = this._$size$ = $.$size$;
+     this.$sort$ = this._$sort$ = $.$sort$;
+     this._$init$contents$ = $.$init$contents$;
+     this.$init$contents$ = dnuCatcher("$init$contents$");
+     this._$contents = $.$contents;
+     this.$contents = dnuCatcher("$contents");
+     this._$contents$ = $.$contents$;
+     this.$contents$ = dnuCatcher("$contents$");
+     this._$init$startGap$ = $.$init$startGap$;
+     this.$init$startGap$ = dnuCatcher("$init$startGap$");
+     this._$startGap = $.$startGap;
+     this.$startGap = dnuCatcher("$startGap");
+     this._$startGap$ = $.$startGap$;
+     this.$startGap$ = dnuCatcher("$startGap$");
+     this._$init$lastIndex$ = $.$init$lastIndex$;
+     this.$init$lastIndex$ = dnuCatcher("$init$lastIndex$");
+     this._$lastIndex = $.$lastIndex;
+     this.$lastIndex = dnuCatcher("$lastIndex");
+     this._$lastIndex$ = $.$lastIndex$;
+     this.$lastIndex$ = dnuCatcher("$lastIndex$");
+     this.$enclosingObjects$Collections$AddableList = enclosingObjects;
+     this.$super$Collections$AddableList$slot = runtimeSuperclass;
+     this["Collections`AddableList"] = function () {
+      superBasicNew.call(this);
+      this.$contents$slot = nil;
+      this.$startGap$slot = nil;
+      this.$lastIndex$slot = nil;
+     };
+     this.basicNew = this["Collections`AddableList"];
+     this.basicNew.prototype = this;
+     this.meta = null;
+     this.newspeakClass = null;
+    };
+    constructRuntimeClass.prototype = runtimeSuperclass;
+    return new constructRuntimeClass(runtimeSuperclass.basicNew);
+   };
+   this.meta = new function () {
+    var $ = this;
+    this.debug = "Runtime meta mixin for Collections`AddableList";
+    this.slots = [];
+    this.methods = [
+     new MM("new", true, 0),
+     new MM("defaultCapacity", false, 570),
+     new MM("new:", false, 571),
+     new MM("with:", false, 572),
+     new MM("withAll:", false, 573)
+    ];
+    this.nestedClasses = [];
+    this.$new = function () {
+     return (new this.nonMeta.basicNew()).$instance$initializer();
+    };
+    this.$defaultCapacity = function () {
+     var self = this;
+     return 5;
+    };
+    this.$new$ = function ($capacity) {
+     var self = this;
+     return self._$new().$initCapacity$($capacity);
+    };
+    this.$with$ = function ($val1) {
+     var self = this;
+     return (function (cascadeReceiver) {
+      cascadeReceiver.$add$($val1);
+      return cascadeReceiver.$yourself();
+     })(self._$new$(1));
+    };
+    this.$withAll$ = function ($cltn) {
+     var self = this;
+     return (function (cascadeReceiver) {
+      cascadeReceiver.$addAll$($cltn);
+      return cascadeReceiver.$yourself();
+     })(self._$new$($cltn.$size()));
+    };
+    this.invoke = function (runtimeSuperclass, enclosingObjects) {
+     function constructRuntimeClass (superBasicNew) {
+      this.debug = "Runtime meta class for Collections`AddableList";
+      this.$new = this._$new = $.$new;
+      this.$defaultCapacity = this._$defaultCapacity = $.$defaultCapacity;
+      this.$new$ = this._$new$ = $.$new$;
+      this.$with$ = this._$with$ = $.$with$;
+      this.$withAll$ = this._$withAll$ = $.$withAll$;
+      this.$enclosingObjects$Collections$AddableList = enclosingObjects;
+      this.$super$Collections$AddableList = runtimeSuperclass;
+      this.basicNew = function () {
+       superBasicNew.call(this);
+      };
+      this.basicNew.prototype = this;
+      this.nonMeta = null;
+      this.newspeakClass = null;
+     };
+     constructRuntimeClass.prototype = runtimeSuperclass;
+     return new constructRuntimeClass(runtimeSuperclass.basicNew);
+    };
+   }();
+   this.meta.nonMeta = this;
+  }();
+  this.$Collections$Association = new function () {
+   var $ = this;
+   var $1 = this;
+   this.debug = "Runtime mixin for Collections`Association";
+   this.name = "Collections`Association";
+   this.header = 574;
+   this.slots = [
+    new SM("key", true, false),
+    new SM("value", true, false)
+   ];
+   this.methods = [
+    new MM("superInit`Collections`Association", true, 575),
+    new MM("instance`initializer", true, 576),
+    new MM("=", false, 577),
+    new MM("copy", false, 578),
+    new MM("hash", false, 579),
+    new MM("printOn:", false, 580),
+    new MM("init`key:", true, 0),
+    new MM("key", true, 0),
+    new MM("key:", true, 0),
+    new MM("init`value:", true, 0),
+    new MM("value", true, 0),
+    new MM("value:", true, 0)
+   ];
+   this.nestedClasses = [];
+   this.applications = [];
+   this.$superInit$Collections$Association = function ($k, $v) {
+    var self = this;
+    self.$super$Collections$Association$slot._$instance$initializer.call(self);
+    return self;
+   };
+   this.$instance$initializer = function ($k, $v) {
+    var self = this;
+    self._$superInit$Collections$Association($k, $v);
+    self._$init$key$($k);
+    self._$init$value$($v);
+    return self;
+   };
+   this.$$equal = function ($other) {
+    var self = this;
+    return self._$key().$$equal($other.$key()) && self._$value().$$equal($other.$value());
+   };
+   this.$copy = function () {
+    var self = this;
+    return self._$class().$key$value$(self._$key(), self._$value());
+   };
+   this.$hash = function () {
+    var self = this;
+    return self._$key().$hash().$bitXor$(self._$value().$hash());
+   };
+   this.$printOn$ = function ($strm) {
+    var self = this;
+    self._$key().$printOn$($strm);
+    $strm.$nextPutAll$(" -> ");
+    self._$value().$printOn$($strm);
+    return self;
+   };
+   this.$init$key$ = function (v) {
+    this.$key$slot = v;
+    return this;
+   };
+   this.$key = function () {
+    return this.$key$slot;
+   };
+   this.$key$ = function (v) {
+    this.$key$slot = v;
+    return this;
+   };
+   this.$init$value$ = function (v) {
+    this.$value$slot = v;
+    return this;
+   };
+   this.$value = function () {
+    return this.$value$slot;
+   };
+   this.$value$ = function (v) {
+    this.$value$slot = v;
+    return this;
+   };
+   this.invoke = function (runtimeSuperclass, enclosingObjects) {
+    function constructRuntimeClass (superBasicNew) {
+     this.debug = "Runtime class for Collections`Association";
+     this._$superInit$Collections$Association = $.$superInit$Collections$Association;
+     this.$superInit$Collections$Association = dnuCatcher("$superInit$Collections$Association");
+     this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this.$$equal = this._$$equal = $.$$equal;
+     this.$copy = this._$copy = $.$copy;
+     this.$hash = this._$hash = $.$hash;
+     this.$printOn$ = this._$printOn$ = $.$printOn$;
+     this.$init$key$ = this._$init$key$ = $.$init$key$;
+     this.$key = this._$key = $.$key;
+     this.$key$ = this._$key$ = $.$key$;
+     this.$init$value$ = this._$init$value$ = $.$init$value$;
+     this.$value = this._$value = $.$value;
+     this.$value$ = this._$value$ = $.$value$;
+     this.$enclosingObjects$Collections$Association = enclosingObjects;
+     this.$super$Collections$Association$slot = runtimeSuperclass;
+     this["Collections`Association"] = function () {
+      superBasicNew.call(this);
+      this.$key$slot = nil;
+      this.$value$slot = nil;
+     };
+     this.basicNew = this["Collections`Association"];
+     this.basicNew.prototype = this;
+     this.meta = null;
+     this.newspeakClass = null;
+    };
+    constructRuntimeClass.prototype = runtimeSuperclass;
+    return new constructRuntimeClass(runtimeSuperclass.basicNew);
+   };
+   this.meta = new function () {
+    var $ = this;
+    this.debug = "Runtime meta mixin for Collections`Association";
+    this.slots = [];
+    this.methods = [
+     new MM("key:value:", true, 0),
+     new MM("new", false, 581)
+    ];
+    this.nestedClasses = [];
+    this.$key$value$ = function ($k, $v) {
+     return (new this.nonMeta.basicNew()).$instance$initializer($k, $v);
+    };
+    this.$new = function () {
+     var self = this;
+     self._$warnObsolete();
+     return self._$key$value$(nil, nil);
+    };
+    this.invoke = function (runtimeSuperclass, enclosingObjects) {
+     function constructRuntimeClass (superBasicNew) {
+      this.debug = "Runtime meta class for Collections`Association";
+      this.$key$value$ = this._$key$value$ = $.$key$value$;
+      this.$new = this._$new = $.$new;
+      this.$enclosingObjects$Collections$Association = enclosingObjects;
+      this.$super$Collections$Association = runtimeSuperclass;
+      this.basicNew = function () {
+       superBasicNew.call(this);
+      };
+      this.basicNew.prototype = this;
+      this.nonMeta = null;
+      this.newspeakClass = null;
+     };
+     constructRuntimeClass.prototype = runtimeSuperclass;
+     return new constructRuntimeClass(runtimeSuperclass.basicNew);
+    };
+   }();
+   this.meta.nonMeta = this;
+  }();
+  this.$Collections$Collection = new function () {
+   var $ = this;
+   var $1 = this;
+   this.debug = "Runtime mixin for Collections`Collection";
+   this.name = "Collections`Collection";
+   this.header = 582;
+   this.slots = [];
+   this.methods = [
+    new MM("superInit`Collections`Collection", true, 583),
+    new MM("instance`initializer", true, 584),
+    new MM("allSatisfy:", false, 585),
+    new MM("anySatisfy:", false, 586),
+    new MM("asArray", false, 587),
+    new MM("asCollection", false, 588),
+    new MM("asMutableArrayList", false, 589),
+    new MM("asSet", false, 590),
+    new MM("asSortedList", false, 591),
+    new MM("asSortedList:", false, 592),
+    new MM("collect:", false, 593),
+    new MM("collectUsingAdd:", false, 594),
+    new MM("copy", false, 595),
+    new MM("detect:", false, 596),
+    new MM("detect:ifNone:", false, 597),
+    new MM("do:", false, 598),
+    new MM("do:separatedBy:", false, 599),
+    new MM("flatMap:", false, 600),
+    new MM("flatten", false, 601),
+    new MM("hash", false, 602),
+    new MM("includes:", false, 603),
+    new MM("inject:into:", false, 604),
+    new MM("intersection:", false, 605),
+    new MM("isCollection", false, 606),
+    new MM("isEmpty", false, 607),
+    new MM("isKindOfCollection", false, 608),
+    new MM("maxPrintElements", false, 609),
+    new MM("newForCollectUsingAdd:", false, 610),
+    new MM("noneSatisfy:", false, 611),
+    new MM("occurrencesOf:", false, 612),
+    new MM("postCopy", false, 613),
+    new MM("printElementsDo:", false, 614),
+    new MM("printOn:", false, 615),
+    new MM("reduce:", false, 616),
+    new MM("reduce:ifEmpty:", false, 617),
+    new MM("reject:", false, 618),
+    new MM("select:", false, 619),
+    new MM("size", false, 620),
+    new MM("species", false, 621),
+    new MM("union:", false, 622),
+    new MM("value", false, 623)
+   ];
+   this.nestedClasses = [];
+   this.applications = [];
+   this.$superInit$Collections$Collection = function () {
+    var self = this;
+    self.$super$Collections$Collection$slot._$instance$initializer.call(self);
+    return self;
+   };
+   this.$instance$initializer = function () {
+    var self = this;
+    self._$superInit$Collections$Collection();
+    return self;
+   };
+   this.$allSatisfy$ = function ($predicate) {
+    var self = this;
+    var NLR = new Object();
+    try {
+     self._$do$(function ($each) {
+      return $predicate.$value$($each).$ifFalse$(function () {
+       {
+        var t = false;
+        if (NLR === null) {
+         self.cannotReturn(self, t);
+        };
+        NLR.value = t;
+        throw NLR;
+       };
+      });
+     });
+     {
+      var t = true;
+      NLR = null;
+      return t;
+     };
+    } catch (NLR_exception) {
+     if (NLR === NLR_exception) {
+      return NLR_exception.value;
+     } else {
+      throw NLR_exception;
+     };
+    };
+   };
+   this.$anySatisfy$ = function ($predicate) {
+    var self = this;
+    var NLR = new Object();
+    try {
+     self._$do$(function ($each) {
+      return $predicate.$value$($each).$ifTrue$(function () {
+       {
+        var t = true;
+        if (NLR === null) {
+         self.cannotReturn(self, t);
+        };
+        NLR.value = t;
+        throw NLR;
+       };
+      });
+     });
+     {
+      var t = false;
+      NLR = null;
+      return t;
+     };
+    } catch (NLR_exception) {
+     if (NLR === NLR_exception) {
+      return NLR_exception.value;
+     } else {
+      throw NLR_exception;
+     };
+    };
+   };
+   this.$asArray = function () {
+    var self = this;
+    var $array = nil;
+    var $index = nil;
+    $array = self._$Array().$new$(self._$size());
+    $index = 1;
+    self._$do$(function ($element) {
+     $array.$at$put$($index, $element);
+     return $index = $index + 1;
+    });
+    return $array;
+   };
+   this.$asCollection = function () {
+    var self = this;
+    return self;
+   };
+   this.$asMutableArrayList = function () {
+    var self = this;
+    return self.$enclosingObjects$Collections$Collection[0]._$MutableArrayList().$withAll$(self);
+   };
+   this.$asSet = function () {
+    var self = this;
+    return self.$enclosingObjects$Collections$Collection[0]._$Set().$withAll$(self);
+   };
+   this.$asSortedList = function () {
+    var self = this;
+    return self.$enclosingObjects$Collections$Collection[0]._$SortedList().$withAll$(self);
+   };
+   this.$asSortedList$ = function ($sortPredicate) {
+    var self = this;
+    return (function (cascadeReceiver) {
+     cascadeReceiver.$addAll$(self);
+     return cascadeReceiver.$yourself();
+    })(self.$enclosingObjects$Collections$Collection[0]._$SortedList().$new$sortBlock$(self._$size(), $sortPredicate));
+   };
+   this.$collect$ = function ($map) {
+    var self = this;
+    return self._$collectUsingAdd$($map);
+   };
+   this.$collectUsingAdd$ = function ($map) {
+    var self = this;
+    var $c = nil;
+    $c = self._$newForCollectUsingAdd$(self._$size());
+    self._$do$(function ($e) {
+     return $c.$add$($map.$value$($e));
+    });
+    return $c;
+   };
+   this.$copy = function () {
+    var self = this;
+    "BOGUS";
+    return self._$class().$withAll$(self);
+   };
+   this.$detect$ = function ($predicate) {
+    var self = this;
+    return self._$detect$ifNone$($predicate, function () {
+     return self._$Error().$signal$("No matching element detected");
+    });
+   };
+   this.$detect$ifNone$ = function ($predicate, $fail) {
+    var self = this;
+    var NLR = new Object();
+    try {
+     self._$do$(function ($element) {
+      return $predicate.$value$($element).$ifTrue$(function () {
+       {
+        var t = $element;
+        if (NLR === null) {
+         self.cannotReturn(self, t);
+        };
+        NLR.value = t;
+        throw NLR;
+       };
+      });
+     });
+     {
+      var t = $fail.$value();
+      NLR = null;
+      return t;
+     };
+    } catch (NLR_exception) {
+     if (NLR === NLR_exception) {
+      return NLR_exception.value;
+     } else {
+      throw NLR_exception;
+     };
+    };
+   };
+   this.$do$ = function ($action) {
+    var self = this;
+    self._$subclassResponsibility();
+    return self;
+   };
+   this.$do$separatedBy$ = function ($action, $betweenAction) {
+    var self = this;
+    var $firstTime = nil;
+    $firstTime = true;
+    $firstTime = true;
+    self._$do$(function ($element) {
+     if ($firstTime) {
+      $firstTime = false;
+     } else {
+      $betweenAction.$value();
+     };
+     return $action.$value$($element);
+    });
+    return self;
+   };
+   this.$flatMap$ = function ($map) {
+    var self = this;
+    return self._$collect$($map).$flatten();
+   };
+   this.$flatten = function () {
+    var self = this;
+    var $totalSize = nil;
+    var $c = nil;
+    $totalSize = 0;
+    self._$do$(function ($e) {
+     return $totalSize = $totalSize + $e.$isKindOfCollection().$ifTrue$ifFalse$(function () {
+      return $e.$size();
+     }, function () {
+      return 1;
+     });
+    });
+    $c = self._$newForCollectUsingAdd$($totalSize);
+    self._$do$(function ($e) {
+     return $e.$isKindOfCollection().$ifTrue$ifFalse$(function () {
+      return $e.$do$(function ($x) {
+       return $c.$add$($x);
+      });
+     }, function () {
+      return $c.$add$($e);
+     });
+    });
+    return $c;
+   };
+   this.$hash = function () {
+    var self = this;
+    var NLR = new Object();
+    try {
+     var $count = nil;
+     $count = 0;
+     {
+      var t = self._$inject$into$(0, function ($previousHash, $element) {
+       var $newHash = nil;
+       $newHash = $previousHash.$bitXor$($element.$hash());
+       $count = $count + 1;
+       if ($count > 2) {
+        {
+         var t = $newHash;
+         if (NLR === null) {
+          self.cannotReturn(self, t);
+         };
+         NLR.value = t;
+         throw NLR;
+        };
+       } else {
+        nil;
+       };
+       return $newHash;
+      });
+      NLR = null;
+      return t;
+     };
+    } catch (NLR_exception) {
+     if (NLR === NLR_exception) {
+      return NLR_exception.value;
+     } else {
+      throw NLR_exception;
+     };
+    };
+   };
+   this.$includes$ = function ($o) {
+    var self = this;
+    var NLR = new Object();
+    try {
+     self._$do$(function ($element) {
+      return $element.$$equal($o).$ifTrue$(function () {
+       {
+        var t = true;
+        if (NLR === null) {
+         self.cannotReturn(self, t);
+        };
+        NLR.value = t;
+        throw NLR;
+       };
+      });
+     });
+     {
+      var t = false;
+      NLR = null;
+      return t;
+     };
+    } catch (NLR_exception) {
+     if (NLR === NLR_exception) {
+      return NLR_exception.value;
+     } else {
+      throw NLR_exception;
+     };
+    };
+   };
+   this.$inject$into$ = function ($initialValue, $foldBlock) {
+    var self = this;
+    var $runningValue = nil;
+    $runningValue = $initialValue;
+    self._$do$(function ($element) {
+     return $runningValue = $foldBlock.$value$value$($runningValue, $element);
+    });
+    return $runningValue;
+   };
+   this.$intersection$ = function ($other) {
+    var self = this;
+    return self._$select$(function ($each) {
+     return $other.$includes$($each);
+    });
+   };
+   this.$isCollection = function () {
+    var self = this;
+    return true;
+   };
+   this.$isEmpty = function () {
+    var self = this;
+    return 0 === self._$size();
+   };
+   this.$isKindOfCollection = function () {
+    var self = this;
+    return true;
+   };
+   this.$maxPrintElements = function () {
+    var self = this;
+    return 100;
+   };
+   this.$newForCollectUsingAdd$ = function ($size) {
+    var self = this;
+    return self.$enclosingObjects$Collections$Collection[0]._$MutableArrayList().$new$($size);
+   };
+   this.$noneSatisfy$ = function ($predicate) {
+    var self = this;
+    var NLR = new Object();
+    try {
+     self._$do$(function ($each) {
+      return $predicate.$value$($each).$ifTrue$(function () {
+       {
+        var t = false;
+        if (NLR === null) {
+         self.cannotReturn(self, t);
+        };
+        NLR.value = t;
+        throw NLR;
+       };
+      });
+     });
+     {
+      var t = true;
+      NLR = null;
+      return t;
+     };
+    } catch (NLR_exception) {
+     if (NLR === NLR_exception) {
+      return NLR_exception.value;
+     } else {
+      throw NLR_exception;
+     };
+    };
+   };
+   this.$occurrencesOf$ = function ($o) {
+    var self = this;
+    var $c = nil;
+    "BOGUS";
+    $c = 0;
+    self._$do$(function ($e) {
+     return $e.$$equal($o).$ifTrue$(function () {
+      return $c = $c + 1;
+     });
+    });
+    return $c;
+   };
+   this.$postCopy = function () {
+    var self = this;
+    "BOGUS";
+    return self;
+   };
+   this.$printElementsDo$ = function ($f) {
+    var self = this;
+    self._$do$($f);
+    return self;
+   };
+   this.$printOn$ = function ($stream) {
+    var self = this;
+    var NLR = new Object();
+    try {
+     var $count = nil;
+     var $first = nil;
+     (function (cascadeReceiver) {
+      cascadeReceiver.$nextPutAll$(self._$class().$mixin().$simpleName());
+      return cascadeReceiver.$nextPut$("(");
+     })($stream);
+     $count = 0;
+     $first = true;
+     self._$printElementsDo$(function ($element) {
+      if ($first) {
+       $first = false;
+      } else {
+       $stream.$space();
+      };
+      $element.$printOn$($stream);
+      $count = $count + 1;
+      return $count.$$greater$equal(self._$maxPrintElements()).$ifTrue$(function () {
+       (function (cascadeReceiver) {
+        cascadeReceiver.$nextPut$("<");
+        cascadeReceiver.$print$(self._$size() - $count);
+        return cascadeReceiver.$nextPutAll$(" more elements>)");
+       })($stream);
+       {
+        var t = self;
+        if (NLR === null) {
+         self.cannotReturn(self, t);
+        };
+        NLR.value = t;
+        throw NLR;
+       };
+      });
+     });
+     $stream.$nextPut$(")");
+     {
+      var t = self;
+      NLR = null;
+      return t;
+     };
+    } catch (NLR_exception) {
+     if (NLR === NLR_exception) {
+      return NLR_exception.value;
+     } else {
+      throw NLR_exception;
+     };
+    };
+   };
+   this.$reduce$ = function ($reduceFn) {
+    var self = this;
+    return self._$reduce$ifEmpty$($reduceFn, function () {
+     return self._$Error().$signal$("Cannot reduce an empty collection");
+    });
+   };
+   this.$reduce$ifEmpty$ = function ($reduceFn, $onEmpty) {
+    var self = this;
+    var $current = nil;
+    self._$do$(function ($element) {
+     var $rel = nil;
+     $rel = $element;
+     return $current.$isNil().$ifTrue$ifFalse$(function () {
+      return $current = $rel;
+     }, function () {
+      return $current = $reduceFn.$value$value$($current, $rel);
+     });
+    });
+    return $current.$isNil().$ifFalse$ifTrue$(function () {
+     return $current;
+    }, function () {
+     return $onEmpty.$value();
+    });
+   };
+   this.$reject$ = function ($predicate) {
+    var self = this;
+    return self._$select$(function ($e) {
+     return $predicate.$value$($e).$not();
+    });
+   };
+   this.$select$ = function ($predicate) {
+    var self = this;
+    var $result = nil;
+    $result = self._$newForCollectUsingAdd$(self._$size());
+    self._$do$(function ($element) {
+     return $predicate.$value$($element).$ifTrue$(function () {
+      return $result.$add$($element);
+     });
+    });
+    return $result;
+   };
+   this.$size = function () {
+    var self = this;
+    var $count = nil;
+    $count = 0;
+    self._$do$(function ($element) {
+     return $count = $count + 1;
+    });
+    return $count;
+   };
+   this.$species = function () {
+    var self = this;
+    return self.$enclosingObjects$Collections$Collection[0]._$Set();
+   };
+   this.$union$ = function ($other) {
+    var self = this;
+    return (function (cascadeReceiver) {
+     cascadeReceiver.$addAll$($other);
+     return cascadeReceiver.$yourself();
+    })(self._$asSet());
+   };
+   this.$value = function () {
+    var self = this;
+    "BOGUS";
+    return self;
+   };
+   this.invoke = function (runtimeSuperclass, enclosingObjects) {
+    function constructRuntimeClass (superBasicNew) {
+     this.debug = "Runtime class for Collections`Collection";
+     this._$superInit$Collections$Collection = $.$superInit$Collections$Collection;
+     this.$superInit$Collections$Collection = dnuCatcher("$superInit$Collections$Collection");
+     this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this.$allSatisfy$ = this._$allSatisfy$ = $.$allSatisfy$;
+     this.$anySatisfy$ = this._$anySatisfy$ = $.$anySatisfy$;
+     this.$asArray = this._$asArray = $.$asArray;
+     this.$asCollection = this._$asCollection = $.$asCollection;
+     this.$asMutableArrayList = this._$asMutableArrayList = $.$asMutableArrayList;
+     this.$asSet = this._$asSet = $.$asSet;
+     this.$asSortedList = this._$asSortedList = $.$asSortedList;
+     this.$asSortedList$ = this._$asSortedList$ = $.$asSortedList$;
+     this.$collect$ = this._$collect$ = $.$collect$;
+     this._$collectUsingAdd$ = $.$collectUsingAdd$;
+     this.$collectUsingAdd$ = dnuCatcher("$collectUsingAdd$");
+     this.$copy = this._$copy = $.$copy;
+     this.$detect$ = this._$detect$ = $.$detect$;
+     this.$detect$ifNone$ = this._$detect$ifNone$ = $.$detect$ifNone$;
+     this.$do$ = this._$do$ = $.$do$;
+     this.$do$separatedBy$ = this._$do$separatedBy$ = $.$do$separatedBy$;
+     this.$flatMap$ = this._$flatMap$ = $.$flatMap$;
+     this.$flatten = this._$flatten = $.$flatten;
+     this.$hash = this._$hash = $.$hash;
+     this.$includes$ = this._$includes$ = $.$includes$;
+     this.$inject$into$ = this._$inject$into$ = $.$inject$into$;
+     this.$intersection$ = this._$intersection$ = $.$intersection$;
+     this.$isCollection = this._$isCollection = $.$isCollection;
+     this.$isEmpty = this._$isEmpty = $.$isEmpty;
+     this.$isKindOfCollection = this._$isKindOfCollection = $.$isKindOfCollection;
+     this._$maxPrintElements = $.$maxPrintElements;
+     this.$maxPrintElements = dnuCatcher("$maxPrintElements");
+     this._$newForCollectUsingAdd$ = $.$newForCollectUsingAdd$;
+     this.$newForCollectUsingAdd$ = dnuCatcher("$newForCollectUsingAdd$");
+     this.$noneSatisfy$ = this._$noneSatisfy$ = $.$noneSatisfy$;
+     this._$occurrencesOf$ = $.$occurrencesOf$;
+     this.$occurrencesOf$ = dnuCatcher("$occurrencesOf$");
+     this.$postCopy = this._$postCopy = $.$postCopy;
+     this._$printElementsDo$ = $.$printElementsDo$;
+     this.$printElementsDo$ = dnuCatcher("$printElementsDo$");
+     this.$printOn$ = this._$printOn$ = $.$printOn$;
+     this.$reduce$ = this._$reduce$ = $.$reduce$;
+     this.$reduce$ifEmpty$ = this._$reduce$ifEmpty$ = $.$reduce$ifEmpty$;
+     this.$reject$ = this._$reject$ = $.$reject$;
+     this.$select$ = this._$select$ = $.$select$;
+     this.$size = this._$size = $.$size;
+     this.$species = this._$species = $.$species;
+     this.$union$ = this._$union$ = $.$union$;
+     this.$value = this._$value = $.$value;
+     this.$enclosingObjects$Collections$Collection = enclosingObjects;
+     this.$super$Collections$Collection$slot = runtimeSuperclass;
+     this["Collections`Collection"] = function () {
+      superBasicNew.call(this);
+     };
+     this.basicNew = this["Collections`Collection"];
+     this.basicNew.prototype = this;
+     this.meta = null;
+     this.newspeakClass = null;
+    };
+    constructRuntimeClass.prototype = runtimeSuperclass;
+    return new constructRuntimeClass(runtimeSuperclass.basicNew);
+   };
+   this.meta = new function () {
+    var $ = this;
+    this.debug = "Runtime meta mixin for Collections`Collection";
+    this.slots = [];
+    this.methods = [new MM("new", true, 0)];
+    this.nestedClasses = [];
+    this.$new = function () {
+     return (new this.nonMeta.basicNew()).$instance$initializer();
+    };
+    this.invoke = function (runtimeSuperclass, enclosingObjects) {
+     function constructRuntimeClass (superBasicNew) {
+      this.debug = "Runtime meta class for Collections`Collection";
+      this.$new = this._$new = $.$new;
+      this.$enclosingObjects$Collections$Collection = enclosingObjects;
+      this.$super$Collections$Collection = runtimeSuperclass;
+      this.basicNew = function () {
+       superBasicNew.call(this);
+      };
+      this.basicNew.prototype = this;
+      this.nonMeta = null;
+      this.newspeakClass = null;
+     };
+     constructRuntimeClass.prototype = runtimeSuperclass;
+     return new constructRuntimeClass(runtimeSuperclass.basicNew);
+    };
+   }();
+   this.meta.nonMeta = this;
+  }();
+  this.$Collections$HashedCollection = new function () {
+   var $ = this;
+   var $1 = this;
+   this.debug = "Runtime mixin for Collections`HashedCollection";
+   this.name = "Collections`HashedCollection";
+   this.header = 624;
+   this.slots = [
+    new SM("table_0", true, false),
+    new SM("size_0", true, false),
+    new SM("deleted", true, false)
+   ];
+   this.methods = [
+    new MM("superInit`Collections`HashedCollection", true, 625),
+    new MM("instance`initializer", true, 626),
+    new MM("add:", false, 627),
+    new MM("addAll:", false, 628),
+    new MM("advanceAmount", false, 629),
+    new MM("at:", false, 630),
+    new MM("at:ifAbsent:", false, 631),
+    new MM("atIndex:inTable:occupiedSlotDo:emptySlotDo:deletedSlotDo:", false, 632),
+    new MM("buildValForKey:element:", false, 633),
+    new MM("checkValidity", false, 634),
+    new MM("contentsDo:", false, 635),
+    new MM("createFirstTable", false, 636),
+    new MM("do:", false, 637),
+    new MM("elementFor:", false, 638),
+    new MM("elementForCopy:", false, 639),
+    new MM("firstTableSize", false, 640),
+    new MM("growIfNeeded", false, 641),
+    new MM("growTable", false, 642),
+    new MM("hashFor:", false, 643),
+    new MM("include:", false, 644),
+    new MM("include:ifNew:", false, 645),
+    new MM("includeAll:", false, 646),
+    new MM("includesIndex:", false, 647),
+    new MM("includesKey:", false, 648),
+    new MM("indexOf:", false, 649),
+    new MM("indexOf:ifAbsent:", false, 650),
+    new MM("indexOf:tableMask:", false, 651),
+    new MM("initCapacity:", false, 652),
+    new MM("key:matches:", false, 653),
+    new MM("keyAtValue:", false, 654),
+    new MM("keyAtValue:ifAbsent:", false, 655),
+    new MM("keyFor:", false, 656),
+    new MM("keysDo:", false, 657),
+    new MM("lookup:inTable:matchingSlotDo:emptySlotDo:deletedSlotsDo:mismatchingSlotsDo:", false, 658),
+    new MM("lookup:matchingSlotDo:emptySlotDo:deletedSlotsDo:", false, 659),
+    new MM("markDeleted:", false, 660),
+    new MM("minTableSize", false, 661),
+    new MM("minTableSizeForCapacity:", false, 662),
+    new MM("newTableWithSize:", false, 663),
+    new MM("objToIncludeFor:withExisting:", false, 664),
+    new MM("occupied", false, 665),
+    new MM("postCopy", false, 666),
+    new MM("printElementsDo:", false, 667),
+    new MM("remove:", false, 668),
+    new MM("remove:ifAbsent:", false, 669),
+    new MM("removeAll:", false, 670),
+    new MM("removeAllSuchThat:", false, 671),
+    new MM("removeAt:", false, 672),
+    new MM("removeAt:ifAbsent:", false, 673),
+    new MM("removeEvery:", false, 674),
+    new MM("removeKey:", false, 675),
+    new MM("removeKey:ifAbsent:", false, 676),
+    new MM("setTable:", false, 677),
+    new MM("size", false, 678),
+    new MM("size:", false, 679),
+    new MM("table", false, 680),
+    new MM("table:", false, 681),
+    new MM("tableAt:put:ifNew:", false, 682),
+    new MM("tableAt:put:inDeletedSlot:", false, 683),
+    new MM("tableAt:put:inEmptySlot:", false, 684),
+    new MM("tableAt:put:inMatchingSlot:value:", false, 685),
+    new MM("tableAt:put:inUnusedSlot:", false, 686),
+    new MM("tableSizeForCapacity:", false, 687),
+    new MM("valAt:ifAbsent:", false, 688),
+    new MM("init`table_0:", true, 0),
+    new MM("table_0", true, 0),
+    new MM("table_0:", true, 0),
+    new MM("init`size_0:", true, 0),
+    new MM("size_0", true, 0),
+    new MM("size_0:", true, 0),
+    new MM("init`deleted:", true, 0),
+    new MM("deleted", true, 0),
+    new MM("deleted:", true, 0)
+   ];
+   this.nestedClasses = [];
+   this.applications = [];
+   this.$superInit$Collections$HashedCollection = function ($cap) {
+    var self = this;
+    self.$super$Collections$HashedCollection$slot._$instance$initializer.call(self);
+    return self;
+   };
+   this.$instance$initializer = function ($cap) {
+    var self = this;
+    self._$superInit$Collections$HashedCollection($cap);
+    self._$initCapacity$($cap);
+    return self;
+   };
+   this.$add$ = function ($val) {
+    var self = this;
+    return self._$include$($val);
+   };
+   this.$addAll$ = function ($c) {
+    var self = this;
+    $c.$do$(function ($e) {
+     return self._$add$($e);
+    });
+    return $c;
+   };
+   this.$advanceAmount = function () {
+    var self = this;
+    return 99990;
+   };
+   this.$at$ = function ($key) {
+    var self = this;
+    return self._$at$ifAbsent$($key, function () {
+     return self._$Error().$signal$("key not found");
+    });
+   };
+   this.$at$ifAbsent$ = function ($key, $f) {
+    var self = this;
+    var NLR = new Object();
+    try {
+     {
+      var t = self._$elementFor$(self._$valAt$ifAbsent$($key, function () {
+       {
+        var t = $f.$value();
+        if (NLR === null) {
+         self.cannotReturn(self, t);
+        };
+        NLR.value = t;
+        throw NLR;
+       };
+      }));
+      NLR = null;
+      return t;
+     };
+    } catch (NLR_exception) {
+     if (NLR === NLR_exception) {
+      return NLR_exception.value;
+     } else {
+      throw NLR_exception;
+     };
+    };
+   };
+   this.$atIndex$inTable$occupiedSlotDo$emptySlotDo$deletedSlotDo$ = function ($i, $tbl, $occupied, $empty, $deleted) {
+    var self = this;
+    var $el = nil;
+    $el = $tbl.$at$($i);
+    if ($el === nil) {
+     return $empty.$value();
+    } else {
+     nil;
+    };
+    if ($el === $tbl) {
+     return $deleted.$value();
+    } else {
+     nil;
+    };
+    return $occupied.$value$($el);
+   };
+   this.$buildValForKey$element$ = function ($k, $el) {
+    var self = this;
+    self._$subclassResponsibility();
+    return self;
+   };
+   this.$checkValidity = function () {
+    var self = this;
+    var $c = nil;
+    $c = 0;
+    self._$contentsDo$(function ($val) {
+     self._$assert$message$(function () {
+      return self._$at$(self._$keyFor$($val)).$$equal(self._$elementFor$($val));
+     }, "");
+     return $c = $c + 1;
+    });
+    self._$assert$message$(function () {
+     return $c.$$equal(self._$size());
+    }, "");
+    return self;
+   };
+   this.$contentsDo$ = function ($f) {
+    var self = this;
+    var $tbl = nil;
+    "ACCESSBOGUS";
+    $tbl = self._$table();
+    if ($tbl === nil) {
+     return self;
+    } else {
+     nil;
+    };
+    {
+     var $$limit = nil;
+     var $index = nil;
+     nil;
+     $index = 1;
+     $$limit = $tbl.$size();
+     for (; $$limit.$$greater$equal($index); ) {
+      self._$atIndex$inTable$occupiedSlotDo$emptySlotDo$deletedSlotDo$($index, $tbl, function ($val) {
+       return $f.$value$($val);
+      }, function () {
+       return nil;
+      }, function () {
+       return nil;
+      });
+      $index = (1).$$plus($index);
+     };
+    };
+    return self;
+   };
+   this.$createFirstTable = function () {
+    var self = this;
+    self._$table$(self._$newTableWithSize$(self._$firstTableSize()));
+    return self;
+   };
+   this.$do$ = function ($f) {
+    var self = this;
+    self._$contentsDo$(function ($val) {
+     return $f.$value$(self._$elementFor$($val));
+    });
+    return self;
+   };
+   this.$elementFor$ = function ($val) {
+    var self = this;
+    self._$subclassResponsibility();
+    return self;
+   };
+   this.$elementForCopy$ = function ($el) {
+    var self = this;
+    self._$subclassResponsibility();
+    return self;
+   };
+   this.$firstTableSize = function () {
+    var self = this;
+    return 8;
+   };
+   this.$growIfNeeded = function () {
+    var self = this;
+    if (self._$minTableSizeForCapacity$(self._$occupied()).$$greater(self._$table().$size())) {
+     self._$growTable();
+    } else {
+     nil;
+    };
+    return self;
+   };
+   this.$growTable = function () {
+    var self = this;
+    var $new = nil;
+    $new = self._$newTableWithSize$(self._$table().$size() + self._$table().$size());
+    self._$contentsDo$(function ($a_value) {
+     return self._$lookup$inTable$matchingSlotDo$emptySlotDo$deletedSlotsDo$mismatchingSlotsDo$(self._$keyFor$($a_value), $new, function ($index, $val) {
+      return self._$shouldNotHappen();
+     }, function ($index) {
+      return $new.$at$put$($index, $a_value);
+     }, function ($index) {
+      return self._$shouldNotHappen();
+     }, function ($index) {
+      return nil;
+     });
+    });
+    self._$deleted$(0);
+    self._$table$($new);
+    return self;
+   };
+   this.$hashFor$ = function ($key) {
+    var self = this;
+    self._$subclassResponsibility();
+    return self;
+   };
+   this.$include$ = function ($val) {
+    var self = this;
+    return self._$include$ifNew$($val, function () {
+     return nil;
+    });
+   };
+   this.$include$ifNew$ = function ($val, $ifNew) {
+    var self = this;
+    return self._$tableAt$put$ifNew$(self._$keyFor$($val), self._$elementFor$($val), $ifNew);
+   };
+   this.$includeAll$ = function ($c) {
+    var self = this;
+    $c.$do$(function ($el) {
+     return self._$include$($el);
+    });
+    return $c;
+   };
+   this.$includesIndex$ = function ($k) {
+    var self = this;
+    var NLR = new Object();
+    try {
+     self._$valAt$ifAbsent$($k, function () {
+      {
+       var t = false;
+       if (NLR === null) {
+        self.cannotReturn(self, t);
+       };
+       NLR.value = t;
+       throw NLR;
+      };
+     });
+     {
+      var t = true;
+      NLR = null;
+      return t;
+     };
+    } catch (NLR_exception) {
+     if (NLR === NLR_exception) {
+      return NLR_exception.value;
+     } else {
+      throw NLR_exception;
+     };
+    };
+   };
+   this.$includesKey$ = function ($k) {
+    var self = this;
+    return self._$includesIndex$($k);
+   };
+   this.$indexOf$ = function ($el) {
+    var self = this;
+    return self._$indexOf$ifAbsent$($el, function () {
+     return self.$enclosingObjects$Collections$HashedCollection[0]._$error$("Element not found");
+    });
+   };
+   this.$indexOf$ifAbsent$ = function ($el, $blk) {
+    var self = this;
+    var NLR = new Object();
+    try {
+     self._$contentsDo$(function ($v) {
+      return self._$elementFor$($v).$$equal($el).$ifTrue$(function () {
+       {
+        var t = self._$keyFor$($v);
+        if (NLR === null) {
+         self.cannotReturn(self, t);
+        };
+        NLR.value = t;
+        throw NLR;
+       };
+      });
+     });
+     {
+      var t = $blk.$value();
+      NLR = null;
+      return t;
+     };
+    } catch (NLR_exception) {
+     if (NLR === NLR_exception) {
+      return NLR_exception.value;
+     } else {
+      throw NLR_exception;
+     };
+    };
+   };
+   this.$indexOf$tableMask$ = function ($key, $mask) {
+    var self = this;
+    return self._$hashFor$($key).$bitAnd$($mask) + 1;
+   };
+   this.$initCapacity$ = function ($cap) {
+    var self = this;
+    self._$size$(0);
+    self._$deleted$(0);
+    if ($cap > 0) {
+     self._$table$(self._$newTableWithSize$(self._$tableSizeForCapacity$($cap)));
+    } else {
+     nil;
+    };
+    return self;
+   };
+   this.$key$matches$ = function ($key1, $key2) {
+    var self = this;
+    self._$subclassResponsibility();
+    return self;
+   };
+   this.$keyAtValue$ = function ($v) {
+    var self = this;
+    return self._$indexOf$($v);
+   };
+   this.$keyAtValue$ifAbsent$ = function ($v, $blk) {
+    var self = this;
+    return self._$indexOf$ifAbsent$($v, $blk);
+   };
+   this.$keyFor$ = function ($val) {
+    var self = this;
+    self._$subclassResponsibility();
+    return self;
+   };
+   this.$keysDo$ = function ($f) {
+    var self = this;
+    self._$contentsDo$(function ($val) {
+     return $f.$value$(self._$keyFor$($val));
+    });
+    return self;
+   };
+   this.$lookup$inTable$matchingSlotDo$emptySlotDo$deletedSlotsDo$mismatchingSlotsDo$ = function ($key, $tbl, $matching, $empty, $marked, $mismatch) {
+    var self = this;
+    var NLR = new Object();
+    try {
+     var $i = nil;
+     var $mask = nil;
+     $mask = $tbl.$size() - 1;
+     $i = self._$indexOf$tableMask$($key, $mask);
+     {
+      nil;
+      self._$atIndex$inTable$occupiedSlotDo$emptySlotDo$deletedSlotDo$($i, $tbl, function ($val) {
+       return self._$key$matches$($key, self._$keyFor$($val)).$ifTrue$ifFalse$(function () {
+        {
+         var t = $matching.$value$value$($i, $val);
+         if (NLR === null) {
+          self.cannotReturn(self, t);
+         };
+         NLR.value = t;
+         throw NLR;
+        };
+       }, function () {
+        return $mismatch.$value$($i);
+       });
+      }, function () {
+       {
+        var t = $empty.$value$($i);
+        if (NLR === null) {
+         self.cannotReturn(self, t);
+        };
+        NLR.value = t;
+        throw NLR;
+       };
+      }, function () {
+       return $marked.$value$($i);
+      });
+      $i = ($i + self._$advanceAmount()).$bitAnd$($mask) + 1;
+      for (; true; ) {
+       nil;
+       self._$atIndex$inTable$occupiedSlotDo$emptySlotDo$deletedSlotDo$($i, $tbl, function ($val) {
+        return self._$key$matches$($key, self._$keyFor$($val)).$ifTrue$ifFalse$(function () {
+         {
+          var t = $matching.$value$value$($i, $val);
+          if (NLR === null) {
+           self.cannotReturn(self, t);
+          };
+          NLR.value = t;
+          throw NLR;
+         };
+        }, function () {
+         return $mismatch.$value$($i);
+        });
+       }, function () {
+        {
+         var t = $empty.$value$($i);
+         if (NLR === null) {
+          self.cannotReturn(self, t);
+         };
+         NLR.value = t;
+         throw NLR;
+        };
+       }, function () {
+        return $marked.$value$($i);
+       });
+       $i = ($i + self._$advanceAmount()).$bitAnd$($mask) + 1;
+      };
+     };
+     {
+      var t = self;
+      NLR = null;
+      return t;
+     };
+    } catch (NLR_exception) {
+     if (NLR === NLR_exception) {
+      return NLR_exception.value;
+     } else {
+      throw NLR_exception;
+     };
+    };
+   };
+   this.$lookup$matchingSlotDo$emptySlotDo$deletedSlotsDo$ = function ($key, $matching, $empty, $marked) {
+    var self = this;
+    return self._$lookup$inTable$matchingSlotDo$emptySlotDo$deletedSlotsDo$mismatchingSlotsDo$($key, self._$table(), $matching, $empty, $marked, function ($index) {
+     return nil;
+    });
+   };
+   this.$markDeleted$ = function ($index) {
+    var self = this;
+    var $tbl = nil;
+    $tbl = self._$table();
+    $tbl.$at$put$($index, $tbl);
+    self._$deleted$(self._$deleted() + 1);
+    return self;
+   };
+   this.$minTableSize = function () {
+    var self = this;
+    return 4;
+   };
+   this.$minTableSizeForCapacity$ = function ($cap) {
+    var self = this;
+    return $cap + $cap;
+   };
+   this.$newTableWithSize$ = function ($tableSize) {
+    var self = this;
+    return self._$Array().$new$($tableSize);
+   };
+   this.$objToIncludeFor$withExisting$ = function ($new, $other) {
+    var self = this;
+    self._$subclassResponsibility();
+    return self;
+   };
+   this.$occupied = function () {
+    var self = this;
+    return self._$size() + self._$deleted();
+   };
+   this.$postCopy = function () {
+    var self = this;
+    var $tbl = nil;
+    var $newtbl = nil;
+    self.$super$Collections$HashedCollection$slot._$postCopy.call(self);
+    $tbl = self._$table();
+    if ($tbl === nil) {
+     return self;
+    } else {
+     nil;
+    };
+    $newtbl = self._$newTableWithSize$($tbl.$size());
+    {
+     var $$limit = nil;
+     var $index = nil;
+     nil;
+     $index = 1;
+     $$limit = $tbl.$size();
+     for (; $$limit.$$greater$equal($index); ) {
+      self._$atIndex$inTable$occupiedSlotDo$emptySlotDo$deletedSlotDo$($index, $tbl, function ($val) {
+       return $newtbl.$at$put$($index, self._$elementForCopy$($val));
+      }, function () {
+       return nil;
+      }, function () {
+       return $newtbl.$at$put$($index, $newtbl);
+      });
+      $index = (1).$$plus($index);
+     };
+    };
+    self._$setTable$($newtbl);
+    return self;
+   };
+   this.$printElementsDo$ = function ($f) {
+    var self = this;
+    self._$contentsDo$($f);
+    return self;
+   };
+   this.$remove$ = function ($val) {
+    var self = this;
+    return self._$remove$ifAbsent$($val, function () {
+     return self.$enclosingObjects$Collections$HashedCollection[0]._$error$("value not in collection");
+    });
+   };
+   this.$remove$ifAbsent$ = function ($val, $f) {
+    var self = this;
+    self._$removeKey$ifAbsent$(self._$keyFor$($val), $f);
+    return $val;
+   };
+   this.$removeAll$ = function ($c) {
+    var self = this;
+    $c.$do$(function ($el) {
+     return self._$remove$($el);
+    });
+    return $c;
+   };
+   this.$removeAllSuchThat$ = function ($test) {
+    var self = this;
+    self._$copy().$contentsDo$(function ($el) {
+     return $test.$value$($el).$ifTrue$(function () {
+      return self._$remove$($el);
+     });
+    });
+    return self;
+   };
+   this.$removeAt$ = function ($k) {
+    var self = this;
+    return self._$removeKey$($k);
+   };
+   this.$removeAt$ifAbsent$ = function ($k, $f) {
+    var self = this;
+    return self._$removeKey$ifAbsent$($k, $f);
+   };
+   this.$removeEvery$ = function ($val) {
+    var self = this;
+    self._$remove$ifAbsent$($val, function () {
+     return nil;
+    });
+    return $val;
+   };
+   this.$removeKey$ = function ($key) {
+    var self = this;
+    return self._$removeKey$ifAbsent$($key, function () {
+     return self.$enclosingObjects$Collections$HashedCollection[0]._$error$("key not found");
+    });
+   };
+   this.$removeKey$ifAbsent$ = function ($key, $f) {
+    var self = this;
+    if (self._$table() === nil) {
+     return $f.$value();
+    } else {
+     nil;
+    };
+    return self._$lookup$matchingSlotDo$emptySlotDo$deletedSlotsDo$($key, function ($index, $val) {
+     self._$markDeleted$($index);
+     self._$size$(self._$size() - 1);
+     return self._$elementFor$($val);
+    }, function ($index) {
+     return $f.$value();
+    }, function ($index) {
+     return nil;
+    });
+   };
+   this.$setTable$ = function ($t) {
+    var self = this;
+    self._$table_0$($t);
+    return self;
+   };
+   this.$size = function () {
+    var self = this;
+    return self._$size_0();
+   };
+   this.$size$ = function ($s) {
+    var self = this;
+    self._$size_0$($s);
+    return self;
+   };
+   this.$table = function () {
+    var self = this;
+    return self._$table_0();
+   };
+   this.$table$ = function ($t) {
+    var self = this;
+    self._$setTable$($t);
+    self._$assert$message$(function () {
+     return self._$deleted().$$equal(0);
+    }, "");
+    return self;
+   };
+   this.$tableAt$put$ifNew$ = function ($key, $el, $onNew) {
+    var self = this;
+    var $reusableSlot = nil;
+    if (self._$table() === nil) {
+     self._$createFirstTable();
+    } else {
+     nil;
+    };
+    return self._$lookup$matchingSlotDo$emptySlotDo$deletedSlotsDo$($key, function ($index, $val) {
+     return self._$tableAt$put$inMatchingSlot$value$($key, $el, $index, $val);
+    }, function ($index) {
+     var $newVal = nil;
+     if ($reusableSlot === nil) {
+      $newVal = self._$tableAt$put$inEmptySlot$($key, $el, $index);
+     } else {
+      $newVal = self._$tableAt$put$inDeletedSlot$($key, $el, $reusableSlot);
+     };
+     $onNew.$value();
+     return $newVal;
+    }, function ($index) {
+     return ($reusableSlot === nil).$ifTrue$(function () {
+      return $reusableSlot = $index;
+     });
+    });
+   };
+   this.$tableAt$put$inDeletedSlot$ = function ($key, $el, $index) {
+    var self = this;
+    var $val = nil;
+    $val = self._$tableAt$put$inUnusedSlot$($key, $el, $index);
+    self._$deleted$(self._$deleted() - 1);
+    return $val;
+   };
+   this.$tableAt$put$inEmptySlot$ = function ($key, $el, $index) {
+    var self = this;
+    var $val = nil;
+    $val = self._$tableAt$put$inUnusedSlot$($key, $el, $index);
+    self._$growIfNeeded();
+    return $val;
+   };
+   this.$tableAt$put$inMatchingSlot$value$ = function ($key, $el, $index, $val) {
+    var self = this;
+    var $newVal = nil;
+    $newVal = self._$objToIncludeFor$withExisting$(self._$buildValForKey$element$($key, $el), $val);
+    self._$table().$at$put$($index, $newVal);
+    return $newVal;
+   };
+   this.$tableAt$put$inUnusedSlot$ = function ($key, $el, $index) {
+    var self = this;
+    var $newVal = nil;
+    $newVal = self._$buildValForKey$element$($key, $el);
+    self._$table().$at$put$($index, $newVal);
+    self._$size$(self._$size() + 1);
+    return $newVal;
+   };
+   this.$tableSizeForCapacity$ = function ($cap) {
+    var self = this;
+    var $min = nil;
+    var $tsize = nil;
+    $min = self._$minTableSizeForCapacity$($cap);
+    $tsize = self._$minTableSize();
+    {
+     nil;
+     for (; $tsize.$$less($min); ) {
+      $tsize = $tsize + $tsize;
+     };
+    };
+    return $tsize;
+   };
+   this.$valAt$ifAbsent$ = function ($key, $f) {
+    var self = this;
+    if (self._$table() === nil) {
+     return $f.$value();
+    } else {
+     nil;
+    };
+    return self._$lookup$matchingSlotDo$emptySlotDo$deletedSlotsDo$($key, function ($index, $val) {
+     return $val;
+    }, function ($index) {
+     return $f.$value();
+    }, function ($index) {
+     return nil;
+    });
+   };
+   this.$init$table_0$ = function (v) {
+    this.$table_0$slot = v;
+    return this;
+   };
+   this.$table_0 = function () {
+    return this.$table_0$slot;
+   };
+   this.$table_0$ = function (v) {
+    this.$table_0$slot = v;
+    return this;
+   };
+   this.$init$size_0$ = function (v) {
+    this.$size_0$slot = v;
+    return this;
+   };
+   this.$size_0 = function () {
+    return this.$size_0$slot;
+   };
+   this.$size_0$ = function (v) {
+    this.$size_0$slot = v;
+    return this;
+   };
+   this.$init$deleted$ = function (v) {
+    this.$deleted$slot = v;
+    return this;
+   };
+   this.$deleted = function () {
+    return this.$deleted$slot;
+   };
+   this.$deleted$ = function (v) {
+    this.$deleted$slot = v;
+    return this;
+   };
+   this.invoke = function (runtimeSuperclass, enclosingObjects) {
+    function constructRuntimeClass (superBasicNew) {
+     this.debug = "Runtime class for Collections`HashedCollection";
+     this._$superInit$Collections$HashedCollection = $.$superInit$Collections$HashedCollection;
+     this.$superInit$Collections$HashedCollection = dnuCatcher("$superInit$Collections$HashedCollection");
+     this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this.$add$ = this._$add$ = $.$add$;
+     this.$addAll$ = this._$addAll$ = $.$addAll$;
+     this._$advanceAmount = $.$advanceAmount;
+     this.$advanceAmount = dnuCatcher("$advanceAmount");
+     this.$at$ = this._$at$ = $.$at$;
+     this.$at$ifAbsent$ = this._$at$ifAbsent$ = $.$at$ifAbsent$;
+     this._$atIndex$inTable$occupiedSlotDo$emptySlotDo$deletedSlotDo$ = $.$atIndex$inTable$occupiedSlotDo$emptySlotDo$deletedSlotDo$;
+     this.$atIndex$inTable$occupiedSlotDo$emptySlotDo$deletedSlotDo$ = dnuCatcher("$atIndex$inTable$occupiedSlotDo$emptySlotDo$deletedSlotDo$");
+     this._$buildValForKey$element$ = $.$buildValForKey$element$;
+     this.$buildValForKey$element$ = dnuCatcher("$buildValForKey$element$");
+     this._$checkValidity = $.$checkValidity;
+     this.$checkValidity = dnuCatcher("$checkValidity");
+     this.$contentsDo$ = this._$contentsDo$ = $.$contentsDo$;
+     this._$createFirstTable = $.$createFirstTable;
+     this.$createFirstTable = dnuCatcher("$createFirstTable");
+     this.$do$ = this._$do$ = $.$do$;
+     this._$elementFor$ = $.$elementFor$;
+     this.$elementFor$ = dnuCatcher("$elementFor$");
+     this._$elementForCopy$ = $.$elementForCopy$;
+     this.$elementForCopy$ = dnuCatcher("$elementForCopy$");
+     this._$firstTableSize = $.$firstTableSize;
+     this.$firstTableSize = dnuCatcher("$firstTableSize");
+     this._$growIfNeeded = $.$growIfNeeded;
+     this.$growIfNeeded = dnuCatcher("$growIfNeeded");
+     this._$growTable = $.$growTable;
+     this.$growTable = dnuCatcher("$growTable");
+     this._$hashFor$ = $.$hashFor$;
+     this.$hashFor$ = dnuCatcher("$hashFor$");
+     this.$include$ = this._$include$ = $.$include$;
+     this.$include$ifNew$ = this._$include$ifNew$ = $.$include$ifNew$;
+     this.$includeAll$ = this._$includeAll$ = $.$includeAll$;
+     this.$includesIndex$ = this._$includesIndex$ = $.$includesIndex$;
+     this.$includesKey$ = this._$includesKey$ = $.$includesKey$;
+     this.$indexOf$ = this._$indexOf$ = $.$indexOf$;
+     this.$indexOf$ifAbsent$ = this._$indexOf$ifAbsent$ = $.$indexOf$ifAbsent$;
+     this._$indexOf$tableMask$ = $.$indexOf$tableMask$;
+     this.$indexOf$tableMask$ = dnuCatcher("$indexOf$tableMask$");
+     this._$initCapacity$ = $.$initCapacity$;
+     this.$initCapacity$ = dnuCatcher("$initCapacity$");
+     this._$key$matches$ = $.$key$matches$;
+     this.$key$matches$ = dnuCatcher("$key$matches$");
+     this.$keyAtValue$ = this._$keyAtValue$ = $.$keyAtValue$;
+     this.$keyAtValue$ifAbsent$ = this._$keyAtValue$ifAbsent$ = $.$keyAtValue$ifAbsent$;
+     this._$keyFor$ = $.$keyFor$;
+     this.$keyFor$ = dnuCatcher("$keyFor$");
+     this.$keysDo$ = this._$keysDo$ = $.$keysDo$;
+     this._$lookup$inTable$matchingSlotDo$emptySlotDo$deletedSlotsDo$mismatchingSlotsDo$ = $.$lookup$inTable$matchingSlotDo$emptySlotDo$deletedSlotsDo$mismatchingSlotsDo$;
+     this.$lookup$inTable$matchingSlotDo$emptySlotDo$deletedSlotsDo$mismatchingSlotsDo$ = dnuCatcher("$lookup$inTable$matchingSlotDo$emptySlotDo$deletedSlotsDo$mismatchingSlotsDo$");
+     this._$lookup$matchingSlotDo$emptySlotDo$deletedSlotsDo$ = $.$lookup$matchingSlotDo$emptySlotDo$deletedSlotsDo$;
+     this.$lookup$matchingSlotDo$emptySlotDo$deletedSlotsDo$ = dnuCatcher("$lookup$matchingSlotDo$emptySlotDo$deletedSlotsDo$");
+     this._$markDeleted$ = $.$markDeleted$;
+     this.$markDeleted$ = dnuCatcher("$markDeleted$");
+     this._$minTableSize = $.$minTableSize;
+     this.$minTableSize = dnuCatcher("$minTableSize");
+     this._$minTableSizeForCapacity$ = $.$minTableSizeForCapacity$;
+     this.$minTableSizeForCapacity$ = dnuCatcher("$minTableSizeForCapacity$");
+     this._$newTableWithSize$ = $.$newTableWithSize$;
+     this.$newTableWithSize$ = dnuCatcher("$newTableWithSize$");
+     this._$objToIncludeFor$withExisting$ = $.$objToIncludeFor$withExisting$;
+     this.$objToIncludeFor$withExisting$ = dnuCatcher("$objToIncludeFor$withExisting$");
+     this._$occupied = $.$occupied;
+     this.$occupied = dnuCatcher("$occupied");
+     this._$postCopy = $.$postCopy;
+     this.$postCopy = dnuCatcher("$postCopy");
+     this._$printElementsDo$ = $.$printElementsDo$;
+     this.$printElementsDo$ = dnuCatcher("$printElementsDo$");
+     this.$remove$ = this._$remove$ = $.$remove$;
+     this.$remove$ifAbsent$ = this._$remove$ifAbsent$ = $.$remove$ifAbsent$;
+     this.$removeAll$ = this._$removeAll$ = $.$removeAll$;
+     this.$removeAllSuchThat$ = this._$removeAllSuchThat$ = $.$removeAllSuchThat$;
+     this.$removeAt$ = this._$removeAt$ = $.$removeAt$;
+     this.$removeAt$ifAbsent$ = this._$removeAt$ifAbsent$ = $.$removeAt$ifAbsent$;
+     this.$removeEvery$ = this._$removeEvery$ = $.$removeEvery$;
+     this.$removeKey$ = this._$removeKey$ = $.$removeKey$;
+     this.$removeKey$ifAbsent$ = this._$removeKey$ifAbsent$ = $.$removeKey$ifAbsent$;
+     this._$setTable$ = $.$setTable$;
+     this.$setTable$ = dnuCatcher("$setTable$");
+     this.$size = this._$size = $.$size;
+     this._$size$ = $.$size$;
+     this.$size$ = dnuCatcher("$size$");
+     this._$table = $.$table;
+     this.$table = dnuCatcher("$table");
+     this._$table$ = $.$table$;
+     this.$table$ = dnuCatcher("$table$");
+     this._$tableAt$put$ifNew$ = $.$tableAt$put$ifNew$;
+     this.$tableAt$put$ifNew$ = dnuCatcher("$tableAt$put$ifNew$");
+     this._$tableAt$put$inDeletedSlot$ = $.$tableAt$put$inDeletedSlot$;
+     this.$tableAt$put$inDeletedSlot$ = dnuCatcher("$tableAt$put$inDeletedSlot$");
+     this._$tableAt$put$inEmptySlot$ = $.$tableAt$put$inEmptySlot$;
+     this.$tableAt$put$inEmptySlot$ = dnuCatcher("$tableAt$put$inEmptySlot$");
+     this._$tableAt$put$inMatchingSlot$value$ = $.$tableAt$put$inMatchingSlot$value$;
+     this.$tableAt$put$inMatchingSlot$value$ = dnuCatcher("$tableAt$put$inMatchingSlot$value$");
+     this._$tableAt$put$inUnusedSlot$ = $.$tableAt$put$inUnusedSlot$;
+     this.$tableAt$put$inUnusedSlot$ = dnuCatcher("$tableAt$put$inUnusedSlot$");
+     this._$tableSizeForCapacity$ = $.$tableSizeForCapacity$;
+     this.$tableSizeForCapacity$ = dnuCatcher("$tableSizeForCapacity$");
+     this._$valAt$ifAbsent$ = $.$valAt$ifAbsent$;
+     this.$valAt$ifAbsent$ = dnuCatcher("$valAt$ifAbsent$");
+     this._$init$table_0$ = $.$init$table_0$;
+     this.$init$table_0$ = dnuCatcher("$init$table_0$");
+     this._$table_0 = $.$table_0;
+     this.$table_0 = dnuCatcher("$table_0");
+     this._$table_0$ = $.$table_0$;
+     this.$table_0$ = dnuCatcher("$table_0$");
+     this._$init$size_0$ = $.$init$size_0$;
+     this.$init$size_0$ = dnuCatcher("$init$size_0$");
+     this._$size_0 = $.$size_0;
+     this.$size_0 = dnuCatcher("$size_0");
+     this._$size_0$ = $.$size_0$;
+     this.$size_0$ = dnuCatcher("$size_0$");
+     this._$init$deleted$ = $.$init$deleted$;
+     this.$init$deleted$ = dnuCatcher("$init$deleted$");
+     this._$deleted = $.$deleted;
+     this.$deleted = dnuCatcher("$deleted");
+     this._$deleted$ = $.$deleted$;
+     this.$deleted$ = dnuCatcher("$deleted$");
+     this.$enclosingObjects$Collections$HashedCollection = enclosingObjects;
+     this.$super$Collections$HashedCollection$slot = runtimeSuperclass;
+     this["Collections`HashedCollection"] = function () {
+      superBasicNew.call(this);
+      this.$table_0$slot = nil;
+      this.$size_0$slot = nil;
+      this.$deleted$slot = nil;
+     };
+     this.basicNew = this["Collections`HashedCollection"];
+     this.basicNew.prototype = this;
+     this.meta = null;
+     this.newspeakClass = null;
+    };
+    constructRuntimeClass.prototype = runtimeSuperclass;
+    return new constructRuntimeClass(runtimeSuperclass.basicNew);
+   };
+   this.meta = new function () {
+    var $ = this;
+    this.debug = "Runtime meta mixin for Collections`HashedCollection";
+    this.slots = [];
+    this.methods = [
+     new MM("new:", true, 0),
+     new MM("defaultCapacity", false, 689)
+    ];
+    this.nestedClasses = [];
+    this.$new$ = function ($cap) {
+     return (new this.nonMeta.basicNew()).$instance$initializer($cap);
+    };
+    this.$defaultCapacity = function () {
+     var self = this;
+     return 0;
+    };
+    this.invoke = function (runtimeSuperclass, enclosingObjects) {
+     function constructRuntimeClass (superBasicNew) {
+      this.debug = "Runtime meta class for Collections`HashedCollection";
+      this.$new$ = this._$new$ = $.$new$;
+      this.$defaultCapacity = this._$defaultCapacity = $.$defaultCapacity;
+      this.$enclosingObjects$Collections$HashedCollection = enclosingObjects;
+      this.$super$Collections$HashedCollection = runtimeSuperclass;
+      this.basicNew = function () {
+       superBasicNew.call(this);
+      };
+      this.basicNew.prototype = this;
+      this.nonMeta = null;
+      this.newspeakClass = null;
+     };
+     constructRuntimeClass.prototype = runtimeSuperclass;
+     return new constructRuntimeClass(runtimeSuperclass.basicNew);
+    };
+   }();
+   this.meta.nonMeta = this;
+  }();
+  this.$Collections$IdentityMutableHashedMap = new function () {
+   var $ = this;
+   var $1 = this;
+   this.debug = "Runtime mixin for Collections`IdentityMutableHashedMap";
+   this.name = "Collections`IdentityMutableHashedMap";
+   this.header = 690;
+   this.slots = [];
+   this.methods = [
+    new MM("superInit`Collections`IdentityMutableHashedMap", true, 691),
+    new MM("instance`initializer", true, 692),
+    new MM("hashFor:", false, 693),
+    new MM("key:matches:", false, 694)
+   ];
+   this.nestedClasses = [];
+   this.applications = [];
+   this.$superInit$Collections$IdentityMutableHashedMap = function ($cap) {
+    var self = this;
+    self.$super$Collections$IdentityMutableHashedMap$slot._$instance$initializer.call(self, $cap);
+    return self;
+   };
+   this.$instance$initializer = function ($cap) {
+    var self = this;
+    self._$superInit$Collections$IdentityMutableHashedMap($cap);
+    return self;
+   };
+   this.$hashFor$ = function ($key) {
+    var self = this;
+    return $key.$identityHash();
+   };
+   this.$key$matches$ = function ($k, $another) {
+    var self = this;
+    return $k === $another;
+   };
+   this.invoke = function (runtimeSuperclass, enclosingObjects) {
+    function constructRuntimeClass (superBasicNew) {
+     this.debug = "Runtime class for Collections`IdentityMutableHashedMap";
+     this._$superInit$Collections$IdentityMutableHashedMap = $.$superInit$Collections$IdentityMutableHashedMap;
+     this.$superInit$Collections$IdentityMutableHashedMap = dnuCatcher("$superInit$Collections$IdentityMutableHashedMap");
+     this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this._$hashFor$ = $.$hashFor$;
+     this.$hashFor$ = dnuCatcher("$hashFor$");
+     this._$key$matches$ = $.$key$matches$;
+     this.$key$matches$ = dnuCatcher("$key$matches$");
+     this.$enclosingObjects$Collections$IdentityMutableHashedMap = enclosingObjects;
+     this.$super$Collections$IdentityMutableHashedMap$slot = runtimeSuperclass;
+     this["Collections`IdentityMutableHashedMap"] = function () {
+      superBasicNew.call(this);
+     };
+     this.basicNew = this["Collections`IdentityMutableHashedMap"];
+     this.basicNew.prototype = this;
+     this.meta = null;
+     this.newspeakClass = null;
+    };
+    constructRuntimeClass.prototype = runtimeSuperclass;
+    return new constructRuntimeClass(runtimeSuperclass.basicNew);
+   };
+   this.meta = new function () {
+    var $ = this;
+    this.debug = "Runtime meta mixin for Collections`IdentityMutableHashedMap";
+    this.slots = [];
+    this.methods = [
+     new MM("new:", true, 0),
+     new MM("defaultCapacity", false, 695),
+     new MM("new", false, 696)
+    ];
+    this.nestedClasses = [];
+    this.$new$ = function ($cap) {
+     return (new this.nonMeta.basicNew()).$instance$initializer($cap);
+    };
+    this.$defaultCapacity = function () {
+     var self = this;
+     return 0;
+    };
+    this.$new = function () {
+     var self = this;
+     return self._$new$(self._$defaultCapacity());
+    };
+    this.invoke = function (runtimeSuperclass, enclosingObjects) {
+     function constructRuntimeClass (superBasicNew) {
+      this.debug = "Runtime meta class for Collections`IdentityMutableHashedMap";
+      this.$new$ = this._$new$ = $.$new$;
+      this.$defaultCapacity = this._$defaultCapacity = $.$defaultCapacity;
+      this.$new = this._$new = $.$new;
+      this.$enclosingObjects$Collections$IdentityMutableHashedMap = enclosingObjects;
+      this.$super$Collections$IdentityMutableHashedMap = runtimeSuperclass;
+      this.basicNew = function () {
+       superBasicNew.call(this);
+      };
+      this.basicNew.prototype = this;
+      this.nonMeta = null;
+      this.newspeakClass = null;
+     };
+     constructRuntimeClass.prototype = runtimeSuperclass;
+     return new constructRuntimeClass(runtimeSuperclass.basicNew);
+    };
+   }();
+   this.meta.nonMeta = this;
+  }();
+  this.$Collections$IdentitySet = new function () {
+   var $ = this;
+   var $1 = this;
+   this.debug = "Runtime mixin for Collections`IdentitySet";
+   this.name = "Collections`IdentitySet";
+   this.header = 697;
+   this.slots = [];
+   this.methods = [
+    new MM("superInit`Collections`IdentitySet", true, 698),
+    new MM("instance`initializer", true, 699),
+    new MM("hashFor:", false, 700),
+    new MM("key:matches:", false, 701)
+   ];
+   this.nestedClasses = [];
+   this.applications = [];
+   this.$superInit$Collections$IdentitySet = function ($cap) {
+    var self = this;
+    self.$super$Collections$IdentitySet$slot._$instance$initializer.call(self, $cap);
+    return self;
+   };
+   this.$instance$initializer = function ($cap) {
+    var self = this;
+    self._$superInit$Collections$IdentitySet($cap);
+    return self;
+   };
+   this.$hashFor$ = function ($key) {
+    var self = this;
+    return $key.$identityHash();
+   };
+   this.$key$matches$ = function ($k, $another) {
+    var self = this;
+    return $k === $another;
+   };
+   this.invoke = function (runtimeSuperclass, enclosingObjects) {
+    function constructRuntimeClass (superBasicNew) {
+     this.debug = "Runtime class for Collections`IdentitySet";
+     this._$superInit$Collections$IdentitySet = $.$superInit$Collections$IdentitySet;
+     this.$superInit$Collections$IdentitySet = dnuCatcher("$superInit$Collections$IdentitySet");
+     this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this._$hashFor$ = $.$hashFor$;
+     this.$hashFor$ = dnuCatcher("$hashFor$");
+     this._$key$matches$ = $.$key$matches$;
+     this.$key$matches$ = dnuCatcher("$key$matches$");
+     this.$enclosingObjects$Collections$IdentitySet = enclosingObjects;
+     this.$super$Collections$IdentitySet$slot = runtimeSuperclass;
+     this["Collections`IdentitySet"] = function () {
+      superBasicNew.call(this);
+     };
+     this.basicNew = this["Collections`IdentitySet"];
+     this.basicNew.prototype = this;
+     this.meta = null;
+     this.newspeakClass = null;
+    };
+    constructRuntimeClass.prototype = runtimeSuperclass;
+    return new constructRuntimeClass(runtimeSuperclass.basicNew);
+   };
+   this.meta = new function () {
+    var $ = this;
+    this.debug = "Runtime meta mixin for Collections`IdentitySet";
+    this.slots = [];
+    this.methods = [
+     new MM("new:", true, 0),
+     new MM("defaultCapacity", false, 702),
+     new MM("new", false, 703),
+     new MM("withAll:", false, 704)
+    ];
+    this.nestedClasses = [];
+    this.$new$ = function ($cap) {
+     return (new this.nonMeta.basicNew()).$instance$initializer($cap);
+    };
+    this.$defaultCapacity = function () {
+     var self = this;
+     return 0;
+    };
+    this.$new = function () {
+     var self = this;
+     return self._$new$(self._$defaultCapacity());
+    };
+    this.$withAll$ = function ($cltn) {
+     var self = this;
+     return (function (cascadeReceiver) {
+      cascadeReceiver.$includeAll$($cltn);
+      return cascadeReceiver.$yourself();
+     })(self._$new$($cltn.$size()));
+    };
+    this.invoke = function (runtimeSuperclass, enclosingObjects) {
+     function constructRuntimeClass (superBasicNew) {
+      this.debug = "Runtime meta class for Collections`IdentitySet";
+      this.$new$ = this._$new$ = $.$new$;
+      this.$defaultCapacity = this._$defaultCapacity = $.$defaultCapacity;
+      this.$new = this._$new = $.$new;
+      this.$withAll$ = this._$withAll$ = $.$withAll$;
+      this.$enclosingObjects$Collections$IdentitySet = enclosingObjects;
+      this.$super$Collections$IdentitySet = runtimeSuperclass;
+      this.basicNew = function () {
+       superBasicNew.call(this);
+      };
+      this.basicNew.prototype = this;
+      this.nonMeta = null;
+      this.newspeakClass = null;
+     };
+     constructRuntimeClass.prototype = runtimeSuperclass;
+     return new constructRuntimeClass(runtimeSuperclass.basicNew);
+    };
+   }();
+   this.meta.nonMeta = this;
+  }();
+  this.$Collections$Interval = new function () {
+   var $ = this;
+   var $1 = this;
+   this.debug = "Runtime mixin for Collections`Interval";
+   this.name = "Collections`Interval";
+   this.header = 705;
+   this.slots = [
+    new SM("start", false, false),
+    new SM("stop", false, false),
+    new SM("increment", false, false)
+   ];
+   this.methods = [
+    new MM("superInit`Collections`Interval", true, 706),
+    new MM("instance`initializer", true, 707),
+    new MM("at:", false, 708),
+    new MM("copyWithSize:", false, 709),
+    new MM("do:", false, 710),
+    new MM("size", false, 711),
+    new MM("init`start:", true, 0),
+    new MM("start", true, 0),
+    new MM("init`stop:", true, 0),
+    new MM("stop", true, 0),
+    new MM("init`increment:", true, 0),
+    new MM("increment", true, 0)
+   ];
+   this.nestedClasses = [];
+   this.applications = [];
+   this.$superInit$Collections$Interval = function ($p_start, $p_stop, $p_step) {
+    var self = this;
+    self.$super$Collections$Interval$slot._$instance$initializer.call(self);
+    return self;
+   };
+   this.$instance$initializer = function ($p_start, $p_stop, $p_step) {
+    var self = this;
+    self._$superInit$Collections$Interval($p_start, $p_stop, $p_step);
+    self._$init$start$($p_start);
+    self._$init$stop$($p_stop);
+    self._$init$increment$($p_step);
+    return self;
+   };
+   this.$at$ = function ($index) {
+    var self = this;
+    if (!(self._$start() - self._$stop()).$sign().$$equal(self._$increment().$sign())) {
+     var $value = nil;
+     $value = self._$start() + (self._$increment() * ($index - 1));
+     if (self._$increment() >= 0) {
+      if ($value.$between$and$(self._$start(), self._$stop())) {
+       return $value;
+      } else {
+       nil;
+      };
+     } else {
+      if ($value.$between$and$(self._$stop(), self._$start())) {
+       return $value;
+      } else {
+       nil;
+      };
+     };
+    } else {
+     nil;
+    };
+    self._$Error().$signal$("Index out-of-range");
+    return self;
+   };
+   this.$copyWithSize$ = function ($s) {
+    var self = this;
+    self._$unimplemented();
+    return self;
+   };
+   this.$do$ = function ($action) {
+    var self = this;
+    var $value = nil;
+    var $incr = nil;
+    var $stp = nil;
+    $value = self._$start();
+    $incr = self._$increment();
+    $stp = self._$stop();
+    if ($incr >= 0) {
+     {
+      nil;
+      for (; $value.$$less$equal($stp); ) {
+       $action.$value$($value);
+       $value = $value + $incr;
+      };
+     };
+    } else {
+     {
+      nil;
+      for (; $value.$$greater$equal($stp); ) {
+       $action.$value$($value);
+       $value = $value + $incr;
+      };
+     };
+    };
+    return self;
+   };
+   this.$size = function () {
+    var self = this;
+    return ((self._$stop() - self._$start()).$$over$over(self._$increment()) + 1).$max$(0);
+   };
+   this.$init$start$ = function (v) {
+    this.$start$slot = v;
+    return this;
+   };
+   this.$start = function () {
+    return this.$start$slot;
+   };
+   this.$init$stop$ = function (v) {
+    this.$stop$slot = v;
+    return this;
+   };
+   this.$stop = function () {
+    return this.$stop$slot;
+   };
+   this.$init$increment$ = function (v) {
+    this.$increment$slot = v;
+    return this;
+   };
+   this.$increment = function () {
+    return this.$increment$slot;
+   };
+   this.invoke = function (runtimeSuperclass, enclosingObjects) {
+    function constructRuntimeClass (superBasicNew) {
+     this.debug = "Runtime class for Collections`Interval";
+     this._$superInit$Collections$Interval = $.$superInit$Collections$Interval;
+     this.$superInit$Collections$Interval = dnuCatcher("$superInit$Collections$Interval");
+     this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this.$at$ = this._$at$ = $.$at$;
+     this._$copyWithSize$ = $.$copyWithSize$;
+     this.$copyWithSize$ = dnuCatcher("$copyWithSize$");
+     this.$do$ = this._$do$ = $.$do$;
+     this.$size = this._$size = $.$size;
+     this.$init$start$ = this._$init$start$ = $.$init$start$;
+     this.$start = this._$start = $.$start;
+     this.$init$stop$ = this._$init$stop$ = $.$init$stop$;
+     this.$stop = this._$stop = $.$stop;
+     this.$init$increment$ = this._$init$increment$ = $.$init$increment$;
+     this.$increment = this._$increment = $.$increment;
+     this.$enclosingObjects$Collections$Interval = enclosingObjects;
+     this.$super$Collections$Interval$slot = runtimeSuperclass;
+     this["Collections`Interval"] = function () {
+      superBasicNew.call(this);
+      this.$start$slot = nil;
+      this.$stop$slot = nil;
+      this.$increment$slot = nil;
+     };
+     this.basicNew = this["Collections`Interval"];
+     this.basicNew.prototype = this;
+     this.meta = null;
+     this.newspeakClass = null;
+    };
+    constructRuntimeClass.prototype = runtimeSuperclass;
+    return new constructRuntimeClass(runtimeSuperclass.basicNew);
+   };
+   this.meta = new function () {
+    var $ = this;
+    this.debug = "Runtime meta mixin for Collections`Interval";
+    this.slots = [];
+    this.methods = [
+     new MM("from:to:by:", true, 0),
+     new MM("from:to:", false, 712)
+    ];
+    this.nestedClasses = [];
+    this.$from$to$by$ = function ($p_start, $p_stop, $p_step) {
+     return (new this.nonMeta.basicNew()).$instance$initializer($p_start, $p_stop, $p_step);
+    };
+    this.$from$to$ = function ($start, $stop) {
+     var self = this;
+     return self._$from$to$by$($start, $stop, 1);
+    };
+    this.invoke = function (runtimeSuperclass, enclosingObjects) {
+     function constructRuntimeClass (superBasicNew) {
+      this.debug = "Runtime meta class for Collections`Interval";
+      this.$from$to$by$ = this._$from$to$by$ = $.$from$to$by$;
+      this.$from$to$ = this._$from$to$ = $.$from$to$;
+      this.$enclosingObjects$Collections$Interval = enclosingObjects;
+      this.$super$Collections$Interval = runtimeSuperclass;
       this.basicNew = function () {
        superBasicNew.call(this);
       };
@@ -12479,26 +12732,26 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for Collections`MutableArrayList";
    this.name = "Collections`MutableArrayList";
-   this.header = 714;
+   this.header = 713;
    this.slots = [];
    this.methods = [
-    new MM("superInit`Collections`MutableArrayList", true, 715),
-    new MM("instance`initializer", true, 716),
-    new MM("add:", false, 717),
-    new MM("add:after:", false, 718),
-    new MM("add:afterIndex:", false, 719),
-    new MM("add:before:", false, 720),
-    new MM("add:beforeIndex:", false, 721),
-    new MM("addAllFirst:", false, 722),
-    new MM("addAllLast:", false, 723),
-    new MM("addFirst:", false, 724),
-    new MM("addLast:", false, 725),
+    new MM("superInit`Collections`MutableArrayList", true, 714),
+    new MM("instance`initializer", true, 715),
+    new MM("add:", false, 716),
+    new MM("add:after:", false, 717),
+    new MM("add:afterIndex:", false, 718),
+    new MM("add:before:", false, 719),
+    new MM("add:beforeIndex:", false, 720),
+    new MM("addAllFirst:", false, 721),
+    new MM("addAllLast:", false, 722),
+    new MM("addFirst:", false, 723),
+    new MM("addLast:", false, 724),
+    new MM("asMutableArrayList", false, 725),
     new MM("at:put:", false, 726),
-    new MM("asMutableArrayList", false, 727),
+    new MM("collect:", false, 727),
     new MM("copyWithSize:", false, 728),
-    new MM("collect:", false, 729),
-    new MM("replaceFrom:to:with:startingAt:", false, 730),
-    new MM("newCopyOfSize:thatCanAlsoHoldElementsOf:", false, 731)
+    new MM("newCopyOfSize:thatCanAlsoHoldElementsOf:", false, 729),
+    new MM("replaceFrom:to:with:startingAt:", false, 730)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -12578,20 +12831,24 @@ var mixins = new function () {
     self._$contents().$at$put$(self._$lastIndex(), $e);
     return $e;
    };
+   this.$asMutableArrayList = function () {
+    var self = this;
+    return self;
+   };
    this.$at$put$ = function ($i, $el) {
     var self = this;
     var $adjusted = nil;
     $adjusted = $i + self._$startGap();
     if (!((0 < $i) && $adjusted.$$less$equal(self._$lastIndex()))) {
-     self._$error$("invalid index");
+     self.$enclosingObjects$Collections$MutableArrayList[0]._$error$("invalid index");
     } else {
      nil;
     };
     return self._$contents().$at$put$($adjusted, $el);
    };
-   this.$asMutableArrayList = function () {
+   this.$collect$ = function ($map) {
     var self = this;
-    return self;
+    return self._$collectUsingAdd$($map).$asMutableArrayList();
    };
    this.$copyWithSize$ = function ($s) {
     var self = this;
@@ -12605,24 +12862,20 @@ var mixins = new function () {
     self._$lastIndex$($oldLastIndex);
     return $copy;
    };
-   this.$collect$ = function ($map) {
+   this.$newCopyOfSize$thatCanAlsoHoldElementsOf$ = function ($size, $other) {
     var self = this;
-    return self._$collectUsingAdd$($map).$asMutableArrayList();
+    return self.$enclosingObjects$Collections$MutableArrayList[0]._$MutableArrayList().$new$($size).$size$($size);
    };
    this.$replaceFrom$to$with$startingAt$ = function ($start, $stop, $other, $repStart) {
     var self = this;
     var $otheri = nil;
     if (!(($start >= 1) && $stop.$$less$equal(self._$size()))) {
-     self._$error$("range out of bounds");
+     self.$enclosingObjects$Collections$MutableArrayList[0]._$error$("range out of bounds");
     } else {
      nil;
     };
     self._$contents().$replaceFrom$to$with$startingAt$($start + self._$startGap(), $stop + self._$startGap(), $other, $repStart);
     return self;
-   };
-   this.$newCopyOfSize$thatCanAlsoHoldElementsOf$ = function ($size, $other) {
-    var self = this;
-    return self.$enclosingObjects$Collections$MutableArrayList[0]._$MutableArrayList().$new$($size).$size$($size);
    };
    this.invoke = function (runtimeSuperclass, enclosingObjects) {
     function constructRuntimeClass (superBasicNew) {
@@ -12639,12 +12892,12 @@ var mixins = new function () {
      this.$addAllLast$ = this._$addAllLast$ = $.$addAllLast$;
      this.$addFirst$ = this._$addFirst$ = $.$addFirst$;
      this.$addLast$ = this._$addLast$ = $.$addLast$;
-     this.$at$put$ = this._$at$put$ = $.$at$put$;
      this.$asMutableArrayList = this._$asMutableArrayList = $.$asMutableArrayList;
-     this.$copyWithSize$ = this._$copyWithSize$ = $.$copyWithSize$;
+     this.$at$put$ = this._$at$put$ = $.$at$put$;
      this.$collect$ = this._$collect$ = $.$collect$;
-     this.$replaceFrom$to$with$startingAt$ = this._$replaceFrom$to$with$startingAt$ = $.$replaceFrom$to$with$startingAt$;
+     this.$copyWithSize$ = this._$copyWithSize$ = $.$copyWithSize$;
      this.$newCopyOfSize$thatCanAlsoHoldElementsOf$ = this._$newCopyOfSize$thatCanAlsoHoldElementsOf$ = $.$newCopyOfSize$thatCanAlsoHoldElementsOf$;
+     this.$replaceFrom$to$with$startingAt$ = this._$replaceFrom$to$with$startingAt$ = $.$replaceFrom$to$with$startingAt$;
      this.$enclosingObjects$Collections$MutableArrayList = enclosingObjects;
      this.$super$Collections$MutableArrayList$slot = runtimeSuperclass;
      this["Collections`MutableArrayList"] = function () {
@@ -12664,10 +12917,10 @@ var mixins = new function () {
     this.slots = [];
     this.methods = [
      new MM("new", true, 0),
-     new MM("defaultCapacity", false, 732),
-     new MM("new:", false, 733),
-     new MM("with:", false, 734),
-     new MM("withAll:", false, 735)
+     new MM("defaultCapacity", false, 731),
+     new MM("new:", false, 732),
+     new MM("with:", false, 733),
+     new MM("withAll:", false, 734)
     ];
     this.nestedClasses = [];
     this.$new = function () {
@@ -12723,33 +12976,33 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for Collections`MutableHashedMap";
    this.name = "Collections`MutableHashedMap";
-   this.header = 736;
+   this.header = 735;
    this.slots = [];
    this.methods = [
-    new MM("superInit`Collections`MutableHashedMap", true, 737),
-    new MM("instance`initializer", true, 738),
-    new MM("keys", false, 739),
-    new MM("values", false, 740),
-    new MM("at:put:", false, 741),
-    new MM("at:put:ifNew:", false, 742),
+    new MM("superInit`Collections`MutableHashedMap", true, 736),
+    new MM("instance`initializer", true, 737),
+    new MM("=", false, 738),
+    new MM("associationAt:", false, 739),
+    new MM("associationAt:ifAbsent:", false, 740),
+    new MM("associations", false, 741),
+    new MM("associationsDo:", false, 742),
     new MM("at:ifAbsentPut:", false, 743),
-    new MM("isDictionary", false, 744),
-    new MM("associationAt:", false, 745),
-    new MM("associationAt:ifAbsent:", false, 746),
-    new MM("associations", false, 747),
-    new MM("associationsDo:", false, 748),
-    new MM("includesAssociation:", false, 749),
-    new MM("at:ifPresent:ifAbsentPut:", false, 750),
-    new MM("keysAndValuesDo:", false, 751),
-    new MM("tableAt:put:inMatchingSlot:value:", false, 752),
-    new MM("buildValForKey:element:", false, 753),
-    new MM("elementFor:", false, 754),
-    new MM("elementForCopy:", false, 755),
-    new MM("hashFor:", false, 756),
-    new MM("key:matches:", false, 757),
-    new MM("keyFor:", false, 758),
-    new MM("objToIncludeFor:withExisting:", false, 759),
-    new MM("=", false, 760)
+    new MM("at:ifPresent:ifAbsentPut:", false, 744),
+    new MM("at:put:", false, 745),
+    new MM("at:put:ifNew:", false, 746),
+    new MM("buildValForKey:element:", false, 747),
+    new MM("elementFor:", false, 748),
+    new MM("elementForCopy:", false, 749),
+    new MM("hashFor:", false, 750),
+    new MM("includesAssociation:", false, 751),
+    new MM("isDictionary", false, 752),
+    new MM("key:matches:", false, 753),
+    new MM("keyFor:", false, 754),
+    new MM("keys", false, 755),
+    new MM("keysAndValuesDo:", false, 756),
+    new MM("objToIncludeFor:withExisting:", false, 757),
+    new MM("tableAt:put:inMatchingSlot:value:", false, 758),
+    new MM("values", false, 759)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -12763,50 +13016,14 @@ var mixins = new function () {
     self._$superInit$Collections$MutableHashedMap($cap);
     return self;
    };
-   this.$keys = function () {
+   this.$$equal = function ($other) {
     var self = this;
-    var $s = nil;
-    $s = self.$enclosingObjects$Collections$MutableHashedMap[0]._$Set().$new$(self._$size());
-    self._$keysDo$(function ($key) {
-     return $s.$include$($key);
-    });
-    return $s;
-   };
-   this.$values = function () {
-    var self = this;
-    return self._$inject$into$(self.$enclosingObjects$Collections$MutableHashedMap[0]._$MutableArrayList().$new$(self._$size()), function ($oc, $el) {
-     return (function (cascadeReceiver) {
-      cascadeReceiver.$add$($el);
-      return cascadeReceiver.$yourself();
-     })($oc);
-    });
-   };
-   this.$at$put$ = function ($key, $el) {
-    var self = this;
-    return self._$at$put$ifNew$($key, $el, function () {
-     return nil;
-    });
-   };
-   this.$at$put$ifNew$ = function ($key, $el, $blk) {
-    var self = this;
-    "BOGUS";
-    self._$tableAt$put$ifNew$($key, $el, $blk);
-    return $el;
-   };
-   this.$at$ifAbsentPut$ = function ($key, $ablk) {
-    var self = this;
-    return self._$at$ifPresent$ifAbsentPut$($key, function ($e) {
-     return $e;
-    }, $ablk);
-   };
-   this.$isDictionary = function () {
-    var self = this;
-    return true;
+    return self.$super$Collections$MutableHashedMap$slot._$$equal.call(self, $other) && ((self === $other) || self._$keys().$$equal($other.$keys()));
    };
    this.$associationAt$ = function ($key) {
     var self = this;
     return self._$associationAt$ifAbsent$($key, function () {
-     return self._$error$("key not found");
+     return self.$enclosingObjects$Collections$MutableHashedMap[0]._$error$("key not found");
     });
    };
    this.$associationAt$ifAbsent$ = function ($key, $failBlock) {
@@ -12829,23 +13046,11 @@ var mixins = new function () {
     });
     return self;
    };
-   this.$includesAssociation$ = function ($assoc) {
+   this.$at$ifAbsentPut$ = function ($key, $ablk) {
     var self = this;
-    var NLR = new Object();
-    try {
-     return self._$at$ifAbsent$($assoc.$key(), function () {
-      {
-       NLR.value = false;
-       throw NLR;
-      };
-     }).$$equal($assoc.$value());
-    } catch (NLR_exception) {
-     if (NLR === NLR_exception) {
-      return NLR_exception.value;
-     } else {
-      throw NLR_exception;
-     };
-    };
+    return self._$at$ifPresent$ifAbsentPut$($key, function ($e) {
+     return $e;
+    }, $ablk);
    };
    this.$at$ifPresent$ifAbsentPut$ = function ($key, $pblk, $ablk) {
     var self = this;
@@ -12876,17 +13081,17 @@ var mixins = new function () {
      });
     });
    };
-   this.$keysAndValuesDo$ = function ($action) {
+   this.$at$put$ = function ($key, $el) {
     var self = this;
-    self._$contentsDo$(function ($assoc) {
-     return $action.$value$value$($assoc.$key(), $assoc.$value());
+    return self._$at$put$ifNew$($key, $el, function () {
+     return nil;
     });
-    return self;
    };
-   this.$tableAt$put$inMatchingSlot$value$ = function ($key, $el, $index, $val) {
+   this.$at$put$ifNew$ = function ($key, $el, $blk) {
     var self = this;
-    $val.$value$($el);
-    return $val;
+    "BOGUS";
+    self._$tableAt$put$ifNew$($key, $el, $blk);
+    return $el;
    };
    this.$buildValForKey$element$ = function ($k, $el) {
     var self = this;
@@ -12904,6 +13109,36 @@ var mixins = new function () {
     var self = this;
     return $key.$hash();
    };
+   this.$includesAssociation$ = function ($assoc) {
+    var self = this;
+    var NLR = new Object();
+    try {
+     {
+      var t = self._$at$ifAbsent$($assoc.$key(), function () {
+       {
+        var t = false;
+        if (NLR === null) {
+         self.cannotReturn(self, t);
+        };
+        NLR.value = t;
+        throw NLR;
+       };
+      }).$$equal($assoc.$value());
+      NLR = null;
+      return t;
+     };
+    } catch (NLR_exception) {
+     if (NLR === NLR_exception) {
+      return NLR_exception.value;
+     } else {
+      throw NLR_exception;
+     };
+    };
+   };
+   this.$isDictionary = function () {
+    var self = this;
+    return true;
+   };
    this.$key$matches$ = function ($k, $another) {
     var self = this;
     return $k.$$equal($another);
@@ -12912,14 +13147,40 @@ var mixins = new function () {
     var self = this;
     return $assoc.$key();
    };
+   this.$keys = function () {
+    var self = this;
+    var $s = nil;
+    $s = self.$enclosingObjects$Collections$MutableHashedMap[0]._$Set().$new$(self._$size());
+    self._$keysDo$(function ($key) {
+     return $s.$include$($key);
+    });
+    return $s;
+   };
+   this.$keysAndValuesDo$ = function ($action) {
+    var self = this;
+    self._$contentsDo$(function ($assoc) {
+     return $action.$value$value$($assoc.$key(), $assoc.$value());
+    });
+    return self;
+   };
    this.$objToIncludeFor$withExisting$ = function ($newAssoc, $assoc) {
     var self = this;
     $assoc.$value$($newAssoc.$value());
     return $assoc;
    };
-   this.$$equal = function ($other) {
+   this.$tableAt$put$inMatchingSlot$value$ = function ($key, $el, $index, $val) {
     var self = this;
-    return self.$super$Collections$MutableHashedMap$slot._$$equal.call(self, $other) && ((self === $other) || self._$keys().$$equal($other.$keys()));
+    $val.$value$($el);
+    return $val;
+   };
+   this.$values = function () {
+    var self = this;
+    return self._$inject$into$(self.$enclosingObjects$Collections$MutableHashedMap[0]._$MutableArrayList().$new$(self._$size()), function ($oc, $el) {
+     return (function (cascadeReceiver) {
+      cascadeReceiver.$add$($el);
+      return cascadeReceiver.$yourself();
+     })($oc);
+    });
    };
    this.invoke = function (runtimeSuperclass, enclosingObjects) {
     function constructRuntimeClass (superBasicNew) {
@@ -12927,13 +13188,7 @@ var mixins = new function () {
      this._$superInit$Collections$MutableHashedMap = $.$superInit$Collections$MutableHashedMap;
      this.$superInit$Collections$MutableHashedMap = dnuCatcher("$superInit$Collections$MutableHashedMap");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
-     this.$keys = this._$keys = $.$keys;
-     this.$values = this._$values = $.$values;
-     this.$at$put$ = this._$at$put$ = $.$at$put$;
-     this._$at$put$ifNew$ = $.$at$put$ifNew$;
-     this.$at$put$ifNew$ = dnuCatcher("$at$put$ifNew$");
-     this.$at$ifAbsentPut$ = this._$at$ifAbsentPut$ = $.$at$ifAbsentPut$;
-     this.$isDictionary = this._$isDictionary = $.$isDictionary;
+     this.$$equal = this._$$equal = $.$$equal;
      this._$associationAt$ = $.$associationAt$;
      this.$associationAt$ = dnuCatcher("$associationAt$");
      this._$associationAt$ifAbsent$ = $.$associationAt$ifAbsent$;
@@ -12942,11 +13197,11 @@ var mixins = new function () {
      this.$associations = dnuCatcher("$associations");
      this._$associationsDo$ = $.$associationsDo$;
      this.$associationsDo$ = dnuCatcher("$associationsDo$");
-     this.$includesAssociation$ = this._$includesAssociation$ = $.$includesAssociation$;
+     this.$at$ifAbsentPut$ = this._$at$ifAbsentPut$ = $.$at$ifAbsentPut$;
      this.$at$ifPresent$ifAbsentPut$ = this._$at$ifPresent$ifAbsentPut$ = $.$at$ifPresent$ifAbsentPut$;
-     this.$keysAndValuesDo$ = this._$keysAndValuesDo$ = $.$keysAndValuesDo$;
-     this._$tableAt$put$inMatchingSlot$value$ = $.$tableAt$put$inMatchingSlot$value$;
-     this.$tableAt$put$inMatchingSlot$value$ = dnuCatcher("$tableAt$put$inMatchingSlot$value$");
+     this.$at$put$ = this._$at$put$ = $.$at$put$;
+     this._$at$put$ifNew$ = $.$at$put$ifNew$;
+     this.$at$put$ifNew$ = dnuCatcher("$at$put$ifNew$");
      this._$buildValForKey$element$ = $.$buildValForKey$element$;
      this.$buildValForKey$element$ = dnuCatcher("$buildValForKey$element$");
      this._$elementFor$ = $.$elementFor$;
@@ -12955,13 +13210,19 @@ var mixins = new function () {
      this.$elementForCopy$ = dnuCatcher("$elementForCopy$");
      this._$hashFor$ = $.$hashFor$;
      this.$hashFor$ = dnuCatcher("$hashFor$");
+     this.$includesAssociation$ = this._$includesAssociation$ = $.$includesAssociation$;
+     this.$isDictionary = this._$isDictionary = $.$isDictionary;
      this._$key$matches$ = $.$key$matches$;
      this.$key$matches$ = dnuCatcher("$key$matches$");
      this._$keyFor$ = $.$keyFor$;
      this.$keyFor$ = dnuCatcher("$keyFor$");
+     this.$keys = this._$keys = $.$keys;
+     this.$keysAndValuesDo$ = this._$keysAndValuesDo$ = $.$keysAndValuesDo$;
      this._$objToIncludeFor$withExisting$ = $.$objToIncludeFor$withExisting$;
      this.$objToIncludeFor$withExisting$ = dnuCatcher("$objToIncludeFor$withExisting$");
-     this.$$equal = this._$$equal = $.$$equal;
+     this._$tableAt$put$inMatchingSlot$value$ = $.$tableAt$put$inMatchingSlot$value$;
+     this.$tableAt$put$inMatchingSlot$value$ = dnuCatcher("$tableAt$put$inMatchingSlot$value$");
+     this.$values = this._$values = $.$values;
      this.$enclosingObjects$Collections$MutableHashedMap = enclosingObjects;
      this.$super$Collections$MutableHashedMap$slot = runtimeSuperclass;
      this["Collections`MutableHashedMap"] = function () {
@@ -12981,10 +13242,10 @@ var mixins = new function () {
     this.slots = [];
     this.methods = [
      new MM("new:", true, 0),
-     new MM("defaultCapacity", false, 761),
-     new MM("new", false, 762),
-     new MM("with:", false, 763),
-     new MM("withAll:", false, 764)
+     new MM("defaultCapacity", false, 760),
+     new MM("new", false, 761),
+     new MM("with:", false, 762),
+     new MM("withAll:", false, 763)
     ];
     this.nestedClasses = [];
     this.$new$ = function ($cap) {
@@ -13040,22 +13301,20 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for Collections`MutableList";
    this.name = "Collections`MutableList";
-   this.header = 765;
+   this.header = 764;
    this.slots = [];
    this.methods = [
-    new MM("superInit`Collections`MutableList", true, 766),
-    new MM("instance`initializer", true, 767),
-    new MM("at:put:", false, 768),
-    new MM("defaultMedianOf:and:and:", false, 769),
+    new MM("superInit`Collections`MutableList", true, 765),
+    new MM("instance`initializer", true, 766),
+    new MM("at:put:", false, 767),
+    new MM("defaultMedianOf:and:and:", false, 768),
+    new MM("defaultSort:to:", false, 769),
     new MM("medianOf:and:and:using:", false, 770),
-    new MM("swap:with:", false, 771),
+    new MM("readWriteStream", false, 771),
     new MM("replaceFrom:to:with:", false, 772),
     new MM("replaceFrom:to:with:startingAt:", false, 773),
-    new MM("readWriteStream", false, 774),
-    new MM("writeStream", false, 775),
-    new MM("defaultSort:to:", false, 776),
-    new MM("sort:to:using:", false, 777),
-    new MM("sortUsing:", false, 778)
+    new MM("swap:with:", false, 774),
+    new MM("writeStream", false, 775)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -13103,90 +13362,6 @@ var mixins = new function () {
       });
      });
     });
-   };
-   this.$medianOf$and$and$using$ = function ($a, $b, $c, $compare) {
-    var self = this;
-    var $atA = nil;
-    var $atB = nil;
-    var $atC = nil;
-    $atA = self._$at$($a);
-    $atB = self._$at$($b);
-    $atC = self._$at$($c);
-    return $compare.$value$value$($atB, $atA).$ifFalse$ifTrue$(function () {
-     return $compare.$value$value$($atC, $atB).$ifFalse$ifTrue$(function () {
-      return $b;
-     }, function () {
-      return $compare.$value$value$($atC, $atA).$ifFalse$ifTrue$(function () {
-       return $c;
-      }, function () {
-       return $a;
-      });
-     });
-    }, function () {
-     return $compare.$value$value$($atB, $atC).$ifFalse$ifTrue$(function () {
-      return $b;
-     }, function () {
-      return $compare.$value$value$($atA, $atC).$ifFalse$ifTrue$(function () {
-       return $c;
-      }, function () {
-       return $a;
-      });
-     });
-    });
-   };
-   this.$swap$with$ = function ($i, $j) {
-    var self = this;
-    var $t = nil;
-    $t = self._$at$($i);
-    self._$at$put$($i, self._$at$($j));
-    self._$at$put$($j, $t);
-    return self;
-   };
-   this.$replaceFrom$to$with$ = function ($start, $stop, $other) {
-    var self = this;
-    return self._$replaceFrom$to$with$startingAt$($start, $stop, $other, 1);
-   };
-   this.$replaceFrom$to$with$startingAt$ = function ($start, $stop, $other, $repStart) {
-    var self = this;
-    var $otheri = nil;
-    if (!$repStart.$$less($start)) {
-     $otheri = $repStart;
-     {
-      var $$limit = nil;
-      var $i = nil;
-      nil;
-      $i = $start;
-      $$limit = $stop;
-      for (; $$limit.$$greater$equal($i); ) {
-       self._$at$put$($i, $other.$at$($otheri));
-       $otheri = $otheri + 1;
-       $i = (1).$$plus($i);
-      };
-     };
-    } else {
-     $otheri = $repStart + ($stop - $start);
-     {
-      var $$limit = nil;
-      var $i = nil;
-      nil;
-      $i = $stop;
-      $$limit = $start;
-      for (; $$limit.$$less$equal($i); ) {
-       self._$at$put$($i, $other.$at$($otheri));
-       $otheri = $otheri - 1;
-       $i = (-1).$$plus($i);
-      };
-     };
-    };
-    return self;
-   };
-   this.$readWriteStream = function () {
-    var self = this;
-    return $0.$ListReadWriteStream(self.$enclosingObjects$Collections$MutableList[0]).$on$(self);
-   };
-   this.$writeStream = function () {
-    var self = this;
-    return self._$readWriteStream();
    };
    this.$defaultSort$to$ = function ($l, $r) {
     var self = this;
@@ -13262,84 +13437,89 @@ var mixins = new function () {
     };
     return self;
    };
-   this.$sort$to$using$ = function ($l, $r, $compare) {
+   this.$medianOf$and$and$using$ = function ($a, $b, $c, $compare) {
     var self = this;
-    var $i = nil;
-    var $j = nil;
-    var $x = nil;
-    var $m = nil;
-    var $n = nil;
-    $i = $l;
-    $j = $r;
-    $n = ($r - $l) + 1;
-    if ($n === 0) {
-     return self;
-    } else {
-     nil;
-    };
-    $m = ($l + $r).$$over$over(2);
-    if ($n > 7) {
-     var $pl = nil;
-     var $pn = nil;
-     var $s = nil;
-     $pl = $l;
-     $pn = $r;
-     if ($n > 40) {
-      $s = $n.$$over$over(8);
-      $pl = self._$medianOf$and$and$using$($pl, $pl + $s, ($pl + $s) + $s, $compare);
-      $m = self._$medianOf$and$and$using$($m - $s, $m, $m + $s, $compare);
-      $pn = self._$medianOf$and$and$using$(($pn - $s) - $s, $pn - $s, $pn, $compare);
-     } else {
+    var $atA = nil;
+    var $atB = nil;
+    var $atC = nil;
+    $atA = self._$at$($a);
+    $atB = self._$at$($b);
+    $atC = self._$at$($c);
+    return $compare.$value$value$($atB, $atA).$ifFalse$ifTrue$(function () {
+     return $compare.$value$value$($atC, $atB).$ifFalse$ifTrue$(function () {
+      return $b;
+     }, function () {
+      return $compare.$value$value$($atC, $atA).$ifFalse$ifTrue$(function () {
+       return $c;
+      }, function () {
+       return $a;
+      });
+     });
+    }, function () {
+     return $compare.$value$value$($atB, $atC).$ifFalse$ifTrue$(function () {
+      return $b;
+     }, function () {
+      return $compare.$value$value$($atA, $atC).$ifFalse$ifTrue$(function () {
+       return $c;
+      }, function () {
+       return $a;
+      });
+     });
+    });
+   };
+   this.$readWriteStream = function () {
+    var self = this;
+    return $0.$ListReadWriteStream(self.$enclosingObjects$Collections$MutableList[0]).$on$(self);
+   };
+   this.$replaceFrom$to$with$ = function ($start, $stop, $other) {
+    var self = this;
+    return self._$replaceFrom$to$with$startingAt$($start, $stop, $other, 1);
+   };
+   this.$replaceFrom$to$with$startingAt$ = function ($start, $stop, $other, $repStart) {
+    var self = this;
+    var $otheri = nil;
+    if (!$repStart.$$less($start)) {
+     $otheri = $repStart;
+     {
+      var $$limit = nil;
+      var $i = nil;
       nil;
-     };
-     $m = self._$medianOf$and$and$using$($pl, $m, $pn, $compare);
-    } else {
-     nil;
-    };
-    $x = self._$at$($m);
-    {
-     nil;
-     for (; $i.$$less$equal($j); ) {
-      var $ati = nil;
-      var $atj = nil;
-      {
-       nil;
-       for (; !$compare.$value$value$($x, $ati = self._$at$($i)); ) {
-        $i = $i + 1;
-       };
-      };
-      {
-       nil;
-       for (; !$compare.$value$value$($atj = self._$at$($j), $x); ) {
-        $j = $j - 1;
-       };
-      };
-      if ($i.$$less$equal($j)) {
-       self._$at$put$($i, $atj);
-       self._$at$put$($j, $ati);
-       $i = $i + 1;
-       $j = $j - 1;
-      } else {
-       nil;
+      $i = $start;
+      $$limit = $stop;
+      for (; $$limit.$$greater$equal($i); ) {
+       self._$at$put$($i, $other.$at$($otheri));
+       $otheri = $otheri + 1;
+       $i = (1).$$plus($i);
       };
      };
-    };
-    if ($l.$$less($j)) {
-     self._$sort$to$using$($l, $j, $compare);
     } else {
-     nil;
-    };
-    if ($i.$$less($r)) {
-     self._$sort$to$using$($i, $r, $compare);
-    } else {
-     nil;
+     $otheri = $repStart + ($stop - $start);
+     {
+      var $$limit = nil;
+      var $i = nil;
+      nil;
+      $i = $stop;
+      $$limit = $start;
+      for (; $$limit.$$less$equal($i); ) {
+       self._$at$put$($i, $other.$at$($otheri));
+       $otheri = $otheri - 1;
+       $i = (-1).$$plus($i);
+      };
+     };
     };
     return self;
    };
-   this.$sortUsing$ = function ($compare) {
+   this.$swap$with$ = function ($i, $j) {
     var self = this;
-    self._$sort$to$using$(1, self._$size(), $compare);
+    var $t = nil;
+    $t = self._$at$($i);
+    self._$at$put$($i, self._$at$($j));
+    self._$at$put$($j, $t);
     return self;
+   };
+   this.$writeStream = function () {
+    var self = this;
+    return self._$readWriteStream();
    };
    this.invoke = function (runtimeSuperclass, enclosingObjects) {
     function constructRuntimeClass (superBasicNew) {
@@ -13350,21 +13530,18 @@ var mixins = new function () {
      this.$at$put$ = this._$at$put$ = $.$at$put$;
      this._$defaultMedianOf$and$and$ = $.$defaultMedianOf$and$and$;
      this.$defaultMedianOf$and$and$ = dnuCatcher("$defaultMedianOf$and$and$");
-     this._$medianOf$and$and$using$ = $.$medianOf$and$and$using$;
-     this.$medianOf$and$and$using$ = dnuCatcher("$medianOf$and$and$using$");
-     this._$swap$with$ = $.$swap$with$;
-     this.$swap$with$ = dnuCatcher("$swap$with$");
-     this.$replaceFrom$to$with$ = this._$replaceFrom$to$with$ = $.$replaceFrom$to$with$;
-     this.$replaceFrom$to$with$startingAt$ = this._$replaceFrom$to$with$startingAt$ = $.$replaceFrom$to$with$startingAt$;
-     this._$readWriteStream = $.$readWriteStream;
-     this.$readWriteStream = dnuCatcher("$readWriteStream");
-     this._$writeStream = $.$writeStream;
-     this.$writeStream = dnuCatcher("$writeStream");
      this._$defaultSort$to$ = $.$defaultSort$to$;
      this.$defaultSort$to$ = dnuCatcher("$defaultSort$to$");
-     this._$sort$to$using$ = $.$sort$to$using$;
-     this.$sort$to$using$ = dnuCatcher("$sort$to$using$");
-     this.$sortUsing$ = this._$sortUsing$ = $.$sortUsing$;
+     this._$medianOf$and$and$using$ = $.$medianOf$and$and$using$;
+     this.$medianOf$and$and$using$ = dnuCatcher("$medianOf$and$and$using$");
+     this._$readWriteStream = $.$readWriteStream;
+     this.$readWriteStream = dnuCatcher("$readWriteStream");
+     this.$replaceFrom$to$with$ = this._$replaceFrom$to$with$ = $.$replaceFrom$to$with$;
+     this.$replaceFrom$to$with$startingAt$ = this._$replaceFrom$to$with$startingAt$ = $.$replaceFrom$to$with$startingAt$;
+     this._$swap$with$ = $.$swap$with$;
+     this.$swap$with$ = dnuCatcher("$swap$with$");
+     this._$writeStream = $.$writeStream;
+     this.$writeStream = dnuCatcher("$writeStream");
      this.$enclosingObjects$Collections$MutableList = enclosingObjects;
      this.$super$Collections$MutableList$slot = runtimeSuperclass;
      this["Collections`MutableList"] = function () {
@@ -13411,22 +13588,22 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for Collections`Set";
    this.name = "Collections`Set";
-   this.header = 779;
+   this.header = 776;
    this.slots = [];
    this.methods = [
-    new MM("superInit`Collections`Set", true, 780),
-    new MM("instance`initializer", true, 781),
-    new MM("isKindOfSet", false, 782),
-    new MM("asSet", false, 783),
-    new MM("buildValForKey:element:", false, 784),
-    new MM("elementFor:", false, 785),
-    new MM("elementForCopy:", false, 786),
-    new MM("hashFor:", false, 787),
-    new MM("key:matches:", false, 788),
-    new MM("keyFor:", false, 789),
-    new MM("objToIncludeFor:withExisting:", false, 790),
-    new MM("hasSameElementsAs:", false, 791),
-    new MM("includes:", false, 792)
+    new MM("superInit`Collections`Set", true, 777),
+    new MM("instance`initializer", true, 778),
+    new MM("asSet", false, 779),
+    new MM("buildValForKey:element:", false, 780),
+    new MM("elementFor:", false, 781),
+    new MM("elementForCopy:", false, 782),
+    new MM("hasSameElementsAs:", false, 783),
+    new MM("hashFor:", false, 784),
+    new MM("includes:", false, 785),
+    new MM("isKindOfSet", false, 786),
+    new MM("key:matches:", false, 787),
+    new MM("keyFor:", false, 788),
+    new MM("objToIncludeFor:withExisting:", false, 789)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -13439,10 +13616,6 @@ var mixins = new function () {
     var self = this;
     self._$superInit$Collections$Set($cap);
     return self;
-   };
-   this.$isKindOfSet = function () {
-    var self = this;
-    return true;
    };
    this.$asSet = function () {
     var self = this;
@@ -13460,9 +13633,66 @@ var mixins = new function () {
     var self = this;
     return $el;
    };
+   this.$hasSameElementsAs$ = function ($other) {
+    var self = this;
+    var NLR = new Object();
+    try {
+     var $otherSet = nil;
+     if (!self._$size().$$equal($other.$size())) {
+      {
+       var t = false;
+       NLR = null;
+       return t;
+      };
+     } else {
+      nil;
+     };
+     $otherSet = $other.$asSet();
+     if (!self._$size().$$equal($otherSet.$size())) {
+      {
+       var t = false;
+       NLR = null;
+       return t;
+      };
+     } else {
+      nil;
+     };
+     self._$do$(function ($el) {
+      return $otherSet.$includes$($el).$ifFalse$(function () {
+       {
+        var t = false;
+        if (NLR === null) {
+         self.cannotReturn(self, t);
+        };
+        NLR.value = t;
+        throw NLR;
+       };
+      });
+     });
+     {
+      var t = true;
+      NLR = null;
+      return t;
+     };
+    } catch (NLR_exception) {
+     if (NLR === NLR_exception) {
+      return NLR_exception.value;
+     } else {
+      throw NLR_exception;
+     };
+    };
+   };
    this.$hashFor$ = function ($key) {
     var self = this;
     return $key.$hash();
+   };
+   this.$includes$ = function ($o) {
+    var self = this;
+    return self._$includesKey$($o);
+   };
+   this.$isKindOfSet = function () {
+    var self = this;
+    return true;
    };
    this.$key$matches$ = function ($k, $another) {
     var self = this;
@@ -13476,50 +13706,12 @@ var mixins = new function () {
     var self = this;
     return $new;
    };
-   this.$hasSameElementsAs$ = function ($other) {
-    var self = this;
-    var NLR = new Object();
-    try {
-     var $otherSet = nil;
-     if (!self._$size().$$equal($other.$size())) {
-      return false;
-     } else {
-      nil;
-     };
-     $otherSet = $other.$asSet();
-     if (!self._$size().$$equal($otherSet.$size())) {
-      return false;
-     } else {
-      nil;
-     };
-     self._$do$(function ($el) {
-      return $otherSet.$includes$($el).$ifFalse$(function () {
-       {
-        NLR.value = false;
-        throw NLR;
-       };
-      });
-     });
-     return true;
-    } catch (NLR_exception) {
-     if (NLR === NLR_exception) {
-      return NLR_exception.value;
-     } else {
-      throw NLR_exception;
-     };
-    };
-   };
-   this.$includes$ = function ($o) {
-    var self = this;
-    return self._$includesKey$($o);
-   };
    this.invoke = function (runtimeSuperclass, enclosingObjects) {
     function constructRuntimeClass (superBasicNew) {
      this.debug = "Runtime class for Collections`Set";
      this._$superInit$Collections$Set = $.$superInit$Collections$Set;
      this.$superInit$Collections$Set = dnuCatcher("$superInit$Collections$Set");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
-     this.$isKindOfSet = this._$isKindOfSet = $.$isKindOfSet;
      this.$asSet = this._$asSet = $.$asSet;
      this._$buildValForKey$element$ = $.$buildValForKey$element$;
      this.$buildValForKey$element$ = dnuCatcher("$buildValForKey$element$");
@@ -13527,16 +13719,17 @@ var mixins = new function () {
      this.$elementFor$ = dnuCatcher("$elementFor$");
      this._$elementForCopy$ = $.$elementForCopy$;
      this.$elementForCopy$ = dnuCatcher("$elementForCopy$");
+     this.$hasSameElementsAs$ = this._$hasSameElementsAs$ = $.$hasSameElementsAs$;
      this._$hashFor$ = $.$hashFor$;
      this.$hashFor$ = dnuCatcher("$hashFor$");
+     this.$includes$ = this._$includes$ = $.$includes$;
+     this.$isKindOfSet = this._$isKindOfSet = $.$isKindOfSet;
      this._$key$matches$ = $.$key$matches$;
      this.$key$matches$ = dnuCatcher("$key$matches$");
      this._$keyFor$ = $.$keyFor$;
      this.$keyFor$ = dnuCatcher("$keyFor$");
      this._$objToIncludeFor$withExisting$ = $.$objToIncludeFor$withExisting$;
      this.$objToIncludeFor$withExisting$ = dnuCatcher("$objToIncludeFor$withExisting$");
-     this.$hasSameElementsAs$ = this._$hasSameElementsAs$ = $.$hasSameElementsAs$;
-     this.$includes$ = this._$includes$ = $.$includes$;
      this.$enclosingObjects$Collections$Set = enclosingObjects;
      this.$super$Collections$Set$slot = runtimeSuperclass;
      this["Collections`Set"] = function () {
@@ -13556,10 +13749,10 @@ var mixins = new function () {
     this.slots = [];
     this.methods = [
      new MM("new:", true, 0),
-     new MM("defaultCapacity", false, 793),
-     new MM("new", false, 794),
-     new MM("with:", false, 795),
-     new MM("withAll:", false, 796)
+     new MM("defaultCapacity", false, 790),
+     new MM("new", false, 791),
+     new MM("with:", false, 792),
+     new MM("withAll:", false, 793)
     ];
     this.nestedClasses = [];
     this.$new$ = function ($cap) {
@@ -13615,24 +13808,24 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for Collections`SortedList";
    this.name = "Collections`SortedList";
-   this.header = 797;
+   this.header = 794;
    this.slots = [
     new SM("usesDefaultSortBlock_private", true, false),
     new SM("sortBlock_private", true, false)
    ];
    this.methods = [
-    new MM("superInit`Collections`SortedList", true, 798),
-    new MM("instance`initializer", true, 799),
-    new MM("add:", false, 800),
-    new MM("addAll:", false, 801),
-    new MM("sortBlock", false, 802),
-    new MM("sortBlock:", false, 803),
-    new MM("usesDefaultSortBlock", false, 804),
-    new MM("asSortedList", false, 805),
-    new MM("initCapacity:", false, 806),
-    new MM("indexFor:", false, 807),
-    new MM("sort", false, 808),
-    new MM("isSorted", false, 809),
+    new MM("superInit`Collections`SortedList", true, 795),
+    new MM("instance`initializer", true, 796),
+    new MM("add:", false, 797),
+    new MM("addAll:", false, 798),
+    new MM("asSortedList", false, 799),
+    new MM("indexFor:", false, 800),
+    new MM("initCapacity:", false, 801),
+    new MM("isSorted", false, 802),
+    new MM("sort", false, 803),
+    new MM("sortBlock", false, 804),
+    new MM("sortBlock:", false, 805),
+    new MM("usesDefaultSortBlock", false, 806),
     new MM("init`usesDefaultSortBlock_private:", true, 0),
     new MM("usesDefaultSortBlock_private", true, 0),
     new MM("usesDefaultSortBlock_private:", true, 0),
@@ -13683,6 +13876,32 @@ var mixins = new function () {
     };
     return $els;
    };
+   this.$asSortedList = function () {
+    var self = this;
+    return self;
+   };
+   this.$indexFor$ = function ($el) {
+    var self = this;
+    return self._$contents().$binarySearchFor$between$and$toCompare$($el, self._$startGap() + 1, self._$lastIndex(), self._$sortBlock());
+   };
+   this.$initCapacity$ = function ($cap) {
+    var self = this;
+    self.$super$Collections$SortedList$slot._$initCapacity$.call(self, $cap);
+    return self;
+   };
+   this.$isSorted = function () {
+    var self = this;
+    return self._$isSortedBy$(self._$sortBlock());
+   };
+   this.$sort = function () {
+    var self = this;
+    if (self._$usesDefaultSortBlock()) {
+     self._$contents().$defaultSort$to$(self._$startGap() + 1, self._$lastIndex());
+    } else {
+     self._$contents().$sort$to$using$(self._$startGap() + 1, self._$lastIndex(), self._$sortBlock());
+    };
+    return self;
+   };
    this.$sortBlock = function () {
     var self = this;
     return $1.$sortBlock_private(self);
@@ -13701,32 +13920,6 @@ var mixins = new function () {
    this.$usesDefaultSortBlock = function () {
     var self = this;
     return $1.$usesDefaultSortBlock_private(self);
-   };
-   this.$asSortedList = function () {
-    var self = this;
-    return self;
-   };
-   this.$initCapacity$ = function ($cap) {
-    var self = this;
-    self.$super$Collections$SortedList$slot._$initCapacity$.call(self, $cap);
-    return self;
-   };
-   this.$indexFor$ = function ($el) {
-    var self = this;
-    return self._$contents().$binarySearchFor$between$and$toCompare$($el, self._$startGap() + 1, self._$lastIndex(), self._$sortBlock());
-   };
-   this.$sort = function () {
-    var self = this;
-    if (self._$usesDefaultSortBlock()) {
-     self._$contents().$defaultSort$to$(self._$startGap() + 1, self._$lastIndex());
-    } else {
-     self._$contents().$sort$to$using$(self._$startGap() + 1, self._$lastIndex(), self._$sortBlock());
-    };
-    return self;
-   };
-   this.$isSorted = function () {
-    var self = this;
-    return self._$isSortedBy$(self._$sortBlock());
    };
    this.$init$usesDefaultSortBlock_private$ = function (self, v) {
     self.$usesDefaultSortBlock_private$slot = v;
@@ -13758,15 +13951,15 @@ var mixins = new function () {
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
      this.$add$ = this._$add$ = $.$add$;
      this.$addAll$ = this._$addAll$ = $.$addAll$;
+     this.$asSortedList = this._$asSortedList = $.$asSortedList;
+     this._$indexFor$ = $.$indexFor$;
+     this.$indexFor$ = dnuCatcher("$indexFor$");
+     this.$initCapacity$ = this._$initCapacity$ = $.$initCapacity$;
+     this.$isSorted = this._$isSorted = $.$isSorted;
+     this.$sort = this._$sort = $.$sort;
      this.$sortBlock = this._$sortBlock = $.$sortBlock;
      this.$sortBlock$ = this._$sortBlock$ = $.$sortBlock$;
      this.$usesDefaultSortBlock = this._$usesDefaultSortBlock = $.$usesDefaultSortBlock;
-     this.$asSortedList = this._$asSortedList = $.$asSortedList;
-     this.$initCapacity$ = this._$initCapacity$ = $.$initCapacity$;
-     this._$indexFor$ = $.$indexFor$;
-     this.$indexFor$ = dnuCatcher("$indexFor$");
-     this.$sort = this._$sort = $.$sort;
-     this.$isSorted = this._$isSorted = $.$isSorted;
      this.$enclosingObjects$Collections$SortedList = enclosingObjects;
      this.$super$Collections$SortedList$slot = runtimeSuperclass;
      this["Collections`SortedList"] = function () {
@@ -13788,13 +13981,13 @@ var mixins = new function () {
     this.slots = [];
     this.methods = [
      new MM("new", true, 0),
-     new MM("defaultCapacity", false, 810),
-     new MM("defaultSortBlock", false, 811),
-     new MM("new:", false, 812),
-     new MM("new:sortBlock:", false, 813),
-     new MM("sortBlock:", false, 814),
-     new MM("with:", false, 815),
-     new MM("withAll:", false, 816)
+     new MM("defaultCapacity", false, 807),
+     new MM("defaultSortBlock", false, 808),
+     new MM("new:", false, 809),
+     new MM("new:sortBlock:", false, 810),
+     new MM("sortBlock:", false, 811),
+     new MM("with:", false, 812),
+     new MM("withAll:", false, 813)
     ];
     this.nestedClasses = [];
     this.$new = function () {
@@ -13862,15 +14055,14 @@ var mixins = new function () {
    }();
    this.meta.nonMeta = this;
   }();
+  this.$Collections$AbstractList.enclosingMixin = this;
   this.$Collections$AddableList.enclosingMixin = this;
   this.$Collections$Association.enclosingMixin = this;
-  this.$Collections$Bag.enclosingMixin = this;
   this.$Collections$Collection.enclosingMixin = this;
   this.$Collections$HashedCollection.enclosingMixin = this;
   this.$Collections$IdentityMutableHashedMap.enclosingMixin = this;
   this.$Collections$IdentitySet.enclosingMixin = this;
   this.$Collections$Interval.enclosingMixin = this;
-  this.$Collections$List.enclosingMixin = this;
   this.$Collections$MutableArrayList.enclosingMixin = this;
   this.$Collections$MutableHashedMap.enclosingMixin = this;
   this.$Collections$MutableList.enclosingMixin = this;
@@ -13882,10 +14074,16 @@ var mixins = new function () {
     this._$superInit$Collections = $.$superInit$Collections;
     this.$superInit$Collections = dnuCatcher("$superInit$Collections");
     this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+    this.$IdentityMap = this._$IdentityMap = $.$IdentityMap;
+    this.$List = this._$List = $.$List;
+    this.$Map = this._$Map = $.$Map;
+    this._$error$ = $.$error$;
+    this.$error$ = dnuCatcher("$error$");
+    this._$AbstractList = $.$AbstractList;
+    this.$AbstractList = dnuCatcher("$AbstractList");
     this._$AddableList = $.$AddableList;
     this.$AddableList = dnuCatcher("$AddableList");
     this.$Association = this._$Association = $.$Association;
-    this.$Bag = this._$Bag = $.$Bag;
     this.$Collection = this._$Collection = $.$Collection;
     this._$HashedCollection = $.$HashedCollection;
     this.$HashedCollection = dnuCatcher("$HashedCollection");
@@ -13893,34 +14091,25 @@ var mixins = new function () {
     this.$IdentityMutableHashedMap = dnuCatcher("$IdentityMutableHashedMap");
     this.$IdentitySet = this._$IdentitySet = $.$IdentitySet;
     this.$Interval = this._$Interval = $.$Interval;
-    this._$List = $.$List;
-    this.$List = dnuCatcher("$List");
-    this.$MutableArrayList = this._$MutableArrayList = $.$MutableArrayList;
+    this._$MutableArrayList = $.$MutableArrayList;
+    this.$MutableArrayList = dnuCatcher("$MutableArrayList");
     this._$MutableHashedMap = $.$MutableHashedMap;
     this.$MutableHashedMap = dnuCatcher("$MutableHashedMap");
     this._$MutableList = $.$MutableList;
     this.$MutableList = dnuCatcher("$MutableList");
     this.$Set = this._$Set = $.$Set;
     this.$SortedList = this._$SortedList = $.$SortedList;
-    this.$init$OrderedCollection$ = this._$init$OrderedCollection$ = $.$init$OrderedCollection$;
-    this.$OrderedCollection = this._$OrderedCollection = $.$OrderedCollection;
-    this.$init$Dictionary$ = this._$init$Dictionary$ = $.$init$Dictionary$;
-    this.$Dictionary = this._$Dictionary = $.$Dictionary;
-    this.$init$IdentityDictionary$ = this._$init$IdentityDictionary$ = $.$init$IdentityDictionary$;
-    this.$IdentityDictionary = this._$IdentityDictionary = $.$IdentityDictionary;
-    this.$init$SortedCollection$ = this._$init$SortedCollection$ = $.$init$SortedCollection$;
-    this.$SortedCollection = this._$SortedCollection = $.$SortedCollection;
     this.$init$WeakArray$ = this._$init$WeakArray$ = $.$init$WeakArray$;
     this.$WeakArray = this._$WeakArray = $.$WeakArray;
+    this.$init$Collections$AbstractList$ = this._$init$Collections$AbstractList$ = $.$init$Collections$AbstractList$;
+    this.$Collections$AbstractList = this._$Collections$AbstractList = $.$Collections$AbstractList;
+    this.$Collections$AbstractList$ = this._$Collections$AbstractList$ = $.$Collections$AbstractList$;
     this.$init$Collections$AddableList$ = this._$init$Collections$AddableList$ = $.$init$Collections$AddableList$;
     this.$Collections$AddableList = this._$Collections$AddableList = $.$Collections$AddableList;
     this.$Collections$AddableList$ = this._$Collections$AddableList$ = $.$Collections$AddableList$;
     this.$init$Collections$Association$ = this._$init$Collections$Association$ = $.$init$Collections$Association$;
     this.$Collections$Association = this._$Collections$Association = $.$Collections$Association;
     this.$Collections$Association$ = this._$Collections$Association$ = $.$Collections$Association$;
-    this.$init$Collections$Bag$ = this._$init$Collections$Bag$ = $.$init$Collections$Bag$;
-    this.$Collections$Bag = this._$Collections$Bag = $.$Collections$Bag;
-    this.$Collections$Bag$ = this._$Collections$Bag$ = $.$Collections$Bag$;
     this.$init$Collections$Collection$ = this._$init$Collections$Collection$ = $.$init$Collections$Collection$;
     this.$Collections$Collection = this._$Collections$Collection = $.$Collections$Collection;
     this.$Collections$Collection$ = this._$Collections$Collection$ = $.$Collections$Collection$;
@@ -13936,9 +14125,6 @@ var mixins = new function () {
     this.$init$Collections$Interval$ = this._$init$Collections$Interval$ = $.$init$Collections$Interval$;
     this.$Collections$Interval = this._$Collections$Interval = $.$Collections$Interval;
     this.$Collections$Interval$ = this._$Collections$Interval$ = $.$Collections$Interval$;
-    this.$init$Collections$List$ = this._$init$Collections$List$ = $.$init$Collections$List$;
-    this.$Collections$List = this._$Collections$List = $.$Collections$List;
-    this.$Collections$List$ = this._$Collections$List$ = $.$Collections$List$;
     this.$init$Collections$MutableArrayList$ = this._$init$Collections$MutableArrayList$ = $.$init$Collections$MutableArrayList$;
     this.$Collections$MutableArrayList = this._$Collections$MutableArrayList = $.$Collections$MutableArrayList;
     this.$Collections$MutableArrayList$ = this._$Collections$MutableArrayList$ = $.$Collections$MutableArrayList$;
@@ -13959,22 +14145,17 @@ var mixins = new function () {
     this.Collections = function () {
      superBasicNew.call(this);
      this.$MutableAddableList$slot = nil;
-     this.$OrderedCollection$slot = nil;
-     this.$Dictionary$slot = nil;
-     this.$IdentityDictionary$slot = nil;
-     this.$SortedCollection$slot = nil;
      this.$ListReadStream$slot = nil;
      this.$ListReadWriteStream$slot = nil;
      this.$WeakArray$slot = nil;
+     this.$Collections$AbstractList$slot = nil;
      this.$Collections$AddableList$slot = nil;
      this.$Collections$Association$slot = nil;
-     this.$Collections$Bag$slot = nil;
      this.$Collections$Collection$slot = nil;
      this.$Collections$HashedCollection$slot = nil;
      this.$Collections$IdentityMutableHashedMap$slot = nil;
      this.$Collections$IdentitySet$slot = nil;
      this.$Collections$Interval$slot = nil;
-     this.$Collections$List$slot = nil;
      this.$Collections$MutableArrayList$slot = nil;
      this.$Collections$MutableHashedMap$slot = nil;
      this.$Collections$MutableList$slot = nil;
@@ -14022,8 +14203,9 @@ var mixins = new function () {
   var $0 = this;
   this.debug = "Runtime mixin for GraphicsForHTML5";
   this.name = "GraphicsForHTML5";
-  this.header = 817;
+  this.header = 814;
   this.slots = [
+   new SM("Gradient", false, false),
    new SM("document", false, false),
    new SM("body", false, false),
    new SM("GraphicsForHTML5`Canvas", true, true),
@@ -14033,14 +14215,16 @@ var mixins = new function () {
    new SM("GraphicsForHTML5`Rectangle", true, true)
   ];
   this.methods = [
-   new MM("superInit`GraphicsForHTML5", true, 818),
-   new MM("instance`initializer", true, 819),
-   new MM("openTestCanvas:", false, 820),
+   new MM("superInit`GraphicsForHTML5", true, 815),
+   new MM("instance`initializer", true, 816),
+   new MM("openTestCanvas:", false, 817),
    new MM("Canvas", true, 0),
    new MM("Color", true, 0),
    new MM("Context", true, 0),
    new MM("Point", true, 0),
    new MM("Rectangle", true, 0),
+   new MM("init`Gradient:", true, 0),
+   new MM("Gradient", true, 0),
    new MM("init`document:", true, 0),
    new MM("document", true, 0),
    new MM("init`body:", true, 0),
@@ -14077,6 +14261,9 @@ var mixins = new function () {
   this.$instance$initializer = function ($p) {
    var self = this;
    self._$superInit$GraphicsForHTML5($p);
+   self._$init$Gradient$(self._$Future().$computing$(function () {
+    return $p.$hopscotch().$Gradient();
+   }));
    self._$init$document$($p.$aliens().$global().$at$("document"));
    self._$init$body$(self._$document().$at$("body"));
    return self;
@@ -14147,6 +14334,13 @@ var mixins = new function () {
     this.$GraphicsForHTML5$Rectangle$slot = vmmirror.$applyMixin$toSuperclass$withEnclosingObjects$(mixin, superclass, enclosingObjects);
    };
    return this.$GraphicsForHTML5$Rectangle$slot;
+  };
+  this.$init$Gradient$ = function (v) {
+   this.$Gradient$slot = v;
+   return this;
+  };
+  this.$Gradient = function () {
+   return this.$Gradient$slot;
   };
   this.$init$document$ = function (v) {
    this.$document$slot = v;
@@ -14222,16 +14416,16 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for GraphicsForHTML5`Canvas";
    this.name = "GraphicsForHTML5`Canvas";
-   this.header = 821;
+   this.header = 818;
    this.slots = [new SM("alien", true, false)];
    this.methods = [
-    new MM("superInit`GraphicsForHTML5`Canvas", true, 822),
-    new MM("instance`initializer", true, 823),
-    new MM("appendToBody", false, 824),
-    new MM("context", false, 825),
-    new MM("keyDownAction:", false, 826),
-    new MM("mouseDownAction:", false, 827),
-    new MM("mouseMovedAction:", false, 828),
+    new MM("superInit`GraphicsForHTML5`Canvas", true, 819),
+    new MM("instance`initializer", true, 820),
+    new MM("appendToBody", false, 821),
+    new MM("context", false, 822),
+    new MM("keyDownAction:", false, 823),
+    new MM("mouseDownAction:", false, 824),
+    new MM("mouseMovedAction:", false, 825),
     new MM("init`alien:", true, 0),
     new MM("alien", true, 0),
     new MM("alien:", true, 0)
@@ -14355,7 +14549,7 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for GraphicsForHTML5`Color";
    this.name = "GraphicsForHTML5`Color";
-   this.header = 829;
+   this.header = 826;
    this.slots = [
     new SM("red", false, false),
     new SM("green", false, false),
@@ -14363,10 +14557,10 @@ var mixins = new function () {
     new SM("alpha", false, false)
    ];
    this.methods = [
-    new MM("superInit`GraphicsForHTML5`Color", true, 830),
-    new MM("instance`initializer", true, 831),
-    new MM("applyToStyle:", false, 832),
-    new MM("asCSSString", false, 833),
+    new MM("superInit`GraphicsForHTML5`Color", true, 827),
+    new MM("instance`initializer", true, 828),
+    new MM("applyToStyle:", false, 829),
+    new MM("asCSSString", false, 830),
     new MM("init`red:", true, 0),
     new MM("red", true, 0),
     new MM("init`green:", true, 0),
@@ -14468,12 +14662,19 @@ var mixins = new function () {
     this.slots = [];
     this.methods = [
      new MM("scaledR:g:b:a:", true, 0),
-     new MM("black", false, 834),
+     new MM("black", false, 831),
+     new MM("blue", false, 832),
+     new MM("blue:", false, 833),
+     new MM("gray", false, 834),
      new MM("gray:", false, 835),
      new MM("h:s:v:", false, 836),
-     new MM("r:g:b:", false, 837),
-     new MM("r:g:b:a:", false, 838),
-     new MM("white", false, 839)
+     new MM("magenta", false, 837),
+     new MM("orange", false, 838),
+     new MM("r:g:b:", false, 839),
+     new MM("r:g:b:a:", false, 840),
+     new MM("red", false, 841),
+     new MM("red:", false, 842),
+     new MM("white", false, 843)
     ];
     this.nestedClasses = [];
     this.$scaledR$g$b$a$ = function ($r, $g, $b, $a) {
@@ -14482,6 +14683,18 @@ var mixins = new function () {
     this.$black = function () {
      var self = this;
      return self._$scaledR$g$b$a$(0, 0, 0, 255);
+    };
+    this.$blue = function () {
+     var self = this;
+     return self._$scaledR$g$b$a$(0, 0, 255, 255);
+    };
+    this.$blue$ = function ($brightness) {
+     var self = this;
+     return self._$scaledR$g$b$a$(0, 0, $brightness, 255);
+    };
+    this.$gray = function () {
+     var self = this;
+     return self._$r$g$b$((1/2), (1/2), (1/2));
     };
     this.$gray$ = function ($brightness) {
      var self = this;
@@ -14549,6 +14762,14 @@ var mixins = new function () {
      self._$Error().$signal$("implementation error");
      return self;
     };
+    this.$magenta = function () {
+     var self = this;
+     return self._$r$g$b$a$(139, 0, 139, 255);
+    };
+    this.$orange = function () {
+     var self = this;
+     return self._$scaledR$g$b$a$(255, 165, 0, 255);
+    };
     this.$r$g$b$ = function ($r, $g, $b) {
      var self = this;
      return self._$scaledR$g$b$a$(($r * 255).$floor(), ($g * 255).$floor(), ($b * 255).$floor(), 255);
@@ -14556,6 +14777,14 @@ var mixins = new function () {
     this.$r$g$b$a$ = function ($r, $g, $b, $a) {
      var self = this;
      return self._$scaledR$g$b$a$(($r * 255).$floor(), ($g * 255).$floor(), ($b * 255).$floor(), $a);
+    };
+    this.$red = function () {
+     var self = this;
+     return self._$scaledR$g$b$a$(255, 0, 0, 255);
+    };
+    this.$red$ = function ($brightness) {
+     var self = this;
+     return self._$scaledR$g$b$a$($brightness, 0, 0, 255);
     };
     this.$white = function () {
      var self = this;
@@ -14566,10 +14795,17 @@ var mixins = new function () {
       this.debug = "Runtime meta class for GraphicsForHTML5`Color";
       this.$scaledR$g$b$a$ = this._$scaledR$g$b$a$ = $.$scaledR$g$b$a$;
       this.$black = this._$black = $.$black;
+      this.$blue = this._$blue = $.$blue;
+      this.$blue$ = this._$blue$ = $.$blue$;
+      this.$gray = this._$gray = $.$gray;
       this.$gray$ = this._$gray$ = $.$gray$;
       this.$h$s$v$ = this._$h$s$v$ = $.$h$s$v$;
+      this.$magenta = this._$magenta = $.$magenta;
+      this.$orange = this._$orange = $.$orange;
       this.$r$g$b$ = this._$r$g$b$ = $.$r$g$b$;
       this.$r$g$b$a$ = this._$r$g$b$a$ = $.$r$g$b$a$;
+      this.$red = this._$red = $.$red;
+      this.$red$ = this._$red$ = $.$red$;
       this.$white = this._$white = $.$white;
       this.$enclosingObjects$GraphicsForHTML5$Color = enclosingObjects;
       this.$super$GraphicsForHTML5$Color = runtimeSuperclass;
@@ -14591,21 +14827,21 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for GraphicsForHTML5`Context";
    this.name = "GraphicsForHTML5`Context";
-   this.header = 840;
+   this.header = 844;
    this.slots = [new SM("alien", false, false)];
    this.methods = [
-    new MM("superInit`GraphicsForHTML5`Context", true, 841),
-    new MM("instance`initializer", true, 842),
-    new MM("arcAt:radius:from:to:", false, 843),
-    new MM("beginPath", false, 844),
-    new MM("fill", false, 845),
-    new MM("fillStyle:", false, 846),
-    new MM("fillText:at:", false, 847),
-    new MM("lineTo:", false, 848),
-    new MM("moveTo:", false, 849),
-    new MM("rectangle:", false, 850),
-    new MM("stroke", false, 851),
-    new MM("strokeStyle:", false, 852),
+    new MM("superInit`GraphicsForHTML5`Context", true, 845),
+    new MM("instance`initializer", true, 846),
+    new MM("arcAt:radius:from:to:", false, 847),
+    new MM("beginPath", false, 848),
+    new MM("fill", false, 849),
+    new MM("fillStyle:", false, 850),
+    new MM("fillText:at:", false, 851),
+    new MM("lineTo:", false, 852),
+    new MM("moveTo:", false, 853),
+    new MM("rectangle:", false, 854),
+    new MM("stroke", false, 855),
+    new MM("strokeStyle:", false, 856),
     new MM("init`alien:", true, 0),
     new MM("alien", true, 0)
    ];
@@ -14746,22 +14982,22 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for GraphicsForHTML5`Point";
    this.name = "GraphicsForHTML5`Point";
-   this.header = 853;
+   this.header = 857;
    this.slots = [
     new SM("x", false, false),
     new SM("y", false, false)
    ];
    this.methods = [
-    new MM("superInit`GraphicsForHTML5`Point", true, 854),
-    new MM("instance`initializer", true, 855),
-    new MM("=", false, 856),
-    new MM("corner:", false, 857),
-    new MM("extent:", false, 858),
-    new MM("hash", false, 859),
-    new MM("isPoint", false, 860),
-    new MM("printString", false, 861),
-    new MM("r", false, 862),
-    new MM("theta", false, 863),
+    new MM("superInit`GraphicsForHTML5`Point", true, 858),
+    new MM("instance`initializer", true, 859),
+    new MM("=", false, 860),
+    new MM("corner:", false, 861),
+    new MM("extent:", false, 862),
+    new MM("hash", false, 863),
+    new MM("isPoint", false, 864),
+    new MM("printString", false, 865),
+    new MM("r", false, 866),
+    new MM("theta", false, 867),
     new MM("init`x:", true, 0),
     new MM("x", true, 0),
     new MM("init`y:", true, 0),
@@ -14867,8 +15103,8 @@ var mixins = new function () {
     this.slots = [];
     this.methods = [
      new MM("x:y:", true, 0),
-     new MM("r:theta:", false, 864),
-     new MM("zero", false, 865)
+     new MM("r:theta:", false, 868),
+     new MM("zero", false, 869)
     ];
     this.nestedClasses = [];
     this.$x$y$ = function ($xCoord, $yCoord) {
@@ -14908,22 +15144,22 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for GraphicsForHTML5`Rectangle";
    this.name = "GraphicsForHTML5`Rectangle";
-   this.header = 866;
+   this.header = 870;
    this.slots = [
     new SM("origin", false, false),
     new SM("corner", false, false)
    ];
    this.methods = [
-    new MM("superInit`GraphicsForHTML5`Rectangle", true, 867),
-    new MM("instance`initializer", true, 868),
-    new MM("=", false, 869),
-    new MM("center", false, 870),
-    new MM("containsPoint:", false, 871),
-    new MM("extent", false, 872),
-    new MM("hash", false, 873),
-    new MM("insetBy:", false, 874),
-    new MM("isRectangle", false, 875),
-    new MM("printString", false, 876),
+    new MM("superInit`GraphicsForHTML5`Rectangle", true, 871),
+    new MM("instance`initializer", true, 872),
+    new MM("=", false, 873),
+    new MM("center", false, 874),
+    new MM("containsPoint:", false, 875),
+    new MM("extent", false, 876),
+    new MM("hash", false, 877),
+    new MM("insetBy:", false, 878),
+    new MM("isRectangle", false, 879),
+    new MM("printString", false, 880),
     new MM("init`origin:", true, 0),
     new MM("origin", true, 0),
     new MM("init`corner:", true, 0),
@@ -15028,7 +15264,7 @@ var mixins = new function () {
     this.slots = [];
     this.methods = [
      new MM("origin:corner:", true, 0),
-     new MM("origin:extent:", false, 877)
+     new MM("origin:extent:", false, 881)
     ];
     this.nestedClasses = [];
     this.$origin$corner$ = function ($o, $c) {
@@ -15078,6 +15314,8 @@ var mixins = new function () {
     this.$Point = this._$Point = $.$Point;
     this._$Rectangle = $.$Rectangle;
     this.$Rectangle = dnuCatcher("$Rectangle");
+    this.$init$Gradient$ = this._$init$Gradient$ = $.$init$Gradient$;
+    this.$Gradient = this._$Gradient = $.$Gradient;
     this._$init$document$ = $.$init$document$;
     this.$init$document$ = dnuCatcher("$init$document$");
     this._$document = $.$document;
@@ -15105,6 +15343,7 @@ var mixins = new function () {
     this.$super$GraphicsForHTML5$slot = runtimeSuperclass;
     this.GraphicsForHTML5 = function () {
      superBasicNew.call(this);
+     this.$Gradient$slot = nil;
      this.$document$slot = nil;
      this.$body$slot = nil;
      this.$GraphicsForHTML5$Canvas$slot = nil;
@@ -15149,18 +15388,904 @@ var mixins = new function () {
   }();
   this.meta.nonMeta = this;
  }();
+ this.$TextModule = new function () {
+  var $ = this;
+  var $0 = this;
+  this.debug = "Runtime mixin for TextModule";
+  this.name = "TextModule";
+  this.header = 882;
+  this.slots = [
+   new SM("TextModule`Text", true, true),
+   new SM("TextModule`TextBlock", true, true),
+   new SM("TextModule`TextProperties", true, true),
+   new SM("TextModule`TextString", true, true)
+  ];
+  this.methods = [
+   new MM("superInit`TextModule", true, 883),
+   new MM("instance`initializer", true, 884),
+   new MM("Text", true, 0),
+   new MM("TextBlock", true, 0),
+   new MM("TextProperties", true, 0),
+   new MM("TextString", true, 0),
+   new MM("init`TextModule`Text:", true, 0),
+   new MM("TextModule`Text", true, 0),
+   new MM("TextModule`Text:", true, 0),
+   new MM("init`TextModule`TextBlock:", true, 0),
+   new MM("TextModule`TextBlock", true, 0),
+   new MM("TextModule`TextBlock:", true, 0),
+   new MM("init`TextModule`TextProperties:", true, 0),
+   new MM("TextModule`TextProperties", true, 0),
+   new MM("TextModule`TextProperties:", true, 0),
+   new MM("init`TextModule`TextString:", true, 0),
+   new MM("TextModule`TextString", true, 0),
+   new MM("TextModule`TextString:", true, 0)
+  ];
+  this.nestedClasses = [
+   "TextModule`Text",
+   "TextModule`TextBlock",
+   "TextModule`TextProperties",
+   "TextModule`TextString"
+  ];
+  this.applications = [];
+  this.$superInit$TextModule = function ($p) {
+   var self = this;
+   self.$super$TextModule$slot._$instance$initializer.call(self);
+   return self;
+  };
+  this.$instance$initializer = function ($p) {
+   var self = this;
+   self._$superInit$TextModule($p);
+   return self;
+  };
+  this.$Text = function () {
+   if (nil === this.$TextModule$Text$slot) {
+    var self = this;
+    var superclass = self._$Object();
+    var enclosingObjects = [this].concat(this.$enclosingObjects$TextModule);
+    var mixin = $.$TextModule$Text;
+    this.$TextModule$Text$slot = vmmirror.$applyMixin$toSuperclass$withEnclosingObjects$(mixin, superclass, enclosingObjects);
+   };
+   return this.$TextModule$Text$slot;
+  };
+  this.$TextBlock = function () {
+   if (nil === this.$TextModule$TextBlock$slot) {
+    var self = this;
+    var superclass = self._$Text();
+    var enclosingObjects = [this].concat(this.$enclosingObjects$TextModule);
+    var mixin = $.$TextModule$TextBlock;
+    this.$TextModule$TextBlock$slot = vmmirror.$applyMixin$toSuperclass$withEnclosingObjects$(mixin, superclass, enclosingObjects);
+   };
+   return this.$TextModule$TextBlock$slot;
+  };
+  this.$TextProperties = function () {
+   if (nil === this.$TextModule$TextProperties$slot) {
+    var self = this;
+    var superclass = self._$Object();
+    var enclosingObjects = [this].concat(this.$enclosingObjects$TextModule);
+    var mixin = $.$TextModule$TextProperties;
+    this.$TextModule$TextProperties$slot = vmmirror.$applyMixin$toSuperclass$withEnclosingObjects$(mixin, superclass, enclosingObjects);
+   };
+   return this.$TextModule$TextProperties$slot;
+  };
+  this.$TextString = function () {
+   if (nil === this.$TextModule$TextString$slot) {
+    var self = this;
+    var superclass = self._$Text();
+    var enclosingObjects = [this].concat(this.$enclosingObjects$TextModule);
+    var mixin = $.$TextModule$TextString;
+    this.$TextModule$TextString$slot = vmmirror.$applyMixin$toSuperclass$withEnclosingObjects$(mixin, superclass, enclosingObjects);
+   };
+   return this.$TextModule$TextString$slot;
+  };
+  this.$init$TextModule$Text$ = function (v) {
+   this.$TextModule$Text$slot = v;
+   return this;
+  };
+  this.$TextModule$Text = function () {
+   return this.$TextModule$Text$slot;
+  };
+  this.$TextModule$Text$ = function (v) {
+   this.$TextModule$Text$slot = v;
+   return this;
+  };
+  this.$init$TextModule$TextBlock$ = function (v) {
+   this.$TextModule$TextBlock$slot = v;
+   return this;
+  };
+  this.$TextModule$TextBlock = function () {
+   return this.$TextModule$TextBlock$slot;
+  };
+  this.$TextModule$TextBlock$ = function (v) {
+   this.$TextModule$TextBlock$slot = v;
+   return this;
+  };
+  this.$init$TextModule$TextProperties$ = function (v) {
+   this.$TextModule$TextProperties$slot = v;
+   return this;
+  };
+  this.$TextModule$TextProperties = function () {
+   return this.$TextModule$TextProperties$slot;
+  };
+  this.$TextModule$TextProperties$ = function (v) {
+   this.$TextModule$TextProperties$slot = v;
+   return this;
+  };
+  this.$init$TextModule$TextString$ = function (v) {
+   this.$TextModule$TextString$slot = v;
+   return this;
+  };
+  this.$TextModule$TextString = function () {
+   return this.$TextModule$TextString$slot;
+  };
+  this.$TextModule$TextString$ = function (v) {
+   this.$TextModule$TextString$slot = v;
+   return this;
+  };
+  this.$TextModule$Text = new function () {
+   var $ = this;
+   var $1 = this;
+   this.debug = "Runtime mixin for TextModule`Text";
+   this.name = "TextModule`Text";
+   this.header = 885;
+   this.slots = [new SM("textProperties", false, false)];
+   this.methods = [
+    new MM("superInit`TextModule`Text", true, 886),
+    new MM("instance`initializer", true, 887),
+    new MM("isKindOfText", false, 888),
+    new MM("textUnits", false, 889),
+    new MM("init`textProperties:", true, 0),
+    new MM("textProperties", true, 0)
+   ];
+   this.nestedClasses = [];
+   this.applications = [];
+   this.$superInit$TextModule$Text = function ($tps) {
+    var self = this;
+    self.$super$TextModule$Text$slot._$instance$initializer.call(self);
+    return self;
+   };
+   this.$instance$initializer = function ($tps) {
+    var self = this;
+    self._$superInit$TextModule$Text($tps);
+    self._$init$textProperties$($tps);
+    return self;
+   };
+   this.$isKindOfText = function () {
+    var self = this;
+    return true;
+   };
+   this.$textUnits = function () {
+    var self = this;
+    return self._$subclassResponsibility();
+   };
+   this.$init$textProperties$ = function (v) {
+    this.$textProperties$slot = v;
+    return this;
+   };
+   this.$textProperties = function () {
+    return this.$textProperties$slot;
+   };
+   this.invoke = function (runtimeSuperclass, enclosingObjects) {
+    function constructRuntimeClass (superBasicNew) {
+     this.debug = "Runtime class for TextModule`Text";
+     this._$superInit$TextModule$Text = $.$superInit$TextModule$Text;
+     this.$superInit$TextModule$Text = dnuCatcher("$superInit$TextModule$Text");
+     this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this.$isKindOfText = this._$isKindOfText = $.$isKindOfText;
+     this.$textUnits = this._$textUnits = $.$textUnits;
+     this.$init$textProperties$ = this._$init$textProperties$ = $.$init$textProperties$;
+     this.$textProperties = this._$textProperties = $.$textProperties;
+     this.$enclosingObjects$TextModule$Text = enclosingObjects;
+     this.$super$TextModule$Text$slot = runtimeSuperclass;
+     this["TextModule`Text"] = function () {
+      superBasicNew.call(this);
+      this.$textProperties$slot = nil;
+     };
+     this.basicNew = this["TextModule`Text"];
+     this.basicNew.prototype = this;
+     this.meta = null;
+     this.newspeakClass = null;
+    };
+    constructRuntimeClass.prototype = runtimeSuperclass;
+    return new constructRuntimeClass(runtimeSuperclass.basicNew);
+   };
+   this.meta = new function () {
+    var $ = this;
+    this.debug = "Runtime meta mixin for TextModule`Text";
+    this.slots = [];
+    this.methods = [new MM("properties:", true, 0)];
+    this.nestedClasses = [];
+    this.$properties$ = function ($tps) {
+     return (new this.nonMeta.basicNew()).$instance$initializer($tps);
+    };
+    this.invoke = function (runtimeSuperclass, enclosingObjects) {
+     function constructRuntimeClass (superBasicNew) {
+      this.debug = "Runtime meta class for TextModule`Text";
+      this.$properties$ = this._$properties$ = $.$properties$;
+      this.$enclosingObjects$TextModule$Text = enclosingObjects;
+      this.$super$TextModule$Text = runtimeSuperclass;
+      this.basicNew = function () {
+       superBasicNew.call(this);
+      };
+      this.basicNew.prototype = this;
+      this.nonMeta = null;
+      this.newspeakClass = null;
+     };
+     constructRuntimeClass.prototype = runtimeSuperclass;
+     return new constructRuntimeClass(runtimeSuperclass.basicNew);
+    };
+   }();
+   this.meta.nonMeta = this;
+  }();
+  this.$TextModule$TextBlock = new function () {
+   var $ = this;
+   var $1 = this;
+   this.debug = "Runtime mixin for TextModule`TextBlock";
+   this.name = "TextModule`TextBlock";
+   this.header = 890;
+   this.slots = [new SM("textUnits", false, false)];
+   this.methods = [
+    new MM("superInit`TextModule`TextBlock", true, 891),
+    new MM("instance`initializer", true, 892),
+    new MM("cloneWithDefaultProperties:", false, 893),
+    new MM("elementaryTextUnits", false, 894),
+    new MM("isKindOfTextBlock", false, 895),
+    new MM("string", false, 896),
+    new MM("init`textUnits:", true, 0),
+    new MM("textUnits", true, 0)
+   ];
+   this.nestedClasses = [];
+   this.applications = [];
+   this.$superInit$TextModule$TextBlock = function ($tus, $tps) {
+    var self = this;
+    self.$super$TextModule$TextBlock$slot._$instance$initializer.call(self, $tps);
+    return self;
+   };
+   this.$instance$initializer = function ($tus, $tps) {
+    var self = this;
+    self._$superInit$TextModule$TextBlock($tus, $tps);
+    self._$init$textUnits$($tus);
+    return self;
+   };
+   this.$cloneWithDefaultProperties$ = function ($tps) {
+    var self = this;
+    return self._$class().$units$properties$(self._$immediateTextUnits(), $tps.$supplyDefaultsFor$(self._$textProperties()));
+   };
+   this.$elementaryTextUnits = function () {
+    var self = this;
+    return self._$textUnits().$flatMap$(function ($u) {
+     return $u.$isKindOfText().$ifTrue$ifFalse$(function () {
+      return $u.$cloneWithDefaultProperties$(self._$textProperties()).$elementaryTextUnits();
+     }, function () {
+      return $u;
+     });
+    });
+   };
+   this.$isKindOfTextBlock = function () {
+    var self = this;
+    return true;
+   };
+   this.$string = function () {
+    var self = this;
+    return self._$textUnits().$inject$into$("", function ($s1, $s2) {
+     return $s1.$$comma($s2.$string());
+    });
+   };
+   this.$init$textUnits$ = function (v) {
+    this.$textUnits$slot = v;
+    return this;
+   };
+   this.$textUnits = function () {
+    return this.$textUnits$slot;
+   };
+   this.invoke = function (runtimeSuperclass, enclosingObjects) {
+    function constructRuntimeClass (superBasicNew) {
+     this.debug = "Runtime class for TextModule`TextBlock";
+     this._$superInit$TextModule$TextBlock = $.$superInit$TextModule$TextBlock;
+     this.$superInit$TextModule$TextBlock = dnuCatcher("$superInit$TextModule$TextBlock");
+     this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this.$cloneWithDefaultProperties$ = this._$cloneWithDefaultProperties$ = $.$cloneWithDefaultProperties$;
+     this.$elementaryTextUnits = this._$elementaryTextUnits = $.$elementaryTextUnits;
+     this.$isKindOfTextBlock = this._$isKindOfTextBlock = $.$isKindOfTextBlock;
+     this.$string = this._$string = $.$string;
+     this.$init$textUnits$ = this._$init$textUnits$ = $.$init$textUnits$;
+     this.$textUnits = this._$textUnits = $.$textUnits;
+     this.$enclosingObjects$TextModule$TextBlock = enclosingObjects;
+     this.$super$TextModule$TextBlock$slot = runtimeSuperclass;
+     this["TextModule`TextBlock"] = function () {
+      superBasicNew.call(this);
+      this.$textUnits$slot = nil;
+     };
+     this.basicNew = this["TextModule`TextBlock"];
+     this.basicNew.prototype = this;
+     this.meta = null;
+     this.newspeakClass = null;
+    };
+    constructRuntimeClass.prototype = runtimeSuperclass;
+    return new constructRuntimeClass(runtimeSuperclass.basicNew);
+   };
+   this.meta = new function () {
+    var $ = this;
+    this.debug = "Runtime meta mixin for TextModule`TextBlock";
+    this.slots = [];
+    this.methods = [
+     new MM("units:properties:", true, 0),
+     new MM("forString:", false, 897),
+     new MM("units:", false, 898)
+    ];
+    this.nestedClasses = [];
+    this.$units$properties$ = function ($tus, $tps) {
+     return (new this.nonMeta.basicNew()).$instance$initializer($tus, $tps);
+    };
+    this.$forString$ = function ($s) {
+     var self = this;
+     return self._$units$([self.$enclosingObjects$TextModule$TextBlock[0]._$TextString().$forString$($s)]);
+    };
+    this.$units$ = function ($tus) {
+     var self = this;
+     return self._$units$properties$($tus, self.$enclosingObjects$TextModule$TextBlock[0]._$TextProperties().$new());
+    };
+    this.invoke = function (runtimeSuperclass, enclosingObjects) {
+     function constructRuntimeClass (superBasicNew) {
+      this.debug = "Runtime meta class for TextModule`TextBlock";
+      this.$units$properties$ = this._$units$properties$ = $.$units$properties$;
+      this.$forString$ = this._$forString$ = $.$forString$;
+      this.$units$ = this._$units$ = $.$units$;
+      this.$enclosingObjects$TextModule$TextBlock = enclosingObjects;
+      this.$super$TextModule$TextBlock = runtimeSuperclass;
+      this.basicNew = function () {
+       superBasicNew.call(this);
+      };
+      this.basicNew.prototype = this;
+      this.nonMeta = null;
+      this.newspeakClass = null;
+     };
+     constructRuntimeClass.prototype = runtimeSuperclass;
+     return new constructRuntimeClass(runtimeSuperclass.basicNew);
+    };
+   }();
+   this.meta.nonMeta = this;
+  }();
+  this.$TextModule$TextProperties = new function () {
+   var $ = this;
+   var $1 = this;
+   this.debug = "Runtime mixin for TextModule`TextProperties";
+   this.name = "TextModule`TextProperties";
+   this.header = 899;
+   this.slots = [
+    new SM("font", true, false),
+    new SM("weight", true, false),
+    new SM("style", true, false),
+    new SM("pointSize", true, false),
+    new SM("color", true, false),
+    new SM("strikeThrough", true, false),
+    new SM("underline", true, false)
+   ];
+   this.methods = [
+    new MM("superInit`TextModule`TextProperties", true, 900),
+    new MM("instance`initializer", true, 901),
+    new MM("applyTo:", false, 902),
+    new MM("applyToText:", false, 903),
+    new MM("clone", false, 904),
+    new MM("supplyDefaultsFor:", false, 905),
+    new MM("init`font:", true, 0),
+    new MM("font", true, 0),
+    new MM("font:", true, 0),
+    new MM("init`weight:", true, 0),
+    new MM("weight", true, 0),
+    new MM("weight:", true, 0),
+    new MM("init`style:", true, 0),
+    new MM("style", true, 0),
+    new MM("style:", true, 0),
+    new MM("init`pointSize:", true, 0),
+    new MM("pointSize", true, 0),
+    new MM("pointSize:", true, 0),
+    new MM("init`color:", true, 0),
+    new MM("color", true, 0),
+    new MM("color:", true, 0),
+    new MM("init`strikeThrough:", true, 0),
+    new MM("strikeThrough", true, 0),
+    new MM("strikeThrough:", true, 0),
+    new MM("init`underline:", true, 0),
+    new MM("underline", true, 0),
+    new MM("underline:", true, 0)
+   ];
+   this.nestedClasses = [];
+   this.applications = [];
+   this.$superInit$TextModule$TextProperties = function () {
+    var self = this;
+    self.$super$TextModule$TextProperties$slot._$instance$initializer.call(self);
+    return self;
+   };
+   this.$instance$initializer = function () {
+    var self = this;
+    self._$superInit$TextModule$TextProperties();
+    return self;
+   };
+   this.$applyTo$ = function ($element) {
+    var self = this;
+    var $styleElement = nil;
+    $styleElement = $element.$at$("style");
+    $styleElement.$setProperty$to$("white-space", "pre-wrap");
+    if (!self._$font().$isNil()) {
+     $styleElement.$setProperty$to$("font-family", self._$font());
+    } else {
+     nil;
+    };
+    if (!self._$pointSize().$isNil()) {
+     $styleElement.$setProperty$to$("font-size", self._$pointSize().$printString().$$comma("pt"));
+    } else {
+     nil;
+    };
+    if (!self._$weight().$isNil()) {
+     $styleElement.$setProperty$to$("font-weight", self._$weight());
+    } else {
+     nil;
+    };
+    if (!self._$style().$isNil()) {
+     $styleElement.$setProperty$to$("font-style", self._$style());
+    } else {
+     nil;
+    };
+    if (!self._$color().$isNil()) {
+     $styleElement.$setProperty$to$("color", "rgb(".$$comma(self._$color().$red().$printString()).$$comma(", ").$$comma(self._$color().$green().$printString()).$$comma(", ").$$comma(self._$color().$blue().$printString()).$$comma(")"));
+    } else {
+     nil;
+    };
+    if (!self._$strikeThrough().$isNil()) {
+     if (self._$strikeThrough()) {
+      $styleElement.$setProperty$to$("text-decoration", "line-through");
+     } else {
+      nil;
+     };
+    } else {
+     nil;
+    };
+    if (!self._$underline().$isNil()) {
+     if (self._$underline()) {
+      $styleElement.$setProperty$to$("text-decoration", "underline");
+     } else {
+      nil;
+     };
+    } else {
+     nil;
+    };
+    return self;
+   };
+   this.$applyToText$ = function ($t) {
+    var self = this;
+    var $tProperties = nil;
+    $tProperties = $t.$textProperties();
+    if ($tProperties.$font().$isNil()) {
+     $tProperties.$font$(self._$font());
+    } else {
+     nil;
+    };
+    if ($tProperties.$weight().$isNil()) {
+     $tProperties.$weight$(self._$weight());
+    } else {
+     nil;
+    };
+    if ($tProperties.$pointSize().$isNil()) {
+     $tProperties.$pointSize$(self._$pointSize());
+    } else {
+     nil;
+    };
+    if ($tProperties.$color().$isNil()) {
+     $tProperties.$color$(self._$color());
+    } else {
+     nil;
+    };
+    if ($tProperties.$strikeThrough().$isNil()) {
+     $tProperties.$strikeThrough$(self._$strikeThrough());
+    } else {
+     nil;
+    };
+    if ($tProperties.$underline().$isNil()) {
+     $tProperties.$underline$(self._$underline());
+    } else {
+     nil;
+    };
+    return self;
+   };
+   this.$clone = function () {
+    var self = this;
+    return (function (cascadeReceiver) {
+     cascadeReceiver.$font$(self._$font());
+     cascadeReceiver.$weight$(self._$weight());
+     cascadeReceiver.$pointSize$(self._$pointSize());
+     cascadeReceiver.$color$(self._$color());
+     cascadeReceiver.$strikeThrough$(self._$strikeThrough());
+     cascadeReceiver.$underline$(self._$underline());
+     return cascadeReceiver.$yourself();
+    })(self._$class().$new());
+   };
+   this.$supplyDefaultsFor$ = function ($tps) {
+    var self = this;
+    var $tProperties = nil;
+    $tProperties = $tps.$clone();
+    if ($tProperties.$font().$isNil()) {
+     $tProperties.$font$(self._$font());
+    } else {
+     nil;
+    };
+    if ($tProperties.$weight().$isNil()) {
+     $tProperties.$weight$(self._$weight());
+    } else {
+     nil;
+    };
+    if ($tProperties.$pointSize().$isNil()) {
+     $tProperties.$pointSize$(self._$pointSize());
+    } else {
+     nil;
+    };
+    if ($tProperties.$color().$isNil()) {
+     $tProperties.$color$(self._$color());
+    } else {
+     nil;
+    };
+    if ($tProperties.$strikeThrough().$isNil()) {
+     $tProperties.$strikeThrough$(self._$strikeThrough());
+    } else {
+     nil;
+    };
+    if ($tProperties.$underline().$isNil()) {
+     $tProperties.$underline$(self._$underline());
+    } else {
+     nil;
+    };
+    return self;
+   };
+   this.$init$font$ = function (v) {
+    this.$font$slot = v;
+    return this;
+   };
+   this.$font = function () {
+    return this.$font$slot;
+   };
+   this.$font$ = function (v) {
+    this.$font$slot = v;
+    return this;
+   };
+   this.$init$weight$ = function (v) {
+    this.$weight$slot = v;
+    return this;
+   };
+   this.$weight = function () {
+    return this.$weight$slot;
+   };
+   this.$weight$ = function (v) {
+    this.$weight$slot = v;
+    return this;
+   };
+   this.$init$style$ = function (v) {
+    this.$style$slot = v;
+    return this;
+   };
+   this.$style = function () {
+    return this.$style$slot;
+   };
+   this.$style$ = function (v) {
+    this.$style$slot = v;
+    return this;
+   };
+   this.$init$pointSize$ = function (v) {
+    this.$pointSize$slot = v;
+    return this;
+   };
+   this.$pointSize = function () {
+    return this.$pointSize$slot;
+   };
+   this.$pointSize$ = function (v) {
+    this.$pointSize$slot = v;
+    return this;
+   };
+   this.$init$color$ = function (v) {
+    this.$color$slot = v;
+    return this;
+   };
+   this.$color = function () {
+    return this.$color$slot;
+   };
+   this.$color$ = function (v) {
+    this.$color$slot = v;
+    return this;
+   };
+   this.$init$strikeThrough$ = function (v) {
+    this.$strikeThrough$slot = v;
+    return this;
+   };
+   this.$strikeThrough = function () {
+    return this.$strikeThrough$slot;
+   };
+   this.$strikeThrough$ = function (v) {
+    this.$strikeThrough$slot = v;
+    return this;
+   };
+   this.$init$underline$ = function (v) {
+    this.$underline$slot = v;
+    return this;
+   };
+   this.$underline = function () {
+    return this.$underline$slot;
+   };
+   this.$underline$ = function (v) {
+    this.$underline$slot = v;
+    return this;
+   };
+   this.invoke = function (runtimeSuperclass, enclosingObjects) {
+    function constructRuntimeClass (superBasicNew) {
+     this.debug = "Runtime class for TextModule`TextProperties";
+     this._$superInit$TextModule$TextProperties = $.$superInit$TextModule$TextProperties;
+     this.$superInit$TextModule$TextProperties = dnuCatcher("$superInit$TextModule$TextProperties");
+     this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this.$applyTo$ = this._$applyTo$ = $.$applyTo$;
+     this.$applyToText$ = this._$applyToText$ = $.$applyToText$;
+     this.$clone = this._$clone = $.$clone;
+     this.$supplyDefaultsFor$ = this._$supplyDefaultsFor$ = $.$supplyDefaultsFor$;
+     this.$init$font$ = this._$init$font$ = $.$init$font$;
+     this.$font = this._$font = $.$font;
+     this.$font$ = this._$font$ = $.$font$;
+     this.$init$weight$ = this._$init$weight$ = $.$init$weight$;
+     this.$weight = this._$weight = $.$weight;
+     this.$weight$ = this._$weight$ = $.$weight$;
+     this.$init$style$ = this._$init$style$ = $.$init$style$;
+     this.$style = this._$style = $.$style;
+     this.$style$ = this._$style$ = $.$style$;
+     this.$init$pointSize$ = this._$init$pointSize$ = $.$init$pointSize$;
+     this.$pointSize = this._$pointSize = $.$pointSize;
+     this.$pointSize$ = this._$pointSize$ = $.$pointSize$;
+     this.$init$color$ = this._$init$color$ = $.$init$color$;
+     this.$color = this._$color = $.$color;
+     this.$color$ = this._$color$ = $.$color$;
+     this.$init$strikeThrough$ = this._$init$strikeThrough$ = $.$init$strikeThrough$;
+     this.$strikeThrough = this._$strikeThrough = $.$strikeThrough;
+     this.$strikeThrough$ = this._$strikeThrough$ = $.$strikeThrough$;
+     this.$init$underline$ = this._$init$underline$ = $.$init$underline$;
+     this.$underline = this._$underline = $.$underline;
+     this.$underline$ = this._$underline$ = $.$underline$;
+     this.$enclosingObjects$TextModule$TextProperties = enclosingObjects;
+     this.$super$TextModule$TextProperties$slot = runtimeSuperclass;
+     this["TextModule`TextProperties"] = function () {
+      superBasicNew.call(this);
+      this.$font$slot = nil;
+      this.$weight$slot = nil;
+      this.$style$slot = nil;
+      this.$pointSize$slot = nil;
+      this.$color$slot = nil;
+      this.$strikeThrough$slot = nil;
+      this.$underline$slot = nil;
+     };
+     this.basicNew = this["TextModule`TextProperties"];
+     this.basicNew.prototype = this;
+     this.meta = null;
+     this.newspeakClass = null;
+    };
+    constructRuntimeClass.prototype = runtimeSuperclass;
+    return new constructRuntimeClass(runtimeSuperclass.basicNew);
+   };
+   this.meta = new function () {
+    var $ = this;
+    this.debug = "Runtime meta mixin for TextModule`TextProperties";
+    this.slots = [];
+    this.methods = [new MM("new", true, 0)];
+    this.nestedClasses = [];
+    this.$new = function () {
+     return (new this.nonMeta.basicNew()).$instance$initializer();
+    };
+    this.invoke = function (runtimeSuperclass, enclosingObjects) {
+     function constructRuntimeClass (superBasicNew) {
+      this.debug = "Runtime meta class for TextModule`TextProperties";
+      this.$new = this._$new = $.$new;
+      this.$enclosingObjects$TextModule$TextProperties = enclosingObjects;
+      this.$super$TextModule$TextProperties = runtimeSuperclass;
+      this.basicNew = function () {
+       superBasicNew.call(this);
+      };
+      this.basicNew.prototype = this;
+      this.nonMeta = null;
+      this.newspeakClass = null;
+     };
+     constructRuntimeClass.prototype = runtimeSuperclass;
+     return new constructRuntimeClass(runtimeSuperclass.basicNew);
+    };
+   }();
+   this.meta.nonMeta = this;
+  }();
+  this.$TextModule$TextString = new function () {
+   var $ = this;
+   var $1 = this;
+   this.debug = "Runtime mixin for TextModule`TextString";
+   this.name = "TextModule`TextString";
+   this.header = 906;
+   this.slots = [new SM("string", false, false)];
+   this.methods = [
+    new MM("superInit`TextModule`TextString", true, 907),
+    new MM("instance`initializer", true, 908),
+    new MM("cloneWithDefaultProperties:", false, 909),
+    new MM("elementaryTextUnits", false, 910),
+    new MM("isKindOfTextString", false, 911),
+    new MM("init`string:", true, 0),
+    new MM("string", true, 0)
+   ];
+   this.nestedClasses = [];
+   this.applications = [];
+   this.$superInit$TextModule$TextString = function ($s, $tps) {
+    var self = this;
+    self.$super$TextModule$TextString$slot._$instance$initializer.call(self, $tps);
+    return self;
+   };
+   this.$instance$initializer = function ($s, $tps) {
+    var self = this;
+    self._$superInit$TextModule$TextString($s, $tps);
+    self._$init$string$($s);
+    return self;
+   };
+   this.$cloneWithDefaultProperties$ = function ($tps) {
+    var self = this;
+    return self._$class().$forString$properties$(self._$string(), $tps.$supplyDefaultsFor$(self._$textProperties()));
+   };
+   this.$elementaryTextUnits = function () {
+    var self = this;
+    return [self];
+   };
+   this.$isKindOfTextString = function () {
+    var self = this;
+    return true;
+   };
+   this.$init$string$ = function (v) {
+    this.$string$slot = v;
+    return this;
+   };
+   this.$string = function () {
+    return this.$string$slot;
+   };
+   this.invoke = function (runtimeSuperclass, enclosingObjects) {
+    function constructRuntimeClass (superBasicNew) {
+     this.debug = "Runtime class for TextModule`TextString";
+     this._$superInit$TextModule$TextString = $.$superInit$TextModule$TextString;
+     this.$superInit$TextModule$TextString = dnuCatcher("$superInit$TextModule$TextString");
+     this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this.$cloneWithDefaultProperties$ = this._$cloneWithDefaultProperties$ = $.$cloneWithDefaultProperties$;
+     this.$elementaryTextUnits = this._$elementaryTextUnits = $.$elementaryTextUnits;
+     this.$isKindOfTextString = this._$isKindOfTextString = $.$isKindOfTextString;
+     this.$init$string$ = this._$init$string$ = $.$init$string$;
+     this.$string = this._$string = $.$string;
+     this.$enclosingObjects$TextModule$TextString = enclosingObjects;
+     this.$super$TextModule$TextString$slot = runtimeSuperclass;
+     this["TextModule`TextString"] = function () {
+      superBasicNew.call(this);
+      this.$string$slot = nil;
+     };
+     this.basicNew = this["TextModule`TextString"];
+     this.basicNew.prototype = this;
+     this.meta = null;
+     this.newspeakClass = null;
+    };
+    constructRuntimeClass.prototype = runtimeSuperclass;
+    return new constructRuntimeClass(runtimeSuperclass.basicNew);
+   };
+   this.meta = new function () {
+    var $ = this;
+    this.debug = "Runtime meta mixin for TextModule`TextString";
+    this.slots = [];
+    this.methods = [
+     new MM("forString:properties:", true, 0),
+     new MM("forString:", false, 912)
+    ];
+    this.nestedClasses = [];
+    this.$forString$properties$ = function ($s, $tps) {
+     return (new this.nonMeta.basicNew()).$instance$initializer($s, $tps);
+    };
+    this.$forString$ = function ($s) {
+     var self = this;
+     return self._$forString$properties$($s, self.$enclosingObjects$TextModule$TextString[0]._$TextProperties().$new());
+    };
+    this.invoke = function (runtimeSuperclass, enclosingObjects) {
+     function constructRuntimeClass (superBasicNew) {
+      this.debug = "Runtime meta class for TextModule`TextString";
+      this.$forString$properties$ = this._$forString$properties$ = $.$forString$properties$;
+      this.$forString$ = this._$forString$ = $.$forString$;
+      this.$enclosingObjects$TextModule$TextString = enclosingObjects;
+      this.$super$TextModule$TextString = runtimeSuperclass;
+      this.basicNew = function () {
+       superBasicNew.call(this);
+      };
+      this.basicNew.prototype = this;
+      this.nonMeta = null;
+      this.newspeakClass = null;
+     };
+     constructRuntimeClass.prototype = runtimeSuperclass;
+     return new constructRuntimeClass(runtimeSuperclass.basicNew);
+    };
+   }();
+   this.meta.nonMeta = this;
+  }();
+  this.$TextModule$Text.enclosingMixin = this;
+  this.$TextModule$TextBlock.enclosingMixin = this;
+  this.$TextModule$TextProperties.enclosingMixin = this;
+  this.$TextModule$TextString.enclosingMixin = this;
+  this.invoke = function (runtimeSuperclass, enclosingObjects) {
+   function constructRuntimeClass (superBasicNew) {
+    this.debug = "Runtime class for TextModule";
+    this._$superInit$TextModule = $.$superInit$TextModule;
+    this.$superInit$TextModule = dnuCatcher("$superInit$TextModule");
+    this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+    this.$Text = this._$Text = $.$Text;
+    this.$TextBlock = this._$TextBlock = $.$TextBlock;
+    this.$TextProperties = this._$TextProperties = $.$TextProperties;
+    this.$TextString = this._$TextString = $.$TextString;
+    this.$init$TextModule$Text$ = this._$init$TextModule$Text$ = $.$init$TextModule$Text$;
+    this.$TextModule$Text = this._$TextModule$Text = $.$TextModule$Text;
+    this.$TextModule$Text$ = this._$TextModule$Text$ = $.$TextModule$Text$;
+    this.$init$TextModule$TextBlock$ = this._$init$TextModule$TextBlock$ = $.$init$TextModule$TextBlock$;
+    this.$TextModule$TextBlock = this._$TextModule$TextBlock = $.$TextModule$TextBlock;
+    this.$TextModule$TextBlock$ = this._$TextModule$TextBlock$ = $.$TextModule$TextBlock$;
+    this.$init$TextModule$TextProperties$ = this._$init$TextModule$TextProperties$ = $.$init$TextModule$TextProperties$;
+    this.$TextModule$TextProperties = this._$TextModule$TextProperties = $.$TextModule$TextProperties;
+    this.$TextModule$TextProperties$ = this._$TextModule$TextProperties$ = $.$TextModule$TextProperties$;
+    this.$init$TextModule$TextString$ = this._$init$TextModule$TextString$ = $.$init$TextModule$TextString$;
+    this.$TextModule$TextString = this._$TextModule$TextString = $.$TextModule$TextString;
+    this.$TextModule$TextString$ = this._$TextModule$TextString$ = $.$TextModule$TextString$;
+    this.$enclosingObjects$TextModule = enclosingObjects;
+    this.$super$TextModule$slot = runtimeSuperclass;
+    this.TextModule = function () {
+     superBasicNew.call(this);
+     this.$TextModule$Text$slot = nil;
+     this.$TextModule$TextBlock$slot = nil;
+     this.$TextModule$TextProperties$slot = nil;
+     this.$TextModule$TextString$slot = nil;
+    };
+    this.basicNew = this.TextModule;
+    this.basicNew.prototype = this;
+    this.meta = null;
+    this.newspeakClass = null;
+   };
+   constructRuntimeClass.prototype = runtimeSuperclass;
+   return new constructRuntimeClass(runtimeSuperclass.basicNew);
+  };
+  this.meta = new function () {
+   var $ = this;
+   this.debug = "Runtime meta mixin for TextModule";
+   this.slots = [];
+   this.methods = [new MM("usingPlatform:", true, 0)];
+   this.nestedClasses = [];
+   this.$usingPlatform$ = function ($p) {
+    return (new this.nonMeta.basicNew()).$instance$initializer($p);
+   };
+   this.invoke = function (runtimeSuperclass, enclosingObjects) {
+    function constructRuntimeClass (superBasicNew) {
+     this.debug = "Runtime meta class for TextModule";
+     this.$usingPlatform$ = this._$usingPlatform$ = $.$usingPlatform$;
+     this.$enclosingObjects$TextModule = enclosingObjects;
+     this.$super$TextModule = runtimeSuperclass;
+     this.basicNew = function () {
+      superBasicNew.call(this);
+     };
+     this.basicNew.prototype = this;
+     this.nonMeta = null;
+     this.newspeakClass = null;
+    };
+    constructRuntimeClass.prototype = runtimeSuperclass;
+    return new constructRuntimeClass(runtimeSuperclass.basicNew);
+   };
+  }();
+  this.meta.nonMeta = this;
+ }();
  this.$HopscotchForHTML5 = new function () {
   var $ = this;
   var $0 = this;
   this.debug = "Runtime mixin for HopscotchForHTML5";
   this.name = "HopscotchForHTML5";
-  this.header = 878;
+  this.header = 913;
   this.slots = [
    new SM("Color", false, false),
    new SM("Context", false, false),
    new SM("Timer", false, false),
    new SM("List", false, false),
    new SM("Map", false, false),
+   new SM("TextBlock", false, false),
+   new SM("TextProperties", false, false),
+   new SM("TextString", false, false),
    new SM("window", false, false),
    new SM("document", false, false),
    new SM("body", false, false),
@@ -15174,15 +16299,21 @@ var mixins = new function () {
    new SM("disclosureClosedImage", false, false),
    new SM("disclosureTransitionImage", false, false),
    new SM("disclosureOpenImage", false, false),
+   new SM("dropDownImage", false, false),
+   new SM("dropDownOutImage", false, false),
+   new SM("dropDownOverImage", false, false),
    new SM("deferredContentQueue", false, false),
    new SM("core", false, false),
    new SM("fragments", false, false),
    new SM("HopscotchForHTML5`BlankFragment", true, true),
    new SM("HopscotchForHTML5`ButtonFragment", true, true),
    new SM("HopscotchForHTML5`CanvasFragment", true, true),
+   new SM("HopscotchForHTML5`ColorDecorator", true, true),
    new SM("HopscotchForHTML5`ColumnComposer", true, true),
    new SM("HopscotchForHTML5`Composer", true, true),
+   new SM("HopscotchForHTML5`Decorator", true, true),
    new SM("HopscotchForHTML5`DeferredContentComposer", true, true),
+   new SM("HopscotchForHTML5`DropDownMenuFragment", true, true),
    new SM("HopscotchForHTML5`EmbeddedHopscotchWindow", true, true),
    new SM("HopscotchForHTML5`Fragment", true, true),
    new SM("HopscotchForHTML5`Gradient", true, true),
@@ -15191,33 +16322,42 @@ var mixins = new function () {
    new SM("HopscotchForHTML5`HopscotchWindow", true, true),
    new SM("HopscotchForHTML5`HyperlinkFragment", true, true),
    new SM("HopscotchForHTML5`HyperlinkImageFragment", true, true),
+   new SM("HopscotchForHTML5`ImageButtonFragment", true, true),
    new SM("HopscotchForHTML5`LeafFragment", true, true),
    new SM("HopscotchForHTML5`LocalNavigationHistory", true, true),
    new SM("HopscotchForHTML5`NavigationHistory", true, true),
    new SM("HopscotchForHTML5`PaddedFrameComposer", true, true),
    new SM("HopscotchForHTML5`Presenter", true, true),
+   new SM("HopscotchForHTML5`PresenterList", true, true),
    new SM("HopscotchForHTML5`RowComposer", true, true),
    new SM("HopscotchForHTML5`SequenceComposer", true, true),
    new SM("HopscotchForHTML5`StaticImageFragment", true, true),
    new SM("HopscotchForHTML5`StaticLabelFragment", true, true),
    new SM("HopscotchForHTML5`Subject", true, true),
+   new SM("HopscotchForHTML5`TextBlockFragment", true, true),
    new SM("HopscotchForHTML5`TextDisplayFragment", true, true),
    new SM("HopscotchForHTML5`TextEditorFragment", true, true),
-   new SM("HopscotchForHTML5`ToggleComposer", true, true)
+   new SM("HopscotchForHTML5`TextFragment", true, true),
+   new SM("HopscotchForHTML5`TextStringFragment", true, true),
+   new SM("HopscotchForHTML5`ToggleComposer", true, true),
+   new SM("HopscotchForHTML5`ZebraDecorator", true, true)
   ];
   this.methods = [
-   new MM("superInit`HopscotchForHTML5", true, 879),
-   new MM("instance`initializer", true, 880),
-   new MM("deferAction:", false, 881),
-   new MM("nextDeferredAction", false, 882),
-   new MM("nextFrameDo:", false, 883),
-   new MM("sharedNavigator", false, 884),
+   new MM("superInit`HopscotchForHTML5", true, 914),
+   new MM("instance`initializer", true, 915),
+   new MM("deferAction:", false, 916),
+   new MM("nextDeferredAction", false, 917),
+   new MM("nextFrameDo:", false, 918),
+   new MM("sharedNavigator", false, 919),
    new MM("BlankFragment", true, 0),
    new MM("ButtonFragment", true, 0),
    new MM("CanvasFragment", true, 0),
+   new MM("ColorDecorator", true, 0),
    new MM("ColumnComposer", true, 0),
    new MM("Composer", true, 0),
+   new MM("Decorator", true, 0),
    new MM("DeferredContentComposer", true, 0),
+   new MM("DropDownMenuFragment", true, 0),
    new MM("EmbeddedHopscotchWindow", true, 0),
    new MM("Fragment", true, 0),
    new MM("Gradient", true, 0),
@@ -15226,19 +16366,25 @@ var mixins = new function () {
    new MM("HopscotchWindow", true, 0),
    new MM("HyperlinkFragment", true, 0),
    new MM("HyperlinkImageFragment", true, 0),
+   new MM("ImageButtonFragment", true, 0),
    new MM("LeafFragment", true, 0),
    new MM("LocalNavigationHistory", true, 0),
    new MM("NavigationHistory", true, 0),
    new MM("PaddedFrameComposer", true, 0),
    new MM("Presenter", true, 0),
+   new MM("PresenterList", true, 0),
    new MM("RowComposer", true, 0),
    new MM("SequenceComposer", true, 0),
    new MM("StaticImageFragment", true, 0),
    new MM("StaticLabelFragment", true, 0),
    new MM("Subject", true, 0),
+   new MM("TextBlockFragment", true, 0),
    new MM("TextDisplayFragment", true, 0),
    new MM("TextEditorFragment", true, 0),
+   new MM("TextFragment", true, 0),
+   new MM("TextStringFragment", true, 0),
    new MM("ToggleComposer", true, 0),
+   new MM("ZebraDecorator", true, 0),
    new MM("init`Color:", true, 0),
    new MM("Color", true, 0),
    new MM("init`Context:", true, 0),
@@ -15249,6 +16395,12 @@ var mixins = new function () {
    new MM("List", true, 0),
    new MM("init`Map:", true, 0),
    new MM("Map", true, 0),
+   new MM("init`TextBlock:", true, 0),
+   new MM("TextBlock", true, 0),
+   new MM("init`TextProperties:", true, 0),
+   new MM("TextProperties", true, 0),
+   new MM("init`TextString:", true, 0),
+   new MM("TextString", true, 0),
    new MM("init`window:", true, 0),
    new MM("window", true, 0),
    new MM("init`document:", true, 0),
@@ -15278,6 +16430,12 @@ var mixins = new function () {
    new MM("disclosureTransitionImage", true, 0),
    new MM("init`disclosureOpenImage:", true, 0),
    new MM("disclosureOpenImage", true, 0),
+   new MM("init`dropDownImage:", true, 0),
+   new MM("dropDownImage", true, 0),
+   new MM("init`dropDownOutImage:", true, 0),
+   new MM("dropDownOutImage", true, 0),
+   new MM("init`dropDownOverImage:", true, 0),
+   new MM("dropDownOverImage", true, 0),
    new MM("init`deferredContentQueue:", true, 0),
    new MM("deferredContentQueue", true, 0),
    new MM("init`core:", true, 0),
@@ -15293,15 +16451,24 @@ var mixins = new function () {
    new MM("init`HopscotchForHTML5`CanvasFragment:", true, 0),
    new MM("HopscotchForHTML5`CanvasFragment", true, 0),
    new MM("HopscotchForHTML5`CanvasFragment:", true, 0),
+   new MM("init`HopscotchForHTML5`ColorDecorator:", true, 0),
+   new MM("HopscotchForHTML5`ColorDecorator", true, 0),
+   new MM("HopscotchForHTML5`ColorDecorator:", true, 0),
    new MM("init`HopscotchForHTML5`ColumnComposer:", true, 0),
    new MM("HopscotchForHTML5`ColumnComposer", true, 0),
    new MM("HopscotchForHTML5`ColumnComposer:", true, 0),
    new MM("init`HopscotchForHTML5`Composer:", true, 0),
    new MM("HopscotchForHTML5`Composer", true, 0),
    new MM("HopscotchForHTML5`Composer:", true, 0),
+   new MM("init`HopscotchForHTML5`Decorator:", true, 0),
+   new MM("HopscotchForHTML5`Decorator", true, 0),
+   new MM("HopscotchForHTML5`Decorator:", true, 0),
    new MM("init`HopscotchForHTML5`DeferredContentComposer:", true, 0),
    new MM("HopscotchForHTML5`DeferredContentComposer", true, 0),
    new MM("HopscotchForHTML5`DeferredContentComposer:", true, 0),
+   new MM("init`HopscotchForHTML5`DropDownMenuFragment:", true, 0),
+   new MM("HopscotchForHTML5`DropDownMenuFragment", true, 0),
+   new MM("HopscotchForHTML5`DropDownMenuFragment:", true, 0),
    new MM("init`HopscotchForHTML5`EmbeddedHopscotchWindow:", true, 0),
    new MM("HopscotchForHTML5`EmbeddedHopscotchWindow", true, 0),
    new MM("HopscotchForHTML5`EmbeddedHopscotchWindow:", true, 0),
@@ -15326,6 +16493,9 @@ var mixins = new function () {
    new MM("init`HopscotchForHTML5`HyperlinkImageFragment:", true, 0),
    new MM("HopscotchForHTML5`HyperlinkImageFragment", true, 0),
    new MM("HopscotchForHTML5`HyperlinkImageFragment:", true, 0),
+   new MM("init`HopscotchForHTML5`ImageButtonFragment:", true, 0),
+   new MM("HopscotchForHTML5`ImageButtonFragment", true, 0),
+   new MM("HopscotchForHTML5`ImageButtonFragment:", true, 0),
    new MM("init`HopscotchForHTML5`LeafFragment:", true, 0),
    new MM("HopscotchForHTML5`LeafFragment", true, 0),
    new MM("HopscotchForHTML5`LeafFragment:", true, 0),
@@ -15341,6 +16511,9 @@ var mixins = new function () {
    new MM("init`HopscotchForHTML5`Presenter:", true, 0),
    new MM("HopscotchForHTML5`Presenter", true, 0),
    new MM("HopscotchForHTML5`Presenter:", true, 0),
+   new MM("init`HopscotchForHTML5`PresenterList:", true, 0),
+   new MM("HopscotchForHTML5`PresenterList", true, 0),
+   new MM("HopscotchForHTML5`PresenterList:", true, 0),
    new MM("init`HopscotchForHTML5`RowComposer:", true, 0),
    new MM("HopscotchForHTML5`RowComposer", true, 0),
    new MM("HopscotchForHTML5`RowComposer:", true, 0),
@@ -15356,23 +16529,38 @@ var mixins = new function () {
    new MM("init`HopscotchForHTML5`Subject:", true, 0),
    new MM("HopscotchForHTML5`Subject", true, 0),
    new MM("HopscotchForHTML5`Subject:", true, 0),
+   new MM("init`HopscotchForHTML5`TextBlockFragment:", true, 0),
+   new MM("HopscotchForHTML5`TextBlockFragment", true, 0),
+   new MM("HopscotchForHTML5`TextBlockFragment:", true, 0),
    new MM("init`HopscotchForHTML5`TextDisplayFragment:", true, 0),
    new MM("HopscotchForHTML5`TextDisplayFragment", true, 0),
    new MM("HopscotchForHTML5`TextDisplayFragment:", true, 0),
    new MM("init`HopscotchForHTML5`TextEditorFragment:", true, 0),
    new MM("HopscotchForHTML5`TextEditorFragment", true, 0),
    new MM("HopscotchForHTML5`TextEditorFragment:", true, 0),
+   new MM("init`HopscotchForHTML5`TextFragment:", true, 0),
+   new MM("HopscotchForHTML5`TextFragment", true, 0),
+   new MM("HopscotchForHTML5`TextFragment:", true, 0),
+   new MM("init`HopscotchForHTML5`TextStringFragment:", true, 0),
+   new MM("HopscotchForHTML5`TextStringFragment", true, 0),
+   new MM("HopscotchForHTML5`TextStringFragment:", true, 0),
    new MM("init`HopscotchForHTML5`ToggleComposer:", true, 0),
    new MM("HopscotchForHTML5`ToggleComposer", true, 0),
-   new MM("HopscotchForHTML5`ToggleComposer:", true, 0)
+   new MM("HopscotchForHTML5`ToggleComposer:", true, 0),
+   new MM("init`HopscotchForHTML5`ZebraDecorator:", true, 0),
+   new MM("HopscotchForHTML5`ZebraDecorator", true, 0),
+   new MM("HopscotchForHTML5`ZebraDecorator:", true, 0)
   ];
   this.nestedClasses = [
    "HopscotchForHTML5`BlankFragment",
    "HopscotchForHTML5`ButtonFragment",
    "HopscotchForHTML5`CanvasFragment",
+   "HopscotchForHTML5`ColorDecorator",
    "HopscotchForHTML5`ColumnComposer",
    "HopscotchForHTML5`Composer",
+   "HopscotchForHTML5`Decorator",
    "HopscotchForHTML5`DeferredContentComposer",
+   "HopscotchForHTML5`DropDownMenuFragment",
    "HopscotchForHTML5`EmbeddedHopscotchWindow",
    "HopscotchForHTML5`Fragment",
    "HopscotchForHTML5`Gradient",
@@ -15381,19 +16569,25 @@ var mixins = new function () {
    "HopscotchForHTML5`HopscotchWindow",
    "HopscotchForHTML5`HyperlinkFragment",
    "HopscotchForHTML5`HyperlinkImageFragment",
+   "HopscotchForHTML5`ImageButtonFragment",
    "HopscotchForHTML5`LeafFragment",
    "HopscotchForHTML5`LocalNavigationHistory",
    "HopscotchForHTML5`NavigationHistory",
    "HopscotchForHTML5`PaddedFrameComposer",
    "HopscotchForHTML5`Presenter",
+   "HopscotchForHTML5`PresenterList",
    "HopscotchForHTML5`RowComposer",
    "HopscotchForHTML5`SequenceComposer",
    "HopscotchForHTML5`StaticImageFragment",
    "HopscotchForHTML5`StaticLabelFragment",
    "HopscotchForHTML5`Subject",
+   "HopscotchForHTML5`TextBlockFragment",
    "HopscotchForHTML5`TextDisplayFragment",
    "HopscotchForHTML5`TextEditorFragment",
-   "HopscotchForHTML5`ToggleComposer"
+   "HopscotchForHTML5`TextFragment",
+   "HopscotchForHTML5`TextStringFragment",
+   "HopscotchForHTML5`ToggleComposer",
+   "HopscotchForHTML5`ZebraDecorator"
   ];
   this.applications = [];
   this.$superInit$HopscotchForHTML5 = function ($p, $r) {
@@ -15407,8 +16601,11 @@ var mixins = new function () {
    $0.$init$Color$(self, $p.$graphics().$Color());
    $0.$init$Context$(self, $p.$graphics().$Context());
    $0.$init$Timer$(self, $p.$actors().$Timer());
-   $0.$init$List$(self, $p.$collections().$OrderedCollection());
-   $0.$init$Map$(self, $p.$collections().$Dictionary());
+   $0.$init$List$(self, $p.$collections().$List());
+   $0.$init$Map$(self, $p.$collections().$Map());
+   $0.$init$TextBlock$(self, $p.$text().$TextBlock());
+   $0.$init$TextProperties$(self, $p.$text().$TextProperties());
+   $0.$init$TextString$(self, $p.$text().$TextString());
    $0.$init$window$(self, $p.$aliens().$global());
    $0.$init$document$(self, $0.$window(self).$at$("document"));
    $0.$init$body$(self, $0.$document(self).$at$("body"));
@@ -15419,6 +16616,9 @@ var mixins = new function () {
    $0.$init$disclosureClosedImage$(self, $r.$disclosureClosedImage());
    $0.$init$disclosureTransitionImage$(self, $r.$disclosureTransitionImage());
    $0.$init$disclosureOpenImage$(self, $r.$disclosureOpenImage());
+   self._$init$dropDownImage$($r.$dropDownImage());
+   self._$init$dropDownOutImage$($r.$dropDownOutImage());
+   self._$init$dropDownOverImage$($r.$dropDownOverImage());
    $0.$init$deferredContentQueue$(self, $0.$List(self).$new());
    self._$init$core$(self);
    self._$init$fragments$(self);
@@ -15503,6 +16703,16 @@ var mixins = new function () {
    };
    return this.$HopscotchForHTML5$CanvasFragment$slot;
   };
+  this.$ColorDecorator = function () {
+   if (nil === this.$HopscotchForHTML5$ColorDecorator$slot) {
+    var self = this;
+    var superclass = self._$Decorator();
+    var enclosingObjects = [this].concat(this.$enclosingObjects$HopscotchForHTML5);
+    var mixin = $.$HopscotchForHTML5$ColorDecorator;
+    this.$HopscotchForHTML5$ColorDecorator$slot = vmmirror.$applyMixin$toSuperclass$withEnclosingObjects$(mixin, superclass, enclosingObjects);
+   };
+   return this.$HopscotchForHTML5$ColorDecorator$slot;
+  };
   this.$ColumnComposer = function () {
    if (nil === this.$HopscotchForHTML5$ColumnComposer$slot) {
     var self = this;
@@ -15523,6 +16733,16 @@ var mixins = new function () {
    };
    return this.$HopscotchForHTML5$Composer$slot;
   };
+  this.$Decorator = function () {
+   if (nil === this.$HopscotchForHTML5$Decorator$slot) {
+    var self = this;
+    var superclass = self._$Object();
+    var enclosingObjects = [this].concat(this.$enclosingObjects$HopscotchForHTML5);
+    var mixin = $.$HopscotchForHTML5$Decorator;
+    this.$HopscotchForHTML5$Decorator$slot = vmmirror.$applyMixin$toSuperclass$withEnclosingObjects$(mixin, superclass, enclosingObjects);
+   };
+   return this.$HopscotchForHTML5$Decorator$slot;
+  };
   this.$DeferredContentComposer = function () {
    if (nil === this.$HopscotchForHTML5$DeferredContentComposer$slot) {
     var self = this;
@@ -15532,6 +16752,16 @@ var mixins = new function () {
     this.$HopscotchForHTML5$DeferredContentComposer$slot = vmmirror.$applyMixin$toSuperclass$withEnclosingObjects$(mixin, superclass, enclosingObjects);
    };
    return this.$HopscotchForHTML5$DeferredContentComposer$slot;
+  };
+  this.$DropDownMenuFragment = function () {
+   if (nil === this.$HopscotchForHTML5$DropDownMenuFragment$slot) {
+    var self = this;
+    var superclass = self._$ImageButtonFragment();
+    var enclosingObjects = [this].concat(this.$enclosingObjects$HopscotchForHTML5);
+    var mixin = $.$HopscotchForHTML5$DropDownMenuFragment;
+    this.$HopscotchForHTML5$DropDownMenuFragment$slot = vmmirror.$applyMixin$toSuperclass$withEnclosingObjects$(mixin, superclass, enclosingObjects);
+   };
+   return this.$HopscotchForHTML5$DropDownMenuFragment$slot;
   };
   this.$EmbeddedHopscotchWindow = function () {
    if (nil === this.$HopscotchForHTML5$EmbeddedHopscotchWindow$slot) {
@@ -15613,6 +16843,16 @@ var mixins = new function () {
    };
    return this.$HopscotchForHTML5$HyperlinkImageFragment$slot;
   };
+  this.$ImageButtonFragment = function () {
+   if (nil === this.$HopscotchForHTML5$ImageButtonFragment$slot) {
+    var self = this;
+    var superclass = self._$LeafFragment();
+    var enclosingObjects = [this].concat(this.$enclosingObjects$HopscotchForHTML5);
+    var mixin = $.$HopscotchForHTML5$ImageButtonFragment;
+    this.$HopscotchForHTML5$ImageButtonFragment$slot = vmmirror.$applyMixin$toSuperclass$withEnclosingObjects$(mixin, superclass, enclosingObjects);
+   };
+   return this.$HopscotchForHTML5$ImageButtonFragment$slot;
+  };
   this.$LeafFragment = function () {
    if (nil === this.$HopscotchForHTML5$LeafFragment$slot) {
     var self = this;
@@ -15662,6 +16902,16 @@ var mixins = new function () {
     this.$HopscotchForHTML5$Presenter$slot = vmmirror.$applyMixin$toSuperclass$withEnclosingObjects$(mixin, superclass, enclosingObjects);
    };
    return this.$HopscotchForHTML5$Presenter$slot;
+  };
+  this.$PresenterList = function () {
+   if (nil === this.$HopscotchForHTML5$PresenterList$slot) {
+    var self = this;
+    var superclass = self._$Fragment();
+    var enclosingObjects = [this].concat(this.$enclosingObjects$HopscotchForHTML5);
+    var mixin = $.$HopscotchForHTML5$PresenterList;
+    this.$HopscotchForHTML5$PresenterList$slot = vmmirror.$applyMixin$toSuperclass$withEnclosingObjects$(mixin, superclass, enclosingObjects);
+   };
+   return this.$HopscotchForHTML5$PresenterList$slot;
   };
   this.$RowComposer = function () {
    if (nil === this.$HopscotchForHTML5$RowComposer$slot) {
@@ -15713,6 +16963,16 @@ var mixins = new function () {
    };
    return this.$HopscotchForHTML5$Subject$slot;
   };
+  this.$TextBlockFragment = function () {
+   if (nil === this.$HopscotchForHTML5$TextBlockFragment$slot) {
+    var self = this;
+    var superclass = self._$TextFragment();
+    var enclosingObjects = [this].concat(this.$enclosingObjects$HopscotchForHTML5);
+    var mixin = $.$HopscotchForHTML5$TextBlockFragment;
+    this.$HopscotchForHTML5$TextBlockFragment$slot = vmmirror.$applyMixin$toSuperclass$withEnclosingObjects$(mixin, superclass, enclosingObjects);
+   };
+   return this.$HopscotchForHTML5$TextBlockFragment$slot;
+  };
   this.$TextDisplayFragment = function () {
    if (nil === this.$HopscotchForHTML5$TextDisplayFragment$slot) {
     var self = this;
@@ -15733,6 +16993,26 @@ var mixins = new function () {
    };
    return this.$HopscotchForHTML5$TextEditorFragment$slot;
   };
+  this.$TextFragment = function () {
+   if (nil === this.$HopscotchForHTML5$TextFragment$slot) {
+    var self = this;
+    var superclass = self._$Fragment();
+    var enclosingObjects = [this].concat(this.$enclosingObjects$HopscotchForHTML5);
+    var mixin = $.$HopscotchForHTML5$TextFragment;
+    this.$HopscotchForHTML5$TextFragment$slot = vmmirror.$applyMixin$toSuperclass$withEnclosingObjects$(mixin, superclass, enclosingObjects);
+   };
+   return this.$HopscotchForHTML5$TextFragment$slot;
+  };
+  this.$TextStringFragment = function () {
+   if (nil === this.$HopscotchForHTML5$TextStringFragment$slot) {
+    var self = this;
+    var superclass = self._$TextFragment();
+    var enclosingObjects = [this].concat(this.$enclosingObjects$HopscotchForHTML5);
+    var mixin = $.$HopscotchForHTML5$TextStringFragment;
+    this.$HopscotchForHTML5$TextStringFragment$slot = vmmirror.$applyMixin$toSuperclass$withEnclosingObjects$(mixin, superclass, enclosingObjects);
+   };
+   return this.$HopscotchForHTML5$TextStringFragment$slot;
+  };
   this.$ToggleComposer = function () {
    if (nil === this.$HopscotchForHTML5$ToggleComposer$slot) {
     var self = this;
@@ -15742,6 +17022,16 @@ var mixins = new function () {
     this.$HopscotchForHTML5$ToggleComposer$slot = vmmirror.$applyMixin$toSuperclass$withEnclosingObjects$(mixin, superclass, enclosingObjects);
    };
    return this.$HopscotchForHTML5$ToggleComposer$slot;
+  };
+  this.$ZebraDecorator = function () {
+   if (nil === this.$HopscotchForHTML5$ZebraDecorator$slot) {
+    var self = this;
+    var superclass = self._$Decorator();
+    var enclosingObjects = [this].concat(this.$enclosingObjects$HopscotchForHTML5);
+    var mixin = $.$HopscotchForHTML5$ZebraDecorator;
+    this.$HopscotchForHTML5$ZebraDecorator$slot = vmmirror.$applyMixin$toSuperclass$withEnclosingObjects$(mixin, superclass, enclosingObjects);
+   };
+   return this.$HopscotchForHTML5$ZebraDecorator$slot;
   };
   this.$init$Color$ = function (self, v) {
    self.$Color$slot = v;
@@ -15777,6 +17067,27 @@ var mixins = new function () {
   };
   this.$Map = function (self) {
    return self.$Map$slot;
+  };
+  this.$init$TextBlock$ = function (self, v) {
+   self.$TextBlock$slot = v;
+   return self;
+  };
+  this.$TextBlock = function (self) {
+   return self.$TextBlock$slot;
+  };
+  this.$init$TextProperties$ = function (self, v) {
+   self.$TextProperties$slot = v;
+   return self;
+  };
+  this.$TextProperties = function (self) {
+   return self.$TextProperties$slot;
+  };
+  this.$init$TextString$ = function (self, v) {
+   self.$TextString$slot = v;
+   return self;
+  };
+  this.$TextString = function (self) {
+   return self.$TextString$slot;
   };
   this.$init$window$ = function (self, v) {
    self.$window$slot = v;
@@ -15881,6 +17192,27 @@ var mixins = new function () {
   this.$disclosureOpenImage = function (self) {
    return self.$disclosureOpenImage$slot;
   };
+  this.$init$dropDownImage$ = function (v) {
+   this.$dropDownImage$slot = v;
+   return this;
+  };
+  this.$dropDownImage = function () {
+   return this.$dropDownImage$slot;
+  };
+  this.$init$dropDownOutImage$ = function (v) {
+   this.$dropDownOutImage$slot = v;
+   return this;
+  };
+  this.$dropDownOutImage = function () {
+   return this.$dropDownOutImage$slot;
+  };
+  this.$init$dropDownOverImage$ = function (v) {
+   this.$dropDownOverImage$slot = v;
+   return this;
+  };
+  this.$dropDownOverImage = function () {
+   return this.$dropDownOverImage$slot;
+  };
   this.$init$deferredContentQueue$ = function (self, v) {
    self.$deferredContentQueue$slot = v;
    return self;
@@ -15935,6 +17267,17 @@ var mixins = new function () {
    this.$HopscotchForHTML5$CanvasFragment$slot = v;
    return this;
   };
+  this.$init$HopscotchForHTML5$ColorDecorator$ = function (v) {
+   this.$HopscotchForHTML5$ColorDecorator$slot = v;
+   return this;
+  };
+  this.$HopscotchForHTML5$ColorDecorator = function () {
+   return this.$HopscotchForHTML5$ColorDecorator$slot;
+  };
+  this.$HopscotchForHTML5$ColorDecorator$ = function (v) {
+   this.$HopscotchForHTML5$ColorDecorator$slot = v;
+   return this;
+  };
   this.$init$HopscotchForHTML5$ColumnComposer$ = function (v) {
    this.$HopscotchForHTML5$ColumnComposer$slot = v;
    return this;
@@ -15957,6 +17300,17 @@ var mixins = new function () {
    this.$HopscotchForHTML5$Composer$slot = v;
    return this;
   };
+  this.$init$HopscotchForHTML5$Decorator$ = function (v) {
+   this.$HopscotchForHTML5$Decorator$slot = v;
+   return this;
+  };
+  this.$HopscotchForHTML5$Decorator = function () {
+   return this.$HopscotchForHTML5$Decorator$slot;
+  };
+  this.$HopscotchForHTML5$Decorator$ = function (v) {
+   this.$HopscotchForHTML5$Decorator$slot = v;
+   return this;
+  };
   this.$init$HopscotchForHTML5$DeferredContentComposer$ = function (v) {
    this.$HopscotchForHTML5$DeferredContentComposer$slot = v;
    return this;
@@ -15966,6 +17320,17 @@ var mixins = new function () {
   };
   this.$HopscotchForHTML5$DeferredContentComposer$ = function (v) {
    this.$HopscotchForHTML5$DeferredContentComposer$slot = v;
+   return this;
+  };
+  this.$init$HopscotchForHTML5$DropDownMenuFragment$ = function (v) {
+   this.$HopscotchForHTML5$DropDownMenuFragment$slot = v;
+   return this;
+  };
+  this.$HopscotchForHTML5$DropDownMenuFragment = function () {
+   return this.$HopscotchForHTML5$DropDownMenuFragment$slot;
+  };
+  this.$HopscotchForHTML5$DropDownMenuFragment$ = function (v) {
+   this.$HopscotchForHTML5$DropDownMenuFragment$slot = v;
    return this;
   };
   this.$init$HopscotchForHTML5$EmbeddedHopscotchWindow$ = function (v) {
@@ -16056,6 +17421,17 @@ var mixins = new function () {
    this.$HopscotchForHTML5$HyperlinkImageFragment$slot = v;
    return this;
   };
+  this.$init$HopscotchForHTML5$ImageButtonFragment$ = function (v) {
+   this.$HopscotchForHTML5$ImageButtonFragment$slot = v;
+   return this;
+  };
+  this.$HopscotchForHTML5$ImageButtonFragment = function () {
+   return this.$HopscotchForHTML5$ImageButtonFragment$slot;
+  };
+  this.$HopscotchForHTML5$ImageButtonFragment$ = function (v) {
+   this.$HopscotchForHTML5$ImageButtonFragment$slot = v;
+   return this;
+  };
   this.$init$HopscotchForHTML5$LeafFragment$ = function (v) {
    this.$HopscotchForHTML5$LeafFragment$slot = v;
    return this;
@@ -16109,6 +17485,17 @@ var mixins = new function () {
   };
   this.$HopscotchForHTML5$Presenter$ = function (v) {
    this.$HopscotchForHTML5$Presenter$slot = v;
+   return this;
+  };
+  this.$init$HopscotchForHTML5$PresenterList$ = function (v) {
+   this.$HopscotchForHTML5$PresenterList$slot = v;
+   return this;
+  };
+  this.$HopscotchForHTML5$PresenterList = function () {
+   return this.$HopscotchForHTML5$PresenterList$slot;
+  };
+  this.$HopscotchForHTML5$PresenterList$ = function (v) {
+   this.$HopscotchForHTML5$PresenterList$slot = v;
    return this;
   };
   this.$init$HopscotchForHTML5$RowComposer$ = function (v) {
@@ -16166,6 +17553,17 @@ var mixins = new function () {
    this.$HopscotchForHTML5$Subject$slot = v;
    return this;
   };
+  this.$init$HopscotchForHTML5$TextBlockFragment$ = function (v) {
+   this.$HopscotchForHTML5$TextBlockFragment$slot = v;
+   return this;
+  };
+  this.$HopscotchForHTML5$TextBlockFragment = function () {
+   return this.$HopscotchForHTML5$TextBlockFragment$slot;
+  };
+  this.$HopscotchForHTML5$TextBlockFragment$ = function (v) {
+   this.$HopscotchForHTML5$TextBlockFragment$slot = v;
+   return this;
+  };
   this.$init$HopscotchForHTML5$TextDisplayFragment$ = function (v) {
    this.$HopscotchForHTML5$TextDisplayFragment$slot = v;
    return this;
@@ -16188,6 +17586,28 @@ var mixins = new function () {
    this.$HopscotchForHTML5$TextEditorFragment$slot = v;
    return this;
   };
+  this.$init$HopscotchForHTML5$TextFragment$ = function (v) {
+   this.$HopscotchForHTML5$TextFragment$slot = v;
+   return this;
+  };
+  this.$HopscotchForHTML5$TextFragment = function () {
+   return this.$HopscotchForHTML5$TextFragment$slot;
+  };
+  this.$HopscotchForHTML5$TextFragment$ = function (v) {
+   this.$HopscotchForHTML5$TextFragment$slot = v;
+   return this;
+  };
+  this.$init$HopscotchForHTML5$TextStringFragment$ = function (v) {
+   this.$HopscotchForHTML5$TextStringFragment$slot = v;
+   return this;
+  };
+  this.$HopscotchForHTML5$TextStringFragment = function () {
+   return this.$HopscotchForHTML5$TextStringFragment$slot;
+  };
+  this.$HopscotchForHTML5$TextStringFragment$ = function (v) {
+   this.$HopscotchForHTML5$TextStringFragment$slot = v;
+   return this;
+  };
   this.$init$HopscotchForHTML5$ToggleComposer$ = function (v) {
    this.$HopscotchForHTML5$ToggleComposer$slot = v;
    return this;
@@ -16199,17 +17619,28 @@ var mixins = new function () {
    this.$HopscotchForHTML5$ToggleComposer$slot = v;
    return this;
   };
+  this.$init$HopscotchForHTML5$ZebraDecorator$ = function (v) {
+   this.$HopscotchForHTML5$ZebraDecorator$slot = v;
+   return this;
+  };
+  this.$HopscotchForHTML5$ZebraDecorator = function () {
+   return this.$HopscotchForHTML5$ZebraDecorator$slot;
+  };
+  this.$HopscotchForHTML5$ZebraDecorator$ = function (v) {
+   this.$HopscotchForHTML5$ZebraDecorator$slot = v;
+   return this;
+  };
   this.$HopscotchForHTML5$BlankFragment = new function () {
    var $ = this;
    var $1 = this;
    this.debug = "Runtime mixin for HopscotchForHTML5`BlankFragment";
    this.name = "HopscotchForHTML5`BlankFragment";
-   this.header = 885;
+   this.header = 920;
    this.slots = [];
    this.methods = [
-    new MM("superInit`HopscotchForHTML5`BlankFragment", true, 886),
-    new MM("instance`initializer", true, 887),
-    new MM("createVisual", false, 888)
+    new MM("superInit`HopscotchForHTML5`BlankFragment", true, 921),
+    new MM("instance`initializer", true, 922),
+    new MM("createVisual", false, 923)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -16281,15 +17712,15 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for HopscotchForHTML5`ButtonFragment";
    this.name = "HopscotchForHTML5`ButtonFragment";
-   this.header = 889;
+   this.header = 924;
    this.slots = [
     new SM("label", false, false),
     new SM("action", false, false)
    ];
    this.methods = [
-    new MM("superInit`HopscotchForHTML5`ButtonFragment", true, 890),
-    new MM("instance`initializer", true, 891),
-    new MM("createVisual", false, 892),
+    new MM("superInit`HopscotchForHTML5`ButtonFragment", true, 925),
+    new MM("instance`initializer", true, 926),
+    new MM("createVisual", false, 927),
     new MM("init`label:", true, 0),
     new MM("label", true, 0),
     new MM("init`action:", true, 0),
@@ -16398,16 +17829,16 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for HopscotchForHTML5`CanvasFragment";
    this.name = "HopscotchForHTML5`CanvasFragment";
-   this.header = 893;
+   this.header = 928;
    this.slots = [new SM("alien", false, false)];
    this.methods = [
-    new MM("superInit`HopscotchForHTML5`CanvasFragment", true, 894),
-    new MM("instance`initializer", true, 895),
-    new MM("context", false, 896),
-    new MM("createVisual", false, 897),
-    new MM("keyDownAction:", false, 898),
-    new MM("mouseDownAction:", false, 899),
-    new MM("mouseMovedAction:", false, 900),
+    new MM("superInit`HopscotchForHTML5`CanvasFragment", true, 929),
+    new MM("instance`initializer", true, 930),
+    new MM("context", false, 931),
+    new MM("createVisual", false, 932),
+    new MM("keyDownAction:", false, 933),
+    new MM("mouseDownAction:", false, 934),
+    new MM("mouseMovedAction:", false, 935),
     new MM("init`alien:", true, 0),
     new MM("alien", true, 0)
    ];
@@ -16517,28 +17948,120 @@ var mixins = new function () {
    }();
    this.meta.nonMeta = this;
   }();
+  this.$HopscotchForHTML5$ColorDecorator = new function () {
+   var $ = this;
+   var $1 = this;
+   this.debug = "Runtime mixin for HopscotchForHTML5`ColorDecorator";
+   this.name = "HopscotchForHTML5`ColorDecorator";
+   this.header = 936;
+   this.slots = [new SM("color", false, false)];
+   this.methods = [
+    new MM("superInit`HopscotchForHTML5`ColorDecorator", true, 937),
+    new MM("instance`initializer", true, 938),
+    new MM("decorate:", false, 939),
+    new MM("init`color:", true, 0),
+    new MM("color", true, 0)
+   ];
+   this.nestedClasses = [];
+   this.applications = [];
+   this.$superInit$HopscotchForHTML5$ColorDecorator = function ($c) {
+    var self = this;
+    self.$super$HopscotchForHTML5$ColorDecorator$slot._$instance$initializer.call(self);
+    return self;
+   };
+   this.$instance$initializer = function ($c) {
+    var self = this;
+    self._$superInit$HopscotchForHTML5$ColorDecorator($c);
+    self._$init$color$($c);
+    return self;
+   };
+   this.$decorate$ = function ($aVisual) {
+    var self = this;
+    self._$color().$applyToStyle$($aVisual.$at$("style"));
+    return $aVisual;
+   };
+   this.$init$color$ = function (v) {
+    this.$color$slot = v;
+    return this;
+   };
+   this.$color = function () {
+    return this.$color$slot;
+   };
+   this.invoke = function (runtimeSuperclass, enclosingObjects) {
+    function constructRuntimeClass (superBasicNew) {
+     this.debug = "Runtime class for HopscotchForHTML5`ColorDecorator";
+     this._$superInit$HopscotchForHTML5$ColorDecorator = $.$superInit$HopscotchForHTML5$ColorDecorator;
+     this.$superInit$HopscotchForHTML5$ColorDecorator = dnuCatcher("$superInit$HopscotchForHTML5$ColorDecorator");
+     this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this.$decorate$ = this._$decorate$ = $.$decorate$;
+     this._$init$color$ = $.$init$color$;
+     this.$init$color$ = dnuCatcher("$init$color$");
+     this._$color = $.$color;
+     this.$color = dnuCatcher("$color");
+     this.$enclosingObjects$HopscotchForHTML5$ColorDecorator = enclosingObjects;
+     this.$super$HopscotchForHTML5$ColorDecorator$slot = runtimeSuperclass;
+     this["HopscotchForHTML5`ColorDecorator"] = function () {
+      superBasicNew.call(this);
+      this.$color$slot = nil;
+     };
+     this.basicNew = this["HopscotchForHTML5`ColorDecorator"];
+     this.basicNew.prototype = this;
+     this.meta = null;
+     this.newspeakClass = null;
+    };
+    constructRuntimeClass.prototype = runtimeSuperclass;
+    return new constructRuntimeClass(runtimeSuperclass.basicNew);
+   };
+   this.meta = new function () {
+    var $ = this;
+    this.debug = "Runtime meta mixin for HopscotchForHTML5`ColorDecorator";
+    this.slots = [];
+    this.methods = [new MM("color:", true, 0)];
+    this.nestedClasses = [];
+    this.$color$ = function ($c) {
+     return (new this.nonMeta.basicNew()).$instance$initializer($c);
+    };
+    this.invoke = function (runtimeSuperclass, enclosingObjects) {
+     function constructRuntimeClass (superBasicNew) {
+      this.debug = "Runtime meta class for HopscotchForHTML5`ColorDecorator";
+      this.$color$ = this._$color$ = $.$color$;
+      this.$enclosingObjects$HopscotchForHTML5$ColorDecorator = enclosingObjects;
+      this.$super$HopscotchForHTML5$ColorDecorator = runtimeSuperclass;
+      this.basicNew = function () {
+       superBasicNew.call(this);
+      };
+      this.basicNew.prototype = this;
+      this.nonMeta = null;
+      this.newspeakClass = null;
+     };
+     constructRuntimeClass.prototype = runtimeSuperclass;
+     return new constructRuntimeClass(runtimeSuperclass.basicNew);
+    };
+   }();
+   this.meta.nonMeta = this;
+  }();
   this.$HopscotchForHTML5$ColumnComposer = new function () {
    var $ = this;
    var $1 = this;
    this.debug = "Runtime mixin for HopscotchForHTML5`ColumnComposer";
    this.name = "HopscotchForHTML5`ColumnComposer";
-   this.header = 901;
+   this.header = 940;
    this.slots = [];
    this.methods = [
-    new MM("superInit`HopscotchForHTML5`ColumnComposer", true, 902),
-    new MM("instance`initializer", true, 903),
-    new MM("flexDirection", false, 904)
+    new MM("superInit`HopscotchForHTML5`ColumnComposer", true, 941),
+    new MM("instance`initializer", true, 942),
+    new MM("flexDirection", false, 943)
    ];
    this.nestedClasses = [];
    this.applications = [];
-   this.$superInit$HopscotchForHTML5$ColumnComposer = function ($fragments) {
+   this.$superInit$HopscotchForHTML5$ColumnComposer = function ($fs) {
     var self = this;
-    self.$super$HopscotchForHTML5$ColumnComposer$slot._$instance$initializer.call(self, $fragments);
+    self.$super$HopscotchForHTML5$ColumnComposer$slot._$instance$initializer.call(self, $fs);
     return self;
    };
-   this.$instance$initializer = function ($fragments) {
+   this.$instance$initializer = function ($fs) {
     var self = this;
-    self._$superInit$HopscotchForHTML5$ColumnComposer($fragments);
+    self._$superInit$HopscotchForHTML5$ColumnComposer($fs);
     return self;
    };
    this.$flexDirection = function () {
@@ -16572,8 +18095,8 @@ var mixins = new function () {
     this.slots = [];
     this.methods = [new MM("definitions:", true, 0)];
     this.nestedClasses = [];
-    this.$definitions$ = function ($fragments) {
-     return (new this.nonMeta.basicNew()).$instance$initializer($fragments);
+    this.$definitions$ = function ($fs) {
+     return (new this.nonMeta.basicNew()).$instance$initializer($fs);
     };
     this.invoke = function (runtimeSuperclass, enclosingObjects) {
      function constructRuntimeClass (superBasicNew) {
@@ -16599,11 +18122,11 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for HopscotchForHTML5`Composer";
    this.name = "HopscotchForHTML5`Composer";
-   this.header = 905;
+   this.header = 944;
    this.slots = [];
    this.methods = [
-    new MM("superInit`HopscotchForHTML5`Composer", true, 906),
-    new MM("instance`initializer", true, 907)
+    new MM("superInit`HopscotchForHTML5`Composer", true, 945),
+    new MM("instance`initializer", true, 946)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -16664,20 +18187,97 @@ var mixins = new function () {
    }();
    this.meta.nonMeta = this;
   }();
+  this.$HopscotchForHTML5$Decorator = new function () {
+   var $ = this;
+   var $1 = this;
+   this.debug = "Runtime mixin for HopscotchForHTML5`Decorator";
+   this.name = "HopscotchForHTML5`Decorator";
+   this.header = 947;
+   this.slots = [];
+   this.methods = [
+    new MM("superInit`HopscotchForHTML5`Decorator", true, 948),
+    new MM("instance`initializer", true, 949),
+    new MM("decorate:", false, 950)
+   ];
+   this.nestedClasses = [];
+   this.applications = [];
+   this.$superInit$HopscotchForHTML5$Decorator = function () {
+    var self = this;
+    self.$super$HopscotchForHTML5$Decorator$slot._$instance$initializer.call(self);
+    return self;
+   };
+   this.$instance$initializer = function () {
+    var self = this;
+    self._$superInit$HopscotchForHTML5$Decorator();
+    return self;
+   };
+   this.$decorate$ = function ($aVisual) {
+    var self = this;
+    self._$subclassResponsibility();
+    return self;
+   };
+   this.invoke = function (runtimeSuperclass, enclosingObjects) {
+    function constructRuntimeClass (superBasicNew) {
+     this.debug = "Runtime class for HopscotchForHTML5`Decorator";
+     this._$superInit$HopscotchForHTML5$Decorator = $.$superInit$HopscotchForHTML5$Decorator;
+     this.$superInit$HopscotchForHTML5$Decorator = dnuCatcher("$superInit$HopscotchForHTML5$Decorator");
+     this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this.$decorate$ = this._$decorate$ = $.$decorate$;
+     this.$enclosingObjects$HopscotchForHTML5$Decorator = enclosingObjects;
+     this.$super$HopscotchForHTML5$Decorator$slot = runtimeSuperclass;
+     this["HopscotchForHTML5`Decorator"] = function () {
+      superBasicNew.call(this);
+     };
+     this.basicNew = this["HopscotchForHTML5`Decorator"];
+     this.basicNew.prototype = this;
+     this.meta = null;
+     this.newspeakClass = null;
+    };
+    constructRuntimeClass.prototype = runtimeSuperclass;
+    return new constructRuntimeClass(runtimeSuperclass.basicNew);
+   };
+   this.meta = new function () {
+    var $ = this;
+    this.debug = "Runtime meta mixin for HopscotchForHTML5`Decorator";
+    this.slots = [];
+    this.methods = [new MM("new", true, 0)];
+    this.nestedClasses = [];
+    this.$new = function () {
+     return (new this.nonMeta.basicNew()).$instance$initializer();
+    };
+    this.invoke = function (runtimeSuperclass, enclosingObjects) {
+     function constructRuntimeClass (superBasicNew) {
+      this.debug = "Runtime meta class for HopscotchForHTML5`Decorator";
+      this.$new = this._$new = $.$new;
+      this.$enclosingObjects$HopscotchForHTML5$Decorator = enclosingObjects;
+      this.$super$HopscotchForHTML5$Decorator = runtimeSuperclass;
+      this.basicNew = function () {
+       superBasicNew.call(this);
+      };
+      this.basicNew.prototype = this;
+      this.nonMeta = null;
+      this.newspeakClass = null;
+     };
+     constructRuntimeClass.prototype = runtimeSuperclass;
+     return new constructRuntimeClass(runtimeSuperclass.basicNew);
+    };
+   }();
+   this.meta.nonMeta = this;
+  }();
   this.$HopscotchForHTML5$DeferredContentComposer = new function () {
    var $ = this;
    var $1 = this;
    this.debug = "Runtime mixin for HopscotchForHTML5`DeferredContentComposer";
    this.name = "HopscotchForHTML5`DeferredContentComposer";
-   this.header = 908;
+   this.header = 951;
    this.slots = [
     new SM("initialContent", false, false),
     new SM("contentSource", false, false)
    ];
    this.methods = [
-    new MM("superInit`HopscotchForHTML5`DeferredContentComposer", true, 909),
-    new MM("instance`initializer", true, 910),
-    new MM("createVisual", false, 911),
+    new MM("superInit`HopscotchForHTML5`DeferredContentComposer", true, 952),
+    new MM("instance`initializer", true, 953),
+    new MM("createVisual", false, 954),
     new MM("init`initialContent:", true, 0),
     new MM("initialContent", true, 0),
     new MM("init`contentSource:", true, 0),
@@ -16785,22 +18385,240 @@ var mixins = new function () {
    }();
    this.meta.nonMeta = this;
   }();
+  this.$HopscotchForHTML5$DropDownMenuFragment = new function () {
+   var $ = this;
+   var $1 = this;
+   this.debug = "Runtime mixin for HopscotchForHTML5`DropDownMenuFragment";
+   this.name = "HopscotchForHTML5`DropDownMenuFragment";
+   this.header = 955;
+   this.slots = [
+    new SM("menuSupplier", false, false),
+    new SM("menuActive", true, false)
+   ];
+   this.methods = [
+    new MM("superInit`HopscotchForHTML5`DropDownMenuFragment", true, 956),
+    new MM("instance`initializer", true, 957),
+    new MM("computeContent", false, 958),
+    new MM("contentFor:within:", false, 959),
+    new MM("createVisual", false, 960),
+    new MM("removeContent", false, 961),
+    new MM("toggleContent", false, 962),
+    new MM("updateContent", false, 963),
+    new MM("init`menuSupplier:", true, 0),
+    new MM("menuSupplier", true, 0),
+    new MM("init`menuActive:", true, 0),
+    new MM("menuActive", true, 0),
+    new MM("menuActive:", true, 0)
+   ];
+   this.nestedClasses = [];
+   this.applications = [];
+   this.$superInit$HopscotchForHTML5$DropDownMenuFragment = function ($ms) {
+    var self = this;
+    self.$super$HopscotchForHTML5$DropDownMenuFragment$slot._$instance$initializer.call(self, [
+     self.$enclosingObjects$HopscotchForHTML5$DropDownMenuFragment[0]._$dropDownImage(),
+     self.$enclosingObjects$HopscotchForHTML5$DropDownMenuFragment[0]._$dropDownOverImage(),
+     self.$enclosingObjects$HopscotchForHTML5$DropDownMenuFragment[0]._$dropDownOutImage()
+    ]);
+    return self;
+   };
+   this.$instance$initializer = function ($ms) {
+    var self = this;
+    self._$superInit$HopscotchForHTML5$DropDownMenuFragment($ms);
+    self._$init$menuSupplier$($ms);
+    self._$init$menuActive$(false);
+    self._$action$(function () {
+     return nil;
+    });
+    return self;
+   };
+   this.$computeContent = function () {
+    var self = this;
+    var $dropDownContent = nil;
+    $dropDownContent = $0.$document(self.$enclosingObjects$HopscotchForHTML5$DropDownMenuFragment[0]).$createElement$("div");
+    (function (cascadeReceiver) {
+     cascadeReceiver.$at$put$("color", "black");
+     cascadeReceiver.$at$put$("backgroundColor", "lightgray");
+     cascadeReceiver.$at$put$("position", "absolute");
+     cascadeReceiver.$at$put$("padding-left", "6px");
+     cascadeReceiver.$at$put$("padding-right", "10px");
+     cascadeReceiver.$at$put$("border-radius", "5px");
+     cascadeReceiver.$at$put$("box-shadow", "5px 5px 5px darkgrey");
+     return cascadeReceiver.$at$put$("display", "none");
+    })($dropDownContent.$at$("style"));
+    self._$menuSupplier().$value().$do$(function ($menuItem) {
+     var $itemContent = nil;
+     $itemContent = self._$contentFor$within$($menuItem, $dropDownContent);
+     return $dropDownContent.$appendChild$($itemContent);
+    });
+    return $dropDownContent;
+   };
+   this.$contentFor$within$ = function ($menuItem, $dropDownContent) {
+    var self = this;
+    var $entry = nil;
+    if ($menuItem.$$equal("separator")) {
+     return $0.$document(self.$enclosingObjects$HopscotchForHTML5$DropDownMenuFragment[0]).$createElement$("hr");
+    } else {
+     nil;
+    };
+    $entry = $0.$document(self.$enclosingObjects$HopscotchForHTML5$DropDownMenuFragment[0]).$createElement$("div");
+    $entry.$at$put$("textContent", $menuItem.$first());
+    (function (cascadeReceiver) {
+     cascadeReceiver.$addEventListener$action$("mouseover", function () {
+      return $entry.$at$("style").$at$put$("background-color", "darkgrey");
+     });
+     cascadeReceiver.$addEventListener$action$("mouseout", function () {
+      return $entry.$at$("style").$at$put$("background-color", "lightgrey");
+     });
+     return cascadeReceiver.$addEventListener$action$("click", function () {
+      return $menuItem.$last().$value();
+     });
+    })($entry);
+    return $entry;
+   };
+   this.$createVisual = function () {
+    var self = this;
+    var $dropDown = nil;
+    var $dropDownButton = nil;
+    $dropDown = $0.$document(self.$enclosingObjects$HopscotchForHTML5$DropDownMenuFragment[0]).$createElement$("div");
+    $dropDownButton = self.$super$HopscotchForHTML5$DropDownMenuFragment$slot._$createVisual.call(self);
+    (function (cascadeReceiver) {
+     cascadeReceiver.$at$put$("position", "relative");
+     cascadeReceiver.$at$put$("display", "inline-block");
+     return cascadeReceiver.$at$put$("cursor", "pointer");
+    })($dropDownButton.$at$("style"));
+    $dropDown.$addEventListener$action$("click", function () {
+     return self._$toggleContent();
+    });
+    $dropDown.$appendChild$($dropDownButton);
+    return $dropDown;
+   };
+   this.$removeContent = function () {
+    var self = this;
+    return self._$visual().$removeChild$(self._$visual().$at$("lastChild"));
+   };
+   this.$toggleContent = function () {
+    var self = this;
+    if (self._$menuActive()) {
+     self._$removeContent();
+    } else {
+     self._$updateContent();
+    };
+    self._$menuActive$(self._$menuActive().$not());
+    return self;
+   };
+   this.$updateContent = function () {
+    var self = this;
+    var $menuContent = nil;
+    $menuContent = self._$computeContent();
+    $menuContent.$at$("style").$at$put$("display", "block");
+    self._$visual().$appendChild$($menuContent);
+    return $menuContent;
+   };
+   this.$init$menuSupplier$ = function (v) {
+    this.$menuSupplier$slot = v;
+    return this;
+   };
+   this.$menuSupplier = function () {
+    return this.$menuSupplier$slot;
+   };
+   this.$init$menuActive$ = function (v) {
+    this.$menuActive$slot = v;
+    return this;
+   };
+   this.$menuActive = function () {
+    return this.$menuActive$slot;
+   };
+   this.$menuActive$ = function (v) {
+    this.$menuActive$slot = v;
+    return this;
+   };
+   this.invoke = function (runtimeSuperclass, enclosingObjects) {
+    function constructRuntimeClass (superBasicNew) {
+     this.debug = "Runtime class for HopscotchForHTML5`DropDownMenuFragment";
+     this._$superInit$HopscotchForHTML5$DropDownMenuFragment = $.$superInit$HopscotchForHTML5$DropDownMenuFragment;
+     this.$superInit$HopscotchForHTML5$DropDownMenuFragment = dnuCatcher("$superInit$HopscotchForHTML5$DropDownMenuFragment");
+     this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this._$computeContent = $.$computeContent;
+     this.$computeContent = dnuCatcher("$computeContent");
+     this._$contentFor$within$ = $.$contentFor$within$;
+     this.$contentFor$within$ = dnuCatcher("$contentFor$within$");
+     this._$createVisual = $.$createVisual;
+     this.$createVisual = dnuCatcher("$createVisual");
+     this._$removeContent = $.$removeContent;
+     this.$removeContent = dnuCatcher("$removeContent");
+     this._$toggleContent = $.$toggleContent;
+     this.$toggleContent = dnuCatcher("$toggleContent");
+     this._$updateContent = $.$updateContent;
+     this.$updateContent = dnuCatcher("$updateContent");
+     this._$init$menuSupplier$ = $.$init$menuSupplier$;
+     this.$init$menuSupplier$ = dnuCatcher("$init$menuSupplier$");
+     this._$menuSupplier = $.$menuSupplier;
+     this.$menuSupplier = dnuCatcher("$menuSupplier");
+     this._$init$menuActive$ = $.$init$menuActive$;
+     this.$init$menuActive$ = dnuCatcher("$init$menuActive$");
+     this._$menuActive = $.$menuActive;
+     this.$menuActive = dnuCatcher("$menuActive");
+     this._$menuActive$ = $.$menuActive$;
+     this.$menuActive$ = dnuCatcher("$menuActive$");
+     this.$enclosingObjects$HopscotchForHTML5$DropDownMenuFragment = enclosingObjects;
+     this.$super$HopscotchForHTML5$DropDownMenuFragment$slot = runtimeSuperclass;
+     this["HopscotchForHTML5`DropDownMenuFragment"] = function () {
+      superBasicNew.call(this);
+      this.$menuSupplier$slot = nil;
+      this.$menuActive$slot = nil;
+     };
+     this.basicNew = this["HopscotchForHTML5`DropDownMenuFragment"];
+     this.basicNew.prototype = this;
+     this.meta = null;
+     this.newspeakClass = null;
+    };
+    constructRuntimeClass.prototype = runtimeSuperclass;
+    return new constructRuntimeClass(runtimeSuperclass.basicNew);
+   };
+   this.meta = new function () {
+    var $ = this;
+    this.debug = "Runtime meta mixin for HopscotchForHTML5`DropDownMenuFragment";
+    this.slots = [];
+    this.methods = [new MM("menu:", true, 0)];
+    this.nestedClasses = [];
+    this.$menu$ = function ($ms) {
+     return (new this.nonMeta.basicNew()).$instance$initializer($ms);
+    };
+    this.invoke = function (runtimeSuperclass, enclosingObjects) {
+     function constructRuntimeClass (superBasicNew) {
+      this.debug = "Runtime meta class for HopscotchForHTML5`DropDownMenuFragment";
+      this.$menu$ = this._$menu$ = $.$menu$;
+      this.$enclosingObjects$HopscotchForHTML5$DropDownMenuFragment = enclosingObjects;
+      this.$super$HopscotchForHTML5$DropDownMenuFragment = runtimeSuperclass;
+      this.basicNew = function () {
+       superBasicNew.call(this);
+      };
+      this.basicNew.prototype = this;
+      this.nonMeta = null;
+      this.newspeakClass = null;
+     };
+     constructRuntimeClass.prototype = runtimeSuperclass;
+     return new constructRuntimeClass(runtimeSuperclass.basicNew);
+    };
+   }();
+   this.meta.nonMeta = this;
+  }();
   this.$HopscotchForHTML5$EmbeddedHopscotchWindow = new function () {
    var $ = this;
    var $1 = this;
    this.debug = "Runtime mixin for HopscotchForHTML5`EmbeddedHopscotchWindow";
    this.name = "HopscotchForHTML5`EmbeddedHopscotchWindow";
-   this.header = 912;
+   this.header = 964;
    this.slots = [new SM("localNavigator", false, false)];
    this.methods = [
-    new MM("superInit`HopscotchForHTML5`EmbeddedHopscotchWindow", true, 913),
-    new MM("instance`initializer", true, 914),
-    new MM("displayPresenter:", false, 915),
-    new MM("enterPresenter:", false, 916),
-    new MM("enterSubject:fromSnippet:", false, 917),
-    new MM("goBack", false, 918),
-    new MM("listenForBackButton", false, 919),
-    new MM("navigationHistory", false, 920),
+    new MM("superInit`HopscotchForHTML5`EmbeddedHopscotchWindow", true, 965),
+    new MM("instance`initializer", true, 966),
+    new MM("displayPresenter:", false, 967),
+    new MM("enterPresenter:", false, 968),
+    new MM("enterSubject:fromSnippet:", false, 969),
+    new MM("goBack", false, 970),
+    new MM("listenForBackButton", false, 971),
+    new MM("navigationHistory", false, 972),
     new MM("init`localNavigator:", true, 0),
     new MM("localNavigator", true, 0)
    ];
@@ -16822,7 +18640,6 @@ var mixins = new function () {
    this.$displayPresenter$ = function ($p) {
     var self = this;
     self.$super$HopscotchForHTML5$EmbeddedHopscotchWindow$slot._$displayPresenter$.call(self, $p);
-    $0.$document(self.$enclosingObjects$HopscotchForHTML5$EmbeddedHopscotchWindow[0]).$at$put$("title", $p.$title());
     return self;
    };
    this.$enterPresenter$ = function ($p) {
@@ -16851,20 +18668,23 @@ var mixins = new function () {
    };
    this.$listenForBackButton = function () {
     var self = this;
-    self.$enclosingObjects$HopscotchForHTML5$EmbeddedHopscotchWindow[0]._$sharedBackButtonListener().$ifNil$(function () {
-     self.$enclosingObjects$HopscotchForHTML5$EmbeddedHopscotchWindow[0]._$sharedBackButtonListener$(function ($e) {
-      var $p = nil;
-      var $priorWindow = nil;
-      $p = self._$navigator().$presenterFor$($e.$at$("state"));
-      $priorWindow = self.$enclosingObjects$HopscotchForHTML5$EmbeddedHopscotchWindow[0]._$embeddedWindowMap().$at$($p);
-      self.$enclosingObjects$HopscotchForHTML5$EmbeddedHopscotchWindow[0]._$currentHopscotchWindow().$goBack();
-      return (function ($setter_arg) {
-       self.$enclosingObjects$HopscotchForHTML5$EmbeddedHopscotchWindow[0]._$currentHopscotchWindow$($setter_arg);
-       return $setter_arg;
-      }).$value$($priorWindow);
-     });
-     return $0.$window(self.$enclosingObjects$HopscotchForHTML5$EmbeddedHopscotchWindow[0]).$at$put$("onpopstate", self.$enclosingObjects$HopscotchForHTML5$EmbeddedHopscotchWindow[0]._$sharedBackButtonListener());
+    if (!nil.$$equal(self.$enclosingObjects$HopscotchForHTML5$EmbeddedHopscotchWindow[0]._$sharedBackButtonListener())) {
+     return self;
+    } else {
+     nil;
+    };
+    self.$enclosingObjects$HopscotchForHTML5$EmbeddedHopscotchWindow[0]._$sharedBackButtonListener$(function ($event) {
+     var $p = nil;
+     var $priorWindow = nil;
+     $p = self._$navigator().$presenterFor$($event.$at$("state"));
+     $priorWindow = self.$enclosingObjects$HopscotchForHTML5$EmbeddedHopscotchWindow[0]._$embeddedWindowMap().$at$($p);
+     self.$enclosingObjects$HopscotchForHTML5$EmbeddedHopscotchWindow[0]._$currentHopscotchWindow().$goBack();
+     return (function ($setter_arg) {
+      self.$enclosingObjects$HopscotchForHTML5$EmbeddedHopscotchWindow[0]._$currentHopscotchWindow$($setter_arg);
+      return $setter_arg;
+     }).$value$($priorWindow);
     });
+    $0.$window(self.$enclosingObjects$HopscotchForHTML5$EmbeddedHopscotchWindow[0]).$at$put$("onpopstate", self.$enclosingObjects$HopscotchForHTML5$EmbeddedHopscotchWindow[0]._$sharedBackButtonListener());
     return self;
    };
    this.$navigationHistory = function () {
@@ -16916,7 +18736,7 @@ var mixins = new function () {
     this.slots = [];
     this.methods = [
      new MM("into:openSubject:", true, 0),
-     new MM("openSubject:", false, 921)
+     new MM("openSubject:", false, 973)
     ];
     this.nestedClasses = [];
     this.$into$openSubject$ = function ($container, $s) {
@@ -16951,23 +18771,27 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for HopscotchForHTML5`Fragment";
    this.name = "HopscotchForHTML5`Fragment";
-   this.header = 922;
+   this.header = 974;
    this.slots = [
     new SM("visualX", true, false),
     new SM("parent", true, false),
     new SM("size", true, false),
     new SM("expansibility", true, false),
-    new SM("compressibility", true, false)
+    new SM("compressibility", true, false),
+    new SM("decorators", true, false)
    ];
    this.methods = [
-    new MM("superInit`HopscotchForHTML5`Fragment", true, 923),
-    new MM("instance`initializer", true, 924),
-    new MM("createVisual", false, 925),
-    new MM("elasticity:", false, 926),
-    new MM("hasVisual", false, 927),
-    new MM("shell", false, 928),
-    new MM("visual", false, 929),
-    new MM("width:elasticity:", false, 930),
+    new MM("superInit`HopscotchForHTML5`Fragment", true, 975),
+    new MM("instance`initializer", true, 976),
+    new MM("addDecorator:", false, 977),
+    new MM("createVisual", false, 978),
+    new MM("decorate:", false, 979),
+    new MM("elasticity:", false, 980),
+    new MM("hasVisual", false, 981),
+    new MM("refresh", false, 982),
+    new MM("shell", false, 983),
+    new MM("visual", false, 984),
+    new MM("width:elasticity:", false, 985),
     new MM("init`visualX:", true, 0),
     new MM("visualX", true, 0),
     new MM("visualX:", true, 0),
@@ -16982,7 +18806,10 @@ var mixins = new function () {
     new MM("expansibility:", true, 0),
     new MM("init`compressibility:", true, 0),
     new MM("compressibility", true, 0),
-    new MM("compressibility:", true, 0)
+    new MM("compressibility:", true, 0),
+    new MM("init`decorators:", true, 0),
+    new MM("decorators", true, 0),
+    new MM("decorators:", true, 0)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -16999,10 +18826,33 @@ var mixins = new function () {
     self._$init$compressibility$(0);
     return self;
    };
+   this.$addDecorator$ = function ($newDecorator) {
+    var self = this;
+    self._$decorators().$ifNil$ifNotNil$(function () {
+     return (function ($setter_arg) {
+      self._$decorators$($setter_arg);
+      return $setter_arg;
+     }).$value$($0.$List(self.$enclosingObjects$HopscotchForHTML5$Fragment[0]).$with$($newDecorator));
+    }, function () {
+     return self._$decorators().$addLast$($newDecorator);
+    });
+    return self;
+   };
    this.$createVisual = function () {
     var self = this;
     self._$subclassResponsibility();
     return self;
+   };
+   this.$decorate$ = function ($aVisual) {
+    var self = this;
+    var $decorated = nil;
+    $decorated = $aVisual;
+    self._$decorators().$ifNotNil$(function () {
+     return self._$decorators().$do$(function ($each) {
+      return $decorated = $each.$decorate$($decorated);
+     });
+    });
+    return $decorated;
    };
    this.$elasticity$ = function ($x) {
     var self = this;
@@ -17014,10 +18864,17 @@ var mixins = new function () {
     var self = this;
     return self._$visualX().$isNil().$not();
    };
+   this.$refresh = function () {
+    var self = this;
+    self._$childrenDo$(function ($each) {
+     return $each.$refresh();
+    });
+    return self;
+   };
    this.$shell = function () {
     var self = this;
     return self._$parent().$isNil().$ifTrue$ifFalse$(function () {
-     return self._$Error().$signal$("hierarchy not installed in a shell");
+     return self._$Error().$signal$("hierarchy not installed in a shell :".$$comma(self._$printString()));
     }, function () {
      return self._$parent().$shell();
     });
@@ -17025,7 +18882,7 @@ var mixins = new function () {
    this.$visual = function () {
     var self = this;
     if (self._$visualX().$isNil()) {
-     self._$visualX$(self._$createVisual());
+     self._$visualX$(self._$decorate$(self._$createVisual()));
     } else {
      nil;
     };
@@ -17093,18 +18950,31 @@ var mixins = new function () {
     this.$compressibility$slot = v;
     return this;
    };
+   this.$init$decorators$ = function (v) {
+    this.$decorators$slot = v;
+    return this;
+   };
+   this.$decorators = function () {
+    return this.$decorators$slot;
+   };
+   this.$decorators$ = function (v) {
+    this.$decorators$slot = v;
+    return this;
+   };
    this.invoke = function (runtimeSuperclass, enclosingObjects) {
     function constructRuntimeClass (superBasicNew) {
      this.debug = "Runtime class for HopscotchForHTML5`Fragment";
      this._$superInit$HopscotchForHTML5$Fragment = $.$superInit$HopscotchForHTML5$Fragment;
      this.$superInit$HopscotchForHTML5$Fragment = dnuCatcher("$superInit$HopscotchForHTML5$Fragment");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this.$addDecorator$ = this._$addDecorator$ = $.$addDecorator$;
      this._$createVisual = $.$createVisual;
      this.$createVisual = dnuCatcher("$createVisual");
+     this.$decorate$ = this._$decorate$ = $.$decorate$;
      this.$elasticity$ = this._$elasticity$ = $.$elasticity$;
      this.$hasVisual = this._$hasVisual = $.$hasVisual;
-     this._$shell = $.$shell;
-     this.$shell = dnuCatcher("$shell");
+     this.$refresh = this._$refresh = $.$refresh;
+     this.$shell = this._$shell = $.$shell;
      this.$visual = this._$visual = $.$visual;
      this.$width$elasticity$ = this._$width$elasticity$ = $.$width$elasticity$;
      this._$init$visualX$ = $.$init$visualX$;
@@ -17125,6 +18995,12 @@ var mixins = new function () {
      this.$init$compressibility$ = this._$init$compressibility$ = $.$init$compressibility$;
      this.$compressibility = this._$compressibility = $.$compressibility;
      this.$compressibility$ = this._$compressibility$ = $.$compressibility$;
+     this._$init$decorators$ = $.$init$decorators$;
+     this.$init$decorators$ = dnuCatcher("$init$decorators$");
+     this._$decorators = $.$decorators;
+     this.$decorators = dnuCatcher("$decorators");
+     this._$decorators$ = $.$decorators$;
+     this.$decorators$ = dnuCatcher("$decorators$");
      this.$enclosingObjects$HopscotchForHTML5$Fragment = enclosingObjects;
      this.$super$HopscotchForHTML5$Fragment$slot = runtimeSuperclass;
      this["HopscotchForHTML5`Fragment"] = function () {
@@ -17134,6 +19010,7 @@ var mixins = new function () {
       this.$size$slot = nil;
       this.$expansibility$slot = nil;
       this.$compressibility$slot = nil;
+      this.$decorators$slot = nil;
      };
      this.basicNew = this["HopscotchForHTML5`Fragment"];
      this.basicNew.prototype = this;
@@ -17176,15 +19053,15 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for HopscotchForHTML5`Gradient";
    this.name = "HopscotchForHTML5`Gradient";
-   this.header = 931;
+   this.header = 986;
    this.slots = [
     new SM("topColor", false, false),
     new SM("bottomColor", false, false)
    ];
    this.methods = [
-    new MM("superInit`HopscotchForHTML5`Gradient", true, 932),
-    new MM("instance`initializer", true, 933),
-    new MM("applyToStyle:", false, 934),
+    new MM("superInit`HopscotchForHTML5`Gradient", true, 987),
+    new MM("instance`initializer", true, 988),
+    new MM("applyToStyle:", false, 989),
     new MM("init`topColor:", true, 0),
     new MM("topColor", true, 0),
     new MM("init`bottomColor:", true, 0),
@@ -17289,18 +19166,19 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for HopscotchForHTML5`HolderComposer";
    this.name = "HopscotchForHTML5`HolderComposer";
-   this.header = 935;
+   this.header = 990;
    this.slots = [
     new SM("contentSource", true, false),
     new SM("actualContent", true, false)
    ];
    this.methods = [
-    new MM("superInit`HopscotchForHTML5`HolderComposer", true, 936),
-    new MM("instance`initializer", true, 937),
-    new MM("content", false, 938),
-    new MM("content:", false, 939),
-    new MM("createVisual", false, 940),
-    new MM("refresh", false, 941),
+    new MM("superInit`HopscotchForHTML5`HolderComposer", true, 991),
+    new MM("instance`initializer", true, 992),
+    new MM("childrenDo:", false, 993),
+    new MM("content", false, 994),
+    new MM("content:", false, 995),
+    new MM("createVisual", false, 996),
+    new MM("refresh", false, 997),
     new MM("init`contentSource:", true, 0),
     new MM("contentSource", true, 0),
     new MM("contentSource:", true, 0),
@@ -17319,6 +19197,11 @@ var mixins = new function () {
     var self = this;
     self._$superInit$HopscotchForHTML5$HolderComposer($definition);
     self._$init$contentSource$($definition);
+    return self;
+   };
+   this.$childrenDo$ = function ($aBlock) {
+    var self = this;
+    self._$actualContent().$ifNotNil$($aBlock);
     return self;
    };
    this.$content = function () {
@@ -17357,7 +19240,7 @@ var mixins = new function () {
    };
    this.$refresh = function () {
     var self = this;
-    if (self._$contentSource().$isBlock() && self._$hasVisual()) {
+    if (self._$contentSource().$isClosure() && self._$hasVisual()) {
      var $oldContent = nil;
      var $newContent = nil;
      $oldContent = self._$actualContent();
@@ -17397,6 +19280,7 @@ var mixins = new function () {
      this._$superInit$HopscotchForHTML5$HolderComposer = $.$superInit$HopscotchForHTML5$HolderComposer;
      this.$superInit$HopscotchForHTML5$HolderComposer = dnuCatcher("$superInit$HopscotchForHTML5$HolderComposer");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this.$childrenDo$ = this._$childrenDo$ = $.$childrenDo$;
      this.$content = this._$content = $.$content;
      this.$content$ = this._$content$ = $.$content$;
      this._$createVisual = $.$createVisual;
@@ -17462,22 +19346,24 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for HopscotchForHTML5`HopscotchShell";
    this.name = "HopscotchForHTML5`HopscotchShell";
-   this.header = 942;
+   this.header = 998;
    this.slots = [
     new SM("navigator", false, false),
     new SM("currentPresenterX", true, false),
     new SM("contentHolder", false, false)
    ];
    this.methods = [
-    new MM("superInit`HopscotchForHTML5`HopscotchShell", true, 943),
-    new MM("instance`initializer", true, 944),
-    new MM("displayPresenter:", false, 945),
-    new MM("enterPresenter:", false, 946),
-    new MM("enterSubject:", false, 947),
-    new MM("listenForBackButton", false, 948),
-    new MM("navigationHistory", false, 949),
-    new MM("shell", false, 950),
-    new MM("userBack:", false, 951),
+    new MM("superInit`HopscotchForHTML5`HopscotchShell", true, 999),
+    new MM("instance`initializer", true, 1000),
+    new MM("childrenDo:", false, 1001),
+    new MM("currentPresenter", false, 1002),
+    new MM("displayPresenter:", false, 1003),
+    new MM("enterPresenter:", false, 1004),
+    new MM("enterSubject:", false, 1005),
+    new MM("listenForBackButton", false, 1006),
+    new MM("navigationHistory", false, 1007),
+    new MM("shell", false, 1008),
+    new MM("userBack:", false, 1009),
     new MM("init`navigator:", true, 0),
     new MM("navigator", true, 0),
     new MM("init`currentPresenterX:", true, 0),
@@ -17500,6 +19386,15 @@ var mixins = new function () {
     self._$init$contentHolder$($0.$document(self.$enclosingObjects$HopscotchForHTML5$HopscotchShell[0]).$createElement$("div"));
     self._$listenForBackButton();
     return self;
+   };
+   this.$childrenDo$ = function ($aBlock) {
+    var self = this;
+    $aBlock.$value$(self._$currentPresenter());
+    return self;
+   };
+   this.$currentPresenter = function () {
+    var self = this;
+    return self._$currentPresenterX();
    };
    this.$displayPresenter$ = function ($p) {
     var self = this;
@@ -17579,6 +19474,8 @@ var mixins = new function () {
      this._$superInit$HopscotchForHTML5$HopscotchShell = $.$superInit$HopscotchForHTML5$HopscotchShell;
      this.$superInit$HopscotchForHTML5$HopscotchShell = dnuCatcher("$superInit$HopscotchForHTML5$HopscotchShell");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this.$childrenDo$ = this._$childrenDo$ = $.$childrenDo$;
+     this.$currentPresenter = this._$currentPresenter = $.$currentPresenter;
      this.$displayPresenter$ = this._$displayPresenter$ = $.$displayPresenter$;
      this.$enterPresenter$ = this._$enterPresenter$ = $.$enterPresenter$;
      this.$enterSubject$ = this._$enterSubject$ = $.$enterSubject$;
@@ -17652,12 +19549,12 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for HopscotchForHTML5`HopscotchWindow";
    this.name = "HopscotchForHTML5`HopscotchWindow";
-   this.header = 952;
+   this.header = 1010;
    this.slots = [];
    this.methods = [
-    new MM("superInit`HopscotchForHTML5`HopscotchWindow", true, 953),
-    new MM("instance`initializer", true, 954),
-    new MM("displayPresenter:", false, 955)
+    new MM("superInit`HopscotchForHTML5`HopscotchWindow", true, 1011),
+    new MM("instance`initializer", true, 1012),
+    new MM("displayPresenter:", false, 1013)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -17705,7 +19602,7 @@ var mixins = new function () {
     this.slots = [];
     this.methods = [
      new MM("into:openSubject:", true, 0),
-     new MM("openSubject:", false, 956)
+     new MM("openSubject:", false, 1014)
     ];
     this.nestedClasses = [];
     this.$into$openSubject$ = function ($container, $s) {
@@ -17740,16 +19637,17 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for HopscotchForHTML5`HyperlinkFragment";
    this.name = "HopscotchForHTML5`HyperlinkFragment";
-   this.header = 957;
+   this.header = 1015;
    this.slots = [
     new SM("label", false, false),
     new SM("action", false, false),
     new SM("color", true, false)
    ];
    this.methods = [
-    new MM("superInit`HopscotchForHTML5`HyperlinkFragment", true, 958),
-    new MM("instance`initializer", true, 959),
-    new MM("createVisual", false, 960),
+    new MM("superInit`HopscotchForHTML5`HyperlinkFragment", true, 1016),
+    new MM("instance`initializer", true, 1017),
+    new MM("createVisual", false, 1018),
+    new MM("smallFont", false, 1019),
     new MM("init`label:", true, 0),
     new MM("label", true, 0),
     new MM("init`action:", true, 0),
@@ -17795,6 +19693,11 @@ var mixins = new function () {
     };
     return $anchor;
    };
+   this.$smallFont = function () {
+    var self = this;
+    self._$visual().$at$("style").$at$put$("font-size", "smaller");
+    return self;
+   };
    this.$init$label$ = function (v) {
     this.$label$slot = v;
     return this;
@@ -17828,6 +19731,7 @@ var mixins = new function () {
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
      this._$createVisual = $.$createVisual;
      this.$createVisual = dnuCatcher("$createVisual");
+     this.$smallFont = this._$smallFont = $.$smallFont;
      this._$init$label$ = $.$init$label$;
      this.$init$label$ = dnuCatcher("$init$label$");
      this._$label = $.$label;
@@ -17888,15 +19792,15 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for HopscotchForHTML5`HyperlinkImageFragment";
    this.name = "HopscotchForHTML5`HyperlinkImageFragment";
-   this.header = 961;
+   this.header = 1020;
    this.slots = [
     new SM("image", false, false),
     new SM("action", false, false)
    ];
    this.methods = [
-    new MM("superInit`HopscotchForHTML5`HyperlinkImageFragment", true, 962),
-    new MM("instance`initializer", true, 963),
-    new MM("createVisual", false, 964),
+    new MM("superInit`HopscotchForHTML5`HyperlinkImageFragment", true, 1021),
+    new MM("instance`initializer", true, 1022),
+    new MM("createVisual", false, 1023),
     new MM("init`image:", true, 0),
     new MM("image", true, 0),
     new MM("init`action:", true, 0),
@@ -17999,16 +19903,136 @@ var mixins = new function () {
    }();
    this.meta.nonMeta = this;
   }();
+  this.$HopscotchForHTML5$ImageButtonFragment = new function () {
+   var $ = this;
+   var $1 = this;
+   this.debug = "Runtime mixin for HopscotchForHTML5`ImageButtonFragment";
+   this.name = "HopscotchForHTML5`ImageButtonFragment";
+   this.header = 1024;
+   this.slots = [
+    new SM("action", true, false),
+    new SM("stateImages", false, false)
+   ];
+   this.methods = [
+    new MM("superInit`HopscotchForHTML5`ImageButtonFragment", true, 1025),
+    new MM("instance`initializer", true, 1026),
+    new MM("createVisual", false, 1027),
+    new MM("init`action:", true, 0),
+    new MM("action", true, 0),
+    new MM("action:", true, 0),
+    new MM("init`stateImages:", true, 0),
+    new MM("stateImages", true, 0)
+   ];
+   this.nestedClasses = [];
+   this.applications = [];
+   this.$superInit$HopscotchForHTML5$ImageButtonFragment = function ($imageArray) {
+    var self = this;
+    self.$super$HopscotchForHTML5$ImageButtonFragment$slot._$instance$initializer.call(self);
+    return self;
+   };
+   this.$instance$initializer = function ($imageArray) {
+    var self = this;
+    self._$superInit$HopscotchForHTML5$ImageButtonFragment($imageArray);
+    self._$init$stateImages$($imageArray.$$comma(self._$Array().$new$withAll$(3, nil)));
+    return self;
+   };
+   this.$createVisual = function () {
+    var self = this;
+    var $img = nil;
+    $img = self._$stateImages().$at$(1).$cloneNode$(false);
+    $img.$at$put$("onclick", function () {
+     self._$action().$value();
+     return false;
+    });
+    return $img;
+   };
+   this.$init$action$ = function (v) {
+    this.$action$slot = v;
+    return this;
+   };
+   this.$action = function () {
+    return this.$action$slot;
+   };
+   this.$action$ = function (v) {
+    this.$action$slot = v;
+    return this;
+   };
+   this.$init$stateImages$ = function (v) {
+    this.$stateImages$slot = v;
+    return this;
+   };
+   this.$stateImages = function () {
+    return this.$stateImages$slot;
+   };
+   this.invoke = function (runtimeSuperclass, enclosingObjects) {
+    function constructRuntimeClass (superBasicNew) {
+     this.debug = "Runtime class for HopscotchForHTML5`ImageButtonFragment";
+     this._$superInit$HopscotchForHTML5$ImageButtonFragment = $.$superInit$HopscotchForHTML5$ImageButtonFragment;
+     this.$superInit$HopscotchForHTML5$ImageButtonFragment = dnuCatcher("$superInit$HopscotchForHTML5$ImageButtonFragment");
+     this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this._$createVisual = $.$createVisual;
+     this.$createVisual = dnuCatcher("$createVisual");
+     this.$init$action$ = this._$init$action$ = $.$init$action$;
+     this.$action = this._$action = $.$action;
+     this.$action$ = this._$action$ = $.$action$;
+     this._$init$stateImages$ = $.$init$stateImages$;
+     this.$init$stateImages$ = dnuCatcher("$init$stateImages$");
+     this._$stateImages = $.$stateImages;
+     this.$stateImages = dnuCatcher("$stateImages");
+     this.$enclosingObjects$HopscotchForHTML5$ImageButtonFragment = enclosingObjects;
+     this.$super$HopscotchForHTML5$ImageButtonFragment$slot = runtimeSuperclass;
+     this["HopscotchForHTML5`ImageButtonFragment"] = function () {
+      superBasicNew.call(this);
+      this.$action$slot = nil;
+      this.$stateImages$slot = nil;
+     };
+     this.basicNew = this["HopscotchForHTML5`ImageButtonFragment"];
+     this.basicNew.prototype = this;
+     this.meta = null;
+     this.newspeakClass = null;
+    };
+    constructRuntimeClass.prototype = runtimeSuperclass;
+    return new constructRuntimeClass(runtimeSuperclass.basicNew);
+   };
+   this.meta = new function () {
+    var $ = this;
+    this.debug = "Runtime meta mixin for HopscotchForHTML5`ImageButtonFragment";
+    this.slots = [];
+    this.methods = [new MM("images:", true, 0)];
+    this.nestedClasses = [];
+    this.$images$ = function ($imageArray) {
+     return (new this.nonMeta.basicNew()).$instance$initializer($imageArray);
+    };
+    this.invoke = function (runtimeSuperclass, enclosingObjects) {
+     function constructRuntimeClass (superBasicNew) {
+      this.debug = "Runtime meta class for HopscotchForHTML5`ImageButtonFragment";
+      this.$images$ = this._$images$ = $.$images$;
+      this.$enclosingObjects$HopscotchForHTML5$ImageButtonFragment = enclosingObjects;
+      this.$super$HopscotchForHTML5$ImageButtonFragment = runtimeSuperclass;
+      this.basicNew = function () {
+       superBasicNew.call(this);
+      };
+      this.basicNew.prototype = this;
+      this.nonMeta = null;
+      this.newspeakClass = null;
+     };
+     constructRuntimeClass.prototype = runtimeSuperclass;
+     return new constructRuntimeClass(runtimeSuperclass.basicNew);
+    };
+   }();
+   this.meta.nonMeta = this;
+  }();
   this.$HopscotchForHTML5$LeafFragment = new function () {
    var $ = this;
    var $1 = this;
    this.debug = "Runtime mixin for HopscotchForHTML5`LeafFragment";
    this.name = "HopscotchForHTML5`LeafFragment";
-   this.header = 965;
+   this.header = 1028;
    this.slots = [];
    this.methods = [
-    new MM("superInit`HopscotchForHTML5`LeafFragment", true, 966),
-    new MM("instance`initializer", true, 967)
+    new MM("superInit`HopscotchForHTML5`LeafFragment", true, 1029),
+    new MM("instance`initializer", true, 1030),
+    new MM("childrenDo:", false, 1031)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -18022,12 +20046,17 @@ var mixins = new function () {
     self._$superInit$HopscotchForHTML5$LeafFragment();
     return self;
    };
+   this.$childrenDo$ = function ($aBlock) {
+    var self = this;
+    return self;
+   };
    this.invoke = function (runtimeSuperclass, enclosingObjects) {
     function constructRuntimeClass (superBasicNew) {
      this.debug = "Runtime class for HopscotchForHTML5`LeafFragment";
      this._$superInit$HopscotchForHTML5$LeafFragment = $.$superInit$HopscotchForHTML5$LeafFragment;
      this.$superInit$HopscotchForHTML5$LeafFragment = dnuCatcher("$superInit$HopscotchForHTML5$LeafFragment");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this.$childrenDo$ = this._$childrenDo$ = $.$childrenDo$;
      this.$enclosingObjects$HopscotchForHTML5$LeafFragment = enclosingObjects;
      this.$super$HopscotchForHTML5$LeafFragment$slot = runtimeSuperclass;
      this["HopscotchForHTML5`LeafFragment"] = function () {
@@ -18074,7 +20103,7 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for HopscotchForHTML5`LocalNavigationHistory";
    this.name = "HopscotchForHTML5`LocalNavigationHistory";
-   this.header = 968;
+   this.header = 1032;
    this.slots = [
     new SM("currentVisitSlot", true, false),
     new SM("allVisits", true, false),
@@ -18083,29 +20112,29 @@ var mixins = new function () {
     new SM("transientTestBlock", true, false)
    ];
    this.methods = [
-    new MM("superInit`HopscotchForHTML5`LocalNavigationHistory", true, 969),
-    new MM("instance`initializer", true, 970),
-    new MM("current", false, 971),
-    new MM("do:", false, 972),
-    new MM("equalVisitOr:", false, 973),
-    new MM("erase", false, 974),
-    new MM("eraseEntry:", false, 975),
-    new MM("eraseFuture", false, 976),
-    new MM("erasePast", false, 977),
-    new MM("goBack", false, 978),
-    new MM("goForward", false, 979),
-    new MM("goToFutureItem:", false, 980),
-    new MM("goToPastItem:", false, 981),
-    new MM("includesVisit:", false, 982),
-    new MM("isEmpty", false, 983),
-    new MM("isFutureEmpty", false, 984),
-    new MM("isPastEmpty", false, 985),
-    new MM("isTransient:", false, 986),
-    new MM("next", false, 987),
-    new MM("previous", false, 988),
-    new MM("replace:with:", false, 989),
-    new MM("replaceCurrentWith:", false, 990),
-    new MM("visit:", false, 991),
+    new MM("superInit`HopscotchForHTML5`LocalNavigationHistory", true, 1033),
+    new MM("instance`initializer", true, 1034),
+    new MM("current", false, 1035),
+    new MM("do:", false, 1036),
+    new MM("equalVisitOr:", false, 1037),
+    new MM("erase", false, 1038),
+    new MM("eraseEntry:", false, 1039),
+    new MM("eraseFuture", false, 1040),
+    new MM("erasePast", false, 1041),
+    new MM("goBack", false, 1042),
+    new MM("goForward", false, 1043),
+    new MM("goToFutureItem:", false, 1044),
+    new MM("goToPastItem:", false, 1045),
+    new MM("includesVisit:", false, 1046),
+    new MM("isEmpty", false, 1047),
+    new MM("isFutureEmpty", false, 1048),
+    new MM("isPastEmpty", false, 1049),
+    new MM("isTransient:", false, 1050),
+    new MM("next", false, 1051),
+    new MM("previous", false, 1052),
+    new MM("replace:with:", false, 1053),
+    new MM("replaceCurrentWith:", false, 1054),
+    new MM("visit:", false, 1055),
     new MM("init`currentVisitSlot:", true, 0),
     new MM("currentVisitSlot", true, 0),
     new MM("currentVisitSlot:", true, 0),
@@ -18490,16 +20519,16 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for HopscotchForHTML5`NavigationHistory";
    this.name = "HopscotchForHTML5`NavigationHistory";
-   this.header = 992;
+   this.header = 1056;
    this.slots = [
     new SM("nextId", true, false),
     new SM("ids", false, false)
    ];
    this.methods = [
-    new MM("superInit`HopscotchForHTML5`NavigationHistory", true, 993),
-    new MM("instance`initializer", true, 994),
-    new MM("idFor:", false, 995),
-    new MM("presenterFor:", false, 996),
+    new MM("superInit`HopscotchForHTML5`NavigationHistory", true, 1057),
+    new MM("instance`initializer", true, 1058),
+    new MM("idFor:", false, 1059),
+    new MM("presenterFor:", false, 1060),
     new MM("init`nextId:", true, 0),
     new MM("nextId", true, 0),
     new MM("nextId:", true, 0),
@@ -18617,16 +20646,17 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for HopscotchForHTML5`PaddedFrameComposer";
    this.name = "HopscotchForHTML5`PaddedFrameComposer";
-   this.header = 997;
+   this.header = 1061;
    this.slots = [
     new SM("content", false, false),
     new SM("offsets", false, false),
     new SM("color", true, false)
    ];
    this.methods = [
-    new MM("superInit`HopscotchForHTML5`PaddedFrameComposer", true, 998),
-    new MM("instance`initializer", true, 999),
-    new MM("createVisual", false, 1000),
+    new MM("superInit`HopscotchForHTML5`PaddedFrameComposer", true, 1062),
+    new MM("instance`initializer", true, 1063),
+    new MM("childrenDo:", false, 1064),
+    new MM("createVisual", false, 1065),
     new MM("init`content:", true, 0),
     new MM("content", true, 0),
     new MM("init`offsets:", true, 0),
@@ -18647,6 +20677,11 @@ var mixins = new function () {
     self._$superInit$HopscotchForHTML5$PaddedFrameComposer($c, $o);
     self._$init$content$($c);
     self._$init$offsets$($o);
+    return self;
+   };
+   this.$childrenDo$ = function ($aBlock) {
+    var self = this;
+    self._$content().$ifNotNil$($aBlock);
     return self;
    };
    this.$createVisual = function () {
@@ -18699,6 +20734,7 @@ var mixins = new function () {
      this._$superInit$HopscotchForHTML5$PaddedFrameComposer = $.$superInit$HopscotchForHTML5$PaddedFrameComposer;
      this.$superInit$HopscotchForHTML5$PaddedFrameComposer = dnuCatcher("$superInit$HopscotchForHTML5$PaddedFrameComposer");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this.$childrenDo$ = this._$childrenDo$ = $.$childrenDo$;
      this._$createVisual = $.$createVisual;
      this.$createVisual = dnuCatcher("$createVisual");
      this._$init$content$ = $.$init$content$;
@@ -18761,41 +20797,63 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for HopscotchForHTML5`Presenter";
    this.name = "HopscotchForHTML5`Presenter";
-   this.header = 1001;
-   this.slots = [new SM("subject", true, false)];
+   this.header = 1066;
+   this.slots = [
+    new SM("subject", true, false),
+    new SM("substanceSlot", true, false)
+   ];
    this.methods = [
-    new MM("superInit`HopscotchForHTML5`Presenter", true, 1002),
-    new MM("instance`initializer", true, 1003),
-    new MM("linkImage:action:", false, 1004),
-    new MM("alert:", false, 1005),
-    new MM("blank:", false, 1006),
-    new MM("button:action:", false, 1007),
-    new MM("canvas:", false, 1008),
-    new MM("collapsed:expanded:", false, 1009),
-    new MM("collapsed:expanded:initiallyExpanded:", false, 1010),
-    new MM("column:", false, 1011),
-    new MM("createVisual", false, 1012),
-    new MM("deferred:", false, 1013),
-    new MM("definition", false, 1014),
-    new MM("enterSubject:", false, 1015),
-    new MM("enterSubject:fromSnippet:", false, 1016),
-    new MM("expanded:collapsed:", false, 1017),
-    new MM("filler", false, 1018),
-    new MM("holder:", false, 1019),
-    new MM("image:", false, 1020),
-    new MM("initially:deferred:", false, 1021),
-    new MM("label:", false, 1022),
-    new MM("link:action:", false, 1023),
-    new MM("mediumBlank", false, 1024),
-    new MM("nothing", false, 1025),
-    new MM("padded:with:", false, 1026),
-    new MM("row:", false, 1027),
-    new MM("textDisplay:", false, 1028),
-    new MM("textField:onAccept:", false, 1029),
-    new MM("title", false, 1030),
+    new MM("superInit`HopscotchForHTML5`Presenter", true, 1067),
+    new MM("instance`initializer", true, 1068),
+    new MM("alert:", false, 1069),
+    new MM("blank:", false, 1070),
+    new MM("button:action:", false, 1071),
+    new MM("canvas:", false, 1072),
+    new MM("childrenDo:", false, 1073),
+    new MM("collapsed:expanded:", false, 1074),
+    new MM("collapsed:expanded:initiallyExpanded:", false, 1075),
+    new MM("column:", false, 1076),
+    new MM("createVisual", false, 1077),
+    new MM("deferred:", false, 1078),
+    new MM("definition", false, 1079),
+    new MM("dropDownMenu:", false, 1080),
+    new MM("elastic:", false, 1081),
+    new MM("ensureSubstance", false, 1082),
+    new MM("enterSubject:", false, 1083),
+    new MM("enterSubject:fromSnippet:", false, 1084),
+    new MM("expanded:collapsed:", false, 1085),
+    new MM("filler", false, 1086),
+    new MM("holder:", false, 1087),
+    new MM("image:", false, 1088),
+    new MM("imageButton:action:", false, 1089),
+    new MM("initially:deferred:", false, 1090),
+    new MM("label:", false, 1091),
+    new MM("link:action:", false, 1092),
+    new MM("linkImage:action:", false, 1093),
+    new MM("list", false, 1094),
+    new MM("list:", false, 1095),
+    new MM("mediumBlank", false, 1096),
+    new MM("menuWithLabelsAndActions:", false, 1097),
+    new MM("nothing", false, 1098),
+    new MM("noticeSubstanceCreation", false, 1099),
+    new MM("openMenu:", false, 1100),
+    new MM("openMenuWithLabelsAndActions:", false, 1101),
+    new MM("padded:with:", false, 1102),
+    new MM("row:", false, 1103),
+    new MM("substance", false, 1104),
+    new MM("text:", false, 1105),
+    new MM("textDisplay:", false, 1106),
+    new MM("textField:onAccept:", false, 1107),
+    new MM("textString:", false, 1108),
+    new MM("textString:properties:", false, 1109),
+    new MM("title", false, 1110),
+    new MM("zebra:", false, 1111),
     new MM("init`subject:", true, 0),
     new MM("subject", true, 0),
-    new MM("subject:", true, 0)
+    new MM("subject:", true, 0),
+    new MM("init`substanceSlot:", true, 0),
+    new MM("substanceSlot", true, 0),
+    new MM("substanceSlot:", true, 0)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -18809,10 +20867,6 @@ var mixins = new function () {
     self._$superInit$HopscotchForHTML5$Presenter($aSubject);
     self._$init$subject$($aSubject);
     return self;
-   };
-   this.$linkImage$action$ = function ($image, $block) {
-    var self = this;
-    return self.$enclosingObjects$HopscotchForHTML5$Presenter[0]._$HyperlinkImageFragment().$image$action$($image, $block);
    };
    this.$alert$ = function ($text) {
     var self = this;
@@ -18831,6 +20885,13 @@ var mixins = new function () {
     var self = this;
     return self.$enclosingObjects$HopscotchForHTML5$Presenter[0]._$CanvasFragment().$withExtent$($extent);
    };
+   this.$childrenDo$ = function ($aBlock) {
+    var self = this;
+    self._$substanceSlot().$ifNotNil$(function ($it) {
+     return $aBlock.$value$($it);
+    });
+    return self;
+   };
    this.$collapsed$expanded$ = function ($collapsed, $expanded) {
     var self = this;
     return self._$collapsed$expanded$initiallyExpanded$($collapsed, $expanded, false);
@@ -18845,10 +20906,8 @@ var mixins = new function () {
    };
    this.$createVisual = function () {
     var self = this;
-    var $substance = nil;
-    $substance = self._$definition();
-    $substance.$parent$(self);
-    return $substance.$visual();
+    self._$ensureSubstance();
+    return self._$substanceSlot().$visual();
    };
    this.$deferred$ = function ($contentSource) {
     var self = this;
@@ -18857,6 +20916,24 @@ var mixins = new function () {
    this.$definition = function () {
     var self = this;
     self._$subclassResponsibility();
+    return self;
+   };
+   this.$dropDownMenu$ = function ($menu) {
+    var self = this;
+    return self.$enclosingObjects$HopscotchForHTML5$Presenter[0]._$DropDownMenuFragment().$menu$($menu);
+   };
+   this.$elastic$ = function ($aFragment) {
+    var self = this;
+    $aFragment.$elasticity$(1);
+    return $aFragment;
+   };
+   this.$ensureSubstance = function () {
+    var self = this;
+    self._$substanceSlot().$ifNil$(function () {
+     self._$substanceSlot$(self._$definition());
+     self._$substanceSlot().$parent$(self);
+     return self._$noticeSubstanceCreation();
+    });
     return self;
    };
    this.$enterSubject$ = function ($s) {
@@ -18886,6 +20963,10 @@ var mixins = new function () {
     var self = this;
     return self.$enclosingObjects$HopscotchForHTML5$Presenter[0]._$StaticImageFragment().$image$($image);
    };
+   this.$imageButton$action$ = function ($images, $block) {
+    var self = this;
+    return self.$enclosingObjects$HopscotchForHTML5$Presenter[0]._$ImageButtonFragment().$images$($images).$action$($block);
+   };
    this.$initially$deferred$ = function ($initialContent, $contentSource) {
     var self = this;
     return self.$enclosingObjects$HopscotchForHTML5$Presenter[0]._$DeferredContentComposer().$initialContent$contentSource$($initialContent, $contentSource);
@@ -18898,13 +20979,44 @@ var mixins = new function () {
     var self = this;
     return self.$enclosingObjects$HopscotchForHTML5$Presenter[0]._$HyperlinkFragment().$label$action$($label, $block);
    };
+   this.$linkImage$action$ = function ($image, $block) {
+    var self = this;
+    return self.$enclosingObjects$HopscotchForHTML5$Presenter[0]._$HyperlinkImageFragment().$image$action$($image, $block);
+   };
+   this.$list = function () {
+    var self = this;
+    return self.$enclosingObjects$HopscotchForHTML5$Presenter[0]._$PresenterList().$new();
+   };
+   this.$list$ = function ($presenterSource) {
+    var self = this;
+    return self.$enclosingObjects$HopscotchForHTML5$Presenter[0]._$PresenterList().$new().$presenterSource$($presenterSource);
+   };
    this.$mediumBlank = function () {
     var self = this;
     return self._$blank$(10);
    };
+   this.$menuWithLabelsAndActions$ = function ($labelsAndActions) {
+    var self = this;
+    var $menu = nil;
+    return $labelsAndActions;
+   };
    this.$nothing = function () {
     var self = this;
     return self.$enclosingObjects$HopscotchForHTML5$Presenter[0]._$BlankFragment().$new();
+   };
+   this.$noticeSubstanceCreation = function () {
+    var self = this;
+    return self;
+   };
+   this.$openMenu$ = function ($aMenu) {
+    var self = this;
+    $aMenu.$openIn$(self._$visual().$desktop());
+    return self;
+   };
+   this.$openMenuWithLabelsAndActions$ = function ($labelsAndActions) {
+    var self = this;
+    self._$openMenu$(self._$menuWithLabelsAndActions$($labelsAndActions));
+    return self;
    };
    this.$padded$with$ = function ($definition, $offsets) {
     var self = this;
@@ -18913,6 +21025,24 @@ var mixins = new function () {
    this.$row$ = function ($definitions) {
     var self = this;
     return self.$enclosingObjects$HopscotchForHTML5$Presenter[0]._$RowComposer().$definitions$($definitions);
+   };
+   this.$substance = function () {
+    var self = this;
+    self._$ensureSubstance();
+    return self._$substanceSlot();
+   };
+   this.$text$ = function ($t) {
+    var self = this;
+    var $subfragments = nil;
+    if ($t.$isKindOfTextString()) {
+     return self.$enclosingObjects$HopscotchForHTML5$Presenter[0]._$TextStringFragment().$onText$($t);
+    } else {
+     nil;
+    };
+    $subfragments = $t.$textUnits().$collect$(function ($u) {
+     return self._$text$($u);
+    });
+    return self.$enclosingObjects$HopscotchForHTML5$Presenter[0]._$TextBlockFragment().$onText$subfragments$($t, $subfragments);
    };
    this.$textDisplay$ = function ($string) {
     var self = this;
@@ -18925,9 +21055,22 @@ var mixins = new function () {
      return cascadeReceiver.$acceptResponse$($blk);
     })(self.$enclosingObjects$HopscotchForHTML5$Presenter[0]._$fragments().$TextEditorFragment().$new());
    };
+   this.$textString$ = function ($string) {
+    var self = this;
+    return self.$enclosingObjects$HopscotchForHTML5$Presenter[0]._$TextStringFragment().$forString$($string);
+   };
+   this.$textString$properties$ = function ($string, $tps) {
+    var self = this;
+    return self.$enclosingObjects$HopscotchForHTML5$Presenter[0]._$TextStringFragment().$forString$properties$($string, $tps);
+   };
    this.$title = function () {
     var self = this;
     return self._$subject().$title();
+   };
+   this.$zebra$ = function ($sequence) {
+    var self = this;
+    $sequence.$addDecorator$(self.$enclosingObjects$HopscotchForHTML5$Presenter[0]._$ZebraDecorator().$lighterColorFirst());
+    return $sequence;
    };
    this.$init$subject$ = function (v) {
     this.$subject$slot = v;
@@ -18940,14 +21083,23 @@ var mixins = new function () {
     this.$subject$slot = v;
     return this;
    };
+   this.$init$substanceSlot$ = function (v) {
+    this.$substanceSlot$slot = v;
+    return this;
+   };
+   this.$substanceSlot = function () {
+    return this.$substanceSlot$slot;
+   };
+   this.$substanceSlot$ = function (v) {
+    this.$substanceSlot$slot = v;
+    return this;
+   };
    this.invoke = function (runtimeSuperclass, enclosingObjects) {
     function constructRuntimeClass (superBasicNew) {
      this.debug = "Runtime class for HopscotchForHTML5`Presenter";
      this._$superInit$HopscotchForHTML5$Presenter = $.$superInit$HopscotchForHTML5$Presenter;
      this.$superInit$HopscotchForHTML5$Presenter = dnuCatcher("$superInit$HopscotchForHTML5$Presenter");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
-     this._$linkImage$action$ = $.$linkImage$action$;
-     this.$linkImage$action$ = dnuCatcher("$linkImage$action$");
      this._$alert$ = $.$alert$;
      this.$alert$ = dnuCatcher("$alert$");
      this._$blank$ = $.$blank$;
@@ -18956,6 +21108,7 @@ var mixins = new function () {
      this.$button$action$ = dnuCatcher("$button$action$");
      this._$canvas$ = $.$canvas$;
      this.$canvas$ = dnuCatcher("$canvas$");
+     this.$childrenDo$ = this._$childrenDo$ = $.$childrenDo$;
      this._$collapsed$expanded$ = $.$collapsed$expanded$;
      this.$collapsed$expanded$ = dnuCatcher("$collapsed$expanded$");
      this._$collapsed$expanded$initiallyExpanded$ = $.$collapsed$expanded$initiallyExpanded$;
@@ -18967,6 +21120,12 @@ var mixins = new function () {
      this._$deferred$ = $.$deferred$;
      this.$deferred$ = dnuCatcher("$deferred$");
      this.$definition = this._$definition = $.$definition;
+     this._$dropDownMenu$ = $.$dropDownMenu$;
+     this.$dropDownMenu$ = dnuCatcher("$dropDownMenu$");
+     this._$elastic$ = $.$elastic$;
+     this.$elastic$ = dnuCatcher("$elastic$");
+     this._$ensureSubstance = $.$ensureSubstance;
+     this.$ensureSubstance = dnuCatcher("$ensureSubstance");
      this._$enterSubject$ = $.$enterSubject$;
      this.$enterSubject$ = dnuCatcher("$enterSubject$");
      this._$enterSubject$fromSnippet$ = $.$enterSubject$fromSnippet$;
@@ -18979,36 +21138,69 @@ var mixins = new function () {
      this.$holder$ = dnuCatcher("$holder$");
      this._$image$ = $.$image$;
      this.$image$ = dnuCatcher("$image$");
+     this._$imageButton$action$ = $.$imageButton$action$;
+     this.$imageButton$action$ = dnuCatcher("$imageButton$action$");
      this._$initially$deferred$ = $.$initially$deferred$;
      this.$initially$deferred$ = dnuCatcher("$initially$deferred$");
      this._$label$ = $.$label$;
      this.$label$ = dnuCatcher("$label$");
      this._$link$action$ = $.$link$action$;
      this.$link$action$ = dnuCatcher("$link$action$");
+     this._$linkImage$action$ = $.$linkImage$action$;
+     this.$linkImage$action$ = dnuCatcher("$linkImage$action$");
+     this._$list = $.$list;
+     this.$list = dnuCatcher("$list");
+     this._$list$ = $.$list$;
+     this.$list$ = dnuCatcher("$list$");
      this._$mediumBlank = $.$mediumBlank;
      this.$mediumBlank = dnuCatcher("$mediumBlank");
+     this._$menuWithLabelsAndActions$ = $.$menuWithLabelsAndActions$;
+     this.$menuWithLabelsAndActions$ = dnuCatcher("$menuWithLabelsAndActions$");
      this._$nothing = $.$nothing;
      this.$nothing = dnuCatcher("$nothing");
+     this._$noticeSubstanceCreation = $.$noticeSubstanceCreation;
+     this.$noticeSubstanceCreation = dnuCatcher("$noticeSubstanceCreation");
+     this._$openMenu$ = $.$openMenu$;
+     this.$openMenu$ = dnuCatcher("$openMenu$");
+     this._$openMenuWithLabelsAndActions$ = $.$openMenuWithLabelsAndActions$;
+     this.$openMenuWithLabelsAndActions$ = dnuCatcher("$openMenuWithLabelsAndActions$");
      this._$padded$with$ = $.$padded$with$;
      this.$padded$with$ = dnuCatcher("$padded$with$");
      this._$row$ = $.$row$;
      this.$row$ = dnuCatcher("$row$");
+     this._$substance = $.$substance;
+     this.$substance = dnuCatcher("$substance");
+     this._$text$ = $.$text$;
+     this.$text$ = dnuCatcher("$text$");
      this._$textDisplay$ = $.$textDisplay$;
      this.$textDisplay$ = dnuCatcher("$textDisplay$");
      this._$textField$onAccept$ = $.$textField$onAccept$;
      this.$textField$onAccept$ = dnuCatcher("$textField$onAccept$");
+     this._$textString$ = $.$textString$;
+     this.$textString$ = dnuCatcher("$textString$");
+     this._$textString$properties$ = $.$textString$properties$;
+     this.$textString$properties$ = dnuCatcher("$textString$properties$");
      this.$title = this._$title = $.$title;
+     this._$zebra$ = $.$zebra$;
+     this.$zebra$ = dnuCatcher("$zebra$");
      this._$init$subject$ = $.$init$subject$;
      this.$init$subject$ = dnuCatcher("$init$subject$");
      this._$subject = $.$subject;
      this.$subject = dnuCatcher("$subject");
      this._$subject$ = $.$subject$;
      this.$subject$ = dnuCatcher("$subject$");
+     this._$init$substanceSlot$ = $.$init$substanceSlot$;
+     this.$init$substanceSlot$ = dnuCatcher("$init$substanceSlot$");
+     this._$substanceSlot = $.$substanceSlot;
+     this.$substanceSlot = dnuCatcher("$substanceSlot");
+     this._$substanceSlot$ = $.$substanceSlot$;
+     this.$substanceSlot$ = dnuCatcher("$substanceSlot$");
      this.$enclosingObjects$HopscotchForHTML5$Presenter = enclosingObjects;
      this.$super$HopscotchForHTML5$Presenter$slot = runtimeSuperclass;
      this["HopscotchForHTML5`Presenter"] = function () {
       superBasicNew.call(this);
       this.$subject$slot = nil;
+      this.$substanceSlot$slot = nil;
      };
      this.basicNew = this["HopscotchForHTML5`Presenter"];
      this.basicNew.prototype = this;
@@ -19046,28 +21238,404 @@ var mixins = new function () {
    }();
    this.meta.nonMeta = this;
   }();
+  this.$HopscotchForHTML5$PresenterList = new function () {
+   var $ = this;
+   var $1 = this;
+   this.debug = "Runtime mixin for HopscotchForHTML5`PresenterList";
+   this.name = "HopscotchForHTML5`PresenterList";
+   this.header = 1112;
+   this.slots = [
+    new SM("presenterSourceX", true, false),
+    new SM("presentersX", true, false)
+   ];
+   this.methods = [
+    new MM("superInit`HopscotchForHTML5`PresenterList", true, 1113),
+    new MM("instance`initializer", true, 1114),
+    new MM("add:", false, 1115),
+    new MM("add:afterIndex:", false, 1116),
+    new MM("addAll:", false, 1117),
+    new MM("addFirst:", false, 1118),
+    new MM("childrenDo:", false, 1119),
+    new MM("color:", false, 1120),
+    new MM("createVisual", false, 1121),
+    new MM("detectPresenter:", false, 1122),
+    new MM("detectPresenter:ifNone:", false, 1123),
+    new MM("findFirst:", false, 1124),
+    new MM("findLast:", false, 1125),
+    new MM("presenterSource:", false, 1126),
+    new MM("presenters", false, 1127),
+    new MM("presenters:", false, 1128),
+    new MM("refresh", false, 1129),
+    new MM("refreshPresenterList", false, 1130),
+    new MM("refreshPresenters", false, 1131),
+    new MM("remove:", false, 1132),
+    new MM("removeAt:", false, 1133),
+    new MM("replaceChild:with:", false, 1134),
+    new MM("setPresenters:", false, 1135),
+    new MM("updateColumn", false, 1136),
+    new MM("updateColumn:removingIndices:addingPresenters:", false, 1137),
+    new MM("init`presenterSourceX:", true, 0),
+    new MM("presenterSourceX", true, 0),
+    new MM("presenterSourceX:", true, 0),
+    new MM("init`presentersX:", true, 0),
+    new MM("presentersX", true, 0),
+    new MM("presentersX:", true, 0)
+   ];
+   this.nestedClasses = [];
+   this.applications = [];
+   this.$superInit$HopscotchForHTML5$PresenterList = function () {
+    var self = this;
+    self.$super$HopscotchForHTML5$PresenterList$slot._$instance$initializer.call(self);
+    return self;
+   };
+   this.$instance$initializer = function () {
+    var self = this;
+    self._$superInit$HopscotchForHTML5$PresenterList();
+    self._$init$presenterSourceX$($0.$List(self.$enclosingObjects$HopscotchForHTML5$PresenterList[0]).$new());
+    return self;
+   };
+   this.$add$ = function ($aPresenter) {
+    var self = this;
+    if (self._$presenters().$includes$($aPresenter)) {
+     self._$presenters().$remove$($aPresenter);
+    } else {
+     nil;
+    };
+    self._$presenters$(self._$presenters().$copyWith$($aPresenter));
+    return self;
+   };
+   this.$add$afterIndex$ = function ($aPresenter, $index) {
+    var self = this;
+    var $newList = nil;
+    $newList = self._$presenters().$copy();
+    $newList.$add$afterIndex$($aPresenter, $index);
+    self._$presenters$($newList);
+    return self;
+   };
+   this.$addAll$ = function ($additionalPresenters) {
+    var self = this;
+    self._$presenters$(self._$presenters().$$comma($additionalPresenters));
+    return self;
+   };
+   this.$addFirst$ = function ($aPresenter) {
+    var self = this;
+    if (self._$presenters().$includes$($aPresenter)) {
+     self._$presenters().$remove$($aPresenter);
+    } else {
+     nil;
+    };
+    self._$presenters$([$aPresenter].$$comma(self._$presenters()));
+    return self;
+   };
+   this.$childrenDo$ = function ($aBlock) {
+    var self = this;
+    self._$presentersX().$ifNotNil$(function ($they) {
+     return $they.$do$($aBlock);
+    });
+    return self;
+   };
+   this.$color$ = function ($aColor) {
+    var self = this;
+    self._$addDecorator$(self.$enclosingObjects$HopscotchForHTML5$PresenterList[0]._$ColorDecorator().$new().$color$($aColor));
+    return self;
+   };
+   this.$createVisual = function () {
+    var self = this;
+    var $column = nil;
+    $column = self.$enclosingObjects$HopscotchForHTML5$PresenterList[0]._$ColumnComposer().$definitions$(self._$presenters());
+    $column.$parent$(self);
+    return $column.$visual();
+   };
+   this.$detectPresenter$ = function ($aBlock) {
+    var self = this;
+    return self._$presentersX().$detect$($aBlock);
+   };
+   this.$detectPresenter$ifNone$ = function ($aBlock, $noneBlock) {
+    var self = this;
+    return self._$presentersX().$detect$ifNone$($aBlock, $noneBlock);
+   };
+   this.$findFirst$ = function ($aBlock) {
+    var self = this;
+    return self._$presentersX().$findFirst$($aBlock);
+   };
+   this.$findLast$ = function ($aBlock) {
+    var self = this;
+    return self._$presentersX().$findLast$($aBlock);
+   };
+   this.$presenterSource$ = function ($niladicValuable) {
+    var self = this;
+    self._$presenterSourceX$($niladicValuable);
+    self._$presentersX().$ifNotNil$(function () {
+     return self._$refreshPresenterList();
+    });
+    return self;
+   };
+   this.$presenters = function () {
+    var self = this;
+    if (self._$presentersX() === nil) {
+     self._$setPresenters$(self._$presenterSourceX().$value());
+    } else {
+     nil;
+    };
+    return self._$presentersX();
+   };
+   this.$presenters$ = function ($newPresenterList) {
+    var self = this;
+    self._$presenterSource$($newPresenterList);
+    return self;
+   };
+   this.$refresh = function () {
+    var self = this;
+    var $newPresenters = nil;
+    $newPresenters = self._$refreshPresenterList().$asSet();
+    self._$presenters().$do$(function ($each) {
+     return $newPresenters.$includes$($each).$ifFalse$(function () {
+      return $each.$refresh();
+     });
+    });
+    return self;
+   };
+   this.$refreshPresenterList = function () {
+    var self = this;
+    return self._$setPresenters$(self._$presenterSourceX().$value());
+   };
+   this.$refreshPresenters = function () {
+    var self = this;
+    self._$presenters().$do$(function ($each) {
+     return $each.$refresh();
+    });
+    return self;
+   };
+   this.$remove$ = function ($aPresenter) {
+    var self = this;
+    self._$presenters$(self._$presenters().$copyWithout$($aPresenter));
+    return self;
+   };
+   this.$removeAt$ = function ($index) {
+    var self = this;
+    var $copy = nil;
+    $copy = self._$presenters().$copy();
+    $copy.$removeAt$($index);
+    self._$presenters$($copy);
+    return self;
+   };
+   this.$replaceChild$with$ = function ($aFragment, $anotherFragment) {
+    var self = this;
+    var $index = nil;
+    var $newPresenters = nil;
+    if (self._$presentersX().$includes$($aFragment)) {
+     $index = self._$presenters().$indexOf$($aFragment);
+     $newPresenters = self._$presenters().$copy();
+     $newPresenters.$at$put$($index, $anotherFragment);
+     return self._$presenters$($newPresenters);
+    } else {
+     nil;
+    };
+    self._$error$("the fragment is not a child");
+    return self;
+   };
+   this.$setPresenters$ = function ($newPresenterList) {
+    var self = this;
+    var $currentPresenters = nil;
+    var $oldPresentersAndIndices = nil;
+    var $removedPresenters = nil;
+    var $removedIndices = nil;
+    var $addedPresenters = nil;
+    var $newFinalList = nil;
+    $currentPresenters = self._$presentersX().$ifNil$(function () {
+     return $0.$List(self.$enclosingObjects$HopscotchForHTML5$PresenterList[0]).$new();
+    });
+    $oldPresentersAndIndices = $0.$Map(self.$enclosingObjects$HopscotchForHTML5$PresenterList[0]).$new$($currentPresenters.$size());
+    $currentPresenters.$keysAndValuesDo$(function ($index, $each) {
+     return $oldPresentersAndIndices.$at$put$($each, $index);
+    });
+    $addedPresenters = $0.$List(self.$enclosingObjects$HopscotchForHTML5$PresenterList[0]).$new$($newPresenterList.$size());
+    $newFinalList = $0.$List(self.$enclosingObjects$HopscotchForHTML5$PresenterList[0]).$new$($newPresenterList.$size());
+    $newPresenterList.$do$(function ($each) {
+     var $oldIndex = nil;
+     $oldIndex = $oldPresentersAndIndices.$at$ifAbsent$($each, function () {
+      return nil;
+     });
+     return $oldIndex.$notNil().$ifTrue$ifFalse$(function () {
+      $newFinalList.$add$(self._$presenters().$at$($oldIndex));
+      return $oldPresentersAndIndices.$removeKey$($each);
+     }, function () {
+      $newFinalList.$add$($each);
+      return $addedPresenters.$add$($each);
+     });
+    });
+    $removedPresenters = $oldPresentersAndIndices.$keys();
+    $removedIndices = (1).$to$($currentPresenters.$size()).$select$(function ($index) {
+     return $removedPresenters.$includes$($currentPresenters.$at$($index));
+    });
+    self._$presentersX$($newFinalList);
+    $addedPresenters.$do$(function ($each) {
+     return $each.$parent$(self);
+    });
+    if (self._$hasVisual()) {
+     self._$updateColumn();
+    } else {
+     nil;
+    };
+    return $addedPresenters;
+   };
+   this.$updateColumn = function () {
+    var self = this;
+    var $newVisual = nil;
+    $newVisual = self._$createVisual();
+    self._$visual().$at$("parentElement").$replaceChild$with$($newVisual, self._$visual());
+    self._$visualX$($newVisual);
+    return self;
+   };
+   this.$updateColumn$removingIndices$addingPresenters$ = function ($column, $indices, $newPresenters) {
+    var self = this;
+    $indices.$asSortedList().$reverseDo$(function ($each) {
+     return $column.$removeAt$($each);
+    });
+    $newPresenters.$do$(function ($each) {
+     return $column.$add$($each.$visual());
+    });
+    $column.$reorder$(self._$presenters().$collect$(function ($each) {
+     return $each.$visual();
+    }));
+    return self;
+   };
+   this.$init$presenterSourceX$ = function (v) {
+    this.$presenterSourceX$slot = v;
+    return this;
+   };
+   this.$presenterSourceX = function () {
+    return this.$presenterSourceX$slot;
+   };
+   this.$presenterSourceX$ = function (v) {
+    this.$presenterSourceX$slot = v;
+    return this;
+   };
+   this.$init$presentersX$ = function (v) {
+    this.$presentersX$slot = v;
+    return this;
+   };
+   this.$presentersX = function () {
+    return this.$presentersX$slot;
+   };
+   this.$presentersX$ = function (v) {
+    this.$presentersX$slot = v;
+    return this;
+   };
+   this.invoke = function (runtimeSuperclass, enclosingObjects) {
+    function constructRuntimeClass (superBasicNew) {
+     this.debug = "Runtime class for HopscotchForHTML5`PresenterList";
+     this._$superInit$HopscotchForHTML5$PresenterList = $.$superInit$HopscotchForHTML5$PresenterList;
+     this.$superInit$HopscotchForHTML5$PresenterList = dnuCatcher("$superInit$HopscotchForHTML5$PresenterList");
+     this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this.$add$ = this._$add$ = $.$add$;
+     this.$add$afterIndex$ = this._$add$afterIndex$ = $.$add$afterIndex$;
+     this.$addAll$ = this._$addAll$ = $.$addAll$;
+     this.$addFirst$ = this._$addFirst$ = $.$addFirst$;
+     this.$childrenDo$ = this._$childrenDo$ = $.$childrenDo$;
+     this.$color$ = this._$color$ = $.$color$;
+     this._$createVisual = $.$createVisual;
+     this.$createVisual = dnuCatcher("$createVisual");
+     this.$detectPresenter$ = this._$detectPresenter$ = $.$detectPresenter$;
+     this.$detectPresenter$ifNone$ = this._$detectPresenter$ifNone$ = $.$detectPresenter$ifNone$;
+     this._$findFirst$ = $.$findFirst$;
+     this.$findFirst$ = dnuCatcher("$findFirst$");
+     this._$findLast$ = $.$findLast$;
+     this.$findLast$ = dnuCatcher("$findLast$");
+     this.$presenterSource$ = this._$presenterSource$ = $.$presenterSource$;
+     this.$presenters = this._$presenters = $.$presenters;
+     this.$presenters$ = this._$presenters$ = $.$presenters$;
+     this.$refresh = this._$refresh = $.$refresh;
+     this._$refreshPresenterList = $.$refreshPresenterList;
+     this.$refreshPresenterList = dnuCatcher("$refreshPresenterList");
+     this._$refreshPresenters = $.$refreshPresenters;
+     this.$refreshPresenters = dnuCatcher("$refreshPresenters");
+     this.$remove$ = this._$remove$ = $.$remove$;
+     this.$removeAt$ = this._$removeAt$ = $.$removeAt$;
+     this._$replaceChild$with$ = $.$replaceChild$with$;
+     this.$replaceChild$with$ = dnuCatcher("$replaceChild$with$");
+     this.$setPresenters$ = this._$setPresenters$ = $.$setPresenters$;
+     this._$updateColumn = $.$updateColumn;
+     this.$updateColumn = dnuCatcher("$updateColumn");
+     this._$updateColumn$removingIndices$addingPresenters$ = $.$updateColumn$removingIndices$addingPresenters$;
+     this.$updateColumn$removingIndices$addingPresenters$ = dnuCatcher("$updateColumn$removingIndices$addingPresenters$");
+     this._$init$presenterSourceX$ = $.$init$presenterSourceX$;
+     this.$init$presenterSourceX$ = dnuCatcher("$init$presenterSourceX$");
+     this._$presenterSourceX = $.$presenterSourceX;
+     this.$presenterSourceX = dnuCatcher("$presenterSourceX");
+     this._$presenterSourceX$ = $.$presenterSourceX$;
+     this.$presenterSourceX$ = dnuCatcher("$presenterSourceX$");
+     this._$init$presentersX$ = $.$init$presentersX$;
+     this.$init$presentersX$ = dnuCatcher("$init$presentersX$");
+     this._$presentersX = $.$presentersX;
+     this.$presentersX = dnuCatcher("$presentersX");
+     this._$presentersX$ = $.$presentersX$;
+     this.$presentersX$ = dnuCatcher("$presentersX$");
+     this.$enclosingObjects$HopscotchForHTML5$PresenterList = enclosingObjects;
+     this.$super$HopscotchForHTML5$PresenterList$slot = runtimeSuperclass;
+     this["HopscotchForHTML5`PresenterList"] = function () {
+      superBasicNew.call(this);
+      this.$presenterSourceX$slot = nil;
+      this.$presentersX$slot = nil;
+     };
+     this.basicNew = this["HopscotchForHTML5`PresenterList"];
+     this.basicNew.prototype = this;
+     this.meta = null;
+     this.newspeakClass = null;
+    };
+    constructRuntimeClass.prototype = runtimeSuperclass;
+    return new constructRuntimeClass(runtimeSuperclass.basicNew);
+   };
+   this.meta = new function () {
+    var $ = this;
+    this.debug = "Runtime meta mixin for HopscotchForHTML5`PresenterList";
+    this.slots = [];
+    this.methods = [new MM("new", true, 0)];
+    this.nestedClasses = [];
+    this.$new = function () {
+     return (new this.nonMeta.basicNew()).$instance$initializer();
+    };
+    this.invoke = function (runtimeSuperclass, enclosingObjects) {
+     function constructRuntimeClass (superBasicNew) {
+      this.debug = "Runtime meta class for HopscotchForHTML5`PresenterList";
+      this.$new = this._$new = $.$new;
+      this.$enclosingObjects$HopscotchForHTML5$PresenterList = enclosingObjects;
+      this.$super$HopscotchForHTML5$PresenterList = runtimeSuperclass;
+      this.basicNew = function () {
+       superBasicNew.call(this);
+      };
+      this.basicNew.prototype = this;
+      this.nonMeta = null;
+      this.newspeakClass = null;
+     };
+     constructRuntimeClass.prototype = runtimeSuperclass;
+     return new constructRuntimeClass(runtimeSuperclass.basicNew);
+    };
+   }();
+   this.meta.nonMeta = this;
+  }();
   this.$HopscotchForHTML5$RowComposer = new function () {
    var $ = this;
    var $1 = this;
    this.debug = "Runtime mixin for HopscotchForHTML5`RowComposer";
    this.name = "HopscotchForHTML5`RowComposer";
-   this.header = 1031;
+   this.header = 1138;
    this.slots = [];
    this.methods = [
-    new MM("superInit`HopscotchForHTML5`RowComposer", true, 1032),
-    new MM("instance`initializer", true, 1033),
-    new MM("flexDirection", false, 1034)
+    new MM("superInit`HopscotchForHTML5`RowComposer", true, 1139),
+    new MM("instance`initializer", true, 1140),
+    new MM("flexDirection", false, 1141)
    ];
    this.nestedClasses = [];
    this.applications = [];
-   this.$superInit$HopscotchForHTML5$RowComposer = function ($fragments) {
+   this.$superInit$HopscotchForHTML5$RowComposer = function ($fs) {
     var self = this;
-    self.$super$HopscotchForHTML5$RowComposer$slot._$instance$initializer.call(self, $fragments);
+    self.$super$HopscotchForHTML5$RowComposer$slot._$instance$initializer.call(self, $fs);
     return self;
    };
-   this.$instance$initializer = function ($fragments) {
+   this.$instance$initializer = function ($fs) {
     var self = this;
-    self._$superInit$HopscotchForHTML5$RowComposer($fragments);
+    self._$superInit$HopscotchForHTML5$RowComposer($fs);
     return self;
    };
    this.$flexDirection = function () {
@@ -19101,8 +21669,8 @@ var mixins = new function () {
     this.slots = [];
     this.methods = [new MM("definitions:", true, 0)];
     this.nestedClasses = [];
-    this.$definitions$ = function ($fragments) {
-     return (new this.nonMeta.basicNew()).$instance$initializer($fragments);
+    this.$definitions$ = function ($fs) {
+     return (new this.nonMeta.basicNew()).$instance$initializer($fs);
     };
     this.invoke = function (runtimeSuperclass, enclosingObjects) {
      function constructRuntimeClass (superBasicNew) {
@@ -19128,15 +21696,16 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for HopscotchForHTML5`SequenceComposer";
    this.name = "HopscotchForHTML5`SequenceComposer";
-   this.header = 1035;
+   this.header = 1142;
    this.slots = [
     new SM("definitions", false, false),
     new SM("color", true, false)
    ];
    this.methods = [
-    new MM("superInit`HopscotchForHTML5`SequenceComposer", true, 1036),
-    new MM("instance`initializer", true, 1037),
-    new MM("createVisual", false, 1038),
+    new MM("superInit`HopscotchForHTML5`SequenceComposer", true, 1143),
+    new MM("instance`initializer", true, 1144),
+    new MM("childrenDo:", false, 1145),
+    new MM("createVisual", false, 1146),
     new MM("init`definitions:", true, 0),
     new MM("definitions", true, 0),
     new MM("init`color:", true, 0),
@@ -19145,15 +21714,20 @@ var mixins = new function () {
    ];
    this.nestedClasses = [];
    this.applications = [];
-   this.$superInit$HopscotchForHTML5$SequenceComposer = function ($fragments) {
+   this.$superInit$HopscotchForHTML5$SequenceComposer = function ($fs) {
     var self = this;
     self.$super$HopscotchForHTML5$SequenceComposer$slot._$instance$initializer.call(self);
     return self;
    };
-   this.$instance$initializer = function ($fragments) {
+   this.$instance$initializer = function ($fs) {
     var self = this;
-    self._$superInit$HopscotchForHTML5$SequenceComposer($fragments);
-    self._$init$definitions$($fragments);
+    self._$superInit$HopscotchForHTML5$SequenceComposer($fs);
+    self._$init$definitions$($fs);
+    return self;
+   };
+   this.$childrenDo$ = function ($aBlock) {
+    var self = this;
+    self._$definitions().$do$($aBlock);
     return self;
    };
    this.$createVisual = function () {
@@ -19219,6 +21793,7 @@ var mixins = new function () {
      this._$superInit$HopscotchForHTML5$SequenceComposer = $.$superInit$HopscotchForHTML5$SequenceComposer;
      this.$superInit$HopscotchForHTML5$SequenceComposer = dnuCatcher("$superInit$HopscotchForHTML5$SequenceComposer");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this.$childrenDo$ = this._$childrenDo$ = $.$childrenDo$;
      this._$createVisual = $.$createVisual;
      this.$createVisual = dnuCatcher("$createVisual");
      this._$init$definitions$ = $.$init$definitions$;
@@ -19249,8 +21824,8 @@ var mixins = new function () {
     this.slots = [];
     this.methods = [new MM("definitions:", true, 0)];
     this.nestedClasses = [];
-    this.$definitions$ = function ($fragments) {
-     return (new this.nonMeta.basicNew()).$instance$initializer($fragments);
+    this.$definitions$ = function ($fs) {
+     return (new this.nonMeta.basicNew()).$instance$initializer($fs);
     };
     this.invoke = function (runtimeSuperclass, enclosingObjects) {
      function constructRuntimeClass (superBasicNew) {
@@ -19276,12 +21851,12 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for HopscotchForHTML5`StaticImageFragment";
    this.name = "HopscotchForHTML5`StaticImageFragment";
-   this.header = 1039;
+   this.header = 1147;
    this.slots = [new SM("image", false, false)];
    this.methods = [
-    new MM("superInit`HopscotchForHTML5`StaticImageFragment", true, 1040),
-    new MM("instance`initializer", true, 1041),
-    new MM("createVisual", false, 1042),
+    new MM("superInit`HopscotchForHTML5`StaticImageFragment", true, 1148),
+    new MM("instance`initializer", true, 1149),
+    new MM("createVisual", false, 1150),
     new MM("init`image:", true, 0),
     new MM("image", true, 0)
    ];
@@ -19368,15 +21943,16 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for HopscotchForHTML5`StaticLabelFragment";
    this.name = "HopscotchForHTML5`StaticLabelFragment";
-   this.header = 1043;
+   this.header = 1151;
    this.slots = [
     new SM("text", false, false),
     new SM("color", true, false)
    ];
    this.methods = [
-    new MM("superInit`HopscotchForHTML5`StaticLabelFragment", true, 1044),
-    new MM("instance`initializer", true, 1045),
-    new MM("createVisual", false, 1046),
+    new MM("superInit`HopscotchForHTML5`StaticLabelFragment", true, 1152),
+    new MM("instance`initializer", true, 1153),
+    new MM("createVisual", false, 1154),
+    new MM("smallFont", false, 1155),
     new MM("init`text:", true, 0),
     new MM("text", true, 0),
     new MM("init`color:", true, 0),
@@ -19412,6 +21988,11 @@ var mixins = new function () {
     };
     return $div;
    };
+   this.$smallFont = function () {
+    var self = this;
+    self._$visual().$at$("style").$at$put$("font-size", "smaller");
+    return self;
+   };
    this.$init$text$ = function (v) {
     this.$text$slot = v;
     return this;
@@ -19438,6 +22019,7 @@ var mixins = new function () {
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
      this._$createVisual = $.$createVisual;
      this.$createVisual = dnuCatcher("$createVisual");
+     this.$smallFont = this._$smallFont = $.$smallFont;
      this._$init$text$ = $.$init$text$;
      this.$init$text$ = dnuCatcher("$init$text$");
      this._$text = $.$text;
@@ -19493,17 +22075,17 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for HopscotchForHTML5`Subject";
    this.name = "HopscotchForHTML5`Subject";
-   this.header = 1047;
+   this.header = 1156;
    this.slots = [
     new SM("model", true, false),
     new SM("presenterX", true, false)
    ];
    this.methods = [
-    new MM("superInit`HopscotchForHTML5`Subject", true, 1048),
-    new MM("instance`initializer", true, 1049),
-    new MM("createPresenter", false, 1050),
-    new MM("presenter", false, 1051),
-    new MM("title", false, 1052),
+    new MM("superInit`HopscotchForHTML5`Subject", true, 1157),
+    new MM("instance`initializer", true, 1158),
+    new MM("createPresenter", false, 1159),
+    new MM("presenter", false, 1160),
+    new MM("title", false, 1161),
     new MM("init`model:", true, 0),
     new MM("model", true, 0),
     new MM("model:", true, 0),
@@ -19628,19 +22210,207 @@ var mixins = new function () {
    }();
    this.meta.nonMeta = this;
   }();
+  this.$HopscotchForHTML5$TextBlockFragment = new function () {
+   var $ = this;
+   var $1 = this;
+   this.debug = "Runtime mixin for HopscotchForHTML5`TextBlockFragment";
+   this.name = "HopscotchForHTML5`TextBlockFragment";
+   this.header = 1162;
+   this.slots = [new SM("subfragments", false, false)];
+   this.methods = [
+    new MM("superInit`HopscotchForHTML5`TextBlockFragment", true, 1163),
+    new MM("instance`initializer", true, 1164),
+    new MM("createVisual", false, 1165),
+    new MM("cursorPosition", false, 1166),
+    new MM("cursorPosition:", false, 1167),
+    new MM("isKindOfTextBlockFragment", false, 1168),
+    new MM("init`subfragments:", true, 0),
+    new MM("subfragments", true, 0)
+   ];
+   this.nestedClasses = [];
+   this.applications = [];
+   this.$superInit$HopscotchForHTML5$TextBlockFragment = function ($t, $sfs) {
+    var self = this;
+    self.$super$HopscotchForHTML5$TextBlockFragment$slot._$instance$initializer.call(self, $t);
+    return self;
+   };
+   this.$instance$initializer = function ($t, $sfs) {
+    var self = this;
+    self._$superInit$HopscotchForHTML5$TextBlockFragment($t, $sfs);
+    self._$init$subfragments$($sfs);
+    return self;
+   };
+   this.$createVisual = function () {
+    var self = this;
+    var $span = nil;
+    $span = $0.$document(self.$enclosingObjects$HopscotchForHTML5$TextBlockFragment[0]).$createElement$("span");
+    self._$text().$textProperties().$applyTo$($span);
+    self._$subfragments().$do$(function ($u) {
+     return $span.$insertAdjacentElement$into$("beforeEnd", $u.$visual());
+    });
+    return $span;
+   };
+   this.$cursorPosition = function () {
+    var self = this;
+    var NLR = new Object();
+    try {
+     var $ca = nil;
+     var $sel = nil;
+     var $focusNode = nil;
+     var $sum = nil;
+     $sel = $0.$window(self.$enclosingObjects$HopscotchForHTML5$TextBlockFragment[0]).$getSelection();
+     $sum = 0;
+     if (!$sel.$isNil()) {
+      $focusNode = $sel.$at$("focusNode");
+      $ca = $sel.$getRangeAt$(0).$at$("commonAncestorContainer");
+      self._$subfragments().$do$(function ($sf) {
+       if ($sf.$visual().$at$("firstChild").$$equal($focusNode)) {
+        {
+         var t = $sum + $sf.$cursorPosition();
+         if (NLR === null) {
+          self.cannotReturn(self, t);
+         };
+         NLR.value = t;
+         throw NLR;
+        };
+       } else {
+        nil;
+       };
+       return $sum = $sum + $sf.$visual().$at$("textContent").$size();
+      });
+     } else {
+      nil;
+     };
+     {
+      var t = nil;
+      NLR = null;
+      return t;
+     };
+    } catch (NLR_exception) {
+     if (NLR === NLR_exception) {
+      return NLR_exception.value;
+     } else {
+      throw NLR_exception;
+     };
+    };
+   };
+   this.$cursorPosition$ = function ($position) {
+    var self = this;
+    var NLR = new Object();
+    try {
+     var $sum = nil;
+     $sum = 0;
+     self._$subfragments().$do$(function ($subfragment) {
+      var $index = nil;
+      $index = $position - $sum;
+      $sum = $sum + $subfragment.$visual().$at$("textContent").$size();
+      return $position.$$less$equal($sum).$ifTrue$(function () {
+       $subfragment.$cursorPosition$($index);
+       {
+        var t = self;
+        if (NLR === null) {
+         self.cannotReturn(self, t);
+        };
+        NLR.value = t;
+        throw NLR;
+       };
+      });
+     });
+     {
+      var t = self;
+      NLR = null;
+      return t;
+     };
+    } catch (NLR_exception) {
+     if (NLR === NLR_exception) {
+      return NLR_exception.value;
+     } else {
+      throw NLR_exception;
+     };
+    };
+   };
+   this.$isKindOfTextBlockFragment = function () {
+    var self = this;
+    return true;
+   };
+   this.$init$subfragments$ = function (v) {
+    this.$subfragments$slot = v;
+    return this;
+   };
+   this.$subfragments = function () {
+    return this.$subfragments$slot;
+   };
+   this.invoke = function (runtimeSuperclass, enclosingObjects) {
+    function constructRuntimeClass (superBasicNew) {
+     this.debug = "Runtime class for HopscotchForHTML5`TextBlockFragment";
+     this._$superInit$HopscotchForHTML5$TextBlockFragment = $.$superInit$HopscotchForHTML5$TextBlockFragment;
+     this.$superInit$HopscotchForHTML5$TextBlockFragment = dnuCatcher("$superInit$HopscotchForHTML5$TextBlockFragment");
+     this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this._$createVisual = $.$createVisual;
+     this.$createVisual = dnuCatcher("$createVisual");
+     this.$cursorPosition = this._$cursorPosition = $.$cursorPosition;
+     this.$cursorPosition$ = this._$cursorPosition$ = $.$cursorPosition$;
+     this.$isKindOfTextBlockFragment = this._$isKindOfTextBlockFragment = $.$isKindOfTextBlockFragment;
+     this._$init$subfragments$ = $.$init$subfragments$;
+     this.$init$subfragments$ = dnuCatcher("$init$subfragments$");
+     this._$subfragments = $.$subfragments;
+     this.$subfragments = dnuCatcher("$subfragments");
+     this.$enclosingObjects$HopscotchForHTML5$TextBlockFragment = enclosingObjects;
+     this.$super$HopscotchForHTML5$TextBlockFragment$slot = runtimeSuperclass;
+     this["HopscotchForHTML5`TextBlockFragment"] = function () {
+      superBasicNew.call(this);
+      this.$subfragments$slot = nil;
+     };
+     this.basicNew = this["HopscotchForHTML5`TextBlockFragment"];
+     this.basicNew.prototype = this;
+     this.meta = null;
+     this.newspeakClass = null;
+    };
+    constructRuntimeClass.prototype = runtimeSuperclass;
+    return new constructRuntimeClass(runtimeSuperclass.basicNew);
+   };
+   this.meta = new function () {
+    var $ = this;
+    this.debug = "Runtime meta mixin for HopscotchForHTML5`TextBlockFragment";
+    this.slots = [];
+    this.methods = [new MM("onText:subfragments:", true, 0)];
+    this.nestedClasses = [];
+    this.$onText$subfragments$ = function ($t, $sfs) {
+     return (new this.nonMeta.basicNew()).$instance$initializer($t, $sfs);
+    };
+    this.invoke = function (runtimeSuperclass, enclosingObjects) {
+     function constructRuntimeClass (superBasicNew) {
+      this.debug = "Runtime meta class for HopscotchForHTML5`TextBlockFragment";
+      this.$onText$subfragments$ = this._$onText$subfragments$ = $.$onText$subfragments$;
+      this.$enclosingObjects$HopscotchForHTML5$TextBlockFragment = enclosingObjects;
+      this.$super$HopscotchForHTML5$TextBlockFragment = runtimeSuperclass;
+      this.basicNew = function () {
+       superBasicNew.call(this);
+      };
+      this.basicNew.prototype = this;
+      this.nonMeta = null;
+      this.newspeakClass = null;
+     };
+     constructRuntimeClass.prototype = runtimeSuperclass;
+     return new constructRuntimeClass(runtimeSuperclass.basicNew);
+    };
+   }();
+   this.meta.nonMeta = this;
+  }();
   this.$HopscotchForHTML5$TextDisplayFragment = new function () {
    var $ = this;
    var $1 = this;
    this.debug = "Runtime mixin for HopscotchForHTML5`TextDisplayFragment";
    this.name = "HopscotchForHTML5`TextDisplayFragment";
-   this.header = 1053;
+   this.header = 1169;
    this.slots = [new SM("textX", true, false)];
    this.methods = [
-    new MM("superInit`HopscotchForHTML5`TextDisplayFragment", true, 1054),
-    new MM("instance`initializer", true, 1055),
-    new MM("createVisual", false, 1056),
-    new MM("text", false, 1057),
-    new MM("text:", false, 1058),
+    new MM("superInit`HopscotchForHTML5`TextDisplayFragment", true, 1170),
+    new MM("instance`initializer", true, 1171),
+    new MM("createVisual", false, 1172),
+    new MM("smallFont", false, 1173),
+    new MM("text", false, 1174),
+    new MM("text:", false, 1175),
     new MM("init`textX:", true, 0),
     new MM("textX", true, 0),
     new MM("textX:", true, 0)
@@ -19665,6 +22435,11 @@ var mixins = new function () {
     $div.$at$("style").$setProperty$to$("white-space", "pre-wrap");
     $div.$at$put$("textContent", self._$textX());
     return $div;
+   };
+   this.$smallFont = function () {
+    var self = this;
+    self._$visual().$at$("style").$at$put$("font-size", "smaller");
+    return self;
    };
    this.$text = function () {
     var self = this;
@@ -19699,6 +22474,7 @@ var mixins = new function () {
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
      this._$createVisual = $.$createVisual;
      this.$createVisual = dnuCatcher("$createVisual");
+     this.$smallFont = this._$smallFont = $.$smallFont;
      this.$text = this._$text = $.$text;
      this.$text$ = this._$text$ = $.$text$;
      this._$init$textX$ = $.$init$textX$;
@@ -19754,7 +22530,7 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for HopscotchForHTML5`TextEditorFragment";
    this.name = "HopscotchForHTML5`TextEditorFragment";
-   this.header = 1059;
+   this.header = 1176;
    this.slots = [
     new SM("textX", true, false),
     new SM("counterfactualBarX", true, false),
@@ -19763,24 +22539,32 @@ var mixins = new function () {
     new SM("isInEditState", true, false),
     new SM("changeResponse", true, false),
     new SM("acceptResponse", true, false),
-    new SM("cancelResponse", true, false)
+    new SM("cancelResponse", true, false),
+    new SM("oldText", true, false)
    ];
    this.methods = [
-    new MM("superInit`HopscotchForHTML5`TextEditorFragment", true, 1060),
-    new MM("instance`initializer", true, 1061),
-    new MM("controlBarColor", false, 1062),
-    new MM("createVisual", false, 1063),
-    new MM("defaultAcceptResponse", false, 1064),
-    new MM("defaultCancelResponse", false, 1065),
-    new MM("defaultChangeResponse", false, 1066),
-    new MM("enterEditState", false, 1067),
-    new MM("leaveEditState", false, 1068),
-    new MM("respondToAccept", false, 1069),
-    new MM("respondToCancel", false, 1070),
-    new MM("respondToChange", false, 1071),
-    new MM("setVisualText:", false, 1072),
-    new MM("text", false, 1073),
-    new MM("text:", false, 1074),
+    new MM("superInit`HopscotchForHTML5`TextEditorFragment", true, 1177),
+    new MM("instance`initializer", true, 1178),
+    new MM("controlBarColor", false, 1179),
+    new MM("createVisual", false, 1180),
+    new MM("cursorPosition", false, 1181),
+    new MM("defaultAcceptResponse", false, 1182),
+    new MM("defaultCancelResponse", false, 1183),
+    new MM("defaultChangeResponse", false, 1184),
+    new MM("enterEditState", false, 1185),
+    new MM("leaveEditState", false, 1186),
+    new MM("reconstructText", false, 1187),
+    new MM("reconstructTextForNode:", false, 1188),
+    new MM("respondToAccept:", false, 1189),
+    new MM("respondToCancel", false, 1190),
+    new MM("respondToChange:", false, 1191),
+    new MM("setCursor", false, 1192),
+    new MM("setCursor:", false, 1193),
+    new MM("setText:", false, 1194),
+    new MM("setVisualText:", false, 1195),
+    new MM("text", false, 1196),
+    new MM("text:", false, 1197),
+    new MM("updateCursor", false, 1198),
     new MM("init`textX:", true, 0),
     new MM("textX", true, 0),
     new MM("textX:", true, 0),
@@ -19804,7 +22588,10 @@ var mixins = new function () {
     new MM("acceptResponse:", true, 0),
     new MM("init`cancelResponse:", true, 0),
     new MM("cancelResponse", true, 0),
-    new MM("cancelResponse:", true, 0)
+    new MM("cancelResponse:", true, 0),
+    new MM("init`oldText:", true, 0),
+    new MM("oldText", true, 0),
+    new MM("oldText:", true, 0)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -19848,9 +22635,9 @@ var mixins = new function () {
      cascadeReceiver.$setProperty$to$("white-space", "pre-wrap");
      return cascadeReceiver.$at$put$("display", "block");
     })(self._$editorX().$at$("style"));
-    self._$editorX().$at$put$("textContent", self._$textX());
-    self._$editorX().$addEventListener$with$("input", function () {
-     return self._$respondToChange();
+    self._$setText$(self._$textX());
+    self._$editorX().$addEventListener$with$("input", function ($event) {
+     return self._$respondToChange$($event);
     });
     self._$counterfactualBarX$($0.$document(self.$enclosingObjects$HopscotchForHTML5$TextEditorFragment[0]).$createElement$("span"));
     (function (cascadeReceiver) {
@@ -19862,8 +22649,8 @@ var mixins = new function () {
     $accept = $0.$document(self.$enclosingObjects$HopscotchForHTML5$TextEditorFragment[0]).$createElement$("img");
     $accept.$at$put$("src", $0.$accept16px(self.$enclosingObjects$HopscotchForHTML5$TextEditorFragment[0]).$yourself().$at$("src"));
     $accept.$at$("style").$at$put$("margin", "3px");
-    $accept.$at$put$("onclick", function () {
-     return self._$respondToAccept();
+    $accept.$at$put$("onclick", function ($event) {
+     return self._$respondToAccept$($event);
     });
     $cancel = $0.$document(self.$enclosingObjects$HopscotchForHTML5$TextEditorFragment[0]).$createElement$("img");
     $cancel.$at$put$("src", $0.$cancel16px(self.$enclosingObjects$HopscotchForHTML5$TextEditorFragment[0]).$yourself().$at$("src"));
@@ -19876,9 +22663,39 @@ var mixins = new function () {
     $frame.$appendChild$(self._$editorX());
     return $frame;
    };
+   this.$cursorPosition = function () {
+    var self = this;
+    var $oldString = nil;
+    var $newString = nil;
+    var $bound = nil;
+    var $offset = nil;
+    $offset = 0;
+    $oldString = self._$textX().$text().$string();
+    $newString = self._$textBeingAccepted();
+    $bound = $newString.$size().$min$($oldString.$size());
+    $offset = (-1).$max$(($newString.$size() - $oldString.$size()) - 1);
+    "old: ".$$comma($oldString).$out();
+    "new: ".$$comma($newString).$out();
+    {
+     var $$limit = nil;
+     var $i = nil;
+     nil;
+     $i = 1;
+     $$limit = $bound;
+     for (; $$limit.$$greater$equal($i); ) {
+      if (!$oldString.$at$($i).$$equal($newString.$at$($i))) {
+       return $i + $offset;
+      } else {
+       nil;
+      };
+      $i = (1).$$plus($i);
+     };
+    };
+    return $newString.$size();
+   };
    this.$defaultAcceptResponse = function () {
     var self = this;
-    self._$textX$(self._$textBeingAccepted());
+    self._$setVisualText$(self._$textBeingAccepted());
     self._$leaveEditState();
     return self;
    };
@@ -19914,13 +22731,79 @@ var mixins = new function () {
     };
     return self;
    };
-   this.$respondToAccept = function () {
+   this.$reconstructText = function () {
     var self = this;
-    self._$textBeingAccepted$(self._$editorX().$at$("textContent"));
+    var $children = nil;
+    var $numberOfChildren = nil;
+    var $result = nil;
+    $children = self._$editorX().$at$("children");
+    $numberOfChildren = $children.$at$("length");
+    if ($numberOfChildren.$$equal(0)) {
+     return (function ($setter_arg) {
+      self._$textBeingAccepted$($setter_arg);
+      return $setter_arg;
+     }).$value$(self._$editorX().$at$("textContent"));
+    } else {
+     nil;
+    };
+    $result = "";
+    {
+     var $$limit = nil;
+     var $i = nil;
+     nil;
+     $i = 0;
+     $$limit = $numberOfChildren - 1;
+     for (; $$limit.$$greater$equal($i); ) {
+      $result = $result.$$comma(self._$reconstructTextForNode$($children.$item$($i)));
+      $i = (1).$$plus($i);
+     };
+    };
+    return $result;
+   };
+   this.$reconstructTextForNode$ = function ($n) {
+    var self = this;
+    var $children = nil;
+    var $numberOfChildren = nil;
+    var $result = nil;
+    $children = $n.$at$("children");
+    $numberOfChildren = $children.$at$("length");
+    $result = "";
+    if ($numberOfChildren.$$equal(0)) {
+     $result = $n.$at$("textContent");
+    } else {
+     nil;
+    };
+    {
+     var $$limit = nil;
+     var $i = nil;
+     nil;
+     $i = 0;
+     $$limit = $numberOfChildren - 1;
+     for (; $$limit.$$greater$equal($i); ) {
+      $result = $result.$$comma(self._$reconstructTextForNode$($children.$item$($i)));
+      $i = (1).$$plus($i);
+     };
+    };
+    if ([
+     "P",
+     "BR",
+     "DIV"
+    ].$includes$($n.$at$("tagName"))) {
+     $n.$at$("tagName").$out();
+     $result = $result.$$comma(self._$String().$cr());
+    } else {
+     nil;
+    };
+    return $result;
+   };
+   this.$respondToAccept$ = function ($event) {
+    var self = this;
+    self._$textBeingAccepted$(self._$reconstructText());
+    "reconstructed accepted text: ".$$comma(self._$textBeingAccepted()).$out();
     self._$acceptResponse().$ifNil$ifNotNil$(function () {
      return self._$defaultAcceptResponse();
     }, function () {
-     return self._$acceptResponse().$cull$(self);
+     return self._$acceptResponse().$cull$cull$(self, $event);
     });
     return self;
    };
@@ -19933,20 +22816,60 @@ var mixins = new function () {
     });
     return self;
    };
-   this.$respondToChange = function () {
+   this.$respondToChange$ = function ($event) {
     var self = this;
-    self._$textBeingAccepted$(self._$editorX().$at$("textContent"));
+    self._$textBeingAccepted$(self._$reconstructText());
+    "reconstructed changed text: ".$$comma(self._$textBeingAccepted()).$out();
     self._$changeResponse().$ifNil$ifNotNil$(function () {
      return self._$defaultChangeResponse();
     }, function () {
-     return self._$changeResponse().$cull$(self);
+     return self._$changeResponse().$cull$cull$(self, $event);
     });
+    return self;
+   };
+   this.$setCursor = function () {
+    var self = this;
+    var $sum = nil;
+    var $cp = nil;
+    $sum = 0;
+    $cp = self._$cursorPosition();
+    $cp.$out();
+    self._$textX().$cursorPosition$(5);
+    return self;
+   };
+   this.$setCursor$ = function ($position) {
+    var self = this;
+    var $sum = nil;
+    $sum = 0;
+    $position.$out();
+    self._$textX().$cursorPosition$($position);
+    return self;
+   };
+   this.$setText$ = function ($t) {
+    var self = this;
+    if ($t.$isString()) {
+     self._$editorX().$at$put$("textContent", $t);
+    } else {
+     var $children = nil;
+     $children = $0.$List(self.$enclosingObjects$HopscotchForHTML5$TextEditorFragment[0]).$new();
+     if (!self._$oldText().$isKindOfString()) {
+      self._$editorX().$at$("childNodes").$forEach$(function ($n) {
+       return $children.$add$($n);
+      });
+      $children.$do$(function ($n) {
+       return self._$editorX().$removeChild$($n);
+      });
+     } else {
+      nil;
+     };
+     self._$editorX().$appendChild$($t.$visual());
+    };
     return self;
    };
    this.$setVisualText$ = function ($aText) {
     var self = this;
     if (self._$hasVisual()) {
-     self._$editorX().$at$put$("textContent", $aText);
+     self._$setText$($aText);
     } else {
      nil;
     };
@@ -19958,8 +22881,18 @@ var mixins = new function () {
    };
    this.$text$ = function ($t) {
     var self = this;
+    self._$oldText$(self._$textX());
     self._$textX$($t);
     self._$setVisualText$(self._$textX());
+    return self;
+   };
+   this.$updateCursor = function () {
+    var self = this;
+    var $sum = nil;
+    var $cp = nil;
+    $sum = 0;
+    $cp = self._$textX().$cursorPosition();
+    self._$textX().$cursorPosition$($cp);
     return self;
    };
    this.$init$textX$ = function (v) {
@@ -20050,6 +22983,17 @@ var mixins = new function () {
     this.$cancelResponse$slot = v;
     return this;
    };
+   this.$init$oldText$ = function (v) {
+    this.$oldText$slot = v;
+    return this;
+   };
+   this.$oldText = function () {
+    return this.$oldText$slot;
+   };
+   this.$oldText$ = function (v) {
+    this.$oldText$slot = v;
+    return this;
+   };
    this.invoke = function (runtimeSuperclass, enclosingObjects) {
     function constructRuntimeClass (superBasicNew) {
      this.debug = "Runtime class for HopscotchForHTML5`TextEditorFragment";
@@ -20060,24 +23004,33 @@ var mixins = new function () {
      this.$controlBarColor = dnuCatcher("$controlBarColor");
      this._$createVisual = $.$createVisual;
      this.$createVisual = dnuCatcher("$createVisual");
+     this.$cursorPosition = this._$cursorPosition = $.$cursorPosition;
      this.$defaultAcceptResponse = this._$defaultAcceptResponse = $.$defaultAcceptResponse;
      this._$defaultCancelResponse = $.$defaultCancelResponse;
      this.$defaultCancelResponse = dnuCatcher("$defaultCancelResponse");
      this._$defaultChangeResponse = $.$defaultChangeResponse;
      this.$defaultChangeResponse = dnuCatcher("$defaultChangeResponse");
-     this._$enterEditState = $.$enterEditState;
-     this.$enterEditState = dnuCatcher("$enterEditState");
+     this.$enterEditState = this._$enterEditState = $.$enterEditState;
      this.$leaveEditState = this._$leaveEditState = $.$leaveEditState;
-     this._$respondToAccept = $.$respondToAccept;
-     this.$respondToAccept = dnuCatcher("$respondToAccept");
+     this._$reconstructText = $.$reconstructText;
+     this.$reconstructText = dnuCatcher("$reconstructText");
+     this._$reconstructTextForNode$ = $.$reconstructTextForNode$;
+     this.$reconstructTextForNode$ = dnuCatcher("$reconstructTextForNode$");
+     this._$respondToAccept$ = $.$respondToAccept$;
+     this.$respondToAccept$ = dnuCatcher("$respondToAccept$");
      this._$respondToCancel = $.$respondToCancel;
      this.$respondToCancel = dnuCatcher("$respondToCancel");
-     this._$respondToChange = $.$respondToChange;
-     this.$respondToChange = dnuCatcher("$respondToChange");
+     this._$respondToChange$ = $.$respondToChange$;
+     this.$respondToChange$ = dnuCatcher("$respondToChange$");
+     this.$setCursor = this._$setCursor = $.$setCursor;
+     this.$setCursor$ = this._$setCursor$ = $.$setCursor$;
+     this._$setText$ = $.$setText$;
+     this.$setText$ = dnuCatcher("$setText$");
      this._$setVisualText$ = $.$setVisualText$;
      this.$setVisualText$ = dnuCatcher("$setVisualText$");
      this.$text = this._$text = $.$text;
      this.$text$ = this._$text$ = $.$text$;
+     this.$updateCursor = this._$updateCursor = $.$updateCursor;
      this._$init$textX$ = $.$init$textX$;
      this.$init$textX$ = dnuCatcher("$init$textX$");
      this._$textX = $.$textX;
@@ -20114,6 +23067,9 @@ var mixins = new function () {
      this.$init$cancelResponse$ = this._$init$cancelResponse$ = $.$init$cancelResponse$;
      this.$cancelResponse = this._$cancelResponse = $.$cancelResponse;
      this.$cancelResponse$ = this._$cancelResponse$ = $.$cancelResponse$;
+     this.$init$oldText$ = this._$init$oldText$ = $.$init$oldText$;
+     this.$oldText = this._$oldText = $.$oldText;
+     this.$oldText$ = this._$oldText$ = $.$oldText$;
      this.$enclosingObjects$HopscotchForHTML5$TextEditorFragment = enclosingObjects;
      this.$super$HopscotchForHTML5$TextEditorFragment$slot = runtimeSuperclass;
      this["HopscotchForHTML5`TextEditorFragment"] = function () {
@@ -20126,6 +23082,7 @@ var mixins = new function () {
       this.$changeResponse$slot = nil;
       this.$acceptResponse$slot = nil;
       this.$cancelResponse$slot = nil;
+      this.$oldText$slot = nil;
      };
      this.basicNew = this["HopscotchForHTML5`TextEditorFragment"];
      this.basicNew.prototype = this;
@@ -20163,12 +23120,240 @@ var mixins = new function () {
    }();
    this.meta.nonMeta = this;
   }();
+  this.$HopscotchForHTML5$TextFragment = new function () {
+   var $ = this;
+   var $1 = this;
+   this.debug = "Runtime mixin for HopscotchForHTML5`TextFragment";
+   this.name = "HopscotchForHTML5`TextFragment";
+   this.header = 1199;
+   this.slots = [new SM("text", false, false)];
+   this.methods = [
+    new MM("superInit`HopscotchForHTML5`TextFragment", true, 1200),
+    new MM("instance`initializer", true, 1201),
+    new MM("cursorPosition:", false, 1202),
+    new MM("isKindOfTextFragment", false, 1203),
+    new MM("init`text:", true, 0),
+    new MM("text", true, 0)
+   ];
+   this.nestedClasses = [];
+   this.applications = [];
+   this.$superInit$HopscotchForHTML5$TextFragment = function ($t) {
+    var self = this;
+    self.$super$HopscotchForHTML5$TextFragment$slot._$instance$initializer.call(self);
+    return self;
+   };
+   this.$instance$initializer = function ($t) {
+    var self = this;
+    self._$superInit$HopscotchForHTML5$TextFragment($t);
+    self._$init$text$($t);
+    return self;
+   };
+   this.$cursorPosition$ = function ($position) {
+    var self = this;
+    self._$subclassResponsibility();
+    return self;
+   };
+   this.$isKindOfTextFragment = function () {
+    var self = this;
+    return true;
+   };
+   this.$init$text$ = function (v) {
+    this.$text$slot = v;
+    return this;
+   };
+   this.$text = function () {
+    return this.$text$slot;
+   };
+   this.invoke = function (runtimeSuperclass, enclosingObjects) {
+    function constructRuntimeClass (superBasicNew) {
+     this.debug = "Runtime class for HopscotchForHTML5`TextFragment";
+     this._$superInit$HopscotchForHTML5$TextFragment = $.$superInit$HopscotchForHTML5$TextFragment;
+     this.$superInit$HopscotchForHTML5$TextFragment = dnuCatcher("$superInit$HopscotchForHTML5$TextFragment");
+     this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this.$cursorPosition$ = this._$cursorPosition$ = $.$cursorPosition$;
+     this.$isKindOfTextFragment = this._$isKindOfTextFragment = $.$isKindOfTextFragment;
+     this.$init$text$ = this._$init$text$ = $.$init$text$;
+     this.$text = this._$text = $.$text;
+     this.$enclosingObjects$HopscotchForHTML5$TextFragment = enclosingObjects;
+     this.$super$HopscotchForHTML5$TextFragment$slot = runtimeSuperclass;
+     this["HopscotchForHTML5`TextFragment"] = function () {
+      superBasicNew.call(this);
+      this.$text$slot = nil;
+     };
+     this.basicNew = this["HopscotchForHTML5`TextFragment"];
+     this.basicNew.prototype = this;
+     this.meta = null;
+     this.newspeakClass = null;
+    };
+    constructRuntimeClass.prototype = runtimeSuperclass;
+    return new constructRuntimeClass(runtimeSuperclass.basicNew);
+   };
+   this.meta = new function () {
+    var $ = this;
+    this.debug = "Runtime meta mixin for HopscotchForHTML5`TextFragment";
+    this.slots = [];
+    this.methods = [new MM("onText:", true, 0)];
+    this.nestedClasses = [];
+    this.$onText$ = function ($t) {
+     return (new this.nonMeta.basicNew()).$instance$initializer($t);
+    };
+    this.invoke = function (runtimeSuperclass, enclosingObjects) {
+     function constructRuntimeClass (superBasicNew) {
+      this.debug = "Runtime meta class for HopscotchForHTML5`TextFragment";
+      this.$onText$ = this._$onText$ = $.$onText$;
+      this.$enclosingObjects$HopscotchForHTML5$TextFragment = enclosingObjects;
+      this.$super$HopscotchForHTML5$TextFragment = runtimeSuperclass;
+      this.basicNew = function () {
+       superBasicNew.call(this);
+      };
+      this.basicNew.prototype = this;
+      this.nonMeta = null;
+      this.newspeakClass = null;
+     };
+     constructRuntimeClass.prototype = runtimeSuperclass;
+     return new constructRuntimeClass(runtimeSuperclass.basicNew);
+    };
+   }();
+   this.meta.nonMeta = this;
+  }();
+  this.$HopscotchForHTML5$TextStringFragment = new function () {
+   var $ = this;
+   var $1 = this;
+   this.debug = "Runtime mixin for HopscotchForHTML5`TextStringFragment";
+   this.name = "HopscotchForHTML5`TextStringFragment";
+   this.header = 1204;
+   this.slots = [];
+   this.methods = [
+    new MM("superInit`HopscotchForHTML5`TextStringFragment", true, 1205),
+    new MM("instance`initializer", true, 1206),
+    new MM("createVisual", false, 1207),
+    new MM("cursorPosition", false, 1208),
+    new MM("cursorPosition:", false, 1209),
+    new MM("isKindOfTextStringFragment", false, 1210)
+   ];
+   this.nestedClasses = [];
+   this.applications = [];
+   this.$superInit$HopscotchForHTML5$TextStringFragment = function ($t) {
+    var self = this;
+    self.$super$HopscotchForHTML5$TextStringFragment$slot._$instance$initializer.call(self, $t);
+    return self;
+   };
+   this.$instance$initializer = function ($t) {
+    var self = this;
+    self._$superInit$HopscotchForHTML5$TextStringFragment($t);
+    return self;
+   };
+   this.$createVisual = function () {
+    var self = this;
+    var $span = nil;
+    $span = $0.$document(self.$enclosingObjects$HopscotchForHTML5$TextStringFragment[0]).$createElement$("span");
+    self._$text().$textProperties().$applyTo$($span);
+    $span.$at$put$("textContent", self._$text().$string());
+    return $span;
+   };
+   this.$cursorPosition = function () {
+    var self = this;
+    var $sel = nil;
+    $sel = $0.$window(self.$enclosingObjects$HopscotchForHTML5$TextStringFragment[0]).$getSelection();
+    if (!$sel.$isNil()) {
+     return $sel.$getRangeAt$(0).$at$("endOffset");
+    } else {
+     nil;
+    };
+    "textStringFragment cursorPosition is nil!".$out();
+    return nil;
+   };
+   this.$cursorPosition$ = function ($position) {
+    var self = this;
+    var $textNode = nil;
+    var $range = nil;
+    $textNode = self._$visual().$at$("firstChild");
+    $range = $0.$document(self.$enclosingObjects$HopscotchForHTML5$TextStringFragment[0]).$createRange();
+    (function (cascadeReceiver) {
+     cascadeReceiver.$setStart$to$($textNode, $position);
+     return cascadeReceiver.$setEnd$to$($textNode, $position);
+    })($range);
+    (function (cascadeReceiver) {
+     cascadeReceiver.$removeAllRanges();
+     return cascadeReceiver.$addRange$($range);
+    })($0.$window(self.$enclosingObjects$HopscotchForHTML5$TextStringFragment[0]).$getSelection());
+    return self;
+   };
+   this.$isKindOfTextStringFragment = function () {
+    var self = this;
+    return true;
+   };
+   this.invoke = function (runtimeSuperclass, enclosingObjects) {
+    function constructRuntimeClass (superBasicNew) {
+     this.debug = "Runtime class for HopscotchForHTML5`TextStringFragment";
+     this._$superInit$HopscotchForHTML5$TextStringFragment = $.$superInit$HopscotchForHTML5$TextStringFragment;
+     this.$superInit$HopscotchForHTML5$TextStringFragment = dnuCatcher("$superInit$HopscotchForHTML5$TextStringFragment");
+     this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this.$createVisual = this._$createVisual = $.$createVisual;
+     this.$cursorPosition = this._$cursorPosition = $.$cursorPosition;
+     this.$cursorPosition$ = this._$cursorPosition$ = $.$cursorPosition$;
+     this.$isKindOfTextStringFragment = this._$isKindOfTextStringFragment = $.$isKindOfTextStringFragment;
+     this.$enclosingObjects$HopscotchForHTML5$TextStringFragment = enclosingObjects;
+     this.$super$HopscotchForHTML5$TextStringFragment$slot = runtimeSuperclass;
+     this["HopscotchForHTML5`TextStringFragment"] = function () {
+      superBasicNew.call(this);
+     };
+     this.basicNew = this["HopscotchForHTML5`TextStringFragment"];
+     this.basicNew.prototype = this;
+     this.meta = null;
+     this.newspeakClass = null;
+    };
+    constructRuntimeClass.prototype = runtimeSuperclass;
+    return new constructRuntimeClass(runtimeSuperclass.basicNew);
+   };
+   this.meta = new function () {
+    var $ = this;
+    this.debug = "Runtime meta mixin for HopscotchForHTML5`TextStringFragment";
+    this.slots = [];
+    this.methods = [
+     new MM("onText:", true, 0),
+     new MM("forString:", false, 1211),
+     new MM("forString:properties:", false, 1212)
+    ];
+    this.nestedClasses = [];
+    this.$onText$ = function ($t) {
+     return (new this.nonMeta.basicNew()).$instance$initializer($t);
+    };
+    this.$forString$ = function ($s) {
+     var self = this;
+     return self._$onText$($0.$TextString(self.$enclosingObjects$HopscotchForHTML5$TextStringFragment[0]).$forString$properties$($s, $0.$TextProperties(self.$enclosingObjects$HopscotchForHTML5$TextStringFragment[0]).$new()));
+    };
+    this.$forString$properties$ = function ($s, $tps) {
+     var self = this;
+     return self._$onText$($0.$TextString(self.$enclosingObjects$HopscotchForHTML5$TextStringFragment[0]).$forString$properties$($s, $tps));
+    };
+    this.invoke = function (runtimeSuperclass, enclosingObjects) {
+     function constructRuntimeClass (superBasicNew) {
+      this.debug = "Runtime meta class for HopscotchForHTML5`TextStringFragment";
+      this.$onText$ = this._$onText$ = $.$onText$;
+      this.$forString$ = this._$forString$ = $.$forString$;
+      this.$forString$properties$ = this._$forString$properties$ = $.$forString$properties$;
+      this.$enclosingObjects$HopscotchForHTML5$TextStringFragment = enclosingObjects;
+      this.$super$HopscotchForHTML5$TextStringFragment = runtimeSuperclass;
+      this.basicNew = function () {
+       superBasicNew.call(this);
+      };
+      this.basicNew.prototype = this;
+      this.nonMeta = null;
+      this.newspeakClass = null;
+     };
+     constructRuntimeClass.prototype = runtimeSuperclass;
+     return new constructRuntimeClass(runtimeSuperclass.basicNew);
+    };
+   }();
+   this.meta.nonMeta = this;
+  }();
   this.$HopscotchForHTML5$ToggleComposer = new function () {
    var $ = this;
    var $1 = this;
    this.debug = "Runtime mixin for HopscotchForHTML5`ToggleComposer";
    this.name = "HopscotchForHTML5`ToggleComposer";
-   this.header = 1075;
+   this.header = 1213;
    this.slots = [
     new SM("expandedDefinition", false, false),
     new SM("collapsedDefinition", false, false),
@@ -20179,15 +23364,16 @@ var mixins = new function () {
     new SM("toggleWidget", true, false)
    ];
    this.methods = [
-    new MM("superInit`HopscotchForHTML5`ToggleComposer", true, 1076),
-    new MM("instance`initializer", true, 1077),
-    new MM("collapse", false, 1078),
-    new MM("createVisual", false, 1079),
-    new MM("expand", false, 1080),
-    new MM("installCollapsedPresenter", false, 1081),
-    new MM("installContentVisual:", false, 1082),
-    new MM("installExpandedPresenter", false, 1083),
-    new MM("userToggle", false, 1084),
+    new MM("superInit`HopscotchForHTML5`ToggleComposer", true, 1214),
+    new MM("instance`initializer", true, 1215),
+    new MM("childrenDo:", false, 1216),
+    new MM("collapse", false, 1217),
+    new MM("createVisual", false, 1218),
+    new MM("expand", false, 1219),
+    new MM("installCollapsedPresenter", false, 1220),
+    new MM("installContentVisual:", false, 1221),
+    new MM("installExpandedPresenter", false, 1222),
+    new MM("userToggle", false, 1223),
     new MM("init`expandedDefinition:", true, 0),
     new MM("expandedDefinition", true, 0),
     new MM("init`collapsedDefinition:", true, 0),
@@ -20221,6 +23407,20 @@ var mixins = new function () {
     self._$init$expandedDefinition$($expanded);
     self._$init$collapsedDefinition$($collapsed);
     self._$init$isExpanded$($flag);
+    return self;
+   };
+   this.$childrenDo$ = function ($aBlock) {
+    var self = this;
+    if (self._$collapsedPresenter().$notNil()) {
+     $aBlock.$value$(self._$collapsedPresenter());
+    } else {
+     nil;
+    };
+    if (self._$expandedPresenter().$notNil()) {
+     $aBlock.$value$(self._$expandedPresenter());
+    } else {
+     nil;
+    };
     return self;
    };
    this.$collapse = function () {
@@ -20395,6 +23595,7 @@ var mixins = new function () {
      this._$superInit$HopscotchForHTML5$ToggleComposer = $.$superInit$HopscotchForHTML5$ToggleComposer;
      this.$superInit$HopscotchForHTML5$ToggleComposer = dnuCatcher("$superInit$HopscotchForHTML5$ToggleComposer");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this.$childrenDo$ = this._$childrenDo$ = $.$childrenDo$;
      this.$collapse = this._$collapse = $.$collapse;
      this._$createVisual = $.$createVisual;
      this.$createVisual = dnuCatcher("$createVisual");
@@ -20493,12 +23694,203 @@ var mixins = new function () {
    }();
    this.meta.nonMeta = this;
   }();
+  this.$HopscotchForHTML5$ZebraDecorator = new function () {
+   var $ = this;
+   var $1 = this;
+   this.debug = "Runtime mixin for HopscotchForHTML5`ZebraDecorator";
+   this.name = "HopscotchForHTML5`ZebraDecorator";
+   this.header = 1224;
+   this.slots = [
+    new SM("firstColor", true, false),
+    new SM("secondColor", true, false),
+    new SM("sequenceDefinition", true, false)
+   ];
+   this.methods = [
+    new MM("superInit`HopscotchForHTML5`ZebraDecorator", true, 1225),
+    new MM("instance`initializer", true, 1226),
+    new MM("decorate:", false, 1227),
+    new MM("init`firstColor:", true, 0),
+    new MM("firstColor", true, 0),
+    new MM("firstColor:", true, 0),
+    new MM("init`secondColor:", true, 0),
+    new MM("secondColor", true, 0),
+    new MM("secondColor:", true, 0),
+    new MM("init`sequenceDefinition:", true, 0),
+    new MM("sequenceDefinition", true, 0),
+    new MM("sequenceDefinition:", true, 0)
+   ];
+   this.nestedClasses = [];
+   this.applications = [];
+   this.$superInit$HopscotchForHTML5$ZebraDecorator = function ($color1, $color2) {
+    var self = this;
+    self.$super$HopscotchForHTML5$ZebraDecorator$slot._$instance$initializer.call(self);
+    return self;
+   };
+   this.$instance$initializer = function ($color1, $color2) {
+    var self = this;
+    self._$superInit$HopscotchForHTML5$ZebraDecorator($color1, $color2);
+    self._$init$firstColor$($color1);
+    self._$init$secondColor$($color2);
+    return self;
+   };
+   this.$decorate$ = function ($aVisual) {
+    var self = this;
+    var $odd = nil;
+    var $children = nil;
+    $odd = false;
+    $children = $aVisual.$at$("children");
+    {
+     var $$limit = nil;
+     var $index = nil;
+     nil;
+     $index = 0;
+     $$limit = $children.$at$("length") - 1;
+     for (; $$limit.$$greater$equal($index); ) {
+      var $each = nil;
+      var $c = nil;
+      $each = $children.$item$($index);
+      $c = $odd.$ifTrue$ifFalse$(function () {
+       return self._$firstColor();
+      }, function () {
+       return self._$secondColor();
+      });
+      self._$assert$message$(function () {
+       return $c.$isNil().$not();
+      }, function () {
+       return "nil color!";
+      });
+      $c.$applyToStyle$($each.$at$("style"));
+      $odd = $odd.$not();
+      $index = (1).$$plus($index);
+     };
+    };
+    return $aVisual;
+   };
+   this.$init$firstColor$ = function (v) {
+    this.$firstColor$slot = v;
+    return this;
+   };
+   this.$firstColor = function () {
+    return this.$firstColor$slot;
+   };
+   this.$firstColor$ = function (v) {
+    this.$firstColor$slot = v;
+    return this;
+   };
+   this.$init$secondColor$ = function (v) {
+    this.$secondColor$slot = v;
+    return this;
+   };
+   this.$secondColor = function () {
+    return this.$secondColor$slot;
+   };
+   this.$secondColor$ = function (v) {
+    this.$secondColor$slot = v;
+    return this;
+   };
+   this.$init$sequenceDefinition$ = function (v) {
+    this.$sequenceDefinition$slot = v;
+    return this;
+   };
+   this.$sequenceDefinition = function () {
+    return this.$sequenceDefinition$slot;
+   };
+   this.$sequenceDefinition$ = function (v) {
+    this.$sequenceDefinition$slot = v;
+    return this;
+   };
+   this.invoke = function (runtimeSuperclass, enclosingObjects) {
+    function constructRuntimeClass (superBasicNew) {
+     this.debug = "Runtime class for HopscotchForHTML5`ZebraDecorator";
+     this._$superInit$HopscotchForHTML5$ZebraDecorator = $.$superInit$HopscotchForHTML5$ZebraDecorator;
+     this.$superInit$HopscotchForHTML5$ZebraDecorator = dnuCatcher("$superInit$HopscotchForHTML5$ZebraDecorator");
+     this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this.$decorate$ = this._$decorate$ = $.$decorate$;
+     this._$init$firstColor$ = $.$init$firstColor$;
+     this.$init$firstColor$ = dnuCatcher("$init$firstColor$");
+     this._$firstColor = $.$firstColor;
+     this.$firstColor = dnuCatcher("$firstColor");
+     this._$firstColor$ = $.$firstColor$;
+     this.$firstColor$ = dnuCatcher("$firstColor$");
+     this._$init$secondColor$ = $.$init$secondColor$;
+     this.$init$secondColor$ = dnuCatcher("$init$secondColor$");
+     this._$secondColor = $.$secondColor;
+     this.$secondColor = dnuCatcher("$secondColor");
+     this._$secondColor$ = $.$secondColor$;
+     this.$secondColor$ = dnuCatcher("$secondColor$");
+     this._$init$sequenceDefinition$ = $.$init$sequenceDefinition$;
+     this.$init$sequenceDefinition$ = dnuCatcher("$init$sequenceDefinition$");
+     this._$sequenceDefinition = $.$sequenceDefinition;
+     this.$sequenceDefinition = dnuCatcher("$sequenceDefinition");
+     this._$sequenceDefinition$ = $.$sequenceDefinition$;
+     this.$sequenceDefinition$ = dnuCatcher("$sequenceDefinition$");
+     this.$enclosingObjects$HopscotchForHTML5$ZebraDecorator = enclosingObjects;
+     this.$super$HopscotchForHTML5$ZebraDecorator$slot = runtimeSuperclass;
+     this["HopscotchForHTML5`ZebraDecorator"] = function () {
+      superBasicNew.call(this);
+      this.$firstColor$slot = nil;
+      this.$secondColor$slot = nil;
+      this.$sequenceDefinition$slot = nil;
+     };
+     this.basicNew = this["HopscotchForHTML5`ZebraDecorator"];
+     this.basicNew.prototype = this;
+     this.meta = null;
+     this.newspeakClass = null;
+    };
+    constructRuntimeClass.prototype = runtimeSuperclass;
+    return new constructRuntimeClass(runtimeSuperclass.basicNew);
+   };
+   this.meta = new function () {
+    var $ = this;
+    this.debug = "Runtime meta mixin for HopscotchForHTML5`ZebraDecorator";
+    this.slots = [];
+    this.methods = [
+     new MM("firstColor:secondColor:", true, 0),
+     new MM("darkerColorFirst", false, 1228),
+     new MM("lighterColorFirst", false, 1229)
+    ];
+    this.nestedClasses = [];
+    this.$firstColor$secondColor$ = function ($color1, $color2) {
+     return (new this.nonMeta.basicNew()).$instance$initializer($color1, $color2);
+    };
+    this.$darkerColorFirst = function () {
+     var self = this;
+     return self._$firstColor$secondColor$($0.$Color(self.$enclosingObjects$HopscotchForHTML5$ZebraDecorator[0]).$gray$((97/100)), $0.$Color(self.$enclosingObjects$HopscotchForHTML5$ZebraDecorator[0]).$white());
+    };
+    this.$lighterColorFirst = function () {
+     var self = this;
+     return self._$firstColor$secondColor$($0.$Color(self.$enclosingObjects$HopscotchForHTML5$ZebraDecorator[0]).$white(), $0.$Color(self.$enclosingObjects$HopscotchForHTML5$ZebraDecorator[0]).$gray$((97/100)));
+    };
+    this.invoke = function (runtimeSuperclass, enclosingObjects) {
+     function constructRuntimeClass (superBasicNew) {
+      this.debug = "Runtime meta class for HopscotchForHTML5`ZebraDecorator";
+      this.$firstColor$secondColor$ = this._$firstColor$secondColor$ = $.$firstColor$secondColor$;
+      this.$darkerColorFirst = this._$darkerColorFirst = $.$darkerColorFirst;
+      this.$lighterColorFirst = this._$lighterColorFirst = $.$lighterColorFirst;
+      this.$enclosingObjects$HopscotchForHTML5$ZebraDecorator = enclosingObjects;
+      this.$super$HopscotchForHTML5$ZebraDecorator = runtimeSuperclass;
+      this.basicNew = function () {
+       superBasicNew.call(this);
+      };
+      this.basicNew.prototype = this;
+      this.nonMeta = null;
+      this.newspeakClass = null;
+     };
+     constructRuntimeClass.prototype = runtimeSuperclass;
+     return new constructRuntimeClass(runtimeSuperclass.basicNew);
+    };
+   }();
+   this.meta.nonMeta = this;
+  }();
   this.$HopscotchForHTML5$BlankFragment.enclosingMixin = this;
   this.$HopscotchForHTML5$ButtonFragment.enclosingMixin = this;
   this.$HopscotchForHTML5$CanvasFragment.enclosingMixin = this;
+  this.$HopscotchForHTML5$ColorDecorator.enclosingMixin = this;
   this.$HopscotchForHTML5$ColumnComposer.enclosingMixin = this;
   this.$HopscotchForHTML5$Composer.enclosingMixin = this;
+  this.$HopscotchForHTML5$Decorator.enclosingMixin = this;
   this.$HopscotchForHTML5$DeferredContentComposer.enclosingMixin = this;
+  this.$HopscotchForHTML5$DropDownMenuFragment.enclosingMixin = this;
   this.$HopscotchForHTML5$EmbeddedHopscotchWindow.enclosingMixin = this;
   this.$HopscotchForHTML5$Fragment.enclosingMixin = this;
   this.$HopscotchForHTML5$Gradient.enclosingMixin = this;
@@ -20507,19 +23899,25 @@ var mixins = new function () {
   this.$HopscotchForHTML5$HopscotchWindow.enclosingMixin = this;
   this.$HopscotchForHTML5$HyperlinkFragment.enclosingMixin = this;
   this.$HopscotchForHTML5$HyperlinkImageFragment.enclosingMixin = this;
+  this.$HopscotchForHTML5$ImageButtonFragment.enclosingMixin = this;
   this.$HopscotchForHTML5$LeafFragment.enclosingMixin = this;
   this.$HopscotchForHTML5$LocalNavigationHistory.enclosingMixin = this;
   this.$HopscotchForHTML5$NavigationHistory.enclosingMixin = this;
   this.$HopscotchForHTML5$PaddedFrameComposer.enclosingMixin = this;
   this.$HopscotchForHTML5$Presenter.enclosingMixin = this;
+  this.$HopscotchForHTML5$PresenterList.enclosingMixin = this;
   this.$HopscotchForHTML5$RowComposer.enclosingMixin = this;
   this.$HopscotchForHTML5$SequenceComposer.enclosingMixin = this;
   this.$HopscotchForHTML5$StaticImageFragment.enclosingMixin = this;
   this.$HopscotchForHTML5$StaticLabelFragment.enclosingMixin = this;
   this.$HopscotchForHTML5$Subject.enclosingMixin = this;
+  this.$HopscotchForHTML5$TextBlockFragment.enclosingMixin = this;
   this.$HopscotchForHTML5$TextDisplayFragment.enclosingMixin = this;
   this.$HopscotchForHTML5$TextEditorFragment.enclosingMixin = this;
+  this.$HopscotchForHTML5$TextFragment.enclosingMixin = this;
+  this.$HopscotchForHTML5$TextStringFragment.enclosingMixin = this;
   this.$HopscotchForHTML5$ToggleComposer.enclosingMixin = this;
+  this.$HopscotchForHTML5$ZebraDecorator.enclosingMixin = this;
   this.invoke = function (runtimeSuperclass, enclosingObjects) {
    function constructRuntimeClass (superBasicNew) {
     this.debug = "Runtime class for HopscotchForHTML5";
@@ -20540,12 +23938,17 @@ var mixins = new function () {
     this.$ButtonFragment = dnuCatcher("$ButtonFragment");
     this._$CanvasFragment = $.$CanvasFragment;
     this.$CanvasFragment = dnuCatcher("$CanvasFragment");
+    this._$ColorDecorator = $.$ColorDecorator;
+    this.$ColorDecorator = dnuCatcher("$ColorDecorator");
     this._$ColumnComposer = $.$ColumnComposer;
     this.$ColumnComposer = dnuCatcher("$ColumnComposer");
     this._$Composer = $.$Composer;
     this.$Composer = dnuCatcher("$Composer");
+    this.$Decorator = this._$Decorator = $.$Decorator;
     this._$DeferredContentComposer = $.$DeferredContentComposer;
     this.$DeferredContentComposer = dnuCatcher("$DeferredContentComposer");
+    this._$DropDownMenuFragment = $.$DropDownMenuFragment;
+    this.$DropDownMenuFragment = dnuCatcher("$DropDownMenuFragment");
     this.$EmbeddedHopscotchWindow = this._$EmbeddedHopscotchWindow = $.$EmbeddedHopscotchWindow;
     this._$Fragment = $.$Fragment;
     this.$Fragment = dnuCatcher("$Fragment");
@@ -20559,6 +23962,8 @@ var mixins = new function () {
     this.$HyperlinkFragment = dnuCatcher("$HyperlinkFragment");
     this._$HyperlinkImageFragment = $.$HyperlinkImageFragment;
     this.$HyperlinkImageFragment = dnuCatcher("$HyperlinkImageFragment");
+    this._$ImageButtonFragment = $.$ImageButtonFragment;
+    this.$ImageButtonFragment = dnuCatcher("$ImageButtonFragment");
     this._$LeafFragment = $.$LeafFragment;
     this.$LeafFragment = dnuCatcher("$LeafFragment");
     this._$LocalNavigationHistory = $.$LocalNavigationHistory;
@@ -20568,6 +23973,8 @@ var mixins = new function () {
     this._$PaddedFrameComposer = $.$PaddedFrameComposer;
     this.$PaddedFrameComposer = dnuCatcher("$PaddedFrameComposer");
     this.$Presenter = this._$Presenter = $.$Presenter;
+    this._$PresenterList = $.$PresenterList;
+    this.$PresenterList = dnuCatcher("$PresenterList");
     this._$RowComposer = $.$RowComposer;
     this.$RowComposer = dnuCatcher("$RowComposer");
     this._$SequenceComposer = $.$SequenceComposer;
@@ -20577,11 +23984,18 @@ var mixins = new function () {
     this._$StaticLabelFragment = $.$StaticLabelFragment;
     this.$StaticLabelFragment = dnuCatcher("$StaticLabelFragment");
     this.$Subject = this._$Subject = $.$Subject;
+    this._$TextBlockFragment = $.$TextBlockFragment;
+    this.$TextBlockFragment = dnuCatcher("$TextBlockFragment");
     this._$TextDisplayFragment = $.$TextDisplayFragment;
     this.$TextDisplayFragment = dnuCatcher("$TextDisplayFragment");
     this.$TextEditorFragment = this._$TextEditorFragment = $.$TextEditorFragment;
+    this._$TextFragment = $.$TextFragment;
+    this.$TextFragment = dnuCatcher("$TextFragment");
+    this._$TextStringFragment = $.$TextStringFragment;
+    this.$TextStringFragment = dnuCatcher("$TextStringFragment");
     this._$ToggleComposer = $.$ToggleComposer;
     this.$ToggleComposer = dnuCatcher("$ToggleComposer");
+    this.$ZebraDecorator = this._$ZebraDecorator = $.$ZebraDecorator;
     this._$init$sharedNavigationHistory$ = $.$init$sharedNavigationHistory$;
     this.$init$sharedNavigationHistory$ = dnuCatcher("$init$sharedNavigationHistory$");
     this._$sharedNavigationHistory = $.$sharedNavigationHistory;
@@ -20604,6 +24018,12 @@ var mixins = new function () {
     this.$currentHopscotchWindow = dnuCatcher("$currentHopscotchWindow");
     this._$currentHopscotchWindow$ = $.$currentHopscotchWindow$;
     this.$currentHopscotchWindow$ = dnuCatcher("$currentHopscotchWindow$");
+    this.$init$dropDownImage$ = this._$init$dropDownImage$ = $.$init$dropDownImage$;
+    this.$dropDownImage = this._$dropDownImage = $.$dropDownImage;
+    this.$init$dropDownOutImage$ = this._$init$dropDownOutImage$ = $.$init$dropDownOutImage$;
+    this.$dropDownOutImage = this._$dropDownOutImage = $.$dropDownOutImage;
+    this.$init$dropDownOverImage$ = this._$init$dropDownOverImage$ = $.$init$dropDownOverImage$;
+    this.$dropDownOverImage = this._$dropDownOverImage = $.$dropDownOverImage;
     this.$init$core$ = this._$init$core$ = $.$init$core$;
     this.$core = this._$core = $.$core;
     this.$init$fragments$ = this._$init$fragments$ = $.$init$fragments$;
@@ -20617,15 +24037,24 @@ var mixins = new function () {
     this.$init$HopscotchForHTML5$CanvasFragment$ = this._$init$HopscotchForHTML5$CanvasFragment$ = $.$init$HopscotchForHTML5$CanvasFragment$;
     this.$HopscotchForHTML5$CanvasFragment = this._$HopscotchForHTML5$CanvasFragment = $.$HopscotchForHTML5$CanvasFragment;
     this.$HopscotchForHTML5$CanvasFragment$ = this._$HopscotchForHTML5$CanvasFragment$ = $.$HopscotchForHTML5$CanvasFragment$;
+    this.$init$HopscotchForHTML5$ColorDecorator$ = this._$init$HopscotchForHTML5$ColorDecorator$ = $.$init$HopscotchForHTML5$ColorDecorator$;
+    this.$HopscotchForHTML5$ColorDecorator = this._$HopscotchForHTML5$ColorDecorator = $.$HopscotchForHTML5$ColorDecorator;
+    this.$HopscotchForHTML5$ColorDecorator$ = this._$HopscotchForHTML5$ColorDecorator$ = $.$HopscotchForHTML5$ColorDecorator$;
     this.$init$HopscotchForHTML5$ColumnComposer$ = this._$init$HopscotchForHTML5$ColumnComposer$ = $.$init$HopscotchForHTML5$ColumnComposer$;
     this.$HopscotchForHTML5$ColumnComposer = this._$HopscotchForHTML5$ColumnComposer = $.$HopscotchForHTML5$ColumnComposer;
     this.$HopscotchForHTML5$ColumnComposer$ = this._$HopscotchForHTML5$ColumnComposer$ = $.$HopscotchForHTML5$ColumnComposer$;
     this.$init$HopscotchForHTML5$Composer$ = this._$init$HopscotchForHTML5$Composer$ = $.$init$HopscotchForHTML5$Composer$;
     this.$HopscotchForHTML5$Composer = this._$HopscotchForHTML5$Composer = $.$HopscotchForHTML5$Composer;
     this.$HopscotchForHTML5$Composer$ = this._$HopscotchForHTML5$Composer$ = $.$HopscotchForHTML5$Composer$;
+    this.$init$HopscotchForHTML5$Decorator$ = this._$init$HopscotchForHTML5$Decorator$ = $.$init$HopscotchForHTML5$Decorator$;
+    this.$HopscotchForHTML5$Decorator = this._$HopscotchForHTML5$Decorator = $.$HopscotchForHTML5$Decorator;
+    this.$HopscotchForHTML5$Decorator$ = this._$HopscotchForHTML5$Decorator$ = $.$HopscotchForHTML5$Decorator$;
     this.$init$HopscotchForHTML5$DeferredContentComposer$ = this._$init$HopscotchForHTML5$DeferredContentComposer$ = $.$init$HopscotchForHTML5$DeferredContentComposer$;
     this.$HopscotchForHTML5$DeferredContentComposer = this._$HopscotchForHTML5$DeferredContentComposer = $.$HopscotchForHTML5$DeferredContentComposer;
     this.$HopscotchForHTML5$DeferredContentComposer$ = this._$HopscotchForHTML5$DeferredContentComposer$ = $.$HopscotchForHTML5$DeferredContentComposer$;
+    this.$init$HopscotchForHTML5$DropDownMenuFragment$ = this._$init$HopscotchForHTML5$DropDownMenuFragment$ = $.$init$HopscotchForHTML5$DropDownMenuFragment$;
+    this.$HopscotchForHTML5$DropDownMenuFragment = this._$HopscotchForHTML5$DropDownMenuFragment = $.$HopscotchForHTML5$DropDownMenuFragment;
+    this.$HopscotchForHTML5$DropDownMenuFragment$ = this._$HopscotchForHTML5$DropDownMenuFragment$ = $.$HopscotchForHTML5$DropDownMenuFragment$;
     this.$init$HopscotchForHTML5$EmbeddedHopscotchWindow$ = this._$init$HopscotchForHTML5$EmbeddedHopscotchWindow$ = $.$init$HopscotchForHTML5$EmbeddedHopscotchWindow$;
     this.$HopscotchForHTML5$EmbeddedHopscotchWindow = this._$HopscotchForHTML5$EmbeddedHopscotchWindow = $.$HopscotchForHTML5$EmbeddedHopscotchWindow;
     this.$HopscotchForHTML5$EmbeddedHopscotchWindow$ = this._$HopscotchForHTML5$EmbeddedHopscotchWindow$ = $.$HopscotchForHTML5$EmbeddedHopscotchWindow$;
@@ -20650,6 +24079,9 @@ var mixins = new function () {
     this.$init$HopscotchForHTML5$HyperlinkImageFragment$ = this._$init$HopscotchForHTML5$HyperlinkImageFragment$ = $.$init$HopscotchForHTML5$HyperlinkImageFragment$;
     this.$HopscotchForHTML5$HyperlinkImageFragment = this._$HopscotchForHTML5$HyperlinkImageFragment = $.$HopscotchForHTML5$HyperlinkImageFragment;
     this.$HopscotchForHTML5$HyperlinkImageFragment$ = this._$HopscotchForHTML5$HyperlinkImageFragment$ = $.$HopscotchForHTML5$HyperlinkImageFragment$;
+    this.$init$HopscotchForHTML5$ImageButtonFragment$ = this._$init$HopscotchForHTML5$ImageButtonFragment$ = $.$init$HopscotchForHTML5$ImageButtonFragment$;
+    this.$HopscotchForHTML5$ImageButtonFragment = this._$HopscotchForHTML5$ImageButtonFragment = $.$HopscotchForHTML5$ImageButtonFragment;
+    this.$HopscotchForHTML5$ImageButtonFragment$ = this._$HopscotchForHTML5$ImageButtonFragment$ = $.$HopscotchForHTML5$ImageButtonFragment$;
     this.$init$HopscotchForHTML5$LeafFragment$ = this._$init$HopscotchForHTML5$LeafFragment$ = $.$init$HopscotchForHTML5$LeafFragment$;
     this.$HopscotchForHTML5$LeafFragment = this._$HopscotchForHTML5$LeafFragment = $.$HopscotchForHTML5$LeafFragment;
     this.$HopscotchForHTML5$LeafFragment$ = this._$HopscotchForHTML5$LeafFragment$ = $.$HopscotchForHTML5$LeafFragment$;
@@ -20665,6 +24097,9 @@ var mixins = new function () {
     this.$init$HopscotchForHTML5$Presenter$ = this._$init$HopscotchForHTML5$Presenter$ = $.$init$HopscotchForHTML5$Presenter$;
     this.$HopscotchForHTML5$Presenter = this._$HopscotchForHTML5$Presenter = $.$HopscotchForHTML5$Presenter;
     this.$HopscotchForHTML5$Presenter$ = this._$HopscotchForHTML5$Presenter$ = $.$HopscotchForHTML5$Presenter$;
+    this.$init$HopscotchForHTML5$PresenterList$ = this._$init$HopscotchForHTML5$PresenterList$ = $.$init$HopscotchForHTML5$PresenterList$;
+    this.$HopscotchForHTML5$PresenterList = this._$HopscotchForHTML5$PresenterList = $.$HopscotchForHTML5$PresenterList;
+    this.$HopscotchForHTML5$PresenterList$ = this._$HopscotchForHTML5$PresenterList$ = $.$HopscotchForHTML5$PresenterList$;
     this.$init$HopscotchForHTML5$RowComposer$ = this._$init$HopscotchForHTML5$RowComposer$ = $.$init$HopscotchForHTML5$RowComposer$;
     this.$HopscotchForHTML5$RowComposer = this._$HopscotchForHTML5$RowComposer = $.$HopscotchForHTML5$RowComposer;
     this.$HopscotchForHTML5$RowComposer$ = this._$HopscotchForHTML5$RowComposer$ = $.$HopscotchForHTML5$RowComposer$;
@@ -20680,15 +24115,27 @@ var mixins = new function () {
     this.$init$HopscotchForHTML5$Subject$ = this._$init$HopscotchForHTML5$Subject$ = $.$init$HopscotchForHTML5$Subject$;
     this.$HopscotchForHTML5$Subject = this._$HopscotchForHTML5$Subject = $.$HopscotchForHTML5$Subject;
     this.$HopscotchForHTML5$Subject$ = this._$HopscotchForHTML5$Subject$ = $.$HopscotchForHTML5$Subject$;
+    this.$init$HopscotchForHTML5$TextBlockFragment$ = this._$init$HopscotchForHTML5$TextBlockFragment$ = $.$init$HopscotchForHTML5$TextBlockFragment$;
+    this.$HopscotchForHTML5$TextBlockFragment = this._$HopscotchForHTML5$TextBlockFragment = $.$HopscotchForHTML5$TextBlockFragment;
+    this.$HopscotchForHTML5$TextBlockFragment$ = this._$HopscotchForHTML5$TextBlockFragment$ = $.$HopscotchForHTML5$TextBlockFragment$;
     this.$init$HopscotchForHTML5$TextDisplayFragment$ = this._$init$HopscotchForHTML5$TextDisplayFragment$ = $.$init$HopscotchForHTML5$TextDisplayFragment$;
     this.$HopscotchForHTML5$TextDisplayFragment = this._$HopscotchForHTML5$TextDisplayFragment = $.$HopscotchForHTML5$TextDisplayFragment;
     this.$HopscotchForHTML5$TextDisplayFragment$ = this._$HopscotchForHTML5$TextDisplayFragment$ = $.$HopscotchForHTML5$TextDisplayFragment$;
     this.$init$HopscotchForHTML5$TextEditorFragment$ = this._$init$HopscotchForHTML5$TextEditorFragment$ = $.$init$HopscotchForHTML5$TextEditorFragment$;
     this.$HopscotchForHTML5$TextEditorFragment = this._$HopscotchForHTML5$TextEditorFragment = $.$HopscotchForHTML5$TextEditorFragment;
     this.$HopscotchForHTML5$TextEditorFragment$ = this._$HopscotchForHTML5$TextEditorFragment$ = $.$HopscotchForHTML5$TextEditorFragment$;
+    this.$init$HopscotchForHTML5$TextFragment$ = this._$init$HopscotchForHTML5$TextFragment$ = $.$init$HopscotchForHTML5$TextFragment$;
+    this.$HopscotchForHTML5$TextFragment = this._$HopscotchForHTML5$TextFragment = $.$HopscotchForHTML5$TextFragment;
+    this.$HopscotchForHTML5$TextFragment$ = this._$HopscotchForHTML5$TextFragment$ = $.$HopscotchForHTML5$TextFragment$;
+    this.$init$HopscotchForHTML5$TextStringFragment$ = this._$init$HopscotchForHTML5$TextStringFragment$ = $.$init$HopscotchForHTML5$TextStringFragment$;
+    this.$HopscotchForHTML5$TextStringFragment = this._$HopscotchForHTML5$TextStringFragment = $.$HopscotchForHTML5$TextStringFragment;
+    this.$HopscotchForHTML5$TextStringFragment$ = this._$HopscotchForHTML5$TextStringFragment$ = $.$HopscotchForHTML5$TextStringFragment$;
     this.$init$HopscotchForHTML5$ToggleComposer$ = this._$init$HopscotchForHTML5$ToggleComposer$ = $.$init$HopscotchForHTML5$ToggleComposer$;
     this.$HopscotchForHTML5$ToggleComposer = this._$HopscotchForHTML5$ToggleComposer = $.$HopscotchForHTML5$ToggleComposer;
     this.$HopscotchForHTML5$ToggleComposer$ = this._$HopscotchForHTML5$ToggleComposer$ = $.$HopscotchForHTML5$ToggleComposer$;
+    this.$init$HopscotchForHTML5$ZebraDecorator$ = this._$init$HopscotchForHTML5$ZebraDecorator$ = $.$init$HopscotchForHTML5$ZebraDecorator$;
+    this.$HopscotchForHTML5$ZebraDecorator = this._$HopscotchForHTML5$ZebraDecorator = $.$HopscotchForHTML5$ZebraDecorator;
+    this.$HopscotchForHTML5$ZebraDecorator$ = this._$HopscotchForHTML5$ZebraDecorator$ = $.$HopscotchForHTML5$ZebraDecorator$;
     this.$enclosingObjects$HopscotchForHTML5 = enclosingObjects;
     this.$super$HopscotchForHTML5$slot = runtimeSuperclass;
     this.HopscotchForHTML5 = function () {
@@ -20698,6 +24145,9 @@ var mixins = new function () {
      this.$Timer$slot = nil;
      this.$List$slot = nil;
      this.$Map$slot = nil;
+     this.$TextBlock$slot = nil;
+     this.$TextProperties$slot = nil;
+     this.$TextString$slot = nil;
      this.$window$slot = nil;
      this.$document$slot = nil;
      this.$body$slot = nil;
@@ -20711,15 +24161,21 @@ var mixins = new function () {
      this.$disclosureClosedImage$slot = nil;
      this.$disclosureTransitionImage$slot = nil;
      this.$disclosureOpenImage$slot = nil;
+     this.$dropDownImage$slot = nil;
+     this.$dropDownOutImage$slot = nil;
+     this.$dropDownOverImage$slot = nil;
      this.$deferredContentQueue$slot = nil;
      this.$core$slot = nil;
      this.$fragments$slot = nil;
      this.$HopscotchForHTML5$BlankFragment$slot = nil;
      this.$HopscotchForHTML5$ButtonFragment$slot = nil;
      this.$HopscotchForHTML5$CanvasFragment$slot = nil;
+     this.$HopscotchForHTML5$ColorDecorator$slot = nil;
      this.$HopscotchForHTML5$ColumnComposer$slot = nil;
      this.$HopscotchForHTML5$Composer$slot = nil;
+     this.$HopscotchForHTML5$Decorator$slot = nil;
      this.$HopscotchForHTML5$DeferredContentComposer$slot = nil;
+     this.$HopscotchForHTML5$DropDownMenuFragment$slot = nil;
      this.$HopscotchForHTML5$EmbeddedHopscotchWindow$slot = nil;
      this.$HopscotchForHTML5$Fragment$slot = nil;
      this.$HopscotchForHTML5$Gradient$slot = nil;
@@ -20728,19 +24184,25 @@ var mixins = new function () {
      this.$HopscotchForHTML5$HopscotchWindow$slot = nil;
      this.$HopscotchForHTML5$HyperlinkFragment$slot = nil;
      this.$HopscotchForHTML5$HyperlinkImageFragment$slot = nil;
+     this.$HopscotchForHTML5$ImageButtonFragment$slot = nil;
      this.$HopscotchForHTML5$LeafFragment$slot = nil;
      this.$HopscotchForHTML5$LocalNavigationHistory$slot = nil;
      this.$HopscotchForHTML5$NavigationHistory$slot = nil;
      this.$HopscotchForHTML5$PaddedFrameComposer$slot = nil;
      this.$HopscotchForHTML5$Presenter$slot = nil;
+     this.$HopscotchForHTML5$PresenterList$slot = nil;
      this.$HopscotchForHTML5$RowComposer$slot = nil;
      this.$HopscotchForHTML5$SequenceComposer$slot = nil;
      this.$HopscotchForHTML5$StaticImageFragment$slot = nil;
      this.$HopscotchForHTML5$StaticLabelFragment$slot = nil;
      this.$HopscotchForHTML5$Subject$slot = nil;
+     this.$HopscotchForHTML5$TextBlockFragment$slot = nil;
      this.$HopscotchForHTML5$TextDisplayFragment$slot = nil;
      this.$HopscotchForHTML5$TextEditorFragment$slot = nil;
+     this.$HopscotchForHTML5$TextFragment$slot = nil;
+     this.$HopscotchForHTML5$TextStringFragment$slot = nil;
      this.$HopscotchForHTML5$ToggleComposer$slot = nil;
+     this.$HopscotchForHTML5$ZebraDecorator$slot = nil;
     };
     this.basicNew = this.HopscotchForHTML5;
     this.basicNew.prototype = this;
@@ -20783,13 +24245,12 @@ var mixins = new function () {
   var $0 = this;
   this.debug = "Runtime mixin for MirrorsForV8";
   this.name = "MirrorsForV8";
-  this.header = 1085;
+  this.header = 1230;
   this.slots = [
    new SM("List", false, false),
    new SM("Map", false, false),
    new SM("Mixin", false, false),
-   new SM("CharacterReadStream", false, false),
-   new SM("CharacterWriteStream", false, false),
+   new SM("StringBuilder", false, false),
    new SM("ImmutableMirrorGroup", false, false),
    new SM("vmmirror", false, false),
    new SM("parserLib", false, false),
@@ -20814,12 +24275,12 @@ var mixins = new function () {
    new SM("MirrorsForV8`SlotDeclarationMirror", true, true)
   ];
   this.methods = [
-   new MM("superInit`MirrorsForV8", true, 1086),
-   new MM("instance`initializer", true, 1087),
-   new MM("classDeclIRFor:within:", false, 1088),
-   new MM("sourceForMethod:ofMixin:", false, 1089),
-   new MM("sourceIndexForMethod:ofMixin:", false, 1090),
-   new MM("updateMixin:from:by:", false, 1091),
+   new MM("superInit`MirrorsForV8", true, 1231),
+   new MM("instance`initializer", true, 1232),
+   new MM("classDeclIRFor:within:", false, 1233),
+   new MM("sourceForMethod:ofMixin:", false, 1234),
+   new MM("sourceIndexForMethod:ofMixin:", false, 1235),
+   new MM("updateMixin:from:by:", false, 1236),
    new MM("ClassDeclarationBuilder", true, 0),
    new MM("ClassDeclarationMirror", true, 0),
    new MM("ClassHeaderMirror", true, 0),
@@ -20839,10 +24300,8 @@ var mixins = new function () {
    new MM("Map", true, 0),
    new MM("init`Mixin:", true, 0),
    new MM("Mixin", true, 0),
-   new MM("init`CharacterReadStream:", true, 0),
-   new MM("CharacterReadStream", true, 0),
-   new MM("init`CharacterWriteStream:", true, 0),
-   new MM("CharacterWriteStream", true, 0),
+   new MM("init`StringBuilder:", true, 0),
+   new MM("StringBuilder", true, 0),
    new MM("init`ImmutableMirrorGroup:", true, 0),
    new MM("ImmutableMirrorGroup", true, 0),
    new MM("init`vmmirror:", true, 0),
@@ -20925,24 +24384,23 @@ var mixins = new function () {
   this.$instance$initializer = function ($p, $r, $vmm) {
    var self = this;
    self._$superInit$MirrorsForV8($p, $r, $vmm);
-   $0.$init$List$(self, $p.$collections().$OrderedCollection());
-   $0.$init$Map$(self, $p.$collections().$Dictionary());
+   $0.$init$List$(self, $p.$collections().$List());
+   $0.$init$Map$(self, $p.$collections().$Map());
    $0.$init$Mixin$(self, $p.$kernel().$Mixin());
-   $0.$init$CharacterReadStream$(self, $p.$streams().$CharacterReadStream());
-   $0.$init$CharacterWriteStream$(self, $p.$streams().$CharacterReadWriteStream());
+   $0.$init$StringBuilder$(self, $p.$kernel().$StringBuilder());
    $0.$init$ImmutableMirrorGroup$(self, $r.$MirrorGroups().$usingLib$($p).$ImmutableMirrorGroup());
    $0.$init$vmmirror$(self, $vmm);
-   $0.$init$parserLib$(self, self._$Future().$computing$(function () {
+   self._$init$parserLib$(self._$Future().$computing$(function () {
     return $r.$CombinatorialParsing().$usingPlatform$($p);
    }));
-   $0.$init$grammar$(self, self._$Future().$computing$(function () {
-    return $r.$NewspeakGrammar().$usingPlatform$parsers$($p, $0.$parserLib(self));
+   self._$init$grammar$(self._$Future().$computing$(function () {
+    return $r.$NewspeakGrammar().$usingPlatform$parsers$($p, self._$parserLib());
    }));
    $0.$init$asts$(self, self._$Future().$computing$(function () {
     return $r.$NewspeakASTs().$usingLib$($p);
    }));
    $0.$init$parsing$(self, self._$Future().$computing$(function () {
-    return $r.$NewspeakParsing().$usingPlatform$grammar$asts$($p, $0.$grammar(self), $0.$asts(self));
+    return $r.$NewspeakParsing().$usingPlatform$grammar$asts$($p, self._$grammar(), $0.$asts(self));
    }));
    $0.$init$generation$(self, self._$Future().$computing$(function () {
     return $r.$JavascriptGeneration().$usingPlatform$($p);
@@ -21018,7 +24476,6 @@ var mixins = new function () {
    $applications.$do$(function ($runtimeClass) {
     var $runtimeMetaclass = nil;
     $runtimeMetaclass = $runtimeClass.meta;
-    $runtimeClass.$out();
     $classDeclIR.$instanceSide().$methods().$do$(function ($ea) {
      var $jsProName = nil;
      var $jsPubName = nil;
@@ -21205,19 +24662,12 @@ var mixins = new function () {
   this.$Mixin = function (self) {
    return self.$Mixin$slot;
   };
-  this.$init$CharacterReadStream$ = function (self, v) {
-   self.$CharacterReadStream$slot = v;
+  this.$init$StringBuilder$ = function (self, v) {
+   self.$StringBuilder$slot = v;
    return self;
   };
-  this.$CharacterReadStream = function (self) {
-   return self.$CharacterReadStream$slot;
-  };
-  this.$init$CharacterWriteStream$ = function (self, v) {
-   self.$CharacterWriteStream$slot = v;
-   return self;
-  };
-  this.$CharacterWriteStream = function (self) {
-   return self.$CharacterWriteStream$slot;
+  this.$StringBuilder = function (self) {
+   return self.$StringBuilder$slot;
   };
   this.$init$ImmutableMirrorGroup$ = function (self, v) {
    self.$ImmutableMirrorGroup$slot = v;
@@ -21233,19 +24683,19 @@ var mixins = new function () {
   this.$vmmirror = function (self) {
    return self.$vmmirror$slot;
   };
-  this.$init$parserLib$ = function (self, v) {
-   self.$parserLib$slot = v;
-   return self;
+  this.$init$parserLib$ = function (v) {
+   this.$parserLib$slot = v;
+   return this;
   };
-  this.$parserLib = function (self) {
-   return self.$parserLib$slot;
+  this.$parserLib = function () {
+   return this.$parserLib$slot;
   };
-  this.$init$grammar$ = function (self, v) {
-   self.$grammar$slot = v;
-   return self;
+  this.$init$grammar$ = function (v) {
+   this.$grammar$slot = v;
+   return this;
   };
-  this.$grammar = function (self) {
-   return self.$grammar$slot;
+  this.$grammar = function () {
+   return this.$grammar$slot;
   };
   this.$init$asts$ = function (self, v) {
    self.$asts$slot = v;
@@ -21430,7 +24880,7 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for MirrorsForV8`ClassDeclarationBuilder";
    this.name = "MirrorsForV8`ClassDeclarationBuilder";
-   this.header = 1092;
+   this.header = 1237;
    this.slots = [
     new SM("prvtExistingMixin", true, false),
     new SM("prvtClassDeclIR", true, false),
@@ -21439,13 +24889,14 @@ var mixins = new function () {
     new SM("classSide", false, false)
    ];
    this.methods = [
-    new MM("superInit`MirrorsForV8`ClassDeclarationBuilder", true, 1093),
-    new MM("instance`initializer", true, 1094),
-    new MM("accessModifier", false, 1095),
-    new MM("install", false, 1096),
-    new MM("name", false, 1097),
-    new MM("simpleName", false, 1098),
-    new MM("updateMixinFrom:", false, 1099),
+    new MM("superInit`MirrorsForV8`ClassDeclarationBuilder", true, 1238),
+    new MM("instance`initializer", true, 1239),
+    new MM("accessModifier", false, 1240),
+    new MM("install", false, 1241),
+    new MM("name", false, 1242),
+    new MM("qualifiedName", false, 1243),
+    new MM("simpleName", false, 1244),
+    new MM("updateMixinFrom:", false, 1245),
     new MM("init`prvtExistingMixin:", true, 0),
     new MM("prvtExistingMixin", true, 0),
     new MM("prvtExistingMixin:", true, 0),
@@ -21483,14 +24934,13 @@ var mixins = new function () {
    this.$install = function () {
     var self = this;
     var $writer = nil;
-    var $stream = nil;
+    var $sb = nil;
     var $src = nil;
     var $runtimeMixin = nil;
-    var $application = nil;
     $writer = $0.$generation(self.$enclosingObjects$MirrorsForV8$ClassDeclarationBuilder[0]).$Writer().$new();
-    $stream = $0.$CharacterWriteStream(self.$enclosingObjects$MirrorsForV8$ClassDeclarationBuilder[0]).$on$(self._$Array().$new$(100));
-    $writer.$generateSourceFor$on$($1.$prvtClassDeclIR(self).$runtimeMixin(), $stream);
-    $src = self._$String().$withAll$($stream.$contents());
+    $sb = $0.$StringBuilder(self.$enclosingObjects$MirrorsForV8$ClassDeclarationBuilder[0]).$new();
+    $writer.$generateSourceFor$on$($1.$prvtClassDeclIR(self).$runtimeMixin(), $sb);
+    $src = $sb.$asString();
     $src.$out();
     $runtimeMixin = eval($src);
     if ($1.$prvtExistingMixin(self).$isNil()) {
@@ -21502,11 +24952,16 @@ var mixins = new function () {
    };
    this.$name = function () {
     var self = this;
+    return $0.$compilation(self.$enclosingObjects$MirrorsForV8$ClassDeclarationBuilder[0]).$names().$fullyQualifiedNameToSimple$($1.$prvtClassDeclIR(self).$qualifiedName());
+   };
+   this.$qualifiedName = function () {
+    var self = this;
+    "BOGUS";
     return $1.$prvtClassDeclIR(self).$qualifiedName();
    };
    this.$simpleName = function () {
     var self = this;
-    return $0.$compilation(self.$enclosingObjects$MirrorsForV8$ClassDeclarationBuilder[0]).$names().$fullyQualifiedNameToSimple$($1.$prvtClassDeclIR(self).$qualifiedName());
+    return self._$name();
    };
    this.$updateMixinFrom$ = function ($runtimeMixin) {
     var self = this;
@@ -21564,6 +25019,7 @@ var mixins = new function () {
     $runtimeMetamixin.methods.$do$(function ($mm) {
      return $mm.source = $classMethodSourceIndices.$at$($mm.name);
     });
+    $runtimeMixin.header = $existingMixin.header;
     self.$enclosingObjects$MirrorsForV8$ClassDeclarationBuilder[0]._$updateMixin$from$by$($1.$prvtExistingMixin(self), $runtimeMixin, $1.$prvtClassDeclIR(self));
     return self;
    };
@@ -21619,6 +25075,7 @@ var mixins = new function () {
      this.$accessModifier = this._$accessModifier = $.$accessModifier;
      this.$install = this._$install = $.$install;
      this.$name = this._$name = $.$name;
+     this.$qualifiedName = this._$qualifiedName = $.$qualifiedName;
      this.$simpleName = this._$simpleName = $.$simpleName;
      this._$updateMixinFrom$ = $.$updateMixinFrom$;
      this.$updateMixinFrom$ = dnuCatcher("$updateMixinFrom$");
@@ -21652,9 +25109,9 @@ var mixins = new function () {
     this.slots = [];
     this.methods = [
      new MM("fromIR:forExistingMixin:within:", true, 0),
-     new MM("fromSource:", false, 1100),
-     new MM("fromUnitSource:", false, 1101),
-     new MM("reflecting:", false, 1102)
+     new MM("fromSource:", false, 1246),
+     new MM("fromUnitSource:", false, 1247),
+     new MM("reflecting:", false, 1248)
     ];
     this.nestedClasses = [];
     this.$fromIR$forExistingMixin$within$ = function ($ir, $m, $enclosing) {
@@ -21672,8 +25129,8 @@ var mixins = new function () {
      var self = this;
      var $m = nil;
      $m = self.$enclosingObjects$MirrorsForV8$ClassDeclarationBuilder[0]._$ClassDeclarationMirror().$reflecting$($mixin);
-     if (!$m.$enclosingClass().$isNil()) {
-      return self.$enclosingObjects$MirrorsForV8$ClassDeclarationBuilder[0]._$ClassDeclarationBuilder().$reflecting$($m.$enclosingClass().$reflectee()).$instanceSide().$nestedClasses().$findMirrorNamed$($m.$simpleName());
+     if (!nil.$$equal($m.$enclosingClass())) {
+      return $m.$enclosingClass().$asBuilder().$instanceSide().$nestedClasses().$findMirrorNamed$($m.$simpleName());
      } else {
       nil;
      };
@@ -21706,7 +25163,7 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for MirrorsForV8`ClassDeclarationMirror";
    this.name = "MirrorsForV8`ClassDeclarationMirror";
-   this.header = 1103;
+   this.header = 1249;
    this.slots = [
     new SM("reflectee", false, false),
     new SM("instanceSide", false, false),
@@ -21714,13 +25171,16 @@ var mixins = new function () {
     new SM("accessModifier", false, false)
    ];
    this.methods = [
-    new MM("superInit`MirrorsForV8`ClassDeclarationMirror", true, 1104),
-    new MM("instance`initializer", true, 1105),
-    new MM("enclosingClass", false, 1106),
-    new MM("header", false, 1107),
-    new MM("name", false, 1108),
-    new MM("simpleName", false, 1109),
-    new MM("source", false, 1110),
+    new MM("superInit`MirrorsForV8`ClassDeclarationMirror", true, 1250),
+    new MM("instance`initializer", true, 1251),
+    new MM("asBuilder", false, 1252),
+    new MM("canUnderstand:", false, 1253),
+    new MM("enclosingClass", false, 1254),
+    new MM("header", false, 1255),
+    new MM("name", false, 1256),
+    new MM("qualifiedName", false, 1257),
+    new MM("simpleName", false, 1258),
+    new MM("source", false, 1259),
     new MM("init`reflectee:", true, 0),
     new MM("reflectee", true, 0),
     new MM("init`instanceSide:", true, 0),
@@ -21740,16 +25200,24 @@ var mixins = new function () {
    this.$instance$initializer = function ($mixin) {
     var self = this;
     self._$superInit$MirrorsForV8$ClassDeclarationMirror($mixin);
-    self._$init$reflectee$($mixin);
+    $1.$init$reflectee$(self, $mixin);
     self._$init$instanceSide$(self.$enclosingObjects$MirrorsForV8$ClassDeclarationMirror[0]._$MixinMirror().$reflecting$($mixin));
     self._$init$classSide$(self.$enclosingObjects$MirrorsForV8$ClassDeclarationMirror[0]._$MixinMirror().$reflecting$($0.$Mixin(self.$enclosingObjects$MirrorsForV8$ClassDeclarationMirror[0]).$fromRuntimeMixin$($mixin.runtimeMixin.meta)));
     self._$init$accessModifier$("public");
     return self;
    };
+   this.$asBuilder = function () {
+    var self = this;
+    return self.$enclosingObjects$MirrorsForV8$ClassDeclarationMirror[0]._$ClassDeclarationBuilder().$reflecting$($1.$reflectee(self));
+   };
+   this.$canUnderstand$ = function ($selector) {
+    var self = this;
+    return self._$instanceSide().$canUnderstand$($selector);
+   };
    this.$enclosingClass = function () {
     var self = this;
     var $enclosing = nil;
-    $enclosing = self._$reflectee().runtimeMixin.enclosingMixin;
+    $enclosing = $1.$reflectee(self).runtimeMixin.enclosingMixin;
     if ($enclosing === undefined) {
      return nil;
     } else {
@@ -21759,57 +25227,46 @@ var mixins = new function () {
    };
    this.$header = function () {
     var self = this;
-    return self.$enclosingObjects$MirrorsForV8$ClassDeclarationMirror[0]._$ClassHeaderMirror().$reflecting$(self._$reflectee());
+    return self.$enclosingObjects$MirrorsForV8$ClassDeclarationMirror[0]._$ClassHeaderMirror().$reflecting$($1.$reflectee(self));
    };
    this.$name = function () {
     var self = this;
-    return self._$reflectee().$name();
+    return $1.$reflectee(self).$name().$splitBy$("`").$last();
+   };
+   this.$qualifiedName = function () {
+    var self = this;
+    "BOGUS";
+    return $1.$reflectee(self).$name();
    };
    this.$simpleName = function () {
     var self = this;
-    return self._$name().$splitBy$("`").$last();
+    return self._$name();
    };
    this.$source = function () {
     var self = this;
-    var $stream = nil;
-    $stream = $0.$CharacterWriteStream(self.$enclosingObjects$MirrorsForV8$ClassDeclarationMirror[0]).$on$(self._$Array().$new$(100));
-    $stream.$nextPutAll$(self._$header().$source());
-    (function (cascadeReceiver) {
-     cascadeReceiver.$nextPutAll$(" ( ");
-     return cascadeReceiver.$cr();
-    })($stream);
+    var $sb = nil;
+    $sb = $0.$StringBuilder(self.$enclosingObjects$MirrorsForV8$ClassDeclarationMirror[0]).$new();
+    $sb.$add$(self._$header().$source());
+    $sb.$writeln$(" ( ");
     self._$instanceSide().$nestedClasses().$do$(function ($ea) {
-     return (function (cascadeReceiver) {
-      cascadeReceiver.$nextPutAll$($ea.$source());
-      return cascadeReceiver.$cr();
-     })($stream);
+     return $sb.$writeln$($ea.$source());
     });
-    $stream.$nextPutAll$(" 'Unclassified' ");
     self._$instanceSide().$methods().$do$(function ($ea) {
-     return (function (cascadeReceiver) {
-      cascadeReceiver.$nextPutAll$($ea.$source());
-      return cascadeReceiver.$cr();
-     })($stream);
+     return $sb.$writeln$($ea.$source());
     });
-    (function (cascadeReceiver) {
-     cascadeReceiver.$nextPutAll$(" ) : ( ");
-     return cascadeReceiver.$cr();
-    })($stream);
+    $sb.$writeln$(" ) : ( ");
     self._$classSide().$methods().$do$(function ($ea) {
-     return (function (cascadeReceiver) {
-      cascadeReceiver.$nextPutAll$($ea.$source());
-      return cascadeReceiver.$cr();
-     })($stream);
+     return $sb.$writeln$($ea.$source());
     });
-    $stream.$nextPutAll$(" )");
-    return self._$String().$withAll$($stream.$contents());
+    $sb.$writeln$(" )");
+    return $sb.$asString();
    };
-   this.$init$reflectee$ = function (v) {
-    this.$reflectee$slot = v;
-    return this;
+   this.$init$reflectee$ = function (self, v) {
+    self.$reflectee$slot = v;
+    return self;
    };
-   this.$reflectee = function () {
-    return this.$reflectee$slot;
+   this.$reflectee = function (self) {
+    return self.$reflectee$slot;
    };
    this.$init$instanceSide$ = function (v) {
     this.$instanceSide$slot = v;
@@ -21838,13 +25295,14 @@ var mixins = new function () {
      this._$superInit$MirrorsForV8$ClassDeclarationMirror = $.$superInit$MirrorsForV8$ClassDeclarationMirror;
      this.$superInit$MirrorsForV8$ClassDeclarationMirror = dnuCatcher("$superInit$MirrorsForV8$ClassDeclarationMirror");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this.$asBuilder = this._$asBuilder = $.$asBuilder;
+     this.$canUnderstand$ = this._$canUnderstand$ = $.$canUnderstand$;
      this.$enclosingClass = this._$enclosingClass = $.$enclosingClass;
      this.$header = this._$header = $.$header;
      this.$name = this._$name = $.$name;
+     this.$qualifiedName = this._$qualifiedName = $.$qualifiedName;
      this.$simpleName = this._$simpleName = $.$simpleName;
      this.$source = this._$source = $.$source;
-     this.$init$reflectee$ = this._$init$reflectee$ = $.$init$reflectee$;
-     this.$reflectee = this._$reflectee = $.$reflectee;
      this.$init$instanceSide$ = this._$init$instanceSide$ = $.$init$instanceSide$;
      this.$instanceSide = this._$instanceSide = $.$instanceSide;
      this.$init$classSide$ = this._$init$classSide$ = $.$init$classSide$;
@@ -21901,12 +25359,13 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for MirrorsForV8`ClassHeaderMirror";
    this.name = "MirrorsForV8`ClassHeaderMirror";
-   this.header = 1111;
+   this.header = 1260;
    this.slots = [new SM("reflectee", false, false)];
    this.methods = [
-    new MM("superInit`MirrorsForV8`ClassHeaderMirror", true, 1112),
-    new MM("instance`initializer", true, 1113),
-    new MM("source", false, 1114),
+    new MM("superInit`MirrorsForV8`ClassHeaderMirror", true, 1261),
+    new MM("instance`initializer", true, 1262),
+    new MM("classComment", false, 1263),
+    new MM("source", false, 1264),
     new MM("init`reflectee:", true, 0),
     new MM("reflectee", true, 0)
    ];
@@ -21920,21 +25379,25 @@ var mixins = new function () {
    this.$instance$initializer = function ($mixin) {
     var self = this;
     self._$superInit$MirrorsForV8$ClassHeaderMirror($mixin);
-    self._$init$reflectee$($mixin);
+    $1.$init$reflectee$(self, $mixin);
     return self;
+   };
+   this.$classComment = function () {
+    var self = this;
+    return $0.$compilation(self.$enclosingObjects$MirrorsForV8$ClassHeaderMirror[0]).$parser().$classHeader().$parseString$(self._$source()).$classComment();
    };
    this.$source = function () {
     var self = this;
     var $sourceIndex = nil;
-    $sourceIndex = self._$reflectee().runtimeMixin.header;
+    $sourceIndex = $1.$reflectee(self).runtimeMixin.header;
     return sources[$sourceIndex];
    };
-   this.$init$reflectee$ = function (v) {
-    this.$reflectee$slot = v;
-    return this;
+   this.$init$reflectee$ = function (self, v) {
+    self.$reflectee$slot = v;
+    return self;
    };
-   this.$reflectee = function () {
-    return this.$reflectee$slot;
+   this.$reflectee = function (self) {
+    return self.$reflectee$slot;
    };
    this.invoke = function (runtimeSuperclass, enclosingObjects) {
     function constructRuntimeClass (superBasicNew) {
@@ -21942,9 +25405,8 @@ var mixins = new function () {
      this._$superInit$MirrorsForV8$ClassHeaderMirror = $.$superInit$MirrorsForV8$ClassHeaderMirror;
      this.$superInit$MirrorsForV8$ClassHeaderMirror = dnuCatcher("$superInit$MirrorsForV8$ClassHeaderMirror");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this.$classComment = this._$classComment = $.$classComment;
      this.$source = this._$source = $.$source;
-     this.$init$reflectee$ = this._$init$reflectee$ = $.$init$reflectee$;
-     this.$reflectee = this._$reflectee = $.$reflectee;
      this.$enclosingObjects$MirrorsForV8$ClassHeaderMirror = enclosingObjects;
      this.$super$MirrorsForV8$ClassHeaderMirror$slot = runtimeSuperclass;
      this["MirrorsForV8`ClassHeaderMirror"] = function () {
@@ -21992,21 +25454,21 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for MirrorsForV8`ClassMirror";
    this.name = "MirrorsForV8`ClassMirror";
-   this.header = 1115;
+   this.header = 1265;
    this.slots = [new SM("reflectee", false, false)];
    this.methods = [
-    new MM("superInit`MirrorsForV8`ClassMirror", true, 1116),
-    new MM("instance`initializer", true, 1117),
-    new MM("allSuperclasses", false, 1118),
-    new MM("computeMirrorGroup:", false, 1119),
-    new MM("enclosingObject", false, 1120),
-    new MM("methods", false, 1121),
-    new MM("mixin", false, 1122),
-    new MM("name", false, 1123),
-    new MM("nestedClasses", false, 1124),
-    new MM("simpleName", false, 1125),
-    new MM("slots", false, 1126),
-    new MM("superclass", false, 1127),
+    new MM("superInit`MirrorsForV8`ClassMirror", true, 1266),
+    new MM("instance`initializer", true, 1267),
+    new MM("allSuperclasses", false, 1268),
+    new MM("computeMirrorGroup:", false, 1269),
+    new MM("enclosingObject", false, 1270),
+    new MM("methods", false, 1271),
+    new MM("mixin", false, 1272),
+    new MM("name", false, 1273),
+    new MM("nestedClasses", false, 1274),
+    new MM("simpleName", false, 1275),
+    new MM("slots", false, 1276),
+    new MM("superclass", false, 1277),
     new MM("init`reflectee:", true, 0),
     new MM("reflectee", true, 0)
    ];
@@ -22163,18 +25625,18 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for MirrorsForV8`MethodBuilder";
    this.name = "MirrorsForV8`MethodBuilder";
-   this.header = 1128;
+   this.header = 1278;
    this.slots = [
     new SM("reflecteeX", false, false),
     new SM("definingMixinX", false, false),
     new SM("source", false, false)
    ];
    this.methods = [
-    new MM("superInit`MirrorsForV8`MethodBuilder", true, 1129),
-    new MM("instance`initializer", true, 1130),
-    new MM("accessModifier", false, 1131),
-    new MM("name", false, 1132),
-    new MM("simpleName", false, 1133),
+    new MM("superInit`MirrorsForV8`MethodBuilder", true, 1279),
+    new MM("instance`initializer", true, 1280),
+    new MM("accessModifier", false, 1281),
+    new MM("name", false, 1282),
+    new MM("simpleName", false, 1283),
     new MM("init`reflecteeX:", true, 0),
     new MM("reflecteeX", true, 0),
     new MM("init`definingMixinX:", true, 0),
@@ -22298,26 +25760,24 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for MirrorsForV8`MethodMirror";
    this.name = "MirrorsForV8`MethodMirror";
-   this.header = 1134;
+   this.header = 1284;
    this.slots = [
     new SM("name", false, false),
     new SM("definingMixin", false, false),
-    new SM("sourceIndex", false, false),
-    new SM("accessModifier", false, false)
+    new SM("sourceIndex", false, false)
    ];
    this.methods = [
-    new MM("superInit`MirrorsForV8`MethodMirror", true, 1135),
-    new MM("instance`initializer", true, 1136),
-    new MM("simpleName", false, 1137),
-    new MM("source", false, 1138),
+    new MM("superInit`MirrorsForV8`MethodMirror", true, 1285),
+    new MM("instance`initializer", true, 1286),
+    new MM("accessModifier", false, 1287),
+    new MM("simpleName", false, 1288),
+    new MM("source", false, 1289),
     new MM("init`name:", true, 0),
     new MM("name", true, 0),
     new MM("init`definingMixin:", true, 0),
     new MM("definingMixin", true, 0),
     new MM("init`sourceIndex:", true, 0),
-    new MM("sourceIndex", true, 0),
-    new MM("init`accessModifier:", true, 0),
-    new MM("accessModifier", true, 0)
+    new MM("sourceIndex", true, 0)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -22332,8 +25792,21 @@ var mixins = new function () {
     self._$init$name$($n);
     self._$init$definingMixin$($dm);
     $1.$init$sourceIndex$(self, $s);
-    self._$init$accessModifier$("public");
     return self;
+   };
+   this.$accessModifier = function () {
+    var self = this;
+    if (self._$source().$startsWith$("public ")) {
+     return "public";
+    } else {
+     nil;
+    };
+    if (self._$source().$startsWith$("private ")) {
+     return "private";
+    } else {
+     nil;
+    };
+    return "protected";
    };
    this.$simpleName = function () {
     var self = this;
@@ -22364,27 +25837,19 @@ var mixins = new function () {
    this.$sourceIndex = function (self) {
     return self.$sourceIndex$slot;
    };
-   this.$init$accessModifier$ = function (v) {
-    this.$accessModifier$slot = v;
-    return this;
-   };
-   this.$accessModifier = function () {
-    return this.$accessModifier$slot;
-   };
    this.invoke = function (runtimeSuperclass, enclosingObjects) {
     function constructRuntimeClass (superBasicNew) {
      this.debug = "Runtime class for MirrorsForV8`MethodMirror";
      this._$superInit$MirrorsForV8$MethodMirror = $.$superInit$MirrorsForV8$MethodMirror;
      this.$superInit$MirrorsForV8$MethodMirror = dnuCatcher("$superInit$MirrorsForV8$MethodMirror");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this.$accessModifier = this._$accessModifier = $.$accessModifier;
      this.$simpleName = this._$simpleName = $.$simpleName;
      this.$source = this._$source = $.$source;
      this.$init$name$ = this._$init$name$ = $.$init$name$;
      this.$name = this._$name = $.$name;
      this.$init$definingMixin$ = this._$init$definingMixin$ = $.$init$definingMixin$;
      this.$definingMixin = this._$definingMixin = $.$definingMixin;
-     this.$init$accessModifier$ = this._$init$accessModifier$ = $.$init$accessModifier$;
-     this.$accessModifier = this._$accessModifier = $.$accessModifier;
      this.$enclosingObjects$MirrorsForV8$MethodMirror = enclosingObjects;
      this.$super$MirrorsForV8$MethodMirror$slot = runtimeSuperclass;
      this["MirrorsForV8`MethodMirror"] = function () {
@@ -22392,7 +25857,6 @@ var mixins = new function () {
       this.$name$slot = nil;
       this.$definingMixin$slot = nil;
       this.$sourceIndex$slot = nil;
-      this.$accessModifier$slot = nil;
      };
      this.basicNew = this["MirrorsForV8`MethodMirror"];
      this.basicNew.prototype = this;
@@ -22435,7 +25899,7 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for MirrorsForV8`MixinBuilder";
    this.name = "MirrorsForV8`MixinBuilder";
-   this.header = 1139;
+   this.header = 1290;
    this.slots = [
     new SM("mixinIR", false, false),
     new SM("declaration", false, false),
@@ -22445,10 +25909,10 @@ var mixins = new function () {
     new SM("nestedClasses", false, false)
    ];
    this.methods = [
-    new MM("superInit`MirrorsForV8`MixinBuilder", true, 1140),
-    new MM("instance`initializer", true, 1141),
-    new MM("find:in:", false, 1142),
-    new MM("isKindOfMixinMirror", false, 1143),
+    new MM("superInit`MirrorsForV8`MixinBuilder", true, 1291),
+    new MM("instance`initializer", true, 1292),
+    new MM("find:in:", false, 1293),
+    new MM("isKindOfMixinMirror", false, 1294),
     new MM("init`mixinIR:", true, 0),
     new MM("mixinIR", true, 0),
     new MM("init`declaration:", true, 0),
@@ -22586,7 +26050,7 @@ var mixins = new function () {
     this.slots = [];
     this.methods = [
      new MM("forClassDeclaration:ir:em:", true, 0),
-     new MM("reflecting:", false, 1144)
+     new MM("reflecting:", false, 1295)
     ];
     this.nestedClasses = [];
     this.$forClassDeclaration$ir$em$ = function ($cdb, $ir, $em) {
@@ -22625,16 +26089,19 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for MirrorsForV8`MixinMirror";
    this.name = "MirrorsForV8`MixinMirror";
-   this.header = 1145;
+   this.header = 1296;
    this.slots = [new SM("reflectee", false, false)];
    this.methods = [
-    new MM("superInit`MirrorsForV8`MixinMirror", true, 1146),
-    new MM("instance`initializer", true, 1147),
-    new MM("declaration", false, 1148),
-    new MM("isKindOfMixinMirror", false, 1149),
-    new MM("methods", false, 1150),
-    new MM("nestedClasses", false, 1151),
-    new MM("slots", false, 1152),
+    new MM("superInit`MirrorsForV8`MixinMirror", true, 1297),
+    new MM("instance`initializer", true, 1298),
+    new MM("asBuilder", false, 1299),
+    new MM("canUnderstand:", false, 1300),
+    new MM("declaration", false, 1301),
+    new MM("isKindOfMixinMirror", false, 1302),
+    new MM("isMeta", false, 1303),
+    new MM("methods", false, 1304),
+    new MM("nestedClasses", false, 1305),
+    new MM("slots", false, 1306),
     new MM("init`reflectee:", true, 0),
     new MM("reflectee", true, 0)
    ];
@@ -22648,25 +26115,41 @@ var mixins = new function () {
    this.$instance$initializer = function ($mixin) {
     var self = this;
     self._$superInit$MirrorsForV8$MixinMirror($mixin);
-    self._$init$reflectee$($mixin);
+    $1.$init$reflectee$(self, $mixin);
     return self;
+   };
+   this.$asBuilder = function () {
+    var self = this;
+    return self._$isMeta().$ifTrue$ifFalse$(function () {
+     return self._$declaration().$asBuilder().$classSide();
+    }, function () {
+     return self._$declaration().$asBuilder().$instanceSide();
+    });
+   };
+   this.$canUnderstand$ = function ($selector) {
+    var self = this;
+    return self._$methods().$includesMirrorNamed$($selector);
    };
    this.$declaration = function () {
     var self = this;
-    return self.$enclosingObjects$MirrorsForV8$MixinMirror[0]._$ClassDeclarationMirror().$reflecting$(self._$reflectee().$isMeta().$ifFalse$ifTrue$(function () {
-     return self._$reflectee();
+    return self.$enclosingObjects$MirrorsForV8$MixinMirror[0]._$ClassDeclarationMirror().$reflecting$(self._$isMeta().$ifFalse$ifTrue$(function () {
+     return $1.$reflectee(self);
     }, function () {
-     return $0.$Mixin(self.$enclosingObjects$MirrorsForV8$MixinMirror[0]).$fromRuntimeMixin$(self._$reflectee().runtimeMixin.nonMeta);
+     return $0.$Mixin(self.$enclosingObjects$MirrorsForV8$MixinMirror[0]).$fromRuntimeMixin$($1.$reflectee(self).runtimeMixin.nonMeta);
     }));
    };
    this.$isKindOfMixinMirror = function () {
     var self = this;
     return true;
    };
+   this.$isMeta = function () {
+    var self = this;
+    return $1.$reflectee(self).$isMeta();
+   };
    this.$methods = function () {
     var self = this;
     var $raw = nil;
-    $raw = self._$reflectee().runtimeMixin.methods.$select$(function ($each) {
+    $raw = $1.$reflectee(self).runtimeMixin.methods.$select$(function ($each) {
      return $each.isSynthetic.$not();
     }).$collect$(function ($each) {
      return self.$enclosingObjects$MirrorsForV8$MixinMirror[0]._$MethodMirror().$named$in$source$($each.name, self, $each.source);
@@ -22676,27 +26159,27 @@ var mixins = new function () {
    this.$nestedClasses = function () {
     var self = this;
     var $raw = nil;
-    $raw = self._$reflectee().runtimeMixin.nestedClasses.$collect$(function ($each) {
-     return self.$enclosingObjects$MirrorsForV8$MixinMirror[0]._$ClassDeclarationMirror().$reflecting$($0.$Mixin(self.$enclosingObjects$MirrorsForV8$MixinMirror[0]).$fromRuntimeMixin$(self._$reflectee().runtimeMixin[$0.$vmmirror(self.$enclosingObjects$MirrorsForV8$MixinMirror[0]).$mangleSelector$($each)]));
+    $raw = $1.$reflectee(self).runtimeMixin.nestedClasses.$collect$(function ($each) {
+     return self.$enclosingObjects$MirrorsForV8$MixinMirror[0]._$ClassDeclarationMirror().$reflecting$($0.$Mixin(self.$enclosingObjects$MirrorsForV8$MixinMirror[0]).$fromRuntimeMixin$($1.$reflectee(self).runtimeMixin[$0.$vmmirror(self.$enclosingObjects$MirrorsForV8$MixinMirror[0]).$mangleSelector$($each)]));
     });
     return $0.$ImmutableMirrorGroup(self.$enclosingObjects$MirrorsForV8$MixinMirror[0]).$group$($raw);
    };
    this.$slots = function () {
     var self = this;
     var $raw = nil;
-    $raw = self._$reflectee().runtimeMixin.slots.$select$(function ($each) {
+    $raw = $1.$reflectee(self).runtimeMixin.slots.$select$(function ($each) {
      return $each.isSynthetic.$not();
     }).$collect$(function ($each) {
      return self.$enclosingObjects$MirrorsForV8$MixinMirror[0]._$SlotDeclarationMirror().$named$($each.name);
     });
     return $0.$ImmutableMirrorGroup(self.$enclosingObjects$MirrorsForV8$MixinMirror[0]).$group$($raw);
    };
-   this.$init$reflectee$ = function (v) {
-    this.$reflectee$slot = v;
-    return this;
+   this.$init$reflectee$ = function (self, v) {
+    self.$reflectee$slot = v;
+    return self;
    };
-   this.$reflectee = function () {
-    return this.$reflectee$slot;
+   this.$reflectee = function (self) {
+    return self.$reflectee$slot;
    };
    this.invoke = function (runtimeSuperclass, enclosingObjects) {
     function constructRuntimeClass (superBasicNew) {
@@ -22704,13 +26187,14 @@ var mixins = new function () {
      this._$superInit$MirrorsForV8$MixinMirror = $.$superInit$MirrorsForV8$MixinMirror;
      this.$superInit$MirrorsForV8$MixinMirror = dnuCatcher("$superInit$MirrorsForV8$MixinMirror");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this.$asBuilder = this._$asBuilder = $.$asBuilder;
+     this.$canUnderstand$ = this._$canUnderstand$ = $.$canUnderstand$;
      this.$declaration = this._$declaration = $.$declaration;
      this.$isKindOfMixinMirror = this._$isKindOfMixinMirror = $.$isKindOfMixinMirror;
+     this.$isMeta = this._$isMeta = $.$isMeta;
      this.$methods = this._$methods = $.$methods;
      this.$nestedClasses = this._$nestedClasses = $.$nestedClasses;
      this.$slots = this._$slots = $.$slots;
-     this.$init$reflectee$ = this._$init$reflectee$ = $.$init$reflectee$;
-     this.$reflectee = this._$reflectee = $.$reflectee;
      this.$enclosingObjects$MirrorsForV8$MixinMirror = enclosingObjects;
      this.$super$MirrorsForV8$MixinMirror$slot = runtimeSuperclass;
      this["MirrorsForV8`MixinMirror"] = function () {
@@ -22758,12 +26242,12 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for MirrorsForV8`MutableMethodGroup";
    this.name = "MirrorsForV8`MutableMethodGroup";
-   this.header = 1153;
+   this.header = 1307;
    this.slots = [];
    this.methods = [
-    new MM("superInit`MirrorsForV8`MutableMethodGroup", true, 1154),
-    new MM("instance`initializer", true, 1155),
-    new MM("addFromSource:", false, 1156)
+    new MM("superInit`MirrorsForV8`MutableMethodGroup", true, 1308),
+    new MM("instance`initializer", true, 1309),
+    new MM("addFromSource:", false, 1310)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -22786,7 +26270,7 @@ var mixins = new function () {
     $result = $0.$compiler(self.$enclosingObjects$MirrorsForV8$MutableMethodGroup[0]).$compileMethodSource$within$($s, self._$enclosingMixin());
     $newM = self.$enclosingObjects$MirrorsForV8$MutableMethodGroup[0]._$MethodBuilder().$reflecting$in$source$($result, self._$enclosingMixin(), $s);
     $oldMirror = self._$removeMirrorNamed$($result.$name());
-    if ($oldMirror.$$tilde$equal(self)) {
+    if (!$oldMirror.$$equal(self)) {
      self._$mixinIR().$methods().$removeAllSuchThat$(function ($ea) {
       return $ea.$name().$$equal($result.$name());
      });
@@ -22850,16 +26334,16 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for MirrorsForV8`MutableMirrorGroup";
    this.name = "MirrorsForV8`MutableMirrorGroup";
-   this.header = 1157;
+   this.header = 1311;
    this.slots = [
     new SM("enclosingMixin", false, false),
     new SM("mixinIR", false, false)
    ];
    this.methods = [
-    new MM("superInit`MirrorsForV8`MutableMirrorGroup", true, 1158),
-    new MM("instance`initializer", true, 1159),
-    new MM("addMirror:", false, 1160),
-    new MM("removeMirrorNamed:", false, 1161),
+    new MM("superInit`MirrorsForV8`MutableMirrorGroup", true, 1312),
+    new MM("instance`initializer", true, 1313),
+    new MM("addMirror:", false, 1314),
+    new MM("removeMirrorNamed:", false, 1315),
     new MM("init`enclosingMixin:", true, 0),
     new MM("enclosingMixin", true, 0),
     new MM("init`mixinIR:", true, 0),
@@ -22886,12 +26370,20 @@ var mixins = new function () {
      self._$mirrors().$keysAndValuesDo$(function ($index, $mirror) {
       return $mirror.$simpleName().$$equal($m.$simpleName()).$ifTrue$(function () {
        {
-        NLR.value = self._$mirrors().$at$put$($index, $m);
+        var t = self._$mirrors().$at$put$($index, $m);
+        if (NLR === null) {
+         self.cannotReturn(self, t);
+        };
+        NLR.value = t;
         throw NLR;
        };
       });
      });
-     return self._$mirrors().$addLast$($m);
+     {
+      var t = self._$mirrors().$addLast$($m);
+      NLR = null;
+      return t;
+     };
     } catch (NLR_exception) {
      if (NLR === NLR_exception) {
       return NLR_exception.value;
@@ -22904,15 +26396,24 @@ var mixins = new function () {
     var self = this;
     var NLR = new Object();
     try {
+     "BOGUS";
      self._$mirrors().$keysAndValuesDo$(function ($index, $mirror) {
       return $mirror.$simpleName().$$equal($m).$ifTrue$(function () {
        {
-        NLR.value = self._$mirrors().$remove$($mirror);
+        var t = self._$mirrors().$remove$($mirror);
+        if (NLR === null) {
+         self.cannotReturn(self, t);
+        };
+        NLR.value = t;
         throw NLR;
        };
       });
      });
-     return self;
+     {
+      var t = self;
+      NLR = null;
+      return t;
+     };
     } catch (NLR_exception) {
      if (NLR === NLR_exception) {
       return NLR_exception.value;
@@ -22998,11 +26499,11 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for MirrorsForV8`MutableNestedClassGroup";
    this.name = "MirrorsForV8`MutableNestedClassGroup";
-   this.header = 1162;
+   this.header = 1316;
    this.slots = [];
    this.methods = [
-    new MM("superInit`MirrorsForV8`MutableNestedClassGroup", true, 1163),
-    new MM("instance`initializer", true, 1164)
+    new MM("superInit`MirrorsForV8`MutableNestedClassGroup", true, 1317),
+    new MM("instance`initializer", true, 1318)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -23068,15 +26569,15 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for MirrorsForV8`ObjectMirror";
    this.name = "MirrorsForV8`ObjectMirror";
-   this.header = 1165;
+   this.header = 1319;
    this.slots = [new SM("reflectee", false, false)];
    this.methods = [
-    new MM("superInit`MirrorsForV8`ObjectMirror", true, 1166),
-    new MM("instance`initializer", true, 1167),
-    new MM("evaluate:ifCompilerError:ifError:", false, 1168),
-    new MM("getClass", false, 1169),
-    new MM("getSlot:", false, 1170),
-    new MM("setSlot:to:", false, 1171),
+    new MM("superInit`MirrorsForV8`ObjectMirror", true, 1320),
+    new MM("instance`initializer", true, 1321),
+    new MM("evaluate:ifCompilerError:ifError:", false, 1322),
+    new MM("getClass", false, 1323),
+    new MM("getSlot:", false, 1324),
+    new MM("setSlot:to:", false, 1325),
     new MM("init`reflectee:", true, 0),
     new MM("reflectee", true, 0)
    ];
@@ -23101,7 +26602,7 @@ var mixins = new function () {
      var $ir = nil;
      var $dnuHandlers = nil;
      var $writer = nil;
-     var $stream = nil;
+     var $sb = nil;
      var $src = nil;
      var $func = nil;
      var $result = nil;
@@ -23110,20 +26611,24 @@ var mixins = new function () {
       $ir = $compiler.$compileExpressionSource$inMixin$($expression, self._$getClass().$mixin());
       $dnuHandlers = $compiler.$dnuHandlers();
       $writer = $0.$generation(self.$enclosingObjects$MirrorsForV8$ObjectMirror[0]).$Writer().$new();
-      $stream = $0.$CharacterWriteStream(self.$enclosingObjects$MirrorsForV8$ObjectMirror[0]).$on$(self._$Array().$new$(100));
-      $writer.$generateSourceFor$on$($dnuHandlers, $stream);
-      $src = self._$String().$withAll$($stream.$contents());
+      $sb = $0.$StringBuilder(self.$enclosingObjects$MirrorsForV8$ObjectMirror[0]).$new();
+      $writer.$generateSourceFor$on$($dnuHandlers, $sb);
+      $src = $sb.$asString();
       $func = eval("(".$$comma($src).$$comma(")"));
       $func(Object.prototype);
       $writer = $0.$generation(self.$enclosingObjects$MirrorsForV8$ObjectMirror[0]).$Writer().$new();
-      $stream = $0.$CharacterWriteStream(self.$enclosingObjects$MirrorsForV8$ObjectMirror[0]).$on$(self._$Array().$new$(100));
-      $writer.$generateSourceFor$on$($ir.$function(), $stream);
-      $src = self._$String().$withAll$($stream.$contents());
+      $sb = $0.$StringBuilder(self.$enclosingObjects$MirrorsForV8$ObjectMirror[0]).$new();
+      $writer.$generateSourceFor$on$($ir.$function(), $sb);
+      $src = $sb.$asString();
       $src.$out();
       return $func = eval("(".$$comma($src).$$comma(")"));
      }).$on$do$(self._$Error(), function ($e) {
       {
-       NLR.value = $compilationErrorHandler.$value$($e);
+       var t = $compilationErrorHandler.$value$($e);
+       if (NLR === null) {
+        self.cannotReturn(self, t);
+       };
+       NLR.value = t;
        throw NLR;
       };
      });
@@ -23131,11 +26636,19 @@ var mixins = new function () {
       return $result = $func.call(self._$reflectee());
      }).$on$do$(self._$Error(), function ($e) {
       {
-       NLR.value = $evalErrorHandler.$value$($e);
+       var t = $evalErrorHandler.$value$($e);
+       if (NLR === null) {
+        self.cannotReturn(self, t);
+       };
+       NLR.value = t;
        throw NLR;
       };
      });
-     return self.$enclosingObjects$MirrorsForV8$ObjectMirror[0]._$ObjectMirror().$reflecting$($result);
+     {
+      var t = self.$enclosingObjects$MirrorsForV8$ObjectMirror[0]._$ObjectMirror().$reflecting$($result);
+      NLR = null;
+      return t;
+     };
     } catch (NLR_exception) {
      if (NLR === NLR_exception) {
       return NLR_exception.value;
@@ -23242,14 +26755,14 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for MirrorsForV8`SlotDeclarationMirror";
    this.name = "MirrorsForV8`SlotDeclarationMirror";
-   this.header = 1172;
+   this.header = 1326;
    this.slots = [
     new SM("name", false, false),
     new SM("accessModifier", false, false)
    ];
    this.methods = [
-    new MM("superInit`MirrorsForV8`SlotDeclarationMirror", true, 1173),
-    new MM("instance`initializer", true, 1174),
+    new MM("superInit`MirrorsForV8`SlotDeclarationMirror", true, 1327),
+    new MM("instance`initializer", true, 1328),
     new MM("init`name:", true, 0),
     new MM("name", true, 0),
     new MM("init`accessModifier:", true, 0),
@@ -23364,18 +26877,32 @@ var mixins = new function () {
     this._$updateMixin$from$by$ = $.$updateMixin$from$by$;
     this.$updateMixin$from$by$ = dnuCatcher("$updateMixin$from$by$");
     this.$ClassDeclarationBuilder = this._$ClassDeclarationBuilder = $.$ClassDeclarationBuilder;
-    this.$ClassDeclarationMirror = this._$ClassDeclarationMirror = $.$ClassDeclarationMirror;
-    this.$ClassHeaderMirror = this._$ClassHeaderMirror = $.$ClassHeaderMirror;
+    this._$ClassDeclarationMirror = $.$ClassDeclarationMirror;
+    this.$ClassDeclarationMirror = dnuCatcher("$ClassDeclarationMirror");
+    this._$ClassHeaderMirror = $.$ClassHeaderMirror;
+    this.$ClassHeaderMirror = dnuCatcher("$ClassHeaderMirror");
     this.$ClassMirror = this._$ClassMirror = $.$ClassMirror;
-    this.$MethodBuilder = this._$MethodBuilder = $.$MethodBuilder;
-    this.$MethodMirror = this._$MethodMirror = $.$MethodMirror;
-    this.$MixinBuilder = this._$MixinBuilder = $.$MixinBuilder;
-    this.$MixinMirror = this._$MixinMirror = $.$MixinMirror;
-    this.$MutableMethodGroup = this._$MutableMethodGroup = $.$MutableMethodGroup;
-    this.$MutableMirrorGroup = this._$MutableMirrorGroup = $.$MutableMirrorGroup;
-    this.$MutableNestedClassGroup = this._$MutableNestedClassGroup = $.$MutableNestedClassGroup;
+    this._$MethodBuilder = $.$MethodBuilder;
+    this.$MethodBuilder = dnuCatcher("$MethodBuilder");
+    this._$MethodMirror = $.$MethodMirror;
+    this.$MethodMirror = dnuCatcher("$MethodMirror");
+    this._$MixinBuilder = $.$MixinBuilder;
+    this.$MixinBuilder = dnuCatcher("$MixinBuilder");
+    this._$MixinMirror = $.$MixinMirror;
+    this.$MixinMirror = dnuCatcher("$MixinMirror");
+    this._$MutableMethodGroup = $.$MutableMethodGroup;
+    this.$MutableMethodGroup = dnuCatcher("$MutableMethodGroup");
+    this._$MutableMirrorGroup = $.$MutableMirrorGroup;
+    this.$MutableMirrorGroup = dnuCatcher("$MutableMirrorGroup");
+    this._$MutableNestedClassGroup = $.$MutableNestedClassGroup;
+    this.$MutableNestedClassGroup = dnuCatcher("$MutableNestedClassGroup");
     this.$ObjectMirror = this._$ObjectMirror = $.$ObjectMirror;
-    this.$SlotDeclarationMirror = this._$SlotDeclarationMirror = $.$SlotDeclarationMirror;
+    this._$SlotDeclarationMirror = $.$SlotDeclarationMirror;
+    this.$SlotDeclarationMirror = dnuCatcher("$SlotDeclarationMirror");
+    this.$init$parserLib$ = this._$init$parserLib$ = $.$init$parserLib$;
+    this.$parserLib = this._$parserLib = $.$parserLib;
+    this.$init$grammar$ = this._$init$grammar$ = $.$init$grammar$;
+    this.$grammar = this._$grammar = $.$grammar;
     this.$init$MirrorsForV8$ClassDeclarationBuilder$ = this._$init$MirrorsForV8$ClassDeclarationBuilder$ = $.$init$MirrorsForV8$ClassDeclarationBuilder$;
     this.$MirrorsForV8$ClassDeclarationBuilder = this._$MirrorsForV8$ClassDeclarationBuilder = $.$MirrorsForV8$ClassDeclarationBuilder;
     this.$MirrorsForV8$ClassDeclarationBuilder$ = this._$MirrorsForV8$ClassDeclarationBuilder$ = $.$MirrorsForV8$ClassDeclarationBuilder$;
@@ -23422,8 +26949,7 @@ var mixins = new function () {
      this.$List$slot = nil;
      this.$Map$slot = nil;
      this.$Mixin$slot = nil;
-     this.$CharacterReadStream$slot = nil;
-     this.$CharacterWriteStream$slot = nil;
+     this.$StringBuilder$slot = nil;
      this.$ImmutableMirrorGroup$slot = nil;
      this.$vmmirror$slot = nil;
      this.$parserLib$slot = nil;
@@ -23488,22 +27014,22 @@ var mixins = new function () {
   var $0 = this;
   this.debug = "Runtime mixin for MirrorGroups";
   this.name = "MirrorGroups";
-  this.header = 1175;
+  this.header = 1329;
   this.slots = [
    new SM("Collection", false, false),
-   new SM("OrderedCollection", false, false),
+   new SM("List", false, false),
    new SM("MirrorGroups`ImmutableMirrorGroup", true, true),
    new SM("MirrorGroups`MirrorGroup", true, true)
   ];
   this.methods = [
-   new MM("superInit`MirrorGroups", true, 1176),
-   new MM("instance`initializer", true, 1177),
+   new MM("superInit`MirrorGroups", true, 1330),
+   new MM("instance`initializer", true, 1331),
    new MM("ImmutableMirrorGroup", true, 0),
    new MM("MirrorGroup", true, 0),
    new MM("init`Collection:", true, 0),
    new MM("Collection", true, 0),
-   new MM("init`OrderedCollection:", true, 0),
-   new MM("OrderedCollection", true, 0),
+   new MM("init`List:", true, 0),
+   new MM("List", true, 0),
    new MM("init`MirrorGroups`ImmutableMirrorGroup:", true, 0),
    new MM("MirrorGroups`ImmutableMirrorGroup", true, 0),
    new MM("MirrorGroups`ImmutableMirrorGroup:", true, 0),
@@ -23525,7 +27051,7 @@ var mixins = new function () {
    var self = this;
    self._$superInit$MirrorGroups($platform);
    $0.$init$Collection$(self, $platform.$collections().$Collection());
-   $0.$init$OrderedCollection$(self, $platform.$collections().$OrderedCollection());
+   $0.$init$List$(self, $platform.$collections().$List());
    return self;
   };
   this.$ImmutableMirrorGroup = function () {
@@ -23555,12 +27081,12 @@ var mixins = new function () {
   this.$Collection = function (self) {
    return self.$Collection$slot;
   };
-  this.$init$OrderedCollection$ = function (self, v) {
-   self.$OrderedCollection$slot = v;
+  this.$init$List$ = function (self, v) {
+   self.$List$slot = v;
    return self;
   };
-  this.$OrderedCollection = function (self) {
-   return self.$OrderedCollection$slot;
+  this.$List = function (self) {
+   return self.$List$slot;
   };
   this.$init$MirrorGroups$ImmutableMirrorGroup$ = function (v) {
    this.$MirrorGroups$ImmutableMirrorGroup$slot = v;
@@ -23589,19 +27115,19 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for MirrorGroups`ImmutableMirrorGroup";
    this.name = "MirrorGroups`ImmutableMirrorGroup";
-   this.header = 1178;
+   this.header = 1332;
    this.slots = [new SM("mirrors", false, false)];
    this.methods = [
-    new MM("superInit`MirrorGroups`ImmutableMirrorGroup", true, 1179),
-    new MM("instance`initializer", true, 1180),
-    new MM("addFromSource:", false, 1181),
-    new MM("addMirror:", false, 1182),
-    new MM("do:", false, 1183),
-    new MM("findMirrorNamed:", false, 1184),
-    new MM("includesMirrorNamed:", false, 1185),
-    new MM("removeMirror:", false, 1186),
-    new MM("removeMirrorNamed:", false, 1187),
-    new MM("size", false, 1188),
+    new MM("superInit`MirrorGroups`ImmutableMirrorGroup", true, 1333),
+    new MM("instance`initializer", true, 1334),
+    new MM("addFromSource:", false, 1335),
+    new MM("addMirror:", false, 1336),
+    new MM("do:", false, 1337),
+    new MM("findMirrorNamed:", false, 1338),
+    new MM("includesMirrorNamed:", false, 1339),
+    new MM("removeMirror:", false, 1340),
+    new MM("removeMirrorNamed:", false, 1341),
+    new MM("size", false, 1342),
     new MM("init`mirrors:", true, 0),
     new MM("mirrors", true, 0)
    ];
@@ -23615,7 +27141,7 @@ var mixins = new function () {
    this.$instance$initializer = function ($ms) {
     var self = this;
     self._$superInit$MirrorGroups$ImmutableMirrorGroup($ms);
-    self._$init$mirrors$($0.$OrderedCollection(self.$enclosingObjects$MirrorGroups$ImmutableMirrorGroup[0]).$withAll$($ms));
+    self._$init$mirrors$($0.$List(self.$enclosingObjects$MirrorGroups$ImmutableMirrorGroup[0]).$withAll$($ms));
     return self;
    };
    this.$addFromSource$ = function ($s) {
@@ -23638,12 +27164,20 @@ var mixins = new function () {
      self._$mirrors().$do$(function ($mirror) {
       return $mirror.$name().$$equal($n).$ifTrue$(function () {
        {
-        NLR.value = $mirror;
+        var t = $mirror;
+        if (NLR === null) {
+         self.cannotReturn(self, t);
+        };
+        NLR.value = t;
         throw NLR;
        };
       });
      });
-     return nil;
+     {
+      var t = nil;
+      NLR = null;
+      return t;
+     };
     } catch (NLR_exception) {
      if (NLR === NLR_exception) {
       return NLR_exception.value;
@@ -23659,12 +27193,20 @@ var mixins = new function () {
      self._$mirrors().$do$(function ($mirror) {
       return $mirror.$name().$$equal($n).$ifTrue$(function () {
        {
-        NLR.value = true;
+        var t = true;
+        if (NLR === null) {
+         self.cannotReturn(self, t);
+        };
+        NLR.value = t;
         throw NLR;
        };
       });
      });
-     return false;
+     {
+      var t = false;
+      NLR = null;
+      return t;
+     };
     } catch (NLR_exception) {
      if (NLR === NLR_exception) {
       return NLR_exception.value;
@@ -23757,17 +27299,17 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for MirrorGroups`MirrorGroup";
    this.name = "MirrorGroups`MirrorGroup";
-   this.header = 1189;
+   this.header = 1343;
    this.slots = [];
    this.methods = [
-    new MM("superInit`MirrorGroups`MirrorGroup", true, 1190),
-    new MM("instance`initializer", true, 1191),
-    new MM("addFromSource:", false, 1192),
-    new MM("addMirror:", false, 1193),
-    new MM("removeAll", false, 1194),
-    new MM("removeAllSuchThat:", false, 1195),
-    new MM("removeMirror:", false, 1196),
-    new MM("removeMirrorNamed:", false, 1197)
+    new MM("superInit`MirrorGroups`MirrorGroup", true, 1344),
+    new MM("instance`initializer", true, 1345),
+    new MM("addFromSource:", false, 1346),
+    new MM("addMirror:", false, 1347),
+    new MM("removeAll", false, 1348),
+    new MM("removeAllSuchThat:", false, 1349),
+    new MM("removeMirror:", false, 1350),
+    new MM("removeMirrorNamed:", false, 1351)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -23793,12 +27335,20 @@ var mixins = new function () {
      self._$mirrors().$keysAndValuesDo$(function ($index, $mirror) {
       return $mirror.$simpleName().$$equal($m.$simpleName()).$ifTrue$(function () {
        {
-        NLR.value = self._$mirrors().$at$put$($index, $m);
+        var t = self._$mirrors().$at$put$($index, $m);
+        if (NLR === null) {
+         self.cannotReturn(self, t);
+        };
+        NLR.value = t;
         throw NLR;
        };
       });
      });
-     return self._$mirrors().$addLast$($m);
+     {
+      var t = self._$mirrors().$addLast$($m);
+      NLR = null;
+      return t;
+     };
     } catch (NLR_exception) {
      if (NLR === NLR_exception) {
       return NLR_exception.value;
@@ -23809,7 +27359,7 @@ var mixins = new function () {
    };
    this.$removeAll = function () {
     var self = this;
-    self._$mirrors$($0.$OrderedCollection(self.$enclosingObjects$MirrorGroups$MirrorGroup[0]).$new());
+    self._$mirrors$($0.$List(self.$enclosingObjects$MirrorGroups$MirrorGroup[0]).$new());
     return self;
    };
    this.$removeAllSuchThat$ = function ($blk) {
@@ -23912,7 +27462,7 @@ var mixins = new function () {
     this.MirrorGroups = function () {
      superBasicNew.call(this);
      this.$Collection$slot = nil;
-     this.$OrderedCollection$slot = nil;
+     this.$List$slot = nil;
      this.$MirrorGroups$ImmutableMirrorGroup$slot = nil;
      this.$MirrorGroups$MirrorGroup$slot = nil;
     };
@@ -23957,13 +27507,11 @@ var mixins = new function () {
   var $0 = this;
   this.debug = "Runtime mixin for Streams";
   this.name = "Streams";
-  this.header = 1198;
+  this.header = 1352;
   this.slots = [
    new SM("BasicOutputReadStream", false, false),
-   new SM("CharacterSequenceReadStream", false, false),
    new SM("CharacterIStream", false, false),
    new SM("CharacterOStream", false, false),
-   new SM("CharacterSequenceReadWriteStream", false, false),
    new SM("CharacterConverterWithOutput", false, false),
    new SM("OutputInputConverter", false, false),
    new SM("BasicIExStream", false, false),
@@ -23981,8 +27529,6 @@ var mixins = new function () {
    new SM("Streams`CharacterOutput", true, true),
    new SM("Streams`CharacterOutputConverter", true, true),
    new SM("Streams`CharacterReadConverter", true, true),
-   new SM("Streams`CharacterReadStream", true, true),
-   new SM("Streams`CharacterReadWriteStream", true, true),
    new SM("Streams`ExternalInputStream", true, true),
    new SM("Streams`ExternalOutputStream", true, true),
    new SM("Streams`ExternalReadStream", true, true),
@@ -23993,9 +27539,9 @@ var mixins = new function () {
    new SM("Streams`TempTranscript", true, true)
   ];
   this.methods = [
-   new MM("superInit`Streams", true, 1199),
-   new MM("instance`initializer", true, 1200),
-   new MM("usingCrLfConvention", false, 1201),
+   new MM("superInit`Streams", true, 1353),
+   new MM("instance`initializer", true, 1354),
+   new MM("usingCrLfConvention", false, 1355),
    new MM("BasicInputStream", true, 0),
    new MM("BasicOutputStream", true, 0),
    new MM("BasicReadStream", true, 0),
@@ -24006,8 +27552,6 @@ var mixins = new function () {
    new MM("CharacterOutput", true, 0),
    new MM("CharacterOutputConverter", true, 0),
    new MM("CharacterReadConverter", true, 0),
-   new MM("CharacterReadStream", true, 0),
-   new MM("CharacterReadWriteStream", true, 0),
    new MM("ExternalInputStream", true, 0),
    new MM("ExternalOutputStream", true, 0),
    new MM("ExternalReadStream", true, 0),
@@ -24018,14 +27562,10 @@ var mixins = new function () {
    new MM("TempTranscript", true, 0),
    new MM("init`BasicOutputReadStream:", true, 0),
    new MM("BasicOutputReadStream", true, 0),
-   new MM("init`CharacterSequenceReadStream:", true, 0),
-   new MM("CharacterSequenceReadStream", true, 0),
    new MM("init`CharacterIStream:", true, 0),
    new MM("CharacterIStream", true, 0),
    new MM("init`CharacterOStream:", true, 0),
    new MM("CharacterOStream", true, 0),
-   new MM("init`CharacterSequenceReadWriteStream:", true, 0),
-   new MM("CharacterSequenceReadWriteStream", true, 0),
    new MM("init`CharacterConverterWithOutput:", true, 0),
    new MM("CharacterConverterWithOutput", true, 0),
    new MM("init`OutputInputConverter:", true, 0),
@@ -24070,12 +27610,6 @@ var mixins = new function () {
    new MM("init`Streams`CharacterReadConverter:", true, 0),
    new MM("Streams`CharacterReadConverter", true, 0),
    new MM("Streams`CharacterReadConverter:", true, 0),
-   new MM("init`Streams`CharacterReadStream:", true, 0),
-   new MM("Streams`CharacterReadStream", true, 0),
-   new MM("Streams`CharacterReadStream:", true, 0),
-   new MM("init`Streams`CharacterReadWriteStream:", true, 0),
-   new MM("Streams`CharacterReadWriteStream", true, 0),
-   new MM("Streams`CharacterReadWriteStream:", true, 0),
    new MM("init`Streams`ExternalInputStream:", true, 0),
    new MM("Streams`ExternalInputStream", true, 0),
    new MM("Streams`ExternalInputStream:", true, 0),
@@ -24112,8 +27646,6 @@ var mixins = new function () {
    "Streams`CharacterOutput",
    "Streams`CharacterOutputConverter",
    "Streams`CharacterReadConverter",
-   "Streams`CharacterReadStream",
-   "Streams`CharacterReadWriteStream",
    "Streams`ExternalInputStream",
    "Streams`ExternalOutputStream",
    "Streams`ExternalReadStream",
@@ -24133,10 +27665,8 @@ var mixins = new function () {
    var self = this;
    self._$superInit$Streams($platform);
    $0.$init$BasicOutputReadStream$(self, self._$BasicOutputStream().$mixinApply$(self._$BasicReadStream()));
-   $0.$init$CharacterSequenceReadStream$(self, self._$CharacterInput().$mixinApply$(self._$SeqCltnReadStream()));
    $0.$init$CharacterIStream$(self, self._$CharacterInput().$mixinApply$(self._$BasicInputStream()));
    $0.$init$CharacterOStream$(self, self._$CharacterOutput().$mixinApply$(self._$BasicOutputStream()));
-   $0.$init$CharacterSequenceReadWriteStream$(self, self._$CharacterInput().$mixinApply$(self._$SeqCltnReadWriteStream()));
    $0.$init$CharacterConverterWithOutput$(self, self._$BasicOutputStream().$mixinApply$(self._$CharacterInputConverter()));
    $0.$init$OutputInputConverter$(self, self._$CharacterOutput().$mixinApply$($0.$CharacterConverterWithOutput(self)));
    $0.$init$BasicIExStream$(self, self._$BasicInputStream().$mixinApply$(self._$ExternalStream()));
@@ -24250,26 +27780,6 @@ var mixins = new function () {
    };
    return this.$Streams$CharacterReadConverter$slot;
   };
-  this.$CharacterReadStream = function () {
-   if (nil === this.$Streams$CharacterReadStream$slot) {
-    var self = this;
-    var superclass = $0.$CharacterSequenceReadStream(self);
-    var enclosingObjects = [this].concat(this.$enclosingObjects$Streams);
-    var mixin = $.$Streams$CharacterReadStream;
-    this.$Streams$CharacterReadStream$slot = vmmirror.$applyMixin$toSuperclass$withEnclosingObjects$(mixin, superclass, enclosingObjects);
-   };
-   return this.$Streams$CharacterReadStream$slot;
-  };
-  this.$CharacterReadWriteStream = function () {
-   if (nil === this.$Streams$CharacterReadWriteStream$slot) {
-    var self = this;
-    var superclass = $0.$CharacterSequenceReadWriteStream(self);
-    var enclosingObjects = [this].concat(this.$enclosingObjects$Streams);
-    var mixin = $.$Streams$CharacterReadWriteStream;
-    this.$Streams$CharacterReadWriteStream$slot = vmmirror.$applyMixin$toSuperclass$withEnclosingObjects$(mixin, superclass, enclosingObjects);
-   };
-   return this.$Streams$CharacterReadWriteStream$slot;
-  };
   this.$ExternalInputStream = function () {
    if (nil === this.$Streams$ExternalInputStream$slot) {
     var self = this;
@@ -24357,13 +27867,6 @@ var mixins = new function () {
   this.$BasicOutputReadStream = function (self) {
    return self.$BasicOutputReadStream$slot;
   };
-  this.$init$CharacterSequenceReadStream$ = function (self, v) {
-   self.$CharacterSequenceReadStream$slot = v;
-   return self;
-  };
-  this.$CharacterSequenceReadStream = function (self) {
-   return self.$CharacterSequenceReadStream$slot;
-  };
   this.$init$CharacterIStream$ = function (self, v) {
    self.$CharacterIStream$slot = v;
    return self;
@@ -24377,13 +27880,6 @@ var mixins = new function () {
   };
   this.$CharacterOStream = function (self) {
    return self.$CharacterOStream$slot;
-  };
-  this.$init$CharacterSequenceReadWriteStream$ = function (self, v) {
-   self.$CharacterSequenceReadWriteStream$slot = v;
-   return self;
-  };
-  this.$CharacterSequenceReadWriteStream = function (self) {
-   return self.$CharacterSequenceReadWriteStream$slot;
   };
   this.$init$CharacterConverterWithOutput$ = function (self, v) {
    self.$CharacterConverterWithOutput$slot = v;
@@ -24544,28 +28040,6 @@ var mixins = new function () {
    this.$Streams$CharacterReadConverter$slot = v;
    return this;
   };
-  this.$init$Streams$CharacterReadStream$ = function (v) {
-   this.$Streams$CharacterReadStream$slot = v;
-   return this;
-  };
-  this.$Streams$CharacterReadStream = function () {
-   return this.$Streams$CharacterReadStream$slot;
-  };
-  this.$Streams$CharacterReadStream$ = function (v) {
-   this.$Streams$CharacterReadStream$slot = v;
-   return this;
-  };
-  this.$init$Streams$CharacterReadWriteStream$ = function (v) {
-   this.$Streams$CharacterReadWriteStream$slot = v;
-   return this;
-  };
-  this.$Streams$CharacterReadWriteStream = function () {
-   return this.$Streams$CharacterReadWriteStream$slot;
-  };
-  this.$Streams$CharacterReadWriteStream$ = function (v) {
-   this.$Streams$CharacterReadWriteStream$slot = v;
-   return this;
-  };
   this.$init$Streams$ExternalInputStream$ = function (v) {
    this.$Streams$ExternalInputStream$slot = v;
    return this;
@@ -24659,40 +28133,40 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for Streams`BasicInputStream";
    this.name = "Streams`BasicInputStream";
-   this.header = 1202;
+   this.header = 1356;
    this.slots = [
     new SM("havePeeked_0", true, false),
     new SM("peekVal", true, false)
    ];
    this.methods = [
-    new MM("superInit`Streams`BasicInputStream", true, 1203),
-    new MM("instance`initializer", true, 1204),
-    new MM("atEnd", false, 1205),
-    new MM("contentsRemaining", false, 1206),
-    new MM("do:", false, 1207),
-    new MM("next", false, 1208),
-    new MM("next:", false, 1209),
-    new MM("nextIfAbsent:", false, 1210),
-    new MM("nextMatchFor:", false, 1211),
-    new MM("peek", false, 1212),
-    new MM("peekFor:", false, 1213),
-    new MM("peekIfAbsent:", false, 1214),
-    new MM("skip:", false, 1215),
-    new MM("skipTo:", false, 1216),
-    new MM("upTo:", false, 1217),
-    new MM("close", false, 1218),
-    new MM("printOn:", false, 1219),
-    new MM("accumulateUntil:", false, 1220),
-    new MM("actualAtEnd", false, 1221),
-    new MM("actualNext", false, 1222),
-    new MM("atEndOrPeekIs:", false, 1223),
-    new MM("havePeeked", false, 1224),
-    new MM("havePeeked:", false, 1225),
-    new MM("newBuildStream", false, 1226),
-    new MM("newCollectionOfSize:", false, 1227),
-    new MM("nextFromPeek", false, 1228),
-    new MM("noPeekVal", false, 1229),
-    new MM("defaultExpected", false, 1230),
+    new MM("superInit`Streams`BasicInputStream", true, 1357),
+    new MM("instance`initializer", true, 1358),
+    new MM("accumulateUntil:", false, 1359),
+    new MM("actualAtEnd", false, 1360),
+    new MM("actualNext", false, 1361),
+    new MM("atEnd", false, 1362),
+    new MM("atEndOrPeekIs:", false, 1363),
+    new MM("close", false, 1364),
+    new MM("contentsRemaining", false, 1365),
+    new MM("defaultExpected", false, 1366),
+    new MM("do:", false, 1367),
+    new MM("havePeeked", false, 1368),
+    new MM("havePeeked:", false, 1369),
+    new MM("newBuildStream", false, 1370),
+    new MM("newCollectionOfSize:", false, 1371),
+    new MM("next", false, 1372),
+    new MM("next:", false, 1373),
+    new MM("nextFromPeek", false, 1374),
+    new MM("nextIfAbsent:", false, 1375),
+    new MM("nextMatchFor:", false, 1376),
+    new MM("noPeekVal", false, 1377),
+    new MM("peek", false, 1378),
+    new MM("peekFor:", false, 1379),
+    new MM("peekIfAbsent:", false, 1380),
+    new MM("printOn:", false, 1381),
+    new MM("skip:", false, 1382),
+    new MM("skipTo:", false, 1383),
+    new MM("upTo:", false, 1384),
     new MM("init`havePeeked_0:", true, 0),
     new MM("havePeeked_0", true, 0),
     new MM("havePeeked_0:", true, 0),
@@ -24713,6 +28187,28 @@ var mixins = new function () {
     self._$init$havePeeked_0$(false);
     return self;
    };
+   this.$accumulateUntil$ = function ($predicate) {
+    var self = this;
+    var $build = nil;
+    $build = self._$newBuildStream();
+    {
+     nil;
+     for (; !$predicate.$value(); ) {
+      $build.$nextPut$(self._$next());
+     };
+    };
+    return $build.$contentsWritten();
+   };
+   this.$actualAtEnd = function () {
+    var self = this;
+    self._$subclassResponsibility();
+    return self;
+   };
+   this.$actualNext = function () {
+    var self = this;
+    self._$subclassResponsibility();
+    return self;
+   };
    this.$atEnd = function () {
     var self = this;
     return self._$havePeeked().$ifTrue$ifFalse$(function () {
@@ -24721,11 +28217,45 @@ var mixins = new function () {
      return self._$actualAtEnd();
     });
    };
+   this.$atEndOrPeekIs$ = function ($delimiter) {
+    var self = this;
+    var NLR = new Object();
+    try {
+     {
+      var t = self._$peekIfAbsent$(function () {
+       {
+        var t = true;
+        if (NLR === null) {
+         self.cannotReturn(self, t);
+        };
+        NLR.value = t;
+        throw NLR;
+       };
+      }).$$equal($delimiter);
+      NLR = null;
+      return t;
+     };
+    } catch (NLR_exception) {
+     if (NLR === NLR_exception) {
+      return NLR_exception.value;
+     } else {
+      throw NLR_exception;
+     };
+    };
+   };
+   this.$close = function () {
+    var self = this;
+    return self;
+   };
    this.$contentsRemaining = function () {
     var self = this;
     return self._$accumulateUntil$(function () {
      return self._$atEnd();
     });
+   };
+   this.$defaultExpected = function () {
+    var self = this;
+    return 10;
    };
    this.$do$ = function ($f) {
     var self = this;
@@ -24736,6 +28266,28 @@ var mixins = new function () {
      };
     };
     return self;
+   };
+   this.$havePeeked = function () {
+    var self = this;
+    return self._$havePeeked_0();
+   };
+   this.$havePeeked$ = function ($f) {
+    var self = this;
+    if (!$f) {
+     self._$peekVal$(nil);
+    } else {
+     nil;
+    };
+    self._$havePeeked_0$($f);
+    return self;
+   };
+   this.$newBuildStream = function () {
+    var self = this;
+    return self.$enclosingObjects$Streams$BasicInputStream[0]._$BasicReadWriteStream().$on$(self._$newCollectionOfSize$(self._$defaultExpected()));
+   };
+   this.$newCollectionOfSize$ = function ($n) {
+    var self = this;
+    return self._$Array().$new$($n);
    };
    this.$next = function () {
     var self = this;
@@ -24767,6 +28319,13 @@ var mixins = new function () {
     };
     return $cltn;
    };
+   this.$nextFromPeek = function () {
+    var self = this;
+    var $v = nil;
+    $v = self._$peekVal();
+    self._$noPeekVal();
+    return $v;
+   };
    this.$nextIfAbsent$ = function ($f) {
     var self = this;
     return self._$havePeeked().$ifTrue$ifFalse$(function () {
@@ -24782,6 +28341,12 @@ var mixins = new function () {
    this.$nextMatchFor$ = function ($o) {
     var self = this;
     return self._$next().$$equal($o);
+   };
+   this.$noPeekVal = function () {
+    var self = this;
+    self._$havePeeked$(false);
+    self._$peekVal$(nil);
+    return self;
    };
    this.$peek = function () {
     var self = this;
@@ -24816,6 +28381,11 @@ var mixins = new function () {
      nil;
     };
     return self._$peekVal();
+   };
+   this.$printOn$ = function ($strm) {
+    var self = this;
+    $strm.$nextPutAll$(self._$class().$name());
+    return self;
    };
    this.$skip$ = function ($nElements) {
     var self = this;
@@ -24857,94 +28427,6 @@ var mixins = new function () {
     });
     return $s;
    };
-   this.$close = function () {
-    var self = this;
-    return self;
-   };
-   this.$printOn$ = function ($strm) {
-    var self = this;
-    $strm.$nextPutAll$(self._$class().$name());
-    return self;
-   };
-   this.$accumulateUntil$ = function ($predicate) {
-    var self = this;
-    var $build = nil;
-    $build = self._$newBuildStream();
-    {
-     nil;
-     for (; !$predicate.$value(); ) {
-      $build.$nextPut$(self._$next());
-     };
-    };
-    return $build.$contentsWritten();
-   };
-   this.$actualAtEnd = function () {
-    var self = this;
-    self._$subclassResponsibility();
-    return self;
-   };
-   this.$actualNext = function () {
-    var self = this;
-    self._$subclassResponsibility();
-    return self;
-   };
-   this.$atEndOrPeekIs$ = function ($delimiter) {
-    var self = this;
-    var NLR = new Object();
-    try {
-     return self._$peekIfAbsent$(function () {
-      {
-       NLR.value = true;
-       throw NLR;
-      };
-     }).$$equal($delimiter);
-    } catch (NLR_exception) {
-     if (NLR === NLR_exception) {
-      return NLR_exception.value;
-     } else {
-      throw NLR_exception;
-     };
-    };
-   };
-   this.$havePeeked = function () {
-    var self = this;
-    return self._$havePeeked_0();
-   };
-   this.$havePeeked$ = function ($f) {
-    var self = this;
-    if (!$f) {
-     self._$peekVal$(nil);
-    } else {
-     nil;
-    };
-    self._$havePeeked_0$($f);
-    return self;
-   };
-   this.$newBuildStream = function () {
-    var self = this;
-    return self.$enclosingObjects$Streams$BasicInputStream[0]._$BasicReadWriteStream().$on$(self._$newCollectionOfSize$(self._$defaultExpected()));
-   };
-   this.$newCollectionOfSize$ = function ($n) {
-    var self = this;
-    return self._$Array().$new$($n);
-   };
-   this.$nextFromPeek = function () {
-    var self = this;
-    var $v = nil;
-    $v = self._$peekVal();
-    self._$noPeekVal();
-    return $v;
-   };
-   this.$noPeekVal = function () {
-    var self = this;
-    self._$havePeeked$(false);
-    self._$peekVal$(nil);
-    return self;
-   };
-   this.$defaultExpected = function () {
-    var self = this;
-    return 10;
-   };
    this.$init$havePeeked_0$ = function (v) {
     this.$havePeeked_0$slot = v;
     return this;
@@ -24973,42 +28455,24 @@ var mixins = new function () {
      this._$superInit$Streams$BasicInputStream = $.$superInit$Streams$BasicInputStream;
      this.$superInit$Streams$BasicInputStream = dnuCatcher("$superInit$Streams$BasicInputStream");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
-     this._$atEnd = $.$atEnd;
-     this.$atEnd = dnuCatcher("$atEnd");
-     this._$contentsRemaining = $.$contentsRemaining;
-     this.$contentsRemaining = dnuCatcher("$contentsRemaining");
-     this._$do$ = $.$do$;
-     this.$do$ = dnuCatcher("$do$");
-     this._$next = $.$next;
-     this.$next = dnuCatcher("$next");
-     this._$next$ = $.$next$;
-     this.$next$ = dnuCatcher("$next$");
-     this.$nextIfAbsent$ = this._$nextIfAbsent$ = $.$nextIfAbsent$;
-     this._$nextMatchFor$ = $.$nextMatchFor$;
-     this.$nextMatchFor$ = dnuCatcher("$nextMatchFor$");
-     this._$peek = $.$peek;
-     this.$peek = dnuCatcher("$peek");
-     this._$peekFor$ = $.$peekFor$;
-     this.$peekFor$ = dnuCatcher("$peekFor$");
-     this._$peekIfAbsent$ = $.$peekIfAbsent$;
-     this.$peekIfAbsent$ = dnuCatcher("$peekIfAbsent$");
-     this._$skip$ = $.$skip$;
-     this.$skip$ = dnuCatcher("$skip$");
-     this._$skipTo$ = $.$skipTo$;
-     this.$skipTo$ = dnuCatcher("$skipTo$");
-     this._$upTo$ = $.$upTo$;
-     this.$upTo$ = dnuCatcher("$upTo$");
-     this._$close = $.$close;
-     this.$close = dnuCatcher("$close");
-     this.$printOn$ = this._$printOn$ = $.$printOn$;
      this._$accumulateUntil$ = $.$accumulateUntil$;
      this.$accumulateUntil$ = dnuCatcher("$accumulateUntil$");
      this._$actualAtEnd = $.$actualAtEnd;
      this.$actualAtEnd = dnuCatcher("$actualAtEnd");
      this._$actualNext = $.$actualNext;
      this.$actualNext = dnuCatcher("$actualNext");
+     this._$atEnd = $.$atEnd;
+     this.$atEnd = dnuCatcher("$atEnd");
      this._$atEndOrPeekIs$ = $.$atEndOrPeekIs$;
      this.$atEndOrPeekIs$ = dnuCatcher("$atEndOrPeekIs$");
+     this._$close = $.$close;
+     this.$close = dnuCatcher("$close");
+     this._$contentsRemaining = $.$contentsRemaining;
+     this.$contentsRemaining = dnuCatcher("$contentsRemaining");
+     this._$defaultExpected = $.$defaultExpected;
+     this.$defaultExpected = dnuCatcher("$defaultExpected");
+     this._$do$ = $.$do$;
+     this.$do$ = dnuCatcher("$do$");
      this._$havePeeked = $.$havePeeked;
      this.$havePeeked = dnuCatcher("$havePeeked");
      this._$havePeeked$ = $.$havePeeked$;
@@ -25017,12 +28481,30 @@ var mixins = new function () {
      this.$newBuildStream = dnuCatcher("$newBuildStream");
      this._$newCollectionOfSize$ = $.$newCollectionOfSize$;
      this.$newCollectionOfSize$ = dnuCatcher("$newCollectionOfSize$");
+     this._$next = $.$next;
+     this.$next = dnuCatcher("$next");
+     this._$next$ = $.$next$;
+     this.$next$ = dnuCatcher("$next$");
      this._$nextFromPeek = $.$nextFromPeek;
      this.$nextFromPeek = dnuCatcher("$nextFromPeek");
+     this.$nextIfAbsent$ = this._$nextIfAbsent$ = $.$nextIfAbsent$;
+     this._$nextMatchFor$ = $.$nextMatchFor$;
+     this.$nextMatchFor$ = dnuCatcher("$nextMatchFor$");
      this._$noPeekVal = $.$noPeekVal;
      this.$noPeekVal = dnuCatcher("$noPeekVal");
-     this._$defaultExpected = $.$defaultExpected;
-     this.$defaultExpected = dnuCatcher("$defaultExpected");
+     this._$peek = $.$peek;
+     this.$peek = dnuCatcher("$peek");
+     this._$peekFor$ = $.$peekFor$;
+     this.$peekFor$ = dnuCatcher("$peekFor$");
+     this._$peekIfAbsent$ = $.$peekIfAbsent$;
+     this.$peekIfAbsent$ = dnuCatcher("$peekIfAbsent$");
+     this.$printOn$ = this._$printOn$ = $.$printOn$;
+     this._$skip$ = $.$skip$;
+     this.$skip$ = dnuCatcher("$skip$");
+     this._$skipTo$ = $.$skipTo$;
+     this.$skipTo$ = dnuCatcher("$skipTo$");
+     this._$upTo$ = $.$upTo$;
+     this.$upTo$ = dnuCatcher("$upTo$");
      this._$init$havePeeked_0$ = $.$init$havePeeked_0$;
      this.$init$havePeeked_0$ = dnuCatcher("$init$havePeeked_0$");
      this._$havePeeked_0 = $.$havePeeked_0;
@@ -25083,19 +28565,19 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for Streams`BasicOutputStream";
    this.name = "Streams`BasicOutputStream";
-   this.header = 1231;
+   this.header = 1385;
    this.slots = [];
    this.methods = [
-    new MM("superInit`Streams`BasicOutputStream", true, 1232),
-    new MM("instance`initializer", true, 1233),
-    new MM("externalFlush", false, 1234),
-    new MM("flush", false, 1235),
-    new MM("next:put:", false, 1236),
-    new MM("nextPut:", false, 1237),
-    new MM("nextPutAll:", false, 1238),
-    new MM("put:", false, 1239),
-    new MM("putAll:", false, 1240),
-    new MM("show:", false, 1241)
+    new MM("superInit`Streams`BasicOutputStream", true, 1386),
+    new MM("instance`initializer", true, 1387),
+    new MM("externalFlush", false, 1388),
+    new MM("flush", false, 1389),
+    new MM("next:put:", false, 1390),
+    new MM("nextPut:", false, 1391),
+    new MM("nextPutAll:", false, 1392),
+    new MM("put:", false, 1393),
+    new MM("putAll:", false, 1394),
+    new MM("show:", false, 1395)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -25226,29 +28708,29 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for Streams`BasicReadStream";
    this.name = "Streams`BasicReadStream";
-   this.header = 1242;
+   this.header = 1396;
    this.slots = [new SM("actualPosition_slot", true, false)];
    this.methods = [
-    new MM("superInit`Streams`BasicReadStream", true, 1243),
-    new MM("instance`initializer", true, 1244),
-    new MM("at:", false, 1245),
-    new MM("collection", false, 1246),
-    new MM("contents", false, 1247),
-    new MM("contentsRemaining", false, 1248),
-    new MM("copyFrom:to:", false, 1249),
-    new MM("isEmpty", false, 1250),
-    new MM("position", false, 1251),
-    new MM("position:", false, 1252),
-    new MM("repositioningAt:", false, 1253),
-    new MM("reset", false, 1254),
-    new MM("setToEnd", false, 1255),
-    new MM("size", false, 1256),
-    new MM("skip:", false, 1257),
-    new MM("skipTo:", false, 1258),
-    new MM("upTo:", false, 1259),
-    new MM("actualPosition", false, 1260),
-    new MM("actualPosition:", false, 1261),
-    new MM("actualAtEnd", false, 1262),
+    new MM("superInit`Streams`BasicReadStream", true, 1397),
+    new MM("instance`initializer", true, 1398),
+    new MM("actualAtEnd", false, 1399),
+    new MM("actualPosition", false, 1400),
+    new MM("actualPosition:", false, 1401),
+    new MM("at:", false, 1402),
+    new MM("collection", false, 1403),
+    new MM("contents", false, 1404),
+    new MM("contentsRemaining", false, 1405),
+    new MM("copyFrom:to:", false, 1406),
+    new MM("isEmpty", false, 1407),
+    new MM("position", false, 1408),
+    new MM("position:", false, 1409),
+    new MM("repositioningAt:", false, 1410),
+    new MM("reset", false, 1411),
+    new MM("setToEnd", false, 1412),
+    new MM("size", false, 1413),
+    new MM("skip:", false, 1414),
+    new MM("skipTo:", false, 1415),
+    new MM("upTo:", false, 1416),
     new MM("init`actualPosition_slot:", true, 0),
     new MM("actualPosition_slot", true, 0),
     new MM("actualPosition_slot:", true, 0)
@@ -25264,6 +28746,19 @@ var mixins = new function () {
     var self = this;
     self._$superInit$Streams$BasicReadStream();
     self._$init$actualPosition_slot$(0);
+    return self;
+   };
+   this.$actualAtEnd = function () {
+    var self = this;
+    return self._$actualPosition().$$greater$equal(self._$size());
+   };
+   this.$actualPosition = function () {
+    var self = this;
+    return self._$actualPosition_slot();
+   };
+   this.$actualPosition$ = function ($p) {
+    var self = this;
+    self._$actualPosition_slot$($p);
     return self;
    };
    this.$at$ = function ($index) {
@@ -25424,19 +28919,6 @@ var mixins = new function () {
      return self._$copyFrom$to$($pos + 1, self._$position());
     });
    };
-   this.$actualPosition = function () {
-    var self = this;
-    return self._$actualPosition_slot();
-   };
-   this.$actualPosition$ = function ($p) {
-    var self = this;
-    self._$actualPosition_slot$($p);
-    return self;
-   };
-   this.$actualAtEnd = function () {
-    var self = this;
-    return self._$actualPosition().$$greater$equal(self._$size());
-   };
    this.$init$actualPosition_slot$ = function (v) {
     this.$actualPosition_slot$slot = v;
     return this;
@@ -25454,6 +28936,12 @@ var mixins = new function () {
      this._$superInit$Streams$BasicReadStream = $.$superInit$Streams$BasicReadStream;
      this.$superInit$Streams$BasicReadStream = dnuCatcher("$superInit$Streams$BasicReadStream");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this._$actualAtEnd = $.$actualAtEnd;
+     this.$actualAtEnd = dnuCatcher("$actualAtEnd");
+     this._$actualPosition = $.$actualPosition;
+     this.$actualPosition = dnuCatcher("$actualPosition");
+     this._$actualPosition$ = $.$actualPosition$;
+     this.$actualPosition$ = dnuCatcher("$actualPosition$");
      this._$at$ = $.$at$;
      this.$at$ = dnuCatcher("$at$");
      this._$collection = $.$collection;
@@ -25481,12 +28969,6 @@ var mixins = new function () {
      this.$skipTo$ = dnuCatcher("$skipTo$");
      this._$upTo$ = $.$upTo$;
      this.$upTo$ = dnuCatcher("$upTo$");
-     this._$actualPosition = $.$actualPosition;
-     this.$actualPosition = dnuCatcher("$actualPosition");
-     this._$actualPosition$ = $.$actualPosition$;
-     this.$actualPosition$ = dnuCatcher("$actualPosition$");
-     this._$actualAtEnd = $.$actualAtEnd;
-     this.$actualAtEnd = dnuCatcher("$actualAtEnd");
      this._$init$actualPosition_slot$ = $.$init$actualPosition_slot$;
      this.$init$actualPosition_slot$ = dnuCatcher("$init$actualPosition_slot$");
      this._$actualPosition_slot = $.$actualPosition_slot;
@@ -25513,8 +28995,8 @@ var mixins = new function () {
     this.slots = [];
     this.methods = [
      new MM("new", true, 0),
-     new MM("on:", false, 1263),
-     new MM("on:from:to:", false, 1264)
+     new MM("on:", false, 1417),
+     new MM("on:from:to:", false, 1418)
     ];
     this.nestedClasses = [];
     this.$new = function () {
@@ -25556,14 +29038,14 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for Streams`BasicReadWriteStream";
    this.name = "Streams`BasicReadWriteStream";
-   this.header = 1265;
+   this.header = 1419;
    this.slots = [new SM("size", true, false)];
    this.methods = [
-    new MM("superInit`Streams`BasicReadWriteStream", true, 1266),
-    new MM("instance`initializer", true, 1267),
-    new MM("contents", false, 1268),
-    new MM("contentsWritten", false, 1269),
-    new MM("nextPut:", false, 1270),
+    new MM("superInit`Streams`BasicReadWriteStream", true, 1420),
+    new MM("instance`initializer", true, 1421),
+    new MM("contents", false, 1422),
+    new MM("contentsWritten", false, 1423),
+    new MM("nextPut:", false, 1424),
     new MM("init`size:", true, 0),
     new MM("size", true, 0),
     new MM("size:", true, 0)
@@ -25663,8 +29145,8 @@ var mixins = new function () {
     this.slots = [];
     this.methods = [
      new MM("new", true, 0),
-     new MM("on:", false, 1271),
-     new MM("on:numElements:", false, 1272)
+     new MM("on:", false, 1425),
+     new MM("on:numElements:", false, 1426)
     ];
     this.nestedClasses = [];
     this.$new = function () {
@@ -25706,15 +29188,15 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for Streams`CharacterInput";
    this.name = "Streams`CharacterInput";
-   this.header = 1273;
+   this.header = 1427;
    this.slots = [];
    this.methods = [
-    new MM("superInit`Streams`CharacterInput", true, 1274),
-    new MM("instance`initializer", true, 1275),
-    new MM("contentsRemaining", false, 1276),
-    new MM("next:", false, 1277),
-    new MM("upTo:", false, 1278),
-    new MM("newCollectionOfSize:", false, 1279)
+    new MM("superInit`Streams`CharacterInput", true, 1428),
+    new MM("instance`initializer", true, 1429),
+    new MM("contentsRemaining", false, 1430),
+    new MM("newCollectionOfSize:", false, 1431),
+    new MM("next:", false, 1432),
+    new MM("upTo:", false, 1433)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -25738,6 +29220,10 @@ var mixins = new function () {
      return self._$String().$withAll$($con);
     });
    };
+   this.$newCollectionOfSize$ = function ($n) {
+    var self = this;
+    return self._$String().$new$($n);
+   };
    this.$next$ = function ($nElements) {
     var self = this;
     var $con = nil;
@@ -25758,10 +29244,6 @@ var mixins = new function () {
      return self._$String().$withAll$($con);
     });
    };
-   this.$newCollectionOfSize$ = function ($n) {
-    var self = this;
-    return self._$String().$new$($n);
-   };
    this.invoke = function (runtimeSuperclass, enclosingObjects) {
     function constructRuntimeClass (superBasicNew) {
      this.debug = "Runtime class for Streams`CharacterInput";
@@ -25770,12 +29252,12 @@ var mixins = new function () {
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
      this._$contentsRemaining = $.$contentsRemaining;
      this.$contentsRemaining = dnuCatcher("$contentsRemaining");
+     this._$newCollectionOfSize$ = $.$newCollectionOfSize$;
+     this.$newCollectionOfSize$ = dnuCatcher("$newCollectionOfSize$");
      this._$next$ = $.$next$;
      this.$next$ = dnuCatcher("$next$");
      this._$upTo$ = $.$upTo$;
      this.$upTo$ = dnuCatcher("$upTo$");
-     this._$newCollectionOfSize$ = $.$newCollectionOfSize$;
-     this.$newCollectionOfSize$ = dnuCatcher("$newCollectionOfSize$");
      this.$enclosingObjects$Streams$CharacterInput = enclosingObjects;
      this.$super$Streams$CharacterInput$slot = runtimeSuperclass;
      this["Streams`CharacterInput"] = function () {
@@ -25822,16 +29304,16 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for Streams`CharacterInputConverter";
    this.name = "Streams`CharacterInputConverter";
-   this.header = 1280;
+   this.header = 1434;
    this.slots = [new SM("binaryStream", true, false)];
    this.methods = [
-    new MM("superInit`Streams`CharacterInputConverter", true, 1281),
-    new MM("instance`initializer", true, 1282),
-    new MM("upTo:", false, 1283),
-    new MM("close", false, 1284),
-    new MM("initBinaryStream:", false, 1285),
-    new MM("actualAtEnd", false, 1286),
-    new MM("actualNext", false, 1287),
+    new MM("superInit`Streams`CharacterInputConverter", true, 1435),
+    new MM("instance`initializer", true, 1436),
+    new MM("actualAtEnd", false, 1437),
+    new MM("actualNext", false, 1438),
+    new MM("close", false, 1439),
+    new MM("initBinaryStream:", false, 1440),
+    new MM("upTo:", false, 1441),
     new MM("init`binaryStream:", true, 0),
     new MM("binaryStream", true, 0),
     new MM("binaryStream:", true, 0)
@@ -25846,6 +29328,39 @@ var mixins = new function () {
    this.$instance$initializer = function () {
     var self = this;
     self._$superInit$Streams$CharacterInputConverter();
+    return self;
+   };
+   this.$actualAtEnd = function () {
+    var self = this;
+    return self._$binaryStream().$atEnd();
+   };
+   this.$actualNext = function () {
+    var self = this;
+    var $c = nil;
+    $c = self._$Character().$value$(self._$binaryStream().$next());
+    if (self.$enclosingObjects$Streams$CharacterInputConverter[0]._$usingCrLfConvention() && $c.$$equal(self._$Character().$cr())) {
+     if (!self._$binaryStream().$atEnd()) {
+      if (self._$binaryStream().$peek().$$equal(self._$Character().$lf().$asciiValue())) {
+       self._$binaryStream().$next();
+      } else {
+       nil;
+      };
+     } else {
+      nil;
+     };
+    } else {
+     nil;
+    };
+    return $c;
+   };
+   this.$close = function () {
+    var self = this;
+    self._$binaryStream().$close();
+    return self;
+   };
+   this.$initBinaryStream$ = function ($binaryStrm) {
+    var self = this;
+    self._$binaryStream$($binaryStrm);
     return self;
    };
    this.$upTo$ = function ($del) {
@@ -25911,39 +29426,6 @@ var mixins = new function () {
     };
     return $s;
    };
-   this.$close = function () {
-    var self = this;
-    self._$binaryStream().$close();
-    return self;
-   };
-   this.$initBinaryStream$ = function ($binaryStrm) {
-    var self = this;
-    self._$binaryStream$($binaryStrm);
-    return self;
-   };
-   this.$actualAtEnd = function () {
-    var self = this;
-    return self._$binaryStream().$atEnd();
-   };
-   this.$actualNext = function () {
-    var self = this;
-    var $c = nil;
-    $c = self._$Character().$value$(self._$binaryStream().$next());
-    if (self.$enclosingObjects$Streams$CharacterInputConverter[0]._$usingCrLfConvention() && $c.$$equal(self._$Character().$cr())) {
-     if (!self._$binaryStream().$atEnd()) {
-      if (self._$binaryStream().$peek().$$equal(self._$Character().$lf().$asciiValue())) {
-       self._$binaryStream().$next();
-      } else {
-       nil;
-      };
-     } else {
-      nil;
-     };
-    } else {
-     nil;
-    };
-    return $c;
-   };
    this.$init$binaryStream$ = function (v) {
     this.$binaryStream$slot = v;
     return this;
@@ -25961,16 +29443,16 @@ var mixins = new function () {
      this._$superInit$Streams$CharacterInputConverter = $.$superInit$Streams$CharacterInputConverter;
      this.$superInit$Streams$CharacterInputConverter = dnuCatcher("$superInit$Streams$CharacterInputConverter");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
-     this._$upTo$ = $.$upTo$;
-     this.$upTo$ = dnuCatcher("$upTo$");
-     this._$close = $.$close;
-     this.$close = dnuCatcher("$close");
-     this._$initBinaryStream$ = $.$initBinaryStream$;
-     this.$initBinaryStream$ = dnuCatcher("$initBinaryStream$");
      this._$actualAtEnd = $.$actualAtEnd;
      this.$actualAtEnd = dnuCatcher("$actualAtEnd");
      this._$actualNext = $.$actualNext;
      this.$actualNext = dnuCatcher("$actualNext");
+     this._$close = $.$close;
+     this.$close = dnuCatcher("$close");
+     this._$initBinaryStream$ = $.$initBinaryStream$;
+     this.$initBinaryStream$ = dnuCatcher("$initBinaryStream$");
+     this._$upTo$ = $.$upTo$;
+     this.$upTo$ = dnuCatcher("$upTo$");
      this._$init$binaryStream$ = $.$init$binaryStream$;
      this.$init$binaryStream$ = dnuCatcher("$init$binaryStream$");
      this._$binaryStream = $.$binaryStream;
@@ -25997,7 +29479,7 @@ var mixins = new function () {
     this.slots = [];
     this.methods = [
      new MM("new", true, 0),
-     new MM("on:", false, 1288)
+     new MM("on:", false, 1442)
     ];
     this.nestedClasses = [];
     this.$new = function () {
@@ -26033,17 +29515,17 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for Streams`CharacterInputOutputConverter";
    this.name = "Streams`CharacterInputOutputConverter";
-   this.header = 1289;
+   this.header = 1443;
    this.slots = [];
    this.methods = [
-    new MM("superInit`Streams`CharacterInputOutputConverter", true, 1290),
-    new MM("instance`initializer", true, 1291),
-    new MM("nextPut:", false, 1292),
-    new MM("position", false, 1293),
-    new MM("position:", false, 1294),
-    new MM("setToEnd", false, 1295),
-    new MM("externalFlush", false, 1296),
-    new MM("flush", false, 1297)
+    new MM("superInit`Streams`CharacterInputOutputConverter", true, 1444),
+    new MM("instance`initializer", true, 1445),
+    new MM("externalFlush", false, 1446),
+    new MM("flush", false, 1447),
+    new MM("nextPut:", false, 1448),
+    new MM("position", false, 1449),
+    new MM("position:", false, 1450),
+    new MM("setToEnd", false, 1451)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -26055,6 +29537,16 @@ var mixins = new function () {
    this.$instance$initializer = function () {
     var self = this;
     self._$superInit$Streams$CharacterInputOutputConverter();
+    return self;
+   };
+   this.$externalFlush = function () {
+    var self = this;
+    self._$binaryStream().$externalFlush();
+    return self;
+   };
+   this.$flush = function () {
+    var self = this;
+    self._$binaryStream().$flush();
     return self;
    };
    this.$nextPut$ = function ($c) {
@@ -26082,30 +29574,20 @@ var mixins = new function () {
     self._$binaryStream().$setToEnd();
     return self;
    };
-   this.$externalFlush = function () {
-    var self = this;
-    self._$binaryStream().$externalFlush();
-    return self;
-   };
-   this.$flush = function () {
-    var self = this;
-    self._$binaryStream().$flush();
-    return self;
-   };
    this.invoke = function (runtimeSuperclass, enclosingObjects) {
     function constructRuntimeClass (superBasicNew) {
      this.debug = "Runtime class for Streams`CharacterInputOutputConverter";
      this._$superInit$Streams$CharacterInputOutputConverter = $.$superInit$Streams$CharacterInputOutputConverter;
      this.$superInit$Streams$CharacterInputOutputConverter = dnuCatcher("$superInit$Streams$CharacterInputOutputConverter");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this._$externalFlush = $.$externalFlush;
+     this.$externalFlush = dnuCatcher("$externalFlush");
+     this.$flush = this._$flush = $.$flush;
      this.$nextPut$ = this._$nextPut$ = $.$nextPut$;
      this.$position = this._$position = $.$position;
      this.$position$ = this._$position$ = $.$position$;
      this._$setToEnd = $.$setToEnd;
      this.$setToEnd = dnuCatcher("$setToEnd");
-     this._$externalFlush = $.$externalFlush;
-     this.$externalFlush = dnuCatcher("$externalFlush");
-     this.$flush = this._$flush = $.$flush;
      this.$enclosingObjects$Streams$CharacterInputOutputConverter = enclosingObjects;
      this.$super$Streams$CharacterInputOutputConverter$slot = runtimeSuperclass;
      this["Streams`CharacterInputOutputConverter"] = function () {
@@ -26125,7 +29607,7 @@ var mixins = new function () {
     this.slots = [];
     this.methods = [
      new MM("new", true, 0),
-     new MM("on:", false, 1298)
+     new MM("on:", false, 1452)
     ];
     this.nestedClasses = [];
     this.$new = function () {
@@ -26160,17 +29642,17 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for Streams`CharacterOutput";
    this.name = "Streams`CharacterOutput";
-   this.header = 1299;
+   this.header = 1453;
    this.slots = [];
    this.methods = [
-    new MM("superInit`Streams`CharacterOutput", true, 1300),
-    new MM("instance`initializer", true, 1301),
-    new MM("cr", false, 1302),
-    new MM("crTab", false, 1303),
-    new MM("crTab:", false, 1304),
-    new MM("print:", false, 1305),
-    new MM("space", false, 1306),
-    new MM("tab", false, 1307)
+    new MM("superInit`Streams`CharacterOutput", true, 1454),
+    new MM("instance`initializer", true, 1455),
+    new MM("cr", false, 1456),
+    new MM("crTab", false, 1457),
+    new MM("crTab:", false, 1458),
+    new MM("print:", false, 1459),
+    new MM("space", false, 1460),
+    new MM("tab", false, 1461)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -26285,16 +29767,16 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for Streams`CharacterOutputConverter";
    this.name = "Streams`CharacterOutputConverter";
-   this.header = 1308;
+   this.header = 1462;
    this.slots = [new SM("binaryStream", true, false)];
    this.methods = [
-    new MM("superInit`Streams`CharacterOutputConverter", true, 1309),
-    new MM("instance`initializer", true, 1310),
-    new MM("nextPut:", false, 1311),
-    new MM("close", false, 1312),
-    new MM("externalFlush", false, 1313),
-    new MM("flush", false, 1314),
-    new MM("initBinaryStream:", false, 1315),
+    new MM("superInit`Streams`CharacterOutputConverter", true, 1463),
+    new MM("instance`initializer", true, 1464),
+    new MM("close", false, 1465),
+    new MM("externalFlush", false, 1466),
+    new MM("flush", false, 1467),
+    new MM("initBinaryStream:", false, 1468),
+    new MM("nextPut:", false, 1469),
     new MM("init`binaryStream:", true, 0),
     new MM("binaryStream", true, 0),
     new MM("binaryStream:", true, 0)
@@ -26310,16 +29792,6 @@ var mixins = new function () {
     var self = this;
     self._$superInit$Streams$CharacterOutputConverter();
     return self;
-   };
-   this.$nextPut$ = function ($c) {
-    var self = this;
-    self._$binaryStream().$nextPut$($c.$asciiValue());
-    if (self.$enclosingObjects$Streams$CharacterOutputConverter[0]._$usingCrLfConvention() && $c.$$equal(self._$Character().$cr())) {
-     self._$binaryStream().$nextPut$(self._$Character().$lf().$asciiValue());
-    } else {
-     nil;
-    };
-    return $c;
    };
    this.$close = function () {
     var self = this;
@@ -26341,6 +29813,16 @@ var mixins = new function () {
     self._$binaryStream$($binaryStrm);
     return self;
    };
+   this.$nextPut$ = function ($c) {
+    var self = this;
+    self._$binaryStream().$nextPut$($c.$asciiValue());
+    if (self.$enclosingObjects$Streams$CharacterOutputConverter[0]._$usingCrLfConvention() && $c.$$equal(self._$Character().$cr())) {
+     self._$binaryStream().$nextPut$(self._$Character().$lf().$asciiValue());
+    } else {
+     nil;
+    };
+    return $c;
+   };
    this.$init$binaryStream$ = function (v) {
     this.$binaryStream$slot = v;
     return this;
@@ -26358,13 +29840,13 @@ var mixins = new function () {
      this._$superInit$Streams$CharacterOutputConverter = $.$superInit$Streams$CharacterOutputConverter;
      this.$superInit$Streams$CharacterOutputConverter = dnuCatcher("$superInit$Streams$CharacterOutputConverter");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
-     this.$nextPut$ = this._$nextPut$ = $.$nextPut$;
      this.$close = this._$close = $.$close;
      this._$externalFlush = $.$externalFlush;
      this.$externalFlush = dnuCatcher("$externalFlush");
      this.$flush = this._$flush = $.$flush;
      this._$initBinaryStream$ = $.$initBinaryStream$;
      this.$initBinaryStream$ = dnuCatcher("$initBinaryStream$");
+     this.$nextPut$ = this._$nextPut$ = $.$nextPut$;
      this._$init$binaryStream$ = $.$init$binaryStream$;
      this.$init$binaryStream$ = dnuCatcher("$init$binaryStream$");
      this._$binaryStream = $.$binaryStream;
@@ -26391,7 +29873,7 @@ var mixins = new function () {
     this.slots = [];
     this.methods = [
      new MM("new", true, 0),
-     new MM("on:", false, 1316)
+     new MM("on:", false, 1470)
     ];
     this.nestedClasses = [];
     this.$new = function () {
@@ -26426,13 +29908,13 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for Streams`CharacterReadConverter";
    this.name = "Streams`CharacterReadConverter";
-   this.header = 1317;
+   this.header = 1471;
    this.slots = [];
    this.methods = [
-    new MM("superInit`Streams`CharacterReadConverter", true, 1318),
-    new MM("instance`initializer", true, 1319),
-    new MM("upTo:", false, 1320),
-    new MM("numCharsUpToAscii:", false, 1321)
+    new MM("superInit`Streams`CharacterReadConverter", true, 1472),
+    new MM("instance`initializer", true, 1473),
+    new MM("numCharsUpToAscii:", false, 1474),
+    new MM("upTo:", false, 1475)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -26445,6 +29927,35 @@ var mixins = new function () {
     var self = this;
     self._$superInit$Streams$CharacterReadConverter();
     return self;
+   };
+   this.$numCharsUpToAscii$ = function ($del) {
+    var self = this;
+    var $n = nil;
+    var $sz = nil;
+    $n = 0;
+    $sz = self._$binaryStream().$size();
+    {
+     var $$limit = nil;
+     var $i = nil;
+     nil;
+     $i = self._$binaryStream().$position() + 1;
+     $$limit = $sz;
+     for (; $$limit.$$greater$equal($i); ) {
+      var $asc = nil;
+      $asc = self._$binaryStream().$repositioningAt$($i);
+      if (!(self.$enclosingObjects$Streams$CharacterReadConverter[0]._$usingCrLfConvention() && ($asc === 10))) {
+       if ($asc === $del) {
+        return $n;
+       } else {
+        $n = $n + 1;
+       };
+      } else {
+       nil;
+      };
+      $i = (1).$$plus($i);
+     };
+    };
+    return $n;
    };
    this.$upTo$ = function ($del) {
     var self = this;
@@ -26497,45 +30008,16 @@ var mixins = new function () {
     };
     return $s;
    };
-   this.$numCharsUpToAscii$ = function ($del) {
-    var self = this;
-    var $n = nil;
-    var $sz = nil;
-    $n = 0;
-    $sz = self._$binaryStream().$size();
-    {
-     var $$limit = nil;
-     var $i = nil;
-     nil;
-     $i = self._$binaryStream().$position() + 1;
-     $$limit = $sz;
-     for (; $$limit.$$greater$equal($i); ) {
-      var $asc = nil;
-      $asc = self._$binaryStream().$repositioningAt$($i);
-      if (!(self.$enclosingObjects$Streams$CharacterReadConverter[0]._$usingCrLfConvention() && ($asc === 10))) {
-       if ($asc === $del) {
-        return $n;
-       } else {
-        $n = $n + 1;
-       };
-      } else {
-       nil;
-      };
-      $i = (1).$$plus($i);
-     };
-    };
-    return $n;
-   };
    this.invoke = function (runtimeSuperclass, enclosingObjects) {
     function constructRuntimeClass (superBasicNew) {
      this.debug = "Runtime class for Streams`CharacterReadConverter";
      this._$superInit$Streams$CharacterReadConverter = $.$superInit$Streams$CharacterReadConverter;
      this.$superInit$Streams$CharacterReadConverter = dnuCatcher("$superInit$Streams$CharacterReadConverter");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
-     this._$upTo$ = $.$upTo$;
-     this.$upTo$ = dnuCatcher("$upTo$");
      this._$numCharsUpToAscii$ = $.$numCharsUpToAscii$;
      this.$numCharsUpToAscii$ = dnuCatcher("$numCharsUpToAscii$");
+     this._$upTo$ = $.$upTo$;
+     this.$upTo$ = dnuCatcher("$upTo$");
      this.$enclosingObjects$Streams$CharacterReadConverter = enclosingObjects;
      this.$super$Streams$CharacterReadConverter$slot = runtimeSuperclass;
      this["Streams`CharacterReadConverter"] = function () {
@@ -26555,7 +30037,7 @@ var mixins = new function () {
     this.slots = [];
     this.methods = [
      new MM("new", true, 0),
-     new MM("on:", false, 1322)
+     new MM("on:", false, 1476)
     ];
     this.nestedClasses = [];
     this.$new = function () {
@@ -26585,308 +30067,27 @@ var mixins = new function () {
    }();
    this.meta.nonMeta = this;
   }();
-  this.$Streams$CharacterReadStream = new function () {
-   var $ = this;
-   var $1 = this;
-   this.debug = "Runtime mixin for Streams`CharacterReadStream";
-   this.name = "Streams`CharacterReadStream";
-   this.header = 1323;
-   this.slots = [];
-   this.methods = [
-    new MM("superInit`Streams`CharacterReadStream", true, 1324),
-    new MM("instance`initializer", true, 1325),
-    new MM("copyFrom:to:", false, 1326)
-   ];
-   this.nestedClasses = [];
-   this.applications = [];
-   this.$superInit$Streams$CharacterReadStream = function () {
-    var self = this;
-    self.$super$Streams$CharacterReadStream$slot._$instance$initializer.call(self);
-    return self;
-   };
-   this.$instance$initializer = function () {
-    var self = this;
-    self._$superInit$Streams$CharacterReadStream();
-    return self;
-   };
-   this.$copyFrom$to$ = function ($start, $stop) {
-    var self = this;
-    var $pos = nil;
-    var $n = nil;
-    var $result = nil;
-    var $offset = nil;
-    $pos = self._$position();
-    $n = ($stop - $start) + 1;
-    $result = self._$String().$new$($n);
-    $offset = $start - 1;
-    {
-     var $$limit = nil;
-     var $i = nil;
-     nil;
-     $i = 1;
-     $$limit = $n;
-     for (; $$limit.$$greater$equal($i); ) {
-      $result.$at$put$($i, self._$repositioningAt$($offset + $i));
-      $i = (1).$$plus($i);
-     };
-    };
-    self._$position$($pos);
-    return $result;
-   };
-   this.invoke = function (runtimeSuperclass, enclosingObjects) {
-    function constructRuntimeClass (superBasicNew) {
-     this.debug = "Runtime class for Streams`CharacterReadStream";
-     this._$superInit$Streams$CharacterReadStream = $.$superInit$Streams$CharacterReadStream;
-     this.$superInit$Streams$CharacterReadStream = dnuCatcher("$superInit$Streams$CharacterReadStream");
-     this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
-     this.$copyFrom$to$ = this._$copyFrom$to$ = $.$copyFrom$to$;
-     this.$enclosingObjects$Streams$CharacterReadStream = enclosingObjects;
-     this.$super$Streams$CharacterReadStream$slot = runtimeSuperclass;
-     this["Streams`CharacterReadStream"] = function () {
-      superBasicNew.call(this);
-     };
-     this.basicNew = this["Streams`CharacterReadStream"];
-     this.basicNew.prototype = this;
-     this.meta = null;
-     this.newspeakClass = null;
-    };
-    constructRuntimeClass.prototype = runtimeSuperclass;
-    return new constructRuntimeClass(runtimeSuperclass.basicNew);
-   };
-   this.meta = new function () {
-    var $ = this;
-    this.debug = "Runtime meta mixin for Streams`CharacterReadStream";
-    this.slots = [];
-    this.methods = [
-     new MM("new", true, 0),
-     new MM("on:", false, 1327),
-     new MM("over:", false, 1328)
-    ];
-    this.nestedClasses = [];
-    this.$new = function () {
-     return (new this.nonMeta.basicNew()).$instance$initializer();
-    };
-    this.$on$ = function ($sc) {
-     var self = this;
-     return self._$over$($sc);
-    };
-    this.$over$ = function ($sc) {
-     var self = this;
-     return self._$new().$initCollection$($sc);
-    };
-    this.invoke = function (runtimeSuperclass, enclosingObjects) {
-     function constructRuntimeClass (superBasicNew) {
-      this.debug = "Runtime meta class for Streams`CharacterReadStream";
-      this.$new = this._$new = $.$new;
-      this.$on$ = this._$on$ = $.$on$;
-      this.$over$ = this._$over$ = $.$over$;
-      this.$enclosingObjects$Streams$CharacterReadStream = enclosingObjects;
-      this.$super$Streams$CharacterReadStream = runtimeSuperclass;
-      this.basicNew = function () {
-       superBasicNew.call(this);
-      };
-      this.basicNew.prototype = this;
-      this.nonMeta = null;
-      this.newspeakClass = null;
-     };
-     constructRuntimeClass.prototype = runtimeSuperclass;
-     return new constructRuntimeClass(runtimeSuperclass.basicNew);
-    };
-   }();
-   this.meta.nonMeta = this;
-  }();
-  this.$Streams$CharacterReadWriteStream = new function () {
-   var $ = this;
-   var $1 = this;
-   this.debug = "Runtime mixin for Streams`CharacterReadWriteStream";
-   this.name = "Streams`CharacterReadWriteStream";
-   this.header = 1329;
-   this.slots = [];
-   this.methods = [
-    new MM("superInit`Streams`CharacterReadWriteStream", true, 1330),
-    new MM("instance`initializer", true, 1331),
-    new MM("copyFrom:to:", false, 1332),
-    new MM("cr", false, 1333),
-    new MM("crTab", false, 1334),
-    new MM("crTab:", false, 1335),
-    new MM("print:", false, 1336),
-    new MM("space", false, 1337),
-    new MM("tab", false, 1338)
-   ];
-   this.nestedClasses = [];
-   this.applications = [];
-   this.$superInit$Streams$CharacterReadWriteStream = function () {
-    var self = this;
-    self.$super$Streams$CharacterReadWriteStream$slot._$instance$initializer.call(self);
-    return self;
-   };
-   this.$instance$initializer = function () {
-    var self = this;
-    self._$superInit$Streams$CharacterReadWriteStream();
-    return self;
-   };
-   this.$copyFrom$to$ = function ($start, $stop) {
-    var self = this;
-    var $pos = nil;
-    var $n = nil;
-    var $result = nil;
-    var $offset = nil;
-    $pos = self._$position();
-    $n = ($stop - $start) + 1;
-    $result = self._$String().$new$($n);
-    $offset = $start - 1;
-    {
-     var $$limit = nil;
-     var $i = nil;
-     nil;
-     $i = 1;
-     $$limit = $n;
-     for (; $$limit.$$greater$equal($i); ) {
-      $result.$at$put$($i, self._$repositioningAt$($offset + $i));
-      $i = (1).$$plus($i);
-     };
-    };
-    self._$position$($pos);
-    return $result;
-   };
-   this.$cr = function () {
-    var self = this;
-    self._$nextPut$(self._$Character().$cr());
-    return self;
-   };
-   this.$crTab = function () {
-    var self = this;
-    self._$crTab$(1);
-    return self;
-   };
-   this.$crTab$ = function ($count) {
-    var self = this;
-    {
-     var $$limit = nil;
-     var $$i = nil;
-     nil;
-     $$i = 1;
-     $$limit = $count;
-     for (; $$limit.$$greater$equal($$i); ) {
-      (function (cascadeReceiver) {
-       cascadeReceiver.$nextPut$(self._$Character().$cr());
-       return cascadeReceiver.$nextPut$(self._$Character().$tab());
-      })(self);
-      $$i = (1).$$plus($$i);
-     };
-    };
-    return self;
-   };
-   this.$print$ = function ($o) {
-    var self = this;
-    $o.$printOn$(self);
-    return self;
-   };
-   this.$space = function () {
-    var self = this;
-    self._$nextPut$(self._$Character().$space());
-    return self;
-   };
-   this.$tab = function () {
-    var self = this;
-    self._$nextPut$(self._$Character().$tab());
-    return self;
-   };
-   this.invoke = function (runtimeSuperclass, enclosingObjects) {
-    function constructRuntimeClass (superBasicNew) {
-     this.debug = "Runtime class for Streams`CharacterReadWriteStream";
-     this._$superInit$Streams$CharacterReadWriteStream = $.$superInit$Streams$CharacterReadWriteStream;
-     this.$superInit$Streams$CharacterReadWriteStream = dnuCatcher("$superInit$Streams$CharacterReadWriteStream");
-     this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
-     this.$copyFrom$to$ = this._$copyFrom$to$ = $.$copyFrom$to$;
-     this.$cr = this._$cr = $.$cr;
-     this.$crTab = this._$crTab = $.$crTab;
-     this.$crTab$ = this._$crTab$ = $.$crTab$;
-     this.$print$ = this._$print$ = $.$print$;
-     this.$space = this._$space = $.$space;
-     this.$tab = this._$tab = $.$tab;
-     this.$enclosingObjects$Streams$CharacterReadWriteStream = enclosingObjects;
-     this.$super$Streams$CharacterReadWriteStream$slot = runtimeSuperclass;
-     this["Streams`CharacterReadWriteStream"] = function () {
-      superBasicNew.call(this);
-     };
-     this.basicNew = this["Streams`CharacterReadWriteStream"];
-     this.basicNew.prototype = this;
-     this.meta = null;
-     this.newspeakClass = null;
-    };
-    constructRuntimeClass.prototype = runtimeSuperclass;
-    return new constructRuntimeClass(runtimeSuperclass.basicNew);
-   };
-   this.meta = new function () {
-    var $ = this;
-    this.debug = "Runtime meta mixin for Streams`CharacterReadWriteStream";
-    this.slots = [];
-    this.methods = [
-     new MM("new", true, 0),
-     new MM("on:", false, 1339),
-     new MM("on:numElements:", false, 1340),
-     new MM("over:", false, 1341)
-    ];
-    this.nestedClasses = [];
-    this.$new = function () {
-     return (new this.nonMeta.basicNew()).$instance$initializer();
-    };
-    this.$on$ = function ($sc) {
-     var self = this;
-     return self._$over$($sc);
-    };
-    this.$on$numElements$ = function ($sc, $n) {
-     var self = this;
-     return self._$over$($sc).$size$($n);
-    };
-    this.$over$ = function ($sc) {
-     var self = this;
-     return self._$new().$initBuffer$($sc);
-    };
-    this.invoke = function (runtimeSuperclass, enclosingObjects) {
-     function constructRuntimeClass (superBasicNew) {
-      this.debug = "Runtime meta class for Streams`CharacterReadWriteStream";
-      this.$new = this._$new = $.$new;
-      this.$on$ = this._$on$ = $.$on$;
-      this.$on$numElements$ = this._$on$numElements$ = $.$on$numElements$;
-      this.$over$ = this._$over$ = $.$over$;
-      this.$enclosingObjects$Streams$CharacterReadWriteStream = enclosingObjects;
-      this.$super$Streams$CharacterReadWriteStream = runtimeSuperclass;
-      this.basicNew = function () {
-       superBasicNew.call(this);
-      };
-      this.basicNew.prototype = this;
-      this.nonMeta = null;
-      this.newspeakClass = null;
-     };
-     constructRuntimeClass.prototype = runtimeSuperclass;
-     return new constructRuntimeClass(runtimeSuperclass.basicNew);
-    };
-   }();
-   this.meta.nonMeta = this;
-  }();
   this.$Streams$ExternalInputStream = new function () {
    var $ = this;
    var $1 = this;
    this.debug = "Runtime mixin for Streams`ExternalInputStream";
    this.name = "Streams`ExternalInputStream";
-   this.header = 1342;
+   this.header = 1477;
    this.slots = [];
    this.methods = [
-    new MM("superInit`Streams`ExternalInputStream", true, 1343),
-    new MM("instance`initializer", true, 1344),
-    new MM("atEnd", false, 1345),
-    new MM("next", false, 1346),
-    new MM("peek", false, 1347),
-    new MM("peekIfAbsent:", false, 1348),
-    new MM("close", false, 1349),
-    new MM("initDescriptor:", false, 1350),
-    new MM("actualAtEnd", false, 1351),
-    new MM("actualNext", false, 1352),
-    new MM("arrangeForFinalization", false, 1353),
-    new MM("fillBuffer", false, 1354),
-    new MM("newCollectionOfSize:", false, 1355)
+    new MM("superInit`Streams`ExternalInputStream", true, 1478),
+    new MM("instance`initializer", true, 1479),
+    new MM("actualAtEnd", false, 1480),
+    new MM("actualNext", false, 1481),
+    new MM("arrangeForFinalization", false, 1482),
+    new MM("atEnd", false, 1483),
+    new MM("close", false, 1484),
+    new MM("fillBuffer", false, 1485),
+    new MM("initDescriptor:", false, 1486),
+    new MM("newCollectionOfSize:", false, 1487),
+    new MM("next", false, 1488),
+    new MM("peek", false, 1489),
+    new MM("peekIfAbsent:", false, 1490)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -26898,41 +30099,6 @@ var mixins = new function () {
    this.$instance$initializer = function () {
     var self = this;
     self._$superInit$Streams$ExternalInputStream();
-    return self;
-   };
-   this.$atEnd = function () {
-    var self = this;
-    return self._$actualAtEnd();
-   };
-   this.$next = function () {
-    var self = this;
-    return self._$actualNext();
-   };
-   this.$peek = function () {
-    var self = this;
-    self._$assert$message$(function () {
-     return self._$atEnd().$not();
-    }, "Can't peak past the end of the stream");
-    return self._$buffer().$unsignedByteAt$(self._$nextBufferPosition() + 1);
-   };
-   this.$peekIfAbsent$ = function ($f) {
-    var self = this;
-    return self._$atEnd().$ifTrue$ifFalse$(function () {
-     return $f.$value();
-    }, function () {
-     return self._$buffer().$byteAt$(self._$nextBufferPosition());
-    });
-   };
-   this.$close = function () {
-    var self = this;
-    self._$doClose();
-    return self;
-   };
-   this.$initDescriptor$ = function ($d) {
-    var self = this;
-    "ACCESSBOGUS";
-    self.$super$Streams$ExternalInputStream$slot._$initDescriptor$.call(self, $d);
-    self._$fillBuffer();
     return self;
    };
    this.$actualAtEnd = function () {
@@ -26962,6 +30128,15 @@ var mixins = new function () {
     var self = this;
     return self;
    };
+   this.$atEnd = function () {
+    var self = this;
+    return self._$actualAtEnd();
+   };
+   this.$close = function () {
+    var self = this;
+    self._$doClose();
+    return self;
+   };
    this.$fillBuffer = function () {
     var self = this;
     self._$bufferNumElements$(self._$descriptor().$readAt$ifFail$(self._$bufferOrigin(), function ($err) {
@@ -26969,9 +30144,35 @@ var mixins = new function () {
     }));
     return self;
    };
+   this.$initDescriptor$ = function ($d) {
+    var self = this;
+    "ACCESSBOGUS";
+    self.$super$Streams$ExternalInputStream$slot._$initDescriptor$.call(self, $d);
+    self._$fillBuffer();
+    return self;
+   };
    this.$newCollectionOfSize$ = function ($n) {
     var self = this;
     return self._$ByteArray().$new$($n);
+   };
+   this.$next = function () {
+    var self = this;
+    return self._$actualNext();
+   };
+   this.$peek = function () {
+    var self = this;
+    self._$assert$message$(function () {
+     return self._$atEnd().$not();
+    }, "Can't peak past the end of the stream");
+    return self._$buffer().$unsignedByteAt$(self._$nextBufferPosition() + 1);
+   };
+   this.$peekIfAbsent$ = function ($f) {
+    var self = this;
+    return self._$atEnd().$ifTrue$ifFalse$(function () {
+     return $f.$value();
+    }, function () {
+     return self._$buffer().$byteAt$(self._$nextBufferPosition());
+    });
    };
    this.invoke = function (runtimeSuperclass, enclosingObjects) {
     function constructRuntimeClass (superBasicNew) {
@@ -26979,25 +30180,25 @@ var mixins = new function () {
      this._$superInit$Streams$ExternalInputStream = $.$superInit$Streams$ExternalInputStream;
      this.$superInit$Streams$ExternalInputStream = dnuCatcher("$superInit$Streams$ExternalInputStream");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
-     this._$atEnd = $.$atEnd;
-     this.$atEnd = dnuCatcher("$atEnd");
-     this.$next = this._$next = $.$next;
-     this._$peek = $.$peek;
-     this.$peek = dnuCatcher("$peek");
-     this._$peekIfAbsent$ = $.$peekIfAbsent$;
-     this.$peekIfAbsent$ = dnuCatcher("$peekIfAbsent$");
-     this.$close = this._$close = $.$close;
-     this.$initDescriptor$ = this._$initDescriptor$ = $.$initDescriptor$;
      this._$actualAtEnd = $.$actualAtEnd;
      this.$actualAtEnd = dnuCatcher("$actualAtEnd");
      this._$actualNext = $.$actualNext;
      this.$actualNext = dnuCatcher("$actualNext");
      this._$arrangeForFinalization = $.$arrangeForFinalization;
      this.$arrangeForFinalization = dnuCatcher("$arrangeForFinalization");
+     this._$atEnd = $.$atEnd;
+     this.$atEnd = dnuCatcher("$atEnd");
+     this.$close = this._$close = $.$close;
      this._$fillBuffer = $.$fillBuffer;
      this.$fillBuffer = dnuCatcher("$fillBuffer");
+     this.$initDescriptor$ = this._$initDescriptor$ = $.$initDescriptor$;
      this._$newCollectionOfSize$ = $.$newCollectionOfSize$;
      this.$newCollectionOfSize$ = dnuCatcher("$newCollectionOfSize$");
+     this.$next = this._$next = $.$next;
+     this._$peek = $.$peek;
+     this.$peek = dnuCatcher("$peek");
+     this._$peekIfAbsent$ = $.$peekIfAbsent$;
+     this.$peekIfAbsent$ = dnuCatcher("$peekIfAbsent$");
      this.$enclosingObjects$Streams$ExternalInputStream = enclosingObjects;
      this.$super$Streams$ExternalInputStream$slot = runtimeSuperclass;
      this["Streams`ExternalInputStream"] = function () {
@@ -27044,21 +30245,21 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for Streams`ExternalOutputStream";
    this.name = "Streams`ExternalOutputStream";
-   this.header = 1356;
+   this.header = 1491;
    this.slots = [new SM("dirty", true, false)];
    this.methods = [
-    new MM("superInit`Streams`ExternalOutputStream", true, 1357),
-    new MM("instance`initializer", true, 1358),
-    new MM("close", false, 1359),
-    new MM("externalFlush", false, 1360),
-    new MM("flush", false, 1361),
-    new MM("logicalFlush", false, 1362),
-    new MM("advanceBufferLocation", false, 1363),
-    new MM("arrangeForFinalization", false, 1364),
-    new MM("finalize", false, 1365),
-    new MM("nextPut:", false, 1366),
-    new MM("updateBufferLocationAfterFlush", false, 1367),
-    new MM("writeBuffer", false, 1368),
+    new MM("superInit`Streams`ExternalOutputStream", true, 1492),
+    new MM("instance`initializer", true, 1493),
+    new MM("advanceBufferLocation", false, 1494),
+    new MM("arrangeForFinalization", false, 1495),
+    new MM("close", false, 1496),
+    new MM("externalFlush", false, 1497),
+    new MM("finalize", false, 1498),
+    new MM("flush", false, 1499),
+    new MM("logicalFlush", false, 1500),
+    new MM("nextPut:", false, 1501),
+    new MM("updateBufferLocationAfterFlush", false, 1502),
+    new MM("writeBuffer", false, 1503),
     new MM("init`dirty:", true, 0),
     new MM("dirty", true, 0),
     new MM("dirty:", true, 0)
@@ -27076,6 +30277,19 @@ var mixins = new function () {
     self._$init$dirty$(false);
     return self;
    };
+   this.$advanceBufferLocation = function () {
+    var self = this;
+    (function (cascadeReceiver) {
+     cascadeReceiver.$bufferOrigin$(self._$bufferOrigin() + self._$bufferNumElements());
+     cascadeReceiver.$nextBufferPosition$(0);
+     return cascadeReceiver.$bufferNumElements$(0);
+    })(self);
+    return self;
+   };
+   this.$arrangeForFinalization = function () {
+    var self = this;
+    return self;
+   };
    this.$close = function () {
     var self = this;
     self._$flush();
@@ -27088,6 +30302,11 @@ var mixins = new function () {
     self._$descriptor().$flushIfFail$(function ($err) {
      return self._$error$($err);
     });
+    return self;
+   };
+   this.$finalize = function () {
+    var self = this;
+    self._$close();
     return self;
    };
    this.$flush = function () {
@@ -27122,24 +30341,6 @@ var mixins = new function () {
     } else {
      nil;
     };
-    return self;
-   };
-   this.$advanceBufferLocation = function () {
-    var self = this;
-    (function (cascadeReceiver) {
-     cascadeReceiver.$bufferOrigin$(self._$bufferOrigin() + self._$bufferNumElements());
-     cascadeReceiver.$nextBufferPosition$(0);
-     return cascadeReceiver.$bufferNumElements$(0);
-    })(self);
-    return self;
-   };
-   this.$arrangeForFinalization = function () {
-    var self = this;
-    return self;
-   };
-   this.$finalize = function () {
-    var self = this;
-    self._$close();
     return self;
    };
    this.$nextPut$ = function ($byte) {
@@ -27192,18 +30393,18 @@ var mixins = new function () {
      this._$superInit$Streams$ExternalOutputStream = $.$superInit$Streams$ExternalOutputStream;
      this.$superInit$Streams$ExternalOutputStream = dnuCatcher("$superInit$Streams$ExternalOutputStream");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
-     this.$close = this._$close = $.$close;
-     this._$externalFlush = $.$externalFlush;
-     this.$externalFlush = dnuCatcher("$externalFlush");
-     this.$flush = this._$flush = $.$flush;
-     this._$logicalFlush = $.$logicalFlush;
-     this.$logicalFlush = dnuCatcher("$logicalFlush");
      this._$advanceBufferLocation = $.$advanceBufferLocation;
      this.$advanceBufferLocation = dnuCatcher("$advanceBufferLocation");
      this._$arrangeForFinalization = $.$arrangeForFinalization;
      this.$arrangeForFinalization = dnuCatcher("$arrangeForFinalization");
+     this.$close = this._$close = $.$close;
+     this._$externalFlush = $.$externalFlush;
+     this.$externalFlush = dnuCatcher("$externalFlush");
      this._$finalize = $.$finalize;
      this.$finalize = dnuCatcher("$finalize");
+     this.$flush = this._$flush = $.$flush;
+     this._$logicalFlush = $.$logicalFlush;
+     this.$logicalFlush = dnuCatcher("$logicalFlush");
      this.$nextPut$ = this._$nextPut$ = $.$nextPut$;
      this._$updateBufferLocationAfterFlush = $.$updateBufferLocationAfterFlush;
      this.$updateBufferLocationAfterFlush = dnuCatcher("$updateBufferLocationAfterFlush");
@@ -27234,7 +30435,7 @@ var mixins = new function () {
     this.slots = [];
     this.methods = [
      new MM("new", true, 0),
-     new MM("onDescriptor:", false, 1369)
+     new MM("onDescriptor:", false, 1504)
     ];
     this.nestedClasses = [];
     this.$new = function () {
@@ -27269,20 +30470,20 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for Streams`ExternalReadStream";
    this.name = "Streams`ExternalReadStream";
-   this.header = 1370;
+   this.header = 1505;
    this.slots = [];
    this.methods = [
-    new MM("superInit`Streams`ExternalReadStream", true, 1371),
-    new MM("instance`initializer", true, 1372),
-    new MM("at:", false, 1373),
-    new MM("repositioningAt:", false, 1374),
-    new MM("size", false, 1375),
-    new MM("initializeActualPosition", false, 1376),
-    new MM("actualAtEnd", false, 1377),
-    new MM("actualPosition", false, 1378),
-    new MM("actualPosition:", false, 1379),
-    new MM("goodBufferOriginForPosition:", false, 1380),
-    new MM("writeIfNeededBeforePositionChange", false, 1381)
+    new MM("superInit`Streams`ExternalReadStream", true, 1506),
+    new MM("instance`initializer", true, 1507),
+    new MM("actualAtEnd", false, 1508),
+    new MM("actualPosition", false, 1509),
+    new MM("actualPosition:", false, 1510),
+    new MM("at:", false, 1511),
+    new MM("goodBufferOriginForPosition:", false, 1512),
+    new MM("initializeActualPosition", false, 1513),
+    new MM("repositioningAt:", false, 1514),
+    new MM("size", false, 1515),
+    new MM("writeIfNeededBeforePositionChange", false, 1516)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -27294,41 +30495,6 @@ var mixins = new function () {
    this.$instance$initializer = function () {
     var self = this;
     self._$superInit$Streams$ExternalReadStream();
-    return self;
-   };
-   this.$at$ = function ($index) {
-    var self = this;
-    var $i = nil;
-    $i = $index - self._$bufferOrigin();
-    return (($i < 1) || $i.$$greater(self._$bufferNumElements())).$ifFalse$ifTrue$(function () {
-     return self._$buffer().$byteAt$($i - 1);
-    }, function () {
-     var $pos = nil;
-     var $result = nil;
-     $pos = self._$position();
-     self._$position$($index - 1);
-     $result = self._$at$($index);
-     self._$position$($pos);
-     return $result;
-    });
-   };
-   this.$repositioningAt$ = function ($index) {
-    var self = this;
-    var $i = nil;
-    $i = $index - self._$bufferOrigin();
-    return (($i < 1) || $i.$$greater(self._$bufferNumElements())).$ifFalse$ifTrue$(function () {
-     return self._$buffer().$byteAt$($i - 1);
-    }, function () {
-     self._$position$($index - 1);
-     return self._$at$($index);
-    });
-   };
-   this.$size = function () {
-    var self = this;
-    return self._$descriptor().$size();
-   };
-   this.$initializeActualPosition = function () {
-    var self = this;
     return self;
    };
    this.$actualAtEnd = function () {
@@ -27357,9 +30523,44 @@ var mixins = new function () {
     };
     return self;
    };
+   this.$at$ = function ($index) {
+    var self = this;
+    var $i = nil;
+    $i = $index - self._$bufferOrigin();
+    return (($i < 1) || $i.$$greater(self._$bufferNumElements())).$ifFalse$ifTrue$(function () {
+     return self._$buffer().$byteAt$($i - 1);
+    }, function () {
+     var $pos = nil;
+     var $result = nil;
+     $pos = self._$position();
+     self._$position$($index - 1);
+     $result = self._$at$($index);
+     self._$position$($pos);
+     return $result;
+    });
+   };
    this.$goodBufferOriginForPosition$ = function ($nextPos) {
     var self = this;
     return $nextPos - $nextPos.$$back$back(self._$bufferSize());
+   };
+   this.$initializeActualPosition = function () {
+    var self = this;
+    return self;
+   };
+   this.$repositioningAt$ = function ($index) {
+    var self = this;
+    var $i = nil;
+    $i = $index - self._$bufferOrigin();
+    return (($i < 1) || $i.$$greater(self._$bufferNumElements())).$ifFalse$ifTrue$(function () {
+     return self._$buffer().$byteAt$($i - 1);
+    }, function () {
+     self._$position$($index - 1);
+     return self._$at$($index);
+    });
+   };
+   this.$size = function () {
+    var self = this;
+    return self._$descriptor().$size();
    };
    this.$writeIfNeededBeforePositionChange = function () {
     var self = this;
@@ -27371,21 +30572,21 @@ var mixins = new function () {
      this._$superInit$Streams$ExternalReadStream = $.$superInit$Streams$ExternalReadStream;
      this.$superInit$Streams$ExternalReadStream = dnuCatcher("$superInit$Streams$ExternalReadStream");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
-     this._$at$ = $.$at$;
-     this.$at$ = dnuCatcher("$at$");
-     this._$repositioningAt$ = $.$repositioningAt$;
-     this.$repositioningAt$ = dnuCatcher("$repositioningAt$");
-     this.$size = this._$size = $.$size;
-     this._$initializeActualPosition = $.$initializeActualPosition;
-     this.$initializeActualPosition = dnuCatcher("$initializeActualPosition");
      this._$actualAtEnd = $.$actualAtEnd;
      this.$actualAtEnd = dnuCatcher("$actualAtEnd");
      this._$actualPosition = $.$actualPosition;
      this.$actualPosition = dnuCatcher("$actualPosition");
      this._$actualPosition$ = $.$actualPosition$;
      this.$actualPosition$ = dnuCatcher("$actualPosition$");
+     this._$at$ = $.$at$;
+     this.$at$ = dnuCatcher("$at$");
      this._$goodBufferOriginForPosition$ = $.$goodBufferOriginForPosition$;
      this.$goodBufferOriginForPosition$ = dnuCatcher("$goodBufferOriginForPosition$");
+     this._$initializeActualPosition = $.$initializeActualPosition;
+     this.$initializeActualPosition = dnuCatcher("$initializeActualPosition");
+     this._$repositioningAt$ = $.$repositioningAt$;
+     this.$repositioningAt$ = dnuCatcher("$repositioningAt$");
+     this.$size = this._$size = $.$size;
      this._$writeIfNeededBeforePositionChange = $.$writeIfNeededBeforePositionChange;
      this.$writeIfNeededBeforePositionChange = dnuCatcher("$writeIfNeededBeforePositionChange");
      this.$enclosingObjects$Streams$ExternalReadStream = enclosingObjects;
@@ -27407,7 +30608,7 @@ var mixins = new function () {
     this.slots = [];
     this.methods = [
      new MM("new", true, 0),
-     new MM("onDescriptor:", false, 1382)
+     new MM("onDescriptor:", false, 1517)
     ];
     this.nestedClasses = [];
     this.$new = function () {
@@ -27442,16 +30643,16 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for Streams`ExternalReadWriteStream";
    this.name = "Streams`ExternalReadWriteStream";
-   this.header = 1383;
+   this.header = 1518;
    this.slots = [];
    this.methods = [
-    new MM("superInit`Streams`ExternalReadWriteStream", true, 1384),
-    new MM("instance`initializer", true, 1385),
-    new MM("contents", false, 1386),
-    new MM("contentsWritten", false, 1387),
-    new MM("size", false, 1388),
-    new MM("updateBufferLocationAfterFlush", false, 1389),
-    new MM("writeIfNeededBeforePositionChange", false, 1390)
+    new MM("superInit`Streams`ExternalReadWriteStream", true, 1519),
+    new MM("instance`initializer", true, 1520),
+    new MM("contents", false, 1521),
+    new MM("contentsWritten", false, 1522),
+    new MM("size", false, 1523),
+    new MM("updateBufferLocationAfterFlush", false, 1524),
+    new MM("writeIfNeededBeforePositionChange", false, 1525)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -27544,7 +30745,7 @@ var mixins = new function () {
     this.slots = [];
     this.methods = [
      new MM("new", true, 0),
-     new MM("onDescriptor:", false, 1391)
+     new MM("onDescriptor:", false, 1526)
     ];
     this.nestedClasses = [];
     this.$new = function () {
@@ -27579,7 +30780,7 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for Streams`ExternalStream";
    this.name = "Streams`ExternalStream";
-   this.header = 1392;
+   this.header = 1527;
    this.slots = [
     new SM("descriptor", true, false),
     new SM("buffer", true, false),
@@ -27589,16 +30790,16 @@ var mixins = new function () {
     new SM("bufferNumElements", true, false)
    ];
    this.methods = [
-    new MM("superInit`Streams`ExternalStream", true, 1393),
-    new MM("instance`initializer", true, 1394),
-    new MM("close", false, 1395),
-    new MM("initBuffer", false, 1396),
-    new MM("initDescriptor:", false, 1397),
-    new MM("advanceBuffer", false, 1398),
-    new MM("arrangeForFinalization", false, 1399),
-    new MM("doClose", false, 1400),
-    new MM("fillBuffer", false, 1401),
-    new MM("postCopy", false, 1402),
+    new MM("superInit`Streams`ExternalStream", true, 1528),
+    new MM("instance`initializer", true, 1529),
+    new MM("advanceBuffer", false, 1530),
+    new MM("arrangeForFinalization", false, 1531),
+    new MM("close", false, 1532),
+    new MM("doClose", false, 1533),
+    new MM("fillBuffer", false, 1534),
+    new MM("initBuffer", false, 1535),
+    new MM("initDescriptor:", false, 1536),
+    new MM("postCopy", false, 1537),
     new MM("init`descriptor:", true, 0),
     new MM("descriptor", true, 0),
     new MM("descriptor:", true, 0),
@@ -27630,9 +30831,32 @@ var mixins = new function () {
     self._$superInit$Streams$ExternalStream();
     return self;
    };
+   this.$advanceBuffer = function () {
+    var self = this;
+    self._$bufferOrigin$(self._$bufferOrigin() + self._$bufferSize());
+    self._$fillBuffer();
+    self._$nextBufferPosition$(0);
+    return self;
+   };
+   this.$arrangeForFinalization = function () {
+    var self = this;
+    self._$subclassResponsibility();
+    return self;
+   };
    this.$close = function () {
     var self = this;
     self._$doClose();
+    return self;
+   };
+   this.$doClose = function () {
+    var self = this;
+    self._$descriptor().$close();
+    self._$buffer$(nil);
+    return self;
+   };
+   this.$fillBuffer = function () {
+    var self = this;
+    self._$bufferNumElements$(0);
     return self;
    };
    this.$initBuffer = function () {
@@ -27649,29 +30873,6 @@ var mixins = new function () {
     self._$bufferOrigin$(0);
     self._$bufferNumElements$(0);
     self._$nextBufferPosition$(0);
-    return self;
-   };
-   this.$advanceBuffer = function () {
-    var self = this;
-    self._$bufferOrigin$(self._$bufferOrigin() + self._$bufferSize());
-    self._$fillBuffer();
-    self._$nextBufferPosition$(0);
-    return self;
-   };
-   this.$arrangeForFinalization = function () {
-    var self = this;
-    self._$subclassResponsibility();
-    return self;
-   };
-   this.$doClose = function () {
-    var self = this;
-    self._$descriptor().$close();
-    self._$buffer$(nil);
-    return self;
-   };
-   this.$fillBuffer = function () {
-    var self = this;
-    self._$bufferNumElements$(0);
     return self;
    };
    this.$postCopy = function () {
@@ -27753,19 +30954,19 @@ var mixins = new function () {
      this._$superInit$Streams$ExternalStream = $.$superInit$Streams$ExternalStream;
      this.$superInit$Streams$ExternalStream = dnuCatcher("$superInit$Streams$ExternalStream");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
-     this.$close = this._$close = $.$close;
-     this._$initBuffer = $.$initBuffer;
-     this.$initBuffer = dnuCatcher("$initBuffer");
-     this._$initDescriptor$ = $.$initDescriptor$;
-     this.$initDescriptor$ = dnuCatcher("$initDescriptor$");
      this._$advanceBuffer = $.$advanceBuffer;
      this.$advanceBuffer = dnuCatcher("$advanceBuffer");
      this._$arrangeForFinalization = $.$arrangeForFinalization;
      this.$arrangeForFinalization = dnuCatcher("$arrangeForFinalization");
+     this.$close = this._$close = $.$close;
      this._$doClose = $.$doClose;
      this.$doClose = dnuCatcher("$doClose");
      this._$fillBuffer = $.$fillBuffer;
      this.$fillBuffer = dnuCatcher("$fillBuffer");
+     this._$initBuffer = $.$initBuffer;
+     this.$initBuffer = dnuCatcher("$initBuffer");
+     this._$initDescriptor$ = $.$initDescriptor$;
+     this.$initDescriptor$ = dnuCatcher("$initDescriptor$");
      this._$postCopy = $.$postCopy;
      this.$postCopy = dnuCatcher("$postCopy");
      this._$init$descriptor$ = $.$init$descriptor$;
@@ -27823,7 +31024,7 @@ var mixins = new function () {
     this.slots = [];
     this.methods = [
      new MM("new", true, 0),
-     new MM("onDescriptor:", false, 1403)
+     new MM("onDescriptor:", false, 1538)
     ];
     this.nestedClasses = [];
     this.$new = function () {
@@ -27859,25 +31060,25 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for Streams`SeqCltnReadStream";
    this.name = "Streams`SeqCltnReadStream";
-   this.header = 1404;
+   this.header = 1539;
    this.slots = [new SM("collection", true, false)];
    this.methods = [
-    new MM("superInit`Streams`SeqCltnReadStream", true, 1405),
-    new MM("instance`initializer", true, 1406),
-    new MM("at:", false, 1407),
-    new MM("atEnd", false, 1408),
-    new MM("next", false, 1409),
-    new MM("nextIfAbsent:", false, 1410),
-    new MM("peek", false, 1411),
-    new MM("peekIfAbsent:", false, 1412),
-    new MM("position:", false, 1413),
-    new MM("size", false, 1414),
-    new MM("initCollection:", false, 1415),
-    new MM("printOn:", false, 1416),
-    new MM("accumulateUntil:", false, 1417),
-    new MM("actualNext", false, 1418),
-    new MM("nextFromPeek", false, 1419),
-    new MM("peekVal", false, 1420),
+    new MM("superInit`Streams`SeqCltnReadStream", true, 1540),
+    new MM("instance`initializer", true, 1541),
+    new MM("accumulateUntil:", false, 1542),
+    new MM("actualNext", false, 1543),
+    new MM("at:", false, 1544),
+    new MM("atEnd", false, 1545),
+    new MM("initCollection:", false, 1546),
+    new MM("next", false, 1547),
+    new MM("nextFromPeek", false, 1548),
+    new MM("nextIfAbsent:", false, 1549),
+    new MM("peek", false, 1550),
+    new MM("peekIfAbsent:", false, 1551),
+    new MM("peekVal", false, 1552),
+    new MM("position:", false, 1553),
+    new MM("printOn:", false, 1554),
+    new MM("size", false, 1555),
     new MM("init`collection:", true, 0),
     new MM("collection", true, 0),
     new MM("collection:", true, 0)
@@ -27894,6 +31095,31 @@ var mixins = new function () {
     self._$superInit$Streams$SeqCltnReadStream();
     return self;
    };
+   this.$accumulateUntil$ = function ($predicate) {
+    var self = this;
+    var $start = nil;
+    $start = self._$position();
+    {
+     nil;
+     for (; !$predicate.$value(); ) {
+      self._$position$(self._$position() + 1);
+     };
+    };
+    return self._$collection().$copyFrom$to$($start + 1, self._$position());
+   };
+   this.$actualNext = function () {
+    var self = this;
+    var $pos = nil;
+    $pos = self._$actualPosition();
+    $pos = $pos + 1;
+    if ($pos.$$greater(self._$size())) {
+     self._$error$("Attempt to read past the end of a stream");
+    } else {
+     nil;
+    };
+    self._$actualPosition$($pos);
+    return self._$collection().$at$($pos);
+   };
    this.$at$ = function ($index) {
     var self = this;
     return self._$collection().$at$($index);
@@ -27902,9 +31128,19 @@ var mixins = new function () {
     var self = this;
     return self._$actualAtEnd();
    };
+   this.$initCollection$ = function ($sc) {
+    var self = this;
+    self._$collection$($sc);
+    return self;
+   };
    this.$next = function () {
     var self = this;
     return self._$actualNext();
+   };
+   this.$nextFromPeek = function () {
+    var self = this;
+    self._$shouldNotHappen();
+    return self;
    };
    this.$nextIfAbsent$ = function ($f) {
     var self = this;
@@ -27943,18 +31179,14 @@ var mixins = new function () {
     };
     return self._$collection().$at$($pos);
    };
+   this.$peekVal = function () {
+    var self = this;
+    self._$shouldNotHappen();
+    return self;
+   };
    this.$position$ = function ($p) {
     var self = this;
     self._$actualPosition$($p);
-    return self;
-   };
-   this.$size = function () {
-    var self = this;
-    return self._$collection().$size();
-   };
-   this.$initCollection$ = function ($sc) {
-    var self = this;
-    self._$collection$($sc);
     return self;
    };
    this.$printOn$ = function ($strm) {
@@ -27969,40 +31201,9 @@ var mixins = new function () {
     })($strm);
     return self;
    };
-   this.$accumulateUntil$ = function ($predicate) {
+   this.$size = function () {
     var self = this;
-    var $start = nil;
-    $start = self._$position();
-    {
-     nil;
-     for (; !$predicate.$value(); ) {
-      self._$position$(self._$position() + 1);
-     };
-    };
-    return self._$collection().$copyFrom$to$($start + 1, self._$position());
-   };
-   this.$actualNext = function () {
-    var self = this;
-    var $pos = nil;
-    $pos = self._$actualPosition();
-    $pos = $pos + 1;
-    if ($pos.$$greater(self._$size())) {
-     self._$error$("Attempt to read past the end of a stream");
-    } else {
-     nil;
-    };
-    self._$actualPosition$($pos);
-    return self._$collection().$at$($pos);
-   };
-   this.$nextFromPeek = function () {
-    var self = this;
-    self._$shouldNotHappen();
-    return self;
-   };
-   this.$peekVal = function () {
-    var self = this;
-    self._$shouldNotHappen();
-    return self;
+    return self._$collection().$size();
    };
    this.$init$collection$ = function (v) {
     this.$collection$slot = v;
@@ -28021,25 +31222,25 @@ var mixins = new function () {
      this._$superInit$Streams$SeqCltnReadStream = $.$superInit$Streams$SeqCltnReadStream;
      this.$superInit$Streams$SeqCltnReadStream = dnuCatcher("$superInit$Streams$SeqCltnReadStream");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this._$accumulateUntil$ = $.$accumulateUntil$;
+     this.$accumulateUntil$ = dnuCatcher("$accumulateUntil$");
+     this.$actualNext = this._$actualNext = $.$actualNext;
      this._$at$ = $.$at$;
      this.$at$ = dnuCatcher("$at$");
      this.$atEnd = this._$atEnd = $.$atEnd;
+     this.$initCollection$ = this._$initCollection$ = $.$initCollection$;
      this.$next = this._$next = $.$next;
+     this._$nextFromPeek = $.$nextFromPeek;
+     this.$nextFromPeek = dnuCatcher("$nextFromPeek");
      this.$nextIfAbsent$ = this._$nextIfAbsent$ = $.$nextIfAbsent$;
      this.$peek = this._$peek = $.$peek;
      this._$peekIfAbsent$ = $.$peekIfAbsent$;
      this.$peekIfAbsent$ = dnuCatcher("$peekIfAbsent$");
-     this.$position$ = this._$position$ = $.$position$;
-     this.$size = this._$size = $.$size;
-     this.$initCollection$ = this._$initCollection$ = $.$initCollection$;
-     this.$printOn$ = this._$printOn$ = $.$printOn$;
-     this._$accumulateUntil$ = $.$accumulateUntil$;
-     this.$accumulateUntil$ = dnuCatcher("$accumulateUntil$");
-     this.$actualNext = this._$actualNext = $.$actualNext;
-     this._$nextFromPeek = $.$nextFromPeek;
-     this.$nextFromPeek = dnuCatcher("$nextFromPeek");
      this._$peekVal = $.$peekVal;
      this.$peekVal = dnuCatcher("$peekVal");
+     this.$position$ = this._$position$ = $.$position$;
+     this.$printOn$ = this._$printOn$ = $.$printOn$;
+     this.$size = this._$size = $.$size;
      this._$init$collection$ = $.$init$collection$;
      this.$init$collection$ = dnuCatcher("$init$collection$");
      this._$collection = $.$collection;
@@ -28066,8 +31267,8 @@ var mixins = new function () {
     this.slots = [];
     this.methods = [
      new MM("new", true, 0),
-     new MM("on:", false, 1421),
-     new MM("over:", false, 1422)
+     new MM("on:", false, 1556),
+     new MM("over:", false, 1557)
     ];
     this.nestedClasses = [];
     this.$new = function () {
@@ -28108,27 +31309,27 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for Streams`SeqCltnReadWriteStream";
    this.name = "Streams`SeqCltnReadWriteStream";
-   this.header = 1423;
+   this.header = 1558;
    this.slots = [new SM("buffer", true, false)];
    this.methods = [
-    new MM("superInit`Streams`SeqCltnReadWriteStream", true, 1424),
-    new MM("instance`initializer", true, 1425),
-    new MM("at:", false, 1426),
-    new MM("atEnd", false, 1427),
-    new MM("contents", false, 1428),
-    new MM("next", false, 1429),
-    new MM("nextIfAbsent:", false, 1430),
-    new MM("nextPut:", false, 1431),
-    new MM("peek", false, 1432),
-    new MM("peekIfAbsent:", false, 1433),
-    new MM("position:", false, 1434),
-    new MM("initBuffer:", false, 1435),
-    new MM("printOn:", false, 1436),
-    new MM("accumulateUntil:", false, 1437),
-    new MM("actualNext", false, 1438),
-    new MM("collection", false, 1439),
-    new MM("nextFromPeek", false, 1440),
-    new MM("peekVal", false, 1441),
+    new MM("superInit`Streams`SeqCltnReadWriteStream", true, 1559),
+    new MM("instance`initializer", true, 1560),
+    new MM("accumulateUntil:", false, 1561),
+    new MM("actualNext", false, 1562),
+    new MM("at:", false, 1563),
+    new MM("atEnd", false, 1564),
+    new MM("collection", false, 1565),
+    new MM("contents", false, 1566),
+    new MM("initBuffer:", false, 1567),
+    new MM("next", false, 1568),
+    new MM("nextFromPeek", false, 1569),
+    new MM("nextIfAbsent:", false, 1570),
+    new MM("nextPut:", false, 1571),
+    new MM("peek", false, 1572),
+    new MM("peekIfAbsent:", false, 1573),
+    new MM("peekVal", false, 1574),
+    new MM("position:", false, 1575),
+    new MM("printOn:", false, 1576),
     new MM("init`buffer:", true, 0),
     new MM("buffer", true, 0),
     new MM("buffer:", true, 0)
@@ -28145,6 +31346,31 @@ var mixins = new function () {
     self._$superInit$Streams$SeqCltnReadWriteStream();
     return self;
    };
+   this.$accumulateUntil$ = function ($predicate) {
+    var self = this;
+    var $start = nil;
+    $start = self._$position();
+    {
+     nil;
+     for (; !$predicate.$value(); ) {
+      self._$position$(self._$position() + 1);
+     };
+    };
+    return self._$buffer().$copyFrom$to$($start + 1, self._$position());
+   };
+   this.$actualNext = function () {
+    var self = this;
+    var $pos = nil;
+    $pos = self._$actualPosition();
+    $pos = $pos + 1;
+    if ($pos.$$greater(self._$size())) {
+     self._$error$("Attempt to read past the end of a stream");
+    } else {
+     nil;
+    };
+    self._$actualPosition$($pos);
+    return self._$buffer().$at$($pos);
+   };
    this.$at$ = function ($index) {
     var self = this;
     self._$assert$(function () {
@@ -28156,13 +31382,27 @@ var mixins = new function () {
     var self = this;
     return self._$actualAtEnd();
    };
+   this.$collection = function () {
+    var self = this;
+    return self._$buffer().$copyFrom$to$(1, self._$size());
+   };
    this.$contents = function () {
     var self = this;
     return self._$collection();
    };
+   this.$initBuffer$ = function ($sc) {
+    var self = this;
+    self._$buffer$($sc);
+    return self;
+   };
    this.$next = function () {
     var self = this;
     return self._$actualNext();
+   };
+   this.$nextFromPeek = function () {
+    var self = this;
+    self._$shouldNotHappen();
+    return self;
    };
    this.$nextIfAbsent$ = function ($f) {
     var self = this;
@@ -28213,14 +31453,14 @@ var mixins = new function () {
     };
     return self._$buffer().$at$($pos);
    };
+   this.$peekVal = function () {
+    var self = this;
+    self._$shouldNotHappen();
+    return self;
+   };
    this.$position$ = function ($p) {
     var self = this;
     self._$actualPosition$($p);
-    return self;
-   };
-   this.$initBuffer$ = function ($sc) {
-    var self = this;
-    self._$buffer$($sc);
     return self;
    };
    this.$printOn$ = function ($strm) {
@@ -28233,45 +31473,6 @@ var mixins = new function () {
      cascadeReceiver.$print$(self._$buffer());
      return cascadeReceiver.$nextPut$(")");
     })($strm);
-    return self;
-   };
-   this.$accumulateUntil$ = function ($predicate) {
-    var self = this;
-    var $start = nil;
-    $start = self._$position();
-    {
-     nil;
-     for (; !$predicate.$value(); ) {
-      self._$position$(self._$position() + 1);
-     };
-    };
-    return self._$buffer().$copyFrom$to$($start + 1, self._$position());
-   };
-   this.$actualNext = function () {
-    var self = this;
-    var $pos = nil;
-    $pos = self._$actualPosition();
-    $pos = $pos + 1;
-    if ($pos.$$greater(self._$size())) {
-     self._$error$("Attempt to read past the end of a stream");
-    } else {
-     nil;
-    };
-    self._$actualPosition$($pos);
-    return self._$buffer().$at$($pos);
-   };
-   this.$collection = function () {
-    var self = this;
-    return self._$buffer().$copyFrom$to$(1, self._$size());
-   };
-   this.$nextFromPeek = function () {
-    var self = this;
-    self._$shouldNotHappen();
-    return self;
-   };
-   this.$peekVal = function () {
-    var self = this;
-    self._$shouldNotHappen();
     return self;
    };
    this.$init$buffer$ = function (v) {
@@ -28291,12 +31492,21 @@ var mixins = new function () {
      this._$superInit$Streams$SeqCltnReadWriteStream = $.$superInit$Streams$SeqCltnReadWriteStream;
      this.$superInit$Streams$SeqCltnReadWriteStream = dnuCatcher("$superInit$Streams$SeqCltnReadWriteStream");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+     this._$accumulateUntil$ = $.$accumulateUntil$;
+     this.$accumulateUntil$ = dnuCatcher("$accumulateUntil$");
+     this._$actualNext = $.$actualNext;
+     this.$actualNext = dnuCatcher("$actualNext");
      this._$at$ = $.$at$;
      this.$at$ = dnuCatcher("$at$");
      this.$atEnd = this._$atEnd = $.$atEnd;
+     this._$collection = $.$collection;
+     this.$collection = dnuCatcher("$collection");
      this.$contents = this._$contents = $.$contents;
+     this.$initBuffer$ = this._$initBuffer$ = $.$initBuffer$;
      this._$next = $.$next;
      this.$next = dnuCatcher("$next");
+     this._$nextFromPeek = $.$nextFromPeek;
+     this.$nextFromPeek = dnuCatcher("$nextFromPeek");
      this.$nextIfAbsent$ = this._$nextIfAbsent$ = $.$nextIfAbsent$;
      this._$nextPut$ = $.$nextPut$;
      this.$nextPut$ = dnuCatcher("$nextPut$");
@@ -28304,20 +31514,11 @@ var mixins = new function () {
      this.$peek = dnuCatcher("$peek");
      this._$peekIfAbsent$ = $.$peekIfAbsent$;
      this.$peekIfAbsent$ = dnuCatcher("$peekIfAbsent$");
-     this._$position$ = $.$position$;
-     this.$position$ = dnuCatcher("$position$");
-     this.$initBuffer$ = this._$initBuffer$ = $.$initBuffer$;
-     this.$printOn$ = this._$printOn$ = $.$printOn$;
-     this._$accumulateUntil$ = $.$accumulateUntil$;
-     this.$accumulateUntil$ = dnuCatcher("$accumulateUntil$");
-     this._$actualNext = $.$actualNext;
-     this.$actualNext = dnuCatcher("$actualNext");
-     this._$collection = $.$collection;
-     this.$collection = dnuCatcher("$collection");
-     this._$nextFromPeek = $.$nextFromPeek;
-     this.$nextFromPeek = dnuCatcher("$nextFromPeek");
      this._$peekVal = $.$peekVal;
      this.$peekVal = dnuCatcher("$peekVal");
+     this._$position$ = $.$position$;
+     this.$position$ = dnuCatcher("$position$");
+     this.$printOn$ = this._$printOn$ = $.$printOn$;
      this._$init$buffer$ = $.$init$buffer$;
      this.$init$buffer$ = dnuCatcher("$init$buffer$");
      this._$buffer = $.$buffer;
@@ -28344,9 +31545,9 @@ var mixins = new function () {
     this.slots = [];
     this.methods = [
      new MM("new", true, 0),
-     new MM("on:", false, 1442),
-     new MM("on:numElements:", false, 1443),
-     new MM("over:", false, 1444)
+     new MM("on:", false, 1577),
+     new MM("on:numElements:", false, 1578),
+     new MM("over:", false, 1579)
     ];
     this.nestedClasses = [];
     this.$new = function () {
@@ -28394,14 +31595,14 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for Streams`TempTranscript";
    this.name = "Streams`TempTranscript";
-   this.header = 1445;
+   this.header = 1580;
    this.slots = [];
    this.methods = [
-    new MM("superInit`Streams`TempTranscript", true, 1446),
-    new MM("instance`initializer", true, 1447),
-    new MM("cr", false, 1448),
-    new MM("nextPut:", false, 1449),
-    new MM("show:", false, 1450)
+    new MM("superInit`Streams`TempTranscript", true, 1581),
+    new MM("instance`initializer", true, 1582),
+    new MM("cr", false, 1583),
+    new MM("nextPut:", false, 1584),
+    new MM("show:", false, 1585)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -28495,8 +31696,6 @@ var mixins = new function () {
   this.$Streams$CharacterOutput.enclosingMixin = this;
   this.$Streams$CharacterOutputConverter.enclosingMixin = this;
   this.$Streams$CharacterReadConverter.enclosingMixin = this;
-  this.$Streams$CharacterReadStream.enclosingMixin = this;
-  this.$Streams$CharacterReadWriteStream.enclosingMixin = this;
   this.$Streams$ExternalInputStream.enclosingMixin = this;
   this.$Streams$ExternalOutputStream.enclosingMixin = this;
   this.$Streams$ExternalReadStream.enclosingMixin = this;
@@ -28529,8 +31728,6 @@ var mixins = new function () {
     this._$CharacterOutputConverter = $.$CharacterOutputConverter;
     this.$CharacterOutputConverter = dnuCatcher("$CharacterOutputConverter");
     this.$CharacterReadConverter = this._$CharacterReadConverter = $.$CharacterReadConverter;
-    this.$CharacterReadStream = this._$CharacterReadStream = $.$CharacterReadStream;
-    this.$CharacterReadWriteStream = this._$CharacterReadWriteStream = $.$CharacterReadWriteStream;
     this._$ExternalInputStream = $.$ExternalInputStream;
     this.$ExternalInputStream = dnuCatcher("$ExternalInputStream");
     this.$ExternalOutputStream = this._$ExternalOutputStream = $.$ExternalOutputStream;
@@ -28571,12 +31768,6 @@ var mixins = new function () {
     this.$init$Streams$CharacterReadConverter$ = this._$init$Streams$CharacterReadConverter$ = $.$init$Streams$CharacterReadConverter$;
     this.$Streams$CharacterReadConverter = this._$Streams$CharacterReadConverter = $.$Streams$CharacterReadConverter;
     this.$Streams$CharacterReadConverter$ = this._$Streams$CharacterReadConverter$ = $.$Streams$CharacterReadConverter$;
-    this.$init$Streams$CharacterReadStream$ = this._$init$Streams$CharacterReadStream$ = $.$init$Streams$CharacterReadStream$;
-    this.$Streams$CharacterReadStream = this._$Streams$CharacterReadStream = $.$Streams$CharacterReadStream;
-    this.$Streams$CharacterReadStream$ = this._$Streams$CharacterReadStream$ = $.$Streams$CharacterReadStream$;
-    this.$init$Streams$CharacterReadWriteStream$ = this._$init$Streams$CharacterReadWriteStream$ = $.$init$Streams$CharacterReadWriteStream$;
-    this.$Streams$CharacterReadWriteStream = this._$Streams$CharacterReadWriteStream = $.$Streams$CharacterReadWriteStream;
-    this.$Streams$CharacterReadWriteStream$ = this._$Streams$CharacterReadWriteStream$ = $.$Streams$CharacterReadWriteStream$;
     this.$init$Streams$ExternalInputStream$ = this._$init$Streams$ExternalInputStream$ = $.$init$Streams$ExternalInputStream$;
     this.$Streams$ExternalInputStream = this._$Streams$ExternalInputStream = $.$Streams$ExternalInputStream;
     this.$Streams$ExternalInputStream$ = this._$Streams$ExternalInputStream$ = $.$Streams$ExternalInputStream$;
@@ -28606,10 +31797,8 @@ var mixins = new function () {
     this.Streams = function () {
      superBasicNew.call(this);
      this.$BasicOutputReadStream$slot = nil;
-     this.$CharacterSequenceReadStream$slot = nil;
      this.$CharacterIStream$slot = nil;
      this.$CharacterOStream$slot = nil;
-     this.$CharacterSequenceReadWriteStream$slot = nil;
      this.$CharacterConverterWithOutput$slot = nil;
      this.$OutputInputConverter$slot = nil;
      this.$BasicIExStream$slot = nil;
@@ -28627,8 +31816,6 @@ var mixins = new function () {
      this.$Streams$CharacterOutput$slot = nil;
      this.$Streams$CharacterOutputConverter$slot = nil;
      this.$Streams$CharacterReadConverter$slot = nil;
-     this.$Streams$CharacterReadStream$slot = nil;
-     this.$Streams$CharacterReadWriteStream$slot = nil;
      this.$Streams$ExternalInputStream$slot = nil;
      this.$Streams$ExternalOutputStream$slot = nil;
      this.$Streams$ExternalReadStream$slot = nil;
@@ -28679,16 +31866,16 @@ var mixins = new function () {
   var $0 = this;
   this.debug = "Runtime mixin for HopscotchDemo";
   this.name = "HopscotchDemo";
-  this.header = 1451;
+  this.header = 1586;
   this.slots = [
    new SM("findImage", false, false),
    new SM("peekingEye", false, false),
    new SM("HopscotchDemo`Demo", true, true)
   ];
   this.methods = [
-   new MM("superInit`HopscotchDemo", true, 1452),
-   new MM("instance`initializer", true, 1453),
-   new MM("main:args:", false, 1454),
+   new MM("superInit`HopscotchDemo", true, 1587),
+   new MM("instance`initializer", true, 1588),
+   new MM("main:args:", false, 1589),
    new MM("Demo", true, 0),
    new MM("init`findImage:", true, 0),
    new MM("findImage", true, 0),
@@ -28708,8 +31895,8 @@ var mixins = new function () {
   this.$instance$initializer = function ($manifest) {
    var self = this;
    self._$superInit$HopscotchDemo($manifest);
-   self._$init$findImage$($manifest.$hsFindImage());
-   self._$init$peekingEye$($manifest.$peekingeye1610());
+   $0.$init$findImage$(self, $manifest.$hsFindImage());
+   $0.$init$peekingEye$(self, $manifest.$peekingeye1610());
    return self;
   };
   this.$main$args$ = function ($p, $a) {
@@ -28729,19 +31916,19 @@ var mixins = new function () {
    };
    return this.$HopscotchDemo$Demo$slot;
   };
-  this.$init$findImage$ = function (v) {
-   this.$findImage$slot = v;
-   return this;
+  this.$init$findImage$ = function (self, v) {
+   self.$findImage$slot = v;
+   return self;
   };
-  this.$findImage = function () {
-   return this.$findImage$slot;
+  this.$findImage = function (self) {
+   return self.$findImage$slot;
   };
-  this.$init$peekingEye$ = function (v) {
-   this.$peekingEye$slot = v;
-   return this;
+  this.$init$peekingEye$ = function (self, v) {
+   self.$peekingEye$slot = v;
+   return self;
   };
-  this.$peekingEye = function () {
-   return this.$peekingEye$slot;
+  this.$peekingEye = function (self) {
+   return self.$peekingEye$slot;
   };
   this.$init$HopscotchDemo$Demo$ = function (v) {
    this.$HopscotchDemo$Demo$slot = v;
@@ -28759,7 +31946,7 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for HopscotchDemo`Demo";
    this.name = "HopscotchDemo`Demo";
-   this.header = 1455;
+   this.header = 1590;
    this.slots = [
     new SM("Subject", false, false),
     new SM("Presenter", false, false),
@@ -28771,8 +31958,8 @@ var mixins = new function () {
     new SM("HopscotchDemo`Demo`DemoSubject", true, true)
    ];
    this.methods = [
-    new MM("superInit`HopscotchDemo`Demo", true, 1456),
-    new MM("instance`initializer", true, 1457),
+    new MM("superInit`HopscotchDemo`Demo", true, 1591),
+    new MM("instance`initializer", true, 1592),
     new MM("DemoPresenter", true, 0),
     new MM("DemoSubject", true, 0),
     new MM("init`Subject:", true, 0),
@@ -28904,15 +32091,19 @@ var mixins = new function () {
     var $2 = this;
     this.debug = "Runtime mixin for HopscotchDemo`Demo`DemoPresenter";
     this.name = "HopscotchDemo`Demo`DemoPresenter";
-    this.header = 1458;
-    this.slots = [];
+    this.header = 1593;
+    this.slots = [new SM("counter", true, false)];
     this.methods = [
-     new MM("superInit`HopscotchDemo`Demo`DemoPresenter", true, 1459),
-     new MM("instance`initializer", true, 1460),
-     new MM("definition", false, 1461),
-     new MM("fib:", false, 1462),
-     new MM("slow", false, 1463),
-     new MM("slowFib", false, 1464)
+     new MM("superInit`HopscotchDemo`Demo`DemoPresenter", true, 1594),
+     new MM("instance`initializer", true, 1595),
+     new MM("definition", false, 1596),
+     new MM("fib:", false, 1597),
+     new MM("sampleMenu", false, 1598),
+     new MM("slow", false, 1599),
+     new MM("slowFib", false, 1600),
+     new MM("init`counter:", true, 0),
+     new MM("counter", true, 0),
+     new MM("counter:", true, 0)
     ];
     this.nestedClasses = [];
     this.applications = [];
@@ -28924,6 +32115,7 @@ var mixins = new function () {
     this.$instance$initializer = function ($s) {
      var self = this;
      self._$superInit$HopscotchDemo$Demo$DemoPresenter($s);
+     self._$init$counter$(0);
      return self;
     };
     this.$definition = function () {
@@ -28946,7 +32138,10 @@ var mixins = new function () {
       self._$row$([
        self._$label$("Nested"),
        self._$label$(" in "),
-       self._$label$("Outer")
+       self._$label$("Outer"),
+       self._$filler(),
+       self._$sampleMenu(),
+       self._$filler()
       ]),
       $echo = self._$textDisplay$(""),
       self.$enclosingObjects$HopscotchDemo$Demo$DemoPresenter[0]._$TextEditorFragment().$new().$changeResponse$(function ($editor) {
@@ -28978,7 +32173,7 @@ var mixins = new function () {
       self._$button$action$("Do it again!", function () {
        return $slowHolder.$refresh();
       }),
-      self._$image$(self.$enclosingObjects$HopscotchDemo$Demo$DemoPresenter[1]._$peekingEye())
+      self._$image$($0.$peekingEye(self.$enclosingObjects$HopscotchDemo$Demo$DemoPresenter[1]))
      ]).$color$(self.$enclosingObjects$HopscotchDemo$Demo$DemoPresenter[0]._$Color().$r$g$b$((171/200), (171/200), (9/10)));
     };
     this.$fib$ = function ($n) {
@@ -28989,6 +32184,45 @@ var mixins = new function () {
       return self._$fib$($n - 1) + self._$fib$($n - 2);
      });
     };
+    this.$sampleMenu = function () {
+     var self = this;
+     return self._$dropDownMenu$(function () {
+      return [
+       [
+        self._$counter().$printString(),
+        function () {
+         self._$counter$(self._$counter() + 1);
+         return self._$alert$(self._$counter());
+        }
+       ],
+       [
+        "one",
+        function () {
+         return self._$alert$("1");
+        }
+       ],
+       [
+        "two",
+        function () {
+         return self._$alert$("2");
+        }
+       ],
+       "separator",
+       [
+        "three",
+        function () {
+         return self._$alert$("3");
+        }
+       ],
+       [
+        self._$subject().$elapsedMilliseconds().$printString(),
+        function () {
+         return self._$alert$("Dynamic!");
+        }
+       ]
+      ];
+     });
+    };
     this.$slow = function () {
      var self = this;
      return self._$initially$deferred$(self._$label$("Doing something slow..."), function () {
@@ -28996,7 +32230,7 @@ var mixins = new function () {
       return self._$row$([
        self._$label$("Done!"),
        self._$mediumBlank(),
-       self._$image$(self.$enclosingObjects$HopscotchDemo$Demo$DemoPresenter[1]._$findImage())
+       self._$image$($0.$findImage(self.$enclosingObjects$HopscotchDemo$Demo$DemoPresenter[1]))
       ]);
      });
     };
@@ -29014,24 +32248,43 @@ var mixins = new function () {
      };
      return self;
     };
+    this.$init$counter$ = function (v) {
+     this.$counter$slot = v;
+     return this;
+    };
+    this.$counter = function () {
+     return this.$counter$slot;
+    };
+    this.$counter$ = function (v) {
+     this.$counter$slot = v;
+     return this;
+    };
     this.invoke = function (runtimeSuperclass, enclosingObjects) {
      function constructRuntimeClass (superBasicNew) {
       this.debug = "Runtime class for HopscotchDemo`Demo`DemoPresenter";
       this._$superInit$HopscotchDemo$Demo$DemoPresenter = $.$superInit$HopscotchDemo$Demo$DemoPresenter;
       this.$superInit$HopscotchDemo$Demo$DemoPresenter = dnuCatcher("$superInit$HopscotchDemo$Demo$DemoPresenter");
       this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
-      this._$definition = $.$definition;
-      this.$definition = dnuCatcher("$definition");
+      this.$definition = this._$definition = $.$definition;
       this._$fib$ = $.$fib$;
       this.$fib$ = dnuCatcher("$fib$");
+      this._$sampleMenu = $.$sampleMenu;
+      this.$sampleMenu = dnuCatcher("$sampleMenu");
       this._$slow = $.$slow;
       this.$slow = dnuCatcher("$slow");
       this._$slowFib = $.$slowFib;
       this.$slowFib = dnuCatcher("$slowFib");
+      this._$init$counter$ = $.$init$counter$;
+      this.$init$counter$ = dnuCatcher("$init$counter$");
+      this._$counter = $.$counter;
+      this.$counter = dnuCatcher("$counter");
+      this._$counter$ = $.$counter$;
+      this.$counter$ = dnuCatcher("$counter$");
       this.$enclosingObjects$HopscotchDemo$Demo$DemoPresenter = enclosingObjects;
       this.$super$HopscotchDemo$Demo$DemoPresenter$slot = runtimeSuperclass;
       this["HopscotchDemo`Demo`DemoPresenter"] = function () {
        superBasicNew.call(this);
+       this.$counter$slot = nil;
       };
       this.basicNew = this["HopscotchDemo`Demo`DemoPresenter"];
       this.basicNew.prototype = this;
@@ -29074,12 +32327,15 @@ var mixins = new function () {
     var $2 = this;
     this.debug = "Runtime mixin for HopscotchDemo`Demo`DemoSubject";
     this.name = "HopscotchDemo`Demo`DemoSubject";
-    this.header = 1465;
-    this.slots = [];
+    this.header = 1601;
+    this.slots = [new SM("stopwatch", false, false)];
     this.methods = [
-     new MM("superInit`HopscotchDemo`Demo`DemoSubject", true, 1466),
-     new MM("instance`initializer", true, 1467),
-     new MM("createPresenter", false, 1468)
+     new MM("superInit`HopscotchDemo`Demo`DemoSubject", true, 1602),
+     new MM("instance`initializer", true, 1603),
+     new MM("createPresenter", false, 1604),
+     new MM("elapsedMilliseconds", false, 1605),
+     new MM("init`stopwatch:", true, 0),
+     new MM("stopwatch", true, 0)
     ];
     this.nestedClasses = [];
     this.applications = [];
@@ -29091,11 +32347,24 @@ var mixins = new function () {
     this.$instance$initializer = function () {
      var self = this;
      self._$superInit$HopscotchDemo$Demo$DemoSubject();
+     self._$init$stopwatch$(self.$enclosingObjects$HopscotchDemo$Demo$DemoSubject[0]._$Stopwatch().$new());
+     self._$stopwatch().$start();
      return self;
     };
     this.$createPresenter = function () {
      var self = this;
      return self.$enclosingObjects$HopscotchDemo$Demo$DemoSubject[0]._$DemoPresenter().$onSubject$(self);
+    };
+    this.$elapsedMilliseconds = function () {
+     var self = this;
+     return self._$stopwatch().$elapsedMilliseconds();
+    };
+    this.$init$stopwatch$ = function (v) {
+     this.$stopwatch$slot = v;
+     return this;
+    };
+    this.$stopwatch = function () {
+     return this.$stopwatch$slot;
     };
     this.invoke = function (runtimeSuperclass, enclosingObjects) {
      function constructRuntimeClass (superBasicNew) {
@@ -29104,10 +32373,16 @@ var mixins = new function () {
       this.$superInit$HopscotchDemo$Demo$DemoSubject = dnuCatcher("$superInit$HopscotchDemo$Demo$DemoSubject");
       this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
       this.$createPresenter = this._$createPresenter = $.$createPresenter;
+      this.$elapsedMilliseconds = this._$elapsedMilliseconds = $.$elapsedMilliseconds;
+      this._$init$stopwatch$ = $.$init$stopwatch$;
+      this.$init$stopwatch$ = dnuCatcher("$init$stopwatch$");
+      this._$stopwatch = $.$stopwatch;
+      this.$stopwatch = dnuCatcher("$stopwatch");
       this.$enclosingObjects$HopscotchDemo$Demo$DemoSubject = enclosingObjects;
       this.$super$HopscotchDemo$Demo$DemoSubject$slot = runtimeSuperclass;
       this["HopscotchDemo`Demo`DemoSubject"] = function () {
        superBasicNew.call(this);
+       this.$stopwatch$slot = nil;
       };
       this.basicNew = this["HopscotchDemo`Demo`DemoSubject"];
       this.basicNew.prototype = this;
@@ -29245,14 +32520,6 @@ var mixins = new function () {
     this.$main$args$ = this._$main$args$ = $.$main$args$;
     this._$Demo = $.$Demo;
     this.$Demo = dnuCatcher("$Demo");
-    this._$init$findImage$ = $.$init$findImage$;
-    this.$init$findImage$ = dnuCatcher("$init$findImage$");
-    this._$findImage = $.$findImage;
-    this.$findImage = dnuCatcher("$findImage");
-    this._$init$peekingEye$ = $.$init$peekingEye$;
-    this.$init$peekingEye$ = dnuCatcher("$init$peekingEye$");
-    this._$peekingEye = $.$peekingEye;
-    this.$peekingEye = dnuCatcher("$peekingEye");
     this.$init$HopscotchDemo$Demo$ = this._$init$HopscotchDemo$Demo$ = $.$init$HopscotchDemo$Demo$;
     this.$HopscotchDemo$Demo = this._$HopscotchDemo$Demo = $.$HopscotchDemo$Demo;
     this.$HopscotchDemo$Demo$ = this._$HopscotchDemo$Demo$ = $.$HopscotchDemo$Demo$;
@@ -29560,6 +32827,7 @@ var ns = new function () {
  this.$AliensForV8$slot = vmmirror.applyTopLevelMixin(mixins.$AliensForV8);
  this.$Collections$slot = vmmirror.applyTopLevelMixin(mixins.$Collections);
  this.$GraphicsForHTML5$slot = vmmirror.applyTopLevelMixin(mixins.$GraphicsForHTML5);
+ this.$TextModule$slot = vmmirror.applyTopLevelMixin(mixins.$TextModule);
  this.$HopscotchForHTML5$slot = vmmirror.applyTopLevelMixin(mixins.$HopscotchForHTML5);
  this.$MirrorsForV8$slot = vmmirror.applyTopLevelMixin(mixins.$MirrorsForV8);
  this.$MirrorGroups$slot = vmmirror.applyTopLevelMixin(mixins.$MirrorGroups);
@@ -29582,6 +32850,9 @@ var ns = new function () {
  };
  this.$GraphicsForHTML5 = function () {
   return this.$GraphicsForHTML5$slot;
+ };
+ this.$TextModule = function () {
+  return this.$TextModule$slot;
  };
  this.$HopscotchForHTML5 = function () {
   return this.$HopscotchForHTML5$slot;
@@ -29623,6 +32894,21 @@ var ns = new function () {
 		function(){return vmmirror.platform.$aliens().$yourself()._$alienate$(
 			function(){ var i = new Image(); i.src ="disclosureOpenImage.png"; return i;}() );});
  };
+ this.$hsDropdownImage = function () {
+  return vmmirror.kernel.$Future().$computing$(
+		function(){return vmmirror.platform.$aliens().$yourself()._$alienate$(
+			function(){ var i = new Image(); i.src ="hsDropdownImage.png"; return i;}() );});
+ };
+ this.$hsDropdownOutImage = function () {
+  return vmmirror.kernel.$Future().$computing$(
+		function(){return vmmirror.platform.$aliens().$yourself()._$alienate$(
+			function(){ var i = new Image(); i.src ="hsDropdownOutImage.png"; return i;}() );});
+ };
+ this.$hsDropdownOverImage = function () {
+  return vmmirror.kernel.$Future().$computing$(
+		function(){return vmmirror.platform.$aliens().$yourself()._$alienate$(
+			function(){ var i = new Image(); i.src ="hsDropdownOverImage.png"; return i;}() );});
+ };
  this.$hsFindImage = function () {
   return vmmirror.kernel.$Future().$computing$(
 		function(){return vmmirror.platform.$aliens().$yourself()._$alienate$(
@@ -29646,6 +32932,7 @@ function installDnuHandlersOn (p) {
   "$$greater",
   "$$greater$equal",
   "$$at",
+  "$AbstractList",
   "$Actors",
   "$ActorsForV8",
   "$AddableList",
@@ -29654,7 +32941,6 @@ function installDnuHandlersOn (p) {
   "$AliensForV8",
   "$Array",
   "$Association",
-  "$Bag",
   "$BasicIExStream",
   "$BasicInputStream",
   "$BasicOutputReadStream",
@@ -29674,11 +32960,6 @@ function installDnuHandlersOn (p) {
   "$CharacterInputConverter",
   "$CharacterOStream",
   "$CharacterOutput",
-  "$CharacterReadStream",
-  "$CharacterReadWriteStream",
-  "$CharacterSequenceReadStream",
-  "$CharacterSequenceReadWriteStream",
-  "$CharacterWriteStream",
   "$ClassDeclarationBuilder",
   "$ClassDeclarationMirror",
   "$ClassHeaderMirror",
@@ -29687,6 +32968,7 @@ function installDnuHandlersOn (p) {
   "$Collection",
   "$Collections",
   "$Color",
+  "$ColorDecorator",
   "$ColumnComposer",
   "$CombinatorialParsing",
   "$Compilation",
@@ -29694,11 +32976,12 @@ function installDnuHandlersOn (p) {
   "$Composer",
   "$Context",
   "$DOMActor",
+  "$Decorator",
   "$DeferredContentComposer",
   "$Demo",
   "$DemoPresenter",
   "$DemoSubject",
-  "$Dictionary",
+  "$DropDownMenuFragment",
   "$EIOStream",
   "$EIStream",
   "$EOStream",
@@ -29712,6 +32995,7 @@ function installDnuHandlersOn (p) {
   "$ExternalStream",
   "$Fragment",
   "$Future",
+  "$Gradient",
   "$Graphics",
   "$GraphicsForHTML5",
   "$HashedCollection",
@@ -29722,8 +33006,9 @@ function installDnuHandlersOn (p) {
   "$HopscotchWindow",
   "$HyperlinkFragment",
   "$HyperlinkImageFragment",
-  "$IdentityDictionary",
+  "$IdentityMap",
   "$IdentityMutableHashedMap",
+  "$ImageButtonFragment",
   "$ImmutableMirrorGroup",
   "$ImplementationBase",
   "$InternalActor",
@@ -29766,13 +33051,13 @@ function installDnuHandlersOn (p) {
   "$Number",
   "$Object",
   "$ObjectMirror",
-  "$OrderedCollection",
   "$OutputInputConverter",
   "$PaddedFrameComposer",
   "$PendingDelivery",
   "$Platform",
   "$Point",
   "$Presenter",
+  "$PresenterList",
   "$Promise",
   "$PromiseUtils",
   "$ReadExternalOutputStream",
@@ -29792,15 +33077,25 @@ function installDnuHandlersOn (p) {
   "$Stopwatch",
   "$Streams",
   "$String",
+  "$StringBuilder",
   "$Subject",
+  "$Text",
+  "$TextBlock",
+  "$TextBlockFragment",
   "$TextDisplayFragment",
   "$TextEditorFragment",
+  "$TextFragment",
+  "$TextModule",
+  "$TextProperties",
+  "$TextString",
+  "$TextStringFragment",
   "$Timer",
   "$ToggleComposer",
   "$WeakArray",
   "$WeakMap",
   "$WhenReactor",
   "$Writer",
+  "$ZebraDecorator",
   "$$back$back",
   "$__duration$callback$repeating$",
   "$__owner",
@@ -29814,6 +33109,7 @@ function installDnuHandlersOn (p) {
   "$accessModifier",
   "$accumulateUntil$",
   "$action",
+  "$action$",
   "$actors",
   "$actualAtEnd",
   "$actualContent",
@@ -29824,13 +33120,16 @@ function installDnuHandlersOn (p) {
   "$actualPosition_slot",
   "$actualPosition_slot$",
   "$add$",
+  "$add$afterIndex$",
   "$add$beforeIndex$",
-  "$add$withOccurrences$",
   "$addAll$",
+  "$addDecorator$",
+  "$addEventListener$action$",
   "$addEventListener$with$",
   "$addFirst$",
   "$addLast$",
   "$addMirror$",
+  "$addRange$",
   "$addReactor$",
   "$advanceAmount",
   "$advanceBuffer",
@@ -29847,19 +33146,22 @@ function installDnuHandlersOn (p) {
   "$appendChild$",
   "$applyConstructorUsingEval$",
   "$applyMixin$toSuperclass$withEnclosingObjects$",
+  "$applyTo$",
   "$applyTo$withName$",
   "$applyToStyle$",
   "$arc$with$with$with$with$",
   "$arguments",
   "$arrangeForFinalization",
   "$asArray",
-  "$asBag",
+  "$asBuilder",
   "$asCSSString",
   "$asFloat",
   "$asInteger",
   "$asInternalRef$",
   "$asMutableArrayList",
   "$asSet",
+  "$asSortedList",
+  "$asString",
   "$asciiValue",
   "$assert$",
   "$assert$message$",
@@ -29904,22 +33206,28 @@ function installDnuHandlersOn (p) {
   "$buildValForKey$element$",
   "$button$action$",
   "$byteAt$",
+  "$canUnderstand$",
   "$cancel16px",
   "$cancelResponse",
   "$cancelled",
   "$cancelled$",
+  "$ceiling",
   "$changeResponse",
   "$changeResponse$",
   "$checkCurrentActor",
   "$checkCycle",
+  "$childrenDo$",
   "$class",
+  "$classComment",
   "$classDeclIRFor$within$",
+  "$classHeader",
   "$classOf$",
   "$classSide",
+  "$clone",
   "$cloneNode$",
+  "$cloneWithDefaultProperties$",
   "$close",
   "$coerce$",
-  "$coerce$else$",
   "$collapsed$expanded$initiallyExpanded$",
   "$collapsedDefinition",
   "$collapsedDefinition$expandedDefinition$initiallyExpanded$",
@@ -29943,10 +33251,12 @@ function installDnuHandlersOn (p) {
   "$compiler",
   "$compressibility",
   "$compressibility$",
+  "$computeContent",
   "$computeMirrorGroup$",
   "$computing$",
   "$content",
   "$content$offsets$",
+  "$contentFor$within$",
   "$contentHolder",
   "$contentHolder$",
   "$contentSource",
@@ -29955,18 +33265,20 @@ function installDnuHandlersOn (p) {
   "$contentsDo$",
   "$contentsRemaining",
   "$contentsWritten",
-  "$contents_private",
-  "$contents_private$",
   "$controlBarColor",
   "$copy",
   "$copyFrom$to$",
   "$copyReplaceAll$with$",
   "$copyReplaceFrom$to$with$",
   "$copyUntilFirstColon$",
+  "$copyWith$",
   "$copyWithSize$",
+  "$copyWithout$",
   "$core",
   "$corner",
   "$cos",
+  "$counter",
+  "$counter$",
   "$counterfactualBarX",
   "$counterfactualBarX$",
   "$cr",
@@ -29975,9 +33287,11 @@ function installDnuHandlersOn (p) {
   "$createFarReferenceTo$in$for$",
   "$createFirstTable",
   "$createPresenter",
+  "$createRange",
   "$createTextNode$",
   "$createVisual",
   "$cull$",
+  "$cull$cull$",
   "$cumulativeMillis",
   "$cumulativeMillis$",
   "$current",
@@ -29985,9 +33299,16 @@ function installDnuHandlersOn (p) {
   "$currentHopscotchWindow",
   "$currentHopscotchWindow$",
   "$currentMonotonicMillis",
+  "$currentPresenter",
+  "$currentPresenterX",
   "$currentVisitSlot",
   "$currentVisitSlot$",
+  "$cursorPosition",
+  "$cursorPosition$",
   "$declaration",
+  "$decorate$",
+  "$decorators",
+  "$decorators$",
   "$defaultAcceptResponse",
   "$defaultActor",
   "$defaultCancelResponse",
@@ -30005,11 +33326,11 @@ function installDnuHandlersOn (p) {
   "$deleted",
   "$deleted$",
   "$deliverIn$",
-  "$description",
-  "$description$",
   "$descriptor",
   "$descriptor$",
+  "$desktop",
   "$destinationActor",
+  "$detect$",
   "$detect$ifNone$",
   "$dirty",
   "$dirty$",
@@ -30023,11 +33344,17 @@ function installDnuHandlersOn (p) {
   "$doClose",
   "$document",
   "$doesNotUnderstand$",
+  "$dropDownImage",
+  "$dropDownMenu$",
+  "$dropDownOutImage",
+  "$dropDownOverImage",
   "$editorX",
   "$editorX$",
   "$elapsedMilliseconds",
+  "$elasticity$",
   "$elementFor$",
   "$elementForCopy$",
+  "$elementaryTextUnits",
   "$embeddedWindowMap",
   "$enclosingClass",
   "$enclosingMixin",
@@ -30035,11 +33362,11 @@ function installDnuHandlersOn (p) {
   "$enclosingObjects",
   "$endGap",
   "$enqueueMessage$",
+  "$ensureSubstance",
   "$enterEditState",
   "$enterPresenter$",
   "$enterSubject$",
   "$enterSubject$fromSnippet$",
-  "$equalsBag$",
   "$erase",
   "$eraseFuture",
   "$erasePast",
@@ -30063,16 +33390,27 @@ function installDnuHandlersOn (p) {
   "$fillText$with$with$",
   "$filler",
   "$find$in$",
+  "$findFirst$",
   "$findImage",
+  "$findLast$",
   "$findMirrorNamed$",
   "$first",
+  "$firstColor",
+  "$firstColor$secondColor$",
   "$firstIndex",
   "$firstTableSize",
+  "$flatMap$",
+  "$flatten",
   "$flexDirection",
   "$floor",
   "$flush",
   "$flushIfFail$",
+  "$font",
+  "$font$",
   "$forClassDeclaration$ir$em$",
+  "$forEach$",
+  "$forString$",
+  "$forString$properties$",
   "$fragments",
   "$from$to$",
   "$from$to$by$",
@@ -30091,12 +33429,15 @@ function installDnuHandlersOn (p) {
   "$generation",
   "$getClass",
   "$getContext$",
+  "$getRangeAt$",
+  "$getSelection",
   "$global",
   "$goBack",
   "$goForward",
   "$goodBufferOriginForPosition$",
   "$grammar",
   "$graphics",
+  "$gray$",
   "$green",
   "$group$",
   "$group$within$ir$",
@@ -30116,6 +33457,9 @@ function installDnuHandlersOn (p) {
   "$history",
   "$holder$",
   "$hopscotch",
+  "$hsDropdownImage",
+  "$hsDropdownOutImage",
+  "$hsDropdownOverImage",
   "$hsFindImage",
   "$idFor$",
   "$ident$",
@@ -30131,13 +33475,16 @@ function installDnuHandlersOn (p) {
   "$image",
   "$image$",
   "$image$action$",
+  "$images$",
   "$immediateSend$",
+  "$immediateTextUnits",
   "$include$",
   "$include$ifNew$",
   "$includeAll$",
   "$includes$",
   "$includesIndex$",
   "$includesKey$",
+  "$includesMirrorNamed$",
   "$increment",
   "$indexFor$",
   "$indexOf$",
@@ -30159,21 +33506,16 @@ function installDnuHandlersOn (p) {
   "$init$CharacterConverterWithOutput$",
   "$init$CharacterIStream$",
   "$init$CharacterOStream$",
-  "$init$CharacterReadStream$",
-  "$init$CharacterSequenceReadStream$",
-  "$init$CharacterSequenceReadWriteStream$",
-  "$init$CharacterWriteStream$",
   "$init$Collection$",
   "$init$Collections$",
   "$init$Color$",
   "$init$Context$",
-  "$init$Dictionary$",
   "$init$EIOStream$",
   "$init$EIStream$",
   "$init$EOStream$",
+  "$init$Gradient$",
   "$init$Graphics$",
   "$init$Hopscotch$",
-  "$init$IdentityDictionary$",
   "$init$ImmutableMirrorGroup$",
   "$init$Kernel$",
   "$init$List$",
@@ -30184,17 +33526,20 @@ function installDnuHandlersOn (p) {
   "$init$Mirrors$",
   "$init$Mixin$",
   "$init$MutableAddableList$",
-  "$init$OrderedCollection$",
   "$init$OutputInputConverter$",
   "$init$Point$",
   "$init$Presenter$",
   "$init$Promise$",
   "$init$ReadExternalOutputStream$",
-  "$init$SortedCollection$",
   "$init$Stopwatch$",
   "$init$Streams$",
+  "$init$StringBuilder$",
   "$init$Subject$",
+  "$init$TextBlock$",
   "$init$TextEditorFragment$",
+  "$init$TextModule$",
+  "$init$TextProperties$",
+  "$init$TextString$",
   "$init$Timer$",
   "$init$WeakArray$",
   "$init$WeakMap$",
@@ -30226,9 +33571,9 @@ function installDnuHandlersOn (p) {
   "$init$content$",
   "$init$contentHolder$",
   "$init$contentSource$",
-  "$init$contents_private$",
   "$init$core$",
   "$init$corner$",
+  "$init$counter$",
   "$init$cumulativeMillis$",
   "$init$declaration$",
   "$init$defaultActor$",
@@ -30236,19 +33581,22 @@ function installDnuHandlersOn (p) {
   "$init$definingMixin$",
   "$init$definingMixinX$",
   "$init$definitions$",
-  "$init$description$",
   "$init$destinationActor$",
   "$init$dirty$",
   "$init$disclosureClosedImage$",
   "$init$disclosureOpenImage$",
   "$init$disclosureTransitionImage$",
   "$init$document$",
+  "$init$dropDownImage$",
+  "$init$dropDownOutImage$",
+  "$init$dropDownOverImage$",
   "$init$embeddedWindowMap$",
   "$init$enclosingClass$",
   "$init$enclosingMixin$",
   "$init$expandedDefinition$",
   "$init$expansibility$",
   "$init$findImage$",
+  "$init$firstColor$",
   "$init$fragments$",
   "$init$generation$",
   "$init$global$",
@@ -30275,6 +33623,8 @@ function installDnuHandlersOn (p) {
   "$init$label$",
   "$init$localNavigator$",
   "$init$mangledSelector$",
+  "$init$menuActive$",
+  "$init$menuSupplier$",
   "$init$message$",
   "$init$methods$",
   "$init$mirrors$",
@@ -30290,7 +33640,9 @@ function installDnuHandlersOn (p) {
   "$init$origin$",
   "$init$parserLib$",
   "$init$parsing$",
+  "$init$parts$",
   "$init$peekingEye$",
+  "$init$presenterSourceX$",
   "$init$problem$",
   "$init$promise$",
   "$init$prvtClassDeclIR$",
@@ -30300,8 +33652,10 @@ function installDnuHandlersOn (p) {
   "$init$reflectee$",
   "$init$reflecteeX$",
   "$init$resolver$",
+  "$init$secondColor$",
   "$init$selector$",
   "$init$size$",
+  "$init$sizeX$",
   "$init$slots$",
   "$init$source$",
   "$init$sourceActor$",
@@ -30309,12 +33663,18 @@ function installDnuHandlersOn (p) {
   "$init$start$",
   "$init$state000$",
   "$init$state$",
+  "$init$stateImages$",
   "$init$stop$",
+  "$init$stopwatch$",
   "$init$streams$",
+  "$init$string$",
+  "$init$subfragments$",
   "$init$subject$",
   "$init$target$",
   "$init$targetsActor$",
   "$init$text$",
+  "$init$textProperties$",
+  "$init$textUnits$",
   "$init$textX$",
   "$init$topColor$",
   "$init$transientTestBlock$",
@@ -30327,6 +33687,7 @@ function installDnuHandlersOn (p) {
   "$initialContent$contentSource$",
   "$initially$deferred$",
   "$inject$into$",
+  "$insertAdjacentElement$into$",
   "$installCollapsedPresenter",
   "$installContentVisual$",
   "$installExpandedPresenter",
@@ -30341,10 +33702,9 @@ function installDnuHandlersOn (p) {
   "$internalResolver",
   "$into$openSubject$",
   "$isAlien",
-  "$isArray",
   "$isBehavior",
-  "$isBlock",
   "$isCharacter",
+  "$isClosure",
   "$isEmpty",
   "$isExpanded",
   "$isExpanded$",
@@ -30354,7 +33714,10 @@ function installDnuHandlersOn (p) {
   "$isInEditState",
   "$isInEditState$",
   "$isInternalRef",
-  "$isKindOfBag",
+  "$isKindOfCollection",
+  "$isKindOfString",
+  "$isKindOfText",
+  "$isKindOfTextString",
   "$isMeta",
   "$isNil",
   "$isNumber",
@@ -30370,6 +33733,7 @@ function installDnuHandlersOn (p) {
   "$isTransient$",
   "$isUndefined",
   "$isValueObject$",
+  "$item$",
   "$kernel",
   "$key",
   "$key$matches$",
@@ -30387,6 +33751,7 @@ function installDnuHandlersOn (p) {
   "$lastIndex$",
   "$leaveEditState",
   "$lf",
+  "$lighterColorFirst",
   "$lineTo$with$",
   "$link$action$",
   "$listenForBackButton",
@@ -30405,8 +33770,16 @@ function installDnuHandlersOn (p) {
   "$markDeleted$",
   "$max$",
   "$maxPrintElements",
-  "$medianOf$and$and$using$",
   "$mediumBlank",
+  "$menu$",
+  "$menuActive",
+  "$menuActive$",
+  "$menuSupplier",
+  "$menuWithLabelsAndActions$",
+  "$mergeSortFrom$to$by$",
+  "$mergeSortFrom$to$src$dst$by$",
+  "$message",
+  "$messageText",
   "$messageText$",
   "$methods",
   "$min$",
@@ -30453,18 +33826,24 @@ function installDnuHandlersOn (p) {
   "$not",
   "$notNil",
   "$nothing",
+  "$noticeSubstanceCreation",
   "$numCharsUpToAscii$",
   "$objToIncludeFor$withExisting$",
   "$occupied",
-  "$occurrencesOf$",
   "$offsets",
+  "$oldText",
+  "$oldText$",
   "$on$",
   "$on$do$",
   "$on$numElements$",
   "$onError",
   "$onSubject$",
+  "$onText$",
+  "$onText$subfragments$",
   "$onValue",
   "$onValue$onError$resolver$",
+  "$openIn$",
+  "$openMenu$",
   "$openSubject$",
   "$origin",
   "$origin$corner$",
@@ -30473,8 +33852,11 @@ function installDnuHandlersOn (p) {
   "$over$",
   "$parent",
   "$parent$",
+  "$parseString$",
+  "$parser",
   "$parserLib",
   "$parsing",
+  "$parts",
   "$pass",
   "$past",
   "$past$",
@@ -30487,14 +33869,23 @@ function installDnuHandlersOn (p) {
   "$perform$withArguments$",
   "$platform",
   "$platform$",
+  "$pointSize",
+  "$pointSize$",
   "$position",
   "$position$",
   "$postCopy",
   "$postedTo$",
   "$presenter",
   "$presenterFor$",
+  "$presenterSource$",
+  "$presenterSourceX",
+  "$presenterSourceX$",
   "$presenterX",
   "$presenterX$",
+  "$presenters",
+  "$presenters$",
+  "$presentersX",
+  "$presentersX$",
   "$print$",
   "$printCharacter",
   "$printElementsDo$",
@@ -30513,6 +33904,7 @@ function installDnuHandlersOn (p) {
   "$qualifiedName",
   "$quo$",
   "$r$g$b$",
+  "$r$g$b$a$",
   "$reactBroken$",
   "$reactMoreResolved$",
   "$reactResolved$",
@@ -30523,6 +33915,8 @@ function installDnuHandlersOn (p) {
   "$receiver",
   "$receiver$message$",
   "$receiver$selector$arguments$resolver$",
+  "$reconstructText",
+  "$reconstructTextForNode$",
   "$rect$with$with$with$",
   "$red",
   "$redirectFrom$to$resolving$",
@@ -30533,15 +33927,16 @@ function installDnuHandlersOn (p) {
   "$reflecting$",
   "$reflecting$in$source$",
   "$refresh",
+  "$refreshPresenterList",
   "$reject$",
-  "$rem$",
   "$remove$",
   "$remove$at$",
   "$remove$ifAbsent$",
-  "$remove$withOccurrences$ifAbsent$",
+  "$removeAllRanges",
   "$removeAllSuchThat$",
   "$removeAt$",
   "$removeChild$",
+  "$removeContent",
   "$removeEvery$startingAt$",
   "$removeFirst",
   "$removeKey$",
@@ -30549,6 +33944,7 @@ function installDnuHandlersOn (p) {
   "$removeLast",
   "$removeMirror$",
   "$removeMirrorNamed$",
+  "$reorder$",
   "$replace$with$",
   "$replaceAll$with$",
   "$replaceChild$from$",
@@ -30561,23 +33957,30 @@ function installDnuHandlersOn (p) {
   "$resolution$",
   "$resolve",
   "$resolver",
-  "$respondToAccept",
+  "$respondToAccept$",
   "$respondToCancel",
-  "$respondToChange",
+  "$respondToChange$",
   "$reverse",
+  "$reverseDo$",
   "$row$",
   "$runtimeMixin",
+  "$sampleMenu",
   "$scaledR$g$b$a$",
   "$schedule$after$",
   "$schedule$every$",
   "$scrollIntoView$",
+  "$secondColor",
   "$select$",
   "$select$thenDo$",
   "$selector",
   "$selector$arguments$resolver$",
   "$sendTo$",
+  "$setEnd$to$",
+  "$setPresenters$",
   "$setProperty$to$",
+  "$setStart$to$",
   "$setTable$",
+  "$setText$",
   "$setToEnd",
   "$setVisualText$",
   "$sharedBackButtonListener",
@@ -30594,6 +33997,8 @@ function installDnuHandlersOn (p) {
   "$sin",
   "$size",
   "$size$",
+  "$sizeX",
+  "$sizeX$",
   "$size_0",
   "$size_0$",
   "$skipTo$",
@@ -30618,7 +34023,6 @@ function installDnuHandlersOn (p) {
   "$start",
   "$startGap",
   "$startGap$",
-  "$startMicros$",
   "$startMillis",
   "$startMillis$",
   "$startsWith$",
@@ -30626,12 +34030,21 @@ function installDnuHandlersOn (p) {
   "$state000",
   "$state000$",
   "$state$",
+  "$stateImages",
   "$stop",
   "$stop5",
+  "$stopwatch",
   "$streams",
+  "$strikeThrough",
+  "$strikeThrough$",
+  "$string",
   "$stroke",
+  "$style",
   "$subclassResponsibility",
+  "$subfragments",
   "$subject",
+  "$substanceSlot",
+  "$substanceSlot$",
   "$superInit$ActorsForV8",
   "$superInit$ActorsForV8$Actor",
   "$superInit$ActorsForV8$DOMActor",
@@ -30655,15 +34068,14 @@ function installDnuHandlersOn (p) {
   "$superInit$AliensForV8$Alien",
   "$superInit$AliensForV8$Expat",
   "$superInit$Collections",
+  "$superInit$Collections$AbstractList",
   "$superInit$Collections$AddableList",
   "$superInit$Collections$Association",
-  "$superInit$Collections$Bag",
   "$superInit$Collections$Collection",
   "$superInit$Collections$HashedCollection",
   "$superInit$Collections$IdentityMutableHashedMap",
   "$superInit$Collections$IdentitySet",
   "$superInit$Collections$Interval",
-  "$superInit$Collections$List",
   "$superInit$Collections$MutableArrayList",
   "$superInit$Collections$MutableHashedMap",
   "$superInit$Collections$MutableList",
@@ -30683,9 +34095,12 @@ function installDnuHandlersOn (p) {
   "$superInit$HopscotchForHTML5$BlankFragment",
   "$superInit$HopscotchForHTML5$ButtonFragment",
   "$superInit$HopscotchForHTML5$CanvasFragment",
+  "$superInit$HopscotchForHTML5$ColorDecorator",
   "$superInit$HopscotchForHTML5$ColumnComposer",
   "$superInit$HopscotchForHTML5$Composer",
+  "$superInit$HopscotchForHTML5$Decorator",
   "$superInit$HopscotchForHTML5$DeferredContentComposer",
+  "$superInit$HopscotchForHTML5$DropDownMenuFragment",
   "$superInit$HopscotchForHTML5$EmbeddedHopscotchWindow",
   "$superInit$HopscotchForHTML5$Fragment",
   "$superInit$HopscotchForHTML5$Gradient",
@@ -30694,19 +34109,25 @@ function installDnuHandlersOn (p) {
   "$superInit$HopscotchForHTML5$HopscotchWindow",
   "$superInit$HopscotchForHTML5$HyperlinkFragment",
   "$superInit$HopscotchForHTML5$HyperlinkImageFragment",
+  "$superInit$HopscotchForHTML5$ImageButtonFragment",
   "$superInit$HopscotchForHTML5$LeafFragment",
   "$superInit$HopscotchForHTML5$LocalNavigationHistory",
   "$superInit$HopscotchForHTML5$NavigationHistory",
   "$superInit$HopscotchForHTML5$PaddedFrameComposer",
   "$superInit$HopscotchForHTML5$Presenter",
+  "$superInit$HopscotchForHTML5$PresenterList",
   "$superInit$HopscotchForHTML5$RowComposer",
   "$superInit$HopscotchForHTML5$SequenceComposer",
   "$superInit$HopscotchForHTML5$StaticImageFragment",
   "$superInit$HopscotchForHTML5$StaticLabelFragment",
   "$superInit$HopscotchForHTML5$Subject",
+  "$superInit$HopscotchForHTML5$TextBlockFragment",
   "$superInit$HopscotchForHTML5$TextDisplayFragment",
   "$superInit$HopscotchForHTML5$TextEditorFragment",
+  "$superInit$HopscotchForHTML5$TextFragment",
+  "$superInit$HopscotchForHTML5$TextStringFragment",
   "$superInit$HopscotchForHTML5$ToggleComposer",
+  "$superInit$HopscotchForHTML5$ZebraDecorator",
   "$superInit$KernelForV8",
   "$superInit$KernelForV8$Array",
   "$superInit$KernelForV8$Boolean",
@@ -30722,6 +34143,7 @@ function installDnuHandlersOn (p) {
   "$superInit$KernelForV8$Object",
   "$superInit$KernelForV8$Stopwatch",
   "$superInit$KernelForV8$String",
+  "$superInit$KernelForV8$StringBuilder",
   "$superInit$KernelForV8$UndefinedObject",
   "$superInit$MirrorGroups",
   "$superInit$MirrorGroups$ImmutableMirrorGroup",
@@ -30753,8 +34175,6 @@ function installDnuHandlersOn (p) {
   "$superInit$Streams$CharacterOutput",
   "$superInit$Streams$CharacterOutputConverter",
   "$superInit$Streams$CharacterReadConverter",
-  "$superInit$Streams$CharacterReadStream",
-  "$superInit$Streams$CharacterReadWriteStream",
   "$superInit$Streams$ExternalInputStream",
   "$superInit$Streams$ExternalOutputStream",
   "$superInit$Streams$ExternalReadStream",
@@ -30763,7 +34183,13 @@ function installDnuHandlersOn (p) {
   "$superInit$Streams$SeqCltnReadStream",
   "$superInit$Streams$SeqCltnReadWriteStream",
   "$superInit$Streams$TempTranscript",
+  "$superInit$TextModule",
+  "$superInit$TextModule$Text",
+  "$superInit$TextModule$TextBlock",
+  "$superInit$TextModule$TextProperties",
+  "$superInit$TextModule$TextString",
   "$superclass",
+  "$supplyDefaultsFor$",
   "$tab",
   "$table",
   "$table$",
@@ -30784,22 +34210,31 @@ function installDnuHandlersOn (p) {
   "$textBeingAccepted",
   "$textBeingAccepted$",
   "$textDisplay$",
+  "$textProperties",
+  "$textUnits",
   "$textX",
   "$textX$",
-  "$timesRepeat$",
   "$title",
+  "$to$",
+  "$toggleContent",
   "$toggleWidget",
   "$toggleWidget$",
   "$topColor",
   "$transientTestBlock",
   "$truncated",
+  "$underline",
+  "$underline$",
   "$unicodeValue",
   "$unimplemented",
+  "$units$",
+  "$units$properties$",
   "$unmangleSelector$",
   "$unsignedByteAt$",
   "$unsignedByteAt$put$",
   "$upTo$",
   "$updateBufferLocationAfterFlush",
+  "$updateColumn",
+  "$updateContent",
   "$updateMixin$from$by$",
   "$updateMixinFrom$",
   "$userBack$",
@@ -30827,11 +34262,13 @@ function installDnuHandlersOn (p) {
   "$visualX$",
   "$vmmirror",
   "$warnObsolete",
+  "$weight",
+  "$weight$",
   "$whenFulfilled$whenBroken$",
+  "$white",
   "$width$height$",
   "$window",
   "$with$",
-  "$with$with$",
   "$withAll$",
   "$withContent$",
   "$withExtent$",
@@ -30843,6 +34280,7 @@ function installDnuHandlersOn (p) {
   "$write$at$ifFail$",
   "$writeBuffer",
   "$writeIfNeededBeforePositionChange",
+  "$writeln$",
   "$x",
   "$x$y$",
   "$y",

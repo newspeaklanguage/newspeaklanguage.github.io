@@ -67637,6 +67637,7 @@ var mixins = new function () {
   this.name = "WebIDEApp";
   this.header = 2929;
   this.slots = [
+   new SM("HopscotchIDE", false, false),
    new SM("Browsing", false, false),
    new SM("Minitest", false, false),
    new SM("MinitestUI", false, false),
@@ -67658,15 +67659,21 @@ var mixins = new function () {
    new SM("hsCollapseImage", false, false),
    new SM("hsCollapseOverImage", false, false),
    new SM("hsCollapseDownImage", false, false),
+   new SM("hsHomeImage", false, false),
+   new SM("hsHomeOverImage", false, false),
+   new SM("hsHomeOutImage", false, false),
+   new SM("hsHomeDownImage", false, false),
    new SM("classPresenterImage", false, false),
    new SM("classUnknownImage", false, false),
    new SM("languageNewspeak3", false, false),
-   new SM("WebIDEApp`HopscotchIDE", true, true)
+   new SM("WebIDEApp`HopscotchImages", true, true)
   ];
   this.methods = [
    new MM("superInit`WebIDEApp", true, 2930),
    new MM("instance`initializer", true, 2931),
    new MM("main:args:", false, 2932),
+   new MM("HopscotchImages", true, 0),
+   new MM("init`HopscotchIDE:", true, 0),
    new MM("HopscotchIDE", true, 0),
    new MM("init`Browsing:", true, 0),
    new MM("Browsing", true, 0),
@@ -67710,17 +67717,25 @@ var mixins = new function () {
    new MM("hsCollapseOverImage", true, 0),
    new MM("init`hsCollapseDownImage:", true, 0),
    new MM("hsCollapseDownImage", true, 0),
+   new MM("init`hsHomeImage:", true, 0),
+   new MM("hsHomeImage", true, 0),
+   new MM("init`hsHomeOverImage:", true, 0),
+   new MM("hsHomeOverImage", true, 0),
+   new MM("init`hsHomeOutImage:", true, 0),
+   new MM("hsHomeOutImage", true, 0),
+   new MM("init`hsHomeDownImage:", true, 0),
+   new MM("hsHomeDownImage", true, 0),
    new MM("init`classPresenterImage:", true, 0),
    new MM("classPresenterImage", true, 0),
    new MM("init`classUnknownImage:", true, 0),
    new MM("classUnknownImage", true, 0),
    new MM("init`languageNewspeak3:", true, 0),
    new MM("languageNewspeak3", true, 0),
-   new MM("init`WebIDEApp`HopscotchIDE:", true, 0),
-   new MM("WebIDEApp`HopscotchIDE", true, 0),
-   new MM("WebIDEApp`HopscotchIDE:", true, 0)
+   new MM("init`WebIDEApp`HopscotchImages:", true, 0),
+   new MM("WebIDEApp`HopscotchImages", true, 0),
+   new MM("WebIDEApp`HopscotchImages:", true, 0)
   ];
-  this.nestedClasses = ["WebIDEApp`HopscotchIDE"];
+  this.nestedClasses = ["WebIDEApp`HopscotchImages"];
   this.applications = [];
   this.$superInit$WebIDEApp = function ($manifest) {
    var self = this;
@@ -67730,6 +67745,7 @@ var mixins = new function () {
   this.$instance$initializer = function ($manifest) {
    var self = this;
    self._$superInit$WebIDEApp($manifest);
+   self._$init$HopscotchIDE$($manifest.$HopscotchWebIDE());
    self._$init$Browsing$($manifest.$SimpleBrowsing());
    self._$init$Minitest$($manifest.$Minitest());
    self._$init$MinitestUI$($manifest.$MinitestUI());
@@ -67751,6 +67767,10 @@ var mixins = new function () {
    self._$init$hsCollapseImage$($manifest.$hsCollapseImage());
    self._$init$hsCollapseOverImage$($manifest.$hsCollapseOverImage());
    self._$init$hsCollapseDownImage$($manifest.$hsCollapseDownImage());
+   self._$init$hsHomeImage$($manifest.$hsHomeImage());
+   self._$init$hsHomeOverImage$($manifest.$hsHomeOverImage());
+   self._$init$hsHomeOutImage$($manifest.$hsHomeOutImage());
+   self._$init$hsHomeDownImage$($manifest.$hsHomeDownImage());
    self._$init$classPresenterImage$($manifest.$classPresenterImage());
    self._$init$classUnknownImage$($manifest.$classUnknownImage());
    self._$init$languageNewspeak3$($manifest.$languageNewspeak3());
@@ -67759,20 +67779,27 @@ var mixins = new function () {
   this.$main$args$ = function ($p, $v) {
    var self = this;
    var $ide = nil;
-   $ide = self._$HopscotchIDE().$using$($p);
-   $ide.$populateNamespaceUsingPlatform$($p);
+   $ide = self._$HopscotchIDE().$using$browsing$namespacing$workspaceManager$minitest$minitestUI$colorization$images$($p, self._$Browsing(), self._$Namespacing(), self._$WorkspaceManager(), self._$Minitest(), self._$MinitestUI(), self._$NewspeakColorization(), self._$HopscotchImages());
+   $ide.$namespacing().$Root().$at$put$("WebIDEApp", self._$class());
    $p.$hopscotch().$core().$HopscotchWindow().$openSubject$($ide.$browsing().$HomeSubject().$new());
    return self;
   };
-  this.$HopscotchIDE = function () {
-   if (nil === this.$WebIDEApp$HopscotchIDE$slot) {
+  this.$HopscotchImages = function () {
+   if (nil === this.$WebIDEApp$HopscotchImages$slot) {
     var self = this;
     var superclass = self._$Object();
     var enclosingObjects = [this].concat(this.$enclosingObjects$WebIDEApp);
-    var mixin = $.$WebIDEApp$HopscotchIDE;
-    this.$WebIDEApp$HopscotchIDE$slot = vmmirror.$applyMixin$toSuperclass$withEnclosingObjects$(mixin, superclass, enclosingObjects);
+    var mixin = $.$WebIDEApp$HopscotchImages;
+    this.$WebIDEApp$HopscotchImages$slot = vmmirror.$applyMixin$toSuperclass$withEnclosingObjects$(mixin, superclass, enclosingObjects);
    };
-   return this.$WebIDEApp$HopscotchIDE$slot;
+   return this.$WebIDEApp$HopscotchImages$slot;
+  };
+  this.$init$HopscotchIDE$ = function (v) {
+   this.$HopscotchIDE$slot = v;
+   return this;
+  };
+  this.$HopscotchIDE = function () {
+   return this.$HopscotchIDE$slot;
   };
   this.$init$Browsing$ = function (v) {
    this.$Browsing$slot = v;
@@ -67921,6 +67948,34 @@ var mixins = new function () {
   this.$hsCollapseDownImage = function () {
    return this.$hsCollapseDownImage$slot;
   };
+  this.$init$hsHomeImage$ = function (v) {
+   this.$hsHomeImage$slot = v;
+   return this;
+  };
+  this.$hsHomeImage = function () {
+   return this.$hsHomeImage$slot;
+  };
+  this.$init$hsHomeOverImage$ = function (v) {
+   this.$hsHomeOverImage$slot = v;
+   return this;
+  };
+  this.$hsHomeOverImage = function () {
+   return this.$hsHomeOverImage$slot;
+  };
+  this.$init$hsHomeOutImage$ = function (v) {
+   this.$hsHomeOutImage$slot = v;
+   return this;
+  };
+  this.$hsHomeOutImage = function () {
+   return this.$hsHomeOutImage$slot;
+  };
+  this.$init$hsHomeDownImage$ = function (v) {
+   this.$hsHomeDownImage$slot = v;
+   return this;
+  };
+  this.$hsHomeDownImage = function () {
+   return this.$hsHomeDownImage$slot;
+  };
   this.$init$classPresenterImage$ = function (v) {
    this.$classPresenterImage$slot = v;
    return this;
@@ -67942,586 +67997,361 @@ var mixins = new function () {
   this.$languageNewspeak3 = function () {
    return this.$languageNewspeak3$slot;
   };
-  this.$init$WebIDEApp$HopscotchIDE$ = function (v) {
-   this.$WebIDEApp$HopscotchIDE$slot = v;
+  this.$init$WebIDEApp$HopscotchImages$ = function (v) {
+   this.$WebIDEApp$HopscotchImages$slot = v;
    return this;
   };
-  this.$WebIDEApp$HopscotchIDE = function () {
-   return this.$WebIDEApp$HopscotchIDE$slot;
+  this.$WebIDEApp$HopscotchImages = function () {
+   return this.$WebIDEApp$HopscotchImages$slot;
   };
-  this.$WebIDEApp$HopscotchIDE$ = function (v) {
-   this.$WebIDEApp$HopscotchIDE$slot = v;
+  this.$WebIDEApp$HopscotchImages$ = function (v) {
+   this.$WebIDEApp$HopscotchImages$slot = v;
    return this;
   };
-  this.$WebIDEApp$HopscotchIDE = new function () {
+  this.$WebIDEApp$HopscotchImages = new function () {
    var $ = this;
    var $1 = this;
-   this.debug = "Runtime mixin for WebIDEApp`HopscotchIDE";
-   this.name = "WebIDEApp`HopscotchIDE";
+   this.debug = "Runtime mixin for WebIDEApp`HopscotchImages";
+   this.name = "WebIDEApp`HopscotchImages";
    this.header = 2933;
    this.slots = [
-    new SM("browsing", false, false),
-    new SM("namespacing", false, false),
-    new SM("theWorkspaceManager", false, false),
-    new SM("minitest", false, false),
-    new SM("minitestUI", true, false),
-    new SM("colorizer", false, false),
-    new SM("images", false, false),
-    new SM("WebIDEApp`HopscotchIDE`HopscotchImages", true, true)
+    new SM("publicAccessImage", false, false),
+    new SM("protectedAccessImage", false, false),
+    new SM("privateAccessImage", false, false),
+    new SM("addImage", false, false),
+    new SM("addOutImage", false, false),
+    new SM("addOverImage", false, false),
+    new SM("dropDownImage", false, false),
+    new SM("dropDownOutImage", false, false),
+    new SM("dropDownOverImage", false, false),
+    new SM("expandImage", false, false),
+    new SM("expandOverImage", false, false),
+    new SM("expandDownImage", false, false),
+    new SM("collapseImage", false, false),
+    new SM("collapseOverImage", false, false),
+    new SM("collapseDownImage", false, false),
+    new SM("homeImage", false, false),
+    new SM("homeOverImage", false, false),
+    new SM("homeOutImage", false, false),
+    new SM("homeDownImage", false, false),
+    new SM("classPresenterIcon", false, false),
+    new SM("classUnknownIcon", false, false),
+    new SM("classIcon", false, false)
    ];
    this.methods = [
-    new MM("superInit`WebIDEApp`HopscotchIDE", true, 2934),
+    new MM("superInit`WebIDEApp`HopscotchImages", true, 2934),
     new MM("instance`initializer", true, 2935),
-    new MM("populateIconNamespace:", false, 2936),
-    new MM("populateNamespaceUsingPlatform:", false, 2937),
-    new MM("topLevelClassOf:", false, 2938),
-    new MM("HopscotchImages", true, 0),
-    new MM("init`browsing:", true, 0),
-    new MM("browsing", true, 0),
-    new MM("init`namespacing:", true, 0),
-    new MM("namespacing", true, 0),
-    new MM("init`theWorkspaceManager:", true, 0),
-    new MM("theWorkspaceManager", true, 0),
-    new MM("init`minitest:", true, 0),
-    new MM("minitest", true, 0),
-    new MM("init`minitestUI:", true, 0),
-    new MM("minitestUI", true, 0),
-    new MM("minitestUI:", true, 0),
-    new MM("init`colorizer:", true, 0),
-    new MM("colorizer", true, 0),
-    new MM("init`images:", true, 0),
-    new MM("images", true, 0),
-    new MM("init`WebIDEApp`HopscotchIDE`HopscotchImages:", true, 0),
-    new MM("WebIDEApp`HopscotchIDE`HopscotchImages", true, 0),
-    new MM("WebIDEApp`HopscotchIDE`HopscotchImages:", true, 0)
+    new MM("init`publicAccessImage:", true, 0),
+    new MM("publicAccessImage", true, 0),
+    new MM("init`protectedAccessImage:", true, 0),
+    new MM("protectedAccessImage", true, 0),
+    new MM("init`privateAccessImage:", true, 0),
+    new MM("privateAccessImage", true, 0),
+    new MM("init`addImage:", true, 0),
+    new MM("addImage", true, 0),
+    new MM("init`addOutImage:", true, 0),
+    new MM("addOutImage", true, 0),
+    new MM("init`addOverImage:", true, 0),
+    new MM("addOverImage", true, 0),
+    new MM("init`dropDownImage:", true, 0),
+    new MM("dropDownImage", true, 0),
+    new MM("init`dropDownOutImage:", true, 0),
+    new MM("dropDownOutImage", true, 0),
+    new MM("init`dropDownOverImage:", true, 0),
+    new MM("dropDownOverImage", true, 0),
+    new MM("init`expandImage:", true, 0),
+    new MM("expandImage", true, 0),
+    new MM("init`expandOverImage:", true, 0),
+    new MM("expandOverImage", true, 0),
+    new MM("init`expandDownImage:", true, 0),
+    new MM("expandDownImage", true, 0),
+    new MM("init`collapseImage:", true, 0),
+    new MM("collapseImage", true, 0),
+    new MM("init`collapseOverImage:", true, 0),
+    new MM("collapseOverImage", true, 0),
+    new MM("init`collapseDownImage:", true, 0),
+    new MM("collapseDownImage", true, 0),
+    new MM("init`homeImage:", true, 0),
+    new MM("homeImage", true, 0),
+    new MM("init`homeOverImage:", true, 0),
+    new MM("homeOverImage", true, 0),
+    new MM("init`homeOutImage:", true, 0),
+    new MM("homeOutImage", true, 0),
+    new MM("init`homeDownImage:", true, 0),
+    new MM("homeDownImage", true, 0),
+    new MM("init`classPresenterIcon:", true, 0),
+    new MM("classPresenterIcon", true, 0),
+    new MM("init`classUnknownIcon:", true, 0),
+    new MM("classUnknownIcon", true, 0),
+    new MM("init`classIcon:", true, 0),
+    new MM("classIcon", true, 0)
    ];
-   this.nestedClasses = ["WebIDEApp`HopscotchIDE`HopscotchImages"];
+   this.nestedClasses = [];
    this.applications = [];
-   this.$superInit$WebIDEApp$HopscotchIDE = function ($p) {
+   this.$superInit$WebIDEApp$HopscotchImages = function () {
     var self = this;
-    self.$super$WebIDEApp$HopscotchIDE$slot._$instance$initializer.call(self);
+    self.$super$WebIDEApp$HopscotchImages$slot._$instance$initializer.call(self);
     return self;
    };
-   this.$instance$initializer = function ($p) {
+   this.$instance$initializer = function () {
     var self = this;
-    self._$superInit$WebIDEApp$HopscotchIDE($p);
-    self._$init$browsing$(self.$enclosingObjects$WebIDEApp$HopscotchIDE[0]._$Browsing().$usingPlatform$ide$($p, self));
-    self._$init$namespacing$(self.$enclosingObjects$WebIDEApp$HopscotchIDE[0]._$Namespacing().$usingPlatform$($p));
-    self._$init$theWorkspaceManager$(self.$enclosingObjects$WebIDEApp$HopscotchIDE[0]._$WorkspaceManager().$usingPlatform$ide$($p, self));
-    self._$init$minitest$(self.$enclosingObjects$WebIDEApp$HopscotchIDE[0]._$Minitest().$usingPlatform$($p));
-    self._$init$colorizer$(self.$enclosingObjects$WebIDEApp$HopscotchIDE[0]._$NewspeakColorization().$usingPlatform$($p).$NS3BrowserColorizer().$new());
-    self._$init$images$(self._$HopscotchImages().$new());
+    self._$superInit$WebIDEApp$HopscotchImages();
+    self._$init$publicAccessImage$(self.$enclosingObjects$WebIDEApp$HopscotchImages[0]._$publicImage());
+    self._$init$protectedAccessImage$(self.$enclosingObjects$WebIDEApp$HopscotchImages[0]._$protectedImage());
+    self._$init$privateAccessImage$(self.$enclosingObjects$WebIDEApp$HopscotchImages[0]._$privateImage());
+    self._$init$addImage$(self.$enclosingObjects$WebIDEApp$HopscotchImages[0]._$hsAddImage());
+    self._$init$addOutImage$(self.$enclosingObjects$WebIDEApp$HopscotchImages[0]._$hsAddOutImage());
+    self._$init$addOverImage$(self.$enclosingObjects$WebIDEApp$HopscotchImages[0]._$hsAddOverImage());
+    self._$init$dropDownImage$(self.$enclosingObjects$WebIDEApp$HopscotchImages[0]._$hsDropdownImage());
+    self._$init$dropDownOutImage$(self.$enclosingObjects$WebIDEApp$HopscotchImages[0]._$hsDropdownOutImage());
+    self._$init$dropDownOverImage$(self.$enclosingObjects$WebIDEApp$HopscotchImages[0]._$hsDropdownOverImage());
+    self._$init$expandImage$(self.$enclosingObjects$WebIDEApp$HopscotchImages[0]._$hsExpandImage());
+    self._$init$expandOverImage$(self.$enclosingObjects$WebIDEApp$HopscotchImages[0]._$hsExpandOverImage());
+    self._$init$expandDownImage$(self.$enclosingObjects$WebIDEApp$HopscotchImages[0]._$hsExpandDownImage());
+    self._$init$collapseImage$(self.$enclosingObjects$WebIDEApp$HopscotchImages[0]._$hsCollapseImage());
+    self._$init$collapseOverImage$(self.$enclosingObjects$WebIDEApp$HopscotchImages[0]._$hsCollapseOverImage());
+    self._$init$collapseDownImage$(self.$enclosingObjects$WebIDEApp$HopscotchImages[0]._$hsCollapseDownImage());
+    self._$init$homeImage$(self.$enclosingObjects$WebIDEApp$HopscotchImages[0]._$hsHomeImage());
+    self._$init$homeOverImage$(self.$enclosingObjects$WebIDEApp$HopscotchImages[0]._$hsHomeOverImage());
+    self._$init$homeOutImage$(self.$enclosingObjects$WebIDEApp$HopscotchImages[0]._$hsHomeOutImage());
+    self._$init$homeDownImage$(self.$enclosingObjects$WebIDEApp$HopscotchImages[0]._$hsHomeDownImage());
+    self._$init$classPresenterIcon$(self.$enclosingObjects$WebIDEApp$HopscotchImages[0]._$classPresenterImage());
+    self._$init$classUnknownIcon$(self.$enclosingObjects$WebIDEApp$HopscotchImages[0]._$classUnknownImage());
+    self._$init$classIcon$(self.$enclosingObjects$WebIDEApp$HopscotchImages[0]._$languageNewspeak3());
     return self;
    };
-   this.$populateIconNamespace$ = function ($ns) {
-    var self = this;
-    return (function (cascadeReceiver) {
-     cascadeReceiver.$at$put$("publicAccessImage", self._$images().$publicAccessImage());
-     cascadeReceiver.$at$put$("protectedAccessImage", self._$images().$protectedAccessImage());
-     cascadeReceiver.$at$put$("privateAccessImage", self._$images().$privateAccessImage());
-     cascadeReceiver.$at$put$("addImage", self._$images().$addImage());
-     cascadeReceiver.$at$put$("addOutImage", self._$images().$addOutImage());
-     cascadeReceiver.$at$put$("addOverImage", self._$images().$addOverImage());
-     cascadeReceiver.$at$put$("dropDownImage", self._$images().$dropDownImage());
-     cascadeReceiver.$at$put$("dropDownOutImage", self._$images().$dropDownOutImage());
-     cascadeReceiver.$at$put$("dropDownOverImage", self._$images().$dropDownOverImage());
-     cascadeReceiver.$at$put$("expandImage", self._$images().$expandImage());
-     cascadeReceiver.$at$put$("expandOverImage", self._$images().$expandOverImage());
-     cascadeReceiver.$at$put$("expandDownImage", self._$images().$expandDownImage());
-     cascadeReceiver.$at$put$("collapseImage", self._$images().$collapseImage());
-     cascadeReceiver.$at$put$("collapseOverImage", self._$images().$collapseOverImage());
-     cascadeReceiver.$at$put$("collapseDownImage", self._$images().$collapseDownImage());
-     cascadeReceiver.$at$put$("classPresenterIcon", self._$images().$classPresenterIcon());
-     cascadeReceiver.$at$put$("classUnknownIcon", self._$images().$classUnknownIcon());
-     cascadeReceiver.$at$put$("classIcon", self._$images().$classIcon());
-     return cascadeReceiver.$yourself();
-    })($ns);
-   };
-   this.$populateNamespaceUsingPlatform$ = function ($p) {
-    var self = this;
-    var $platformMirror = nil;
-    var $platformClass = nil;
-    var $namespace = nil;
-    $platformMirror = $p.$mirrors().$ObjectMirror().$reflecting$($p);
-    $platformClass = self._$topLevelClassOf$($platformMirror);
-    $namespace = self._$namespacing().$Root();
-    (function (cascadeReceiver) {
-     cascadeReceiver.$at$put$("Icons", self._$populateIconNamespace$(self._$namespacing().$freshNamespace()));
-     cascadeReceiver.$at$put$($platformClass.$name(), $platformClass.$reflectee());
-     cascadeReceiver.$at$put$("WebIDEApp", self.$enclosingObjects$WebIDEApp$HopscotchIDE[0]._$class());
-     cascadeReceiver.$at$put$("SimpleBrowsing", self.$enclosingObjects$WebIDEApp$HopscotchIDE[0]._$Browsing());
-     cascadeReceiver.$at$put$("Minitest", self.$enclosingObjects$WebIDEApp$HopscotchIDE[0]._$Minitest());
-     cascadeReceiver.$at$put$("MinitestUI", self.$enclosingObjects$WebIDEApp$HopscotchIDE[0]._$MinitestUI());
-     cascadeReceiver.$at$put$("NamespacingForV8", self.$enclosingObjects$WebIDEApp$HopscotchIDE[0]._$Namespacing());
-     cascadeReceiver.$at$put$("NewspeakColorization2", self.$enclosingObjects$WebIDEApp$HopscotchIDE[0]._$NewspeakColorization());
-     cascadeReceiver.$at$put$("WorkspaceManagerForV8", self.$enclosingObjects$WebIDEApp$HopscotchIDE[0]._$WorkspaceManager());
-     cascadeReceiver.$at$put$("platform", $p);
-     return cascadeReceiver.$at$put$("ide", self);
-    })($namespace);
-    $platformMirror.$getClass().$slots().$do$(function ($s) {
-     var $klass = nil;
-     var $o = nil;
-     $o = $platformMirror.$getSlot$($s.$name());
-     $klass = self._$topLevelClassOf$($p.$mirrors().$ObjectMirror().$reflecting$($o.$reflectee().$yourself()));
-     return $namespace.$at$put$($klass.$name(), $klass.$reflectee());
-    });
-    return $namespace;
-   };
-   this.$topLevelClassOf$ = function ($om) {
-    var self = this;
-    var $klass = nil;
-    $klass = $om.$getClass();
-    {
-     nil;
-     for (; !$klass.$enclosingObject().$reflectee().$isNil(); ) {
-      $klass = $klass.$enclosingObject().$getClass();
-     };
-    };
-    return $klass;
-   };
-   this.$HopscotchImages = function () {
-    if (nil === this.$WebIDEApp$HopscotchIDE$HopscotchImages$slot) {
-     var self = this;
-     var superclass = self._$Object();
-     var enclosingObjects = [this].concat(this.$enclosingObjects$WebIDEApp$HopscotchIDE);
-     var mixin = $.$WebIDEApp$HopscotchIDE$HopscotchImages;
-     this.$WebIDEApp$HopscotchIDE$HopscotchImages$slot = vmmirror.$applyMixin$toSuperclass$withEnclosingObjects$(mixin, superclass, enclosingObjects);
-    };
-    return this.$WebIDEApp$HopscotchIDE$HopscotchImages$slot;
-   };
-   this.$init$browsing$ = function (v) {
-    this.$browsing$slot = v;
+   this.$init$publicAccessImage$ = function (v) {
+    this.$publicAccessImage$slot = v;
     return this;
    };
-   this.$browsing = function () {
-    return this.$browsing$slot;
+   this.$publicAccessImage = function () {
+    return this.$publicAccessImage$slot;
    };
-   this.$init$namespacing$ = function (v) {
-    this.$namespacing$slot = v;
+   this.$init$protectedAccessImage$ = function (v) {
+    this.$protectedAccessImage$slot = v;
     return this;
    };
-   this.$namespacing = function () {
-    return this.$namespacing$slot;
+   this.$protectedAccessImage = function () {
+    return this.$protectedAccessImage$slot;
    };
-   this.$init$theWorkspaceManager$ = function (v) {
-    this.$theWorkspaceManager$slot = v;
+   this.$init$privateAccessImage$ = function (v) {
+    this.$privateAccessImage$slot = v;
     return this;
    };
-   this.$theWorkspaceManager = function () {
-    return this.$theWorkspaceManager$slot;
+   this.$privateAccessImage = function () {
+    return this.$privateAccessImage$slot;
    };
-   this.$init$minitest$ = function (v) {
-    this.$minitest$slot = v;
+   this.$init$addImage$ = function (v) {
+    this.$addImage$slot = v;
     return this;
    };
-   this.$minitest = function () {
-    return this.$minitest$slot;
+   this.$addImage = function () {
+    return this.$addImage$slot;
    };
-   this.$init$minitestUI$ = function (v) {
-    this.$minitestUI$slot = v;
+   this.$init$addOutImage$ = function (v) {
+    this.$addOutImage$slot = v;
     return this;
    };
-   this.$minitestUI = function () {
-    return this.$minitestUI$slot;
+   this.$addOutImage = function () {
+    return this.$addOutImage$slot;
    };
-   this.$minitestUI$ = function (v) {
-    this.$minitestUI$slot = v;
+   this.$init$addOverImage$ = function (v) {
+    this.$addOverImage$slot = v;
     return this;
    };
-   this.$init$colorizer$ = function (v) {
-    this.$colorizer$slot = v;
+   this.$addOverImage = function () {
+    return this.$addOverImage$slot;
+   };
+   this.$init$dropDownImage$ = function (v) {
+    this.$dropDownImage$slot = v;
     return this;
    };
-   this.$colorizer = function () {
-    return this.$colorizer$slot;
+   this.$dropDownImage = function () {
+    return this.$dropDownImage$slot;
    };
-   this.$init$images$ = function (v) {
-    this.$images$slot = v;
+   this.$init$dropDownOutImage$ = function (v) {
+    this.$dropDownOutImage$slot = v;
     return this;
    };
-   this.$images = function () {
-    return this.$images$slot;
+   this.$dropDownOutImage = function () {
+    return this.$dropDownOutImage$slot;
    };
-   this.$init$WebIDEApp$HopscotchIDE$HopscotchImages$ = function (v) {
-    this.$WebIDEApp$HopscotchIDE$HopscotchImages$slot = v;
+   this.$init$dropDownOverImage$ = function (v) {
+    this.$dropDownOverImage$slot = v;
     return this;
    };
-   this.$WebIDEApp$HopscotchIDE$HopscotchImages = function () {
-    return this.$WebIDEApp$HopscotchIDE$HopscotchImages$slot;
+   this.$dropDownOverImage = function () {
+    return this.$dropDownOverImage$slot;
    };
-   this.$WebIDEApp$HopscotchIDE$HopscotchImages$ = function (v) {
-    this.$WebIDEApp$HopscotchIDE$HopscotchImages$slot = v;
+   this.$init$expandImage$ = function (v) {
+    this.$expandImage$slot = v;
     return this;
    };
-   this.$WebIDEApp$HopscotchIDE$HopscotchImages = new function () {
-    var $ = this;
-    var $2 = this;
-    this.debug = "Runtime mixin for WebIDEApp`HopscotchIDE`HopscotchImages";
-    this.name = "WebIDEApp`HopscotchIDE`HopscotchImages";
-    this.header = 2939;
-    this.slots = [
-     new SM("publicAccessImage", false, false),
-     new SM("protectedAccessImage", false, false),
-     new SM("privateAccessImage", false, false),
-     new SM("addImage", false, false),
-     new SM("addOutImage", false, false),
-     new SM("addOverImage", false, false),
-     new SM("dropDownImage", false, false),
-     new SM("dropDownOutImage", false, false),
-     new SM("dropDownOverImage", false, false),
-     new SM("expandImage", false, false),
-     new SM("expandOverImage", false, false),
-     new SM("expandDownImage", false, false),
-     new SM("collapseImage", false, false),
-     new SM("collapseOverImage", false, false),
-     new SM("collapseDownImage", false, false),
-     new SM("classPresenterIcon", false, false),
-     new SM("classUnknownIcon", false, false),
-     new SM("classIcon", false, false)
-    ];
-    this.methods = [
-     new MM("superInit`WebIDEApp`HopscotchIDE`HopscotchImages", true, 2940),
-     new MM("instance`initializer", true, 2941),
-     new MM("init`publicAccessImage:", true, 0),
-     new MM("publicAccessImage", true, 0),
-     new MM("init`protectedAccessImage:", true, 0),
-     new MM("protectedAccessImage", true, 0),
-     new MM("init`privateAccessImage:", true, 0),
-     new MM("privateAccessImage", true, 0),
-     new MM("init`addImage:", true, 0),
-     new MM("addImage", true, 0),
-     new MM("init`addOutImage:", true, 0),
-     new MM("addOutImage", true, 0),
-     new MM("init`addOverImage:", true, 0),
-     new MM("addOverImage", true, 0),
-     new MM("init`dropDownImage:", true, 0),
-     new MM("dropDownImage", true, 0),
-     new MM("init`dropDownOutImage:", true, 0),
-     new MM("dropDownOutImage", true, 0),
-     new MM("init`dropDownOverImage:", true, 0),
-     new MM("dropDownOverImage", true, 0),
-     new MM("init`expandImage:", true, 0),
-     new MM("expandImage", true, 0),
-     new MM("init`expandOverImage:", true, 0),
-     new MM("expandOverImage", true, 0),
-     new MM("init`expandDownImage:", true, 0),
-     new MM("expandDownImage", true, 0),
-     new MM("init`collapseImage:", true, 0),
-     new MM("collapseImage", true, 0),
-     new MM("init`collapseOverImage:", true, 0),
-     new MM("collapseOverImage", true, 0),
-     new MM("init`collapseDownImage:", true, 0),
-     new MM("collapseDownImage", true, 0),
-     new MM("init`classPresenterIcon:", true, 0),
-     new MM("classPresenterIcon", true, 0),
-     new MM("init`classUnknownIcon:", true, 0),
-     new MM("classUnknownIcon", true, 0),
-     new MM("init`classIcon:", true, 0),
-     new MM("classIcon", true, 0)
-    ];
-    this.nestedClasses = [];
-    this.applications = [];
-    this.$superInit$WebIDEApp$HopscotchIDE$HopscotchImages = function () {
-     var self = this;
-     self.$super$WebIDEApp$HopscotchIDE$HopscotchImages$slot._$instance$initializer.call(self);
-     return self;
-    };
-    this.$instance$initializer = function () {
-     var self = this;
-     self._$superInit$WebIDEApp$HopscotchIDE$HopscotchImages();
-     self._$init$publicAccessImage$(self.$enclosingObjects$WebIDEApp$HopscotchIDE$HopscotchImages[1]._$publicImage());
-     self._$init$protectedAccessImage$(self.$enclosingObjects$WebIDEApp$HopscotchIDE$HopscotchImages[1]._$protectedImage());
-     self._$init$privateAccessImage$(self.$enclosingObjects$WebIDEApp$HopscotchIDE$HopscotchImages[1]._$privateImage());
-     self._$init$addImage$(self.$enclosingObjects$WebIDEApp$HopscotchIDE$HopscotchImages[1]._$hsAddImage());
-     self._$init$addOutImage$(self.$enclosingObjects$WebIDEApp$HopscotchIDE$HopscotchImages[1]._$hsAddOutImage());
-     self._$init$addOverImage$(self.$enclosingObjects$WebIDEApp$HopscotchIDE$HopscotchImages[1]._$hsAddOverImage());
-     self._$init$dropDownImage$(self.$enclosingObjects$WebIDEApp$HopscotchIDE$HopscotchImages[1]._$hsDropdownImage());
-     self._$init$dropDownOutImage$(self.$enclosingObjects$WebIDEApp$HopscotchIDE$HopscotchImages[1]._$hsDropdownOutImage());
-     self._$init$dropDownOverImage$(self.$enclosingObjects$WebIDEApp$HopscotchIDE$HopscotchImages[1]._$hsDropdownOverImage());
-     self._$init$expandImage$(self.$enclosingObjects$WebIDEApp$HopscotchIDE$HopscotchImages[1]._$hsExpandImage());
-     self._$init$expandOverImage$(self.$enclosingObjects$WebIDEApp$HopscotchIDE$HopscotchImages[1]._$hsExpandOverImage());
-     self._$init$expandDownImage$(self.$enclosingObjects$WebIDEApp$HopscotchIDE$HopscotchImages[1]._$hsExpandDownImage());
-     self._$init$collapseImage$(self.$enclosingObjects$WebIDEApp$HopscotchIDE$HopscotchImages[1]._$hsCollapseImage());
-     self._$init$collapseOverImage$(self.$enclosingObjects$WebIDEApp$HopscotchIDE$HopscotchImages[1]._$hsCollapseOverImage());
-     self._$init$collapseDownImage$(self.$enclosingObjects$WebIDEApp$HopscotchIDE$HopscotchImages[1]._$hsCollapseDownImage());
-     self._$init$classPresenterIcon$(self.$enclosingObjects$WebIDEApp$HopscotchIDE$HopscotchImages[1]._$classPresenterImage());
-     self._$init$classUnknownIcon$(self.$enclosingObjects$WebIDEApp$HopscotchIDE$HopscotchImages[1]._$classUnknownImage());
-     self._$init$classIcon$(self.$enclosingObjects$WebIDEApp$HopscotchIDE$HopscotchImages[1]._$languageNewspeak3());
-     return self;
-    };
-    this.$init$publicAccessImage$ = function (v) {
-     this.$publicAccessImage$slot = v;
-     return this;
-    };
-    this.$publicAccessImage = function () {
-     return this.$publicAccessImage$slot;
-    };
-    this.$init$protectedAccessImage$ = function (v) {
-     this.$protectedAccessImage$slot = v;
-     return this;
-    };
-    this.$protectedAccessImage = function () {
-     return this.$protectedAccessImage$slot;
-    };
-    this.$init$privateAccessImage$ = function (v) {
-     this.$privateAccessImage$slot = v;
-     return this;
-    };
-    this.$privateAccessImage = function () {
-     return this.$privateAccessImage$slot;
-    };
-    this.$init$addImage$ = function (v) {
-     this.$addImage$slot = v;
-     return this;
-    };
-    this.$addImage = function () {
-     return this.$addImage$slot;
-    };
-    this.$init$addOutImage$ = function (v) {
-     this.$addOutImage$slot = v;
-     return this;
-    };
-    this.$addOutImage = function () {
-     return this.$addOutImage$slot;
-    };
-    this.$init$addOverImage$ = function (v) {
-     this.$addOverImage$slot = v;
-     return this;
-    };
-    this.$addOverImage = function () {
-     return this.$addOverImage$slot;
-    };
-    this.$init$dropDownImage$ = function (v) {
-     this.$dropDownImage$slot = v;
-     return this;
-    };
-    this.$dropDownImage = function () {
-     return this.$dropDownImage$slot;
-    };
-    this.$init$dropDownOutImage$ = function (v) {
-     this.$dropDownOutImage$slot = v;
-     return this;
-    };
-    this.$dropDownOutImage = function () {
-     return this.$dropDownOutImage$slot;
-    };
-    this.$init$dropDownOverImage$ = function (v) {
-     this.$dropDownOverImage$slot = v;
-     return this;
-    };
-    this.$dropDownOverImage = function () {
-     return this.$dropDownOverImage$slot;
-    };
-    this.$init$expandImage$ = function (v) {
-     this.$expandImage$slot = v;
-     return this;
-    };
-    this.$expandImage = function () {
-     return this.$expandImage$slot;
-    };
-    this.$init$expandOverImage$ = function (v) {
-     this.$expandOverImage$slot = v;
-     return this;
-    };
-    this.$expandOverImage = function () {
-     return this.$expandOverImage$slot;
-    };
-    this.$init$expandDownImage$ = function (v) {
-     this.$expandDownImage$slot = v;
-     return this;
-    };
-    this.$expandDownImage = function () {
-     return this.$expandDownImage$slot;
-    };
-    this.$init$collapseImage$ = function (v) {
-     this.$collapseImage$slot = v;
-     return this;
-    };
-    this.$collapseImage = function () {
-     return this.$collapseImage$slot;
-    };
-    this.$init$collapseOverImage$ = function (v) {
-     this.$collapseOverImage$slot = v;
-     return this;
-    };
-    this.$collapseOverImage = function () {
-     return this.$collapseOverImage$slot;
-    };
-    this.$init$collapseDownImage$ = function (v) {
-     this.$collapseDownImage$slot = v;
-     return this;
-    };
-    this.$collapseDownImage = function () {
-     return this.$collapseDownImage$slot;
-    };
-    this.$init$classPresenterIcon$ = function (v) {
-     this.$classPresenterIcon$slot = v;
-     return this;
-    };
-    this.$classPresenterIcon = function () {
-     return this.$classPresenterIcon$slot;
-    };
-    this.$init$classUnknownIcon$ = function (v) {
-     this.$classUnknownIcon$slot = v;
-     return this;
-    };
-    this.$classUnknownIcon = function () {
-     return this.$classUnknownIcon$slot;
-    };
-    this.$init$classIcon$ = function (v) {
-     this.$classIcon$slot = v;
-     return this;
-    };
-    this.$classIcon = function () {
-     return this.$classIcon$slot;
-    };
-    this.invoke = function (runtimeSuperclass, enclosingObjects) {
-     function constructRuntimeClass (superBasicNew) {
-      this.debug = "Runtime class for WebIDEApp`HopscotchIDE`HopscotchImages";
-      this._$superInit$WebIDEApp$HopscotchIDE$HopscotchImages = $.$superInit$WebIDEApp$HopscotchIDE$HopscotchImages;
-      this.$superInit$WebIDEApp$HopscotchIDE$HopscotchImages = dnuCatcher("$superInit$WebIDEApp$HopscotchIDE$HopscotchImages");
-      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
-      this.$init$publicAccessImage$ = this._$init$publicAccessImage$ = $.$init$publicAccessImage$;
-      this.$publicAccessImage = this._$publicAccessImage = $.$publicAccessImage;
-      this.$init$protectedAccessImage$ = this._$init$protectedAccessImage$ = $.$init$protectedAccessImage$;
-      this.$protectedAccessImage = this._$protectedAccessImage = $.$protectedAccessImage;
-      this.$init$privateAccessImage$ = this._$init$privateAccessImage$ = $.$init$privateAccessImage$;
-      this.$privateAccessImage = this._$privateAccessImage = $.$privateAccessImage;
-      this.$init$addImage$ = this._$init$addImage$ = $.$init$addImage$;
-      this.$addImage = this._$addImage = $.$addImage;
-      this.$init$addOutImage$ = this._$init$addOutImage$ = $.$init$addOutImage$;
-      this.$addOutImage = this._$addOutImage = $.$addOutImage;
-      this.$init$addOverImage$ = this._$init$addOverImage$ = $.$init$addOverImage$;
-      this.$addOverImage = this._$addOverImage = $.$addOverImage;
-      this.$init$dropDownImage$ = this._$init$dropDownImage$ = $.$init$dropDownImage$;
-      this.$dropDownImage = this._$dropDownImage = $.$dropDownImage;
-      this.$init$dropDownOutImage$ = this._$init$dropDownOutImage$ = $.$init$dropDownOutImage$;
-      this.$dropDownOutImage = this._$dropDownOutImage = $.$dropDownOutImage;
-      this.$init$dropDownOverImage$ = this._$init$dropDownOverImage$ = $.$init$dropDownOverImage$;
-      this.$dropDownOverImage = this._$dropDownOverImage = $.$dropDownOverImage;
-      this.$init$expandImage$ = this._$init$expandImage$ = $.$init$expandImage$;
-      this.$expandImage = this._$expandImage = $.$expandImage;
-      this.$init$expandOverImage$ = this._$init$expandOverImage$ = $.$init$expandOverImage$;
-      this.$expandOverImage = this._$expandOverImage = $.$expandOverImage;
-      this.$init$expandDownImage$ = this._$init$expandDownImage$ = $.$init$expandDownImage$;
-      this.$expandDownImage = this._$expandDownImage = $.$expandDownImage;
-      this.$init$collapseImage$ = this._$init$collapseImage$ = $.$init$collapseImage$;
-      this.$collapseImage = this._$collapseImage = $.$collapseImage;
-      this.$init$collapseOverImage$ = this._$init$collapseOverImage$ = $.$init$collapseOverImage$;
-      this.$collapseOverImage = this._$collapseOverImage = $.$collapseOverImage;
-      this.$init$collapseDownImage$ = this._$init$collapseDownImage$ = $.$init$collapseDownImage$;
-      this.$collapseDownImage = this._$collapseDownImage = $.$collapseDownImage;
-      this.$init$classPresenterIcon$ = this._$init$classPresenterIcon$ = $.$init$classPresenterIcon$;
-      this.$classPresenterIcon = this._$classPresenterIcon = $.$classPresenterIcon;
-      this.$init$classUnknownIcon$ = this._$init$classUnknownIcon$ = $.$init$classUnknownIcon$;
-      this.$classUnknownIcon = this._$classUnknownIcon = $.$classUnknownIcon;
-      this.$init$classIcon$ = this._$init$classIcon$ = $.$init$classIcon$;
-      this.$classIcon = this._$classIcon = $.$classIcon;
-      this.$enclosingObjects$WebIDEApp$HopscotchIDE$HopscotchImages = enclosingObjects;
-      this.$super$WebIDEApp$HopscotchIDE$HopscotchImages$slot = runtimeSuperclass;
-      this["WebIDEApp`HopscotchIDE`HopscotchImages"] = function () {
-       superBasicNew.call(this);
-       this.$publicAccessImage$slot = nil;
-       this.$protectedAccessImage$slot = nil;
-       this.$privateAccessImage$slot = nil;
-       this.$addImage$slot = nil;
-       this.$addOutImage$slot = nil;
-       this.$addOverImage$slot = nil;
-       this.$dropDownImage$slot = nil;
-       this.$dropDownOutImage$slot = nil;
-       this.$dropDownOverImage$slot = nil;
-       this.$expandImage$slot = nil;
-       this.$expandOverImage$slot = nil;
-       this.$expandDownImage$slot = nil;
-       this.$collapseImage$slot = nil;
-       this.$collapseOverImage$slot = nil;
-       this.$collapseDownImage$slot = nil;
-       this.$classPresenterIcon$slot = nil;
-       this.$classUnknownIcon$slot = nil;
-       this.$classIcon$slot = nil;
-      };
-      this.basicNew = this["WebIDEApp`HopscotchIDE`HopscotchImages"];
-      this.basicNew.prototype = this;
-      this.meta = null;
-      this.newspeakClass = null;
-     };
-     constructRuntimeClass.prototype = runtimeSuperclass;
-     return new constructRuntimeClass(runtimeSuperclass.basicNew);
-    };
-    this.meta = new function () {
-     var $ = this;
-     this.debug = "Runtime meta mixin for WebIDEApp`HopscotchIDE`HopscotchImages";
-     this.slots = [];
-     this.methods = [new MM("new", true, 0)];
-     this.nestedClasses = [];
-     this.$new = function () {
-      return (new this.nonMeta.basicNew()).$instance$initializer();
-     };
-     this.invoke = function (runtimeSuperclass, enclosingObjects) {
-      function constructRuntimeClass (superBasicNew) {
-       this.debug = "Runtime meta class for WebIDEApp`HopscotchIDE`HopscotchImages";
-       this.$new = this._$new = $.$new;
-       this.$enclosingObjects$WebIDEApp$HopscotchIDE$HopscotchImages = enclosingObjects;
-       this.$super$WebIDEApp$HopscotchIDE$HopscotchImages = runtimeSuperclass;
-       this.basicNew = function () {
-        superBasicNew.call(this);
-       };
-       this.basicNew.prototype = this;
-       this.nonMeta = null;
-       this.newspeakClass = null;
-      };
-      constructRuntimeClass.prototype = runtimeSuperclass;
-      return new constructRuntimeClass(runtimeSuperclass.basicNew);
-     };
-    }();
-    this.meta.nonMeta = this;
-   }();
-   this.$WebIDEApp$HopscotchIDE$HopscotchImages.enclosingMixin = this;
+   this.$expandImage = function () {
+    return this.$expandImage$slot;
+   };
+   this.$init$expandOverImage$ = function (v) {
+    this.$expandOverImage$slot = v;
+    return this;
+   };
+   this.$expandOverImage = function () {
+    return this.$expandOverImage$slot;
+   };
+   this.$init$expandDownImage$ = function (v) {
+    this.$expandDownImage$slot = v;
+    return this;
+   };
+   this.$expandDownImage = function () {
+    return this.$expandDownImage$slot;
+   };
+   this.$init$collapseImage$ = function (v) {
+    this.$collapseImage$slot = v;
+    return this;
+   };
+   this.$collapseImage = function () {
+    return this.$collapseImage$slot;
+   };
+   this.$init$collapseOverImage$ = function (v) {
+    this.$collapseOverImage$slot = v;
+    return this;
+   };
+   this.$collapseOverImage = function () {
+    return this.$collapseOverImage$slot;
+   };
+   this.$init$collapseDownImage$ = function (v) {
+    this.$collapseDownImage$slot = v;
+    return this;
+   };
+   this.$collapseDownImage = function () {
+    return this.$collapseDownImage$slot;
+   };
+   this.$init$homeImage$ = function (v) {
+    this.$homeImage$slot = v;
+    return this;
+   };
+   this.$homeImage = function () {
+    return this.$homeImage$slot;
+   };
+   this.$init$homeOverImage$ = function (v) {
+    this.$homeOverImage$slot = v;
+    return this;
+   };
+   this.$homeOverImage = function () {
+    return this.$homeOverImage$slot;
+   };
+   this.$init$homeOutImage$ = function (v) {
+    this.$homeOutImage$slot = v;
+    return this;
+   };
+   this.$homeOutImage = function () {
+    return this.$homeOutImage$slot;
+   };
+   this.$init$homeDownImage$ = function (v) {
+    this.$homeDownImage$slot = v;
+    return this;
+   };
+   this.$homeDownImage = function () {
+    return this.$homeDownImage$slot;
+   };
+   this.$init$classPresenterIcon$ = function (v) {
+    this.$classPresenterIcon$slot = v;
+    return this;
+   };
+   this.$classPresenterIcon = function () {
+    return this.$classPresenterIcon$slot;
+   };
+   this.$init$classUnknownIcon$ = function (v) {
+    this.$classUnknownIcon$slot = v;
+    return this;
+   };
+   this.$classUnknownIcon = function () {
+    return this.$classUnknownIcon$slot;
+   };
+   this.$init$classIcon$ = function (v) {
+    this.$classIcon$slot = v;
+    return this;
+   };
+   this.$classIcon = function () {
+    return this.$classIcon$slot;
+   };
    this.invoke = function (runtimeSuperclass, enclosingObjects) {
     function constructRuntimeClass (superBasicNew) {
-     this.debug = "Runtime class for WebIDEApp`HopscotchIDE";
-     this._$superInit$WebIDEApp$HopscotchIDE = $.$superInit$WebIDEApp$HopscotchIDE;
-     this.$superInit$WebIDEApp$HopscotchIDE = dnuCatcher("$superInit$WebIDEApp$HopscotchIDE");
+     this.debug = "Runtime class for WebIDEApp`HopscotchImages";
+     this._$superInit$WebIDEApp$HopscotchImages = $.$superInit$WebIDEApp$HopscotchImages;
+     this.$superInit$WebIDEApp$HopscotchImages = dnuCatcher("$superInit$WebIDEApp$HopscotchImages");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
-     this._$populateIconNamespace$ = $.$populateIconNamespace$;
-     this.$populateIconNamespace$ = dnuCatcher("$populateIconNamespace$");
-     this.$populateNamespaceUsingPlatform$ = this._$populateNamespaceUsingPlatform$ = $.$populateNamespaceUsingPlatform$;
-     this._$topLevelClassOf$ = $.$topLevelClassOf$;
-     this.$topLevelClassOf$ = dnuCatcher("$topLevelClassOf$");
-     this._$HopscotchImages = $.$HopscotchImages;
-     this.$HopscotchImages = dnuCatcher("$HopscotchImages");
-     this.$init$browsing$ = this._$init$browsing$ = $.$init$browsing$;
-     this.$browsing = this._$browsing = $.$browsing;
-     this.$init$namespacing$ = this._$init$namespacing$ = $.$init$namespacing$;
-     this.$namespacing = this._$namespacing = $.$namespacing;
-     this.$init$theWorkspaceManager$ = this._$init$theWorkspaceManager$ = $.$init$theWorkspaceManager$;
-     this.$theWorkspaceManager = this._$theWorkspaceManager = $.$theWorkspaceManager;
-     this.$init$minitest$ = this._$init$minitest$ = $.$init$minitest$;
-     this.$minitest = this._$minitest = $.$minitest;
-     this.$init$minitestUI$ = this._$init$minitestUI$ = $.$init$minitestUI$;
-     this.$minitestUI = this._$minitestUI = $.$minitestUI;
-     this.$minitestUI$ = this._$minitestUI$ = $.$minitestUI$;
-     this.$init$colorizer$ = this._$init$colorizer$ = $.$init$colorizer$;
-     this.$colorizer = this._$colorizer = $.$colorizer;
-     this.$init$images$ = this._$init$images$ = $.$init$images$;
-     this.$images = this._$images = $.$images;
-     this.$init$WebIDEApp$HopscotchIDE$HopscotchImages$ = this._$init$WebIDEApp$HopscotchIDE$HopscotchImages$ = $.$init$WebIDEApp$HopscotchIDE$HopscotchImages$;
-     this.$WebIDEApp$HopscotchIDE$HopscotchImages = this._$WebIDEApp$HopscotchIDE$HopscotchImages = $.$WebIDEApp$HopscotchIDE$HopscotchImages;
-     this.$WebIDEApp$HopscotchIDE$HopscotchImages$ = this._$WebIDEApp$HopscotchIDE$HopscotchImages$ = $.$WebIDEApp$HopscotchIDE$HopscotchImages$;
-     this.$enclosingObjects$WebIDEApp$HopscotchIDE = enclosingObjects;
-     this.$super$WebIDEApp$HopscotchIDE$slot = runtimeSuperclass;
-     this["WebIDEApp`HopscotchIDE"] = function () {
+     this.$init$publicAccessImage$ = this._$init$publicAccessImage$ = $.$init$publicAccessImage$;
+     this.$publicAccessImage = this._$publicAccessImage = $.$publicAccessImage;
+     this.$init$protectedAccessImage$ = this._$init$protectedAccessImage$ = $.$init$protectedAccessImage$;
+     this.$protectedAccessImage = this._$protectedAccessImage = $.$protectedAccessImage;
+     this.$init$privateAccessImage$ = this._$init$privateAccessImage$ = $.$init$privateAccessImage$;
+     this.$privateAccessImage = this._$privateAccessImage = $.$privateAccessImage;
+     this.$init$addImage$ = this._$init$addImage$ = $.$init$addImage$;
+     this.$addImage = this._$addImage = $.$addImage;
+     this.$init$addOutImage$ = this._$init$addOutImage$ = $.$init$addOutImage$;
+     this.$addOutImage = this._$addOutImage = $.$addOutImage;
+     this.$init$addOverImage$ = this._$init$addOverImage$ = $.$init$addOverImage$;
+     this.$addOverImage = this._$addOverImage = $.$addOverImage;
+     this.$init$dropDownImage$ = this._$init$dropDownImage$ = $.$init$dropDownImage$;
+     this.$dropDownImage = this._$dropDownImage = $.$dropDownImage;
+     this.$init$dropDownOutImage$ = this._$init$dropDownOutImage$ = $.$init$dropDownOutImage$;
+     this.$dropDownOutImage = this._$dropDownOutImage = $.$dropDownOutImage;
+     this.$init$dropDownOverImage$ = this._$init$dropDownOverImage$ = $.$init$dropDownOverImage$;
+     this.$dropDownOverImage = this._$dropDownOverImage = $.$dropDownOverImage;
+     this.$init$expandImage$ = this._$init$expandImage$ = $.$init$expandImage$;
+     this.$expandImage = this._$expandImage = $.$expandImage;
+     this.$init$expandOverImage$ = this._$init$expandOverImage$ = $.$init$expandOverImage$;
+     this.$expandOverImage = this._$expandOverImage = $.$expandOverImage;
+     this.$init$expandDownImage$ = this._$init$expandDownImage$ = $.$init$expandDownImage$;
+     this.$expandDownImage = this._$expandDownImage = $.$expandDownImage;
+     this.$init$collapseImage$ = this._$init$collapseImage$ = $.$init$collapseImage$;
+     this.$collapseImage = this._$collapseImage = $.$collapseImage;
+     this.$init$collapseOverImage$ = this._$init$collapseOverImage$ = $.$init$collapseOverImage$;
+     this.$collapseOverImage = this._$collapseOverImage = $.$collapseOverImage;
+     this.$init$collapseDownImage$ = this._$init$collapseDownImage$ = $.$init$collapseDownImage$;
+     this.$collapseDownImage = this._$collapseDownImage = $.$collapseDownImage;
+     this.$init$homeImage$ = this._$init$homeImage$ = $.$init$homeImage$;
+     this.$homeImage = this._$homeImage = $.$homeImage;
+     this.$init$homeOverImage$ = this._$init$homeOverImage$ = $.$init$homeOverImage$;
+     this.$homeOverImage = this._$homeOverImage = $.$homeOverImage;
+     this.$init$homeOutImage$ = this._$init$homeOutImage$ = $.$init$homeOutImage$;
+     this.$homeOutImage = this._$homeOutImage = $.$homeOutImage;
+     this.$init$homeDownImage$ = this._$init$homeDownImage$ = $.$init$homeDownImage$;
+     this.$homeDownImage = this._$homeDownImage = $.$homeDownImage;
+     this.$init$classPresenterIcon$ = this._$init$classPresenterIcon$ = $.$init$classPresenterIcon$;
+     this.$classPresenterIcon = this._$classPresenterIcon = $.$classPresenterIcon;
+     this.$init$classUnknownIcon$ = this._$init$classUnknownIcon$ = $.$init$classUnknownIcon$;
+     this.$classUnknownIcon = this._$classUnknownIcon = $.$classUnknownIcon;
+     this.$init$classIcon$ = this._$init$classIcon$ = $.$init$classIcon$;
+     this.$classIcon = this._$classIcon = $.$classIcon;
+     this.$enclosingObjects$WebIDEApp$HopscotchImages = enclosingObjects;
+     this.$super$WebIDEApp$HopscotchImages$slot = runtimeSuperclass;
+     this["WebIDEApp`HopscotchImages"] = function () {
       superBasicNew.call(this);
-      this.$browsing$slot = nil;
-      this.$namespacing$slot = nil;
-      this.$theWorkspaceManager$slot = nil;
-      this.$minitest$slot = nil;
-      this.$minitestUI$slot = nil;
-      this.$colorizer$slot = nil;
-      this.$images$slot = nil;
-      this.$WebIDEApp$HopscotchIDE$HopscotchImages$slot = nil;
+      this.$publicAccessImage$slot = nil;
+      this.$protectedAccessImage$slot = nil;
+      this.$privateAccessImage$slot = nil;
+      this.$addImage$slot = nil;
+      this.$addOutImage$slot = nil;
+      this.$addOverImage$slot = nil;
+      this.$dropDownImage$slot = nil;
+      this.$dropDownOutImage$slot = nil;
+      this.$dropDownOverImage$slot = nil;
+      this.$expandImage$slot = nil;
+      this.$expandOverImage$slot = nil;
+      this.$expandDownImage$slot = nil;
+      this.$collapseImage$slot = nil;
+      this.$collapseOverImage$slot = nil;
+      this.$collapseDownImage$slot = nil;
+      this.$homeImage$slot = nil;
+      this.$homeOverImage$slot = nil;
+      this.$homeOutImage$slot = nil;
+      this.$homeDownImage$slot = nil;
+      this.$classPresenterIcon$slot = nil;
+      this.$classUnknownIcon$slot = nil;
+      this.$classIcon$slot = nil;
      };
-     this.basicNew = this["WebIDEApp`HopscotchIDE"];
+     this.basicNew = this["WebIDEApp`HopscotchImages"];
      this.basicNew.prototype = this;
      this.meta = null;
      this.newspeakClass = null;
@@ -68531,19 +68361,19 @@ var mixins = new function () {
    };
    this.meta = new function () {
     var $ = this;
-    this.debug = "Runtime meta mixin for WebIDEApp`HopscotchIDE";
+    this.debug = "Runtime meta mixin for WebIDEApp`HopscotchImages";
     this.slots = [];
-    this.methods = [new MM("using:", true, 0)];
+    this.methods = [new MM("new", true, 0)];
     this.nestedClasses = [];
-    this.$using$ = function ($p) {
-     return (new this.nonMeta.basicNew()).$instance$initializer($p);
+    this.$new = function () {
+     return (new this.nonMeta.basicNew()).$instance$initializer();
     };
     this.invoke = function (runtimeSuperclass, enclosingObjects) {
      function constructRuntimeClass (superBasicNew) {
-      this.debug = "Runtime meta class for WebIDEApp`HopscotchIDE";
-      this.$using$ = this._$using$ = $.$using$;
-      this.$enclosingObjects$WebIDEApp$HopscotchIDE = enclosingObjects;
-      this.$super$WebIDEApp$HopscotchIDE = runtimeSuperclass;
+      this.debug = "Runtime meta class for WebIDEApp`HopscotchImages";
+      this.$new = this._$new = $.$new;
+      this.$enclosingObjects$WebIDEApp$HopscotchImages = enclosingObjects;
+      this.$super$WebIDEApp$HopscotchImages = runtimeSuperclass;
       this.basicNew = function () {
        superBasicNew.call(this);
       };
@@ -68557,7 +68387,7 @@ var mixins = new function () {
    }();
    this.meta.nonMeta = this;
   }();
-  this.$WebIDEApp$HopscotchIDE.enclosingMixin = this;
+  this.$WebIDEApp$HopscotchImages.enclosingMixin = this;
   this.invoke = function (runtimeSuperclass, enclosingObjects) {
    function constructRuntimeClass (superBasicNew) {
     this.debug = "Runtime class for WebIDEApp";
@@ -68565,6 +68395,10 @@ var mixins = new function () {
     this.$superInit$WebIDEApp = dnuCatcher("$superInit$WebIDEApp");
     this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
     this.$main$args$ = this._$main$args$ = $.$main$args$;
+    this._$HopscotchImages = $.$HopscotchImages;
+    this.$HopscotchImages = dnuCatcher("$HopscotchImages");
+    this._$init$HopscotchIDE$ = $.$init$HopscotchIDE$;
+    this.$init$HopscotchIDE$ = dnuCatcher("$init$HopscotchIDE$");
     this._$HopscotchIDE = $.$HopscotchIDE;
     this.$HopscotchIDE = dnuCatcher("$HopscotchIDE");
     this._$init$Browsing$ = $.$init$Browsing$;
@@ -68651,6 +68485,22 @@ var mixins = new function () {
     this.$init$hsCollapseDownImage$ = dnuCatcher("$init$hsCollapseDownImage$");
     this._$hsCollapseDownImage = $.$hsCollapseDownImage;
     this.$hsCollapseDownImage = dnuCatcher("$hsCollapseDownImage");
+    this._$init$hsHomeImage$ = $.$init$hsHomeImage$;
+    this.$init$hsHomeImage$ = dnuCatcher("$init$hsHomeImage$");
+    this._$hsHomeImage = $.$hsHomeImage;
+    this.$hsHomeImage = dnuCatcher("$hsHomeImage");
+    this._$init$hsHomeOverImage$ = $.$init$hsHomeOverImage$;
+    this.$init$hsHomeOverImage$ = dnuCatcher("$init$hsHomeOverImage$");
+    this._$hsHomeOverImage = $.$hsHomeOverImage;
+    this.$hsHomeOverImage = dnuCatcher("$hsHomeOverImage");
+    this._$init$hsHomeOutImage$ = $.$init$hsHomeOutImage$;
+    this.$init$hsHomeOutImage$ = dnuCatcher("$init$hsHomeOutImage$");
+    this._$hsHomeOutImage = $.$hsHomeOutImage;
+    this.$hsHomeOutImage = dnuCatcher("$hsHomeOutImage");
+    this._$init$hsHomeDownImage$ = $.$init$hsHomeDownImage$;
+    this.$init$hsHomeDownImage$ = dnuCatcher("$init$hsHomeDownImage$");
+    this._$hsHomeDownImage = $.$hsHomeDownImage;
+    this.$hsHomeDownImage = dnuCatcher("$hsHomeDownImage");
     this._$init$classPresenterImage$ = $.$init$classPresenterImage$;
     this.$init$classPresenterImage$ = dnuCatcher("$init$classPresenterImage$");
     this._$classPresenterImage = $.$classPresenterImage;
@@ -68663,13 +68513,14 @@ var mixins = new function () {
     this.$init$languageNewspeak3$ = dnuCatcher("$init$languageNewspeak3$");
     this._$languageNewspeak3 = $.$languageNewspeak3;
     this.$languageNewspeak3 = dnuCatcher("$languageNewspeak3");
-    this.$init$WebIDEApp$HopscotchIDE$ = this._$init$WebIDEApp$HopscotchIDE$ = $.$init$WebIDEApp$HopscotchIDE$;
-    this.$WebIDEApp$HopscotchIDE = this._$WebIDEApp$HopscotchIDE = $.$WebIDEApp$HopscotchIDE;
-    this.$WebIDEApp$HopscotchIDE$ = this._$WebIDEApp$HopscotchIDE$ = $.$WebIDEApp$HopscotchIDE$;
+    this.$init$WebIDEApp$HopscotchImages$ = this._$init$WebIDEApp$HopscotchImages$ = $.$init$WebIDEApp$HopscotchImages$;
+    this.$WebIDEApp$HopscotchImages = this._$WebIDEApp$HopscotchImages = $.$WebIDEApp$HopscotchImages;
+    this.$WebIDEApp$HopscotchImages$ = this._$WebIDEApp$HopscotchImages$ = $.$WebIDEApp$HopscotchImages$;
     this.$enclosingObjects$WebIDEApp = enclosingObjects;
     this.$super$WebIDEApp$slot = runtimeSuperclass;
     this.WebIDEApp = function () {
      superBasicNew.call(this);
+     this.$HopscotchIDE$slot = nil;
      this.$Browsing$slot = nil;
      this.$Minitest$slot = nil;
      this.$MinitestUI$slot = nil;
@@ -68691,10 +68542,14 @@ var mixins = new function () {
      this.$hsCollapseImage$slot = nil;
      this.$hsCollapseOverImage$slot = nil;
      this.$hsCollapseDownImage$slot = nil;
+     this.$hsHomeImage$slot = nil;
+     this.$hsHomeOverImage$slot = nil;
+     this.$hsHomeOutImage$slot = nil;
+     this.$hsHomeDownImage$slot = nil;
      this.$classPresenterImage$slot = nil;
      this.$classUnknownImage$slot = nil;
      this.$languageNewspeak3$slot = nil;
-     this.$WebIDEApp$HopscotchIDE$slot = nil;
+     this.$WebIDEApp$HopscotchImages$slot = nil;
     };
     this.basicNew = this.WebIDEApp;
     this.basicNew.prototype = this;
@@ -68719,6 +68574,325 @@ var mixins = new function () {
      this.$packageUsing$ = this._$packageUsing$ = $.$packageUsing$;
      this.$enclosingObjects$WebIDEApp = enclosingObjects;
      this.$super$WebIDEApp = runtimeSuperclass;
+     this.basicNew = function () {
+      superBasicNew.call(this);
+     };
+     this.basicNew.prototype = this;
+     this.nonMeta = null;
+     this.newspeakClass = null;
+    };
+    constructRuntimeClass.prototype = runtimeSuperclass;
+    return new constructRuntimeClass(runtimeSuperclass.basicNew);
+   };
+  }();
+  this.meta.nonMeta = this;
+ }();
+ this.$HopscotchWebIDE = new function () {
+  var $ = this;
+  var $0 = this;
+  this.debug = "Runtime mixin for HopscotchWebIDE";
+  this.name = "HopscotchWebIDE";
+  this.header = 2936;
+  this.slots = [
+   new SM("Browsing", false, false),
+   new SM("Namespacing", false, false),
+   new SM("WorkspaceManager", false, false),
+   new SM("Minitest", false, false),
+   new SM("MinitestUI", false, false),
+   new SM("NewspeakColorization", false, false),
+   new SM("browsing", false, false),
+   new SM("namespacing", false, false),
+   new SM("theWorkspaceManager", false, false),
+   new SM("minitest", false, false),
+   new SM("minitestUI", true, false),
+   new SM("colorizer", false, false),
+   new SM("images", false, false)
+  ];
+  this.methods = [
+   new MM("superInit`HopscotchWebIDE", true, 2937),
+   new MM("instance`initializer", true, 2938),
+   new MM("populateIconNamespace:", false, 2939),
+   new MM("populateNamespaceUsingPlatform:", false, 2940),
+   new MM("topLevelClassOf:", false, 2941),
+   new MM("init`Browsing:", true, 0),
+   new MM("Browsing", true, 0),
+   new MM("init`Namespacing:", true, 0),
+   new MM("Namespacing", true, 0),
+   new MM("init`WorkspaceManager:", true, 0),
+   new MM("WorkspaceManager", true, 0),
+   new MM("init`Minitest:", true, 0),
+   new MM("Minitest", true, 0),
+   new MM("init`MinitestUI:", true, 0),
+   new MM("MinitestUI", true, 0),
+   new MM("init`NewspeakColorization:", true, 0),
+   new MM("NewspeakColorization", true, 0),
+   new MM("init`browsing:", true, 0),
+   new MM("browsing", true, 0),
+   new MM("init`namespacing:", true, 0),
+   new MM("namespacing", true, 0),
+   new MM("init`theWorkspaceManager:", true, 0),
+   new MM("theWorkspaceManager", true, 0),
+   new MM("init`minitest:", true, 0),
+   new MM("minitest", true, 0),
+   new MM("init`minitestUI:", true, 0),
+   new MM("minitestUI", true, 0),
+   new MM("minitestUI:", true, 0),
+   new MM("init`colorizer:", true, 0),
+   new MM("colorizer", true, 0),
+   new MM("init`images:", true, 0),
+   new MM("images", true, 0)
+  ];
+  this.nestedClasses = [];
+  this.applications = [];
+  this.$superInit$HopscotchWebIDE = function ($p, $B, $N, $W, $M, $MUI, $C, $Images) {
+   var self = this;
+   self.$super$HopscotchWebIDE$slot._$instance$initializer.call(self);
+   return self;
+  };
+  this.$instance$initializer = function ($p, $B, $N, $W, $M, $MUI, $C, $Images) {
+   var self = this;
+   self._$superInit$HopscotchWebIDE($p, $B, $N, $W, $M, $MUI, $C, $Images);
+   $0.$init$Browsing$(self, $B);
+   $0.$init$Namespacing$(self, $N);
+   $0.$init$WorkspaceManager$(self, $W);
+   $0.$init$Minitest$(self, $M);
+   $0.$init$MinitestUI$(self, $MUI);
+   $0.$init$NewspeakColorization$(self, $C);
+   self._$init$browsing$($0.$Browsing(self).$usingPlatform$ide$($p, self));
+   self._$init$namespacing$($0.$Namespacing(self).$usingPlatform$($p));
+   self._$init$theWorkspaceManager$($0.$WorkspaceManager(self).$usingPlatform$ide$($p, self));
+   self._$init$minitest$($0.$Minitest(self).$usingPlatform$($p));
+   self._$init$colorizer$($0.$NewspeakColorization(self).$usingPlatform$($p).$NS3BrowserColorizer().$new());
+   self._$init$images$($Images.$new());
+   self._$populateNamespaceUsingPlatform$($p);
+   return self;
+  };
+  this.$populateIconNamespace$ = function ($ns) {
+   var self = this;
+   return (function (cascadeReceiver) {
+    cascadeReceiver.$at$put$("publicAccessImage", self._$images().$publicAccessImage());
+    cascadeReceiver.$at$put$("protectedAccessImage", self._$images().$protectedAccessImage());
+    cascadeReceiver.$at$put$("privateAccessImage", self._$images().$privateAccessImage());
+    cascadeReceiver.$at$put$("addImage", self._$images().$addImage());
+    cascadeReceiver.$at$put$("addOutImage", self._$images().$addOutImage());
+    cascadeReceiver.$at$put$("addOverImage", self._$images().$addOverImage());
+    cascadeReceiver.$at$put$("dropDownImage", self._$images().$dropDownImage());
+    cascadeReceiver.$at$put$("dropDownOutImage", self._$images().$dropDownOutImage());
+    cascadeReceiver.$at$put$("dropDownOverImage", self._$images().$dropDownOverImage());
+    cascadeReceiver.$at$put$("expandImage", self._$images().$expandImage());
+    cascadeReceiver.$at$put$("expandOverImage", self._$images().$expandOverImage());
+    cascadeReceiver.$at$put$("expandDownImage", self._$images().$expandDownImage());
+    cascadeReceiver.$at$put$("collapseImage", self._$images().$collapseImage());
+    cascadeReceiver.$at$put$("collapseOverImage", self._$images().$collapseOverImage());
+    cascadeReceiver.$at$put$("collapseDownImage", self._$images().$collapseDownImage());
+    cascadeReceiver.$at$put$("classPresenterIcon", self._$images().$classPresenterIcon());
+    cascadeReceiver.$at$put$("classUnknownIcon", self._$images().$classUnknownIcon());
+    cascadeReceiver.$at$put$("classIcon", self._$images().$classIcon());
+    return cascadeReceiver.$yourself();
+   })($ns);
+  };
+  this.$populateNamespaceUsingPlatform$ = function ($p) {
+   var self = this;
+   var $platformMirror = nil;
+   var $platformClass = nil;
+   var $namespace = nil;
+   $platformMirror = $p.$mirrors().$ObjectMirror().$reflecting$($p);
+   $platformClass = self._$topLevelClassOf$($platformMirror);
+   $namespace = self._$namespacing().$Root();
+   (function (cascadeReceiver) {
+    cascadeReceiver.$at$put$("Icons", self._$populateIconNamespace$(self._$namespacing().$freshNamespace()));
+    cascadeReceiver.$at$put$($platformClass.$name(), $platformClass.$reflectee());
+    cascadeReceiver.$at$put$("SimpleBrowsing", $0.$Browsing(self));
+    cascadeReceiver.$at$put$("Minitest", $0.$Minitest(self));
+    cascadeReceiver.$at$put$("MinitestUI", $0.$MinitestUI(self));
+    cascadeReceiver.$at$put$("NamespacingForV8", $0.$Namespacing(self));
+    cascadeReceiver.$at$put$("NewspeakColorization2", $0.$NewspeakColorization(self));
+    return cascadeReceiver.$at$put$("WorkspaceManagerForV8", $0.$WorkspaceManager(self));
+   })($namespace);
+   $platformMirror.$getClass().$slots().$do$(function ($s) {
+    var $klass = nil;
+    var $o = nil;
+    $o = $platformMirror.$getSlot$($s.$name());
+    $klass = self._$topLevelClassOf$($p.$mirrors().$ObjectMirror().$reflecting$($o.$reflectee().$yourself()));
+    return $namespace.$at$put$($klass.$name(), $klass.$reflectee());
+   });
+   return $namespace;
+  };
+  this.$topLevelClassOf$ = function ($om) {
+   var self = this;
+   var $klass = nil;
+   $klass = $om.$getClass();
+   {
+    nil;
+    for (; !$klass.$enclosingObject().$reflectee().$isNil(); ) {
+     $klass = $klass.$enclosingObject().$getClass();
+    };
+   };
+   return $klass;
+  };
+  this.$init$Browsing$ = function (self, v) {
+   self.$Browsing$slot = v;
+   return self;
+  };
+  this.$Browsing = function (self) {
+   return self.$Browsing$slot;
+  };
+  this.$init$Namespacing$ = function (self, v) {
+   self.$Namespacing$slot = v;
+   return self;
+  };
+  this.$Namespacing = function (self) {
+   return self.$Namespacing$slot;
+  };
+  this.$init$WorkspaceManager$ = function (self, v) {
+   self.$WorkspaceManager$slot = v;
+   return self;
+  };
+  this.$WorkspaceManager = function (self) {
+   return self.$WorkspaceManager$slot;
+  };
+  this.$init$Minitest$ = function (self, v) {
+   self.$Minitest$slot = v;
+   return self;
+  };
+  this.$Minitest = function (self) {
+   return self.$Minitest$slot;
+  };
+  this.$init$MinitestUI$ = function (self, v) {
+   self.$MinitestUI$slot = v;
+   return self;
+  };
+  this.$MinitestUI = function (self) {
+   return self.$MinitestUI$slot;
+  };
+  this.$init$NewspeakColorization$ = function (self, v) {
+   self.$NewspeakColorization$slot = v;
+   return self;
+  };
+  this.$NewspeakColorization = function (self) {
+   return self.$NewspeakColorization$slot;
+  };
+  this.$init$browsing$ = function (v) {
+   this.$browsing$slot = v;
+   return this;
+  };
+  this.$browsing = function () {
+   return this.$browsing$slot;
+  };
+  this.$init$namespacing$ = function (v) {
+   this.$namespacing$slot = v;
+   return this;
+  };
+  this.$namespacing = function () {
+   return this.$namespacing$slot;
+  };
+  this.$init$theWorkspaceManager$ = function (v) {
+   this.$theWorkspaceManager$slot = v;
+   return this;
+  };
+  this.$theWorkspaceManager = function () {
+   return this.$theWorkspaceManager$slot;
+  };
+  this.$init$minitest$ = function (v) {
+   this.$minitest$slot = v;
+   return this;
+  };
+  this.$minitest = function () {
+   return this.$minitest$slot;
+  };
+  this.$init$minitestUI$ = function (v) {
+   this.$minitestUI$slot = v;
+   return this;
+  };
+  this.$minitestUI = function () {
+   return this.$minitestUI$slot;
+  };
+  this.$minitestUI$ = function (v) {
+   this.$minitestUI$slot = v;
+   return this;
+  };
+  this.$init$colorizer$ = function (v) {
+   this.$colorizer$slot = v;
+   return this;
+  };
+  this.$colorizer = function () {
+   return this.$colorizer$slot;
+  };
+  this.$init$images$ = function (v) {
+   this.$images$slot = v;
+   return this;
+  };
+  this.$images = function () {
+   return this.$images$slot;
+  };
+  this.invoke = function (runtimeSuperclass, enclosingObjects) {
+   function constructRuntimeClass (superBasicNew) {
+    this.debug = "Runtime class for HopscotchWebIDE";
+    this._$superInit$HopscotchWebIDE = $.$superInit$HopscotchWebIDE;
+    this.$superInit$HopscotchWebIDE = dnuCatcher("$superInit$HopscotchWebIDE");
+    this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
+    this._$populateIconNamespace$ = $.$populateIconNamespace$;
+    this.$populateIconNamespace$ = dnuCatcher("$populateIconNamespace$");
+    this._$populateNamespaceUsingPlatform$ = $.$populateNamespaceUsingPlatform$;
+    this.$populateNamespaceUsingPlatform$ = dnuCatcher("$populateNamespaceUsingPlatform$");
+    this._$topLevelClassOf$ = $.$topLevelClassOf$;
+    this.$topLevelClassOf$ = dnuCatcher("$topLevelClassOf$");
+    this.$init$browsing$ = this._$init$browsing$ = $.$init$browsing$;
+    this.$browsing = this._$browsing = $.$browsing;
+    this.$init$namespacing$ = this._$init$namespacing$ = $.$init$namespacing$;
+    this.$namespacing = this._$namespacing = $.$namespacing;
+    this.$init$theWorkspaceManager$ = this._$init$theWorkspaceManager$ = $.$init$theWorkspaceManager$;
+    this.$theWorkspaceManager = this._$theWorkspaceManager = $.$theWorkspaceManager;
+    this.$init$minitest$ = this._$init$minitest$ = $.$init$minitest$;
+    this.$minitest = this._$minitest = $.$minitest;
+    this.$init$minitestUI$ = this._$init$minitestUI$ = $.$init$minitestUI$;
+    this.$minitestUI = this._$minitestUI = $.$minitestUI;
+    this.$minitestUI$ = this._$minitestUI$ = $.$minitestUI$;
+    this.$init$colorizer$ = this._$init$colorizer$ = $.$init$colorizer$;
+    this.$colorizer = this._$colorizer = $.$colorizer;
+    this.$init$images$ = this._$init$images$ = $.$init$images$;
+    this.$images = this._$images = $.$images;
+    this.$enclosingObjects$HopscotchWebIDE = enclosingObjects;
+    this.$super$HopscotchWebIDE$slot = runtimeSuperclass;
+    this.HopscotchWebIDE = function () {
+     superBasicNew.call(this);
+     this.$Browsing$slot = nil;
+     this.$Namespacing$slot = nil;
+     this.$WorkspaceManager$slot = nil;
+     this.$Minitest$slot = nil;
+     this.$MinitestUI$slot = nil;
+     this.$NewspeakColorization$slot = nil;
+     this.$browsing$slot = nil;
+     this.$namespacing$slot = nil;
+     this.$theWorkspaceManager$slot = nil;
+     this.$minitest$slot = nil;
+     this.$minitestUI$slot = nil;
+     this.$colorizer$slot = nil;
+     this.$images$slot = nil;
+    };
+    this.basicNew = this.HopscotchWebIDE;
+    this.basicNew.prototype = this;
+    this.meta = null;
+    this.newspeakClass = null;
+   };
+   constructRuntimeClass.prototype = runtimeSuperclass;
+   return new constructRuntimeClass(runtimeSuperclass.basicNew);
+  };
+  this.meta = new function () {
+   var $ = this;
+   this.debug = "Runtime meta mixin for HopscotchWebIDE";
+   this.slots = [];
+   this.methods = [new MM("using:browsing:namespacing:workspaceManager:minitest:minitestUI:colorization:images:", true, 0)];
+   this.nestedClasses = [];
+   this.$using$browsing$namespacing$workspaceManager$minitest$minitestUI$colorization$images$ = function ($p, $B, $N, $W, $M, $MUI, $C, $Images) {
+    return (new this.nonMeta.basicNew()).$instance$initializer($p, $B, $N, $W, $M, $MUI, $C, $Images);
+   };
+   this.invoke = function (runtimeSuperclass, enclosingObjects) {
+    function constructRuntimeClass (superBasicNew) {
+     this.debug = "Runtime meta class for HopscotchWebIDE";
+     this.$using$browsing$namespacing$workspaceManager$minitest$minitestUI$colorization$images$ = this._$using$browsing$namespacing$workspaceManager$minitest$minitestUI$colorization$images$ = $.$using$browsing$namespacing$workspaceManager$minitest$minitestUI$colorization$images$;
+     this.$enclosingObjects$HopscotchWebIDE = enclosingObjects;
+     this.$super$HopscotchWebIDE = runtimeSuperclass;
      this.basicNew = function () {
       superBasicNew.call(this);
      };
@@ -69656,16 +69830,14 @@ var mixins = new function () {
    this.methods = [
     new MM("superInit`SimpleBrowsing`ClassPresenter", true, 2963),
     new MM("instance`initializer", true, 2964),
-    new MM("**", false, 2965),
-    new MM("collapsedHeadingDefinition", false, 2966),
-    new MM("definition", false, 2967),
-    new MM("expandedHeadingDefinition", false, 2968),
-    new MM("headingDefinition", false, 2969),
-    new MM("headingDefinition:", false, 2970),
-    new MM("inspectSelf", false, 2971),
-    new MM("minorClassHeadingBlock:", false, 2972),
-    new MM("minorClassHeadingColor", false, 2973),
-    new MM("nestedClass:", false, 2974)
+    new MM("collapsedHeadingDefinition", false, 2965),
+    new MM("definition", false, 2966),
+    new MM("expandedHeadingDefinition", false, 2967),
+    new MM("headingDefinition", false, 2968),
+    new MM("inspectSelf", false, 2969),
+    new MM("minorClassHeadingBlock:", false, 2970),
+    new MM("minorClassHeadingColor", false, 2971),
+    new MM("nestedClass:", false, 2972)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -69678,10 +69850,6 @@ var mixins = new function () {
     var self = this;
     self._$superInit$SimpleBrowsing$ClassPresenter($s);
     return self;
-   };
-   this.$$times$times = function ($p) {
-    var self = this;
-    return $p;
    };
    this.$collapsedHeadingDefinition = function () {
     var self = this;
@@ -69735,7 +69903,9 @@ var mixins = new function () {
       self._$blank$(5),
       self._$image$(self.$enclosingObjects$SimpleBrowsing$ClassPresenter[0]._$ide().$images().$classIcon()),
       self._$blank$(5),
-      self._$row$($parts)
+      self._$row$($parts),
+      self._$filler(),
+      self._$homeButton()
      ]),
      self._$inspectSelf(),
      self._$label$("Slots"),
@@ -69752,16 +69922,6 @@ var mixins = new function () {
     return self._$column$([self._$expanded$collapsed$(function () {
      return self._$expandedHeadingDefinition();
     }, function () {
-     return self._$collapsedHeadingDefinition();
-    })]).$color$(self.$enclosingObjects$SimpleBrowsing$ClassPresenter[0]._$Color().$h$s$v$(240, (1/20), (9/10)));
-   };
-   this.$headingDefinition$ = function ($minorClassHeadingColor) {
-    var self = this;
-    var $definition = nil;
-    return self._$column$([self._$expanded$collapsed$(function ($inspectSelf) {
-     return self._$expandedHeadingDefinition();
-    }, function () {
-     var $inspectSelf = nil;
      return self._$collapsedHeadingDefinition();
     })]).$color$(self.$enclosingObjects$SimpleBrowsing$ClassPresenter[0]._$Color().$h$s$v$(240, (1/20), (9/10)));
    };
@@ -69813,8 +69973,6 @@ var mixins = new function () {
      this._$superInit$SimpleBrowsing$ClassPresenter = $.$superInit$SimpleBrowsing$ClassPresenter;
      this.$superInit$SimpleBrowsing$ClassPresenter = dnuCatcher("$superInit$SimpleBrowsing$ClassPresenter");
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
-     this._$$times$times = $.$$times$times;
-     this.$$times$times = dnuCatcher("$$times$times");
      this._$collapsedHeadingDefinition = $.$collapsedHeadingDefinition;
      this.$collapsedHeadingDefinition = dnuCatcher("$collapsedHeadingDefinition");
      this.$definition = this._$definition = $.$definition;
@@ -69822,8 +69980,6 @@ var mixins = new function () {
      this.$expandedHeadingDefinition = dnuCatcher("$expandedHeadingDefinition");
      this._$headingDefinition = $.$headingDefinition;
      this.$headingDefinition = dnuCatcher("$headingDefinition");
-     this._$headingDefinition$ = $.$headingDefinition$;
-     this.$headingDefinition$ = dnuCatcher("$headingDefinition$");
      this._$inspectSelf = $.$inspectSelf;
      this.$inspectSelf = dnuCatcher("$inspectSelf");
      this._$minorClassHeadingBlock$ = $.$minorClassHeadingBlock$;
@@ -69878,17 +70034,17 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for SimpleBrowsing`ClassSubject";
    this.name = "SimpleBrowsing`ClassSubject";
-   this.header = 2975;
+   this.header = 2973;
    this.slots = [];
    this.methods = [
-    new MM("superInit`SimpleBrowsing`ClassSubject", true, 2976),
-    new MM("instance`initializer", true, 2977),
-    new MM("classCommentText", false, 2978),
-    new MM("classMirror", false, 2979),
-    new MM("createPresenter", false, 2980),
-    new MM("enclosingClassSubjects", false, 2981),
-    new MM("name", false, 2982),
-    new MM("title", false, 2983)
+    new MM("superInit`SimpleBrowsing`ClassSubject", true, 2974),
+    new MM("instance`initializer", true, 2975),
+    new MM("classCommentText", false, 2976),
+    new MM("classMirror", false, 2977),
+    new MM("createPresenter", false, 2978),
+    new MM("enclosingClassSubjects", false, 2979),
+    new MM("name", false, 2980),
+    new MM("title", false, 2981)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -69997,20 +70153,20 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for SimpleBrowsing`DefinitionListPresenter";
    this.name = "SimpleBrowsing`DefinitionListPresenter";
-   this.header = 2984;
+   this.header = 2982;
    this.slots = [
     new SM("prefixes", true, false),
     new SM("content", true, false),
     new SM("suffixes", true, false)
    ];
    this.methods = [
-    new MM("superInit`SimpleBrowsing`DefinitionListPresenter", true, 2985),
-    new MM("instance`initializer", true, 2986),
-    new MM("collapseAll", false, 2987),
-    new MM("contentList", false, 2988),
-    new MM("contentPresenters", false, 2989),
-    new MM("definition", false, 2990),
-    new MM("expandAll", false, 2991),
+    new MM("superInit`SimpleBrowsing`DefinitionListPresenter", true, 2983),
+    new MM("instance`initializer", true, 2984),
+    new MM("collapseAll", false, 2985),
+    new MM("contentList", false, 2986),
+    new MM("contentPresenters", false, 2987),
+    new MM("definition", false, 2988),
+    new MM("expandAll", false, 2989),
     new MM("init`prefixes:", true, 0),
     new MM("prefixes", true, 0),
     new MM("prefixes:", true, 0),
@@ -70182,22 +70338,22 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for SimpleBrowsing`HomePresenter";
    this.name = "SimpleBrowsing`HomePresenter";
-   this.header = 2992;
+   this.header = 2990;
    this.slots = [new SM("helpHolder", true, false)];
    this.methods = [
-    new MM("superInit`SimpleBrowsing`HomePresenter", true, 2993),
-    new MM("instance`initializer", true, 2994),
-    new MM("aboutSystemDefinition", false, 2995),
-    new MM("column1:column2:column3:", false, 2996),
-    new MM("definition", false, 2997),
-    new MM("didYouKnow", false, 2998),
-    new MM("helpButton", false, 2999),
-    new MM("helpText", false, 3000),
-    new MM("navigateToWorkspaces", false, 3001),
-    new MM("respondToAboutSystem", false, 3002),
-    new MM("respondToHelp", false, 3003),
-    new MM("textAndActionWisdom:", false, 3004),
-    new MM("textAndImageWisdom:", false, 3005),
+    new MM("superInit`SimpleBrowsing`HomePresenter", true, 2991),
+    new MM("instance`initializer", true, 2992),
+    new MM("aboutSystemDefinition", false, 2993),
+    new MM("column1:column2:column3:", false, 2994),
+    new MM("definition", false, 2995),
+    new MM("didYouKnow", false, 2996),
+    new MM("helpButton", false, 2997),
+    new MM("helpText", false, 2998),
+    new MM("navigateToWorkspaces", false, 2999),
+    new MM("respondToAboutSystem", false, 3000),
+    new MM("respondToHelp", false, 3001),
+    new MM("textAndActionWisdom:", false, 3002),
+    new MM("textAndImageWisdom:", false, 3003),
     new MM("init`helpHolder:", true, 0),
     new MM("helpHolder", true, 0),
     new MM("helpHolder:", true, 0)
@@ -70283,7 +70439,7 @@ var mixins = new function () {
    };
    this.$respondToAboutSystem = function () {
     var self = this;
-    self._$alert$("WebIDEApp of version X");
+    self._$alert$("WebIDEApp version 0.1984");
     return self;
    };
    this.$respondToHelp = function () {
@@ -70406,18 +70562,18 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for SimpleBrowsing`HomeSubject";
    this.name = "SimpleBrowsing`HomeSubject";
-   this.header = 3006;
+   this.header = 3004;
    this.slots = [];
    this.methods = [
-    new MM("superInit`SimpleBrowsing`HomeSubject", true, 3007),
-    new MM("instance`initializer", true, 3008),
-    new MM("=", false, 3009),
-    new MM("bitsOfWisdom", false, 3010),
-    new MM("createPresenter", false, 3011),
-    new MM("isKindOfHomeSubject", false, 3012),
-    new MM("lateNightWisdom", false, 3013),
-    new MM("randomBitOfWisdom", false, 3014),
-    new MM("title", false, 3015)
+    new MM("superInit`SimpleBrowsing`HomeSubject", true, 3005),
+    new MM("instance`initializer", true, 3006),
+    new MM("=", false, 3007),
+    new MM("bitsOfWisdom", false, 3008),
+    new MM("createPresenter", false, 3009),
+    new MM("isKindOfHomeSubject", false, 3010),
+    new MM("lateNightWisdom", false, 3011),
+    new MM("randomBitOfWisdom", false, 3012),
+    new MM("title", false, 3013)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -70511,7 +70667,7 @@ var mixins = new function () {
     this.slots = [];
     this.methods = [
      new MM("onModel:", true, 0),
-     new MM("new", false, 3016)
+     new MM("new", false, 3014)
     ];
     this.nestedClasses = [];
     this.$onModel$ = function ($m) {
@@ -70546,15 +70702,15 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for SimpleBrowsing`MethodPresenter";
    this.name = "SimpleBrowsing`MethodPresenter";
-   this.header = 3017;
+   this.header = 3015;
    this.slots = [];
    this.methods = [
-    new MM("superInit`SimpleBrowsing`MethodPresenter", true, 3018),
-    new MM("instance`initializer", true, 3019),
-    new MM("acceptResponse", false, 3020),
-    new MM("changeResponse", false, 3021),
-    new MM("colorizeMethodSource:", false, 3022),
-    new MM("definition", false, 3023)
+    new MM("superInit`SimpleBrowsing`MethodPresenter", true, 3016),
+    new MM("instance`initializer", true, 3017),
+    new MM("acceptResponse", false, 3018),
+    new MM("changeResponse", false, 3019),
+    new MM("colorizeMethodSource:", false, 3020),
+    new MM("definition", false, 3021)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -70683,17 +70839,17 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for SimpleBrowsing`MethodSubject";
    this.name = "SimpleBrowsing`MethodSubject";
-   this.header = 3024;
+   this.header = 3022;
    this.slots = [];
    this.methods = [
-    new MM("superInit`SimpleBrowsing`MethodSubject", true, 3025),
-    new MM("instance`initializer", true, 3026),
-    new MM("accessModifier", false, 3027),
-    new MM("classDeclaration", false, 3028),
-    new MM("createPresenter", false, 3029),
-    new MM("methodMirror", false, 3030),
-    new MM("name", false, 3031),
-    new MM("source", false, 3032)
+    new MM("superInit`SimpleBrowsing`MethodSubject", true, 3023),
+    new MM("instance`initializer", true, 3024),
+    new MM("accessModifier", false, 3025),
+    new MM("classDeclaration", false, 3026),
+    new MM("createPresenter", false, 3027),
+    new MM("methodMirror", false, 3028),
+    new MM("name", false, 3029),
+    new MM("source", false, 3030)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -70789,7 +70945,7 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for SimpleBrowsing`NamespacePresenter";
    this.name = "SimpleBrowsing`NamespacePresenter";
-   this.header = 3033;
+   this.header = 3031;
    this.slots = [
     new SM("SimpleBrowsing`NamespacePresenter`ClassEntryPresenter", true, true),
     new SM("SimpleBrowsing`NamespacePresenter`EntryPresenter", true, true),
@@ -70797,24 +70953,24 @@ var mixins = new function () {
     new SM("SimpleBrowsing`NamespacePresenter`ValueEntryPresenter", true, true)
    ];
    this.methods = [
-    new MM("superInit`SimpleBrowsing`NamespacePresenter", true, 3034),
-    new MM("instance`initializer", true, 3035),
-    new MM("acceptNewClassDefinitionFrom:", false, 3036),
-    new MM("acceptNewNamespaceDefinitionFrom:", false, 3037),
-    new MM("addClassTemplate", false, 3038),
-    new MM("addNamespaceTemplate", false, 3039),
-    new MM("contentList", false, 3040),
-    new MM("contentPresenters", false, 3041),
-    new MM("definition", false, 3042),
-    new MM("entryActionsMenuFor:", false, 3043),
-    new MM("lexicallyLessOrEqual:than:", false, 3044),
-    new MM("namespaceMenu", false, 3045),
-    new MM("presenterForEntryAt:", false, 3046),
-    new MM("respondToAddForCategory", false, 3047),
-    new MM("respondToAddForRoot", false, 3048),
-    new MM("respondToAddImage", false, 3049),
-    new MM("respondToAddText", false, 3050),
-    new MM("row1:row2:", false, 3051),
+    new MM("superInit`SimpleBrowsing`NamespacePresenter", true, 3032),
+    new MM("instance`initializer", true, 3033),
+    new MM("acceptNewClassDefinitionFrom:", false, 3034),
+    new MM("acceptNewNamespaceDefinitionFrom:", false, 3035),
+    new MM("addClassTemplate", false, 3036),
+    new MM("addNamespaceTemplate", false, 3037),
+    new MM("contentList", false, 3038),
+    new MM("contentPresenters", false, 3039),
+    new MM("definition", false, 3040),
+    new MM("entryActionsMenuFor:", false, 3041),
+    new MM("lexicallyLessOrEqual:than:", false, 3042),
+    new MM("namespaceMenu", false, 3043),
+    new MM("presenterForEntryAt:", false, 3044),
+    new MM("respondToAddForCategory", false, 3045),
+    new MM("respondToAddForRoot", false, 3046),
+    new MM("respondToAddImage", false, 3047),
+    new MM("respondToAddText", false, 3048),
+    new MM("row1:row2:", false, 3049),
     new MM("ClassEntryPresenter", true, 0),
     new MM("EntryPresenter", true, 0),
     new MM("NamespaceEntryPresenter", true, 0),
@@ -70943,7 +71099,9 @@ var mixins = new function () {
       self._$blank$(3),
       self._$dropDownMenu$(function () {
        return self._$namespaceMenu();
-      })
+      }),
+      self._$largeBlank(),
+      self._$homeButton()
      ])),
      self._$smallBlank(),
      self.$super$SimpleBrowsing$NamespacePresenter$slot._$definition.call(self)
@@ -71176,14 +71334,14 @@ var mixins = new function () {
     var $2 = this;
     this.debug = "Runtime mixin for SimpleBrowsing`NamespacePresenter`ClassEntryPresenter";
     this.name = "SimpleBrowsing`NamespacePresenter`ClassEntryPresenter";
-    this.header = 3052;
+    this.header = 3050;
     this.slots = [];
     this.methods = [
-     new MM("superInit`SimpleBrowsing`NamespacePresenter`ClassEntryPresenter", true, 3053),
-     new MM("instance`initializer", true, 3054),
-     new MM("classCommentSummary", false, 3055),
-     new MM("collapsedDefinition", false, 3056),
-     new MM("expandedDefinition", false, 3057)
+     new MM("superInit`SimpleBrowsing`NamespacePresenter`ClassEntryPresenter", true, 3051),
+     new MM("instance`initializer", true, 3052),
+     new MM("classCommentSummary", false, 3053),
+     new MM("collapsedDefinition", false, 3054),
+     new MM("expandedDefinition", false, 3055)
     ];
     this.nestedClasses = [];
     this.applications = [];
@@ -71298,14 +71456,14 @@ var mixins = new function () {
     var $2 = this;
     this.debug = "Runtime mixin for SimpleBrowsing`NamespacePresenter`EntryPresenter";
     this.name = "SimpleBrowsing`NamespacePresenter`EntryPresenter";
-    this.header = 3058;
+    this.header = 3056;
     this.slots = [];
     this.methods = [
-     new MM("superInit`SimpleBrowsing`NamespacePresenter`EntryPresenter", true, 3059),
-     new MM("instance`initializer", true, 3060),
-     new MM("collapse", false, 3061),
-     new MM("definition", false, 3062),
-     new MM("expand", false, 3063)
+     new MM("superInit`SimpleBrowsing`NamespacePresenter`EntryPresenter", true, 3057),
+     new MM("instance`initializer", true, 3058),
+     new MM("collapse", false, 3059),
+     new MM("definition", false, 3060),
+     new MM("expand", false, 3061)
     ];
     this.nestedClasses = [];
     this.applications = [];
@@ -71393,13 +71551,13 @@ var mixins = new function () {
     var $2 = this;
     this.debug = "Runtime mixin for SimpleBrowsing`NamespacePresenter`NamespaceEntryPresenter";
     this.name = "SimpleBrowsing`NamespacePresenter`NamespaceEntryPresenter";
-    this.header = 3064;
+    this.header = 3062;
     this.slots = [];
     this.methods = [
-     new MM("superInit`SimpleBrowsing`NamespacePresenter`NamespaceEntryPresenter", true, 3065),
-     new MM("instance`initializer", true, 3066),
-     new MM("collapsedDefinition", false, 3067),
-     new MM("expandedDefinition", false, 3068)
+     new MM("superInit`SimpleBrowsing`NamespacePresenter`NamespaceEntryPresenter", true, 3063),
+     new MM("instance`initializer", true, 3064),
+     new MM("collapsedDefinition", false, 3065),
+     new MM("expandedDefinition", false, 3066)
     ];
     this.nestedClasses = [];
     this.applications = [];
@@ -71497,14 +71655,14 @@ var mixins = new function () {
     var $2 = this;
     this.debug = "Runtime mixin for SimpleBrowsing`NamespacePresenter`ValueEntryPresenter";
     this.name = "SimpleBrowsing`NamespacePresenter`ValueEntryPresenter";
-    this.header = 3069;
+    this.header = 3067;
     this.slots = [new SM("key", true, false)];
     this.methods = [
-     new MM("superInit`SimpleBrowsing`NamespacePresenter`ValueEntryPresenter", true, 3070),
-     new MM("instance`initializer", true, 3071),
-     new MM("collapsedDefinition", false, 3072),
-     new MM("definition", false, 3073),
-     new MM("expandedDefinition", false, 3074),
+     new MM("superInit`SimpleBrowsing`NamespacePresenter`ValueEntryPresenter", true, 3068),
+     new MM("instance`initializer", true, 3069),
+     new MM("collapsedDefinition", false, 3070),
+     new MM("definition", false, 3071),
+     new MM("expandedDefinition", false, 3072),
      new MM("init`key:", true, 0),
      new MM("key", true, 0),
      new MM("key:", true, 0)
@@ -71737,22 +71895,22 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for SimpleBrowsing`NamespaceSubject";
    this.name = "SimpleBrowsing`NamespaceSubject";
-   this.header = 3075;
+   this.header = 3073;
    this.slots = [new SM("key", false, false)];
    this.methods = [
-    new MM("superInit`SimpleBrowsing`NamespaceSubject", true, 3076),
-    new MM("instance`initializer", true, 3077),
-    new MM("=", false, 3078),
-    new MM("addClassFromDefinition:ifSuccess:ifFailure:", false, 3079),
-    new MM("addNamespaceFromDefinition:ifSuccess:ifFailure:", false, 3080),
-    new MM("classTemplateText", false, 3081),
-    new MM("colorizeClassSource:", false, 3082),
-    new MM("createPresenter", false, 3083),
-    new MM("hash", false, 3084),
-    new MM("namespace", false, 3085),
-    new MM("refreshmentSubject", false, 3086),
-    new MM("summaryText", false, 3087),
-    new MM("title", false, 3088),
+    new MM("superInit`SimpleBrowsing`NamespaceSubject", true, 3074),
+    new MM("instance`initializer", true, 3075),
+    new MM("=", false, 3076),
+    new MM("addClassFromDefinition:ifSuccess:ifFailure:", false, 3077),
+    new MM("addNamespaceFromDefinition:ifSuccess:ifFailure:", false, 3078),
+    new MM("classTemplateText", false, 3079),
+    new MM("colorizeClassSource:", false, 3080),
+    new MM("createPresenter", false, 3081),
+    new MM("hash", false, 3082),
+    new MM("namespace", false, 3083),
+    new MM("refreshmentSubject", false, 3084),
+    new MM("summaryText", false, 3085),
+    new MM("title", false, 3086),
     new MM("init`key:", true, 0),
     new MM("key", true, 0)
    ];
@@ -71938,7 +72096,7 @@ var mixins = new function () {
     this.slots = [];
     this.methods = [
      new MM("onModel:key:", true, 0),
-     new MM("new", false, 3089)
+     new MM("new", false, 3087)
     ];
     this.nestedClasses = [];
     this.$onModel$key$ = function ($m, $k) {
@@ -71947,7 +72105,7 @@ var mixins = new function () {
     this.$new = function () {
      var self = this;
      "NAMESPACEBOGUS";
-     return self._$onModel$key$(self.$enclosingObjects$SimpleBrowsing$NamespaceSubject[0]._$ide().$namespacing().$Categories(), "Root");
+     return self._$onModel$key$(self.$enclosingObjects$SimpleBrowsing$NamespaceSubject[0]._$ide().$namespacing().$Root(), "Root");
     };
     this.invoke = function (runtimeSuperclass, enclosingObjects) {
      function constructRuntimeClass (superBasicNew) {
@@ -71974,27 +72132,27 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for SimpleBrowsing`ObjectPresenter";
    this.name = "SimpleBrowsing`ObjectPresenter";
-   this.header = 3090;
+   this.header = 3088;
    this.slots = [
     new SM("resultHolder", true, false),
     new SM("selfCaption", true, false)
    ];
    this.methods = [
-    new MM("superInit`SimpleBrowsing`ObjectPresenter", true, 3091),
-    new MM("instance`initializer", true, 3092),
-    new MM("captionBar:", false, 3093),
-    new MM("classInfoLine", false, 3094),
-    new MM("definition", false, 3095),
-    new MM("enclosingInfoLine", false, 3096),
-    new MM("evaluate:", false, 3097),
-    new MM("goToSelf", false, 3098),
-    new MM("inspectSelf", false, 3099),
-    new MM("linkForError:", false, 3100),
-    new MM("linkForResult:", false, 3101),
-    new MM("objectDetails", false, 3102),
-    new MM("selfInfoLine", false, 3103),
-    new MM("title", false, 3104),
-    new MM("withoutNbsp:", false, 3105),
+    new MM("superInit`SimpleBrowsing`ObjectPresenter", true, 3089),
+    new MM("instance`initializer", true, 3090),
+    new MM("captionBar:", false, 3091),
+    new MM("classInfoLine", false, 3092),
+    new MM("definition", false, 3093),
+    new MM("enclosingInfoLine", false, 3094),
+    new MM("evaluate:", false, 3095),
+    new MM("goToSelf", false, 3096),
+    new MM("inspectSelf", false, 3097),
+    new MM("linkForError:", false, 3098),
+    new MM("linkForResult:", false, 3099),
+    new MM("objectDetails", false, 3100),
+    new MM("selfInfoLine", false, 3101),
+    new MM("title", false, 3102),
+    new MM("withoutNbsp:", false, 3103),
     new MM("init`resultHolder:", true, 0),
     new MM("resultHolder", true, 0),
     new MM("resultHolder:", true, 0),
@@ -72012,7 +72170,7 @@ var mixins = new function () {
    this.$instance$initializer = function ($s) {
     var self = this;
     self._$superInit$SimpleBrowsing$ObjectPresenter($s);
-    self._$init$selfCaption$("self");
+    self._$init$selfCaption$("self ");
     return self;
    };
    this.$captionBar$ = function ($body) {
@@ -72039,7 +72197,11 @@ var mixins = new function () {
     var self = this;
     return self._$column$([
      self._$captionBar$(self._$column$([
-      self._$selfInfoLine(),
+      self._$row$([
+       self._$selfInfoLine(),
+       self._$filler(),
+       self._$homeButton()
+      ]),
       self._$enclosingInfoLine(),
       self._$classInfoLine(),
       self._$smallBlank(),
@@ -72297,18 +72459,18 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for SimpleBrowsing`ObjectSubject";
    this.name = "SimpleBrowsing`ObjectSubject";
-   this.header = 3106;
+   this.header = 3104;
    this.slots = [];
    this.methods = [
-    new MM("superInit`SimpleBrowsing`ObjectSubject", true, 3107),
-    new MM("instance`initializer", true, 3108),
-    new MM("classMirror", false, 3109),
-    new MM("className", false, 3110),
-    new MM("classSubject", false, 3111),
-    new MM("createPresenter", false, 3112),
-    new MM("enclosingObjectName", false, 3113),
-    new MM("objectMirror", false, 3114),
-    new MM("title", false, 3115)
+    new MM("superInit`SimpleBrowsing`ObjectSubject", true, 3105),
+    new MM("instance`initializer", true, 3106),
+    new MM("classMirror", false, 3107),
+    new MM("className", false, 3108),
+    new MM("classSubject", false, 3109),
+    new MM("createPresenter", false, 3110),
+    new MM("enclosingObjectName", false, 3111),
+    new MM("objectMirror", false, 3112),
+    new MM("title", false, 3113)
    ];
    this.nestedClasses = [];
    this.applications = [];
@@ -72409,14 +72571,16 @@ var mixins = new function () {
    var $1 = this;
    this.debug = "Runtime mixin for SimpleBrowsing`ProgrammingPresenter";
    this.name = "SimpleBrowsing`ProgrammingPresenter";
-   this.header = 3116;
+   this.header = 3114;
    this.slots = [];
    this.methods = [
-    new MM("superInit`SimpleBrowsing`ProgrammingPresenter", true, 3117),
-    new MM("instance`initializer", true, 3118),
-    new MM("addButtonWithAction:", false, 3119),
-    new MM("collapseButtonWithAction:", false, 3120),
-    new MM("expandButtonWithAction:", false, 3121),
+    new MM("superInit`SimpleBrowsing`ProgrammingPresenter", true, 3115),
+    new MM("instance`initializer", true, 3116),
+    new MM("addButtonWithAction:", false, 3117),
+    new MM("buildHomeButton", false, 3118),
+    new MM("collapseButtonWithAction:", false, 3119),
+    new MM("expandButtonWithAction:", false, 3120),
+    new MM("homeButton", false, 3121),
     new MM("iconForAccessModifier:", false, 3122),
     new MM("indentedBlock:", false, 3123),
     new MM("largeBlank", false, 3124),
@@ -72450,6 +72614,23 @@ var mixins = new function () {
      self.$enclosingObjects$SimpleBrowsing$ProgrammingPresenter[0]._$ide().$images().$addOutImage()
     ], $aBlock);
    };
+   this.$buildHomeButton = function () {
+    var self = this;
+    var $button = nil;
+    var $images = nil;
+    $button = self._$ActiveIcon().$new();
+    $images = self.$enclosingObjects$SimpleBrowsing$ProgrammingPresenter[0]._$ide().$images();
+    (function (cascadeReceiver) {
+     cascadeReceiver.$image$($images.$hsHomeImage());
+     cascadeReceiver.$disabledImage$($images.$hsHomeOutImage());
+     cascadeReceiver.$hoverImage$($images.$hsHomeOverImage());
+     cascadeReceiver.$downImage$($images.$hsHomeDownImage());
+     return cascadeReceiver.$action$(function () {
+      return self._$enterSubject$(self.$enclosingObjects$SimpleBrowsing$ProgrammingPresenter[0]._$HomeSubject().$new());
+     });
+    })($button);
+    return $button;
+   };
    this.$collapseButtonWithAction$ = function ($aBlock) {
     var self = this;
     return self._$imageButton$action$([
@@ -72465,6 +72646,17 @@ var mixins = new function () {
      self.$enclosingObjects$SimpleBrowsing$ProgrammingPresenter[0]._$ide().$images().$expandOverImage(),
      self.$enclosingObjects$SimpleBrowsing$ProgrammingPresenter[0]._$ide().$images().$expandDownImage()
     ], $aBlock);
+   };
+   this.$homeButton = function () {
+    var self = this;
+    return self._$imageButton$action$([
+     self.$enclosingObjects$SimpleBrowsing$ProgrammingPresenter[0]._$ide().$images().$homeImage(),
+     self.$enclosingObjects$SimpleBrowsing$ProgrammingPresenter[0]._$ide().$images().$homeOutImage(),
+     self.$enclosingObjects$SimpleBrowsing$ProgrammingPresenter[0]._$ide().$images().$homeOverImage(),
+     self.$enclosingObjects$SimpleBrowsing$ProgrammingPresenter[0]._$ide().$images().$homeDownImage()
+    ], function () {
+     return self._$enterSubject$(self.$enclosingObjects$SimpleBrowsing$ProgrammingPresenter[0]._$HomeSubject().$new());
+    });
    };
    this.$iconForAccessModifier$ = function ($am) {
     var self = this;
@@ -72550,10 +72742,14 @@ var mixins = new function () {
      this.$instance$initializer = this._$instance$initializer = $.$instance$initializer;
      this._$addButtonWithAction$ = $.$addButtonWithAction$;
      this.$addButtonWithAction$ = dnuCatcher("$addButtonWithAction$");
+     this._$buildHomeButton = $.$buildHomeButton;
+     this.$buildHomeButton = dnuCatcher("$buildHomeButton");
      this._$collapseButtonWithAction$ = $.$collapseButtonWithAction$;
      this.$collapseButtonWithAction$ = dnuCatcher("$collapseButtonWithAction$");
      this._$expandButtonWithAction$ = $.$expandButtonWithAction$;
      this.$expandButtonWithAction$ = dnuCatcher("$expandButtonWithAction$");
+     this._$homeButton = $.$homeButton;
+     this.$homeButton = dnuCatcher("$homeButton");
      this._$iconForAccessModifier$ = $.$iconForAccessModifier$;
      this.$iconForAccessModifier$ = dnuCatcher("$iconForAccessModifier$");
      this._$indentedBlock$ = $.$indentedBlock$;
@@ -80442,6 +80638,8 @@ var mixins = new function () {
    new SM("ObjectMirror", false, false),
    new SM("workspaces", false, false),
    new SM("workspaceCounter", true, false),
+   new SM("retainedPlatform", false, false),
+   new SM("ide", false, false),
    new SM("Root", false, false),
    new SM("WorkspaceManagerForV8`AllWorkspacesPresenter", true, true),
    new SM("WorkspaceManagerForV8`AllWorkspacesSubject", true, true),
@@ -80472,6 +80670,10 @@ var mixins = new function () {
    new MM("init`workspaceCounter:", true, 0),
    new MM("workspaceCounter", true, 0),
    new MM("workspaceCounter:", true, 0),
+   new MM("init`retainedPlatform:", true, 0),
+   new MM("retainedPlatform", true, 0),
+   new MM("init`ide:", true, 0),
+   new MM("ide", true, 0),
    new MM("init`Root:", true, 0),
    new MM("Root", true, 0),
    new MM("init`WorkspaceManagerForV8`AllWorkspacesPresenter:", true, 0),
@@ -80490,23 +80692,25 @@ var mixins = new function () {
    "WorkspaceManagerForV8`Workspace"
   ];
   this.applications = [];
-  this.$superInit$WorkspaceManagerForV8 = function ($p, $ide) {
+  this.$superInit$WorkspaceManagerForV8 = function ($p, $webIde) {
    var self = this;
    self.$super$WorkspaceManagerForV8$slot._$instance$initializer.call(self);
    return self;
   };
-  this.$instance$initializer = function ($p, $ide) {
+  this.$instance$initializer = function ($p, $webIde) {
    var self = this;
-   self._$superInit$WorkspaceManagerForV8($p, $ide);
+   self._$superInit$WorkspaceManagerForV8($p, $webIde);
    $0.$init$Presenter$(self, $p.$hopscotch().$core().$Presenter());
    $0.$init$Subject$(self, $p.$hopscotch().$core().$Subject());
-   $0.$init$DefinitionListPresenter$(self, $ide.$browsing().$DefinitionListPresenter());
-   $0.$init$ObjectSubject$(self, $ide.$browsing().$ObjectSubject());
+   $0.$init$DefinitionListPresenter$(self, $webIde.$browsing().$DefinitionListPresenter());
+   $0.$init$ObjectSubject$(self, $webIde.$browsing().$ObjectSubject());
    $0.$init$List$(self, $p.$collections().$List());
    $0.$init$ObjectMirror$(self, $p.$mirrors().$ObjectMirror());
    $0.$init$workspaces$(self, $0.$List(self).$new());
    $0.$init$workspaceCounter$(self, 0);
-   $0.$init$Root$(self, $ide.$namespacing().$Root());
+   $0.$init$retainedPlatform$(self, $p);
+   $0.$init$ide$(self, $webIde);
+   $0.$init$Root$(self, $0.$ide(self).$namespacing().$Root());
    return self;
   };
   this.$currentWorkspaceNumberString = function () {
@@ -80608,6 +80812,20 @@ var mixins = new function () {
    self.$workspaceCounter$slot = v;
    return self;
   };
+  this.$init$retainedPlatform$ = function (self, v) {
+   self.$retainedPlatform$slot = v;
+   return self;
+  };
+  this.$retainedPlatform = function (self) {
+   return self.$retainedPlatform$slot;
+  };
+  this.$init$ide$ = function (self, v) {
+   self.$ide$slot = v;
+   return self;
+  };
+  this.$ide = function (self) {
+   return self.$ide$slot;
+  };
   this.$init$Root$ = function (self, v) {
    self.$Root$slot = v;
    return self;
@@ -80706,7 +80924,9 @@ var mixins = new function () {
       self._$blank$(3),
       self._$dropDownMenu$(function () {
        return self._$workspaceListMenu();
-      })
+      }),
+      self._$largeBlank(),
+      self._$homeButton()
      ])),
      self._$mediumBlank(),
      self.$super$WorkspaceManagerForV8$AllWorkspacesPresenter$slot._$definition.call(self),
@@ -80992,10 +81212,12 @@ var mixins = new function () {
     new MM("findInSource:", false, 3520),
     new MM("graphics", false, 3521),
     new MM("hopscotch", false, 3522),
-    new MM("kernel", false, 3523),
-    new MM("mirrors", false, 3524),
-    new MM("streams", false, 3525),
-    new MM("text", false, 3526),
+    new MM("ide", false, 3523),
+    new MM("kernel", false, 3524),
+    new MM("mirrors", false, 3525),
+    new MM("platform", false, 3526),
+    new MM("streams", false, 3527),
+    new MM("text", false, 3528),
     new MM("init`workspaceText:", true, 0),
     new MM("workspaceText", true, 0),
     new MM("workspaceText:", true, 0)
@@ -81014,11 +81236,11 @@ var mixins = new function () {
    };
    this.$actors = function () {
     var self = this;
-    return self._$platform().$actors();
+    return $0.$retainedPlatform(self.$enclosingObjects$WorkspaceManagerForV8$Workspace[0]).$actors();
    };
    this.$aliens = function () {
     var self = this;
-    return self._$platform().$aliens();
+    return $0.$retainedPlatform(self.$enclosingObjects$WorkspaceManagerForV8$Workspace[0]).$aliens();
    };
    this.$class = function () {
     var self = this;
@@ -81026,7 +81248,7 @@ var mixins = new function () {
    };
    this.$collections = function () {
     var self = this;
-    return self._$platform().$collections();
+    return $0.$retainedPlatform(self.$enclosingObjects$WorkspaceManagerForV8$Workspace[0]).$collections();
    };
    this.$doesNotUnderstand$ = function ($message) {
     var self = this;
@@ -81036,7 +81258,7 @@ var mixins = new function () {
    };
    this.$files = function () {
     var self = this;
-    return self._$platform().$files();
+    return $0.$retainedPlatform(self.$enclosingObjects$WorkspaceManagerForV8$Workspace[0]).$files();
    };
    this.$findInSource$ = function ($stringOrRegex) {
     var self = this;
@@ -81051,27 +81273,35 @@ var mixins = new function () {
    };
    this.$graphics = function () {
     var self = this;
-    return self._$platform().$graphics();
+    return $0.$retainedPlatform(self.$enclosingObjects$WorkspaceManagerForV8$Workspace[0]).$graphics();
    };
    this.$hopscotch = function () {
     var self = this;
-    return self._$platform().$hopscotch();
+    return $0.$retainedPlatform(self.$enclosingObjects$WorkspaceManagerForV8$Workspace[0]).$hopscotch();
+   };
+   this.$ide = function () {
+    var self = this;
+    return $0.$ide(self.$enclosingObjects$WorkspaceManagerForV8$Workspace[0]);
    };
    this.$kernel = function () {
     var self = this;
-    return self._$platform().$kernel();
+    return $0.$retainedPlatform(self.$enclosingObjects$WorkspaceManagerForV8$Workspace[0]).$kernel();
    };
    this.$mirrors = function () {
     var self = this;
-    return self._$platform().$mirrors();
+    return $0.$retainedPlatform(self.$enclosingObjects$WorkspaceManagerForV8$Workspace[0]).$mirrors();
+   };
+   this.$platform = function () {
+    var self = this;
+    return $0.$retainedPlatform(self.$enclosingObjects$WorkspaceManagerForV8$Workspace[0]);
    };
    this.$streams = function () {
     var self = this;
-    return self._$platform().$streams();
+    return $0.$retainedPlatform(self.$enclosingObjects$WorkspaceManagerForV8$Workspace[0]).$streams();
    };
    this.$text = function () {
     var self = this;
-    return self._$platform().$text();
+    return $0.$retainedPlatform(self.$enclosingObjects$WorkspaceManagerForV8$Workspace[0]).$text();
    };
    this.$init$workspaceText$ = function (v) {
     this.$workspaceText$slot = v;
@@ -81101,8 +81331,11 @@ var mixins = new function () {
      this.$findInSource$ = this._$findInSource$ = $.$findInSource$;
      this.$graphics = this._$graphics = $.$graphics;
      this.$hopscotch = this._$hopscotch = $.$hopscotch;
+     this.$ide = this._$ide = $.$ide;
      this.$kernel = this._$kernel = $.$kernel;
      this.$mirrors = this._$mirrors = $.$mirrors;
+     this._$platform = $.$platform;
+     this.$platform = dnuCatcher("$platform");
      this.$streams = this._$streams = $.$streams;
      this.$text = this._$text = $.$text;
      this.$init$workspaceText$ = this._$init$workspaceText$ = $.$init$workspaceText$;
@@ -81188,6 +81421,8 @@ var mixins = new function () {
      this.$ObjectMirror$slot = nil;
      this.$workspaces$slot = nil;
      this.$workspaceCounter$slot = nil;
+     this.$retainedPlatform$slot = nil;
+     this.$ide$slot = nil;
      this.$Root$slot = nil;
      this.$WorkspaceManagerForV8$AllWorkspacesPresenter$slot = nil;
      this.$WorkspaceManagerForV8$AllWorkspacesSubject$slot = nil;
@@ -81207,8 +81442,8 @@ var mixins = new function () {
    this.slots = [];
    this.methods = [new MM("usingPlatform:ide:", true, 0)];
    this.nestedClasses = [];
-   this.$usingPlatform$ide$ = function ($p, $ide) {
-    return (new this.nonMeta.basicNew()).$instance$initializer($p, $ide);
+   this.$usingPlatform$ide$ = function ($p, $webIde) {
+    return (new this.nonMeta.basicNew()).$instance$initializer($p, $webIde);
    };
    this.invoke = function (runtimeSuperclass, enclosingObjects) {
     function constructRuntimeClass (superBasicNew) {
@@ -81502,6 +81737,7 @@ var ns = new function () {
  this.$Newspeak2V8Compilation$slot = vmmirror.applyTopLevelMixin(mixins.$Newspeak2V8Compilation);
  this.$NewspeakCompilation$slot = vmmirror.applyTopLevelMixin(mixins.$NewspeakCompilation);
  this.$WebIDEApp$slot = vmmirror.applyTopLevelMixin(mixins.$WebIDEApp);
+ this.$HopscotchWebIDE$slot = vmmirror.applyTopLevelMixin(mixins.$HopscotchWebIDE);
  this.$SimpleBrowsing$slot = vmmirror.applyTopLevelMixin(mixins.$SimpleBrowsing);
  this.$Minitest$slot = vmmirror.applyTopLevelMixin(mixins.$Minitest);
  this.$MinitestUI$slot = vmmirror.applyTopLevelMixin(mixins.$MinitestUI);
@@ -81564,6 +81800,9 @@ var ns = new function () {
  };
  this.$WebIDEApp = function () {
   return this.$WebIDEApp$slot;
+ };
+ this.$HopscotchWebIDE = function () {
+  return this.$HopscotchWebIDE$slot;
  };
  this.$SimpleBrowsing = function () {
   return this.$SimpleBrowsing$slot;
@@ -81698,6 +81937,26 @@ var ns = new function () {
 		function(){return vmmirror.platform.$aliens().$yourself()._$alienate$(
 			function(){ var i = new Image(); i.src ="hsCollapseDownImage.png"; return i;}() );});
  };
+ this.$hsHomeImage = function () {
+  return vmmirror.kernel.$Future().$computing$(
+		function(){return vmmirror.platform.$aliens().$yourself()._$alienate$(
+			function(){ var i = new Image(); i.src ="hsHomeImage.png"; return i;}() );});
+ };
+ this.$hsHomeOverImage = function () {
+  return vmmirror.kernel.$Future().$computing$(
+		function(){return vmmirror.platform.$aliens().$yourself()._$alienate$(
+			function(){ var i = new Image(); i.src ="hsHomeOverImage.png"; return i;}() );});
+ };
+ this.$hsHomeOutImage = function () {
+  return vmmirror.kernel.$Future().$computing$(
+		function(){return vmmirror.platform.$aliens().$yourself()._$alienate$(
+			function(){ var i = new Image(); i.src ="hsHomeOutImage.png"; return i;}() );});
+ };
+ this.$hsHomeDownImage = function () {
+  return vmmirror.kernel.$Future().$computing$(
+		function(){return vmmirror.platform.$aliens().$yourself()._$alienate$(
+			function(){ var i = new Image(); i.src ="hsHomeDownImage.png"; return i;}() );});
+ };
  this.$classPresenterImage = function () {
   return vmmirror.kernel.$Future().$computing$(
 		function(){return vmmirror.platform.$aliens().$yourself()._$alienate$(
@@ -81735,6 +81994,7 @@ function installDnuHandlersOn (p) {
   "$ASTModule",
   "$ASTTool",
   "$AbstractList",
+  "$ActiveIcon",
   "$Actors",
   "$ActorsForV8",
   "$AddableList",
@@ -81863,6 +82123,7 @@ function installDnuHandlersOn (p) {
   "$HopscotchIDE",
   "$HopscotchImages",
   "$HopscotchShell",
+  "$HopscotchWebIDE",
   "$HopscotchWindow",
   "$HyperlinkFragment",
   "$HyperlinkImageFragment",
@@ -82616,6 +82877,7 @@ function installDnuHandlersOn (p) {
   "$digits",
   "$dirty",
   "$dirty$",
+  "$disabledImage$",
   "$disclosureClosedImage",
   "$disclosureOpenImage",
   "$disclosureTransitionImage",
@@ -82630,6 +82892,7 @@ function installDnuHandlersOn (p) {
   "$document",
   "$doesNotUnderstand$",
   "$dot",
+  "$downImage$",
   "$dropDownImage",
   "$dropDownMenu$",
   "$dropDownOutImage",
@@ -82878,7 +83141,13 @@ function installDnuHandlersOn (p) {
   "$hereSetterSendFromMsg$",
   "$history",
   "$holder$",
+  "$homeButton",
+  "$homeDownImage",
+  "$homeImage",
+  "$homeOutImage",
+  "$homeOverImage",
   "$hopscotch",
+  "$hoverImage$",
   "$hsAddImage",
   "$hsAddOutImage",
   "$hsAddOverImage",
@@ -82891,6 +83160,10 @@ function installDnuHandlersOn (p) {
   "$hsExpandDownImage",
   "$hsExpandImage",
   "$hsExpandOverImage",
+  "$hsHomeDownImage",
+  "$hsHomeImage",
+  "$hsHomeOutImage",
+  "$hsHomeOverImage",
   "$iconForAccessModifier$",
   "$id",
   "$idFor$",
@@ -83012,6 +83285,7 @@ function installDnuHandlersOn (p) {
   "$init$Gradient$",
   "$init$Graphics$",
   "$init$Hopscotch$",
+  "$init$HopscotchIDE$",
   "$init$IdentityMap$",
   "$init$IdentitySet$",
   "$init$ImmutableMirrorGroup$",
@@ -83256,6 +83530,10 @@ function installDnuHandlersOn (p) {
   "$init$hat$",
   "$init$havePeeked_0$",
   "$init$history$",
+  "$init$homeDownImage$",
+  "$init$homeImage$",
+  "$init$homeOutImage$",
+  "$init$homeOverImage$",
   "$init$hopscotch$",
   "$init$hsAddImage$",
   "$init$hsAddOutImage$",
@@ -83269,6 +83547,10 @@ function installDnuHandlersOn (p) {
   "$init$hsExpandDownImage$",
   "$init$hsExpandImage$",
   "$init$hsExpandOverImage$",
+  "$init$hsHomeDownImage$",
+  "$init$hsHomeImage$",
+  "$init$hsHomeOutImage$",
+  "$init$hsHomeOverImage$",
   "$init$id$",
   "$init$ide$",
   "$init$identifier$",
@@ -83435,6 +83717,7 @@ function installDnuHandlersOn (p) {
   "$init$remote$",
   "$init$resolver$",
   "$init$resources$",
+  "$init$retainedPlatform$",
   "$init$return$",
   "$init$returnStatement$",
   "$init$returnType$",
@@ -84263,6 +84546,7 @@ function installDnuHandlersOn (p) {
   "$resultHolder",
   "$resultHolder$",
   "$results",
+  "$retainedPlatform",
   "$return",
   "$return$",
   "$returnStatNode$",
@@ -84596,6 +84880,7 @@ function installDnuHandlersOn (p) {
   "$superInit$HopscotchForHTML5$TextStringFragment",
   "$superInit$HopscotchForHTML5$ToggleComposer",
   "$superInit$HopscotchForHTML5$ZebraDecorator",
+  "$superInit$HopscotchWebIDE",
   "$superInit$JavascriptGeneration",
   "$superInit$JavascriptGeneration$Factory",
   "$superInit$JavascriptGeneration$Syntax",
@@ -84840,8 +85125,7 @@ function installDnuHandlersOn (p) {
   "$superInit$TextModule$TextProperties",
   "$superInit$TextModule$TextString",
   "$superInit$WebIDEApp",
-  "$superInit$WebIDEApp$HopscotchIDE",
-  "$superInit$WebIDEApp$HopscotchIDE$HopscotchImages",
+  "$superInit$WebIDEApp$HopscotchImages",
   "$superInit$WorkspaceManagerForV8",
   "$superInit$WorkspaceManagerForV8$AllWorkspacesPresenter",
   "$superInit$WorkspaceManagerForV8$AllWorkspacesSubject",
@@ -85004,7 +85288,7 @@ function installDnuHandlersOn (p) {
   "$usesDefaultSortBlock",
   "$usesDefaultSortBlock_private",
   "$usesDefaultSortBlock_private$",
-  "$using$",
+  "$using$browsing$namespacing$workspaceManager$minitest$minitestUI$colorization$images$",
   "$usingCrLfConvention",
   "$usingLib$",
   "$usingPlatform$",

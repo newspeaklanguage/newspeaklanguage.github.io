@@ -1,6 +1,6 @@
 CACHE MANIFEST
-WebIDEApp.sources.js
-WebIDEApp.js
+Ampleforth.sources.js
+Ampleforth.js
 accept16px.png
 cancel16px.png
 disclosureClosedImage.png
@@ -31,7 +31,7 @@ hsHomeDownImage.png
 classPresenterImage.png
 classUnknownImage.png
 languageNewspeak3.png
-WebIDEApp.html
+Ampleforth.html
 NETWORK:
 *
-# 25 February 2017 1:31:41.296142 pm
+# 25 February 2017 1:33:09.782245 pm
