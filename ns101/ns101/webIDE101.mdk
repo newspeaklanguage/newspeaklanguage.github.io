@@ -1,13 +1,13 @@
-Title         : Newspeak on Squeak
+Title         : Newspeak on the Web
 Subtitle: _**A Guide for the Perplexed**_
-Author        : _Gilad Bracha, Peter Ahe, Vassili Bykov and Ryan Macnak_
+Author        : _Gilad Bracha and Ryan Macnak_
 Logo          : True
 
 [TITLE]
 
 
 
-This document is a guide to using Newspeak in the prototype release running on top of Squeak. It acts as a tutorial for the IDE, and to a limited extent, for the Newspeak language as well.
+This document is a guide to using Newspeak in the Hopscotch Web IDE. It acts as a tutorial for the IDE, and to a limited extent, for the Newspeak language as well.
 
 You can read this document sequentially, from start to finish, as a structured tutorial; or, you can just use the FAQ to quickly lead you to specific task oriented sections. 
 If you want to read things in sequence, just [begin at the beginning](#sec-begin-at-the-beginning).
@@ -87,82 +87,41 @@ Let’s start by opening the Newspeak IDE. Make sure you’ve installed Newspeak
 
 #How do I install Newspeak?{-; #sec-how-do-i-install-newspeak}
 
-On Windows, use the installer. If you have a previous installation, it’s best to uninstall the old one and reinstall. On a Mac, open Newspeak Spur Virtual Machine.dmg, and drag the VM to the Applications folder. Make sure that ns101.image is associated with the Newspeak Virtual Machine. This can be an issue, especially if you have ordinary Squeak installed on your machine as well. On Linux, follow the instructions given in linux-advice.txt. 
+You don't. Eventually, a process for maintianing a personal copy and
+running it under node might be added.
+
+
 
 #How do I open the Newspeak IDE?{-; #sec-how-do-i-open-the-newspeak-ide}
 
-The directory where you found this document probably includes a file called ns101.image. This is a Newspeak image, and it should be identifiable by its icon, the Newspeak eye (well, it’s big brother’s eye actually):
+Point your web browser at TBD
 
-~~ Center
-  
-![icon512]
-  ~~
+https://newspeaklanguage.github.io/primordialsoup.html?snapshot=HopscotchWebIDE.vfuel#
 
-[icon512]: images/icon512.png "icon512" { width:auto; max-width:90% }
+This will open the IDE; you should see something like this:
 
-Click (or double click, as the case may be) on the image file. This will open the IDE; you should see something like this:
-
-
-~~ Center
-![home]
-~~
-
-[home]: images/home.png "home" { width:auto; max-width:90% }
-
-
-[home-9-14]: images/home-9-14.png "home-9-14" { width:auto; max-width:90% }
-
-The very first thing you should do is save a copy of your image, so your experiments don’t trash the release image you just opened.
-
-At the top of the window, you’ll see a tool bar that looks like this:
-
-~~ Center
-
-
-![hopscotch-toolbar]
-
-[hopscotch-toolbar]: images/hopscotch-toolbar.png "hopscotch-toolbar" { width:auto; max-width:90% }
-
-
-~~
-
-[toolbar]: images/toolbar.PNG "toolbar" { width:auto; max-width:90% }
-
-
-[operateMenuIcon]: images/operateMenuIcon.PNG "operateMenuIcon" { width:auto; max-width:90% }
-
-
-
-The rightmost icon, ![operateMenuIcon], denotes a drop down menu known as the _operate menu_. 
-
-~~ Center
-![opMenu]
-~~
-Choose the option _Save Image As ..._ and give the image some other name. 
-
-
-
-Now we can proceed.
-
-Newspeak currently runs on top of Squeak. If you’re running on Mac OS X or Linux, all IDE windows open up within the main Squeak window. On Windows we use a native GUI binding. Most screen shots in this document show the Windows native binding running on Windows 10 (though some date back to Windows 7).
-
-
+~HtmlRaw
+<div class="minibrowser"> </div>
+  ~
 
 The screen shot above shows the home page. You can always return to the home page of a Newspeak browser by clicking on the home icon at the top of the browser: ![HomeIcon].
-
-
 
 
 [HomeIcon]: images/HomeIcon.png "HomeIcon" { width:auto; max-width:90% }
 
 [opMenu]: images/opMenu.png "opMenu" { width:auto; max-width:90% }
 
-The home page includes links to a variety of useful places, like recently visited classes and packages, the source control page and more. If you look at the list of classes, you’ll see each class has a round icon next to it. The icon tells you which language the class is written in; the current system mixes Smalltalk code with Newspeak. A gray icon 
-![SmalltalkClassIcon] represents Smalltalk. Icons representing Newspeak are labeled with a version number. Golden icons ![ns3-icon] represent Newspeak3, which is the currently operational dialect of Newspeak.
+The home page includes links to the IDE's top level namespace and the workspace manager. The top level namespace is also known as the root namespace. Let's examine it.
 
+#How do I get to the root namespace?{-; #sec-how-do-i-get-to-the-root-namespace}
 
-[SmalltalkClassIcon]: images/SmalltalkClassIcon.png "SmalltalkClassIcon" { width:auto; max-width:90% }
+On the home page, you will see a link marked _Newspeak sources_. Click on this link andyou will see the root namespace. 
 
+The root namespace lists the top level classes known to the IDE, as well
+as subsidiary namespaces.
+
+If you look at the list, you’ll see each entry  has a round icon next to it. Theicon indicates whether the entry is a class or a namespace.  Golden icons ![ns3-icon] represent Newspeak classes. Green icons represent namespaces.
+Every element in the lists is a link, and clicking on it will take us to the corresponding class or namespace. 
 
 
 ~~ Center
@@ -171,127 +130,114 @@ The home page includes links to a variety of useful places, like recently visite
 
 [ns3-icon]: images/ns3-icon.png "ns3-icon" { width:auto; max-width:90% }
 
-Now that we’ve got ourselves a browser, let’s browse some classes.
-
-
+Now, we'll take a look at a top level class.
 
 #How do I browse an existing class?{-; #sec-how-do-i-browse-an-existing-class}
 
 
-There are several ways to browse an existing class.  If you know the name of the class (or some approximation thereof), you can search for it using the search pane in the upper right hand side of the Newspeak browser’s tool bar:
-
-
-~~ Center
-
-![SearchPane]
-~~
-
-[SearchPane]: images/SearchPane.png "SearchPane" { width:auto; max-width:90% }
-
-One can also go to the Newspeak source page and look for the class there. We’ll examine both options below.
-
-
-
-##Searching {-; #sec-searching}
-
-
-You can type multiple search terms, separated by semicolons. The search is case-insensitive, and will find anything that includes the searched strings. You can use * as a wildcard character. If you enclose a search term in double quotes, you’ll only get exact matches.
-
-We’ll search for the class **CombinatorialParsing**.  Type the name of the class into the search pane. This yields a list of classes and a list of method names matching that string.
-
-~~ Center
-![searchCombinatorialParsing]
-~~
-
-[searchCombinatorialParsing]: images/searchCombinatorialParsing.png "searchCombinatorialParsing" { width:auto; max-width:90% }
-
-[combinatorialParsing-9-14]: images/combinatorialParsing-9-14.PNG "combinatorialParsing-9-14" { width:auto; max-width:90% }
-
-
-Every element in the lists is a link, and clicking on it will take us to the corresponding class or method. We can also view one or more of the classes/methods in place, by clicking on the arrow icon 
+There are several ways to browse an existing class. If you click on a class entry in a namespace (such as the root namespace), you will see a class browser showing the class definition.  We can also view one or more of the classes in place, by clicking on the arrow icon 
 to the left of the link.  The behavior of the arrow icon is similar to its behavior in the mac finder (or if you use a PC, the plus/minus signs in Windows explorer).
 
-Notice how the links are underlined as you hover over them, just like in a web browser.
-Click on the link for **CombinatorialParsing**
-
-~~ Center
-
-![combParsing-link]
-~~
-
-[combParsing-link]: images/combParsing-link.png "combParsing-link" { width:auto; max-width:90% }
-
-
-[CombinatorialParsing]: images/CombinatorialParsing.png "CombinatorialParsing" { width:auto; max-width:90% }
-
-
-The browser now displays the **CombinatorialParsing** class.
-
-~~ Center
-![CombinatorialParsing]
-~~
-
-[combParsingDef-9-14]: images/combParsingDef-9-14.png "combParsingDef-9-14" { width:auto; max-width:90% }
+Click on the link for **CombinatorialParsing**. The browser now displays the **CombinatorialParsing** class.
 
 The class presenter has distinct sections for class header information, nested classes, methods and class methods.  
 
-Notice the yellow circles in front of each member. These indicate access rights to the member (yellow is the default, for protected; green for public and red for private). 
+Notice the circles in front of each member. These indicate access rights to the member (yellow is the default, for protected; green for public and red for private). 
 
-The header information appears at the top with a gray background:
+The header information appears at the top with a gray background.
 
-
-~~ Center
-
-![CombinatorialParsing-header-closed]
-~~
-
-[CombinatorialParsing-header-closed]: images/CombinatorialParsing-header-closed.png "CombinatorialParsing-header-closed" { width:auto; max-width:90% }
-
-[combiParsing-header1]: images/combiParsing-header1.png "combiParsing-header1" { width:auto; max-width:90% }
-
-Notice the arrow icon in the top left corner. You can use it to collapse the entire header section:
-
-~~ Center
-
-![CombinatorialParsing-header-minimized]
-
-~~
-
-[CombinatorialParsing-header-minimized]: images/CombinatorialParsing-header-minimized.png "CombinatorialParsing-header-minimized" { width:auto; max-width:90% }
-
-[comboParsing-hdrCollapsed]: images/comboParsing-hdrCollapsed.png "comboParsing-hdrCollapsed" { width:auto; max-width:90% }
+Notice the arrow icon in the top left corner. You can use it to collapse the entire header section. Clicking on it gain expands it back.
 
 For now, let’s focus on the nested classes section; this is where most of the content is in this particular class. This is characteristic of module definitions. The slots usually represent the “imports” of the module, and there are typically relatively few module methods.
 
 Each of the nested classes can be either expanded in place using the arrow, or linked to by clicking on the class name. Click on the arrow next to **AlternatingParser** to see how a nested class can be displayed in context. This is usually convenient with small nested classes.
 
-You should now see something like this:
-
-~~ Center
-
-![CombinatorialParsing-open]
-~~
-
-[CombinatorialParsing-open]: images/CombinatorialParsing-open.png "CombinatorialParsing-open" { width:auto; max-width:90% }
-
-[alternatingParserNested1-9-14]: images/alternatingParserNested1-9-14.png "alternatingParserNested1-9-14" { width:auto; max-width:90% }
-
 Now click on the name of the class **AlternatingParser**. That will take you to a full page display of the class. This is best when dealing with larger classes. 
 
-**AlternatingParser** has no nested classes, but it does have some instance methods. Each of the method names displayed is a link. However, when you click on it, the method opens in place, rather than on a new page.
+**AlternatingParser** has no nested classes, but it does have some instance methods. Click on the method _**parse:inContext:ifError:**_. As you can see, the method opens in place, rather than on a new page. 
+Clicking on the method name again collapses the method display.
+
+Looking at the code  for _**parse:inContext:ifError:**_, you can see the syntax coloring scheme is deliberately low key. The selector is bold, parameters and local slots are bold gray. The message pattern is followed by an equal sign, and the method body appears between parentheses.
+
+
+ #Deleting Methods{-; #sec-deleting-methods}
+ 
+Each method name has a dropdown menu at the far right. The menu has the option
+to delete the method.
+
+
+#How do I create a new namespace?{-; #sec-how-do-i-create-a-class-category}
+
+
+
+In the root namespace, click on the plus icon, which looks like this: 
+![plusIcon]. 
+This brings up a menu with two items. Click on the _Add Namespace_ menu item. 
+~~ Center
+![addNamespace-menu-edited]
+~~
+
+If you click on that,
+you'll be asked to type in the name of the new namespace. 
+
+
+We'll type in NS101
 
 ~~ Center
-![parseInContext-public]
+![add-NS101]
 ~~
-[parseInContext-public]: images/parseInContext-public.png "parseInContext-public" { width:auto; max-width:90% }
+
+[add-NS101]: images/add-NS101.png "add-NS101" { width:auto; max-width:90% }
+
+Accept the category name by clicking on the green icon,
+![greenIcon]. Accepting
+will add the namespace and take you back to an updated view of the root.
+
+If you wish to cancel 
+the operation, click the red icon, ![redIcon]. 
+You will be asked to confirm the cancellation. 
 
 
+[redIcon]: images/redIcon.png "redIcon" { width:auto; max-width:90% }
 
 
+Assuming we accepted, we can then follow the link to look at our category :
 
-Clicking on the link again collapses the method display. This shows that link behavior in Hopscotch can be customized.  It isn’t very useful to show a method on a separate page. Newspeak methods are usually short, and should never be very long.  In any case methods need to be understood in context.
+At the moment, there are no classes in the category. Let’s add one, by clicking on the plus icon.
 
-Looking at the method _**parse:inContext:ifError:**_, you can see the syntax coloring scheme is deliberately low key. The selector is bold, parameters and local slots are bold gray. The message pattern is followed by an equal sign, and the method body appears between parentheses. This may change in later versions.
+We will chose  _Add Class_
+
+~~ Center
+![addNamespace-item-menu3-17-2014]
+~~
+
+You’ll see an editable pane with a template of a class header. 
+
+
+We can edit this template with the details of the class we want to create.
+
+~~ Center
+![addHest]
+~~
+
+[addHest]: images/addHest.png "addHest" { width:auto; max-width:90% }
+
+[addHest3-17-2014]: images/addHest3-17-2014.png "addHest3-17-2014" { width:auto; max-width:90% }
+
+[addClassHest]: images/addClassHest.png "addClassHest" { width:auto; max-width:90% }
+
+We’ve named our class **Hest**, which is Danish for horse. Don’t ask why. We will erase the slots from the template, and accept, as usual, by clicking the green icon. Now our category is populated with a single class:
+
+Click on the link to **Hest**. The view you see should look like this:
+
+~HtmlRaw
+<div class="classPresenter" className = "Hest"> </div>
+  ~
+
+Now let’s add a nested class, by clicking the plus icon, ![plusIcon], next to the word Classes.
+
+Edit the template  to represent the desired nested class  Our nested class will be called **Fisk** (Fish in Danish) in honor of the Scandinavian school of object orientation, which invented nested classes, virtual classes and classes in general.
+
 
 Looking more closely at the method link, we see that it is followed by various bits of information:
 
@@ -378,99 +324,15 @@ Let’s navigate back to the original class. It’s time we looked more carefull
 
 #How do I navigate in the IDE?{-; #sec-how-do-i-navigate-in-the-browser}
 
-The top of the IDE browser window shows a number of controls, some of which are reminiscent of a web browser. The back and front buttons 
+Usethe browser's navigation controls. 
 
-~~ Center
-
-![backAndFront]
-~~
-
-[backAndFront]: images/backAndFront.png "backAndFront" { width:auto; max-width:90% }
-
-behave just as you’d expect. The two little drop down menu icons surrounding these
- 
-~~ Center
-
-![stackButtons]
-~~
-
-[stackButtons]: images/stackButtons.png "stackButtons" { width:auto; max-width:90% }
-
-[dropDown]: images/dropDown.png "dropDown" { width:auto; max-width:90% }
-
-
-give you a menu of all the places on the browser stack, below or above the current location.  You’ve already seen the home button. Perhaps the most useful feature is the history button:
-
-
-
-~~ Center
-
-![historyButton]
-~~
-
-[historyButton]: images/historyButton.png "historyButton" { width:auto; max-width:90% }
-
-
-
-
-It acts much like the history feature in a web browser. It takes you to a page that holds your browsing history for this particular browser, latest location on top:  
-
-~~ Center
-
-
-![history]
-~~
-
-[history]: images/history.png "history" { width:auto; max-width:90% }
-
-[history1]: images/history1.png "history1" { width:auto; max-width:90% }
-
-
-
-Click on any link on the page to go to that location. You’ll find it just as you left it - with subpanes open, unaccepted edits still preserved etc. This means you can leave any view to go to another, regardless of its state. Interaction with the browser is modeless.
-It also means that you are never more than two clicks away from any place you’ve browsed - one click to the history, and one click from there to any prior destination.
-
-In the context of an IDE, this feature is actually much more useful than in typical web browsing, because you tend to build up a small working set of places you visit while working on code - a few classes, methods etc. that you keep bouncing between.
-
-
-
-#How do I erase my history?{-; #sec-how-do-i-erase-my-history}
-
-After completing a task, you may want to eliminate it from your history to prevent clutter building up.  To erase the history, click the _Forget All_ button on the history page.
-
-~~ Center
-![forgetAll]
-~~
-
-[forgetAll]: images/forgetAll.png "forgetAll" { width:auto; max-width:90% }
-
-Or just close the browser and open a new one. You can also clean out individual history entries using the _forget_ link at the right of each entry.
-
-One more thing while we’re on the topic of managing the browser
-
-#How do I manage a Newspeak window? {-; #sec-how-do-i-manage-a-newspeak-window}
-
-Same as any other window. In Squeak, you’ll find these icons on the right hand side of the window title bar: 
-
-~~ Center
-![WindowControls]
-~~
-The green one maximizes, the orange one minimizes, and the blue one provides a drop down menu. Most of the menu entries are standard, but the browser provides unusual options for inspecting the GUI.
-
-[WindowControls]: images/WindowControls.png "WindowControls" { width:auto; max-width:90% }
-
-#How do I inspect the GUI? {-; #sec-how-do-i-inspect-the-gui}
-
-Use the browser’s meta menu, which is marked with this icon:               ![metaMenuIcon].
-
-[metaButon]: images/metaButon.png "metaButon" { width:auto; max-width:90% }
-
-[metaMenuIcon]: images/metaMenuIcon.PNG "metaMenuIcon" { width:auto; max-width:90% }
 
 
 
 
-The meta menu has two options for inspecting the GUI: _Inspect Window_ and _Inspect Application_. The latter opens a new browser showing an inspector on the original browser application. Usually this option is more interesting, as that is where the application logic resides. The former is similar, but the inspector is opened on the Window object representing the browser window. You can drill down and find what code implements a given GUI element.  In addition, many presenters have an _Inspect Presenter_ option in their drop down menu, which opens up an inspector on the presenter object.
+#How do I inspect the GUI? {-; #sec-how-do-i-inspect-the-gui}
+
+Most menus have an _Inspect Presenter_ option, which opens up an inspector on the presenter object.
 
 Of course, to utilize these, we need to understand how to inspect an object.
 
@@ -494,16 +356,15 @@ Whichever way you open an inspector, you’re likely to see a view such as the f
 
 [inspector99]: images/inspector99.png "inspector99" { width:auto; max-width:90% }
 
-Each slot of the inspected object is listed in the inspector. It is prefixed by an arrow icon that allows you to view an inspector on the value of the slot in context . Following the slot name is a description of the slot value, which is itself a link to an inspector on the slot value.  The gray area at the top of the inspector gives a description of the object being inspected, and a link to its class and its enclosing object. Clicking on the class brings up a class presenter on the class, not an inspector on the class object. If you need to inspect the class object, you can do that by choosing _Inspect Class_ from the drop down menu, whose icon, ![dropDown],  you can see at at top right.
+Each slot of the inspected object is listed in the inspector. It is prefixed by an arrow icon that allows you to view an inspector on the value of the slot in context . Following the slot name is a description of the slot value, which is itself a link to an inspector on the slot value.  The gray area at the top of the inspector gives a description of the object being inspected, and a link to its class and its enclosing object. Clicking on the class brings up a class presenter on the class, not an inspector on the class object. If you need to inspect the class object, you can do that by evaluating the message _class_ in the editor.
 
 
 
 #How do I evaluate code?{-; #sec-how-do-i-evaluate-code}
 
-The inspector has an interaction pane in which you can evaluate expressions in the context of the object. Type in an expression (3 + 4 in the example below) and select it. Then hit Ctrl-S (or cmd-S on a mac). A link to the result of the expression is added. You can expand it in place with the arrow icon, or follow the link. You can also use the _Evaluate_ button on the right instead of Ctrl-S/cmd-S. 
+The inspector has an interaction pane in which you can evaluate expressions in the context of the object. Type in an expression (3 + 4 in the example below). A link to the result of the expression is added. You can follow the link to view
+an inspactor on the result. 
 
-
-If you don’t make a selection explicitly, the current line will be evaluated. This is useful for short expressions. This design allows you to have multiple code snippets in an interaction pane and evaluate them as needed. After evaluation, the selection is highlighted so you can see what was evaluated
 
 ~~ Center
 ![evaluate7]
@@ -512,45 +373,25 @@ If you don’t make a selection explicitly, the current line will be evaluated. 
 ~~
 
 
-Note: If you split your expression among several lines, make sure you select it in its entirety.
-
-
-Of course, you can always evaluate code in an ordinary Squeak workspace - but that would be Smalltalk code, not Newspeak code. However, Newspeak module definitions can be instantiated from Smalltalk; they are available as Smalltalk globals. Since they are stateless, nothing ungood can happen.
-
-Actually, there is something ungood that can happen - our evaluation may raise an exception.
+Of course, if something ungood happens, our evaluation may raise an exception.
 
 
 ##What if evaluation raises an exception?{-; #sec-what-if-evaluation-raises-an-exception}
 
 In that case, rather than a link to the result, you get a link to the debugger.  Assume that we have a class **BlowUp**, with the following method
 
-_public_ _**provokeBug:**_ _b_ \<_Boolean_> _= (_\
-&emsp;  _^missing: b with: self_\
-_)_
-
+~HtmlRaw
+<div class="classPresenter" className = "Blowup"> </div>
+  ~
 
 Calling _BlowUp>>provokeBug:_ from a workspace gives us the following display:
 
-~~ Center
-![provokeBug-ws1]
-~~
+~HtmlRaw
+<div class="evaluator" expression = "Blowup new provokeBug: true"> </div>
+  ~
 
-[provokeBug-ws1]: images/provokeBug-ws1.png "provokeBug-ws1" { width:auto; max-width:90% }
-
-[blowup1-9-24]: images/blowup1-9-24.png "blowup1-9-24" { width:auto; max-width:90% }
-
-We can look at the exception in more detail by expanding the item _MessageNotUnderstood BlowUp>>missing:with:_  as shown below:
-
-
-~~ Center
-![provokeBug-ws2]
-~~
-
-[provokeBug-ws2]: images/provokeBug-ws2.png "provokeBug-ws2" { width:auto; max-width:90% }
-
-[blowup-2-9-14]: images/blowup-2-9-14.png "blowup-2-9-14" { width:auto; max-width:90% }
-
-If we want to debug this computation, we need to open a [debugger](#sec-how-do-i-run-the-newspeak-debugger) on it.
+Note that the result link in red, and describes an exception. We can follow the
+link, which leads us to the a [debugger](#sec-how-do-i-run-the-newspeak-debugger) open on the thread tharaised the exception.
 
 
 #What if I want to get at the platform or IDE namespace from an inspector?{-; #sec-what-if-i-want-to-get-at-the-platform-or-ide-namespace-from-an-inspector}
@@ -572,26 +413,9 @@ and get at the collections module of the platform, even if you forgot to import 
 
 You will encounter the debugger if an uncaught exception occurs during execution. If you evaluate an expression that results in an uncaught exception in a Hopscotch workspace or object inspector, the inspector will catch the exception, as described above. The text describing the exception also serves as a link that opens up a debugger page on the stack of the failed computation. Click on the link, to get a debugger in a new window. The debugger displays the call stack. 
 
-~~ Center
-![provokeBug-debug-closed]
-~~
-
-[provokeBug-debug-closed]: images/provokeBug-debug-closed.png "provokeBug-debug-closed" { width:auto; max-width:90% }
-
-[blowUp3]: images/blowUp3.png "blowUp3" { width:auto; max-width:90% }
-
-[blowup-3-9-14]: images/blowup-3-9-14.png "blowup-3-9-14" { width:auto; max-width:90% }
-
 Each activation frame is expandable to an activation presenter which allows you to see the method in question and the state of the frame. You can see all this in the screenshot below, where we have two activations open - one for _**provokeBug:**_ and one for the code we evaluated in the workspace.  You'll notice that the Newspeak debugger is unusual in that it allows you to simultaneously view multiple frames, such as caller and callee.
 The debugger will mark the site of the active message send in blue.
 
-
-
-~~ Center
-![provokeBug-debug-open]
-~~ 
-
-[provokeBug-debug-open]: images/provokeBug-debug-open.png "provokeBug-debug-open" { width:auto; max-width:90% }
 
 The method is shown on the left, and above it buttons that control stepping etc. The debugger will mark the site of the active message send in blue.
 
@@ -604,15 +428,6 @@ Evaluating an expression produces a link to the result. To the right of that lin
 You may use the method presenter on the left as you usually would; you may edit the method and save the changes for example. This will discard all activations above the edited method, and restart the method at its beginning.
 
 In our case, we can see that the problem is that _**missing:with:**_ is not defined. Expand the top frame on the stack, to see the _**doesNotUnderstand:**_ method.
-
-~~ Center
-![mssingWithDNU]
-~~
-
-[mssingWithDNU]: images/mssingWithDNU.png "mssingWithDNU" { width:auto; max-width:90% }
-
-[blowup-4-9-14]: images/blowup-4-9-14.png "blowup-4-9-14" { width:auto; max-width:90% }
-
 
 If the activation involves the method _**doesNotUnderstand:**_, the drop down menu at the right will have an option to declare the missing method semi-automatically.  
 
@@ -647,19 +462,16 @@ You may also restart the method using the activation’s menu. This menu also pr
 #How do I open a workspace?{-; #sec-how-do-i-open-a-workspace}
 
 
-On the home page, you can click on the link labeled _Workspaces_. This will take you to the workspaces page.  If there are no workspaces yet, one will be created and opened in place. If there is exactly one workspace it will be opened in the same way. Otherwise, you will be presented with a list of all existing workspaces to choose from. 
+On the home page, you can click on the link labeled _Workspaces_.
+
+~HtmlRaw
+<div class="minibrowser"> </div>
+  ~
+  
+This will take you to the workspaces page.  If there are no workspaces yet, one will be created and opened in place. If there is exactly one workspace it will be opened in the same way. Otherwise, you will be presented with a list of all existing workspaces to choose from. 
 
 
 You can create new workspaces by clicking the _plus_ button. Workspaces are identified by cheerful names, such as *Workspace_1* etc. You can then navigate to a given workspace by clicking on its link in the workspaces page
-
-
-~~ Center
-![workspaces]
-~~
-
-[workspaces]: images/workspaces.png "workspaces" { width:auto; max-width:90% }
-
-
 
 A workspace allows you to evaluate code and provides you with access to the IDE’s top level namespace.  The IDE namespace gives you access to all top level Newspeak classes loaded into the IDE.  It also supports access to the Newspeak platform object via the name _**platform**_. In addition, you can use the name _**ide**_ to gain access to the IDE namespace itself.
 
@@ -691,22 +503,19 @@ the Methods section at the bottom of the workspace works exactly like it does in
 #Back to CombinatorialParsing{-; #sec-back-to-combinatorialparsing}
 
 
-Let’s navigate back to the **CombinatorialParsing** class. We’ve seen how methods and nested classes work, but we haven’t really investigated the class header. The header includes the class comment and slot definitions.
+Let’s navigate back to the **CombinatorialParsing** class.
+
+~HtmlRaw
+<div class="classPresenter" className = "CombinatorialParsing"> </div>
+  ~
+
+We’ve seen how methods and nested classes work, but we haven’t really investigated the class header. The header includes the class comment and slot definitions.
 
 #How do I edit the class header?{-; #sec-how-do-i-edit-the-class-header}
 
 At the left hand side of the class header section is a link that is labeled as
-_Source_. Clicking it transforms the presentation of the header, thus:
-
-~~ Center
-![CombinatorialParsing-header-open]
-~~
-
-[CombinatorialParsing-header-open]: images/CombinatorialParsing-header-open.png "CombinatorialParsing-header-open" { width:auto; max-width:90% }
-
-[combinatorialParsing-hdr-9-14]: images/combinatorialParsing-hdr-9-14.png "combinatorialParsing-hdr-9-14" { width:auto; max-width:90% }
-
-One can edit the header source and so add, remove or rename slots, change the primary factory, edit the class comment, edit any initialization code that follows the slot declaration section etc. 
+_Source_. Clicking it transforms the presentation of the header to show an
+editor where you can add, remove or rename slots, change the primary factory, edit the class comment, edit any initialization code that follows the slot declaration section etc. 
 
 You can switch back to the default view of the header by clicking on the _Description_ link.
 
@@ -714,203 +523,10 @@ This concludes the sections dealing with browsing existing code. Now we consider
 
 
 
-
-
-
-
 #How do I create a new class?{-; #sec-how-do-i-create-a-new-class}
 
 
-
-
-Currently, classes are created within _namespaces_. 
-The IDE maintains a root namespace (called _Root_). Currently, the root namespace is
-only allowed to contain subnamespaces called _category namespaces_, or just  _categories_. Classes can be added to category namespaces. So the first step in creating a new top level class is
-finding an appropriate category. If you know the category you want to use, you can
-find it using the search bar, or you can go to the root namespace where you will see it listed.
-
-
-
-Otherwise, you need to create a new category. That also requires you to get to the root
-namespace. 
-
-
-#How do I get to the root namespace?{-; #sec-how-do-i-get-to-the-root-namespace}
-
-On the home page, you will see a link marked _Newspeak sources_. This link leads 
-to the root namespace. 
-
-~~ Center
-![rootClean]
-~~
-
-[rootClean]: images/rootClean.png "rootClean" { width:auto; max-width:90% }
-
-
-
-
-#How do I create a category namespace?{-; #sec-how-do-i-create-a-class-category}
-
-
-
-In the root namespace, click on the plus icon, which looks like this: 
-![plusIcon]. 
-This brings up an _Add Namespace_ menu item. 
-~~ Center
-![addNamespace-menu-edited]
-~~
-
-If you click on that,
-you'll be asked to type in the name of the new namespace. 
-
-[addNamespace-menu-edited]: images/addNamespace-menu-edited.png "addNamespace-menu-edited" { width:auto; max-width:90% }
-
-~~ Center
-![addNamespace]
-~~
-
-[addNamespace]: images/addNamespace.png "addNamespace" { width:auto; max-width:90% }
-
-We'll type in NS101
-
-~~ Center
-![add-NS101]
-~~
-
-[add-NS101]: images/add-NS101.png "add-NS101" { width:auto; max-width:90% }
-
-Accept the category name by clicking on the green icon,
-![greenIcon]. Accepting
-will add the namespace and take you back to an updated view of the root.
-
-[plusIcon]: images/plusIcon.png "plusIcon" { width:auto; max-width:90% }
-
-~~ Center
-![rootNS101]
-~~
-
-[rootNS101]: images/rootNS101.png "rootNS101" { width:auto; max-width:90% }
-
-
-[greenIcon]: images/greenIcon.png "greenIcon" { width:auto; max-width:90% }
-
-You can also just type Ctrl-S (or Cmd-S on a mac) in the text pane to accept. If you wish to cancel 
-the operation, click the red icon, ![redIcon]. 
-You will be asked to confirm the cancellation. 
-
-
-[redIcon]: images/redIcon.png "redIcon" { width:auto; max-width:90% }
-
-
-Assuming we accepted, we can then follow the link to look at our category :
-
-~~ Center
-![ns101-blank]
-~~
-
-[ns101-blank]: images/ns101-blank.png "ns101-blank" { width:auto; max-width:90% }
-
-[category1]: images/category1.PNG "category1" { width:auto; max-width:90% }
-
-
-At the moment, there are no classes in the category. Let’s add one, by clicking on the plus icon.
-
-We will chose  _Add Class_
-
-~~ Center
-![addNamespace-item-menu3-17-2014]
-~~
-
-You’ll see an editable pane with a template of a class header. 
-
-~~ Center
-![addClass]
-~~
-
-[addClass]: images/addClass.png "addClass" { width:auto; max-width:90% }
-
-[addClass]: images/addClass.png "addClass" { width:auto; max-width:90% }
-
-[addNamespace-item-menu3-17-2014]: images/addNamespace-item-menu3-17-2014.png "addNamespace-item-menu3-17-2014" { width:auto; max-width:90% }
-
-
-[addClass1-3-17-2014]: images/addClass1-3-17-2014.png "addClass1-3-17-2014" { width:auto; max-width:90% }
-
-We can edit this template with the details of the class we want to create.
-
-~~ Center
-![addHest]
-~~
-
-[addHest]: images/addHest.png "addHest" { width:auto; max-width:90% }
-
-[addHest3-17-2014]: images/addHest3-17-2014.png "addHest3-17-2014" { width:auto; max-width:90% }
-
-[addClassHest]: images/addClassHest.png "addClassHest" { width:auto; max-width:90% }
-
-We’ve named our class **Hest**, which is Danish for horse. Don’t ask why. We will erase the slots from the template, and accept, as usual, by typing ctri-s (or cmd-s on macs) or by clicking the green icon. Now our category is populated with a single class:
-
-
-~~ Center
-![ns101-Hest]
-~~
-
-[ns101-Hest]: images/ns101-Hest.png "ns101-Hest" { width:auto; max-width:90% }
-
-[ns101-Hest]: images/ns101-Hest.png "ns101-Hest" { width:auto; max-width:90% }
-
-[category2]: images/category2.PNG "category2" { width:auto; max-width:90% }
-
-
-Click on the link to **Hest**. The view you see should look like this:
-
-~~ Center
-![Hest]
-~~
-
-[Hest]: images/Hest.png "Hest" { width:auto; max-width:90% }
-
-[hest-1]: images/hest-1.png "hest-1" { width:auto; max-width:90% }
-
-
-
-Now let’s add a nested class, by clicking the plus icon, ![plusIcon], next to the word Classes.
-
-
-
-~~ Center
-![addNestedClass]
-~~
-
-
-[addNestedClass]: images/addNestedClass.png "addNestedClass" { width:auto; max-width:90% }
-
-[hest-2]: images/hest-2.png "hest-2" { width:auto; max-width:90% }
-
-
-Edit the template  to represent the desired nested class  Our nested class will be called **Fisk** (Fish in Danish) in honor of the Scandinavian school of object orientation, which invented nested classes, virtual classes and classes in general.
-
-~~ Center
-
-![fisk]
-~~
-
-[fisk]: images/fisk.png "fisk" { width:auto; max-width:90% }
-
-Save the code. Your display now looks something like this:
-
-~~ Center
-![HestFisk]
-~~
-
-[HestFisk]: images/HestFisk.png "HestFisk" { width:auto; max-width:90% }
-
-[fisk1]: images/fisk1.PNG "fisk1" { width:auto; max-width:90% }
-
-
-
-Now we’ll add some methods.
-
+Top level classes are created within the root namespace (called _Root_). Click the plus button and choose _Add Class_.
 
 
 
@@ -978,11 +594,9 @@ Edit the class header.
 #How does Source Control Work?{-; #sec-how-does-source-control-work}
 
 
-The Hopscotch IDE features an integrated source code management system called MemoryHole, that currently runs on top of Mercurial (hg) or Git.
+The Hopscotch IDE features an integrated source code management system called MemoryHole, that currently runs on top of Git.
 
 Of course, if MemoryHole doesn’t suit you, you may always choose to save and load classes to/from files, using the version control software of your choice. To be honest, you may well be the first to go that route.
-
-
 
 
 
@@ -1216,33 +830,6 @@ You can always change your mind again. Choose the _File>>Preferences>>goNative_ 
 You can go back and forth among these choices as many times as you like.
 
 
-##Windows binding bugs and limitations:{-}
-
-Various keyboard shortcuts specific to Squeak don’t work in the native version. 
-You can of course use Ctrl-S to save, and Ctrl-C, Ctrl-X and Ctrl-V to copy, cut and paste. 
-
-There are doubtless others.  
-
-
-#How do I open a Newspeak browser from the Console?{-; #sec-how-do-i-open-a-newspeak-browser-from-the-console}
-
-At the top of the console window, you’ll see a tool bar that looks like this:
-
-~~ Center
-![toolbar]
-~~
-
-The first item of the Tools menu below opens a fresh Newspeak browser, displaying the home page.
-
-~~ Center
-![tools-menu]
-~~
-[tools-menu]: images/tools-menu.png "tools-menu" { width:auto; max-width:90% }
-
-[toolbar]: images/toolbar.png "toolbar" { width:auto; max-width:90% }
-
-
-
 
 
 
@@ -1253,19 +840,14 @@ Newspeak’s unit testing framework is called Minitest.  Support for Minitest is
 
 In Minitest, you define a _testing module_, which is designed to test a particular interface (not a particular implementation). To run tests, one needs to feed the testing module with the particular implementation(s) that one wishes to test. A _test configuration module_ does just that. Newspeak naturally enforces this separation of interface and implementation.
 
-Here is a testing module **ListTesting**. It is a very simplistic set of tests for lists. 
+Here is a testing module **ListTesting**. It is a very simplistic set of tests for lists.
+
+~HtmlRaw
+<div class="classPresenter" className = "ListTesting"> </div>
+  ~
+
+
 **ListTesting**’s factory method takes 3 arguments: _**platform**_ (the Newspeak platform, from which all kinds of generally useful libraries might be obtained), _**minitest**_ (an instance of **Minitest**, naturally) and _**listClass**_, a factory that will produce lists for us to test. This is typical: the first two arguments to a test module factory are almost always a platform object and an instance of Minitest, while the third is the object under test.  
-
-
-~~ Center
-![ListTesting]
-~~
-
-[ListTesting]: images/ListTesting.png "ListTesting" { width:auto; max-width:90% }
-
-[listTesting-9-14]: images/listTesting-9-14.png "listTesting-9-14" { width:auto; max-width:90% }
-
-
 
 Nested within the module is the class **ListTests**, which includes the actual tests. Test methods are identified by the convention that their names begin with _**test**_. Each test will be executed in a test context; that is, for each test method being run, Minitest will 
 instantiate a fresh **ListTests** object. That is why **ListTests** is called a test context - it provides a context for a single test.
@@ -1284,30 +866,17 @@ _**packageTestsUsing:**_ _namespace_
 
 The factory takes a namespace object that should provide access to the testing module declaration and to any concrete classes or objects we want to test. This arrangement is very similar to how we package applications from within the IDE.
 
-
+~HtmlRaw
+<div class="classPresenter" className = "ListTestingConfiguration"> </div>
+  ~
 
 We show a single test configuration **ListTestingConfiguration**, but you can define as many you like.
 
 The method _**testModulesUsingPlatform:minitest:**_ must be provided by the configuration. It will be called by Minitest to produce a set of testing modules, each of which will be processed by the framework as outlined above (i.e., searched for test contexts to be run).
 
-~~ Center
-![ListTestingConfiguration]
-~~
-
-[ListTestingConfiguration]: images/ListTestingConfiguration.png "ListTestingConfiguration" { width:auto; max-width:90% }
-
-[listTestingConfig-9-14]: images/listTestingConfig-9-14.png "listTestingConfig-9-14" { width:auto; max-width:90% }
-
 The IDE recognizes test configurations based on the name of the factory method - that is, a class with a class method _**packageTestsUsing:**_ is considered a test configuration, and the IDE will provide a _run tests_ link in the class browser’s upper right hand corner, as you can see above.
 
 Running the tests will display a progress bar, and once they have run you will see a test results page:
-
-~~ Center
-
-![testResults1]
-~~
-
-[testResults1]: images/testResults1.png "testResults1" { width:auto; max-width:90% }
 
 Things are more interesting if some tests fail (did not produce expected results) or cause errors (raised unexpected exceptions):
 
@@ -1363,35 +932,19 @@ Minitest cleanly breaks down the multiple roles an SUnit **TestCase** has. The d
 
 The best way to develop Newspeak code is via the IDE ([here’s how to open it](#sec-how-do-i-open-the-newspeak-ide)).  Make sure you’ve saved your image under a different name [as described here](). In a Newspeak browser ([this is how to open one](#sec-how-do-i-open-a-newspeak-browser-from-the-console)) create a new class ([as explained here](#sec-how-do-i-create-a-new-class)) called **HelloBraveNewWorld**
 
-~~ Center
-![HelloBraveNewWorld-blank]
-~~
-
-[HelloBraveNewWorld-blank]: images/HelloBraveNewWorld-blank.png "HelloBraveNewWorld-blank" { width:auto; max-width:90% }
-
-
-[helloBNW0]: images/helloBNW0.png "helloBNW0" { width:auto; max-width:90% }
-
-Click on the link that says _Source_. You should see something like the following:
-
-~~ Center
-![HelloBraveNewWorld-0]
-~~
-
-
-[HelloBraveNewWorld-0]: images/HelloBraveNewWorld-0.png "HelloBraveNewWorld-0" { width:auto; max-width:90% }
-
-[helloBraveNewWorld-02]: images/helloBraveNewWorld-02.png "helloBraveNewWorld-02" { width:auto; max-width:90% }
-
-What we see is the actual syntax for a Newspeak class header. In this case, we see that the class name is **HelloBraveNewWorld**. Its superclass is listed after the _**=**_ sign (unless it is **Object**). Disregard the rest - we’ll explain it as we go along. 
+~HtmlRaw
+<div class="classPresenter" className = "HelloBraceNewWorld"> </div>
+  ~
+  
+Click on the link that says _Source_. What we see is the actual syntax for a Newspeak class header. In this case, we see that the class name is **HelloBraveNewWorld**. Its superclass is listed after the _**=**_ sign (unless it is **Object**). Disregard the rest - we’ll explain it as we go along. 
 
 Now select the entire text, and replace it by typing in the following code:
 
 _**class**_ _HelloBraveNewWorld_  _**usingPlatform:**_ _platform = (_\
-	&emsp; _platform squeak Transcript open show: 'Hello, Oh Brave new world'._\
+	&emsp; _platform Transcript open show: 'Hello, Oh Brave new world'._\
 _)_
 
-and accepting it (Ctrl-S or Cmd-S). What have we done? We’ve changed the stuff between the parentheses a good deal. The parentheses delimit the instance initializer.  The instance initializer contains all the slot (aka field/instance variable) declarations of the class, and any initialization code for them.  In this case, there are no slots; the initialization code is all there is - the line that says
+and accepting it (click the green icon). What have we done? We’ve changed the stuff between the parentheses a good deal. The parentheses delimit the instance initializer.  The instance initializer contains all the slot (aka field/instance variable) declarations of the class, and any initialization code for them.  In this case, there are no slots; the initialization code is all there is - the line that says
 
 _platform squeak Transcript new open show: 'Hello, Oh Brave new world'_.
 
@@ -1404,17 +957,16 @@ _**class**_ _HelloBraveNewWorld_ _**usingPlatform:**_ _platform_
 
 more on that in a bit. The parameter is an object that will represent the underlying platform we are running on. It is our link to the outside world.
 
-_platform squeak_ sends a message to _**platform**_. The message has no arguments - it consists solely of the identifier _**squeak**_. In mainstream syntax, this might have been written as 
+_platform  Transcript_  sends  the message _**Transcript**_ to _platform. The message has no arguments - it consists solely of the identifier _**Transcript**_.  In mainstream syntax, this might have been written as 
 
-_platform.squeak()_
+_platform.Transcript()_
 
 In Newspeak, you don’t need the dot - just use whitespace. Likewise, you don’t need the empty parameter list in parentheses - if there are no parameters, you don’t write any.
 
-The message _squeak_ is a way of getting at things that are specific to the Squeak-based implementation. It returns an object that represent’s the namespace of the Squeak system. In our case, we are using it to get at Squeak’s “console”, **Transcript**.
+The result of invoking Transcript is the standard output stream.
+So now we have an output stream to write to. 
 
-_platform squeak Transcript_  in turn sends  the message _**Transcript**_ to _platform squeak_.  The transcript is the standard output stream in most Smalltalk systems,  including Squeak. So now we have an output stream to write to. 
-
-_platform squeak Transcript open show: 'Hello, Oh Brave new world'_
+_platform  Transcript open show: 'Hello, Oh Brave new world'_
 
 We’re sending the message open to the output stream we got from _platform Transcript_.   This will open a window to display the transcript stream, and return the stream. 
 
@@ -1422,7 +974,7 @@ Finally, we send the stream the message _show: 'Hello, Oh Brave new world'_. Thi
 
 Again, it may help to see this in a more traditional syntax:
 
-_platform.squeak().Transcript().open().show("Hello, Oh Brave new world ");_
+_platform.Transcript().open().show("Hello, Oh Brave new world ");_
 
 To create an instance of a class, we must send it a message. Sending a message is the only operation in Newspeak. What message shall we send? Well, the class declaration specifies that message immediately after the class name 
 
@@ -1435,18 +987,11 @@ So now you know that we must send **HelloBraveNewWorld** the message _**usingPla
 Where shall we get such an object? And how shall we send this message?
 Open a workspace ([this way](#sec-how-do-i-open-a-workspace)) and type in: 
 
-_HelloBraveNewWorld usingPlatform: platform_
+~HtmlRaw
+<div class="evaluator" expression = "HelloBraveNewWorld usingPlatform: platform"> </div>
+  ~
 
-Note: If you are running on Windows, choose the _open console_ option from the operate menu, so you can see the transcript window when it opens.
-
-Select the expression and hit Ctrl-S (Cmd-s on a Mac). You should see some results:
-
-~~ Center
-![hbnw-app-transcript]
-~~
-
-[hbnw-app-transcript]: images/hbnw-app-transcript.png "hbnw-app-transcript" { width:auto; max-width:90% }
-
+You should see some results.
 
 Now, let’s discuss some high principles. Good Newspeak style requires that a module declaration list all its external dependencies clearly and explicitly. What does this have to do with **HelloBraveNewWorld**? Well, we have, perhaps unknowingly, created a module.
 
@@ -1466,7 +1011,7 @@ To comply with the style guidelines, we’ll change the code to:
 
 _**class**_ _HelloBraveNewWorld_ _**usingPlatform:**_ _platform = (_\
 \
-&emsp;_| Transcript  = platform squeak Transcript. |_\
+&emsp;_| Transcript  = platform Transcript. |_\
 &emsp;_Transcript open show:  'Hello, Oh Brave new world'._\
 _)_
 
@@ -1479,7 +1024,7 @@ The use of slots as imports also allows us to rename imported elements if that m
 
 
 _**class**_ _HelloBraveNewWorld_ _**usingPlatform:**_ _platform = (_\
-&emsp; _| stdout  = platform squeak Transcript. |_\
+&emsp; _| stdout  = platform Transcript. |_\
 &emsp; _stdout open show:  'Hello, Oh Brave new world'._\
 _)_
 
@@ -1498,20 +1043,14 @@ Until now, we’ve used the Hopscotch IDE - but the IDE is only one possible app
 
 A Hopscotch application consists of three parts: a _presenter_, a _subject_ and a _model_. The presenter, as you’d expect, manages presentation. The subject of the presentation provides application logic.  The model is the object that we want our application to interact with. The model has no knowledge of the GUI; therefore, it is not bound by any specific protocol or interface. It is the subject’s role to provide logic to bridge between it and the presentation.
 
-It follows that to build a GUI, we need to define a presenter class and a subject class. Presenter classes extend the **Presenter** class of **HopscotchFramework**, and subject classes extend its **Subject** class.
+It follows that to build a GUI, we need to define a presenter class and a subject class. Presenter classes extend the **Presenter** class of **HopscotchFramework**, and subject classes extend its **Subject** class. Theefore, our new
+GUI class imports thesetwo classes.
+
+~HtmlRaw
+<div class="classPresenter" className = "HelloBraveNewGUI"> </div>
+  ~
 
 
-Let’s change the header so that it imports these two classes
-
-_**class**_ _HelloBraveNewWorld_ _**usingPlatform:**_ _platform = (_\
-&emsp; _|_  
-\ 
-&emsp; _**private**_ _Presenter  = platform hopscotch core Presenter._\
-&emsp;  _**private**_ _Subject  = platform hopscotch core Subject._\
-&emsp; _|_\
-_)_
-
- 
 The expression _platform hopscotch_ provides us with the platform’s built-in instance of **HopscotchFramework**. Sending it the message _**core**_ gets us a namespace object that holds core classes of the framework, such as **Subject** and **Presenter**.  
 
 **Coding note:** As we become more sophisticated, we start to pay attention to pesky details like access control.
@@ -1524,21 +1063,10 @@ _**protected**_, which means that they can be accessed by the object itself, but
 This is different form _**private**_, because code in subclasses can access _**protected**_ members,
 but not _**private**_ ones.
 
-Next, we’ll define presenter and subject classes - **BraveNewWorldPresenter** and **BraveNewWordSubject**, respectively, nested within the **HelloBraveNewWorld** class [(here’s how to declare a nested class)](#)).
+_BraveNewGUI_  defines nested presenter and subject classes - **BraveNewWorldPresenter** and **BraveNewWordSubject**, respectively [(here’s how to declare a nested class)](#)).
 
-~~ Center
-![HelloBraveNewWorld-final]
-~~
-
-[HelloBraveNewWorld-final]: images/HelloBraveNewWorld-final.png "HelloBraveNewWorld-final" { width:auto; max-width:90% }
-
-[braveNewWorld-9-14]: images/braveNewWorld-9-14.png "braveNewWorld-9-14" { width:auto; max-width:90% }
-
-The definition of **BraveNewWorldSubject** should read:
-
-_**public class**_ _BraveNewWorldSubject_ _**onModel:**_ _m = Subject onModel: m ()()_
-
-A subject class typically has a factory method _**onModel:**_, which takes a model as an argument.
+Click on the link for **BraveNewWordSubject**. 
+The factory method is named _**onModel:**_, which takes a model as an argument. This is typical for subject classes.
 
 Each class declaration determines what arguments are to be passed to the factory method of its superclass. Since **Subject** requires the model object (indeed it stores it in a slot named _**model**_) we pass it up, using an extended form of the superclass clause _Subject onModel: m_  that specifies the factory method and arguments to be used. Prior to running the subclass’ instance initializer, the named superclass factory will be invoked, causing the superclass' instance initializer to run (and those of its superclasses, recursively).
 
@@ -1547,9 +1075,7 @@ In this simple example, the model won’t matter because we won’t actually use
 It is crucial that the subject class be declared _**public**_, because we will be referring to it from outside
 the  _**HelloBraveNewWorld**_ object, as we'll soon see.  
 
-Having established a subject, we can move on to the presenter. Define **BraveNewWorldPresenter** thus:
-
-_**class**_ _BraveNewWorldPresenter_ _**onSubject:**_ _s_ [\<_Subject_\>]{color: blue} _= Presenter onSubject: s ()()_
+Having established a subject, we can move on to the presenter. Go back, and the click on **BraveNewWorldPresenter**.
 
 
 **Yet Another Coding Note:** that this declares the type of _**s**_ to be [_Subject_]{color: blue}. 
@@ -1563,13 +1089,6 @@ presenter class itself. If _**createPresenter**_ wasn't public, we'd get a _**Me
 exception, just as if it had not been completely missing.
 
 Now we can add some functionality to our presenter. The most important method [(here’s how to add a method)](#sec-how-do-i-add-a-method) in a presenter is _**definition**_, which defines what gets displayed. In our case, we will simply present the string _'Hello, Oh Brave new world'_. The Hopscotch library provides a set of basic operators, called combinators, that display information on the screen.  One of the simplest combinators is _**label:**_, which allows us to display a string.
-
-~~ Center
-![BraveNewWorldPresenter]
-~~
-
-[BraveNewWorldPresenter]: images/BraveNewWorldPresenter.png "BraveNewWorldPresenter" { width:auto; max-width:90% }
-
 
 The _**label:**_ combinator constructs a _fragment_ from a string. 
 Fragments are the basic elements of display. 
@@ -1597,153 +1116,9 @@ _ide IDEWindow openSubject:_ \
 &emsp;_((HelloBraveNewWorld usingPlatform: platform) BraveNewWorldSubject onModel: nil)_
 
 
-
-You should see something like this:
-
-
-~~ Center
-![helloBnwApp-final]
-~~
-
-[helloBnwApp-final]: images/helloBnwApp-final.png "helloBnwApp-final" { width:auto; max-width:90% }
-
-
 Still not terribly interesting, but we now have a Hopscotch window running our application.  This the modern day equivalent of Hello World. 
 
 This is a good time to take a break. Get yourself a glass of Chateau Margaux or whatever your favorite beverage is, and come back when you’re ready.
-
-
-
-
-
-#Intermission{-; #sec-intermission}
-
-
-Our next, and most substantial, example will require a few more language constructs. It’s best to introduce them now via very simple examples so that you are up to speed when the real fun starts. 
-
-
-
-
-
-
-
-##Keyword Messages{-; #sec-keyword-messages}
-
-Until now, we’ve only seen messages that take zero or one arguments. This helped keep the presentation simple. However, the keyword syntax generalizes to multiple parameters. Consider the mathematical function _max(x,y)_. One could declare a method 
-
-_**max:**_ _x_ [\<_Number_\>]{color: blue} _**and:**_ _y_ [\<_Number_\> _^_ \<_Number_\>]{color: blue}  _= (_ \
-&emsp;	[_(\* some code *)_]{color: blue}\
-_)_
-
-and invoke it like this:
-
-  _max: 3 and: 4_ [_(\* just like max(3, 4) *)_ ]{color: blue}
-
-The idea is that the colons mark the positions of the arguments - sort of the way % marks data positions in a _printf_ string. The method’s name is _**max:and:**_, but when invoked, the arguments are interspersed within the name. The order of the keywords matters, so _**and:max:**_ is a different method altogether.
-
-In terms of precedence, binary expressions have higher precedence than keyword expressions, and unary expressions have higher precedence than binary ones:
-
-_min: 3 + 4 and: 3 factorial + 2_ [_(\* evaluates to 7, just like min(3 + 4, 3.factorial() + 2) *)_]{color: blue}
-
-Some more examples
-
-_Address number: 1600 street: 'Pennsylvania Avenue' city: 'Washington' state: 'DC'  country: ‘USA’_\
-   [_(\* Roughly like Address.new(1600, 'Pennsylvania Avenue', 'Washington', 'DC', 'USA') *)_]{color: blue}
-
-_min: (max: 3 and: 4) and: 3_ \
-[_(\* evaluates to 3, just like min(max(3,4), 3)  *)_]{color: blue}
-
-_parser parse: 'printf(“max %d and %d”, ++p\*, --q\*\*[3]);' inContext: getParserContext_ \
-\ 
- [_(\* parser.parse('printf("max %d and %d", ++p*, --q\*\*[3]);', getParserContext()) *)_]{color: blue}
-
-This syntax may require some getting used to, but it grows on you. Trust me, you’ve dealt with much weirder syntax.  The keyword syntax lends itself to defining internal DSLs. Code like the _Address  number: ... _ example above is much more readable this way. Another advantage is that you can’t get the arity wrong.
-
-##Tuples{-; #sec-tuples}
-
-Here is a literal tuple: _{'six'. 3 + 4 min: 6. 3 factorial}_. It denotes an array with 3 elements - the string _‘six’_, the number _6_, and the number _6_ again. Array indexing begins at 1. 
-
-
-##Closures{-; #sec-closures}
-
-A closure is is a block of code representing an action you want done. Closures are delimited by square brackets. A very simple closure would be:
-
-_[3 + 4]_
-
-The expression inside the closure, _3 + 4_, is not evaluated until the closure is invoked.  To invoke it, send the closure the message _**value**_, as in 
-
-_[3 + 4] value_  [_(\* evaluates to 7 *)_]{color: blue}
-
-The value returned by a closure is the value of its last statement. 
-
-_[3 + 4. 42] value_  [_(\* evaluates to 42 *)_]{color: blue}
-
-A closure is of course, an object, like everything else in Newspeak. 
-
-Closures may have parameters.  This example has two: _**x**_ and _**y**_.
-
-_[:x :y | x + y] value: 3 value: 4_  [_(\* evaluates to 7 *)_]{color: blue}
-
-A closure's parameters are identified by prefixing them with a colon. A vertical bar marks the end of the parameter list.  The closure is invoked using a _**value:**_ message whose arity matches that of the closure.
-
-Closures can contain return statements. This is useful to manage control flow.
-
-
-##Control flow{-; #sec-control-flow}
-
-Newspeak has no built in control constructs - all operations are method invocations/message sends, without exception.
-
-The most important example of this is the _**ifTrue:ifFalse:**_ method defined on boolean objects. 
-
-_x > y ifTrue: \[x\] ifFalse: \[y\]_ [_(\* evaluates to x if x > y; y otherwise *)_]{color: blue}
-
-As you can see, it takes two closures as arguments - one for the true branch and one for the false branch. If the receiver is true, it will invoke its first argument and return the result. If it is false, it will act similarly, but invoke the second argument.
-
-_**max:**_ _x_ [\<_Number_\>]{color: blue} _**and:**_ _y_ [\<_Number_\> _^_ \<_Number_\>]{color: blue}  _= (_ \
-&emsp;	_x > y ifTrue: \[^x\] ifFalse: \[^y\]_ \
-_)_
-
-The method above implements the mathematical function _max(x,y)_. It’s important to understand that a return statement always returns from the nearest enclosing method - _**max:and:**_ in this case - not the enclosing closure. The above behaves the same as
-
-_**max:**_ _x_ [\<_Number_\>]{color: blue} _**and:**_ _y_ [\<_Number_\> _^_ \<_Number_\>]{color: blue}  _= (_ \
-&emsp;	_^x > y ifTrue: \[x\] ifFalse: \[y\]_ \
-_)_
-
-This latter version is much better style of course.
-
-
-#How does the Syntax Differ from the Specification, and Why?{-; #sec-how-does-the-syntax-differ-from-the-specification-and-why}
-
-
-Sigh. Newspeak has been evolving gradually from Smalltalk. The specification indicates the way things should be, but the implementation lags.
-
-Expect the following changes, and possibly more:
-
-* Classes, methods and closures will use curly braces as delimiters instead of parentheses.
-
-* Tuples will use square brackets as delimiters instead of curly braces.
-
-* String literals will be delimited by double quotes, instead of, or in addition to, single quotes and denote interned strings (aka symbols). 
-
-* Symbol literals (currently written as _#sym_) may be eliminated
-
-* Character literals will be merged into strings.
-
-* The return statement may be written _return: e_ rather than _^e_.
-
-* Object literals will be supported.
-
-
-##Kernel`Object{-}
-
-
-The default superclass for Newspeak classes is **Kernel`Object**, which is distinct from  Squeak’s **Object** class. Squeak’s **Object** class contains a lot of methods, almost none of which will be in Newspeak’s library.  You can browse **Kernel`Object** and get an idea of how small the API of **Object** should be.
-
-You now know all you need to know to move on to our next conquest.
-
-
-
-
 
 
 #Exploring the Brave New World{-; #sec-exploring-the-brave-new-world}
@@ -2246,12 +1621,6 @@ Once you choose the file, the IDE will bring it up for for you.
 ~~
 
 [bneApp-deployed]: images/bneApp-deployed.png "bneApp-deployed" { width:auto; max-width:90% }
-
-
-Because the IDE isn’t part of the default deployment set up, any attempt to use elements of it would fail, unless we explicitly included by extracting them from the manifest parameter in _**packageUsing:**_ and inserting them into the application (as opposed to the Hopscotch framework, which we can obtain from the platform in _**main:args:**_)  
-
-These options did not prove popular; they acted as a proof of concept for how one could deploy applications. To be genuinely useful, more engineering is needed: the produced executable should be much smaller (they hid the IDE rather than eliminating it) and should run natively on today’s popular platforms (web, mobile).  We hope to address these deficiencies and bring better deployment options in the future.
-
 
 Finally, let’s do something crazy. Change the superclass of **FilePresenter** to be **ProgrammingPresenter**. 
 
