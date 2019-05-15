@@ -21,13 +21,15 @@ If you want to read things in sequence, just [begin at the beginning](#sec-begin
 
 [How do I open the Newspeak IDE?](#sec-how-do-i-open-the-newspeak-ide)
 
+[How do I get to the root namespace]{#sec-how-do-i-get-to-the-root-namespace}
+
 [How do I open a Newspeak browser?](#sec-how-do-i-open-a-newspeak-browser-from-the-console)
 
 [How do I browse an existing class?](#sec-how-do-i-browse-an-existing-class)
 
 [How do I browse senders/implementors?](#sec-how-do-i-browse-sendersimplementors)
 
-[How do I delete a method?](#sec-how-do-i-delete-a-method)
+[How do I delete a method?](#sec-deleting-methods)
 
 [How do I change the category of a method?](#sec-how-do-i-change-the-category-of-a-method)
 
@@ -87,7 +89,7 @@ Let’s start by opening the Newspeak IDE. Make sure you’ve installed Newspeak
 
 #How do I install Newspeak?{-; #sec-how-do-i-install-newspeak}
 
-You don't. Eventually, a process for maintianing a personal copy and
+You don't. Eventually, a process for maintaining a personal copy and
 running it under node might be added.
 
 
@@ -104,29 +106,22 @@ This will open the IDE; you should see something like this:
 <div class="minibrowser"> </div>
   ~
 
-The screen shot above shows the home page. You can always return to the home page of a Newspeak browser by clicking on the home icon at the top of the browser: ![HomeIcon].
+You can always return to the home page of the Newspeak IDE by clicking on the home icon at the top of the browser: ![HomeIcon].
 
 
 [HomeIcon]: images/HomeIcon.png "HomeIcon" { width:auto; max-width:90% }
 
-[opMenu]: images/opMenu.png "opMenu" { width:auto; max-width:90% }
 
-The home page includes links to the IDE's top level namespace and the workspace manager. The top level namespace is also known as the root namespace. Let's examine it.
+The home page includes links to the IDE's top level namespace and the workspace manager. The top level namespace is also known as the root namespace. Click on the link marked  _Newspeak sources_ and you will see the root namespace.
+{-; #sec-how-do-i-get-to-the-root-namespace}
 
-#How do I get to the root namespace?{-; #sec-how-do-i-get-to-the-root-namespace}
-
-On the home page, you will see a link marked _Newspeak sources_. Click on this link andyou will see the root namespace. 
 
 The root namespace lists the top level classes known to the IDE, as well
 as subsidiary namespaces.
 
-If you look at the list, you’ll see each entry  has a round icon next to it. Theicon indicates whether the entry is a class or a namespace.  Golden icons ![ns3-icon] represent Newspeak classes. Green icons represent namespaces.
+If you look at the list, you’ll see each entry  has a round icon next to it. The icon indicates whether the entry is a class or a namespace.  Golden icons ![ns3-icon] represent Newspeak classes. Green icons represent namespaces.
 Every element in the lists is a link, and clicking on it will take us to the corresponding class or namespace. 
 
-
-~~ Center
-
-~~
 
 [ns3-icon]: images/ns3-icon.png "ns3-icon" { width:auto; max-width:90% }
 
@@ -177,17 +172,15 @@ This brings up a menu with two items. Click on the _Add Namespace_ menu item.
 ![addNamespace-menu-edited]
 ~~
 
+[plusIcon]: images/plusIcon.png "plusIcon" { width:auto; max-width:90% }
+
 If you click on that,
 you'll be asked to type in the name of the new namespace. 
 
 
 We'll type in NS101
 
-~~ Center
-![add-NS101]
-~~
-
-[add-NS101]: images/add-NS101.png "add-NS101" { width:auto; max-width:90% }
+[addNamespace-menu-edited]: images/addNamespace-menu-edited.png "addNamespace-menu-edited" { width:auto; max-width:90% }
 
 Accept the category name by clicking on the green icon,
 ![greenIcon]. Accepting
@@ -203,18 +196,10 @@ You will be asked to confirm the cancellation.
 
 Assuming we accepted, we can then follow the link to look at our category :
 
-At the moment, there are no classes in the category. Let’s add one, by clicking on the plus icon.
-
-We will chose  _Add Class_
-
-~~ Center
-![addNamespace-item-menu3-17-2014]
-~~
-
-You’ll see an editable pane with a template of a class header. 
+At the moment, there are no classes in the category. Let’s add one, by clicking on the plus icon and chosing  _Add Class_ from the menu that pops up.
 
 
-We can edit this template with the details of the class we want to create.
+You’ll see an editable pane with a template of a class header. We can edit this template with the details of the class we want to create.
 
 ~~ Center
 ![addHest]
@@ -273,19 +258,6 @@ Of course, you can also enter a message selector into the search pane. In all th
 [recordFailure]: images/recordFailure.png "recordFailure" { width:auto; max-width:90% }
 
 
-
-
-#How do I delete a method?{-; #sec-how-do-i-delete-a-method}
-
-At the very right of a method link, you’ll see an icon denoting another drop down menu: ![dropDown].
-The menu has an option to delete the method.
-
-
-#How do I change the category of a method?{-; #sec-how-do-i-change-the-category-of-a-method}
-
-On the right hand side of a method link, to the left of the speech bubble, is the category of the method. Clicking it brings up a menu that lets you choose from all existing categories in the class, or enter a new one.
-
-
 At the top right of the method section, you’ll notice a set of icons:
 
 ~~ Center
@@ -324,7 +296,7 @@ Let’s navigate back to the original class. It’s time we looked more carefull
 
 #How do I navigate in the IDE?{-; #sec-how-do-i-navigate-in-the-browser}
 
-Usethe browser's navigation controls. 
+Use the browser's navigation controls. 
 
 
 
@@ -366,11 +338,9 @@ The inspector has an interaction pane in which you can evaluate expressions in t
 an inspactor on the result. 
 
 
-~~ Center
-![evaluate7]
-
-[evaluate7]: images/evaluate7.png "evaluate7" { width:auto; max-width:90% }
-~~
+~HtmlRaw
+<div class="evaluator" expression = "3 + 4"> </div>
+  ~
 
 
 Of course, if something ungood happens, our evaluation may raise an exception.
@@ -804,35 +774,6 @@ A typical situation is where you have made changes in your image on the one hand
 In this case, clicking the _Forward to main on default_ link will bring the local repository up to date with the remote one.
 
 
-
-#How do I use the Native GUI?{-; #sec-how-do-i-use-the-native-gui}
-
-The native GUI binding currently only exists for Windows (XP, Vista, 7 - 10). If you’re running on Windows, the native binding is on by default; beware that on Windows 8, you have to use a mouse or trackpad, since touch events trigger errors. Native windows currently co-exist with the main Squeak window where the Morphic binding is used. Eventually, the system will operate exclusively with the native binding, but this transition will take time. 
-
-The native binding still suffers from some bugs/limitations. These bugs are detailed below. 
-
-If you find these problems are too acute for you to bear, and want to retreat to the safety of Morphic, you can do so. First, you need to display the morphic window (known as the console window). 
-
-
-
-#How do I open a console Window?{-; #sec-how-do-i-open-a-console-window}
-
-If you are running on Mac or Linux, you are always running within the console window, which is simply the top level Squeak window, aka the morphic window. Otherwise, 
-choose _Show Console Window_ from the operate menu. You can then choose the _File>>Preferences>>goMorphic_  option from the tool bar at the top of the console window. All Hopscotch windows will revert back to their Morphic form, and from then on any new ones will open as Morphic windows as well.
-
-~~ Center
-![goNative menu]
-~~
-[goNative menu]: images/goNative-menu.png "goNative menu" { width:auto; max-width:90% }
-
-You can always change your mind again. Choose the _File>>Preferences>>goNative_  option, which is the inverse of the above. At this point, all existing Hopscotch windows will become native, any new ones you create will be native as well. 
-
-You can go back and forth among these choices as many times as you like.
-
-
-
-
-
 #How do I run Unit Tests?{-; #sec-how-do-i-run-unit-tests}
 
 
@@ -930,7 +871,7 @@ Minitest cleanly breaks down the multiple roles an SUnit **TestCase** has. The d
 #I just want Hello World!{-; #sec-i-just-want-hello-world}
 
 
-The best way to develop Newspeak code is via the IDE ([here’s how to open it](#sec-how-do-i-open-the-newspeak-ide)).  Make sure you’ve saved your image under a different name [as described here](). In a Newspeak browser ([this is how to open one](#sec-how-do-i-open-a-newspeak-browser-from-the-console)) create a new class ([as explained here](#sec-how-do-i-create-a-new-class)) called **HelloBraveNewWorld**
+The best way to develop Newspeak code is via the IDE ([here’s how to open it](#sec-how-do-i-open-the-newspeak-ide)). Create a new class ([as explained here](#sec-how-do-i-create-a-new-class)) called **HelloBraveNewWorld**
 
 ~HtmlRaw
 <div class="classPresenter" className = "HelloBraceNewWorld"> </div>
@@ -1043,8 +984,8 @@ Until now, we’ve used the Hopscotch IDE - but the IDE is only one possible app
 
 A Hopscotch application consists of three parts: a _presenter_, a _subject_ and a _model_. The presenter, as you’d expect, manages presentation. The subject of the presentation provides application logic.  The model is the object that we want our application to interact with. The model has no knowledge of the GUI; therefore, it is not bound by any specific protocol or interface. It is the subject’s role to provide logic to bridge between it and the presentation.
 
-It follows that to build a GUI, we need to define a presenter class and a subject class. Presenter classes extend the **Presenter** class of **HopscotchFramework**, and subject classes extend its **Subject** class. Theefore, our new
-GUI class imports thesetwo classes.
+It follows that to build a GUI, we need to define a presenter class and a subject class. Presenter classes extend the **Presenter** class of **HopscotchFramework**, and subject classes extend its **Subject** class. Therefore, our new
+GUI class imports these two classes.
 
 ~HtmlRaw
 <div class="classPresenter" className = "HelloBraveNewGUI"> </div>
@@ -1128,11 +1069,9 @@ To make things more interesting, our next task will be to build an application t
 
 We’ll start by defining a new top level class called **BraveNewWorldExplorer**.  Again, we’ll import **Subject** and **Presenter**. We’ll define two nested classes - **FileSubject** and **FilePresenter**.
 
-~~ Center
-![BraveNewWorldExplorer]
-~~
-
-[BraveNewWorldExplorer]: images/BraveNewWorldExplorer.png "BraveNewWorldExplorer" { width:auto; max-width:90% }
+~HtmlRaw
+<div class="classPresenter" className = "BraveNewWorldExplorer"> </div>
+  ~
 
 
 This time, we will need to have a model for **FileSubject**.  It will be a file name - a string that gives the fully qualified pathname for the file. Make sure the definition of **FileSubject** is as follows:
@@ -1162,29 +1101,16 @@ You may need to change the string _'C:/Users'_ if you aren’t running on a comm
 
 Unfortunately, evaluating this fails:
 
-~~ Center
-![workspace-createPresenterMissing]
-~~
-
-[workspace-createPresenterMissing]: images/workspace-createPresenterMissing.png "workspace-createPresenterMissing" { width:auto; max-width:90% }
+~HtmlRaw
+<div class="evaluator" expression = "hopscotch core HopscotchWindow openSubject: \
+((BraveNewWorldExplorer usingPlatform: platform) FileSubject onModel: 'C:/Users')"> </div>
+  ~
 
 
 You may recall that **FileSubject** should have a _**createPresenter**_ method that  determines what kind of presenter should present it by default.  To correct this situation, follow the _Error: My subclass should have overridden #createPresenter_ link.
 
-~~ Center
-![debugCreatePresenter]
-~~
-
-[debugCreatePresenter]: images/debugCreatePresenter.png "debugCreatePresenter" { width:auto; max-width:90% }
-
 
 Next, expand the _**subclassResponsibility**_ frame:
-
-~~ Center
-![debugSubclassResponsibility]
-~~
-
-[debugSubclassResponsibility]: images/debugSubclassResponsibility.png "debugSubclassResponsibility" { width:auto; max-width:90% }
 
 Clicking on **FileSubject** will take us to **BraveNewWorldExplorer`FileSubject**.
 Add this method:
