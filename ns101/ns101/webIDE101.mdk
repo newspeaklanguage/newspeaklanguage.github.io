@@ -5,6 +5,7 @@ Logo          : True
 
 [TITLE]
 
+[INCLUDE=newspeak]
 
 
 This document is a guide to using Newspeak in the Hopscotch Web IDE. It acts as a tutorial for the IDE, and to a limited extent, for the Newspeak language as well.
