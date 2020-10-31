@@ -607,8 +607,8 @@ var wasmMemory;
 // In the wasm backend, we polyfill the WebAssembly object,
 // so this creates a (non-native-wasm) table for us.
 var wasmTable = new WebAssembly.Table({
-  'initial': 474,
-  'maximum': 474 + 0,
+  'initial': 477,
+  'maximum': 477 + 0,
   'element': 'anyfunc'
 });
 
@@ -1229,11 +1229,11 @@ function updateGlobalBufferAndViews(buf) {
 }
 
 var STATIC_BASE = 1024,
-    STACK_BASE = 158800,
+    STACK_BASE = 159296,
     STACKTOP = STACK_BASE,
-    STACK_MAX = 27728,
-    DYNAMIC_BASE = 158800,
-    DYNAMICTOP_PTR = 27568;
+    STACK_MAX = 28224,
+    DYNAMIC_BASE = 159296,
+    DYNAMICTOP_PTR = 28064;
 
 assert(STACK_BASE % 16 === 0, 'stack must start aligned');
 assert(DYNAMIC_BASE % 16 === 0, 'heap must start aligned');
@@ -1814,27 +1814,29 @@ var tempI64;
 var ASM_CONSTS = {
   
 };
-function _JS_performNew(numArgs){ var aliens = Module.aliens; var arguments = new Array(numArgs); for (var i = numArgs - 1; i >= 0; i--) { arguments[i] = aliens.pop(); } var receiver = aliens.pop(); try { var result = Reflect.construct(receiver, arguments); aliens.push(result); return true; } catch (exception) { aliens.push(exception); return false; } }
-function _JS_performDelete(){ var aliens = Module.aliens; var selector = aliens.pop(); var receiver = aliens.pop(); try { var result = Reflect.deleteProperty(receiver, selector); aliens.push(result); return true; } catch (exception) { aliens.push(exception); return false; } }
+function _JS_performHas(){ var aliens = Module.aliens; var selector = aliens.pop(); var receiver = aliens.pop(); try { var result = Reflect.has(receiver, selector); aliens.push(result); return true; } catch (exception) { aliens.push(exception); return false; } }
 function _JS_peekExpat(){ throw "Unimplemented"; }
-function _JS_pushFloat(value){ var aliens = Module.aliens; aliens.push(value); }
-function _JS_pushExpat(index){ var aliens = Module.aliens; function expat() { for (var i = 0; i < arguments.length; i++) { aliens.push(arguments[i]); } Module._handle_signal(index, arguments.length, 0, 0); return aliens.pop(); } aliens.push(expat); }
+function _JS_performSet(){ var aliens = Module.aliens; var argument = aliens.pop(); var selector = aliens.pop(); var receiver = aliens.pop(); try { var result = Reflect.set(receiver, selector, argument); aliens.push(argument); return true; } catch (exception) { aliens.push(exception); return false; } }
+function _JS_peekAlien(){ var aliens = Module.aliens; var lastIndex = aliens.length - 1; if (undefined === aliens[lastIndex]) { aliens.pop(); return 0; } else { return lastIndex; } }
+function _JS_popFloat(){ var aliens = Module.aliens; return aliens.pop(); }
+function _JS_popInteger(){ var aliens = Module.aliens; return aliens.pop(); }
+function _JS_peekType(){ var aliens = Module.aliens; var alien = aliens[aliens.length - 1]; if (null === alien) { return -1; } if (false === alien) { return -2; } if (true === alien) { return -3; } if (typeof alien === "number") { return Number.isInteger(alien) ? -4 : -5; } if (typeof alien === "string") { return lengthBytesUTF8(alien); } return -6; }
 function _JS_performGet(){ var aliens = Module.aliens; var selector = aliens.pop(); var receiver = aliens.pop(); try { var result = Reflect.get(receiver, selector); aliens.push(result); return true; } catch (exception) { aliens.push(exception); return false; } }
+function _JS_performDelete(){ var aliens = Module.aliens; var selector = aliens.pop(); var receiver = aliens.pop(); try { var result = Reflect.deleteProperty(receiver, selector); aliens.push(result); return true; } catch (exception) { aliens.push(exception); return false; } }
+function _JS_performInstanceOf(){ var aliens = Module.aliens; var constructor = aliens.pop(); var receiver = aliens.pop(); try { var result = receiver instanceof constructor; aliens.push(result); return true; } catch (exception) { aliens.push(exception); return false; } }
+function _JS_performInvoke(numArgs){ var aliens = Module.aliens; var arguments = new Array(numArgs); for (var i = numArgs - 1; i >= 0; i--) { arguments[i] = aliens.pop(); } var selector = aliens.pop(); var receiver = aliens.pop(); if ((undefined === receiver) || (undefined === receiver[selector])) { aliens.push("NoSuchMethod: " + selector); return false; } try { var result = Reflect.apply(receiver[selector], receiver, arguments); aliens.push(result); return true; } catch (exception) { aliens.push(exception); return false; } }
+function _JS_pushInteger(value){ var aliens = Module.aliens; aliens.push(value); }
+function _JS_pushFloat(value){ var aliens = Module.aliens; aliens.push(value); }
+function _JS_pushAlien(index){ var aliens = Module.aliens; aliens.push(aliens[index]); }
+function _JS_pushString(addr,size){ var aliens = Module.aliens; var value = UTF8ToString(addr, size); aliens.push(value); }
+function _JS_performNew(numArgs){ var aliens = Module.aliens; var arguments = new Array(numArgs); for (var i = numArgs - 1; i >= 0; i--) { arguments[i] = aliens.pop(); } var receiver = aliens.pop(); try { var result = Reflect.construct(receiver, arguments); aliens.push(result); return true; } catch (exception) { aliens.push(exception); return false; } }
 function _JS_popString(addr,size){ var aliens = Module.aliens; var string = aliens.pop(); stringToUTF8(string, addr, size + 1); }
 function _JS_initializeAliens(){ var aliens = new Array(); aliens.push(undefined); aliens.push(null); aliens.push(false); aliens.push(true); aliens.push(window); Module.aliens = aliens; }
-function _JS_pushString(addr,size){ var aliens = Module.aliens; var value = UTF8ToString(addr, size); aliens.push(value); }
-function _JS_peekType(){ var aliens = Module.aliens; var alien = aliens[aliens.length - 1]; if (null === alien) { return -1; } if (false === alien) { return -2; } if (true === alien) { return -3; } if (typeof alien === "number") { return Number.isInteger(alien) ? -4 : -5; } if (typeof alien === "string") { return lengthBytesUTF8(alien); } return -6; }
-function _JS_peekAlien(){ var aliens = Module.aliens; var lastIndex = aliens.length - 1; if (undefined === aliens[lastIndex]) { aliens.pop(); return 0; } else { return lastIndex; } }
-function _JS_pushAlien(index){ var aliens = Module.aliens; aliens.push(aliens[index]); }
-function _JS_popFloat(){ var aliens = Module.aliens; return aliens.pop(); }
-function _JS_pushInteger(value){ var aliens = Module.aliens; aliens.push(value); }
-function _JS_performInvoke(numArgs){ var aliens = Module.aliens; var arguments = new Array(numArgs); for (var i = numArgs - 1; i >= 0; i--) { arguments[i] = aliens.pop(); } var selector = aliens.pop(); var receiver = aliens.pop(); if ((undefined === receiver) || (undefined === receiver[selector])) { aliens.push("NoSuchMethod: " + selector); return false; } try { var result = Reflect.apply(receiver[selector], receiver, arguments); aliens.push(result); return true; } catch (exception) { aliens.push(exception); return false; } }
-function _JS_performSet(){ var aliens = Module.aliens; var argument = aliens.pop(); var selector = aliens.pop(); var receiver = aliens.pop(); try { var result = Reflect.set(receiver, selector, argument); aliens.push(argument); return true; } catch (exception) { aliens.push(exception); return false; } }
-function _JS_popInteger(){ var aliens = Module.aliens; return aliens.pop(); }
+function _JS_pushExpat(index){ var aliens = Module.aliens; function expat() { for (var i = 0; i < arguments.length; i++) { aliens.push(arguments[i]); } Module._handle_signal(index, arguments.length, 0, 0); return aliens.pop(); } aliens.push(expat); }
 
 
 
-// STATICTOP = STATIC_BASE + 26704;
+// STATICTOP = STATIC_BASE + 27200;
 /* global initializers */  __ATINIT__.push({ func: function() { ___wasm_call_ctors() } });
 
 
@@ -2059,7 +2061,7 @@ function _JS_popInteger(){ var aliens = Module.aliens; return aliens.pop(); }
     }
 
   function _emscripten_get_sbrk_ptr() {
-      return 27568;
+      return 28064;
     }
 
   
@@ -2701,7 +2703,7 @@ function intArrayToString(array) {
 // ASM_LIBRARY EXTERN PRIMITIVES: Math_floor,Math_ceil
 
 var asmGlobalArg = {};
-var asmLibraryArg = { "_JS_initializeAliens": _JS_initializeAliens, "_JS_peekAlien": _JS_peekAlien, "_JS_peekExpat": _JS_peekExpat, "_JS_peekType": _JS_peekType, "_JS_performDelete": _JS_performDelete, "_JS_performGet": _JS_performGet, "_JS_performInvoke": _JS_performInvoke, "_JS_performNew": _JS_performNew, "_JS_performSet": _JS_performSet, "_JS_popFloat": _JS_popFloat, "_JS_popInteger": _JS_popInteger, "_JS_popString": _JS_popString, "_JS_pushAlien": _JS_pushAlien, "_JS_pushExpat": _JS_pushExpat, "_JS_pushFloat": _JS_pushFloat, "_JS_pushInteger": _JS_pushInteger, "_JS_pushString": _JS_pushString, "__cxa_atexit": ___cxa_atexit, "__handle_stack_overflow": ___handle_stack_overflow, "__map_file": ___map_file, "__sys_fcntl64": ___sys_fcntl64, "__sys_fstat64": ___sys_fstat64, "__sys_ioctl": ___sys_ioctl, "__sys_munmap": ___sys_munmap, "__sys_open": ___sys_open, "__sys_stat64": ___sys_stat64, "abort": _abort, "clock_gettime": _clock_gettime, "emscripten_get_sbrk_ptr": _emscripten_get_sbrk_ptr, "emscripten_longjmp": _emscripten_longjmp, "emscripten_memcpy_big": _emscripten_memcpy_big, "emscripten_resize_heap": _emscripten_resize_heap, "environ_get": _environ_get, "environ_sizes_get": _environ_sizes_get, "exit": _exit, "fd_close": _fd_close, "fd_fdstat_get": _fd_fdstat_get, "fd_read": _fd_read, "fd_seek": _fd_seek, "fd_write": _fd_write, "getTempRet0": _getTempRet0, "invoke_vi": invoke_vi, "memory": wasmMemory, "round": _round, "saveSetjmp": _saveSetjmp, "setTempRet0": _setTempRet0, "strftime_l": _strftime_l, "table": wasmTable, "testSetjmp": _testSetjmp };
+var asmLibraryArg = { "_JS_initializeAliens": _JS_initializeAliens, "_JS_peekAlien": _JS_peekAlien, "_JS_peekExpat": _JS_peekExpat, "_JS_peekType": _JS_peekType, "_JS_performDelete": _JS_performDelete, "_JS_performGet": _JS_performGet, "_JS_performHas": _JS_performHas, "_JS_performInstanceOf": _JS_performInstanceOf, "_JS_performInvoke": _JS_performInvoke, "_JS_performNew": _JS_performNew, "_JS_performSet": _JS_performSet, "_JS_popFloat": _JS_popFloat, "_JS_popInteger": _JS_popInteger, "_JS_popString": _JS_popString, "_JS_pushAlien": _JS_pushAlien, "_JS_pushExpat": _JS_pushExpat, "_JS_pushFloat": _JS_pushFloat, "_JS_pushInteger": _JS_pushInteger, "_JS_pushString": _JS_pushString, "__cxa_atexit": ___cxa_atexit, "__handle_stack_overflow": ___handle_stack_overflow, "__map_file": ___map_file, "__sys_fcntl64": ___sys_fcntl64, "__sys_fstat64": ___sys_fstat64, "__sys_ioctl": ___sys_ioctl, "__sys_munmap": ___sys_munmap, "__sys_open": ___sys_open, "__sys_stat64": ___sys_stat64, "abort": _abort, "clock_gettime": _clock_gettime, "emscripten_get_sbrk_ptr": _emscripten_get_sbrk_ptr, "emscripten_longjmp": _emscripten_longjmp, "emscripten_memcpy_big": _emscripten_memcpy_big, "emscripten_resize_heap": _emscripten_resize_heap, "environ_get": _environ_get, "environ_sizes_get": _environ_sizes_get, "exit": _exit, "fd_close": _fd_close, "fd_fdstat_get": _fd_fdstat_get, "fd_read": _fd_read, "fd_seek": _fd_seek, "fd_write": _fd_write, "getTempRet0": _getTempRet0, "invoke_vi": invoke_vi, "memory": wasmMemory, "round": _round, "saveSetjmp": _saveSetjmp, "setTempRet0": _setTempRet0, "strftime_l": _strftime_l, "table": wasmTable, "testSetjmp": _testSetjmp };
 var asm = createWasm();
 Module["asm"] = asm;
 /** @type {function(...*):?} */
@@ -2863,6 +2865,20 @@ var ___em_js___JS_performNew = Module["___em_js___JS_performNew"] = function() {
   assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
   assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
   return Module["asm"]["__em_js___JS_performNew"].apply(null, arguments)
+};
+
+/** @type {function(...*):?} */
+var ___em_js___JS_performInstanceOf = Module["___em_js___JS_performInstanceOf"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["__em_js___JS_performInstanceOf"].apply(null, arguments)
+};
+
+/** @type {function(...*):?} */
+var ___em_js___JS_performHas = Module["___em_js___JS_performHas"] = function() {
+  assert(runtimeInitialized, 'you need to wait for the runtime to be ready (e.g. wait for main() to be called)');
+  assert(!runtimeExited, 'the runtime was exited (use NO_EXIT_RUNTIME to keep it alive after main() exits)');
+  return Module["asm"]["__em_js___JS_performHas"].apply(null, arguments)
 };
 
 /** @type {function(...*):?} */
