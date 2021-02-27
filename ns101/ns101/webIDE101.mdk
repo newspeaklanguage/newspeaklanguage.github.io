@@ -90,17 +90,18 @@ Let’s start by opening the Newspeak IDE. Make sure you’ve installed Newspeak
 
 #How do I install Newspeak?{-; #sec-how-do-i-install-newspeak}
 
-You don't. Eventually, a process for maintaining a personal copy and
-running it under node might be added.
+You don't have to - you can run it in your browser. However, more capabilities are available if you 
+do install it locally. You can install like any other desktop app, via your platform's app store.
 
 
 
 #How do I open the Newspeak IDE?{-; #sec-how-do-i-open-the-newspeak-ide}
 
-Point your web browser at TBD
+Point your web browser at
 
 https://newspeaklanguage.github.io/primordialsoup.html?snapshot=HopscotchWebIDE.vfuel#
 
+or, if you have the NewspeakIDE app, just open it like any other app on your computer.
 This will open the IDE; you should see something like this:
 
 ~HtmlRaw
@@ -237,10 +238,7 @@ These elements help answer questions like:
 
 #How do I browse senders/implementors?{-; #sec-how-do-i-browse-sendersimplementors}
 
-The number of senders of this message may appear immediately to the right of a method name link.  You may see this information being filled in when a browser opens a class it has not displayed before. You do not need to wait for this process to complete. Because gathering this information takes significant time, it is done in the background.
-The sender information is actually a link.
-
-Another way to get at the sender/implementor information is the speech bubble, ![speechBubble], which generally denotes references to an entity (who’s talking about me ). In the case of a method, clicking on it brings up a pop-up menu with a list of messages, starting with the method’s selector, and including all messages used inside the method. Choose an item from the menu to get the list of implementors and senders for that message.
+Use the speech bubble, ![speechBubble], which generally denotes references to an entity (who’s talking about me ). In the case of a method, clicking on it brings up a pop-up menu with a list of messages, starting with the method’s selector, and including all messages used inside the method. Choose an item from the menu to get the list of implementors and senders for that message.
 
 [speechBubble]: images/speechBubble.png "speechBubble" { width:auto; max-width:90% }
 
@@ -297,7 +295,12 @@ Let’s navigate back to the original class. It’s time we looked more carefull
 
 #How do I navigate in the IDE?{-; #sec-how-do-i-navigate-in-the-browser}
 
-Use the browser's navigation controls. 
+In the web browser, use the browser's forward and back buttons. The local app has its own forward and 
+back buttons.
+
+You can also use the history button to 
+get a list of presenters that you've visited. Each item in the list is a link, so you are never
+more than two clicks away form anything you've already viewed.
 
 
 
@@ -329,14 +332,40 @@ Whichever way you open an inspector, you’re likely to see a view such as the f
 
 [inspector99]: images/inspector99.png "inspector99" { width:auto; max-width:90% }
 
-Each slot of the inspected object is listed in the inspector. It is prefixed by an arrow icon that allows you to view an inspector on the value of the slot in context . Following the slot name is a description of the slot value, which is itself a link to an inspector on the slot value.  The gray area at the top of the inspector gives a description of the object being inspected, and a link to its class and its enclosing object. Clicking on the class brings up a class presenter on the class, not an inspector on the class object. If you need to inspect the class object, you can do that by evaluating the message _class_ in the editor.
+This is known as the *Basic View* on an object. 
+Each slot of the inspected object is listed in the inspector. It is prefixed by an arrow icon that
+allows you to view an inspector on the value of the slot in context . Following the slot name is a 
+description of the slot value, which is itself a link to an inspector on the slot value.  
+
+The gray area at the top of the inspector gives a description of the object being inspected, and a link 
+to ist class and its enclosing object. Clicking on the class brings up a class presenter on the class, 
+not an inspector on the class object. If you need to inspect the class object, you can do that by 
+evaluating the message _class_ in the evaluator.
+
+Some objects use other views, either in addition to, or instead of, the basic view. For example,
+strings show their content, but no slots, since the intertnal representation of strings is part of the
+language implementation. 
+
+Objects like lists, maps or sets show a custom view listing their elements, and keys or indices as 
+applicable. They also provide the basic view, andou can choose between views using the tabs at the top 
+of the inspector.
+ 
 
 
 
 #How do I evaluate code?{-; #sec-how-do-i-evaluate-code}
 
-The inspector has an interaction pane in which you can evaluate expressions in the context of the object. Type in an expression (3 + 4 in the example below). A link to the result of the expression is added. You can follow the link to view
-an inspactor on the result. 
+The inspector has an evaluator pane in which you can evaluate expressions in the context of the object.
+ Type in an expression (3 + 4 in the example below). A link to the result of the expression is added. 
+ You can follow the link to view an inspector on the result. 
+ 
+Notice that evaluator is live. It changes its display on every keystroke. You can toggle this behavior
+using the suspend live evaluation button. Live evaluation is useful when you want the system to 
+immediately catch any errors you make, but can be distracting as you type incimplete parts of a larger
+expression. You can also select code and evaluate it.  
+
+If you want to evaluate multiple expressions, separate them with periods, just like statements in 
+ordinary code.
 
 
 ~HtmlRaw
@@ -349,7 +378,8 @@ Of course, if something ungood happens, our evaluation may raise an exception.
 
 ##What if evaluation raises an exception?{-; #sec-what-if-evaluation-raises-an-exception}
 
-In that case, rather than a link to the result, you get a link to the debugger.  Assume that we have a class **BlowUp**, with the following method
+In that case, rather than a link to the result, you get a link to the debugger. 
+Assume that we have a class **BlowUp**, with the following method
 
 ~HtmlRaw
 <div class="classPresenter" className = "Blowup"> </div>
@@ -362,45 +392,71 @@ Calling _BlowUp>>provokeBug:_ from a workspace gives us the following display:
   ~
 
 Note that the result link in red, and describes an exception. We can follow the
-link, which leads us to the a [debugger](#sec-how-do-i-run-the-newspeak-debugger) open on the thread tharaised the exception.
+link, which leads us to the a [debugger](#sec-how-do-i-run-the-newspeak-debugger) open on the thread 
+that raised the exception.
 
 
 #What if I want to get at the platform or IDE namespace from an inspector?{-; #sec-what-if-i-want-to-get-at-the-platform-or-ide-namespace-from-an-inspector}
 
-Sometimes you need to evaluate an expression that involves an object that isn't accessible from the current scope. Perhaps you need to get at a module you didn’t import. 
+Sometimes you need to evaluate an expression that involves an object that isn't accessible from the current 
+scope. Perhaps you need to get at a module you didn’t import. 
 
-In this situation, you can use a workspace. A workspace is an object in the IDE that gives access to the IDE's top level namespace, as well as to the platform object and its members.
+In this situation, you can use a workspace. A workspace is an object in the IDE that gives access to the 
+ide, the IDE's top level namespace, as well as to the platform object and its members.
 
-In inspectors, the backtick (`) is allowed in expressions, and evaluates to a workspace. So you can send messages like 
+In inspectors, the backtick (`) is allowed in expressions, and evaluates to a workspace. 
+So you can send messages like 
 
 _`  collections (\* note the space after the backtick - it has to be there *)_
 
-and get at the collections module of the platform, even if you forgot to import it. This won't work in regular code of course - the backtick was chosen precisely because it is not legal Newspeak syntax. And we don't want to undermine Newspeak's modularity by providing such a back door.  However, you the programmer are all-powerful during development. You can get anything you need through the workspace.
+and get at the collections module of the platform, even if you forgot to import it. This won't work in 
+regular code of course - the backtick was chosen precisely because it is not legal Newspeak syntax. 
+And we don't want to undermine Newspeak's modularity by providing such a back door.  
+However, you the programmer are all-powerful during development. 
+You can get anything you need through the workspace.
 
 
 
 #How do I run the Newspeak Debugger?{-; #sec-how-do-i-run-the-newspeak-debugger}
 
 
-You will encounter the debugger if an uncaught exception occurs during execution. If you evaluate an expression that results in an uncaught exception in a Hopscotch workspace or object inspector, the inspector will catch the exception, as described above. The text describing the exception also serves as a link that opens up a debugger page on the stack of the failed computation. Click on the link, to get a debugger in a new window. The debugger displays the call stack. 
+You will encounter the debugger if an uncaught exception occurs during execution. If you evaluate an 
+expression that results in an uncaught exception in a Hopscotch workspace or object inspector, the 
+inspector will catch the exception, as described above. The text describing the exception also serves as 
+a link that opens up a debugger page on the stack of the failed computation. Click on the link, to get a 
+debugger in a new window. The debugger displays the call stack. 
 
-Each activation frame is expandable to an activation presenter which allows you to see the method in question and the state of the frame. You can see all this in the screenshot below, where we have two activations open - one for _**provokeBug:**_ and one for the code we evaluated in the workspace.  You'll notice that the Newspeak debugger is unusual in that it allows you to simultaneously view multiple frames, such as caller and callee.
+Each activation frame is expandable to an activation presenter which allows you to see the method in 
+question and the state of the frame. You can see all this in the live debugger below, where we have two 
+activations open - one for _**provokeBug:**_ and one for the code we evaluated in the workspace.  
+You'll notice that the Newspeak debugger is unusual in that it allows you to simultaneously view 
+multiple frames, such as caller and callee.
 The debugger will mark the site of the active message send in blue.
 
 
-The method is shown on the left, and above it buttons that control stepping etc. The debugger will mark the site of the active message send in blue.
+The method is shown on the left, and above it buttons that control stepping etc. 
+The debugger will mark the site of the active message send in blue.
 
-The frame state is shown on the right, and includes the receiver, any parameters and local slots, and the contents of the expression stack. Each of these is identified by name, and has a link to an inspector on the value next to it. These links are expandable in place via arrow icons.
+The frame state is shown on the right, and includes the receiver, any parameters and local slots, and 
+the contents of the expression stack. Each of these is identified by name, and has a link to an 
+inspector on the value next to it. These links are expandable in place via arrow icons.
 
-Near the top right hand corner of the activation presenter is an evaluator, where we can evaluate expressions in the context of the activation, just like in an object inspector. 
+Near the top right hand corner of the activation presenter is an evaluator, where we can evaluate 
+expressions in the context of the activation, just like in an object inspector. 
 
-Evaluating an expression produces a link to the result. To the right of that link will be another link, return it. If you click on it, the object in question will be returned as the result of the method, irrespective of its normal course of computation.
+Evaluating an expression produces a link to the result. To the right of that link will be another link, 
+return it. If you click on it, the object in question will be returned as the result of the method, 
+irrespective of its normal course of computation.
 
-You may use the method presenter on the left as you usually would; you may edit the method and save the changes for example. This will discard all activations above the edited method, and restart the method at its beginning.
+You may use the method presenter on the left as you usually would; you may edit the method and save the 
+changes for example. This will discard all activations above the edited method, and restart the method 
+at its beginning.
 
-In our case, we can see that the problem is that _**missing:with:**_ is not defined. Expand the top frame on the stack, to see the _**doesNotUnderstand:**_ method.
+In our case, we can see that the problem is that _**missing:with:**_ is not defined. Expand the top frame 
+on the stack, to see the _**doesNotUnderstand:**_ method.
 
-If the activation involves the method _**doesNotUnderstand:**_, the drop down menu at the right will have an option to declare the missing method semi-automatically.  
+If the activation involves the method _**doesNotUnderstand:**_, the drop down menu at the right will 
+have an option to declare the missing method, slot or class semi-automatically.  
 
 
 ~~ Center
@@ -413,7 +469,9 @@ If the activation involves the method _**doesNotUnderstand:**_, the drop down me
 
 
 
-You will be transported to a class browser page for the class of the receiver, with an editor open on a new method with the appropriate name. The system will also guess types for the parameters based on the actual arguments that had been passed. 
+You will be transported to a class browser page for the class of the receiver, with an editor open on a 
+new method with the appropriate name. The system will also guess types for the parameters based on the 
+actual arguments that had been passed. 
 
 ~~ Center
 
@@ -565,19 +623,23 @@ Edit the class header.
 #How does Source Control Work?{-; #sec-how-does-source-control-work}
 
 
-The Hopscotch IDE features an integrated source code management system called MemoryHole, that currently runs on top of Git.
+The Hopscotch IDE features an integrated source code management system called MemoryHole, that currently 
+runs on top of Git.
 
-Of course, if MemoryHole doesn’t suit you, you may always choose to save and load classes to/from files, using the version control software of your choice. To be honest, you may well be the first to go that route.
+Of course, if MemoryHole doesn’t suit you, you may always choose to save and load classes to/from files, 
+using the version control software of your choice.
 
 
 
 ##The MemoryHole Page{-; #sec-the-memoryhole-page}
 
 
-You get to source control from the link marked _Repositories_ on the home page. You’ll need to have Mercurial or Git installed for this to work.
+You get to source control from the link marked _Repositories_ on the home page. 
+You’ll need to have Git installed for this to work.
 
 
-MemoryHole shows you a list of repositories that are available to you. The first time you go to the source control page, it will be likely be empty.
+MemoryHole shows you a list of repositories that are available to you. The first time you go to the 
+source control page, it will be likely be empty.
 
 ~~ Center
 ![memoryHole-empty]
