@@ -4,7 +4,7 @@
 \usepackage{epsfig}
 %\usepackage{amssymb,amsmath,amsthm}
 \newcommand{\code}[1]{{\sf #1}}
-\title{Newspeak Programming Language Draft Specification Version 0.1}
+\title{Newspeak Programming Language Draft Specification Version 0.101}
 \author{Gilad Bracha}
 \begin{document}
 \maketitle
@@ -577,7 +577,7 @@ This also means that a top level expression is not evaluated in the context of a
 
 Likewise, by definition there is no surrounding class at the top level, so \SELF{} (\ref{selfKw}), self sends (\ref{self}), outer sends (\ref{out}) and super sends (\ref{super}) are excluded as well.
 
-What can be expressed are module declarations (\ref{module}), and sends that can be used to send these declarations to a module that can instantiate them link them together.
+What can be expressed are module declarations (\ref{module}), and sends that can be used to send these declarations to a module that can instantiate them and link them together.
 
 At this time, object literals have not been implemented. 
 }
@@ -667,9 +667,22 @@ Here is the lexical grammar for Newspeak. It and all subsequent syntax are writt
 \subsection{Metadata}
 \label{metadata}
 
-{\it Partially implemented. Syntax is supported, but it is ignored.} Metadata appears in nestable comments of the form \code{ (*:id: xyz *)} where \code{id} is the name of a particular metadata interpreter that is responsible, at compile time, for parsing and processing the text \code{xyz}. A metadata comment can appear between any two expressions, and is associated with the expression immediately after it.
+Metadata appears in nestable comments of the form \code{ (*:id: xyz *)} where \code{id} is the name of a particular metadata interpreter that is intended to parse and process the text \code{xyz}. A metadata comment can appear between any two expressions or declarations.  
 
-What scope \code{id} belongs to, how the comment is associated with the AST and by whom (the compiler, or the tool) are open questions.
+A metadata comment $mc$ is considered to appear immediately before an expression, formal parameter or slot declaration  $x$ if nothing but whitespace and comments appears after $mc$ and before $x$.
+
+A metadata comment $mc$ is considered to appear immediately after an expression, formal parameter or slot declaration  $x$ if nothing but whitespace and comments appears after $x$ and before $mc$.
+
+A metadata comment that appears immediately prior to an expression is associated with that expression. A metadata comment that appears immediately prior to a slot or parameter declaration is associated with that slot declaration.
+A metadata comment that appears immediately after a method or class factory's message pattern is associated with that method or class factory. A metadata comment that appears immediately after a classes' header is associated with that class. 
+
+{\it The above implies that multiple metadata comments can be associated with an expression or declaration; that is, metadata comments can appear in sequence with no intervening expressions or declarations.
+} 
+
+Metadata comments are available at runtime via mirrors.
+{\it
+This means that they are available at runtime iff the platform supports mirrors. Reflective applications have full access to all metadata. Non-reflective applications are not burdened by it at runtime.
+}
 
 Ordinary comments are given as metadata that does not specify a metadata interpreter. That way, they are attached to a known place in the program and are not thrown away, so they can be preserved during refactoring.
 
