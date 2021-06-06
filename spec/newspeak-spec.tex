@@ -667,7 +667,10 @@ Here is the lexical grammar for Newspeak. It and all subsequent syntax are writt
 \subsection{Metadata}
 \label{metadata}
 
-Metadata appears in nestable comments of the form \code{ (*:id: xyz *)} where \code{id} is the name of a particular metadata interpreter that is intended to parse and process the text \code{xyz}. A metadata comment can appear between any two expressions or declarations.  
+Metadata appears in nestable comments of the form \code{ (*:id: xyz *)} where \code{id} is the name of a particular metadata interpreter that is intended to parse and process the text \code{xyz}. 
+The identifier given between the colons is the comment's  {\em tag}, and the text following the second colon is the comment's {\em payload}.
+
+A metadata comment can appear between any two expressions or declarations.  
 
 A metadata comment $mc$ is considered to appear immediately before an expression, formal parameter or slot declaration  $x$ if nothing but whitespace and comments appears after $mc$ and before $x$.
 
@@ -684,11 +687,37 @@ Metadata comments are available at runtime via mirrors.
 This means that they are available at runtime iff the platform supports mirrors. Reflective applications have full access to all metadata. Non-reflective applications are not burdened by it at runtime.
 }
 
-Ordinary comments are given as metadata that does not specify a metadata interpreter. That way, they are attached to a known place in the program and are not thrown away, so they can be preserved during refactoring.
+Ordinary comments are given as metadata that does not specify a tag That way, they are attached to a known place in the program and are not thrown away, so they can be preserved during refactoring.
 
 
 {\it
-We expect to use the metadata mechanism for a pluggable type system. We currently support a built-in optional type annotation syntax based on the Strongtalk type system. This is an ad hoc measure, and serves only for documentation at the moment - no typechecker has been implemented. Newspeak is significantly more dynamic, and harder to typecheck, than Smalltalk, so it is not possible to directly carry over the Strongtalk system to Newspeak. 
+We expect to use the metadata mechanism for a pluggable type system. In the example code below, tags such as {\em tag} and {\em return-type} are used to provide type information.
+
+We currently support a built-in optional type annotation syntax based on the Strongtalk type system. This is an ad hoc measure, and serves only for documentation at the moment - no typechecker has been implemented. Newspeak is significantly more dynamic, and harder to typecheck, than Smalltalk, so it is not possible to directly carry over the Strongtalk system to Newspeak. 
+}
+
+{\it
+Another possible  use for metadata is to faciliate liveness in an IDE.  We can annotate methods and factories with metadata describing a sample call to the method/factory. The IDE can use this information to provide exemplar instances of the class (in case of a factory) or live activations of a method, so that users have access to live data for parameters and can evaluate expressions freely.
+The example code below uses the tag {\em exemplar} for this purpose.
+}
+
+{\it
+Here is an example showing how metadata is distributed in a class declaration:
+\newline
+\begin{newspeak}
+\CLASS{} Foo bar: x (*:exemplar:  Foo bar: \#baz *) = (* :superfactory: Bla send metadata *) Bla bar = ( 
+   $|$ (:type: Integer *) x = 3. $|$    
+  (* :baz-metadata: *) baz:  (* :x=meta: *) x.   
+) (* :class-meta: *) (   
+    baz: (* :type: Integer *) t (* :return-type: \^{}Integer *) (* :exemplar:  baz: 42*) = ( 
+       (*:setter-meta: *) y:: (*:send-meta: *) x.       
+       (*:return-meta: *) \^{} (*:send-meta: *) x    
+    ) 
+)
+\end{newspeak}
+
+The slot and expression metadata precedes the AST (so send metadata is unambiguous).
+Method metadata immediately succeeds the last parameter (or the method name if there are no parameters). This means that the return type is given as is method-wide metadata. The same rules work for class factories and super factory calls. Class wide metadata is provided after class header and before class body.
 }
 
 \section{Expressions}
