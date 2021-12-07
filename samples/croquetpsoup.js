@@ -3389,21 +3389,17 @@ function retrieveTheModel() {
 class NewspeakCroquetModel extends Croquet.Model {
 
     init() {  // only runs once, when a new session is initiated. Thus, not the right place to start up Newspeak
-	this.myCounter = 0;
 	this.subscribe('newspeak_croquet_counter', 'increment', this.increment);
 	this.subscribe('newspeak_croquet_counter', 'decrement', this.decrement);
 	this.subscribe('newspeak_croquet_counter', 'reset', this.reset);	
     }
     increment(){
-	this.myCounter = this.myCounter + 1;
 	this.publish('newspeak_croquet_counter', 'model_increment');
     }
-    decrement(){
-	this.myCounter = this.myCounter - 1;	
+    decrement(){	
 	this.publish('newspeak_croquet_counter', 'model_decrement');
     }
     reset(){
-	this.myCounter = 0;
 	this.publish('newspeak_croquet_counter', 'model_reset');
     }    
 }
