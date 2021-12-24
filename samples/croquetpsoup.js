@@ -3376,32 +3376,54 @@ function exit(status, implicit) {
 
 var theModel;
 var theView;
+var NSCroquetButtonView;
 
 function storeModelAndView(m, v) {
     theModel = m;
     theView = v;
+    NSCroquetButtonView = NewspeakCroquetButtonView;
 }
 
-function retrieveTheModel() {
-    return theModel;
+class NewspeakCroquetButtonModel extends Croquet.Model {
+    init(options) {
+	this.nsButtonId = options.nsButtonId;
+	console.log('Button model ' + this.nsButtonId + ' initialized, model id = ' + this.id);
+	this.subscribe(this.nsButtonId, 'click', this.click);
+    }
+    click(){
+	console.log('Button model ' + this.nsButtonId + ' was clicked, model id = ' + this.id);
+	this.publish(this.nsButtonId, 'model_click');
+    }
 }
+
+class NewspeakCroquetButtonView extends Croquet.View {
+    constructor(model, presenter) {
+	super(model);
+	console.log('Button view' + model.nsButtonId + ' initialized, model id = ' + model.id);
+    }
+    modelID() {
+	return model.id
+    }
+}
+
+NewspeakCroquetButtonModel.register("NewspeakCroquetButtonModel"); 
 
 class NewspeakCroquetModel extends Croquet.Model {
 
     init() {  // only runs once, when a new session is initiated. Thus, not the right place to start up Newspeak
-	this.subscribe('newspeak_croquet_counter', 'increment', this.increment);
-	this.subscribe('newspeak_croquet_counter', 'decrement', this.decrement);
-	this.subscribe('newspeak_croquet_counter', 'reset', this.reset);	
+	this.fragments = new Map();
+	this.subscribe('newspeak_croquet_button', 'createButton', this.createButton);		
     }
-    increment(){
-	this.publish('newspeak_croquet_counter', 'model_increment');
+    createButton(bid) {
+	var m;
+	if (this.fragments.has(bid)) {
+	    m = this.fragments.get(bid)
+	} else {
+	    m = NewspeakCroquetButtonModel.create({nsButtonId: bid});
+	    this.fragments.set(bid, m);
+	}
+	this.publish(bid , 'model_createButton', m);
     }
-    decrement(){	
-	this.publish('newspeak_croquet_counter', 'model_decrement');
-    }
-    reset(){
-	this.publish('newspeak_croquet_counter', 'model_reset');
-    }    
 }
 
 NewspeakCroquetModel.register("NewspeakCroquetModel");
@@ -3421,10 +3443,9 @@ class NewspeakCroquetView extends Croquet.View {
 	noExitRuntime = true;
 	run();
   }
+}
 
-       }
-
-const apiKey = "1zc2mdtxPlA6dPaEbopBy828FeEfn4OqMErgqg5Cd";              // paste from croquet.io/keys
+const apiKey = "1g8dBJxALIxjKuCIblCBIttBxKOvNxOKfNgaK6ufq"; // paste from croquet.io/keys
 const appId = "org.newspeaklanguage.counter";
 const name = "NSCounterDevelopment"; //Croquet.App.autoSession();
 const password = "neverMind"; // Croquet.App.autoPassword();
