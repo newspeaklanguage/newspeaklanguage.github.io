@@ -3372,26 +3372,33 @@ function exit(status, implicit) {
   quit_(status, new ExitStatus(status));
 }
 
-
+	if (Module['preInit']) {
+	    if (typeof Module['preInit'] == 'function') Module['preInit'] = [Module['preInit']];
+	    while (Module['preInit'].length > 0) {
+		Module['preInit'].pop()();
+	    }
+	}
+	noExitRuntime = true;
 
 var theModel;
-var theView;
+var theRealView;
+var theView = new Promise(function(resolve, reject) {
+    setTimeout(() => resolve(theRealView), 1000);
+});
 var NSCroquetButtonView;
 
 function storeModelAndView(m, v) {
     theModel = m;
-    theView = v;
+    theRealView = v;
     NSCroquetButtonView = NewspeakCroquetButtonView;
 }
 
 class NewspeakCroquetButtonModel extends Croquet.Model {
     init(options) {
 	this.nsButtonId = options.nsButtonId;
-	console.log('Button model ' + this.nsButtonId + ' initialized, model id = ' + this.id);
 	this.subscribe(this.nsButtonId, 'click', this.click);
     }
     click(){
-	console.log('Button model ' + this.nsButtonId + ' was clicked, model id = ' + this.id);
 	this.publish(this.nsButtonId, 'model_click');
     }
 }
@@ -3399,7 +3406,6 @@ class NewspeakCroquetButtonModel extends Croquet.Model {
 class NewspeakCroquetButtonView extends Croquet.View {
     constructor(model, presenter) {
 	super(model);
-	console.log('Button view' + model.nsButtonId + ' initialized, model id = ' + model.id);
     }
     modelID() {
 	return model.id
@@ -3434,13 +3440,6 @@ class NewspeakCroquetView extends Croquet.View {
 	this.presenter = presenter;
 	storeModelAndView(model, this);
 	// run Newspeak. Ultimately deal with deserializing state from Croquet model
-	if (Module['preInit']) {
-	    if (typeof Module['preInit'] == 'function') Module['preInit'] = [Module['preInit']];
-	    while (Module['preInit'].length > 0) {
-		Module['preInit'].pop()();
-	    }
-	}
-	noExitRuntime = true;
 	run();
   }
 }
