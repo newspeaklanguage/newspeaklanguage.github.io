@@ -4,7 +4,7 @@
 \usepackage{epsfig}
 %\usepackage{amssymb,amsmath,amsthm}
 \newcommand{\code}[1]{{\sf #1}}
-\title{Newspeak Programming Language Draft Specification Version 0.101}
+\title{Newspeak Programming Language Draft Specification Version 0.102}
 \author{Gilad Bracha}
 \begin{document}
 \maketitle
@@ -31,7 +31,7 @@ Newspeak is:
 \begin{itemize}
 \item  {\em Network-serviced.} Newspeak applications can be updated over the internet {\em while running;} the language supports {\em orthogonal synchronization, } making it straightforward to synchronize persistent data with a remote server, supporting backup, sharing and collaboration \cite{bracha05}.
 {\it
-The synchronization features are in their early design stages, and only partially implemented. See section \ref{transientSlots}
+The synchronization features are in their early design stages, and only partially implemented. See section \ref{Slots}
 }
 \item  {\em Message-based.}  All computation  - even an object's own access to its internal structure - is performed by sending messages to objects. Hence, everything in Newspeak is an object, from elementary data such as numbers and booleans up to functions, classes and modules.
 \item  {\em Secure.} Newspeak objects encapsulate their representation, and Newspeak programs have no static state, providing a sound basis for an object-capability security model \cite{RobustComposition}.
@@ -1735,7 +1735,7 @@ classHeader =  lparen,  classComment opt,
                                              
 classComment:: whitespace, comment.     
 initExprs = (expression, (dot expression) star, dot opt) opt.  
-sideDecl = lparen, nestedClassDecl star, transientSlotDecl star, category star, rparen.
+sideDecl = lparen, nestedClassDecl star, lazySlotDecl star, category star, rparen.
 nestedClassDecl = accessModifier opt, classDeclaration.
 category:: empty, methodDecl star.
 classSideDecl = colon, lparen, category star, rparen.                               
@@ -1859,41 +1859,37 @@ The setter method is implicitly defined by the slot declaration. It sets the val
 
 {\it 
 In some cases, one would prefer that the setter method return its argument rather than its receiver.
-In such cases, one may use a setter send (\ref{setter}). One might quibble that this choice couples the syntactic convenience of setter sends with a policy choice regarding their result. This is true, but supporting the cross product of desired return type and desired precedence seems too complex. In practice, the current specification seems satisfactory.
+In such cases, one may use a settxer send (\ref{setter}). One might quibble that this choice couples the syntactic convenience of setter sends with a policy choice regarding their result. This is true, but supporting the cross product of desired return type and desired precedence seems too complex. In practice, the current specification seems satisfactory.
 }
 
-\subsubsection{Transient Slots}
-\label{transientSlots}
+\subsubsection{Lazy Slots}
+\label{lazySlots}
 
-{\it Experimental.}  A {\em transient slot} is a  slot that is initialized lazily, upon first use. 
+A {\em lazy slot} is a  slot that is initialized lazily, upon first use. 
 
 \begin{newspeak}
-transientModifier = (tokenFromSymbol: \#transient), whitespace.
+lazyModifier = (tokenFromSymbol: \#lazy), whitespace.
 
-transientSlotDecl = accessModifier opt, transientModifier, slotDecl, 
+lazySlotDecl = lazyModifier, accessModifier opt, slotDecl, 
                     ((tokenFromSymbol: \#=) $|$ 
                       (tokenFromSymbol: \#'::=')
                      ), expression, dot.
 \end{newspeak}
 
-A transient slot declaration has the form \code{transient $m ::= e.$} or \code{transient $m = e.$}, possibly prefixed with an access modifier.
- A transient slot  always has an initialization expression $e$, but the slot value is initially \NIL{}.
+A lazy slot declaration has the form \code{lazy $m ::= e.$} or \code{lazy $m = e.$}, possibly prefixed with an access modifier.
+ A lazy slot  always has an initialization expression $e$, but the slot value is initially \NIL{}.
 When the slot is read by invoking its getter method $m$, if the slot contains \NIL{}, $e$ is evaluated to an object $o$, the slot's value is set to $o$ (but not by means of a setter method), and $o$ is returned as the result of the send.  Otherwise, the result of getter method invocation $m$ is the value the slot contains.  
 % The stuff below is not what we agreed to implement. We may bring it back later. Commented out for now.
-%It is a runtime error to invoke the  setter method, $m{:}$,  of a mutable transient slot with an argument other than \NIL{}.
+%It is a runtime error to invoke the  setter method, $m{:}$,  of a mutable lazy slot with an argument other than \NIL{}.
 
 %{\it
-%The restriction on the setter argument ensures that accessing a transient slot always yields a value that is a result of executing its initializer expression.
+%The restriction on the setter argument ensures that accessing a lazy slot always yields a value that is a result of executing its initializer expression.
 %}
 
 {\it 
-Transient slots are designed to help support {\em orthogonal synchronization} \cite{bracha05}. The intent is that when synchronization occurs, all transient slots will be set to \NIL{}, and recomputed on demand based on persistent values that are synchronized. Transient slots themselves need never be persisted or synchronized.
+Lazy slots are particularly useful for implementing {\em orthogonal synchronization} \cite{bracha05}. The intent is that when synchronization occurs, all lazy slots will be set to \NIL{}, and recomputed on demand based on persistent values that are synchronized. Lazy slots themselves need never be persisted or synchronized.
 
-It is certainly possible to use transient slots as lazily initialized slots, but they should not be seen as the primary source of truth; they are by design, derivative values, such as caches.
-
-Note that transient slots may be immutable. The changes to a slot as a result of synchronization should be seen as reflective program changes, not as imperative mutations.
-
-At this stage, transient slots are in an experimental implementation, and no synchronization or persistence support is in place.
+Note that lazy slots may be immutable. The changes to a slot as a result of synchronization should be seen as reflective program changes, not as imperative mutations.
 }
 
 \subsubsection{Method Declarations}
@@ -1923,9 +1919,6 @@ keywordMsgPattern = (keyword, slotDecl) plus.
 \label{module}
 
 A module declaration is a class expression that is not nested in any other class expression or object literal.  The class object a module declaration evaluates to is known as a {\em module definition.} Module definitions are value objects.  Instances of a module definition are referred to as {\em modules}.
-
-
-
 
 
 \section{Statements}
