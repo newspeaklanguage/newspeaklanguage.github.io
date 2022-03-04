@@ -29,10 +29,6 @@ Newspeak is a programming language in the Smalltalk \cite{GoldbergRobson83} trad
 Newspeak is:
 
 \begin{itemize}
-\item  {\em Network-serviced.} Newspeak applications can be updated over the internet {\em while running;} the language supports {\em orthogonal synchronization, } making it straightforward to synchronize persistent data with a remote server, supporting backup, sharing and collaboration \cite{bracha05}.
-{\it
-The synchronization features are in their early design stages, and only partially implemented. See section \ref{Slots}
-}
 \item  {\em Message-based.}  All computation  - even an object's own access to its internal structure - is performed by sending messages to objects. Hence, everything in Newspeak is an object, from elementary data such as numbers and booleans up to functions, classes and modules.
 \item  {\em Secure.} Newspeak objects encapsulate their representation, and Newspeak programs have no static state, providing a sound basis for an object-capability security model \cite{RobustComposition}.
 
@@ -44,6 +40,10 @@ The synchronization features are in their early design stages, and only partiall
 }
 \item  {\em Optionally typed.} Newspeak supports pluggable types \cite{bracha04b}, allowing the language to be extended with arbitrary type systems.  These type systems are necessarily optional, and never affect run-time semantics. They utilize Newspeak's metadata facility (\ref{metadata}), which allows annotations to be attached to any node in a program's abstract syntax tree.
 {\it Unimplemented.}
+\item  {\em Network-serviceable.} Newspeak applications can be updated over the internet {\em while running;} the combination of reflective update and lazy slots (\ref{lazySlots}) means the language can support {\em orthogonal synchronization, } making it straightforward to synchronize persistent data with a remote server, supporting backup, sharing and collaboration \cite{bracha05}.
+{\it
+Lazy slots are only partially implemented. The language supports them, but the tooling is not yet ready.
+}
 \end{itemize}
 
 \section{Overview}
