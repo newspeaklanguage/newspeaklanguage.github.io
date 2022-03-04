@@ -4,7 +4,7 @@
 \usepackage{epsfig}
 %\usepackage{amssymb,amsmath,amsthm}
 \newcommand{\code}[1]{{\sf #1}}
-\title{Newspeak Programming Language Draft Specification Version 0.103}
+\title{Newspeak Programming Language Draft Specification Version 0.104}
 \author{Gilad Bracha}
 \begin{document}
 \maketitle
@@ -1505,8 +1505,7 @@ implicitly, or it can be specified explicitly via a {\em superclass clause}.  Th
 to compute the superclass and how to invoke its initializer. The
 superclass clause may be an {\em inheritance clause} (\ref{inheritanceClauses}) or a mixin
 application. If the superclass clause is given implicitly
-it defaults to \code{Object}.  The formal parameters named in the
-primary factory signature are in scope in the superclass clause.
+it defaults to \code{Object}.  
 
  \begin{newspeak}
  classDecl = ((tokenFromSymbol: \#class), identifier, messagePattern, equalSign, 
@@ -1595,24 +1594,23 @@ class C foo: x = S m: x ...
 
   is m:x the factory message to the superclass S, or is S m: x as a whole a message that returns the superclass, to which we will send the message new implicitly? 
   
- We could of course change the syntax more throughly such that the superclass and factory call are syntactically separate; we may consider this in future revisions. 
+ We could of course change the syntax more thoroughly such that the superclass and factory call are syntactically separate; we may consider this in future revisions. 
   }
   
 %An inheritance clause must occur within the scope of an enclosing class declaration or a run-time error occurs. 
-If the inheritance clause occurs within an enclosing class $E$
-the expression $e_c$ and then the message pattern $m$ are each evaluated, separately, as if they occurred inside an instance method of $E$ where the enclosing object of the class expression, $eo$, is the method's receiver.   
+If the inheritance clause occurs within an enclosing class $E$, then the expression $e_c$ is evaluated as if it occurred inside an instance method of $E$ where the enclosing object of the class expression, $eo$, is the method's receiver. 
 
 % so how do we enforce this given that the arguments to the message are evaluated inside an instance method of the receiver?
 
-If the inheritance clause does not appear within an enclosing class, 
-the expression $e_c$ and then the message pattern $m$ are each evaluated, separately, as if they were top level expressions.
-
+If the inheritance clause does not appear within an enclosing class the expression $e_c$ is evaluated as if it was a top level expression. 
 {\em 
-Consequently, they will almost certainly fail since no interesting classes are available at top level.
+Consequently, it will almost certainly fail since no interesting classes are available at top level.
 }
 
 The value of $e_c$ is known as the {\em class determined by the inheritance clause.}
 
+The message $m$ is evaluated only when the class created by the class expression immediately enclosing the inheritance clause is instantiated.
+That process is described in section \ref{classBodies} below.
 % This does not allow for actual class expressions inside methods, as these would
 % take place in the scope of the method.
 
@@ -1714,7 +1712,8 @@ Any change made to the structure or code of a mixin effects all of its applicati
 A class body consists of an {\em initializer} and two {\em sides}, the {\em instance side} and the {\em class side}.
 
 Each side defines a {\em mixin}. 
-The methods and nested classes of the class'  mixin are defined via the instance side. The initializer declares the slots (\ref{slots}) of the class'   mixin and an optional initialization statement.
+The methods, lazy slots 
+and nested classes of the class'  mixin are defined via the instance side. The initializer declares the slots (\ref{slots}) of the class'   mixin and an optional initialization statement.
 The class side, together with the primary factory method,  defines the mixin for the metaclass, whose methods are typically {\em secondary factory methods.} 
 
 The syntax of a class body is is defined as follows
@@ -1751,10 +1750,15 @@ classSideDecl = colon, lparen, category star, rparen.
  
 A class body implicitly induces an instance initialization method, whose arguments are the same as those of the primary factory method of the class.
  
-When a class object receives a message $\mu$ whose selector is the name of its primary factory method, the instance initializer is invoked on an instance $o$ of the class, whose identity is distinct from all other instances of the class. The object $o$ has distinct distinct copies of all slots declared by the class and its superclasses. All slots have \NIL{} as their initial value. 
+When a class object receives a message $\mu$ whose selector is the name of its primary factory method, the instance initializer is invoked on an instance $o$ of the class, whose identity is distinct from all other instances of the class. The object $o$ has distinct copies of all slots declared by the class and its superclasses. All slots have \NIL{} as their initial value. 
 
 The message used for the instance initializer invocation is $\mu$, so that the arguments to the instance initializer are the same arguments given to the primary factory method.  The invocation gives rise to an activation $i$, per sections \ref{mtds} and \ref{activations}.
 Execution of the instance initializer begins with evaluation of the message clause given in the class' superclass clause in the context of $i$. The superclass' instance initializer is then invoked on $o$ with the resulting message.
+
+{\it
+The above means that the bindings of the formal parameters of the factory method are available in the message clause ofthe superclass clause.
+}
+
 Then, all the slot clauses (\ref{slots}) given in the class' initializer are executed in the context of $i$, in the order they were declared. Afterwards, the (possibly empty) statement given in the class' initializer is executed.
 Finally, $i$ returns $o$ to the primary factory method, which returns it to its caller.
  
