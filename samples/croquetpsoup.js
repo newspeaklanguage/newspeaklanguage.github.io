@@ -3383,7 +3383,7 @@ function exit(status, implicit) {
 var theModel;
 var theRealView;
 var theView = new Promise(function(resolve, reject) {
-    setTimeout(() => resolve(theRealView), 1000);
+    setTimeout(() => resolve(theRealView), 2000);
 });
 var NSCroquetButtonView;
 
