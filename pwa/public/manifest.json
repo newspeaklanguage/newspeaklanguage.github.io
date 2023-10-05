@@ -2,7 +2,7 @@
   "id": "/",
   "scope": "/",
   "name": "Newspeak Web IDE",
-  "display": "minimal-ui",
+  "display": "browser",
   "start_url": "/",
   "short_name": "newspeak-ide",
   "theme_color": "#000000",
