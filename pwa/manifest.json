@@ -1,9 +1,9 @@
 {
-  "id": "/",
+  "id": "NewspeakIDE",
   "scope": "/",
-  "name": "Newspeak Web IDE",
-  "display": "browser",
-  "start_url": "/",
+  "name": "Newspeak IDE",
+  "display": "minimal-ui",
+  "start_url": "/pwa/",
   "short_name": "newspeak-ide",
   "theme_color": "#000000",
   "description": "This is a PWA version of the Newspeak IDE",
