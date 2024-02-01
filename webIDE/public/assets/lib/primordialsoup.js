@@ -2495,7 +2495,7 @@ unexportedRuntimeFunction('allocate', false);
 unexportedRuntimeFunction('UTF8ArrayToString', false);
 unexportedRuntimeFunction('UTF8ToString', false);
 unexportedRuntimeFunction('stringToUTF8Array', false);
-unexportedRuntimeFunction('stringToUTF8', false);
+Module["stringToUTF8"] = stringToUTF8;
 unexportedRuntimeFunction('lengthBytesUTF8', false);
 unexportedRuntimeFunction('stackTrace', false);
 unexportedRuntimeFunction('addOnPreRun', false);
