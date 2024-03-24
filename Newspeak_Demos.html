@@ -1,0 +1,89 @@
+<div class = "ampleforthDocumentClass" name = "Newspeak_Demos" classBody = "() (
+) : (
+)
+" </div><div class = "ampleforthDocumentBody"><body><div class="self_ampleforth" contenteditable="true" style="border: 2px solid blue; resize: horizontal; overflow: auto; overflow-wrap: break-word; width: 40em;" onkeyup="updateRawHTML()" ondragover="((e) => {e.preventDefault();})(event)" ondrop="((e) => {
+              e.preventDefault();
+            // Calculate the drop position within the text
+            const range = document.caretRangeFromPoint(e.clientX, e.clientY);
+            // Create a new text node to separate the image from the surrounding text
+            const textNode = document.createTextNode('\u00A0'); // Non-breaking space
+            // Insert the text node at the calculated position
+            range.insertNode(textNode);
+            // Loop through dropped files
+            for (const file of e.dataTransfer.files) {
+                if (file.type.startsWith('image/')) {
+                     // The downside here is that image data ends up in the HTML file. The file is thus self contained, but bloated.
+                    // This does not scale well. An alternative is to create an in-memory URL for the file, like so:
+                    //const imageUrl = window.URL.createObjectURL(file);
+                    // Then, rather than creating a File Reader etc., we can just set the image element src field to the URL we created:
+                    // imageElement.src = imageURL
+                    // The problem here is that the URL will not persist beyond the lifetime of the dynamic document, so saving the HTML
+                    // yields a broken reference - the URL is not valid anymore.
+                    // So we would need to convert the URL to something permanent when saving the document - say copying its data into 
+                    // a zip file that contained both the HTML and its dependencies. When loading, we'd need to revise the image URLs
+                    // to new ones created from the zip data.
+                    const imageElement = document.createElement('img');
+                    imageElement.style.maxWidth = '300px';
+                    //imageElement.style.maxHeight = '100px';
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        imageElement.src = event.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                    // Insert the image after the text node
+                    textNode.after(imageElement);
+                }
+            }
+  })(event)"> <!-- self_ampleforth -->
+  <h3 class="muted" style="margin: 10px 0px; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; line-height: 40px; color: rgb(153, 153, 153); text-rendering: optimizelegibility; font-size: 24.5px; background-color: rgb(255, 255, 255);">The Newspeak Programming Language</h3><h1><div style="font-size: 14px; font-weight: 400;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Home&nbsp; &nbsp;Papers&nbsp; &nbsp;Demos&nbsp; &nbsp;Repositories&nbsp; &nbsp;Forum&nbsp; &nbsp;Legacy</div><div style="font-size: 14px; font-weight: 400;"><br></div><div style="font-size: 14px; font-weight: 400;"><br></div></h1><h3 style="margin: 10px 0px; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; line-height: 40px; color: rgb(51, 51, 51); text-rendering: optimizelegibility; font-size: 24.5px; background-color: rgb(255, 255, 255);">Demos</h3><h1><div style="font-size: 14px; font-weight: 400;"><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);">Some Newspeak programs compiled to JavaScript. (<a href="https://github.com/newspeaklanguage/newspeak" style="color: rgb(0, 136, 204); text-decoration-line: none;">Sources</a>)</p><ul style="padding: 0px; margin: 0px 0px 10px 25px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);"><li style="line-height: 20px;"><a href="https://newspeaklanguage.org/samples/Particles.html" style="color: rgb(0, 136, 204); text-decoration-line: none;">Particles</a></li><li style="line-height: 20px;"><a href="https://newspeaklanguage.org/samples/GUIBenchmarkRunner.html" style="color: rgb(0, 136, 204); text-decoration-line: none;">Benchmarks</a></li></ul><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);">Some Newspeak programs running in&nbsp;<a href="https://github.com/rmacnak/primordialsoup" style="color: rgb(0, 136, 204); text-decoration-line: none;">Primordial Soup</a>&nbsp;compiled to WebAssembly.</p><ul style="padding: 0px; margin: 0px 0px 10px 25px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);"><li style="line-height: 20px;"><a href="https://newspeaklanguage.org/webIDE" style="color: rgb(0, 136, 204); text-decoration-line: none;">HopscotchWebIDE</a></li><li style="line-height: 20px;"><a href="https://newspeaklanguage.org/samples/primordialsoup.html?snapshot=Particles.vfuel" style="color: rgb(0, 136, 204); text-decoration-line: none;">Particles</a></li><li style="line-height: 20px;"><a href="https://newspeaklanguage.org/samples/primordialsoup.html?snapshot=BenchmarkRunner.vfuel" style="color: rgb(0, 136, 204); text-decoration-line: none;">Benchmarks</a></li><li style="line-height: 20px;"><a href="https://newspeaklanguage.org/samples/primordialsoup.html?snapshot=TodoMVCApp.vfuel" style="color: rgb(0, 136, 204); text-decoration-line: none;">TodoMVC</a></li><li style="line-height: 20px;"><a href="https://newspeaklanguage.org/samples/primordialsoup.html?snapshot=CounterApp.vfuel" style="color: rgb(0, 136, 204); text-decoration-line: none;">Counter</a></li></ul></div></h1>    <script>
+
+        const textContainer = document.querySelector('p');
+</div></div></script></div></body></div>   <script type="text/javascript">
+      function scheduleTurn(timeout) {
+        if (timeout >= 0) {
+          setTimeout(function() {
+            var timeout = Module._handle_message();
+            scheduleTurn(timeout);
+          }, timeout);
+        }
+      }
+
+      var Module = {
+        noInitialRun: true,
+        noExitRuntime: true,
+        onRuntimeInitialized: function() {
+          var url = new URLSearchParams(window.location.search);
+          var request = new XMLHttpRequest();
+          request.open("GET", url.get("snapshot"), true);
+          request.responseType = "arraybuffer";
+          request.onload = function (event) {
+            var jsBuffer = new Uint8Array(request.response);
+            var cBuffer = _malloc(jsBuffer.length);
+            writeArrayToMemory(jsBuffer, cBuffer);
+            Module._load_snapshot(cBuffer, jsBuffer.length);
+            _free(cBuffer);
+            scheduleTurn(0);
+          };
+          request.send();
+        },
+        print: function(text) {
+          if (arguments.length > 1) {
+            text = Array.prototype.slice.call(arguments).join(" ");
+          }
+          console.log(text);
+        },
+        printErr: function(text) {
+          if (arguments.length > 1) {
+            text = Array.prototype.slice.call(arguments).join(" ");
+          }
+          console.error(text);
+        },
+        setStatus: function(text) {
+          console.log(text);
+        },
+      };
+    </script>
+<script async type="text/javascript" src="primordialsoup.js"></script>
+    <script src="CodeMirror/lib/codemirror.js"></script>
+    <link rel="stylesheet" href="CodeMirror/lib/codemirror.css"></link>
+    <script src="CodeMirror/addon/display/autorefresh.js"></script>

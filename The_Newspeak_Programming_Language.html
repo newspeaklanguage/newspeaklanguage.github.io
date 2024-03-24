@@ -1,0 +1,89 @@
+<div class = "ampleforthDocumentClass" name = "The_Newspeak_Programming_Language" classBody = "() (
+) : (
+)
+" </div><div class = "ampleforthDocumentBody"><body><div class="self_ampleforth" contenteditable="true" style="border: 2px solid blue; resize: horizontal; overflow: auto; overflow-wrap: break-word; width: 40em;" onkeyup="updateRawHTML()" ondragover="((e) => {e.preventDefault();})(event)" ondrop="((e) => {
+              e.preventDefault();
+            // Calculate the drop position within the text
+            const range = document.caretRangeFromPoint(e.clientX, e.clientY);
+            // Create a new text node to separate the image from the surrounding text
+            const textNode = document.createTextNode('\u00A0'); // Non-breaking space
+            // Insert the text node at the calculated position
+            range.insertNode(textNode);
+            // Loop through dropped files
+            for (const file of e.dataTransfer.files) {
+                if (file.type.startsWith('image/')) {
+                     // The downside here is that image data ends up in the HTML file. The file is thus self contained, but bloated.
+                    // This does not scale well. An alternative is to create an in-memory URL for the file, like so:
+                    //const imageUrl = window.URL.createObjectURL(file);
+                    // Then, rather than creating a File Reader etc., we can just set the image element src field to the URL we created:
+                    // imageElement.src = imageURL
+                    // The problem here is that the URL will not persist beyond the lifetime of the dynamic document, so saving the HTML
+                    // yields a broken reference - the URL is not valid anymore.
+                    // So we would need to convert the URL to something permanent when saving the document - say copying its data into 
+                    // a zip file that contained both the HTML and its dependencies. When loading, we'd need to revise the image URLs
+                    // to new ones created from the zip data.
+                    const imageElement = document.createElement('img');
+                    imageElement.style.maxWidth = '300px';
+                    //imageElement.style.maxHeight = '100px';
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        imageElement.src = event.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                    // Insert the image after the text node
+                    textNode.after(imageElement);
+                }
+            }
+  })(event)"> <!-- self_ampleforth -->
+  <h3 class="muted" style="margin: 10px 0px; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; line-height: 40px; color: rgb(153, 153, 153); text-rendering: optimizelegibility; font-size: 24.5px; background-color: rgb(255, 255, 255);">The Newspeak Programming Language</h3><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Papers&nbsp; &nbsp;Talks&nbsp; &nbsp;Demos&nbsp; &nbsp;Repositories&nbsp; &nbsp;Forum&nbsp; &nbsp;Legacy</div><div><br></div><div><h3 style="margin: 10px 0px; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; line-height: 40px; color: rgb(51, 51, 51); text-rendering: optimizelegibility; font-size: 24.5px; background-color: rgb(255, 255, 255);">What is Newspeak?</h3><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);">Newspeak is an object-capability programming platform that lets you develop code in your web browser. The entire Newspeak IDE runs locally in the browser. It will run on desktop, tablet or phone.&nbsp;<a href="https://newspeaklanguage.org/webIDE/" style="color: rgb(0, 136, 204); text-decoration-line: none;">Try it online right now</a>.</p><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);">Like&nbsp;<a href="http://selflanguage.org/" style="color: rgb(0, 136, 204); text-decoration-line: none;">Self</a>, Newspeak is message-based; all names are dynamically bound. However, like Smalltalk, Newspeak uses classes rather than prototypes. As in Beta, classes may nest. Because class names are late bound, all classes are virtual, every class can act as a mixin, and class hierarchy inheritance falls out automatically. Top level classes are essentially self contained parametric namespaces, and serve to define component style modules, which naturally define sandboxes in an object-capability style. Newspeak was deliberately designed as a principled dynamically typed language. We plan to evolve the language to support&nbsp;<a href="http://bracha.org/pluggableTypesPosition.pdf" style="color: rgb(0, 136, 204); text-decoration-line: none;">pluggable types</a>. Last but not least, Newspeak is a reflective, live system (if you don't know what a live programming system is, see&nbsp;<a href="https://youtu.be/VUfZ1sL4aps" style="color: rgb(0, 136, 204); text-decoration-line: none;">this 5 minute video</a>).</p><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);"><br></p><h3 style="margin: 10px 0px; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; line-height: 40px; color: rgb(51, 51, 51); text-rendering: optimizelegibility; font-size: 24.5px; background-color: rgb(255, 255, 255);">The Newspeak Vision</h3><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);">Applications should work well both on or off-line, combining the ease of maintenance of web applications with the high quality user experience of local clients. See&nbsp;<a href="http://gbracha.blogspot.com/2007/03/sobs.html" style="color: rgb(0, 136, 204); text-decoration-line: none;">the Room 101 blog</a>&nbsp;for details.</p><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);">Applications should be a joy to write and to read. The best way to create such applications is to create interactive narratives via live, literate programming. We want an editor for interactive narratives.</p><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);">Such an editor should be scriptable. You should be able to write programs that control the editor in a powerful, general purpose programming language (Newspeak). In fact, every last bit of functionality the editor provides should be accessible programmatically.</p><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);">Said editor should, of course, support its scripting language. Support means more than pretty-printing or syntax highlighting. It means you can evaluate the code. In particular, you can evaluate code that affects what the editor does.</p><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);">Being a modern editor, you can build documents that contain more than just text. You can embed images, audio, video. In fact, you should be able to embed arbitrary widgets. So you might evaluate code that creates a UI element and inserts into the editor. Now you can make the editor modify its own GUI. In fact, the editor can be extended into a general purpose GUI builder. And every such GUI can modify itself if you wish; sometimes you may wish to modify it so it can no longer modify itself, and then you have a frozen application. Your editor has become an IDE. In fact, it is a live literate programming environment.</p><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);">If the editor’s scripting language interoperates well with the surrounding environment, it can be used to control the computer and everything the computer itself controls. You can check in to the environment and hardly ever leave. You can lead your cyber life in it.</p><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);">Now, imagine that the code you created in this environment was modular and secure. Imagine the editor’s scripting language can deploy the same code on web, desktop or mobile. Imagine that the applications built with the language support online and offline use out of the box, automatically synchronizing data and code between clients and servers. Imagine that they have built-in support for collaboration, either syncing in real time or merging offline as required.</p><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);">This is what Newspeak is supposed to provide. We're not there yet, but we have an elegant foundation to get us there. If this vision excites you, we welcome volunteers to make it happen sooner.</p><h3 style="margin: 10px 0px; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; line-height: 40px; color: rgb(51, 51, 51); text-rendering: optimizelegibility; font-size: 24.5px; background-color: rgb(255, 255, 255);">Status</h3><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);">The current version of Newspeak runs on top of WASM, and has been tested on Safari, Firefox and Chrome-based browsers, both desktop and mobile. You can try it out&nbsp;<a href="https://newspeaklanguage.org/webIDE/" style="color: rgb(0, 136, 204); text-decoration-line: none;">here</a>. The IDE is a progressive web app, which means it can be installed locally on your machine and function like a normal app, with no internet connection. The latest development version is available at&nbsp;<a href="https://github.com/newspeaklanguage/newspeak" style="color: rgb(0, 136, 204); text-decoration-line: none;">our source code repository</a>.</p><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);">The WASM based version is still a work in progress. We no longer support the old Squeak Smalltalk based implementation.</p><h3 style="margin: 10px 0px; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; line-height: 40px; color: rgb(51, 51, 51); text-rendering: optimizelegibility; font-size: 24.5px; background-color: rgb(255, 255, 255);">Who’s to blame for Newspeak?</h3><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);">Newspeak was created by&nbsp;<a href="http://bracha.org/" style="color: rgb(0, 136, 204); text-decoration-line: none;">Gilad Bracha</a>, Peter Ahe,&nbsp;<a href="http://blog.3plus4.org/" style="color: rgb(0, 136, 204); text-decoration-line: none;">Vassili Bykov</a>, Ryan Macnak,&nbsp;<a href="http://www.mirandabanda.org/cogblog/about-cog/" style="color: rgb(0, 136, 204); text-decoration-line: none;">Eliot Miranda</a>&nbsp;and Bill Maddox with invaluable contributions, both technical and otherwise, by Yaron Kashai.</p><h3 style="margin: 10px 0px; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; line-height: 40px; color: rgb(51, 51, 51); text-rendering: optimizelegibility; font-size: 24.5px; background-color: rgb(255, 255, 255);">Why is it called Newspeak?</h3><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);">In Orwell's novel 1984, Newspeak was a language that grew smaller over time. Unlike the case of natural languages, for a programming language this is actually a good thing. It is an ideal we strive for - a shrinkable language.</p></div><div><br></div>    <script>
+
+        const textContainer = document.querySelector('p');
+</div></div></script></div></body></div>   <script type="text/javascript">
+      function scheduleTurn(timeout) {
+        if (timeout >= 0) {
+          setTimeout(function() {
+            var timeout = Module._handle_message();
+            scheduleTurn(timeout);
+          }, timeout);
+        }
+      }
+
+      var Module = {
+        noInitialRun: true,
+        noExitRuntime: true,
+        onRuntimeInitialized: function() {
+          var url = new URLSearchParams(window.location.search);
+          var request = new XMLHttpRequest();
+          request.open("GET", url.get("snapshot"), true);
+          request.responseType = "arraybuffer";
+          request.onload = function (event) {
+            var jsBuffer = new Uint8Array(request.response);
+            var cBuffer = _malloc(jsBuffer.length);
+            writeArrayToMemory(jsBuffer, cBuffer);
+            Module._load_snapshot(cBuffer, jsBuffer.length);
+            _free(cBuffer);
+            scheduleTurn(0);
+          };
+          request.send();
+        },
+        print: function(text) {
+          if (arguments.length > 1) {
+            text = Array.prototype.slice.call(arguments).join(" ");
+          }
+          console.log(text);
+        },
+        printErr: function(text) {
+          if (arguments.length > 1) {
+            text = Array.prototype.slice.call(arguments).join(" ");
+          }
+          console.error(text);
+        },
+        setStatus: function(text) {
+          console.log(text);
+        },
+      };
+    </script>
+<script async type="text/javascript" src="primordialsoup.js"></script>
+    <script src="CodeMirror/lib/codemirror.js"></script>
+    <link rel="stylesheet" href="CodeMirror/lib/codemirror.css"></link>
+    <script src="CodeMirror/addon/display/autorefresh.js"></script>

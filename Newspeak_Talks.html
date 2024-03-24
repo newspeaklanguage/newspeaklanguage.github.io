@@ -1,0 +1,89 @@
+<div class = "ampleforthDocumentClass" name = "Newspeak_Talks" classBody = "() (
+) : (
+)
+" </div><div class = "ampleforthDocumentBody"><body><div class="self_ampleforth" contenteditable="true" style="border: 2px solid blue; resize: horizontal; overflow: auto; overflow-wrap: break-word; width: 40em;" onkeyup="updateRawHTML()" ondragover="((e) => {e.preventDefault();})(event)" ondrop="((e) => {
+              e.preventDefault();
+            // Calculate the drop position within the text
+            const range = document.caretRangeFromPoint(e.clientX, e.clientY);
+            // Create a new text node to separate the image from the surrounding text
+            const textNode = document.createTextNode('\u00A0'); // Non-breaking space
+            // Insert the text node at the calculated position
+            range.insertNode(textNode);
+            // Loop through dropped files
+            for (const file of e.dataTransfer.files) {
+                if (file.type.startsWith('image/')) {
+                     // The downside here is that image data ends up in the HTML file. The file is thus self contained, but bloated.
+                    // This does not scale well. An alternative is to create an in-memory URL for the file, like so:
+                    //const imageUrl = window.URL.createObjectURL(file);
+                    // Then, rather than creating a File Reader etc., we can just set the image element src field to the URL we created:
+                    // imageElement.src = imageURL
+                    // The problem here is that the URL will not persist beyond the lifetime of the dynamic document, so saving the HTML
+                    // yields a broken reference - the URL is not valid anymore.
+                    // So we would need to convert the URL to something permanent when saving the document - say copying its data into 
+                    // a zip file that contained both the HTML and its dependencies. When loading, we'd need to revise the image URLs
+                    // to new ones created from the zip data.
+                    const imageElement = document.createElement('img');
+                    imageElement.style.maxWidth = '300px';
+                    //imageElement.style.maxHeight = '100px';
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        imageElement.src = event.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                    // Insert the image after the text node
+                    textNode.after(imageElement);
+                }
+            }
+  })(event)"> <!-- self_ampleforth -->
+  <h3 class="muted" style="margin: 10px 0px; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; line-height: 40px; color: rgb(153, 153, 153); text-rendering: optimizelegibility; font-size: 24.5px; background-color: rgb(255, 255, 255);">The Newspeak Programming Language</h3><h1><div style="font-size: 14px; font-weight: 400;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Home&nbsp; &nbsp;Papers&nbsp; &nbsp;Demos&nbsp; &nbsp;Repositories&nbsp; &nbsp;Forum&nbsp; &nbsp;Legacy</div><div style="font-size: 14px; font-weight: 400;"><br></div></h1><h3 style="margin: 10px 0px; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; line-height: 40px; color: rgb(51, 51, 51); text-rendering: optimizelegibility; font-size: 24.5px; background-color: rgb(255, 255, 255);">Video</h3><h1><div style="font-size: 14px; font-weight: 400;"><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);"><a href="https://youtu.be/gfbzC_90fJE" style="color: rgb(0, 136, 204); text-decoration-line: none;">Ampleforth: More than a Live Literate Editor</a>. Presentation for Live22 Workshop, demonstrating Ampleforth. 14:31.</p><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);"><a href="https://youtu.be/i8zkG5OBYSQ" style="color: rgb(0, 136, 204); text-decoration-line: none;">Live Literate Programming Documents with Ampleforth</a>. A very quick demonstration of Ampleforth. 5:28.</p><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);"><a href="https://vimeo.com/717656814" style="color: rgb(0, 136, 204); text-decoration-line: none;">Newspeak: Live, Modular and Secure Development in the Web Browser</a>. Presentation at the UK Smalltalk Meetup in April 2022. An introduction to Newspeak, biased toward Smalltalkers. 63 minutes, plus 89 minutes of Q &amp; A.</p><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);"><a href="https://www.youtube.com/watch?v=SG08kxIIlHQ&amp;t=18m03s" style="color: rgb(0, 136, 204); text-decoration-line: none;">Newspeak on the Web</a>. Presentation at the California Smalltalk Meetup in September 2021. Demonstrates the web based IDE, with exemplars, and introduces the Newspeak language via the Expression Problem. Geared a little toward Smalltalk programmers. Talk is about 47 minutes, followed by ~36 minutes of Q&amp;A.</p><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);"><a href="https://youtu.be/qKWPSvcF0zA" style="color: rgb(0, 136, 204); text-decoration-line: none;">Exemplars in the Newspeak Web IDE</a>. A minimal demonstration of using exemplars generated from metadata to provide live object bindings everywhere you view or edit code in the Newspeak IDE. 4:19.</p><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);"><a href="https://liveprog.org/live-2021/Enhancing-Liveness-with-Exemplars-in-the-Newspeak-IDE.mp4" style="color: rgb(0, 136, 204); text-decoration-line: none;">Enhancing Liveness with Exemplars in the Newspeak IDE</a>. A presentation at the Live 2021 workshop. A more extended discussion of exemplars than the link above. 21:49.</p><a href="https://youtu.be/VUfZ1sL4aps" style="color: rgb(0, 136, 204); text-decoration-line: none; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);">What is a Live Programming System?</a><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);">&nbsp;An attempt to explain what a live programming system is in under 5 minutes via Newspeak demo (also linked from the entry page of this site). 4:26.</span><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);"></p><a href="https://youtu.be/CJX_6B24Hho" style="color: rgb(0, 136, 204); text-decoration-line: none; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);">Live IDEs in the Web Browser: What's Holding Us Back</a><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);">. Discusses some issues which make it hard to implement a live IDE on the web. Includes a brief demo of the WASM based Newspeak IDE. Based on a conversation starter session at Programming 21. 14 minutes.</span><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);"></p><a href="https://youtu.be/eBuiL6asa5" style="color: rgb(0, 136, 204); text-decoration-line: none; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);">Ampleforth demo</a><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);">. A demo of Ampleforth, a tool for embedding Newspeak widgets, excerpted from Gilad Bracha's Programming 17 keynote. 10 minutes.</span><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);"></p><a href="https://www.youtube.com/watch?v=74WqdS_58uY&amp;feature=youtu.be" style="color: rgb(0, 136, 204); text-decoration-line: none; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);">Live 2013 demo</a><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);">. A screencast that illustrates the experimental extension for&nbsp;</span><a href="http://gbracha.blogspot.com/2013/04/making-methods-live.html" style="color: rgb(0, 136, 204); text-decoration-line: none; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);">making methods live</a><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);">. 6 minutes.</span><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);"></p><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);"><a href="http://www.youtube.com/watch?v=d6tj6KQtD1s&amp;list=PLE90823AFF9C8177B&amp;index=31&amp;feature=plpp_video" style="color: rgb(0, 136, 204); text-decoration-line: none;">Goodthinkful Programming in Newspeak</a>. Video of a talk given by Vassili Bykov at Smalltalks 2011. Geared toward Smalltalk programmers, gives an overview of Newspeak with an emphasis on application packaging and unit testing.</p><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);"><a href="https://www.tele-task.de/lecture/video/3058/" style="color: rgb(0, 136, 204); text-decoration-line: none;">The Newspeak Experience</a>. Video of a presentation, delivered remotedly to the Hasso Plattner Institute in Potsdam in December 2011. A long talk discussing Newspeak and its IDE in some detail.</p><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);"><a href="http://www.hpi.uni-potsdam.de/hirschfeld/events/past/media/100105_Bracha_2010_LinguisticReflectionViaMirrors_HPI.mp4" style="color: rgb(0, 136, 204); text-decoration-line: none;">Linguistic Reflection via Mirrors</a>. A screencast of a lecture at HPI Potsdam in January 2010. A fairly comprehensive talk about mirrors; mostly language neutral, but includes a 15 minute demo of mirrors in Newspeak. 57 minutes.</p><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);"><a href="http://channel9.msdn.com/shows/Going+Deep/Gilad-Bracha-Inside-Newspeak/" style="color: rgb(0, 136, 204); text-decoration-line: none;">Inside Newspeak</a>. An interview with Gilad Bracha on Microsoft’s channel 9 during lang.net 09. Gives an overview of the motivation for Newspeak. Makes the connection between Newspeak, objects as software services and cloud computing in a developer-friendly way. 31 minutes.</p><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);"><a href="http://blog.3plus4.org/2008/11/04/a-true-pluggable-look-and-feel/" style="color: rgb(0, 136, 204); text-decoration-line: none;">A True Pluggable Look-and-Feel</a>. Blog post that includes a screencast showing dynamic remapping of the GUI from native Windows to Squeak's morphic and back.</p><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);"><a href="https://channel9.msdn.com/Series/DSL-DevCon-2009/Gilad-Bracha-Embedding-DSLs-in-Newspeak-EBNF-Hopscotch-and-NewShell" style="color: rgb(0, 136, 204); text-decoration-line: none;">Embedding DSLs in Newspeak: NewShell, EBNF, Hopscotch</a>. Video of a talk at DSL Dev Con 09. 3 internal DSLs used in the Newspeak environment. 45 minutes.</p><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);"><a href="https://youtu.be/4cMCYx4Gbkc" style="color: rgb(0, 136, 204); text-decoration-line: none;">Video of talk at lang.net 09</a>. 30 minute overview of Hopscotch - the IDE and a bit about the framework, as of April 2009.</p><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);"><a href="https://youtu.be/MHndm4BPRlY" style="color: rgb(0, 136, 204); text-decoration-line: none;">Video of talk at lang.net 08</a>. A 30 minute high level intro to Newspeak and our parser combinator library (as of January 2008)</p></div></h1><h3 style="margin: 10px 0px; font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; line-height: 40px; color: rgb(51, 51, 51); text-rendering: optimizelegibility; font-size: 24.5px; background-color: rgb(255, 255, 255);">Audio</h3><h1><div style="font-size: 14px; font-weight: 400;"><p style="margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; background-color: rgb(255, 255, 255);"><a href="http://www.se-radio.net/2009/07/episode-140-newspeak-and-pluggable-types-with-gilad-bracha/" style="color: rgb(0, 136, 204); text-decoration-line: none;">Interview with Software Engineering Radio</a>. An audio interview Gilad Bracha gave at DSL DevCon in April 2009. An overview of Newspeak for the mainstream programmer. 43 minutes.</p></div></h1>    <script>
+
+        const textContainer = document.querySelector('p');
+</div></div></script></div></body></div>   <script type="text/javascript">
+      function scheduleTurn(timeout) {
+        if (timeout >= 0) {
+          setTimeout(function() {
+            var timeout = Module._handle_message();
+            scheduleTurn(timeout);
+          }, timeout);
+        }
+      }
+
+      var Module = {
+        noInitialRun: true,
+        noExitRuntime: true,
+        onRuntimeInitialized: function() {
+          var url = new URLSearchParams(window.location.search);
+          var request = new XMLHttpRequest();
+          request.open("GET", url.get("snapshot"), true);
+          request.responseType = "arraybuffer";
+          request.onload = function (event) {
+            var jsBuffer = new Uint8Array(request.response);
+            var cBuffer = _malloc(jsBuffer.length);
+            writeArrayToMemory(jsBuffer, cBuffer);
+            Module._load_snapshot(cBuffer, jsBuffer.length);
+            _free(cBuffer);
+            scheduleTurn(0);
+          };
+          request.send();
+        },
+        print: function(text) {
+          if (arguments.length > 1) {
+            text = Array.prototype.slice.call(arguments).join(" ");
+          }
+          console.log(text);
+        },
+        printErr: function(text) {
+          if (arguments.length > 1) {
+            text = Array.prototype.slice.call(arguments).join(" ");
+          }
+          console.error(text);
+        },
+        setStatus: function(text) {
+          console.log(text);
+        },
+      };
+    </script>
+<script async type="text/javascript" src="primordialsoup.js"></script>
+    <script src="CodeMirror/lib/codemirror.js"></script>
+    <link rel="stylesheet" href="CodeMirror/lib/codemirror.css"></link>
+    <script src="CodeMirror/addon/display/autorefresh.js"></script>
