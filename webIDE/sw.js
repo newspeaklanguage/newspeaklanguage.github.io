@@ -65,7 +65,7 @@
 // The version update can be done either manually (we rely on this),
 // or by applying some framework that generates this sw.js worker script.
 
-const pwaVersion = 131;
+const pwaVersion = 132;
 
 // Cache name used by the 'caches' global variable.
 // The pwaCacheName now includes the pwaVersion;
