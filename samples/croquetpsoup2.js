@@ -3400,7 +3400,7 @@ function storeModelAndView(m, v) {
     NSCroquetHyperlinkView = NewspeakCroquetHyperlinkView;
     NSCroquetCheckboxView = NewspeakCroquetCheckboxView;
     NSCroquetRadioButtonView = NewspeakCroquetRadioButtonView;
-    NSCroquetTextEditorView = NewspeakCroqueTextEditorView;
+    NSCroquetTextEditorView = NewspeakCroquetTextEditorView;
 }
 
 // ButtonFragment support
@@ -3451,7 +3451,7 @@ NewspeakCroquetImageButtonModel.register("NewspeakCroquetImageButtonModel");
 
 // HyperlinkFragment support
 
-class NewspeakHyperlinkModel extends Croquet.Model {
+class NewspeakCroquetHyperlinkModel extends Croquet.Model {
     init(options) {
 	this.nsLinkId = options.nsLinkId;
 	this.subscribe(this.nsLinkId, 'click', this.click);
@@ -3515,7 +3515,7 @@ class NewspeakCroquetRadioButtonModel extends Croquet.Model {
     }    
 }
 
-class NewspeakRadioButtonView extends Croquet.View {
+class NewspeakCroquetRadioButtonView extends Croquet.View {
     constructor(model, presenter) {
 	super(model);
     }
@@ -3528,7 +3528,7 @@ NewspeakCroquetRadioButtonModel.register("NewspeakCroquetRadioButtonModel");
 
 // TextEditorFragment support
 
-class NewspeakCroqueTextEditorModel extends Croquet.Model {
+class NewspeakCroquetTextEditorModel extends Croquet.Model {
     init(options) {
 	this.nsTextEditorId = options.nsTextEditorId;
 	this.subscribe(this.nsTextEditorId, 'accept', this.accept);
@@ -3546,7 +3546,7 @@ class NewspeakCroqueTextEditorModel extends Croquet.Model {
     }     
 }
 
-class NewspeakTextEditorView extends Croquet.View {
+class NewspeakCroquetTextEditorView extends Croquet.View {
     constructor(model, presenter) {
 	super(model);
     }
