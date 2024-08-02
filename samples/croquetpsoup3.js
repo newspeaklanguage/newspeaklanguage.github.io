@@ -3390,7 +3390,7 @@ var NSCroquetFragmentView;
 function storeModelAndView(m, v) {
     theModel = m;
     theRealView = v;
-    NSCroquetFragmentView = NewspeakFragmentButtonView;
+    NSCroquetFragmentView = NewspeakCroquetFragmentView;
 }
 
 // ButtonFragment support
@@ -3405,7 +3405,7 @@ class NewspeakCroquetButtonModel extends Croquet.Model {
     }
 }
 
-class NewspeakFragmentButtonView extends Croquet.View {
+class NewspeakCroquetFragmentView extends Croquet.View {
     constructor(model, presenter) {
 	super(model);
     }
