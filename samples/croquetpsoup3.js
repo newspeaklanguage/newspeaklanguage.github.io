@@ -3385,22 +3385,12 @@ var theRealView;
 var theView = new Promise(function(resolve, reject) {
     setTimeout(() => resolve(theRealView), 2000);
 });
-var NSCroquetButtonView;
-var NSCroquetImageButtonView;
-var NSCroquetHyperlinkView;
-var NSCroquetCheckboxView;
-var NSCroquetRadioButtonView;
-var NSCroquetTextEditorView;
+var NSCroquetFragmentView;
 
 function storeModelAndView(m, v) {
     theModel = m;
     theRealView = v;
-    NSCroquetButtonView = NewspeakFragmentButtonView;
-    NSCroquetImageButtonView = NewspeakFragmentButtonView;
-    NSCroquetHyperlinkView = NewspeakFragmentButtonView;
-    NSCroquetCheckboxView = NewspeakFragmentButtonView;
-    NSCroquetRadioButtonView = NewspeakFragmentButtonView;
-    NSCroquetTextEditorView = NewspeakFragmentButtonView;
+    NSCroquetFragmentView = NewspeakFragmentButtonView;
 }
 
 // ButtonFragment support
