@@ -3595,7 +3595,7 @@ class NewspeakCroquetView extends Croquet.View {
 	removeRunDependency(croquetDepId);
 	console.log('removed dependency');
 	// run Newspeak. Ultimately deal with deserializing state from Croquet model
-	run();
+//	run();
   }
 }
 
