@@ -1386,8 +1386,12 @@ var __ATPOSTRUN__ = []; // functions called after the main() is called
 var runtimeInitialized = false;
 var runtimeExited = false;
 
+var croquetDepId;
 
 function preRun() {
+
+  croquetDepId = getUniqueRunDependency('croquet');
+  addRunDependency(croquetDepId);
 
   if (Module['preRun']) {
     if (typeof Module['preRun'] == 'function') Module['preRun'] = [Module['preRun']];
@@ -3270,7 +3274,8 @@ function run(args) {
     return;
   }
 
-  writeStackCookie();
+    writeStackCookie();
+    
 
   preRun();
 
@@ -3387,6 +3392,7 @@ var NSCroquetFragmentView;
 function storeModelAndView(m, v) {
     theModel = m;
     theView = v;
+    console.log('Roots initialized');
     NSCroquetFragmentView = NewspeakCroquetFragmentView;
 }
 
@@ -3584,6 +3590,7 @@ class NewspeakCroquetView extends Croquet.View {
 	super(model);
 	this.presenter = presenter;
 	storeModelAndView(model, this);
+	removeRunDependency(croquetDepId);
 	// run Newspeak. Ultimately deal with deserializing state from Croquet model
 	run();
   }
