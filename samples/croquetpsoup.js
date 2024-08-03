@@ -1392,7 +1392,7 @@ var croquetInitDone = false;
 function preRun() {
 
   croquetDepId = getUniqueRunDependency('croquet');
-    if !croquetInitDone {
+    if (!croquetInitDone) {
 	  addRunDependency(croquetDepId);
         err('prerun adding dependency: ' + croquetDepId);
     }
