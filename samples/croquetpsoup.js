@@ -3381,17 +3381,16 @@ function exit(status, implicit) {
 	noExitRuntime = true;
 
 var theModel;
-var theRealView;
-var theView = new Promise(function(resolve, reject) {
-    setTimeout(() => resolve(theRealView), 2000);
-});
-var NSCroquetButtonView;
+var theView;
+var NSCroquetFragmentView;
 
 function storeModelAndView(m, v) {
     theModel = m;
-    theRealView = v;
-    NSCroquetButtonView = NewspeakCroquetButtonView;
+    theView = v;
+    NSCroquetFragmentView = NewspeakCroquetFragmentView;
 }
+
+// ButtonFragment support
 
 class NewspeakCroquetButtonModel extends Croquet.Model {
     init(options) {
@@ -3403,7 +3402,7 @@ class NewspeakCroquetButtonModel extends Croquet.Model {
     }
 }
 
-class NewspeakCroquetButtonView extends Croquet.View {
+class NewspeakCroquetFragmentView extends Croquet.View {
     constructor(model, presenter) {
 	super(model);
     }
@@ -3412,13 +3411,108 @@ class NewspeakCroquetButtonView extends Croquet.View {
     }
 }
 
-NewspeakCroquetButtonModel.register("NewspeakCroquetButtonModel"); 
+NewspeakCroquetButtonModel.register("NewspeakCroquetButtonModel");
+
+// ImageButtonFragment support
+
+class NewspeakCroquetImageButtonModel extends Croquet.Model {
+    init(options) {
+	this.nsButtonId = options.nsButtonId;
+	this.subscribe(this.nsButtonId, 'click', this.click);
+    }
+    click(){
+	this.publish(this.nsButtonId, 'model_click');
+    }
+}
+
+NewspeakCroquetImageButtonModel.register("NewspeakCroquetImageButtonModel");
+
+// HyperlinkFragment support
+
+class NewspeakCroquetHyperlinkModel extends Croquet.Model {
+    init(options) {
+	this.nsLinkId = options.nsLinkId;
+	this.subscribe(this.nsLinkId, 'click', this.click);
+    }
+    click(){
+	this.publish(this.nsLinkId, 'model_click');
+    }
+}
+
+NewspeakCroquetHyperlinkModel.register("NewspeakCroquetHyperlinkModel");
+
+// CheckboxFragment support
+
+class NewspeakCroquetCheckboxModel extends Croquet.Model {
+    init(options) {
+	this.nsCheckboxId = options.nsCheckboxId;
+	this.subscribe(this.nsCheckboxId, 'checked', this.checked);
+	this.subscribe(this.nsCheckboxId, 'unchecked', this.unchecked);	
+    }
+    checked(){
+	this.publish(this.nsCheckboxId, 'model_checked');
+    }
+    unchecked(){
+	this.publish(this.nsCheckboxId, 'model_unchecked');
+    }    
+}
+
+NewspeakCroquetCheckboxModel.register("NewspeakCroquetCheckboxModel");
+
+// RadioButtonFragment support
+
+class NewspeakCroquetRadioButtonModel extends Croquet.Model {
+    init(options) {
+	this.nsRadioButtonId = options.nsRadioButtonId;
+	this.subscribe(this.nsRadioButtonId, 'released', this.released);
+	this.subscribe(this.nsRadioButtonId, 'pressed', this.pressed);	
+    }
+    released(){
+	this.publish(this.nsRadioButtonId, 'model_released');
+    }
+    pressed(){
+	this.publish(this.nsRadioButtonId, 'model_pressed');
+    }    
+}
+
+NewspeakCroquetRadioButtonModel.register("NewspeakCroquetRadioButtonModel");
+
+// TextEditorFragment support
+
+class NewspeakCroquetTextEditorModel extends Croquet.Model {
+    init(options) {
+	this.nsTextEditorId = options.nsTextEditorId;
+	this.subscribe(this.nsTextEditorId, 'accept', this.accept);
+	this.subscribe(this.nsTextEditorId, 'changed', this.changed);
+	this.subscribe(this.nsTextEditorId, 'cancel', this.cancel);		
+    }
+    accept(textBeingAccepted){
+	this.publish(this.nsTextEditorId, 'model_accept', textBeingAccepted);
+    }
+    changed(textBeingAccepted){
+	this.publish(this.nsTextEditorId, 'model_changed', textBeingAccepted);
+    }
+    cancel(textBeingAccepted){
+	this.publish(this.nsTextEditorId, 'model_cancel', textBeingAccepted);
+    }     
+}
+
+
+NewspeakCroquetTextEditorModel.register("NewspeakCroquetTextEditorModel");
+
+
+// Root model
 
 class NewspeakCroquetModel extends Croquet.Model {
 
     init() {  // only runs once, when a new session is initiated. Thus, not the right place to start up Newspeak
 	this.fragments = new Map();
-	this.subscribe('newspeak_croquet_button', 'createButton', this.createButton);		
+	this.subscribe('newspeak_croquet_button', 'createButton', this.createButton);
+	this.subscribe('newspeak_croquet_image_button', 'createImageButton', this.createImageButton);
+	this.subscribe('newspeak_croquet_hyperlink', 'createHyperlink', this.createHyperlink);
+	this.subscribe('newspeak_croquet_checkbox', 'createCheckbox', this.createCheckbox);
+	this.subscribe('newspeak_croquet_radio_button', 'createRadioButton', this.createRadioButton);
+	this.subscribe('newspeak_croquet_text_editor', 'createTextEditor', this.createTextEditor);	
     }
     createButton(bid) {
 	var m;
@@ -3430,7 +3524,58 @@ class NewspeakCroquetModel extends Croquet.Model {
 	}
 	this.publish(bid , 'model_createButton', m);
     }
+    createImageButton(bid) {
+	var m;
+	if (this.fragments.has(bid)) {
+	    m = this.fragments.get(bid)
+	} else {
+	    m = NewspeakCroquetImageButtonModel.create({nsButtonId: bid});
+	    this.fragments.set(bid, m);
+	}
+	this.publish(bid , 'model_createImageButton', m);
+    }
+    createHyperlink(bid) {
+	var m;
+	if (this.fragments.has(bid)) {
+	    m = this.fragments.get(bid)
+	} else {
+	    m = NewspeakCroquetHyperlinkModel.create({nsLinkId: bid});
+	    this.fragments.set(bid, m);
+	}
+	this.publish(bid , 'model_createHyperlink', m);
+    }
+    createCheckbox(bid) {
+	var m;
+	if (this.fragments.has(bid)) {
+	    m = this.fragments.get(bid)
+	} else {
+	    m = NewspeakCroquetCheckboxModel.create({nsCheckboxId: bid});
+	    this.fragments.set(bid, m);
+	}
+	this.publish(bid , 'model_createCheckbox', m);
+    }
+    createRadioButton(bid) {
+	var m;
+	if (this.fragments.has(bid)) {
+	    m = this.fragments.get(bid)
+	} else {
+	    m = NewspeakCroquetRadioButtonModel.create({nsRadioButtonId: bid});
+	    this.fragments.set(bid, m);
+	}
+	this.publish(bid , 'model_createRadioButton', m);
+    }
+    createTextEditor(bid) {
+	var m;
+	if (this.fragments.has(bid)) {
+	    m = this.fragments.get(bid)
+	} else {
+	    m = NewspeakCroquetRadioButtonModel.create({nsTextEditorId: bid});
+	    this.fragments.set(bid, m);
+	}
+	this.publish(bid , 'model_createTextEditor', m);
+    }    
 }
+
 
 NewspeakCroquetModel.register("NewspeakCroquetModel");
 
