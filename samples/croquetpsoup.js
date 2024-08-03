@@ -1387,12 +1387,15 @@ var runtimeInitialized = false;
 var runtimeExited = false;
 
 var croquetDepId;
+var croquetInitDone = false;
 
 function preRun() {
 
   croquetDepId = getUniqueRunDependency('croquet');
-    addRunDependency(croquetDepId);
-    err('prerun adding dependency: ' + croquetDepId);
+    if !croquetInitDone {
+	  addRunDependency(croquetDepId);
+        err('prerun adding dependency: ' + croquetDepId);
+    }
 
   if (Module['preRun']) {
     if (typeof Module['preRun'] == 'function') Module['preRun'] = [Module['preRun']];
@@ -3395,6 +3398,7 @@ function storeModelAndView(m, v) {
     theView = v;
     console.log('Roots initialized');
     NSCroquetFragmentView = NewspeakCroquetFragmentView;
+    croquetInitDone = true;
 }
 
 // ButtonFragment support
