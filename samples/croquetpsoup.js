@@ -3590,7 +3590,9 @@ class NewspeakCroquetView extends Croquet.View {
 	super(model);
 	this.presenter = presenter;
 	storeModelAndView(model, this);
+	console.log(croquetDepId);
 	removeRunDependency(croquetDepId);
+	console.log('removed dependency');
 	// run Newspeak. Ultimately deal with deserializing state from Croquet model
 	run();
   }
