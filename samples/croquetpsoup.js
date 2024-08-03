@@ -1391,7 +1391,8 @@ var croquetDepId;
 function preRun() {
 
   croquetDepId = getUniqueRunDependency('croquet');
-  addRunDependency(croquetDepId);
+    addRunDependency(croquetDepId);
+    err('prerun adding dependency: ' + croquetDepId);
 
   if (Module['preRun']) {
     if (typeof Module['preRun'] == 'function') Module['preRun'] = [Module['preRun']];
