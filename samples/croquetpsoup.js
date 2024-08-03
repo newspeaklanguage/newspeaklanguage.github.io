@@ -1543,7 +1543,7 @@ function getUniqueRunDependency(id) {
 
 function addRunDependency(id) {
   runDependencies++;
-
+    err('Added dependency: ' + id);
   if (Module['monitorRunDependencies']) {
     Module['monitorRunDependencies'](runDependencies);
   }
