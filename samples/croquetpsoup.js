@@ -1394,7 +1394,6 @@ function preRun() {
   croquetDepId = getUniqueRunDependency('croquet');
     if (!croquetInitDone) {
 	  addRunDependency(croquetDepId);
-        err('prerun adding dependency: ' + croquetDepId);
     }
 
   if (Module['preRun']) {
@@ -3396,7 +3395,6 @@ var NSCroquetFragmentView;
 function storeModelAndView(m, v) {
     theModel = m;
     theView = v;
-    console.log('Roots initialized');
     NSCroquetFragmentView = NewspeakCroquetFragmentView;
     croquetInitDone = true;
 }
@@ -3595,11 +3593,7 @@ class NewspeakCroquetView extends Croquet.View {
 	super(model);
 	this.presenter = presenter;
 	storeModelAndView(model, this);
-	console.log(croquetDepId);
 	removeRunDependency(croquetDepId);
-	console.log('removed dependency');
-	// run Newspeak. Ultimately deal with deserializing state from Croquet model
-//	run();
   }
 }
 
