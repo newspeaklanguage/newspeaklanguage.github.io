@@ -3511,6 +3511,31 @@ class NewspeakCroquetTextEditorModel extends Croquet.Model {
 
 NewspeakCroquetTextEditorModel.register("NewspeakCroquetTextEditorModel");
 
+class NewspeakCroquetCodeMirrorModel extends Croquet.Model {
+    init(options) {
+	this.nsCodeMirrorId = options.nsCodeMirrorId;
+	this.subscribe(this.nsCodeMirrorId, 'accept', this.accept);
+	this.subscribe(this.nsCodeMirrorId, 'change', this.change);
+	this.subscribe(this.nsCodeMirrorId, 'cancel', this.cancel);		
+    }
+    accept(textBeingAccepted){
+	console.log('Accepted text ' + textBeingAccepted);
+	this.publish(this.nsCodeMirrorId, 'model_accept', textBeingAccepted);
+    }
+    change(textBeingAccepted){
+	console.log('Changed text ' + textBeingAccepted);
+	this.publish(this.nsCodeMirrorId, 'model_change', textBeingAccepted);
+    }
+    cancel(textBeingAccepted){
+	console.log('Canceled text ' + textBeingAccepted);
+	this.publish(this.nsCodeMirrorId, 'model_cancel', textBeingAccepted);
+    }     
+}
+
+
+NewspeakCroquetCodeMirrorModel.register("NewspeakCroquetCodeMirrorModel");
+
+
 
 // Root model
 
