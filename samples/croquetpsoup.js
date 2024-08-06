@@ -3500,7 +3500,7 @@ class NewspeakCroquetTextEditorModel extends Croquet.Model {
     }
     change(textBeingAccepted){
 	console.log('Changed text ' + textBeingAccepted);
-	this.publish(this.nsTextEditorId, 'model_changed', textBeingAccepted);
+	this.publish(this.nsTextEditorId, 'model_change', textBeingAccepted);
     }
     cancel(textBeingAccepted){
 	console.log('Canceled text ' + textBeingAccepted);
