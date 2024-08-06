@@ -3491,14 +3491,14 @@ class NewspeakCroquetTextEditorModel extends Croquet.Model {
     init(options) {
 	this.nsTextEditorId = options.nsTextEditorId;
 	this.subscribe(this.nsTextEditorId, 'accept', this.accept);
-	this.subscribe(this.nsTextEditorId, 'changed', this.changed);
+	this.subscribe(this.nsTextEditorId, 'change', this.change);
 	this.subscribe(this.nsTextEditorId, 'cancel', this.cancel);		
     }
     accept(textBeingAccepted){
 	console.log('Accepted text ' + textBeingAccepted);
 	this.publish(this.nsTextEditorId, 'model_accept', textBeingAccepted);
     }
-    changed(textBeingAccepted){
+    change(textBeingAccepted){
 	console.log('Changed text ' + textBeingAccepted);
 	this.publish(this.nsTextEditorId, 'model_changed', textBeingAccepted);
     }
@@ -3581,7 +3581,7 @@ class NewspeakCroquetModel extends Croquet.Model {
 	if (this.fragments.has(bid)) {
 	    m = this.fragments.get(bid)
 	} else {
-	    m = NewspeakCroquetRadioButtonModel.create({nsTextEditorId: bid});
+	    m = NewspeakCroquetTextEditorModel.create({nsTextEditorId: bid});
 	    this.fragments.set(bid, m);
 	}
 	this.publish(bid , 'model_createTextEditor', m);
