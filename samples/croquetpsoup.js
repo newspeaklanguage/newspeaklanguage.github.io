@@ -3590,6 +3590,7 @@ class NewspeakCroquetColorPickerModel extends Croquet.Model {
 	this.nsColorPickerId = options.nsColorPickerId;
 	this.subscribe(this.nsColorPickerId, 'input', this.input);		
     }
+    
     input(i){
 	console.log('Input ' + i);
 	this.publish(this.nsColorPickerId, 'model_input', i);
@@ -3646,7 +3647,8 @@ class NewspeakCroquetSliderModel extends Croquet.Model {
 }
 
 
-NewspeakCroquetTimePickerModel.register("NewspeakCroquetTimePickerModel")
+NewspeakCroquetSliderModel.register("NewspeakCroquetSliderModel")
+
 // Root model
 
 class NewspeakCroquetModel extends Croquet.Model {
