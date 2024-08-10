@@ -3584,7 +3584,6 @@ NewspeakCroquetPickerModel.register("NewspeakCroquetPickerModel")
 
 // ColorPicker support
 
-NewspeakCroquetColorPickerModel.register("NewspeakCroquetColorPickerModel")
 
 class NewspeakCroquetColorPickerModel extends Croquet.Model {
     init(options) {
