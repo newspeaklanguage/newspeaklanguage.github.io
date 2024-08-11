@@ -3398,6 +3398,67 @@ function storeModelAndView(m, v) {
     croquetInitDone = true;
 }
 
+
+// LeafFragment support - WIP
+
+class NewspeakCroquetLeafFragmentModel extends Croquet.Model {
+    init(options) {
+	this.nsFragmentId = options.nsFragmentId;
+	this.subscribe(this.nsFragmentId, 'onMouseDown', this.mouseDown);		this.subscribe(this.nsFragmentId, 'onMouseEnter', this.mouseEnter);
+	this.subscribe(this.nsFragmentId, 'onMouseMove', this.mouseMove);
+	this.subscribe(this.nsFragmentId, 'onMouseOut', this.mouseOut);
+	this.subscribe(this.nsFragmentId, 'onMouseOver', this.mouseOver);
+	this.subscribe(this.nsFragmentId, 'onMouseUp', this.mouseUp);
+	this.subscribe(this.nsFragmentId, 'onTouchCancel', this.touchCancel);
+	this.subscribe(this.nsFragmentId, 'onTouchEnd', this.touchEnd);
+	this.subscribe(this.nsFragmentId, 'onTouchMove', this.touchMove);
+	this.subscribe(this.nsFragmentId, 'onTouchStart', this.touchStart);		this.subscribe(this.nsFragmentId, 'onWheel', this.wheel;	
+    }
+    mouseDown(i){
+	console.log('MouseDown ' + i);
+	this.publish(this.nsFragmentId, 'model_mouseDown', i);
+    }
+    mouseEnter(i){
+	console.log('MouseEnter ' + i);
+	this.publish(this.nsFragmentId, 'model_mouseEnter', i);
+    }
+    mouseMove(i){
+	console.log('MouseMove ' + i);
+	this.publish(this.nsFragmentId, 'model_mouseMove', i);
+    }
+    mouseOut(i){
+	console.log('MouseOut ' + i);
+	this.publish(this.nsFragmentId, 'model_mouseOut', i);
+    }
+    mouseOver(i){
+	console.log('MouseOver ' + i);
+	this.publish(this.nsFragmentId, 'model_mouseOver', i);
+    }
+   mouseUp(i){
+	console.log('MouseUp ' + i);
+	this.publish(this.nsFragmentId, 'model_mouseUp', i);
+   }
+   touchCancel(i){
+	console.log('TouchCancel ' + i);
+	this.publish(this.nsFragmentId, 'model_touchCancel', i);
+   }
+   touchEnd(i){
+	console.log('TouchEnd ' + i);
+	this.publish(this.nsFragmentId, 'model_touchEnd', i);
+   }	
+   touchMove(i){
+	console.log('TouchMove ' + i);
+	this.publish(this.nsFragmentId, 'model_touchMove', i);
+   }
+   touchStart(i){
+	console.log('TouchStart ' + i);
+	this.publish(this.nsFragmentId, 'model_touchStart', i);
+   }
+   wheel(i){
+	console.log('Wheel ' + i);
+	this.publish(this.nsFragmentId, 'model_wheel', i);
+   }	
+}
 // ButtonFragment support
 
 class NewspeakCroquetButtonModel extends Croquet.Model {
@@ -3530,21 +3591,21 @@ NewspeakCroquetTextEditorModel.register("NewspeakCroquetTextEditorModel");
 class NewspeakCroquetCodeMirrorModel extends Croquet.Model {
     init(options) {
 	this.nsCodeMirrorId = options.nsCodeMirrorId;
-	this.subscribe(this.nsCodeMirrorId, 'accept', this.accept);
+	this.subscribe(this.nsCodeMirrorId, 'beforeChange', this.beforeChange);
 	this.subscribe(this.nsCodeMirrorId, 'change', this.change);
-	this.subscribe(this.nsCodeMirrorId, 'cancel', this.cancel);		
+	this.subscribe(this.nsCodeMirrorId, 'keydown', this.keydown);		
     }
-    accept(textBeingAccepted){
-	console.log('Accepted text ' + textBeingAccepted);
-	this.publish(this.nsCodeMirrorId, 'model_accept', textBeingAccepted);
+    beforeChange(textBeingAccepted){
+	console.log('Before change text ' + textBeingAccepted);
+	this.publish(this.nsCodeMirrorId, 'model_beforeChange', textBeingAccepted);
     }
     change(textBeingAccepted){
 	console.log('Changed text ' + textBeingAccepted);
 	this.publish(this.nsCodeMirrorId, 'model_change', textBeingAccepted);
     }
-    cancel(textBeingAccepted){
-	console.log('Canceled text ' + textBeingAccepted);
-	this.publish(this.nsCodeMirrorId, 'model_cancel', textBeingAccepted);
+    keydown(textBeingAccepted){
+	console.log('Keydown text ' + textBeingAccepted);
+	this.publish(this.nsCodeMirrorId, 'model_keydown', textBeingAccepted);
     }     
 }
 
@@ -3649,6 +3710,39 @@ class NewspeakCroquetSliderModel extends Croquet.Model {
 
 NewspeakCroquetSliderModel.register("NewspeakCroquetSliderModel")
 
+
+// SearchField support
+
+class NewspeakCroquetSearchFieldModel extends Croquet.Model {
+    init(options) {
+	this.nsSearchFieldId = options.nsSearchFieldId;
+	this.subscribe(this.nsSearchFieldId, 'keydown', this.keydown);		
+    }
+    keydown(i){
+	console.log('Keydown ' + i);
+	this.publish(this.nsSearchFieldId, 'model_keydown', i);
+    }     
+}
+
+NewspeakCroquetSearchFieldModel.register("NewspeakCroquetSearchFieldModel")
+
+// DragDownMenu support
+
+class NewspeakCroquetDragDownMenuModel extends Croquet.Model {
+    init(options) {
+	this.nsDragDownMenuId = options.nsDragDownMenuId;
+	this.subscribe(this.nsDragDownMenuId, 'input', this.input);		
+    }
+    input(i){
+	console.log('Input ' + i);
+	this.publish(this.nsDragDownMenuId, 'model_input', i);
+    }     
+}
+
+
+NewspeakCroquetDragDownMenuModel.register("NewspeakCroquetDragDownMenuModel")
+
+
 // Root model
 
 class NewspeakCroquetModel extends Croquet.Model {
@@ -3667,7 +3761,8 @@ class NewspeakCroquetModel extends Croquet.Model {
 	this.subscribe('newspeak_croquet_color_picker', 'createColorPicker', this.createColorPicker);
 	this.subscribe('newspeak_croquet_date_picker', 'createDatePicker', this.createDatePicker);
 	this.subscribe('newspeak_croquet_time_picker', 'createTimePicker', this.createTimePicker);
-	this.subscribe('newspeak_croquet_slider', 'createSlider', this.createSlider);		
+	this.subscribe('newspeak_croquet_slider', 'createSlider', this.createSlider);
+	this.subscribe('newspeak_croquet_search_field', 'createSearchField', this.createSearchField);	
     }
     createButton(bid) {
 	var m;
@@ -3816,7 +3911,18 @@ class NewspeakCroquetModel extends Croquet.Model {
 	    this.fragments.set(bid, m);
 	}
 	this.publish(bid , 'model_createSlider', m);
-    }     
+    }
+    createSearchField(bid) {
+	var m;
+	console.log('Creating search field ' + bid);
+	if (this.fragments.has(bid)) {
+	    m = this.fragments.get(bid)
+	} else {
+	    m = NewspeakCroquetSliderModel.create({nsSearchFieldId: bid});
+	    this.fragments.set(bid, m);
+	}
+	this.publish(bid , 'model_createSearchField', m);
+    }
 }
 
 
