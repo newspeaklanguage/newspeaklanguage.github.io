@@ -3412,7 +3412,7 @@ class NewspeakCroquetLeafFragmentModel extends Croquet.Model {
 	this.subscribe(this.nsFragmentId, 'onTouchCancel', this.touchCancel);
 	this.subscribe(this.nsFragmentId, 'onTouchEnd', this.touchEnd);
 	this.subscribe(this.nsFragmentId, 'onTouchMove', this.touchMove);
-	this.subscribe(this.nsFragmentId, 'onTouchStart', this.touchStart);		this.subscribe(this.nsFragmentId, 'onWheel', this.wheel;	
+	this.subscribe(this.nsFragmentId, 'onTouchStart', this.touchStart);		this.subscribe(this.nsFragmentId, 'onWheel', this.wheel);	
     }
     mouseDown(i){
 	console.log('MouseDown ' + i);
