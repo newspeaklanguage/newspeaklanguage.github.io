@@ -3649,12 +3649,12 @@ NewspeakCroquetPickerModel.register("NewspeakCroquetPickerModel")
 class NewspeakCroquetColorPickerModel extends Croquet.Model {
     init(options) {
 	this.nsColorPickerId = options.nsColorPickerId;
-	this.subscribe(this.nsColorPickerId, 'input', this.input);		
+	this.subscribe(this.nsColorPickerId, 'pick', this.pick);		
     }
     
-    input(i){
-	console.log('Input ' + i);
-	this.publish(this.nsColorPickerId, 'model_input', i);
+    pick(i){
+	console.log('Pick ' + i);
+	this.publish(this.nsColorPickerId, 'model_pick', i);
     }     
 }
 
@@ -3699,11 +3699,11 @@ NewspeakCroquetTimePickerModel.register("NewspeakCroquetTimePickerModel")
 class NewspeakCroquetSliderModel extends Croquet.Model {
     init(options) {
 	this.nsSliderId = options.nsSliderId;
-	this.subscribe(this.nsSliderId, 'input', this.input);		
+	this.subscribe(this.nsSliderId, 'pick', this.pick);		
     }
-    input(i){
-	console.log('Input ' + i);
-	this.publish(this.nsSliderId, 'model_input', i);
+    pick(i){
+	console.log('Pick ' + i);
+	this.publish(this.nsSliderId, 'model_pick', i);
     }     
 }
 
