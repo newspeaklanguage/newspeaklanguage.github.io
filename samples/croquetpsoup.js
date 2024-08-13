@@ -3726,21 +3726,21 @@ class NewspeakCroquetSearchFieldModel extends Croquet.Model {
 
 NewspeakCroquetSearchFieldModel.register("NewspeakCroquetSearchFieldModel")
 
-// DragDownMenu support
+// DropDownMenu support
 
-class NewspeakCroquetDragDownMenuModel extends Croquet.Model {
+class NewspeakCroquetDropDownMenuModel extends Croquet.Model {
     init(options) {
-	this.nsDragDownMenuId = options.nsDragDownMenuId;
-	this.subscribe(this.nsDragDownMenuId, 'input', this.input);		
+	this.nsDropDownMenuId = options.nsDropDownMenuId;
+	this.subscribe(this.nsDropDownMenuId, 'click', this.input);		
     }
     input(i){
 	console.log('Input ' + i);
-	this.publish(this.nsDragDownMenuId, 'model_input', i);
+	this.publish(this.nsDropDownMenuId, 'model_click', i);
     }     
 }
 
 
-NewspeakCroquetDragDownMenuModel.register("NewspeakCroquetDragDownMenuModel")
+NewspeakCroquetDropDownMenuModel.register("NewspeakCroquetDropDownMenuModel")
 
 
 // Root model
@@ -3762,7 +3762,8 @@ class NewspeakCroquetModel extends Croquet.Model {
 	this.subscribe('newspeak_croquet_date_picker', 'createDatePicker', this.createDatePicker);
 	this.subscribe('newspeak_croquet_time_picker', 'createTimePicker', this.createTimePicker);
 	this.subscribe('newspeak_croquet_slider', 'createSlider', this.createSlider);
-	this.subscribe('newspeak_croquet_search_field', 'createSearchField', this.createSearchField);	
+	this.subscribe('newspeak_croquet_search_field', 'createSearchField', this.createSearchField);
+	this.subscribe('newspeak_croquet_drop_down_menu', 'createDropDownMenu', this.createDropDownMenu);		
     }
     createButton(bid) {
 	var m;
@@ -3923,6 +3924,17 @@ class NewspeakCroquetModel extends Croquet.Model {
 	}
 	this.publish(bid , 'model_createSearchField', m);
     }
+    createDropDownMenu(bid) {
+	var m;
+	console.log('Creating drop down menu ' + bid);
+	if (this.fragments.has(bid)) {
+	    m = this.fragments.get(bid)
+	} else {
+	    m = NewspeakCroquetDropDownMenuModel.create({nsDropDownMenuId: bid});
+	    this.fragments.set(bid, m);
+	}
+	this.publish(bid , 'model_createDropDownMenu', m);
+    }    
 }
 
 
