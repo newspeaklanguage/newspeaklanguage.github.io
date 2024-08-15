@@ -3391,6 +3391,31 @@ var theModel;
 var theView;
 var NSCroquetFragmentView;
 
+function replaceUndefined(obj) {
+    // Check if the current value is an object and not null
+    if (obj && typeof obj === 'object') {
+        // Create a copy of the object or array
+        let copy = Array.isArray(obj) ? [] : {};
+        
+        // Recursively process each key/value pair
+        for (let key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                // Replace `undefined` with an empty object
+                if (obj[key] === undefined) {
+                    copy[key] = {};
+                } else {
+                    // Recursively process the value
+                    copy[key] = replaceUndefined(obj[key]);
+                }
+            }
+        }
+        return copy;
+    }
+    
+    // Return the value if it's not an object (base case)
+    return obj;
+}
+
 function storeModelAndView(m, v) {
     theModel = m;
     theView = v;
