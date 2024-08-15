@@ -3416,7 +3416,7 @@ function replaceUndefined(obj) {
     return obj;
 }
 
-function printObjectTree(obj, indent = 0) {
+function printJSObjectTree(obj, indent = 0) {
     // Create a string of spaces for indentation
     const indentString = ' '.repeat(indent);
 
@@ -3427,7 +3427,7 @@ function printObjectTree(obj, indent = 0) {
             console.log(indentString + '[Array]');
             obj.forEach((item, index) => {
                 console.log(indentString + `  [${index}]`);
-                printObjectTree(item, indent + 4);
+                printJSObjectTree(item, indent + 4);
             });
         } else {
             // If it's an object, print each key/value pair
@@ -3435,7 +3435,7 @@ function printObjectTree(obj, indent = 0) {
             for (let key in obj) {
                 if (obj.hasOwnProperty(key)) {
                     console.log(indentString + `  ${key}:`);
-                    printObjectTree(obj[key], indent + 4);
+                    printJSObjectTree(obj[key], indent + 4);
                 }
             }
         }
