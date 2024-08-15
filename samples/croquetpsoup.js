@@ -3433,7 +3433,7 @@ function printJSObjectTree(obj, indent = 0) {
             // If it's an object, print each key/value pair
             console.log(indentString + '{Object}');
             for (let key in obj) {
-                if (obj.hasOwnProperty(key)) {
+                if (true) {
                     console.log(indentString + `  ${key}:`);
                     printJSObjectTree(obj[key], indent + 4);
                 }
@@ -3710,6 +3710,7 @@ class NewspeakCroquetColorPickerModel extends Croquet.Model {
     
     pick(i){
 	console.log('Color Pick ' + i);
+	console.dir(i, { depth: null });	
 	this.publish(this.nsColorPickerId, 'model_pick', i);
     }     
 }
@@ -3726,6 +3727,7 @@ class NewspeakCroquetDatePickerModel extends Croquet.Model {
     }
     input(i){
 	console.log('Date Input ' + i);
+	console.dir(i, { depth: null });	
 	this.publish(this.nsDatePickerId, 'model_input', i);
     }     
 }
@@ -3742,6 +3744,7 @@ class NewspeakCroquetTimePickerModel extends Croquet.Model {
     }
     input(i){
 	console.log('Time picker Input ' + i);
+	console.dir(i, { depth: null });	
 	this.publish(this.nsTimePickerId, 'model_input', i);
     }     
 }
@@ -3759,6 +3762,7 @@ class NewspeakCroquetSliderModel extends Croquet.Model {
     }
     pick(i){
 	console.log('Slider Pick ' + i);
+	console.dir(i, { depth: null });
 	this.publish(this.nsSliderId, 'model_pick', i);
     }     
 }
