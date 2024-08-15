@@ -3416,6 +3416,35 @@ function replaceUndefined(obj) {
     return obj;
 }
 
+function printObjectTree(obj, indent = 0) {
+    // Create a string of spaces for indentation
+    const indentString = ' '.repeat(indent);
+
+    // Check if the current value is an object and not null
+    if (obj && typeof obj === 'object') {
+        // If it's an array, print each element
+        if (Array.isArray(obj)) {
+            console.log(indentString + '[Array]');
+            obj.forEach((item, index) => {
+                console.log(indentString + `  [${index}]`);
+                printObjectTree(item, indent + 4);
+            });
+        } else {
+            // If it's an object, print each key/value pair
+            console.log(indentString + '{Object}');
+            for (let key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                    console.log(indentString + `  ${key}:`);
+                    printObjectTree(obj[key], indent + 4);
+                }
+            }
+        }
+    } else {
+        // If it's not an object, just print the value
+        console.log(indentString + obj);
+    }
+}
+
 function storeModelAndView(m, v) {
     theModel = m;
     theView = v;
