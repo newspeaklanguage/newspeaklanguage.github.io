@@ -3691,7 +3691,6 @@ class NewspeakCroquetPickerModel extends Croquet.Model {
 	this.subscribe(this.nsPickerId, 'input', this.input);		
     }
     input(i){
-	console.log('Picker Input ' + i);
 	this.publish(this.nsPickerId, 'model_input', i);
     }     
 }
@@ -3709,8 +3708,6 @@ class NewspeakCroquetColorPickerModel extends Croquet.Model {
     }
     
     pick(i){
-	console.log('Color Pick ' + i);
-	console.dir(i, { depth: null });	
 	this.publish(this.nsColorPickerId, 'model_pick', i);
     }     
 }
@@ -3726,8 +3723,6 @@ class NewspeakCroquetDatePickerModel extends Croquet.Model {
 	this.subscribe(this.nsDatePickerId, 'input', this.input);		
     }
     input(i){
-	console.log('Date Input ' + i);
-	console.dir(i, { depth: null });	
 	this.publish(this.nsDatePickerId, 'model_input', i);
     }     
 }
@@ -3743,8 +3738,6 @@ class NewspeakCroquetTimePickerModel extends Croquet.Model {
 	this.subscribe(this.nsTimePickerId, 'input', this.input);		
     }
     input(i){
-	console.log('Time picker Input ' + i);
-	console.dir(i, { depth: null });	
 	this.publish(this.nsTimePickerId, 'model_input', i);
     }     
 }
@@ -3761,8 +3754,6 @@ class NewspeakCroquetSliderModel extends Croquet.Model {
 	this.subscribe(this.nsSliderId, 'pick', this.pick);		
     }
     pick(i){
-	console.log('Slider Pick ' + i);
-	console.dir(i, { depth: null });
 	this.publish(this.nsSliderId, 'model_pick', i);
     }     
 }
