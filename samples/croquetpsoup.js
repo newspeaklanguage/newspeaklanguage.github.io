@@ -3399,7 +3399,7 @@ function replaceUndefined(obj) {
         
         // Recursively process each key/value pair
         for (let key in obj) {
-            if (obj.hasOwnProperty(key)) {
+            // if (obj.hasOwnProperty(key)) {
                 // Replace `undefined` with an empty object
                 if (obj[key] === undefined) {
                     copy[key] = {};
@@ -3407,7 +3407,7 @@ function replaceUndefined(obj) {
                     // Recursively process the value
                     copy[key] = replaceUndefined(obj[key]);
                 }
-            }
+            //}
         }
         return copy;
     }
