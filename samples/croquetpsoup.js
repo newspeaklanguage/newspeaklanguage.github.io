@@ -3391,23 +3391,29 @@ var theModel;
 var theView;
 var NSCroquetFragmentView;
 
-function replaceUndefined(obj) {
+function replaceUndefined(obj, seen = new Map()) {
     // Check if the current value is an object and not null
     if (obj && typeof obj === 'object') {
+        // If we've already seen this object, return its previously processed copy to avoid infinite recursion
+        if (seen.has(obj)) {
+            return seen.get(obj);
+        }
+        
         // Create a copy of the object or array
         let copy = Array.isArray(obj) ? [] : {};
         
-        // Recursively process each key/value pair
+        // Store the copy in the Map before processing further to handle cyclic references
+        seen.set(obj, copy);
+        
+        // Recursively process each key/value pair, including inherited properties
         for (let key in obj) {
-            // if (obj.hasOwnProperty(key)) {
-                // Replace `undefined` with an empty object
-                if (obj[key] === undefined) {
-                    copy[key] = {};
-                } else {
-                    // Recursively process the value
-                    copy[key] = replaceUndefined(obj[key]);
-                }
-            //}
+            // Replace `undefined` with an empty object
+            if (obj[key] === undefined) {
+                copy[key] = {};
+            } else {
+                // Recursively process the value
+                copy[key] = replaceUndefined(obj[key], seen);
+            }
         }
         return copy;
     }
