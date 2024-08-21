@@ -3649,7 +3649,9 @@ class NewspeakCroquetCodeMirrorModel extends Croquet.Model {
 	this.nsCodeMirrorId = options.nsCodeMirrorId;
 	this.subscribe(this.nsCodeMirrorId, 'beforeChange', this.beforeChange);
 	this.subscribe(this.nsCodeMirrorId, 'change', this.change);
-	this.subscribe(this.nsCodeMirrorId, 'keydown', this.keydown);		
+	this.subscribe(this.nsCodeMirrorId, 'keydown', this.keydown);
+	this.subscribe(this.nsCodeMirrorId, 'accept', this.accept);
+	this.subscribe(this.nsCodeMirrorId, 'cancel', this.cancel)	
     }
     beforeChange(textBeingAccepted){
 	console.log('Codemirror Before change text ' + textBeingAccepted);
@@ -3662,6 +3664,14 @@ class NewspeakCroquetCodeMirrorModel extends Croquet.Model {
     keydown(textBeingAccepted){
 	console.log('Codemirror Keydown text ' + textBeingAccepted);
 	this.publish(this.nsCodeMirrorId, 'model_keydown', textBeingAccepted);
+    }
+    accept(textBeingAccepted){
+	console.log('Codemirror Accept text ' + textBeingAccepted);
+	this.publish(this.nsCodeMirrorId, 'model_accept', textBeingAccepted);
+    }
+    cancel(textBeingAccepted){
+	console.log('Codemirror Cancel ');
+	this.publish(this.nsCodeMirrorId, 'model_cancel', textBeingAccepted);
     }     
 }
 
