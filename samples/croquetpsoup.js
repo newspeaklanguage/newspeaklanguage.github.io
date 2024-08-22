@@ -3811,7 +3811,7 @@ NewspeakCroquetDropDownMenuModel.register("NewspeakCroquetDropDownMenuModel")
 
 // Menu support
 
-class NewspeakCroqueMenuModel extends Croquet.Model {
+class NewspeakCroquetMenuModel extends Croquet.Model {
     init(options) {
 	this.nsMenuId = options.nsMenuId;
 	this.subscribe(this.nsMenuId, 'click', this.input);		
