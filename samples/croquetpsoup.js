@@ -3801,13 +3801,28 @@ class NewspeakCroquetDropDownMenuModel extends Croquet.Model {
 	this.subscribe(this.nsDropDownMenuId, 'click', this.input);		
     }
     input(i){
-	console.log('Menu Input ' + i);
+	console.log('Drop down Menu Input ' + i);
 	this.publish(this.nsDropDownMenuId, 'model_click', i);
     }     
 }
 
 
 NewspeakCroquetDropDownMenuModel.register("NewspeakCroquetDropDownMenuModel")
+
+// Menu support
+
+class NewspeakCroqueMenuModel extends Croquet.Model {
+    init(options) {
+	this.nsMenuId = options.nsMenuId;
+	this.subscribe(this.nsMenuId, 'click', this.input);		
+    }
+    input(i){
+	console.log('Menu Input ' + i);
+	this.publish(this.nsMenuId, 'model_click', i);
+    }     
+}
+
+NewspeakCroquetMenuModel.register("NewspeakCroquetMenuModel")
 
 
 // Root model
@@ -3830,7 +3845,8 @@ class NewspeakCroquetModel extends Croquet.Model {
 	this.subscribe('newspeak_croquet_time_picker', 'createTimePicker', this.createTimePicker);
 	this.subscribe('newspeak_croquet_slider', 'createSlider', this.createSlider);
 	this.subscribe('newspeak_croquet_search_field', 'createSearchField', this.createSearchField);
-	this.subscribe('newspeak_croquet_drop_down_menu', 'createDropDownMenu', this.createDropDownMenu);		
+	this.subscribe('newspeak_croquet_drop_down_menu', 'createDropDownMenu', this.createDropDownMenu);
+	this.subscribe('newspeak_croquet_menu', 'createMenu', this.createMenu);			
     }
     createButton(bid) {
 	var m;
@@ -4001,7 +4017,18 @@ class NewspeakCroquetModel extends Croquet.Model {
 	    this.fragments.set(bid, m);
 	}
 	this.publish(bid , 'model_createDropDownMenu', m);
-    }    
+    }
+    createMenu(bid) {
+	var m;
+	console.log('Creating menu ' + bid);
+	if (this.fragments.has(bid)) {
+	    m = this.fragments.get(bid)
+	} else {
+	    m = NewspeakCroquetMenuModel.create({nsMenuId: bid});
+	    this.fragments.set(bid, m);
+	}
+	this.publish(bid , 'model_createMenu', m);
+    }     
 }
 
 
