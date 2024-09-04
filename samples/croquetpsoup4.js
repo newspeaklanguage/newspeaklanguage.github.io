@@ -3524,9 +3524,11 @@ class NewspeakCroquetLeafFragmentModel extends Croquet.Model {
 class NewspeakCroquetButtonModel extends Croquet.Model {
     init(options) {
 	this.nsButtonId = options.nsButtonId;
+	console.log('button click');	
 	this.subscribe(this.nsButtonId, 'button_click', this.button_click);
     }
     button_click(){
+	console.log('model button click');
 	this.publish(this.nsButtonId, 'model_button_click');
     }
 }
