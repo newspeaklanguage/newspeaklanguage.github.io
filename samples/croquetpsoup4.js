@@ -3858,6 +3858,7 @@ class NewspeakCroquetModel extends Croquet.Model {
 	    m = NewspeakCroquetButtonModel.create({nsButtonId: bid});
 	    this.fragments.set(bid, m);
 	}
+	console.log('model create button');
 	this.publish(bid , 'model_createButton', m);
     }
     createImageButton(bid) {
