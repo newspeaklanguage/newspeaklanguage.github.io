@@ -3565,7 +3565,7 @@ class NewspeakCroquetHyperlinkModel extends Croquet.Model {
 	this.nsLinkId = options.nsLinkId;
 	this.subscribe(this.nsLinkId, 'hyperlink_click', this.hyperlink_click);
     }
-    hyper_linkclick(){
+    hyperlink_click(){
 	this.publish(this.nsLinkId, 'model_hyperlink_click');
     }
 }
