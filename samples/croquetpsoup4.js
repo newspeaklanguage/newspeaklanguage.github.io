@@ -3849,7 +3849,7 @@ class NewspeakCroquetModel extends Croquet.Model {
 	this.subscribe('newspeak_croquet_search_field', 'createSearchField', this.createSearchField);
 	this.subscribe('newspeak_croquet_drop_down_menu', 'createDropDownMenu', this.createDropDownMenu);
 	this.subscribe('newspeak_croquet_menu', 'createMenu', this.createMenu);
-	this.subscribe'nsbutton_', 'button_click', this.button_click);
+	this.subscribe('nsbutton_', 'button_click', this.button_click);
 	this.subscribe('nsImagebutton_', 'image_button_click', this.image_button_click);
 	this.subscribe('nshyperlink_', 'hyperlink_image_click', this.hyperlink_image_click);
 	this.subscribe('nshyperlinkImage_', 'hyperlink_image_click', this.hyperlink_image_click);	
