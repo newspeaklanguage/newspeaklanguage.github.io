@@ -3848,8 +3848,25 @@ class NewspeakCroquetModel extends Croquet.Model {
 	this.subscribe('newspeak_croquet_slider', 'createSlider', this.createSlider);
 	this.subscribe('newspeak_croquet_search_field', 'createSearchField', this.createSearchField);
 	this.subscribe('newspeak_croquet_drop_down_menu', 'createDropDownMenu', this.createDropDownMenu);
-	this.subscribe('newspeak_croquet_menu', 'createMenu', this.createMenu);			
+	this.subscribe('newspeak_croquet_menu', 'createMenu', this.createMenu);
+	this.subscribe'nsbutton_', 'button_click', this.button_click);
+	this.subscribe('nsImagebutton_', 'image_button_click', this.image_button_click);
+	this.subscribe('nshyperlink_', 'hyperlink_image_click', this.hyperlink_image_click);
+	this.subscribe('nshyperlinkImage_', 'hyperlink_image_click', this.hyperlink_image_click);	
     }
+    button_click(fid){
+	console.log('model button click');
+	this.publish('nsbutton_' + fid, 'model_button_click');
+    }
+    image_button_click(fid){
+	this.publish('nsImagebutton_' + fid, 'model_image_button_click');
+    }
+    hyperlink_click(fid){
+	this.publish('nshyperlink_' + fid, 'model_hyperlink_click');
+    }
+    hyperlink_image_click(fid){
+	this.publish('nshyperlinkImage_' + fid, 'model_hyperlink_image_click');
+    }    
     createButton(bid) {
 	var m;
 	if (this.fragments.has(bid)) {
