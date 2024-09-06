@@ -3779,22 +3779,7 @@ class NewspeakCroquetModel extends Croquet.Model {
 
     init() {  // only runs once, when a new session is initiated. Thus, not the right place to start up Newspeak
 	this.fragments = new Map();
-	this.subscribe('newspeak_croquet_button', 'createButton', this.createButton);
-	this.subscribe('newspeak_croquet_image_button', 'createImageButton', this.createImageButton);
-	this.subscribe('newspeak_croquet_hyperlink', 'createHyperlink', this.createHyperlink);
-	this.subscribe('newspeak_croquet_hyperlink_image', 'createHyperlinkImage', this.createHyperlinkImage);	
-	this.subscribe('newspeak_croquet_checkbox', 'createCheckbox', this.createCheckbox);
-	this.subscribe('newspeak_croquet_radio_button', 'createRadioButton', this.createRadioButton);
-	this.subscribe('newspeak_croquet_text_editor', 'createTextEditor', this.createTextEditor);
-	this.subscribe('newspeak_croquet_code_mirror', 'createCodeMirror', this.createCodeMirror);
-	this.subscribe('newspeak_croquet_picker', 'createPicker', this.createPicker);
-	this.subscribe('newspeak_croquet_color_picker', 'createColorPicker', this.createColorPicker);
-	this.subscribe('newspeak_croquet_date_picker', 'createDatePicker', this.createDatePicker);
-	this.subscribe('newspeak_croquet_time_picker', 'createTimePicker', this.createTimePicker);
-	this.subscribe('newspeak_croquet_slider', 'createSlider', this.createSlider);
-	this.subscribe('newspeak_croquet_search_field', 'createSearchField', this.createSearchField);
-	this.subscribe('newspeak_croquet_drop_down_menu', 'createDropDownMenu', this.createDropDownMenu);
-	this.subscribe('newspeak_croquet_menu', 'createMenu', this.createMenu);
+
 	this.subscribe('nsbutton_', 'button_click', this.button_click);
 	this.subscribe('nsImagebutton_', 'image_button_click', this.image_button_click);
 	this.subscribe('nshyperlink_', 'hyperlink_click', this.hyperlink_click);
