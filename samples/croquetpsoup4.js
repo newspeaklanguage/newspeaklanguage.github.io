@@ -3519,19 +3519,7 @@ class NewspeakCroquetLeafFragmentModel extends Croquet.Model {
 	this.publish(this.nsFragmentId, 'model_wheel', i);
    }	
 }
-// ButtonFragment support
 
-class NewspeakCroquetButtonModel extends Croquet.Model {
-    init(options) {
-	this.nsButtonId = options.nsButtonId;
-	console.log('button click');	
-	this.subscribe(this.nsButtonId, 'button_click', this.button_click);
-    }
-    button_click(){
-	console.log('model button click');
-	this.publish(this.nsButtonId, 'model_button_click');
-    }
-}
 
 class NewspeakCroquetFragmentView extends Croquet.View {
     constructor(model, presenter) {
@@ -3542,49 +3530,7 @@ class NewspeakCroquetFragmentView extends Croquet.View {
     }
 }
 
-NewspeakCroquetButtonModel.register("NewspeakCroquetButtonModel");
 
-// ImageButtonFragment support
-
-class NewspeakCroquetImageButtonModel extends Croquet.Model {
-    init(options) {
-	this.nsButtonId = options.nsButtonId;
-	this.subscribe(this.nsButtonId, 'image_button_click', this.image_button_click);
-    }
-    image_button_click(){
-	this.publish(this.nsButtonId, 'model_image_button_click');
-    }
-}
-
-NewspeakCroquetImageButtonModel.register("NewspeakCroquetImageButtonModel");
-
-// HyperlinkFragment support
-
-class NewspeakCroquetHyperlinkModel extends Croquet.Model {
-    init(options) {
-	this.nsLinkId = options.nsLinkId;
-	this.subscribe(this.nsLinkId, 'hyperlink_click', this.hyperlink_click);
-    }
-    hyperlink_click(){
-	this.publish(this.nsLinkId, 'model_hyperlink_click');
-    }
-}
-
-NewspeakCroquetHyperlinkModel.register("NewspeakCroquetHyperlinkModel");
-
-// HyperlinkImageFragment support
-
-class NewspeakCroquetHyperlinkImageModel extends Croquet.Model {
-    init(options) {
-	this.nsLinkImageId = options.nsLinkImageId;
-	this.subscribe(this.nsLinkImageId, 'hyperlink_image_click', this.hyperlink_image_click);
-    }
-    hyperlink_image_click(){
-	this.publish(this.nsLinkImageId, 'model_hyperlink_image_click');
-    }
-}
-
-NewspeakCroquetHyperlinkImageModel.register("NewspeakCroquetHyperlinkImageModel");
 
 // CheckboxFragment support
 
