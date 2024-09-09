@@ -3458,12 +3458,13 @@ function storeModelAndView(m, v) {
     croquetInitDone = true;
 }
 
+// Root model
 
-// LeafFragment support - WIP
+class NewspeakCroquetModel extends Croquet.Model {
 
-class NewspeakCroquetLeafFragmentModel extends Croquet.Model {
-    init(options) {
-	this.nsFragmentId = options.nsFragmentId;
+    init() {  // only runs once, when a new session is initiated. Thus, not the right place to start up Newspeak
+	this.fragments = new Map();
+	// Leaf fragment support; issues: scope differs by fragment class (no such thing as nsFragmentId)
 	this.subscribe(this.nsFragmentId, 'onMouseDown', this.mouseDown);		this.subscribe(this.nsFragmentId, 'onMouseEnter', this.mouseEnter);
 	this.subscribe(this.nsFragmentId, 'onMouseMove', this.mouseMove);
 	this.subscribe(this.nsFragmentId, 'onMouseOut', this.mouseOut);
@@ -3472,319 +3473,78 @@ class NewspeakCroquetLeafFragmentModel extends Croquet.Model {
 	this.subscribe(this.nsFragmentId, 'onTouchCancel', this.touchCancel);
 	this.subscribe(this.nsFragmentId, 'onTouchEnd', this.touchEnd);
 	this.subscribe(this.nsFragmentId, 'onTouchMove', this.touchMove);
-	this.subscribe(this.nsFragmentId, 'onTouchStart', this.touchStart);		this.subscribe(this.nsFragmentId, 'onWheel', this.wheel);	
-    }
-    mouseDown(i){
-	console.log('MouseDown ' + i);
-	this.publish(this.nsFragmentId, 'model_mouseDown', i);
-    }
-    mouseEnter(i){
-	console.log('MouseEnter ' + i);
-	this.publish(this.nsFragmentId, 'model_mouseEnter', i);
-    }
-    mouseMove(i){
-	console.log('MouseMove ' + i);
-	this.publish(this.nsFragmentId, 'model_mouseMove', i);
-    }
-    mouseOut(i){
-	console.log('MouseOut ' + i);
-	this.publish(this.nsFragmentId, 'model_mouseOut', i);
-    }
-    mouseOver(i){
-	console.log('MouseOver ' + i);
-	this.publish(this.nsFragmentId, 'model_mouseOver', i);
-    }
-   mouseUp(i){
-	console.log('MouseUp ' + i);
-	this.publish(this.nsFragmentId, 'model_mouseUp', i);
-   }
-   touchCancel(i){
-	console.log('TouchCancel ' + i);
-	this.publish(this.nsFragmentId, 'model_touchCancel', i);
-   }
-   touchEnd(i){
-	console.log('TouchEnd ' + i);
-	this.publish(this.nsFragmentId, 'model_touchEnd', i);
-   }	
-   touchMove(i){
-	console.log('TouchMove ' + i);
-	this.publish(this.nsFragmentId, 'model_touchMove', i);
-   }
-   touchStart(i){
-	console.log('TouchStart ' + i);
-	this.publish(this.nsFragmentId, 'model_touchStart', i);
-   }
-   wheel(i){
-	console.log('Wheel ' + i);
-	this.publish(this.nsFragmentId, 'model_wheel', i);
-   }	
-}
-
-
-class NewspeakCroquetFragmentView extends Croquet.View {
-    constructor(model, presenter) {
-	super(model);
-    }
-    modelID() {
-	return model.id
-    }
-}
-
-
-
-// CheckboxFragment support
-
-class NewspeakCroquetCheckboxModel extends Croquet.Model {
-    init(options) {
-	this.nsCheckboxId = options.nsCheckboxId;
-	this.subscribe(this.nsCheckboxId, 'checked', this.checked);
-	this.subscribe(this.nsCheckboxId, 'unchecked', this.unchecked);	
-    }
-    checked(){
-	this.publish(this.nsCheckboxId, 'model_checked');
-    }
-    unchecked(){
-	this.publish(this.nsCheckboxId, 'model_unchecked');
-    }    
-}
-
-NewspeakCroquetCheckboxModel.register("NewspeakCroquetCheckboxModel");
-
-// RadioButtonFragment support
-
-class NewspeakCroquetRadioButtonModel extends Croquet.Model {
-    init(options) {
-	this.nsRadioButtonId = options.nsRadioButtonId;
-	this.subscribe(this.nsRadioButtonId, 'released', this.released);
-	this.subscribe(this.nsRadioButtonId, 'pressed', this.pressed);	
-    }
-    released(){
-	console.log('released ');
-	this.publish(this.nsRadioButtonId, 'model_released');
-    }
-    pressed(){
-	console.log('pressed ');
-	this.publish(this.nsRadioButtonId, 'model_pressed');
-    }    
-}
-
-NewspeakCroquetRadioButtonModel.register("NewspeakCroquetRadioButtonModel");
-
-// TextEditorFragment support
-
-class NewspeakCroquetTextEditorModel extends Croquet.Model {
-    init(options) {
-	this.nsTextEditorId = options.nsTextEditorId;
-	this.subscribe(this.nsTextEditorId, 'accept', this.accept);
-	this.subscribe(this.nsTextEditorId, 'change', this.change);
-	this.subscribe(this.nsTextEditorId, 'cancel', this.cancel);
-    }
-    accept(textBeingAccepted){
-	console.log('Accepted text ' + textBeingAccepted);
-	this.publish(this.nsTextEditorId, 'model_accept', textBeingAccepted);
-    }
-    change(textBeingAccepted){
-	console.log('Changed text ' + textBeingAccepted);
-	this.publish(this.nsTextEditorId, 'model_change', textBeingAccepted);
-    }
-    cancel(textBeingAccepted){
-	console.log('Canceled text ' + textBeingAccepted);
-	this.publish(this.nsTextEditorId, 'model_cancel', textBeingAccepted);
-    }     
-}
-
-
-NewspeakCroquetTextEditorModel.register("NewspeakCroquetTextEditorModel");
-
-// CodeMirrorFragment support
-
-class NewspeakCroquetCodeMirrorModel extends Croquet.Model {
-    init(options) {
-	this.nsCodeMirrorId = options.nsCodeMirrorId;
-	this.subscribe(this.nsCodeMirrorId, 'beforeChange', this.beforeChange);
-	this.subscribe(this.nsCodeMirrorId, 'change', this.change);
-	this.subscribe(this.nsCodeMirrorId, 'keydown', this.keydown);
-	this.subscribe(this.nsCodeMirrorId, 'accept', this.accept);
-	this.subscribe(this.nsCodeMirrorId, 'cancel', this.cancel)	
-    }
-    beforeChange(textBeingAccepted){
-	console.log('Codemirror Before change text ' + textBeingAccepted);
-	this.publish(this.nsCodeMirrorId, 'model_beforeChange', textBeingAccepted);
-    }
-    change(textBeingAccepted){
-	console.log('Codemirror Changed text ' + textBeingAccepted);
-	this.publish(this.nsCodeMirrorId, 'model_change', textBeingAccepted);
-    }
-    keydown(textBeingAccepted){
-	console.log('Codemirror Keydown text ' + textBeingAccepted);
-	this.publish(this.nsCodeMirrorId, 'model_keydown', textBeingAccepted);
-    }
-    accept(textBeingAccepted){
-	console.log('Codemirror Accept text ' + textBeingAccepted);
-	this.publish(this.nsCodeMirrorId, 'model_accept', textBeingAccepted);
-    }
-    cancel(textBeingAccepted){
-	console.log('Codemirror Cancel ');
-	this.publish(this.nsCodeMirrorId, 'model_cancel', textBeingAccepted);
-    }     
-}
-
-
-NewspeakCroquetCodeMirrorModel.register("NewspeakCroquetCodeMirrorModel");
-
-// ToggleComposer support
-
-class NewspeakCroquetToggleComposerModel extends Croquet.Model {
-    init(options) {
-	this.nsToggleComposerId = options.nsToggleComposerId;
-	this.subscribe(this.nsToggleComposerId, 'toggle', this.toggle);		
-    }
-    toggle(i){
-	console.log('Toggle ' + i);
-	this.publish(this.nsToggleComposerId, 'model_toggle', i);
-    }     
-}
-
-NewspeakCroquetToggleComposerModel.register("NewspeakCroquetToggleComposerModel")
-
-// Picker support
-
-class NewspeakCroquetPickerModel extends Croquet.Model {
-    init(options) {
-	this.nsPickerId = options.nsPickerId;
-	this.subscribe(this.nsPickerId, 'input', this.input);		
-    }
-    input(i){
-	this.publish(this.nsPickerId, 'model_input', i);
-    }     
-}
-
-NewspeakCroquetPickerModel.register("NewspeakCroquetPickerModel")
-
-
-// ColorPicker support
-
-
-class NewspeakCroquetColorPickerModel extends Croquet.Model {
-    init(options) {
-	this.nsColorPickerId = options.nsColorPickerId;
-	this.subscribe(this.nsColorPickerId, 'pick', this.pick);		
-    }
-    
-    pick(i){
-	this.publish(this.nsColorPickerId, 'model_pick', i);
-    }     
-}
-
-NewspeakCroquetColorPickerModel.register("NewspeakCroquetColorPickerModel")
-
-// DatePicker support
-
-
-class NewspeakCroquetDatePickerModel extends Croquet.Model {
-    init(options) {
-	this.nsDatePickerId = options.nsDatePickerId;
-	this.subscribe(this.nsDatePickerId, 'input', this.input);		
-    }
-    input(i){
-	this.publish(this.nsDatePickerId, 'model_input', i);
-    }     
-}
-
-NewspeakCroquetDatePickerModel.register("NewspeakCroquetDatePickerModel")
-
-
-// TimePicker support
-
-class NewspeakCroquetTimePickerModel extends Croquet.Model {
-    init(options) {
-	this.nsTimePickerId = options.nsTimePickerId;
-	this.subscribe(this.nsTimePickerId, 'input', this.input);		
-    }
-    input(i){
-	this.publish(this.nsTimePickerId, 'model_input', i);
-    }     
-}
-
-
-NewspeakCroquetTimePickerModel.register("NewspeakCroquetTimePickerModel")
-
-
-// Slider support
-
-class NewspeakCroquetSliderModel extends Croquet.Model {
-    init(options) {
-	this.nsSliderId = options.nsSliderId;
-	this.subscribe(this.nsSliderId, 'pick', this.pick);		
-    }
-    pick(i){
-	this.publish(this.nsSliderId, 'model_pick', i);
-    }     
-}
-
-
-NewspeakCroquetSliderModel.register("NewspeakCroquetSliderModel")
-
-
-// SearchField support
-
-class NewspeakCroquetSearchFieldModel extends Croquet.Model {
-    init(options) {
-	this.nsSearchFieldId = options.nsSearchFieldId;
-	this.subscribe(this.nsSearchFieldId, 'keydown', this.keydown);		
-    }
-    keydown(i){
-	console.log('Search Keydown ' + i);
-	this.publish(this.nsSearchFieldId, 'model_keydown', i);
-    }     
-}
-
-NewspeakCroquetSearchFieldModel.register("NewspeakCroquetSearchFieldModel")
-
-// DropDownMenu support
-
-class NewspeakCroquetDropDownMenuModel extends Croquet.Model {
-    init(options) {
-	this.nsDropDownMenuId = options.nsDropDownMenuId;
-	this.subscribe(this.nsDropDownMenuId, 'click', this.input);		
-    }
-    input(i){
-	console.log('Drop down Menu Input ' + i);
-	this.publish(this.nsDropDownMenuId, 'model_click', i);
-    }     
-}
-
-
-NewspeakCroquetDropDownMenuModel.register("NewspeakCroquetDropDownMenuModel")
-
-// Menu support
-
-class NewspeakCroquetMenuModel extends Croquet.Model {
-    init(options) {
-	this.nsMenuId = options.nsMenuId;
-	this.subscribe(this.nsMenuId, 'click', this.input);		
-    }
-    input(i){
-	console.log('Menu Input ' + i);
-	this.publish(this.nsMenuId, 'model_click', i);
-    }     
-}
-
-NewspeakCroquetMenuModel.register("NewspeakCroquetMenuModel")
-
-
-// Root model
-
-class NewspeakCroquetModel extends Croquet.Model {
-
-    init() {  // only runs once, when a new session is initiated. Thus, not the right place to start up Newspeak
-	this.fragments = new Map();
-
+	this.subscribe(this.nsFragmentId, 'onTouchStart', this.touchStart);		this.subscribe(this.nsFragmentId, 'onWheel', this.wheel);
 	this.subscribe('nsbutton_', 'button_click', this.button_click);
 	this.subscribe('nsImagebutton_', 'image_button_click', this.image_button_click);
 	this.subscribe('nshyperlink_', 'hyperlink_click', this.hyperlink_click);
-	this.subscribe('nshyperlinkImage_', 'hyperlink_image_click', this.hyperlink_image_click);	
+	this.subscribe('nshyperlinkImage_', 'hyperlink_image_click', this.hyperlink_image_click);
+	this.subscribe('nscheckBox_', 'checkBox_checked', this.checkBox_checked);
+	this.subscribe('nscheckBox_', 'checkBox_unchecked', this.checkBox_unchecked);	
+	this.subscribe('nsradioButton_', 'radioButton_released', this.radioButton_released);
+	this.subscribe('nsradioButton_', 'radioButton_pressed', this.radioButton_pressed);	
+	this.subscribe('nscodeMirror_', 'codeMirror_beforeChange', this.codeMirror_beforeChange);
+	this.subscribe('nscodeMirror_', 'codeMirror_change', this.codeMirror_change);
+	this.subscribe('nscodeMirror_', 'codeMirror_keydown', this.codeMirror_keydown);
+	this.subscribe('nscodeMirror_', 'codeMirror_accept', this.codeMirror_accept);
+	this.subscribe('nscodeMirror_', 'codeMirror_cancel', this.codeMirror_cancel);
+	this.subscribe('nstextEditor_', 'textEditor_accept', this.textEditor_accept);
+	this.subscribe('nstextEditor_', 'textEditor_change', this.textEditor_change);
+	this.subscribe('nstextEditor_', 'textEditor_cancel', this.textEditor_cancel);
+	this.subscribe('nstoggleComposer_', 'toggle', this.toggleComposer_toggle)
+	this.subscribe('nspicker_', 'picker_pick', this.picker_pic );
+	this.subscribe('nscolorPicker_', 'color_picker_pick', this.color_picker_pic );
+	this.subscribe('nsdatePicker_', 'date_picker_pick', this.date_picker_pic );
+	this.subscribe('nstimePicker_', 'time_picker_pick', this.time_picker_pic );	
+	this.subscribe('nsslider_', 'slider_pick', this.slider_pick);	
+	this.subscribe('nssearchField_', 'searchField_keydown', this.searchField_keydown);		
+	this.subscribe('nsdropDownMenu_', 'dropDownMenu_click', this.dropDownMenu_click);
+        this.subscribe('nsmenu_', 'menu_click', this.menu_click);
     }
+    // same issues with scope for these methods
+    mouseDown(fid){
+	console.log('MouseDown ' + fid);
+	this.publish(this.nsFragmentId + fid, 'model_mouseDown');
+    }
+    mouseEnter(fid){
+	console.log('MouseEnter ' + fid);
+	this.publish(this.nsFragmentId + fid, 'model_mouseEnter');
+    }
+    mouseMove(fid){
+	console.log('MouseMove ' + fid);
+	this.publish(this.nsFragmentId, 'model_mouseMove');
+    }
+    mouseOut(fid){
+	console.log('MouseOut ' + fid);
+	this.publish(this.nsFragmentId, 'model_mouseOut');
+    }
+    mouseOver(fid){
+	console.log('MouseOver ' + fid);
+	this.publish(this.nsFragmentId, 'model_mouseOver');
+    }
+   mouseUp(fid){
+	console.log('MouseUp ' + fid);
+	this.publish(this.nsFragmentId, 'model_mouseUp');
+   }
+   touchCancel(fid){
+	console.log('TouchCancel ' + fid);
+	this.publish(this.nsFragmentId, 'model_touchCancel');
+   }
+   touchEnd(fid){
+	console.log('TouchEnd ' + fid);
+	this.publish(this.nsFragmentId, 'model_touchEnd');
+   }	
+   touchMove(fid){
+	console.log('TouchMove ' + fid);
+	this.publish(this.nsFragmentId, 'model_touchMove');
+   }
+   touchStart(fid){
+	console.log('TouchStart ' + fid);
+	this.publish(this.nsFragmentId, 'model_touchStart');
+   }
+   wheel(fid){
+	console.log('Wheel ' + fid);
+	this.publish(this.nsFragmentId, 'model_wheel');
+   }    // end leaf methods
     button_click(fid){
 	console.log('model button click');
 	this.publish('nsbutton_' + fid, 'model_button_click');
@@ -3797,8 +3557,86 @@ class NewspeakCroquetModel extends Croquet.Model {
     }
     hyperlink_image_click(fid){
 	this.publish('nshyperlinkImage_' + fid, 'model_hyperlink_image_click');
+    }
+    
+    checkBox_checked(fid){
+	this.publish('nscheckBox_' + fid, 'model_checkBox_checked');
+    }
+    checkBox_unchecked(fid){
+	this.publish('nscheckBox_' + fid, 'model_checkBox_unchecked');
+    }
+    radioButton_released(fid){
+	console.log('released ' + fid);
+	this.publish('nsradioButton_' + fid, 'model_radioButton_released');
+    }
+    radioButton_pressed(fid){
+	console.log('pressed ' + fid);
+	this.publish('nsradioButton_' + fid, 'model_radioButton_pressed');
+    }
+    // code mirror have and text editor have issues - parameter needs to combine text and fid - will need more work in NS side
+    codeMirror_beforeChange(nsOptions){
+	console.log('Codemirror Before change text ' + nsOptions.textBeingAccepted);
+	this.publish('nscodeMirror_' + nsOptions.fid, 'model_beforeChange', nsOptions.textBeingAccepted);
+    }
+    codeMirror_change(nsOptions){
+	console.log('Codemirror Changed text ' + nsOptions.textBeingAccepted);
+	this.publish('nscodeMirror_' + nsOptions.fid, 'model_change', nsOptions.textBeingAccepted);
+    }
+    codeMirror_keydown(nsOptions){
+	console.log('Codemirror Keydown text ' + nsOptions.textBeingAccepted);
+	this.publish('nscodeMirror_' + nsOptions.fid, 'model_keydown', nsOptions.textBeingAccepted);
+    }
+    codeMirror_accept(nsOptions){
+	console.log('Codemirror Accept text ' + nsOptions.textBeingAccepted);
+	this.publish('nscodeMirror_' + nsOptions.fid, 'model_accept', nsOptions.textBeingAccepted);
+    }
+    codeMirror_cancel(nsOptions){
+	console.log('Codemirror Cancel ');
+	this.publish('nscodeMirror_' + nsOptions.fid, 'model_cancel', nsOptions.textBeingAccepted);
+    }
+    textEditor_accept(nsOptions){
+	console.log('Accepted text ' + nsOptions.textBeingAccepted);
+	this.publish('nstextEditor_' + nsOptions.fid, 'model_accept', nsOptions.textBeingAccepted);
+    }
+    textEditor_change(nsOptions){
+	console.log('Changed text ' + nsOptions.textBeingAccepted);
+	this.publish('nstextEditor_' + nsOptions.fid, 'model_change', nsOptions.textBeingAccepted);
+    }
+    textEditor_cancel(nsOptions){
+	console.log('Canceled text ' + nsOptions.textBeingAccepted);
+	this.publish('nstextEditor_' + nsOptions.fid, 'model_cancel', nsOptions.textBeingAccepted);
+    }
+    toggleComposer_toggle(fid){
+	console.log('Toggle ' + fid);
+	this.publish'nstoggleComposer_' + fid, 'model_toggle');
+    }     
+    picker_pick(fid){
+	this.publish('nspicker_' + fid, 'model_picker_pick');
+    }
+    color_picker_pick(fid){
+	this.publish('nscolorPicker_' + fid, 'model_color_picker_pick');
+    }
+    date_picker_pick(fid){
+	this.publish('nsdatePicker_' + fid, 'model_date_picker_pick');
     }    
-
+    time_picker_pick(fid){
+	this.publish('nstimePicker_' + fid, 'model_time_picker_pick');
+    }
+    slider_pick(fid){
+	this.publish('nsslider_' + fid, 'model_slider_pick');
+    }     
+    searchField_keydown(fid){
+	console.log('Search Keydown ' + fid);
+	this.publish('nssearchField_' + fid, 'model_keydown');
+    }    
+    dropDownMenu_click(fid){
+	console.log('Drop down Menu Input ' + fid);
+	this.publish('nsdropDownMenu_' + fid, 'model_dropDownMenu_click');
+    }
+    menu_click(fid){
+	console.log('Menu Input ' + fid);
+	this.publish('nsmenu_' + fid, 'model_menu_click');
+    }    
 }
 
 
