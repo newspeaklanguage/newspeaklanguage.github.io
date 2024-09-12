@@ -3616,7 +3616,7 @@ class NewspeakCroquetModel extends Croquet.Model {
     }
     toggleComposer_toggle(fid){
 	console.log('Toggle ' + fid);
-	this.publish'nstoggleComposer_' + nsOptions.fid, 'model_toggle');
+	this.publish('nstoggleComposer_' + nsOptions.fid, 'model_toggle');
     }     
     picker_pick(nsOptions){
 	this.publish('nspicker_' + nsOptions.fid, 'model_picker_pick', nsOptions.data);
