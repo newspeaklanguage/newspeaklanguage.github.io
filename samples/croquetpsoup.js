@@ -3499,10 +3499,10 @@ class NewspeakCroquetModel extends Croquet.Model {
 	this.subscribe('nstextEditor_', 'textEditor_change', this.textEditor_change);
 	this.subscribe('nstextEditor_', 'textEditor_cancel', this.textEditor_cancel);
 	this.subscribe('nstoggleComposer_', 'toggle', this.toggleComposer_toggle)
-	this.subscribe('nspicker_', 'picker_pick', this.picker_pic );
-	this.subscribe('nscolorPicker_', 'color_picker_pick', this.color_picker_pic );
-	this.subscribe('nsdatePicker_', 'date_picker_pick', this.date_picker_pic );
-	this.subscribe('nstimePicker_', 'time_picker_pick', this.time_picker_pic );	
+	this.subscribe('nspicker_', 'picker_pick', this.picker_pick);
+	this.subscribe('nscolorPicker_', 'color_picker_pick', this.color_picker_pick);
+	this.subscribe('nsdatePicker_', 'date_picker_pick', this.date_picker_pick);
+	this.subscribe('nstimePicker_', 'time_picker_pick', this.time_picker_pick);	
 	this.subscribe('nsslider_', 'slider_pick', this.slider_pick);	
 	this.subscribe('nssearchField_', 'searchField_keydown', this.searchField_keydown);		
 	this.subscribe('nsdropDownMenu_', 'dropDownMenu_click', this.dropDownMenu_click);
