@@ -3389,7 +3389,7 @@ function exit(status, implicit) {
 
 var theModel;
 var theView;
-var NSCroquetFragmentView;
+var NSCroquetFragmentData;
 
 function replaceUndefined(obj, seen = new Map()) {
     // Check if the current value is an object and not null
@@ -3451,10 +3451,18 @@ function printJSObjectTree(obj, indent = 0) {
     }
 }
 
+class NewspeakCroquetFragmentData {
+    constructor(fid, data) {
+	this.fid = fid;
+	this.data = data;
+    }
+}
+    
 function storeModelAndView(m, v) {
     theModel = m;
     theView = v;
-    NSCroquetFragmentView = NewspeakCroquetFragmentView;
+    NSCroquetFragmentData = NewspeakCroquetFragmentData;
+    
     croquetInitDone = true;
 }
 
@@ -3575,67 +3583,67 @@ class NewspeakCroquetModel extends Croquet.Model {
     }
     // code mirror have and text editor have issues - parameter needs to combine text and fid - will need more work in NS side
     codeMirror_beforeChange(nsOptions){
-	console.log('Codemirror Before change text ' + nsOptions.textBeingAccepted);
-	this.publish('nscodeMirror_' + nsOptions.fid, 'model_beforeChange', nsOptions.textBeingAccepted);
+	console.log('Codemirror Before change text ' + nsOptions.data);
+	this.publish('nscodeMirror_' + nsOptions.fid, 'model_beforeChange', nsOptions.data);
     }
     codeMirror_change(nsOptions){
 	console.log('Codemirror Changed text ' + nsOptions.textBeingAccepted);
-	this.publish('nscodeMirror_' + nsOptions.fid, 'model_change', nsOptions.textBeingAccepted);
+	this.publish('nscodeMirror_' + nsOptions.fid, 'model_change', nsOptions.data);
     }
     codeMirror_keydown(nsOptions){
 	console.log('Codemirror Keydown text ' + nsOptions.textBeingAccepted);
-	this.publish('nscodeMirror_' + nsOptions.fid, 'model_keydown', nsOptions.textBeingAccepted);
+	this.publish('nscodeMirror_' + nsOptions.fid, 'model_keydown', nsOptions.data);
     }
     codeMirror_accept(nsOptions){
-	console.log('Codemirror Accept text ' + nsOptions.textBeingAccepted);
-	this.publish('nscodeMirror_' + nsOptions.fid, 'model_accept', nsOptions.textBeingAccepted);
+	console.log('Codemirror Accept text ' + nsOptions.data);
+	this.publish('nscodeMirror_' + nsOptions.fid, 'model_accept', nsOptions.data);
     }
     codeMirror_cancel(nsOptions){
 	console.log('Codemirror Cancel ');
-	this.publish('nscodeMirror_' + nsOptions.fid, 'model_cancel', nsOptions.textBeingAccepted);
+	this.publish('nscodeMirror_' + nsOptions.fid, 'model_cancel', nsOptions.data);
     }
     textEditor_accept(nsOptions){
 	console.log('Accepted text ' + nsOptions.textBeingAccepted);
-	this.publish('nstextEditor_' + nsOptions.fid, 'model_accept', nsOptions.textBeingAccepted);
+	this.publish('nstextEditor_' + nsOptions.fid, 'model_accept', nsOptions.data);
     }
     textEditor_change(nsOptions){
-	console.log('Changed text ' + nsOptions.textBeingAccepted);
-	this.publish('nstextEditor_' + nsOptions.fid, 'model_change', nsOptions.textBeingAccepted);
+	console.log('Changed text ' + nsOptions.data);
+	this.publish('nstextEditor_' + nsOptions.fid, 'model_change', nsOptions.data);
     }
     textEditor_cancel(nsOptions){
-	console.log('Canceled text ' + nsOptions.textBeingAccepted);
-	this.publish('nstextEditor_' + nsOptions.fid, 'model_cancel', nsOptions.textBeingAccepted);
+	console.log('Canceled text ' + nsOptions.data);
+	this.publish('nstextEditor_' + nsOptions.fid, 'model_cancel', nsOptions.data);
     }
     toggleComposer_toggle(fid){
 	console.log('Toggle ' + fid);
-	this.publish'nstoggleComposer_' + fid, 'model_toggle');
+	this.publish'nstoggleComposer_' + nsOptions.fid, 'model_toggle');
     }     
-    picker_pick(fid){
-	this.publish('nspicker_' + fid, 'model_picker_pick');
+    picker_pick(nsOptions){
+	this.publish('nspicker_' + nsOptions.fid, 'model_picker_pick', nsOptions.data);
     }
-    color_picker_pick(fid){
-	this.publish('nscolorPicker_' + fid, 'model_color_picker_pick');
+    color_picker_pick(nsOptions){
+	this.publish('nscolorPicker_' + nsOptions.fid, 'model_color_picker_pick', nsOptions.data);
     }
-    date_picker_pick(fid){
-	this.publish('nsdatePicker_' + fid, 'model_date_picker_pick');
+    date_picker_pick(nsOptions){
+	this.publish('nsdatePicker_' + nsOptions.fid, 'model_date_picker_pick', nsOptions.data);
     }    
-    time_picker_pick(fid){
-	this.publish('nstimePicker_' + fid, 'model_time_picker_pick');
+    time_picker_pick(nsOptions){
+	this.publish('nstimePicker_' + nsOptions.fid, 'model_time_picker_pick', nsOptions.data);
     }
-    slider_pick(fid){
-	this.publish('nsslider_' + fid, 'model_slider_pick');
+    slider_pick(nsOptions){
+	this.publish('nsslider_' + nsOptions.fid, 'model_slider_pick', nsOptions.data);
     }     
-    searchField_keydown(fid){
-	console.log('Search Keydown ' + fid);
-	this.publish('nssearchField_' + fid, 'model_keydown');
+    searchField_keydown(nsOptions){
+	console.log('Search Keydown ' + nsOptions.fid);
+	this.publish('nssearchField_' + nsOptions.fid, 'model_keydown', nsOptions.data);
     }    
     dropDownMenu_click(fid){
 	console.log('Drop down Menu Input ' + fid);
 	this.publish('nsdropDownMenu_' + fid, 'model_dropDownMenu_click');
     }
-    menu_click(fid){
-	console.log('Menu Input ' + fid);
-	this.publish('nsmenu_' + fid, 'model_menu_click');
+    menu_click(nsOptions){
+	console.log('Menu Input ' + nsOptions.fid);
+	this.publish('nsmenu_' + nsOptions.fid, 'model_menu_click', nsOptions.data);
     }    
 }
 
