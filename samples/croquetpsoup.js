@@ -3500,13 +3500,20 @@ class NewspeakCroquetModel extends Croquet.Model {
 	this.subscribe('nstextEditor_', 'textEditor_cancel', this.textEditor_cancel);
 	this.subscribe('nstoggleComposer_', 'toggle', this.toggleComposer_toggle)
 	this.subscribe('nspicker_', 'picker_pick', this.picker_pick);
+	console.log('subscribed to pick');
 	this.subscribe('nscolorPicker_', 'color_picker_pick', this.color_picker_pick);
+	console.log('subscribed to color pick');
 	this.subscribe('nsdatePicker_', 'date_picker_pick', this.date_picker_pick);
-	this.subscribe('nstimePicker_', 'time_picker_pick', this.time_picker_pick);	
-	this.subscribe('nsslider_', 'slider_pick', this.slider_pick);	
+	console.log('subscribed to date pick');	
+	this.subscribe('nstimePicker_', 'time_picker_pick', this.time_picker_pick);
+	console.log('subscribed to time pick');		
+	this.subscribe('nsslider_', 'slider_pick', this.slider_pick);
+	console.log('subscribed to slider pick');			
 	this.subscribe('nssearchField_', 'searchField_keydown', this.searchField_keydown);		
 	this.subscribe('nsdropDownMenu_', 'dropDownMenu_click', this.dropDownMenu_click);
+	console.log('subscribed to drop down click');				
         this.subscribe('nsmenu_', 'menu_click', this.menu_click);
+	console.log('subscribed to drop down menu click');			
     }
     // same issues with scope for these methods
     mouseDown(fid){
