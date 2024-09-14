@@ -3486,8 +3486,8 @@ class NewspeakCroquetModel extends Croquet.Model {
 	this.subscribe('nsImagebutton_', 'image_button_click', this.image_button_click);
 	this.subscribe('nshyperlink_', 'hyperlink_click', this.hyperlink_click);
 	this.subscribe('nshyperlinkImage_', 'hyperlink_image_click', this.hyperlink_image_click);
-	this.subscribe('nscheckBox_', 'checkBox_checked', this.checkBox_checked);
-	this.subscribe('nscheckBox_', 'checkBox_unchecked', this.checkBox_unchecked);	
+	this.subscribe('nscheckbox_', 'checkBox_checked', this.checkBox_checked);
+	this.subscribe('nscheckbox_', 'checkBox_unchecked', this.checkBox_unchecked);	
 	this.subscribe('nsradioButton_', 'radioButton_released', this.radioButton_released);
 	this.subscribe('nsradioButton_', 'radioButton_pressed', this.radioButton_pressed);	
 	this.subscribe('nscodeMirror_', 'codeMirror_beforeChange', this.codeMirror_beforeChange);
@@ -3575,10 +3575,10 @@ class NewspeakCroquetModel extends Croquet.Model {
     }
     
     checkBox_checked(fid){
-	this.publish('nscheckBox_' + fid, 'model_checkBox_checked');
+	this.publish('nscheckbox_' + fid, 'model_checkBox_checked');
     }
     checkBox_unchecked(fid){
-	this.publish('nscheckBox_' + fid, 'model_checkBox_unchecked');
+	this.publish('nscheckbox_' + fid, 'model_checkBox_unchecked');
     }
     radioButton_released(fid){
 	console.log('released ' + fid);
