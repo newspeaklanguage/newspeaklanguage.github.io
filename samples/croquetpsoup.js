@@ -3504,20 +3504,13 @@ class NewspeakCroquetModel extends Croquet.Model {
 	this.subscribe('nstexteditor_', 'textEditor_cancel', this.textEditor_cancel);
 	this.subscribe('nstogglecomposer_', 'toggleComposer_toggle', this.toggleComposer_toggle)
 	this.subscribe('nspicker_', 'picker_pick', this.picker_pick);
-	console.log('subscribed to pick');
 	this.subscribe('nscolorpicker_', 'color_picker_pick', this.color_picker_pick);
-	console.log('subscribed to color pick');
 	this.subscribe('nsdatepicker_', 'date_picker_pick', this.date_picker_pick);
-	console.log('subscribed to date pick');	
 	this.subscribe('nstimepicker_', 'time_picker_pick', this.time_picker_pick);
-	console.log('subscribed to time pick');		
 	this.subscribe('nsslider_', 'slider_pick', this.slider_pick);
-	console.log('subscribed to slider pick');			
 	this.subscribe('nssearchfield_', 'searchField_keydown', this.searchField_keydown);		
 	this.subscribe('nsdropdownmenu_', 'dropDownMenu_click', this.dropDownMenu_click);
-	console.log('subscribed to drop down click');				
         this.subscribe('nsmenu_', 'menu_click', this.menu_click);
-	console.log('subscribed to drop down menu click');			
     }
     // same issues with scope for these methods
     mouseDown(fid){
@@ -3565,7 +3558,6 @@ class NewspeakCroquetModel extends Croquet.Model {
 	this.publish(this.nsFragmentId, 'model_wheel');
    }    // end leaf methods
     button_click(fid){
-	console.log('model button click');
 	this.publish('nsbutton_' + fid, 'model_button_click');
     }
     image_button_click(fid){
@@ -3579,17 +3571,17 @@ class NewspeakCroquetModel extends Croquet.Model {
     }
     
     checkBox_checked(fid){
+	console.log('model checkbox checked');
 	this.publish('nscheckbox_' + fid, 'model_checkBox_checked');
     }
     checkBox_unchecked(fid){
+	console.log('model checkbox unchecked');	
 	this.publish('nscheckbox_' + fid, 'model_checkBox_unchecked');
     }
     radioButton_released(fid){
-	console.log('released ' + fid);
 	this.publish('nsradiobutton_' + fid, 'model_radioButton_released');
     }
     radioButton_pressed(fid){
-	console.log('pressed ' + fid);
 	this.publish('nsradiobutton_' + fid, 'model_radioButton_pressed');
     }
     // code mirror have and text editor have issues - parameter needs to combine text and fid - will need more work in NS side
@@ -3630,15 +3622,19 @@ class NewspeakCroquetModel extends Croquet.Model {
 	this.publish('nstogglecomposer_' + nsOptions.fid, 'model_toggleComposer_toggle');
     }     
     picker_pick(nsOptions){
+	console.log('model picker pick ' + nsOptions.fid);	
 	this.publish('nspicker_' + nsOptions.fid, 'model_picker_pick', nsOptions.data);
     }
     color_picker_pick(nsOptions){
+	console.log('model color picker pick ' + nsOptions.fid);		
 	this.publish('nscolorpicker_' + nsOptions.fid, 'model_color_picker_pick', nsOptions.data);
     }
     date_picker_pick(nsOptions){
+	console.log('model date picker pick ' + nsOptions.fid);		
 	this.publish('nsdatepicker_' + nsOptions.fid, 'model_date_picker_pick', nsOptions.data);
     }    
     time_picker_pick(nsOptions){
+	console.log('model time picker pick ' + nsOptions.fid);			
 	this.publish('nstimepicker_' + nsOptions.fid, 'model_time_picker_pick', nsOptions.data);
     }
     slider_pick(nsOptions){
