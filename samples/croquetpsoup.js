@@ -3504,9 +3504,9 @@ class NewspeakCroquetModel extends Croquet.Model {
 	this.subscribe('nstexteditor_', 'textEditor_cancel', this.textEditor_cancel);
 	this.subscribe('nstogglecomposer_', 'toggleComposer_toggle', this.toggleComposer_toggle)
 	this.subscribe('nspicker_', 'picker_pick', this.picker_pick);
-	this.subscribe('nscolorpicker_', 'color_picker_pick', this.color_picker_pick);
-	this.subscribe('nsdatepicker_', 'date_picker_pick', this.date_picker_pick);
-	this.subscribe('nstimepicker_', 'time_picker_pick', this.time_picker_pick);
+	this.subscribe('nscolorpicker_', 'colorPicker_pick', this.color_picker_pick);
+	this.subscribe('nsdatepicker_', 'datePicker_pick', this.date_picker_pick);
+	this.subscribe('nstimepicker_', 'timePicker_pick', this.time_picker_pick);
 	this.subscribe('nsslider_', 'slider_pick', this.slider_pick);
 	this.subscribe('nssearchfield_', 'searchField_keydown', this.searchField_keydown);		
 	this.subscribe('nsdropdownmenu_', 'dropDownMenu_click', this.dropDownMenu_click);
@@ -3627,15 +3627,15 @@ class NewspeakCroquetModel extends Croquet.Model {
     }
     color_picker_pick(nsOptions){
 	console.log('model color picker pick ' + nsOptions.fid);		
-	this.publish('nscolorpicker_' + nsOptions.fid, 'model_color_picker_pick', nsOptions.data);
+	this.publish('nscolorpicker_' + nsOptions.fid, 'model_colorPicker_pick', nsOptions.data);
     }
     date_picker_pick(nsOptions){
 	console.log('model date picker pick ' + nsOptions.fid);		
-	this.publish('nsdatepicker_' + nsOptions.fid, 'model_date_picker_pick', nsOptions.data);
+	this.publish('nsdatepicker_' + nsOptions.fid, 'model_datePicker_pick', nsOptions.data);
     }    
     time_picker_pick(nsOptions){
 	console.log('model time picker pick ' + nsOptions.fid);			
-	this.publish('nstimepicker_' + nsOptions.fid, 'model_time_picker_pick', nsOptions.data);
+	this.publish('nstimepicker_' + nsOptions.fid, 'model_timePicker_pick', nsOptions.data);
     }
     slider_pick(nsOptions){
 	this.publish('nsslider_' + nsOptions.fid, 'model_slider_pick', nsOptions.data);
