@@ -3466,6 +3466,10 @@ function storeModelAndView(m, v) {
     croquetInitDone = true;
 }
 
+function newspeakFragmentData(fid, data) {
+    return {fid: fid, data: data}
+}
+
 // Root model
 
 class NewspeakCroquetModel extends Croquet.Model {
