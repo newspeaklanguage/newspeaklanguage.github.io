@@ -3389,7 +3389,6 @@ function exit(status, implicit) {
 
 var theModel;
 var theView;
-var NSCroquetFragmentData;
 
 function replaceUndefined(obj, seen = new Map()) {
     // Check if the current value is an object and not null
@@ -3450,19 +3449,10 @@ function printJSObjectTree(obj, indent = 0) {
         console.log(indentString + obj);
     }
 }
-
-class NewspeakCroquetFragmentData {
-    constructor(fid, data) {
-	this.fid = fid;
-	this.data = data;
-    }
-}
     
 function storeModelAndView(m, v) {
     theModel = m;
     theView = v;
-    NSCroquetFragmentData = NewspeakCroquetFragmentData;
-    
     croquetInitDone = true;
 }
 
@@ -3584,7 +3574,6 @@ class NewspeakCroquetModel extends Croquet.Model {
     radioButton_pressed(fid){
 	this.publish('nsradiobutton_' + fid, 'model_radioButton_pressed');
     }
-    // code mirror have and text editor have issues - parameter needs to combine text and fid - will need more work in NS side
     codeMirror_beforeChange(nsOptions){
 	console.log('Codemirror Before change text ' + nsOptions.data);
 	this.publish('nscodemirror_' + nsOptions.fid, 'model_codeMirror_beforeChange', nsOptions.data);
@@ -3622,19 +3611,15 @@ class NewspeakCroquetModel extends Croquet.Model {
 	this.publish('nstogglecomposer_' + nsOptions.fid, 'model_toggleComposer_toggle');
     }     
     picker_pick(nsOptions){
-	console.log('model picker pick ' + nsOptions.fid);	
 	this.publish('nspicker_' + nsOptions.fid, 'model_picker_pick', nsOptions.data);
     }
     color_picker_pick(nsOptions){
-	console.log('model color picker pick ' + nsOptions.fid);		
 	this.publish('nscolorpicker_' + nsOptions.fid, 'model_colorPicker_pick', nsOptions.data);
     }
     date_picker_pick(nsOptions){
-	console.log('model date picker pick ' + nsOptions.fid);		
 	this.publish('nsdatepicker_' + nsOptions.fid, 'model_datePicker_pick', nsOptions.data);
     }    
     time_picker_pick(nsOptions){
-	console.log('model time picker pick ' + nsOptions.fid);			
 	this.publish('nstimepicker_' + nsOptions.fid, 'model_timePicker_pick', nsOptions.data);
     }
     slider_pick(nsOptions){
