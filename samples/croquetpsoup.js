@@ -3631,7 +3631,7 @@ class NewspeakCroquetModel extends Croquet.Model {
     }    
     dropDownMenu_click(fid){
 	console.log('Drop down Menu Input ' + fid);
-	this.publish('nsdropdownmenu_' + fid, 'model_dropDownMenu_click');
+	this.publish('nsdropdownmenu_' + fid, 'model_dropDownMenu_click', fid);
     }
     menu_click(nsOptions){
 	console.log('Menu Input ' + nsOptions.fid);
