@@ -3500,9 +3500,7 @@ class NewspeakCroquetModel extends Croquet.Model {
 	this.subscribe('nsslider_', 'slider_pick', this.slider_pick);
 	this.subscribe('nssearchfield_', 'searchField_keydown', this.searchField_keydown);		
 	this.subscribe('nsdropdownmenu_', 'dropDownMenu_click', this.dropDownMenu_click);
-        this.subscribe('nsmenudisplay_', 'menudisplay_click', this.menudisplay_click);
-
-	console.log('Subscriptions done');
+        this.subscribe('nsmenu_', 'menu_click', this.menu_click);
     }
     // same issues with scope for these methods
     mouseDown(fid){
@@ -3632,12 +3630,10 @@ class NewspeakCroquetModel extends Croquet.Model {
 	this.publish('nssearchfield_' + nsOptions.fid, 'model_searchField_keydown', nsOptions.data);
     }    
     dropDownMenu_click(fid){
-	console.log('Drop down Menu Input ' + fid);
 	this.publish('nsdropdownmenu_' + fid, 'model_dropDownMenu_click', fid);
     }
-    menudisplay_click(nsOptions){
-	console.log('Menu display Input ' + nsOptions.fid);
-	this.publish('nsmenudisplay_' + nsOptions.fid, 'model_menudisplay_click', nsOptions.data);
+    menu_click(nsOptions){
+	this.publish('nsmenu_' + nsOptions.fid, 'model_menu_click', nsOptions.data);
     }    
 }
 
