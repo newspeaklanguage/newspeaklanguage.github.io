@@ -3501,6 +3501,8 @@ class NewspeakCroquetModel extends Croquet.Model {
 	this.subscribe('nssearchfield_', 'searchField_keydown', this.searchField_keydown);		
 	this.subscribe('nsdropdownmenu_', 'dropDownMenu_click', this.dropDownMenu_click);
         this.subscribe('nsmenudisplay_', 'menudisplay_click', this.menudisplay_click);
+
+	console.log('Subscriptions done');
     }
     // same issues with scope for these methods
     mouseDown(fid){
