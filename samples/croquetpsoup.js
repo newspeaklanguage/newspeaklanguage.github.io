@@ -3449,7 +3449,17 @@ function printJSObjectTree(obj, indent = 0) {
         console.log(indentString + obj);
     }
 }
-    
+
+function sanitizeKeydownEvent(kde) {
+    return {
+        key: kde.key,
+	metaKey: kde.metaKey,
+	ctrlKey: kde.ctrlKey,
+	shiftKey: kde.shiftKey,
+	altKey: kde.altKey
+    }
+
+}
 function storeModelAndView(m, v) {
     theModel = m;
     theView = v;
@@ -3579,7 +3589,7 @@ class NewspeakCroquetModel extends Croquet.Model {
 	this.publish('nscodemirror_' + nsOptions.fid, 'model_codeMirror_beforeChange', nsOptions.data);
     }
     codeMirror_change(nsOptions){
-	console.log('Codemirror Changed text ' + nsOptions.textBeingAccepted);
+	console.log('Codemirror Changed text ' + nsOptions.data);
 	this.publish('nscodemirror_' + nsOptions.fid, 'model_codeMirror_change', nsOptions.data);
     }
     codeMirror_keydown(nsOptions){
@@ -3607,7 +3617,6 @@ class NewspeakCroquetModel extends Croquet.Model {
 	this.publish('nstexteditor_' + nsOptions.fid, 'model_textEditor_cancel', nsOptions.data);
     }
     toggleComposer_toggle(fid){
-	console.log('Toggle ' + fid);
 	this.publish('nstogglecomposer_' + fid, 'model_toggleComposer_toggle');
     }     
     picker_pick(nsOptions){
