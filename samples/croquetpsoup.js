@@ -3470,6 +3470,10 @@ function newspeakFragmentData(fid, data) {
     return {fid: fid, data: data}
 }
 
+function nsCursorPos(ch, line) {
+    return {ch: ch, line: line}
+}
+
 // Root model
 
 class NewspeakCroquetModel extends Croquet.Model {
