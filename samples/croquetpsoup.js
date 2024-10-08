@@ -3480,6 +3480,13 @@ function nsCursorPos(ch, line) {
     return {ch: ch, line: line}
 }
 
+function nsCodeMirrorData(textBeingAccepted, change) {
+    return {
+	textBeingAccepted: textBeingAccepted,
+	change: change
+    }
+}
+
 // Root model
 
 class NewspeakCroquetModel extends Croquet.Model {
