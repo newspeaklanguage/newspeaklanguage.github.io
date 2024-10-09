@@ -3471,8 +3471,14 @@ function newspeakFragmentData(fid, data) {
 }
 
 function nsCodeMirrorChange(change) {
+    console.log('from ch =' + change.from.ch);
+    console.log('from line =' + change.from.line);
+    console.log('to ch =' + change.to.ch);
+    console.log('to line =' + change.to.line);    
     return {from: nsCursorPos(change.from.ch, change.from.line),
-	    to:  nsCursorPos(change.to.ch, change.to.line)
+	    to:  nsCursorPos(change.to.ch, change.to.line),
+	    text: change.text,
+	    removed: change.removed
 	   }
 }
 
