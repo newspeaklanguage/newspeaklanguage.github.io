@@ -3618,15 +3618,12 @@ class NewspeakCroquetModel extends Croquet.Model {
 	this.publish('nscodemirror_' + nsOptions.fid, 'model_codeMirror_cancel', nsOptions.data);
     }
     textEditor_accept(nsOptions){
-	console.log('Accepted text ' + nsOptions.textBeingAccepted);
 	this.publish('nstexteditor_' + nsOptions.fid, 'model_textEditor_accept', nsOptions.data);
     }
     textEditor_change(nsOptions){
-	console.log('Changed text ' + nsOptions.data);
 	this.publish('nstexteditor_' + nsOptions.fid, 'model_textEditor_change', nsOptions.data);
     }
     textEditor_cancel(nsOptions){
-	console.log('Canceled text ' + nsOptions.data);
 	this.publish('nstexteditor_' + nsOptions.fid, 'model_textEditor_cancel', nsOptions.data);
     }
     toggleComposer_toggle(fid){
