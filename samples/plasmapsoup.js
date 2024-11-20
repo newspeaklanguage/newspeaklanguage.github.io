@@ -3501,52 +3501,6 @@ function nsCodeMirrorData(textBeingAccepted, change) {
     }
 }
 
-
-function nsTextEditorData(textBeingAccepted, selectionStart, selectionEnd) {
-    return {
-	textBeingAccepted: textBeingAccepted,
-	selectionStart: selectionStart,
-	selectionEnd: selectionEnd
-    }
-}
-
-function fileish(fd) {
-    /* Why not just create a File object? Because the File API is not invertible; you cannot pass it the webkitRelativePath property. On the other hand,
-some APIs we use (like JSZip) insist on taking File. So we probably will scrap this code. */
-    buffer = fd.arrayBuff;
-    
-    return {
-	name: fd.name,
-	type: fd.type,
-	lastModified: fd.lastModified,
-	webkitRelativePath: fd.webkitRelativePath,
-        arrayBuffer: function() {
-            return Promise.resolve(buffer);
-        },
-        bytes: function() {
-            return Promise.resolve(new Uint8Array(buffer));
-        },
-        slice: function(start = 0, end = buffer.byteLength) {
-            const slicedBuffer = buffer.slice(start, end);
-            return Promise.resolve(slicedBuffer);
-        },
-        stream: function() {
-            const readableStream = new ReadableStream({
-                start(controller) {
-                    controller.enqueue(new Uint8Array(buffer));
-                    controller.close();
-                }
-            });
-            return Promise.resolve(readableStream);
-        },
-        text: function() {
-            const decoder = new TextDecoder();
-            const text = decoder.decode(buffer);
-            return Promise.resolve(text);
-        }
-    };
-}
-
 // Root model
 
 class NewspeakCroquetModel extends Croquet.Model {
@@ -3588,8 +3542,7 @@ class NewspeakCroquetModel extends Croquet.Model {
 	this.subscribe('nsslider_', 'slider_pick', this.slider_pick);
 	this.subscribe('nsdropdownmenu_', 'dropDownMenu_click', this.dropDownMenu_click);
         this.subscribe('nsmenu_', 'menu_click', this.menu_click);
-        this.subscribe('nsshell_', 'shell_userBack', this.shell_userBack);
-	this.subscribe('nsfilechooser_', 'fileChooser_click', this.fileChooser_click);
+        this.subscribe('nsshell_', 'shell_userBack', this.shell_userBack);	
     }
     // same issues with scope for these methods
     mouseDown(fid){
@@ -3664,12 +3617,15 @@ class NewspeakCroquetModel extends Croquet.Model {
 	this.publish('nsradiobutton_' + fid, 'model_radioButton_pressed');
     }
     codeMirror_beforeChange(nsOptions){
+	console.log('before_change ' + nsOptions.fid);
 	this.publish('nscodemirror_' + nsOptions.fid, 'model_codeMirror_beforeChange', nsOptions.data);
     }
     codeMirror_change(nsOptions){
+	console.log('change ' + nsOptions.fid);	
 	this.publish('nscodemirror_' + nsOptions.fid, 'model_codeMirror_change', nsOptions.data);
     }
     codeMirror_keydown(nsOptions){
+	console.log('keydown ' + nsOptions.fid);	
 	this.publish('nscodemirror_' + nsOptions.fid, 'model_codeMirror_keydown', nsOptions.data);
     }
     codeMirror_accept(nsOptions){
@@ -3677,6 +3633,7 @@ class NewspeakCroquetModel extends Croquet.Model {
 	this.publish('nscodemirror_' + nsOptions.fid, 'model_codeMirror_accept', nsOptions.data);
     }
     codeMirror_cancel(nsOptions){
+	console.log('cancel ' + nsOptions.fid);		
 	this.publish('nscodemirror_' + nsOptions.fid, 'model_codeMirror_cancel', nsOptions.data);
     }
     codeMirror_beforeSelectionChange(nsOptions){		
@@ -3717,10 +3674,7 @@ class NewspeakCroquetModel extends Croquet.Model {
     }
     shell_userBack(nsOptions){
 	this.publish('nsshell_' + nsOptions.fid, 'model_shell_userBack', nsOptions.data);
-    }
-    fileChooser_click(nsOptions){
-	this.publish('nsfilechooser_' + nsOptions.fid, 'model_fileChooser_click', nsOptions.data);
-    }    
+    }     
 }
 
 
