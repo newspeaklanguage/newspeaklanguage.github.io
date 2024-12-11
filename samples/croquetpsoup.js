@@ -3732,7 +3732,9 @@ class NewspeakCroquetView extends Croquet.View {
 	this.presenter = presenter;
 	storeModelAndView(model, this);
 	removeRunDependency(croquetDepId);
-  }
+    }
+
+    storedData() {return this.session.data}
 }
 
 const apiKey = "1g8dBJxALIxjKuCIblCBIttBxKOvNxOKfNgaK6ufq"; // paste from croquet.io/keys
