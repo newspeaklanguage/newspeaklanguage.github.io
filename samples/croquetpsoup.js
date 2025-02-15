@@ -3835,7 +3835,7 @@ class NewspeakCroquetView extends Croquet.View {
 
 const apiKey = "1g8dBJxALIxjKuCIblCBIttBxKOvNxOKfNgaK6ufq"; // paste from croquet.io/keys
 const appId = "org.newspeaklanguage.webIDE";
-const name = "NSCroquetIDEDevelopment-session46"; //Croquet.App.autoSession();
+const name = "NSCroquetIDEDevelopment-session0101"; //Croquet.App.autoSession();
 const password = "neverMind"; // Croquet.App.autoPassword();
 
 // classes aren't stored in the global object, so assign them to
