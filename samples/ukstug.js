@@ -3934,7 +3934,7 @@ function getURIParam(paramName) {
 
 const name = "NSCroquetAmpleforth-session" + getURIParam("sid"); 
 // or else Croquet.App.autoSession();
-const apiKey = "2MsVno0AwdP3RH1ntnb9MYqDOgfFxBYVDVhR0ujzZK ";// originates from croquet.io/keys
+const apiKey = "2apU5jHvaWrpc0hyai8WGywV6Ifzqzzq7suKT2Zt0d";// originates from croquet.io/keys
 const appId ="org.newspeaklanguage.ampleforth";
 const password = "neverMind"; // Croquet.App.autoPassword();
 
