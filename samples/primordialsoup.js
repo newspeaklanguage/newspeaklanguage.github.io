@@ -1814,25 +1814,25 @@ var tempI64;
 var ASM_CONSTS = {
   
 };
-function _JS_popFloat(){ var aliens = Module.aliens; return aliens.pop(); }
-function _JS_popInteger(){ var aliens = Module.aliens; return aliens.pop(); }
+function _JS_pushExpat(index){ var aliens = Module.aliens; function expat() { for (var i = 0; i < arguments.length; i++) { aliens.push(arguments[i]); } Module._handle_signal(index, arguments.length, 0, 0); return aliens.pop(); } aliens.push(expat); }
+function _JS_pushFloat(value){ var aliens = Module.aliens; aliens.push(value); }
 function _JS_peekAlien(){ var aliens = Module.aliens; var lastIndex = aliens.length - 1; if (undefined === aliens[lastIndex]) { aliens.pop(); return 0; } else { return lastIndex; } }
+function _JS_popFloat(){ var aliens = Module.aliens; return aliens.pop(); }
+function _JS_pushString(addr,size){ var aliens = Module.aliens; var value = UTF8ToString(addr, size); aliens.push(value); }
+function _JS_performDelete(){ var aliens = Module.aliens; var selector = aliens.pop(); var receiver = aliens.pop(); try { var result = Reflect.deleteProperty(receiver, selector); aliens.push(result); return true; } catch (exception) { aliens.push(exception); return false; } }
+function _JS_initializeAliens(){ var aliens = new Array(); aliens.push(undefined); aliens.push(null); aliens.push(false); aliens.push(true); aliens.push(window); Module.aliens = aliens; }
+function _JS_performInvoke(numArgs){ var aliens = Module.aliens; var arguments = new Array(numArgs); for (var i = numArgs - 1; i >= 0; i--) { arguments[i] = aliens.pop(); } var selector = aliens.pop(); var receiver = aliens.pop(); if ((undefined === receiver) || (undefined === receiver[selector])) { aliens.push("NoSuchMethod: " + selector); return false; } try { var result = Reflect.apply(receiver[selector], receiver, arguments); aliens.push(result); return true; } catch (exception) { aliens.push(exception); return false; } }
+function _JS_performSet(){ var aliens = Module.aliens; var argument = aliens.pop(); var selector = aliens.pop(); var receiver = aliens.pop(); try { var result = Reflect.set(receiver, selector, argument); aliens.push(argument); return true; } catch (exception) { aliens.push(exception); return false; } }
+function _JS_popInteger(){ var aliens = Module.aliens; return aliens.pop(); }
+function _JS_peekType(){ var aliens = Module.aliens; var alien = aliens[aliens.length - 1]; if (null === alien) { return -1; } if (false === alien) { return -2; } if (true === alien) { return -3; } if (typeof alien === "number") { return Number.isInteger(alien) ? -4 : -5; } if (typeof alien === "string") { return lengthBytesUTF8(alien); } return -6; }
+function _JS_pushInteger(value){ var aliens = Module.aliens; aliens.push(value); }
 function _JS_popString(addr,size){ var aliens = Module.aliens; var string = aliens.pop(); stringToUTF8(string, addr, size + 1); }
 function _JS_performNew(numArgs){ var aliens = Module.aliens; var arguments = new Array(numArgs); for (var i = numArgs - 1; i >= 0; i--) { arguments[i] = aliens.pop(); } var receiver = aliens.pop(); try { var result = Reflect.construct(receiver, arguments); aliens.push(result); return true; } catch (exception) { aliens.push(exception); return false; } }
-function _JS_performHas(){ var aliens = Module.aliens; var selector = aliens.pop(); var receiver = aliens.pop(); try { var result = Reflect.has(receiver, selector); aliens.push(result); return true; } catch (exception) { aliens.push(exception); return false; } }
-function _JS_pushString(addr,size){ var aliens = Module.aliens; var value = UTF8ToString(addr, size); aliens.push(value); }
-function _JS_pushFloat(value){ var aliens = Module.aliens; aliens.push(value); }
-function _JS_pushAlien(index){ var aliens = Module.aliens; aliens.push(aliens[index]); }
-function _JS_performDelete(){ var aliens = Module.aliens; var selector = aliens.pop(); var receiver = aliens.pop(); try { var result = Reflect.deleteProperty(receiver, selector); aliens.push(result); return true; } catch (exception) { aliens.push(exception); return false; } }
-function _JS_peekType(){ var aliens = Module.aliens; var alien = aliens[aliens.length - 1]; if (null === alien) { return -1; } if (false === alien) { return -2; } if (true === alien) { return -3; } if (typeof alien === "number") { return Number.isInteger(alien) ? -4 : -5; } if (typeof alien === "string") { return lengthBytesUTF8(alien); } return -6; }
-function _JS_pushExpat(index){ var aliens = Module.aliens; function expat() { for (var i = 0; i < arguments.length; i++) { aliens.push(arguments[i]); } Module._handle_signal(index, arguments.length, 0, 0); return aliens.pop(); } aliens.push(expat); }
+function _JS_peekExpat(){ throw "Unimplemented"; }
 function _JS_performInstanceOf(){ var aliens = Module.aliens; var constructor = aliens.pop(); var receiver = aliens.pop(); try { var result = receiver instanceof constructor; aliens.push(result); return true; } catch (exception) { aliens.push(exception); return false; } }
 function _JS_performGet(){ var aliens = Module.aliens; var selector = aliens.pop(); var receiver = aliens.pop(); try { var result = Reflect.get(receiver, selector); aliens.push(result); return true; } catch (exception) { aliens.push(exception); return false; } }
-function _JS_peekExpat(){ throw "Unimplemented"; }
-function _JS_pushInteger(value){ var aliens = Module.aliens; aliens.push(value); }
-function _JS_performInvoke(numArgs){ var aliens = Module.aliens; var arguments = new Array(numArgs); for (var i = numArgs - 1; i >= 0; i--) { arguments[i] = aliens.pop(); } var selector = aliens.pop(); var receiver = aliens.pop(); if ((undefined === receiver) || (undefined === receiver[selector])) { aliens.push("NoSuchMethod: " + selector); return false; } try { var result = Reflect.apply(receiver[selector], receiver, arguments); aliens.push(result); return true; } catch (exception) { aliens.push(exception); return false; } }
-function _JS_initializeAliens(){ var aliens = new Array(); aliens.push(undefined); aliens.push(null); aliens.push(false); aliens.push(true); aliens.push(window); Module.aliens = aliens; }
-function _JS_performSet(){ var aliens = Module.aliens; var argument = aliens.pop(); var selector = aliens.pop(); var receiver = aliens.pop(); try { var result = Reflect.set(receiver, selector, argument); aliens.push(argument); return true; } catch (exception) { aliens.push(exception); return false; } }
+function _JS_performHas(){ var aliens = Module.aliens; var selector = aliens.pop(); var receiver = aliens.pop(); try { var result = Reflect.has(receiver, selector); aliens.push(result); return true; } catch (exception) { aliens.push(exception); return false; } }
+function _JS_pushAlien(index){ var aliens = Module.aliens; aliens.push(aliens[index]); }
 
 
 
@@ -3381,6 +3381,69 @@ if (Module['preInit']) {
 
 
   noExitRuntime = true;
+
+/**
+ * Safely downloads a Blob, using showSaveFilePicker (FSAA) if available,
+ * and falling back to the standard <a> tag download otherwise.
+ *
+ * @param {string} fileName - The desired name for the file (e.g., 'ActorsForJs.ns').
+ * @param {Blob} fileBlob - The content to be saved as a Blob object.
+ * @returns {Promise<object>} - A promise that resolves with a success/failure object.
+ */
+async function safeDownloadBlob(fileName, fileBlob) {
+    // 1. Feature Detection: Check if the File System Access API is supported.
+    if ('showSaveFilePicker' in window) {
+        // --- A. USE FILE SYSTEM ACCESS API (for Chrome/Edge/etc.) ---
+        try {
+            const options = { suggestedName: fileName };
+            
+            // 2. Opens the OS Save As dialog (relies on active user gesture)
+            const fileHandle = await window.showSaveFilePicker(options);
+
+            // 3. Get the writable stream immediately (maintains transient activation)
+            const writableStream = await fileHandle.createWritable();
+
+            try {
+                // 4. Write the content and close
+                await writableStream.write(fileBlob);
+            } finally {
+                await writableStream.close();
+            }
+            
+            return { success: true, method: 'FSAA' };
+
+        } catch (error) {
+            // Handle user cancellation (AbortError) or permission issues (NotAllowedError)
+            console.error('FSAA Download failed (may be user cancelled):', error);
+            // Treat user cancellation as a successful skip, otherwise an error.
+            if (error.name === 'AbortError') {
+                return { success: true, method: 'FSAA', message: 'User cancelled save.' };
+            }
+            return { success: false, method: 'FSAA', error: error.name || 'UnknownError' };
+        }
+
+    } else {
+        // --- B. FALLBACK: USE STANDARD <a> TAG DOWNLOAD (for Firefox/Safari/etc.) ---
+        
+        console.warn('FSAA not supported. Falling back to standard download.');
+
+        // 2. Create a temporary object URL for the Blob
+        const url = URL.createObjectURL(fileBlob);
+        
+        // 3. Create and click a temporary anchor tag
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName; // This triggers the browser's automatic renaming behavior
+        document.body.appendChild(a);
+        a.click();
+        
+        // 4. Cleanup
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        
+        return { success: true, method: 'Standard', message: 'Standard download started (may be renamed by browser).' };
+    }
+}
 
 run();
 
