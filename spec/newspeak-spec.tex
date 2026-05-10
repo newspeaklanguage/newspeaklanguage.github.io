@@ -1508,21 +1508,24 @@ application. If the superclass clause is given implicitly
 it defaults to \code{Object}.  
 
  \begin{newspeak}
- classDecl = ((tokenFromSymbol: \#class), identifier, messagePattern, equalSign, 
+ classDecl = ((tokenFromSymbol: \#class), identifier, typeParameterDecl opt, messagePattern, equalSign,
                      inheritanceListAndOrBody) $|$
-                  ((tokenFromSymbol: \#class), identifier, empty, equalSign,
+                  ((tokenFromSymbol: \#class), identifier, typeParameterDecl opt, empty, equalSign,
                      inheritanceListAndOrBody).
-inheritanceListAndOrBody = defaultSuperclassAndBody $|$ 
+typeParameterDecl = langleBracket, lbracket, identifier, (comma, identifier) star, rbracket, rangleBracket.
+inheritanceListAndOrBody = defaultSuperclassAndBody $|$
                                      explicitInheritanceListAndOrBody.
 defaultSuperclassAndBody = classBody.
 explicitInheritanceListAndOrBody = inheritanceClause, mixinSpec.
 mixinSpec =  classBody $|$ mixinAppSuffix.
-mixinAppSuffix = ((tokenFromSymbol: \#$<$:),  inheritanceClause) plus,  
+mixinAppSuffix = ((tokenFromSymbol: \#$<$:),  inheritanceClause) plus,
                       (dot $|$ classBody).
  %classExpression = classDeclaration $|$ mixinApplication.
  %classExpression = classPrefix, mixinSpecifier.
  %mixinSpecifier = classBody $|$ mixinApplication.
 \end{newspeak}
+
+An optional type parameter declaration may appear between the class name and the primary factory method pattern. It declares the formal type parameters of a generic class. For example, \code{class Map <[K, V]> new: capacity <Integer>} declares that \code{Map} has two type parameters, \code{K} and \code{V}. These names are in scope within the class body and may be used in type annotations on slots, method parameters, and return types.
 
 A class expression is always evaluated in the context of an enclosing object $eo$  (\ref{enclosing}). If a class expression is directly nested in a method (\ref{mtds}) or closure, the enclosing object $eo$ is the activation (\ref{activations}) $a$ in which evaluation takes place.
  
