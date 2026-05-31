@@ -4,7 +4,7 @@
 \usepackage{epsfig}
 %\usepackage{amssymb,amsmath,amsthm}
 \newcommand{\code}[1]{{\sf #1}}
-\title{Newspeak Programming Language Draft Specification Version 0.104}
+\title{Newspeak Programming Language Draft Specification Version 0.106}
 \author{Gilad Bracha}
 \begin{document}
 \maketitle
@@ -41,9 +41,6 @@ Newspeak is:
 \item  {\em Optionally typed.} Newspeak supports pluggable types \cite{bracha04b}, allowing the language to be extended with arbitrary type systems.  These type systems are necessarily optional, and never affect run-time semantics. They utilize Newspeak's metadata facility (\ref{metadata}), which allows annotations to be attached to any node in a program's abstract syntax tree.
 {\it Unimplemented.}
 \item  {\em Network-serviceable.} Newspeak applications can be updated over the internet {\em while running;} the combination of reflective update and lazy slots (\ref{lazySlots}) means the language can support {\em orthogonal synchronization, } making it straightforward to synchronize persistent data with a remote server, supporting backup, sharing and collaboration \cite{bracha05}.
-{\it
-Lazy slots are only partially implemented. The language supports them, but the tooling is not yet ready.
-}
 \end{itemize}
 
 \section{Overview}
@@ -596,71 +593,70 @@ The following  are reserved words: \SELF, \SUPER, \OUTER, \TRUE, \FALSE, \NIL.
 
 {\it 
 One can debate whether \TRUE, \FALSE{} and \NIL{} should be reserved words or just message sends. 
-
-We may also change the syntax for returning from a method from \cd{\^{}e} to \cd{return:: e}. This would make {\bf return} a reserved word (or at least effectively preclude its use for mutable slots, or keyword methods).
 }
 
 
 \subsection{Lexical Rules}
 \label{lexrules}
 
-Here is the lexical grammar for Newspeak. It and all subsequent syntax are written in Newspeak, using the parser combinator library described in \cite{bracha07a}.
+Here is the lexical grammar for Newspeak. It is a PEG (Parser Expression Grammar) with no distinction between scanning and parsing. The grammar is based on the implementation, which uses the parser combinator library described in \cite{bracha07a}.
 
 \begin{newspeak}  
   
- colon =  tokenFromChar: ":".
- comma =  tokenFromChar: ",".
- dollar = tokenFromChar: "\$".
- dot = tokenFromChar: ".".
- equalSign = tokenFromChar: "=".
- hat = tokenFromChar: "\^{}".
- lbracket = tokenFromChar: "[".
- lcurly = tokenFromChar: "\{".
- lparen = tokenFromChar: "(".
- langleBracket = tokenFromChar: "$<$".
- mixinOperator = tokenFromSymbol: '$<$".
- pound = tokenFromChar: "\#".
- rangleBracket = tokenFromChar: "$>$".
- rbracket = tokenFromChar: "]".
- rcurly = tokenFromChar: "\}".
- rparen = tokenFromChar: ")".
- semicolon = tokenFromChar: ";".
- slash = tokenFromChar: "/".
- vbar = tokenFromChar: "$|$".
+ colon $\rightarrow$  ":";
+ comma $\rightarrow$  "";
+ dot $\rightarrow$ ".";
+ doublevbar $\rightarrow$ "$||$";
+ equalSign $\rightarrow$ "=";
+ hat $\rightarrow$ "\^{}";
+ lbracket $\rightarrow$ "[";
+ lcurly $\rightarrow$ "\{";
+ lparen $\rightarrow$ "(";
+ langleBracket $\rightarrow$ "$<$";
+ mixinOperator $\rightarrow$  "$<:$";
+ pound $\rightarrow$ "\#";
+ rangleBracket $\rightarrow$ "$>$";
+ rbracket $\rightarrow$ "]";
+ rcurly $\rightarrow$ "\}";
+ rparen $\rightarrow$ ")";
+ semicolon $\rightarrow$ ";";
+ slash $\rightarrow$ "/";
+ vbar $\rightarrow$ "$|$";
+ 
                                                                                                        
- letter =  (charBetween: "a" and: "z") $|$ (charBetween: "A" and: "Z").
+ letter $\rightarrow$   "a" - "z"$|$  "A" - "Z";
                                                              
-  specialCharacter =  (char: "+" )  $|$ (char: "/") $|$  (char: "$\backslash$'") $|$ (char: "*")   $|$ (char: "\~{}" ] $|$ 
-                                       (char: "$<$") $|$ (char: "$>$") $|$ (char: "=") $|$ (char: "@")  $|$ (char: "\%") $|$ 
-                                     (char: "$|$")  $|$ (char: "\&") $|$ (char: "?")  $|$ (char: "!") $|$  (char: ",'".      
+  specialCharacter $\rightarrow$   "+"   $|$  "/" $|$   "$\backslash$'" $|$  "*"   $|$  "\~{}"  $|$ 
+                                        "$<$" $|$  "$>$" $|$  "=" $|$  "@"  $|$  "\%" $|$ 
+                                      "$|$"  $|$  "\&" $|$  "?"  $|$  "!" $|$   ",'";      
                                      
- underscore = char: "\_".                                                       
+ underscore $\rightarrow$  "\_";                                                       
 
- id = (letter $|$ underscore),  (letter $|$ digit $|$ underscore) star.
+ id $\rightarrow$ (letter $|$ underscore)  (letter $|$ digit $|$ underscore)*;
                                            
- identifier =  tokenFor: id.
+ identifier $\rightarrow$  (whitespace $|$ comment)*  id;
 
- kw = id, (char: ":"). 
+ kw $\rightarrow$ id  ":"; 
 
- kws = kw plus.   
+ kws $\rightarrow$ kw+;   
   
- keyword = tokenFor: kw. 
+ keyword $\rightarrow$ (whitespace $|$ comment)*  kw; 
 
- setterKw = kw, (char: ":"). 
+ setterKw $\rightarrow$ kw  ":"; 
 
- setterKeyword = tokenFor: setterKw.  
+ setterKeyword $\rightarrow$ (whitespace $|$ comment)*  setterKw;  
 
- beginComment =  (char: "("), (char: "*").
+ beginComment $\rightarrow$   "(*";
 
- endComment = (char: "*"),  (char: ")").
+ endComment $\rightarrow$  "*)";
  
- metadataTag = (char: ":"), id, (char: ":").
+ metadataTag $\rightarrow$  ":" id  ":";
  
- comment = beginComment,  metadataTag opt, ((endComment not, any) $|$ comment) star,	endComment.
+ comment $\rightarrow$ beginComment  [metadataTag] ((~endComment any) $|$ comment)*	endComment;
  
- binSel =  (specialCharacter $|$ (char: "-'"), (specialCharacter star).
+ binSel $\rightarrow$  (specialCharacter $|$  "-'") (specialCharacter*);
                                            
- binarySelector = tokenFor: binSel.
+ binarySelector $\rightarrow$ (whitespace $|$ comment)*  binSel;
 \end{newspeak}
 
 
@@ -687,7 +683,7 @@ Metadata comments are available at runtime via mirrors.
 This means that they are available at runtime iff the platform supports mirrors. Reflective applications have full access to all metadata. Non-reflective applications are not burdened by it at runtime.
 }
 
-Ordinary comments are given as metadata that does not specify a tag That way, they are attached to a known place in the program and are not thrown away, so they can be preserved during refactoring.
+Ordinary comments are given as metadata that does not specify a tag. That way, they are attached to a known place in the program and are not thrown away, so they can be preserved during refactoring.
 
 
 {\it
@@ -727,14 +723,14 @@ Method metadata immediately succeeds the last parameter (or the method name if t
 Expressions are either {\em literals} (\ref{literals}) or {\em message sends} (\ref{sends}). Expressions are evaluated in the context of an activation (\ref{activations}) $a$, known as the {\em current activation}.
 
 \begin{newspeak}
-expression = setterKeyword opt, cascadedMessageExpression.
+expression $\rightarrow$ [setterKeyword] cascadedMessageExpression;
 \end{newspeak}
 
 \subsection{Literals}
 \label{literals}
 
 \begin{newspeak}
-literal =  pattern $|$ number $|$ symbolConstant $|$ characterConstant $|$ string $|$ tuple.
+literal $\rightarrow$  pattern $|$ number $|$ symbol $|$ characterConstant $|$ string $|$ tuple;
 \end{newspeak}
 
 {\it
@@ -752,33 +748,33 @@ We intend to investigate this option in the future. It does raise serious issues
 
 Numeric literals are value objects. Their form is given by the following grammar:
 \begin{newspeak}
-digit = charBetween: '0' and: '9'.
+digit $\rightarrow$ ''0'' - ''9'';
 
-digits =  digit plus.
+digits $\rightarrow$  digit+;
 
-uppercaseLetter = charBetween: 'A' and: 'Z'.
+uppercaseLetter $\rightarrow$ ''A'' - ''Z'';
 
-extendedDigits = (digit $|$ uppercaseLetter) plus.
+extendedDigits $\rightarrow$ (digit $|$ uppercaseLetter)+;
 
-radix = (digits, char: "r").
+radix $\rightarrow$ digits "r";
                    
-fraction =  dot, digits.
+fraction $\rightarrow$  dot digits;
 
-extendedFraction =  dot, extendedDigits.
+extendedFraction $\rightarrow$  dot extendedDigits;
                         
-exponent = (char: "e"), (char: "-" ) opt, digits.
+exponent $\rightarrow$  "e"  ["-"] digits;
 
-decimalNum = (char: "-")  opt, digits, fraction opt, exponent opt.
+decimalNum $\rightarrow$ ["-"] digits [fraction] [exponent];
 
-radixNum = radix,
-               (char: "-")  opt,  
-               extendedDigits, 
-               extendedFraction opt,
-               exponent opt.
+radixNum $\rightarrow$ radix,
+                ["-"] 
+               extendedDigits 
+               [extendedFraction]
+               [exponent];
                                                                                                                    
-num =   radixNum $|$ decimalNum.
+num $\rightarrow$   radixNum $|$ decimalNum;
                                                                                                          
-number =  tokenFor: num.
+number $\rightarrow$  (whitespace $|$ comment)*  num;
 \end{newspeak}
 
 
@@ -827,13 +823,13 @@ The value of a character literal \code{``c''} is equivalent to the expression  \
 The syntax for character literals is given below:
  
 \begin{newspeak}
-character = digit $|$ letter $|$ specialCharacter $|$ (char: ``[")) $|$ (char: ``]")  $|$
-                (char: ``\{") $|$ (char: ``\}") $|$ (char: ``(" ) $|$ (char: ``)") $|$ 
-                (char: ``\^{}") $|$ (char: ``;") $|$ (char: ``\$") $|$ (char: ``\#") $|$
-                (char: ``:") $|$ (char: ``.") $|$ (char: ``-") $|$ underscore $|$ (char: ``\textquoteright").   
-twoDblQuotes =  (char: ``"'),  (char: ``"').       
-aChar = (char: ``"",  (character $|$ twoDblQuotes $|$ (char: `"') $|$ (char:`  ')), (char: ``"").
-characterConstant = tokenFor: aChar.
+character $\rightarrow$ digit $|$ letter $|$ specialCharacter $|$  ``[" $|$  ``]"  $|$
+                 ``\{" $|$  ``\}" $|$  ``("  $|$  ``)" $|$ 
+                 ``\^{}" $|$  ``;" $|$  ``\$" $|$  ``\#" $|$
+                 ``:" $|$  ``." $|$  ``-" $|$ underscore $|$  ``\textquoteright"; 
+twoDblQuotes $\rightarrow$   ``"'   ``"'.;      
+aChar $\rightarrow$  ``""  (character $|$ twoDblQuotes $|$  `"' $|$ `  ')  ``"";
+characterConstant $\rightarrow$ (whitespace $|$ comment)*  aChar;
 \end{newspeak}
  
 \subsubsection{ String Literals}
@@ -851,10 +847,10 @@ String literals are value objects. Such objects will be canonicalized by the def
 
 The current , temporary, syntax of string literals is given below:
 \begin{newspeak}
-twoQuotes =  (char: `'''),  (char: `"').     
-stringBody = (character $|$ aWhitespaceChar $|$ (char: "'") $|$ twoQuotes) star.
-str = (char: ``'" ),  stringBody,  (char: "'").
-string = tokenFor: str.
+twoQuotes $\rightarrow$   `'''   `"';    
+stringBody $\rightarrow$ (character $|$ aWhitespaceChar $|$  "'" $|$ twoQuotes)*;
+str $\rightarrow$  ``'" ,  stringBody   "'";
+string $\rightarrow$ (whitespace $|$ comment)*  str;
 \end{newspeak}
 
 {\it 
@@ -873,10 +869,8 @@ Symbol literals have the form \code{\#s}, where \code{s} is either a string lite
 
 
 \begin{newspeak}
-sym = str $|$ kws $|$ binSel $|$ id. 
- 
-symbol = tokenFor: sym.
-symbolConstant = pound, symbol
+sym $\rightarrow$ str $|$ kws $|$ binSel $|$ id;
+symbol $\rightarrow$ (whitespace $|$ comment)*  pound sym;
 \end{newspeak}
 
 
@@ -886,7 +880,7 @@ symbolConstant = pound, symbol
 A tuple literal is either the {\em empty tuple},  $\{\}$, or has the form $\{e_1 . \ldots e_n\}$ for $n \ge 1$.  
 The syntax of tuple literals is given below:
 \begin{newspeak}
-tuple =  lcurly, (expression, (dot, expression) star, dot opt) opt,  rcurly.
+tuple $\rightarrow$  lcurly [expression (dot expression)* [dot]]  rcurly;
 \end{newspeak}
 
 The empty tuple denotes 
@@ -924,35 +918,33 @@ A closure literal denotes a newly created instance of class \code{Closure}. When
 The syntax of closure literals is given below: 
 
 \begin{newspeak}
- block = lbracket,  blockParameters opt, codeBody,  rbracket.
+ block $\rightarrow$ lbracket  [blockParameters] codeBody  rbracket;
  
-blockParameters =  blockParameter plus, vbar.
+blockParameters $\rightarrow$  blockParameter+ vbar;
  
-blockParameter = colon, slotDecl.                                 
+blockParameter $\rightarrow$ colon slotDecl;                                
 \end{newspeak}
 
 where
 \begin{newspeak}
-slotDecl = identifier.     
-codeBody = temporaries opt,  statements.    
+slotDecl $\rightarrow$ identifier;    
+% In real life, we have an [type] at the end, but this is an override in the typed grammar, which
+% part of teh optional type system. I deally, the types woukd be metdata and the tools would present them nicely.
+codeBody $\rightarrow$ [temporaries]  statements;    
   
-temporaries = slotDecls.
+temporaries $\rightarrow$ slotDecls;
   
-slotDecls = seqSlotDecls $|$ 
-                      simSlotDecls.
+slotDecls $\rightarrow$ seqSlotDecls $|$ 
+                      simSlotDecls;
   
-statements = returnStatement  $|$   
+statements $\rightarrow$ returnStatement  $|$   
                   statementSequence $|$
-                  empty.
+                  empty;
                          
-statementSequence = expression, furtherStatements  opt.
+statementSequence $\rightarrow$ expression [furtherStatements];
   
-furtherStatements = dot,  statements.                           
+furtherStatements $\rightarrow$ dot  statements;                          
 \end{newspeak}
-
-{\it
-Syntax note: the delimiters for closures will almost certainly change from square brackets to curly braces, to keep them aligned with method and class delimiters, when these are changed to conform to mainstream notation.
-}
 
 {\it
 Closures are special - they know about the continuation of their lexically enclosing method and its receiver, as well as having a continuation object given to them by their caller. Thus the behavior of return statements in a closure  is ``non-local'' (they return from the nearest enclosing method) ,  and the result of executing a body without executing a return statement  will return the last expression's value, not \SELF).
@@ -971,8 +963,8 @@ A closure takes zero or more parameters. An $n$-ary closure $b$ may be invoked b
 {\it Experimental.} A pattern literal is either a wildcard pattern, a literal pattern or a keyword pattern. The exact meaning depends on the binding of the message \code{Pattern} in the environment where the literal is evaluated. By default, \code{Pattern} is defined in class \code{Object} and denotes class \code{Pattern} of the Newspeak library. 
 
 \begin{newspeak}
-pattern = (tokenFromChar: "$<$"), patternLiteral, (char: "$>$"). 
-patternLiteral = wildcardPattern $|$ literalPattern $|$ keywordPattern.
+pattern $\rightarrow$ "$<$", patternLiteral,  "$>$";
+patternLiteral $\rightarrow$ wildcardPattern $|$ literalPattern $|$ keywordPattern;
 \end{newspeak}
 
 
@@ -982,7 +974,7 @@ patternLiteral = wildcardPattern $|$ literalPattern $|$ keywordPattern.
 A wildcard pattern matches any object. It is equivalent to evaluating \code{Pattern wildcard}.
 
 \begin{newspeak}
-wildcardPattern = tokenFromChar: "\_'.
+wildcardPattern $\rightarrow$ "\_';
 \end{newspeak}
 
 \paragraph{Literal Patterns}
@@ -991,7 +983,7 @@ wildcardPattern = tokenFromChar: "\_'.
 A literal pattern matches a particular Newspeak literal. The pattern matches any object whose \#= method returns \TRUE{} when invoked upon the literal named in the pattern. A literal pattern $<l>$  is equivalent to evaluating \code{Pattern literal: l}, where $l$ is either a number literal, a symbol literal, a character literal, a string literal or a tuple literal. 
 
 \begin{newspeak}
-literalPattern = tokenFor: number $|$ symbolConstant $|$ characterConstant $|$ string $|$ tuple.
+literalPattern $\rightarrow$ (whitespace $|$ comment)*  number $|$ symbol $|$ characterConstant $|$ string $|$ tuple;
 \end{newspeak}
 
 \paragraph{Keyword Patterns}
@@ -1000,11 +992,11 @@ literalPattern = tokenFor: number $|$ symbolConstant $|$ characterConstant $|$ s
 A keyword pattern is equivalent to evaluating \code{Pattern keywords: kws patterns: pats }, where $kws$ is a list of symbols denoting keywords, and $pats$ is a list of expressions.  Sending a message with the selector $kws$ to the pattern should return a {\em binding object} describing if and how the pattern matches the message arguments.
 
 \begin{newspeak}
-keywordPattern = kwPatternPair plus. 
-kwPatternPair = keyword, kwPatternValue opt. 
-kwPatternValue = wildcardPattern $|$ literalPattern $|$ variablePattern $|$ nestedPatternLiteral. 
-variablePattern = tokenFor: ( ('?'), id ). 
-nestedPatternLiteral = tokenFor: pattern.
+keywordPattern $\rightarrow$ kwPatternPair+; 
+kwPatternPair $\rightarrow$ keyword, [kwPatternValue]. 
+kwPatternValue $\rightarrow$ wildcardPattern $|$ literalPattern $|$ variablePattern $|$ nestedPatternLiteral; 
+variablePattern $\rightarrow$ (whitespace $|$ comment)*  ( ('?'), id ); 
+nestedPatternLiteral $\rightarrow$ (whitespace $|$ comment)*  pattern;
 \end{newspeak}
 
 
@@ -1036,7 +1028,7 @@ For literals in general, we have a choice as discussed in the beginning of secti
 }
 
 \begin{newspeak}
-objectLiteral = (identifier, keywordMsg opt) opt,  classBody.
+objectLiteral $\rightarrow$ [identifier [keywordMsg]]  classBody;
 \end{newspeak}
 
 
@@ -1051,7 +1043,7 @@ When not part of a self send (\ref{self}), the reserved word  \SELF{} denotes  t
 Evaluating an expression in parentheses $(e)$ is equivalent to evaluating $e$.
 
 \begin{newspeak}
-parenthesizedExpression =  lparen, expression, rparen.
+parenthesizedExpression $\rightarrow$  lparen expression rparen;
 \end{newspeak}
 
 \subsection{Message Send Expressions}
@@ -1085,7 +1077,7 @@ If the receiver is the reserved word \SUPER, then $e$ is a {\em super send} and 
 Message clauses come in three syntactic forms. 
 
 \begin{newspeak}
-message = keywordMsg $|$ unarySelector $|$ binaryMsg.
+message $\rightarrow$ keywordMsg $|$ unarySelector $|$ binaryMsg;
 \end{newspeak}
 
 \paragraph{Unary Message Clauses}
@@ -1093,7 +1085,7 @@ message = keywordMsg $|$ unarySelector $|$ binaryMsg.
 
 A {\em unary message clause} consists of a selector that is an identifier.
 \begin{newspeak}
-unarySelector = identifier.
+unarySelector $\rightarrow$ identifier;
 \end{newspeak}
 Evaluation of a unary message clause consists of constructing a message object with no arguments and a selector that is a symbol derived from the identifier given by the message clause.
 
@@ -1103,7 +1095,7 @@ Evaluation of a unary message clause consists of constructing a message object w
 A {\em binary message clause} consists of a selector that consists of special characters as defined in section \ref{lexrules}, along with a single argument given by a unary expression.
 
 \begin{newspeak}
-binaryMsg = binarySelector, unaryExpression.
+binaryMsg $\rightarrow$ binarySelector unaryExpression;
 \end{newspeak}
 Evaluation of a binary message clause consists of evaluating its unary expression to yield an object $a$, and constructing a message object with the argument $a$ and the selector given by the message clause.
 
@@ -1112,7 +1104,7 @@ Evaluation of a binary message clause consists of evaluating its unary expressio
 
 A {\em keyword message clause} consists of one or more keywords each followed by a binary expression. A keyword is defined as an identifier suffixed by a colon character.
 \begin{newspeak}
- keywordMsg =  (keyword, binaryExpression) plus.
+ keywordMsg $\rightarrow$  (keyword binaryExpression)+;
 \end{newspeak}
 Evaluation of a keyword message clause consists of evaluating its binary expressions in the order they appear, starting at the left,  to yield objects $a_1 \ldots a_n, 1 \le n$, and constructing a message object with  arguments $a_1 \ldots a_n$ and a selector that is a symbol representing the concatenation of all the keywords given in the message clause.
 
@@ -1134,12 +1126,12 @@ or one of the following:
 \end{itemize}
 In these cases, $u$ is a message send expression, and it is evaluated as described in section \ref{evalMsg}.
 \begin{newspeak}
-primary =  unarySelector $|$
+primary $\rightarrow$  unarySelector $|$
                literal $|$
                block $|$ 
-               parenthesizedExpression.
+               parenthesizedExpression;
  
-unaryExpression = primary, unarySelector star.
+unaryExpression $\rightarrow$ primary unarySelector*;
 \end{newspeak}
 
 
@@ -1157,7 +1149,7 @@ Binary sends cannot have an implicit receiver (unlike the Self language).  This 
 
 \end{itemize}
 \begin{newspeak}
-binaryExpression =  unaryExpression, binaryMsg star.
+binaryExpression $\rightarrow$  unaryExpression binaryMsg*;
 \end{newspeak}
 
 
@@ -1175,8 +1167,8 @@ or one of the following:
 \end{itemize}
 In these cases, $k$ is a message send expression, and it is evaluated as described in section \ref{evalMsg}.
 \begin{newspeak}
-keywordExpression =  binaryExpression, keywordMsg opt.
-implicitKeywordSend = keywordMsg.
+keywordExpression $\rightarrow$  binaryExpression [keywordMsg];
+implicitKeywordSend $\rightarrow$ keywordMsg;
 \end{newspeak}
 
 
@@ -1186,10 +1178,8 @@ implicitKeywordSend = keywordMsg.
 A setter message has the form \code{id:: e}.  It is equivalent to the expression \code{[:p $|$ id:p. p] value:(e)} where $p \ne id$.   Tools may treat it as a single message send however.
 
 \begin{newspeak}
-sendExpression = implicitKeywordSend $|$ cascadedMessageExpression. 
-expression = setterKeyword opt, sendExpression.
-setterKw = kw, (char: ":").
-setterKeyword = tokenFor: setterKw. 
+sendExpression $\rightarrow$ implicitKeywordSend $|$ cascadedMessageExpression; 
+expression $\rightarrow$ [setterKeyword] sendExpression;
 \end{newspeak}
 
 {\it
@@ -1208,16 +1198,16 @@ The rationale for this formulation is to allow setter messages to play a role si
 A {\em cascade} has the form \code{e $\mu_0$; $\ldots \mu_n$} where $\mu_i, i \in 0 .. n$ are message clauses and \code{e} is an expression. It is equivalent to \code{[:p $|$ p $\mu_0$. $\ldots$ p $\mu_n$] value:(e)}.
 
 \begin{newspeak}
-nontrivialUnaryMessages = unarySelector plus, binaryMsg star,  keywordMsg opt.
-nontrivialBinaryMessages = binaryMsg plus, keywordMsg opt.
-keywordMessages = keywordMsg.
-nonEmptyMessages = nontrivialUnaryMessages $|$
+nontrivialUnaryMessages $\rightarrow$ unarySelector+ binaryMsg*  [keywordMsg];
+nontrivialBinaryMessages $\rightarrow$ binaryMsg+ [keywordMsg];
+keywordMessages $\rightarrow$ keywordMsg;
+nonEmptyMessages $\rightarrow$ nontrivialUnaryMessages $|$
                              nontrivialBinaryMessages  $|$
-                             keywordMessages.
-cascadeMsg = semicolon, (keywordMsg $|$ binaryMsg $|$ unarySelector).
-msgCascade = nonEmptyMessages, cascadeMsg star.
+                             keywordMessages;
+cascadeMsg $\rightarrow$ semicolon (keywordMsg $|$ binaryMsg $|$ unarySelector).
+msgCascade $\rightarrow$ nonEmptyMessages cascadeMsg*;
                                                                                                                         
-cascadedMessageExpression = primary, msgCascade opt.                                                                                                                    
+cascadedMessageExpression $\rightarrow$ primary [msgCascade];                                                                                                                   
 \end{newspeak}
 
 \paragraph{Chains}
@@ -1508,21 +1498,25 @@ application. If the superclass clause is given implicitly
 it defaults to \code{Object}.  
 
  \begin{newspeak}
- classDecl = ((tokenFromSymbol: \#class), identifier, typeParameterDecl opt, messagePattern, equalSign,
+ classDeclaration $\rightarrow$ (classToken identifier typeParameterDecl? messagePattern equalSign
                      inheritanceListAndOrBody) $|$
-                  ((tokenFromSymbol: \#class), identifier, typeParameterDecl opt, empty, equalSign,
-                     inheritanceListAndOrBody).
-typeParameterDecl = langleBracket, lbracket, identifier, (comma, identifier) star, rbracket, rangleBracket.
-inheritanceListAndOrBody = defaultSuperclassAndBody $|$
-                                     explicitInheritanceListAndOrBody.
-defaultSuperclassAndBody = classBody.
-explicitInheritanceListAndOrBody = inheritanceClause, mixinSpec.
-mixinSpec =  classBody $|$ mixinAppSuffix.
-mixinAppSuffix = ((tokenFromSymbol: \#$<$:),  inheritanceClause) plus,
-                      (dot $|$ classBody).
- %classExpression = classDeclaration $|$ mixinApplication.
- %classExpression = classPrefix, mixinSpecifier.
- %mixinSpecifier = classBody $|$ mixinApplication.
+                  (classToken identifier typeParameterDecl? empty equalSign
+                     inheritanceListAndOrBody);
+
+classToken $\rightarrow$ (whitespace $|$ comment)* ''class'' ;
+
+typeParameterDecl $\rightarrow$ langleBracket lbracket identifier (comma identifier)* rbracket rangleBracket;
+
+inheritanceListAndOrBody $\rightarrow$ defaultSuperclassAndBody $|$
+                                     explicitInheritanceListAndOrBody;
+defaultSuperclassAndBody $\rightarrow$ classBody;
+explicitInheritanceListAndOrBody $\rightarrow$ inheritanceClause mixinSpec;
+mixinSpec $\rightarrow$  classBody $|$ mixinAppSuffix;
+mixinAppSuffix $\rightarrow$ (mixinOperator  inheritanceClause)+
+                      (dot $|$ classBody);
+ %classExpression $\rightarrow$ classDeclaration $|$ mixinApplication.
+ %classExpression $\rightarrow$ classPrefix, mixinSpecifier.
+ %mixinSpecifier $\rightarrow$ classBody $|$ mixinApplication.
 \end{newspeak}
 
 An optional type parameter declaration may appear between the class name and the primary factory method pattern. It declares the formal type parameters of a generic class. For example, \code{class Map <[K, V]> new: capacity <Integer>} declares that \code{Map} has two type parameters, \code{K} and \code{V}. These names are in scope within the class body and may be used in type annotations on slots, method parameters, and return types.
@@ -1574,14 +1568,17 @@ A class declaration $C$ is its own 0th lexically enclosing class declaration.  F
 It is a run time error if the message selector  specified by the inheritance clause is not the selector of the primary factory of the class $C$.
  
   \begin{newspeak}
-inheritanceClause = inheritancePrefix opt, unarySelector, message opt.
+inheritanceClause $\rightarrow$ [inheritancePrefix] unarySelector [message];
 % We will revise this to
-%inheritanceClause = inheritanceClauseReceiver, message opt.
-%inheritanceClauseReceiver = parenthesizedExpression |  inheritancePrefix opt, unarySelector.
-inheritancePrefix = outerReceiver $|$  
-                              (tokenFromSymbol: \#self) $|$  
-                              (tokenFromSymbol: \#super).
-outerReceiver = (tokenFromSymbol: \#outer) , identifier.
+%inheritanceClause $\rightarrow$ inheritanceClauseReceiver, message opt.
+%inheritanceClauseReceiver $\rightarrow$ parenthesizedExpression |  inheritancePrefix opt, unarySelector.
+inheritancePrefix $\rightarrow$ outerReceiver $|$  
+                              selfToken $|$  
+                              superToken;
+outerReceiver $\rightarrow$ outerToken  identifier;
+selfToken $\rightarrow$ (whitespace $|$ comment)* ''self'' ;
+superToken $\rightarrow$ (whitespace $|$ comment)* ''super'' ;
+outerToken $\rightarrow$ (whitespace $|$ comment)* ''outer'' ;
 \end{newspeak}
  
 The expression $e_c$ is syntactically restricted to a unary send whose receiver is either implicit, \SELF{}, \SUPER{}, or the receiver of an outer send. %It is a run time error if $e_c$ does not evaluate to a class object $S$. 
@@ -1621,8 +1618,8 @@ The value of the message pattern $m$  is known as {\em the message determined by
 
  
 % \begin{newspeak}
-% classPrefix =  ( (tokenFromSymbol: \#class),    (identifier, messagePattern, equalSign,  superclassClause opt) $|$
-%               ( (tokenFromSymbol: \#class),    (identifier, empty, equalSign,  superclassClause opt).   
+% classPrefix =  ( ( \#class),    (identifier, messagePattern, equalSign,  superclassClause opt) $|$
+%               ( ( \#class),    (identifier, empty, equalSign,  superclassClause opt).   
 %\end{newspeak}
 
 %\subsection{Class Bodies} %mixins
@@ -1723,28 +1720,32 @@ The syntax of a class body is is defined as follows
 
 
 \begin{newspeak}
-classBody = classHeader, sideDecl, classSideDecl opt.
-% classSpecifier = classHeader, sideDecl, classSideDecl opt.
+classBody $\rightarrow$ classHeader sideDecl [classSideDecl];
+% classSpecifier $\rightarrow$ classHeader, sideDecl, classSideDecl opt.
 \end{newspeak}
 where
 
 \begin{newspeak}
-classHeader =  lparen,  classComment opt, 
-                        slotDecls opt, initExprs,  rparen.   
+classHeader $\rightarrow$  lparen  [classComment] 
+                        [slotDecls] initExprs  rparen;  
 
-%classHeader =  lparen,  classComment opt, 
-%                        slotDecls opt, initExprs,  rparen.   
+%classHeader $\rightarrow$  lparen  classComment opt 
+%                        slotDecls opt initExprs  rparen.   
                                              
-classComment:: whitespace, comment.     
-initExprs = (expression, (dot expression) star, dot opt) opt.  
-sideDecl = lparen, nestedClassDecl star, lazySlotDecl star, category star, rparen.
-nestedClassDecl = accessModifier opt, classDeclaration.
-category:: empty, methodDecl star.
-classSideDecl = colon, lparen, category star, rparen.                               
+classComment  $\rightarrow$ [whitespace] comment;    
+initExprs $\rightarrow$ [expression (dot expression)* [dot]];  
+sideDecl $\rightarrow$ lparen (nestedClassDecl $|$ lazySlotDecl $|$ methodDecl)* rparen;
+nestedClassDecl $\rightarrow$ [accessModifier] classDeclaration;
+classSideDecl $\rightarrow$ colon lparen methodDecl* rparen;
 \end{newspeak}
+
+{\it
+Nested class declarations, lazy slot declarations and method declarations may appear in any order on the instance side. The recommended style is to group all nested classes first, then all lazy slots, then all methods, but the grammar does not enforce this. Tools (class browsers, pretty printers) are free to display members in canonical order regardless of their source-text order.
+}
+
  
  {\it
- The use of parentheses as delimiters for the sides and initializer derives from the syntax of Self, via certain Smalltalk dialects of nordic heritage. However, they will be replaced by curly braces, in conformance with widespread custom. sniff.
+ The use of parentheses as delimiters for the sides and initializer derives from the syntax of Self, via certain Smalltalk dialects of nordic heritage. Perhaps they will  someday be replaced by curly braces, in conformance with widespread custom. sniff.
  }
  
 {\it
@@ -1786,22 +1787,27 @@ Slots may be mutable or immutable. Immutable slots must be initialized explicitl
 
 Slots may be initialized sequentially or simultaneously. A {\em sequential slot clause} has the form 
 \begin{newspeak}
-seqSlotDecls = vbar, slotDefs, vbar.
-slotDefs = slotDef star.
+seqSlotDecls $\rightarrow$ vbar, slotDefs, vbar;
+slotDefs $\rightarrow$ slotDef*;
 \end{newspeak}
 
 The clause consists of a (possibly empty) series of {\em slot declarations.}  A slot declaration declares a slot, and possibly initializes it to the value of the optional expression at the end of the slot declaration.
 \begin{newspeak}
-slotDef =  accessModifier opt, slotDecl, 
-     (( equalSign $|$ (tokenFromSymbol: \#'::=')), expression, dot) opt.
+slotDef $\rightarrow$  [accessModifier] slotDecl
+     [((equalSign $|$ ''::='') expression dot) $|$ dot];
 \end{newspeak}
+
+{\it
+The trailing dot is mandatory after an initializer and optional after an uninitialized slot, so all of  \code{$|$ a $|$}, \code{$|$ a. $|$}, \code{$|$ a = 1. b. c $|$} are well-formed slot bars.
+}
+
 
 
 When the clause is executed, the slot declarations within it are executed in sequence, one after the other.
 
 A {\em simultaneous slot  clause} has the form 
 \begin{newspeak}
-simSlotDecls = vbar, vbar, slotDefs, vbar, vbar.
+simSlotDecls $\rightarrow$ doublevbar slotDefs doublevbar;
 \end{newspeak}
  
 A simultaneous slot declaration with a right hand side expression $e$ initializes the slot to the value of  \cd{$p$ computing: $e$}, where $p$ is the class \cd{Past`Future}. The result is a {\em future} that will compute the expression $e$ on demand.   All these futures are resolved once the last slot declaration in the simultaneous slot  clause has been executed.
@@ -1817,7 +1823,7 @@ A simultaneous slot declaration with a right hand side expression $e$ initialize
 
 Immutable slots are introduced via the syntax
 \begin{newspeak}
-identifier = expression.
+identifier = expression;
 \end{newspeak}
 
 The above form is an {\em immutable slot declaration.}
@@ -1875,15 +1881,13 @@ In such cases, one may use a settxer send (\ref{setter}). One might quibble that
 A {\em lazy slot} is a  slot that is initialized lazily, upon first use. 
 
 \begin{newspeak}
-lazyModifier = (tokenFromSymbol: \#lazy), whitespace.
+lazyModifier $\rightarrow$ ''lazy'' whitespace;
 
-lazySlotDecl = lazyModifier, accessModifier opt, slotDecl, 
-                    ((tokenFromSymbol: \#=) $|$ 
-                      (tokenFromSymbol: \#'::=')
-                     ), expression, dot.
+lazySlotDecl $\rightarrow$ ((lazyModifier [accessModifier]) $|$ (accessModifier lazyModifier))
+                      slotDecl (equalSign $|$  ''::='') expression dot;
 \end{newspeak}
 
-A lazy slot declaration has the form \code{lazy $m ::= e.$} or \code{lazy $m = e.$}. The token \code{lazy} may optionally be followed with an access modifier.
+A lazy slot declaration has the form \code{lazy $m ::= e.$} or \code{lazy $m = e.$}. The token \code{lazy} may optionally be preceded {\em or} followed by an access modifier; both \code{lazy public $m = e.$} and \code{public lazy $m = e.$} are accepted, with identical meaning.
  A lazy slot  always has an initialization expression $e$, but the slot value is initially \NIL{}.
 When the slot is read by invoking its getter method $m$, if the slot contains \NIL{}, $e$ is evaluated to an object $o$, the slot's value is set to $o$ (but not by means of a setter method), and $o$ is returned as the result of the send.  Otherwise, the result of getter method invocation $m$ is the value the slot contains.  
 % The stuff below is not what we agreed to implement. We may bring it back later. Commented out for now.
@@ -1905,20 +1909,20 @@ Note that lazy slots may be immutable. The changes to a slot as a result of sync
 The syntax of method declarations is as follows:
 
 \begin{newspeak}
-methodDecl = accessModifier opt, messagePattern, equalSign, 
-                  lparen, codeBody, rparen.
-accessModifier =  ((tokenFromSymbol: {\#private}) $|$ 
-                        (tokenFromSymbol: \#public) $|$
-                        (tokenFromSymbol: \#protected)), whitespace.
+methodDecl $\rightarrow$ [accessModifier] messagePattern equalSign 
+                  lparen codeBody rparen;
+accessModifier $\rightarrow$  (''private'' $|$ 
+                        ''public'' $|$
+                        ''protected'') whitespace;
                     
 messagePattern::  unaryMsgPattern $|$
                        binaryMsgPattern $|$
-                       keywordMsgPattern.
-unaryMsgPattern = unarySelector.
+                       keywordMsgPattern;
+unaryMsgPattern $\rightarrow$ unarySelector;
 
-binaryMsgPattern = binarySelector, slotDecl.  
+binaryMsgPattern $\rightarrow$ binarySelector slotDecl;
                                                          
-keywordMsgPattern = (keyword, slotDecl) plus.   
+keywordMsgPattern $\rightarrow$ (keyword slotDecl)+;
 \end{newspeak}
 
 
@@ -1952,7 +1956,7 @@ Control is passed to $c$. Then $a_m$ is marked uncontinuable.
 If execution of a return statement causes control to be passed to \NIL{}, a \code{cannotReturn} exception is thrown.
 
 \begin{newspeak}
- returnStatement = hat,  expression, dot opt.
+ returnStatement $\rightarrow$ hat  expression [dot];
 \end{newspeak}
 
 {\it
@@ -1981,10 +1985,10 @@ Currently expressions or statements may be evaluated in the IDE. Only module dec
 }
 
 \begin{newspeak}
-compilationUnit =  languageId, toplevelClass.
-languageId:: identifier.
-toplevelClass = classCategory, classDeclaration.
-classCategory = string opt.
+compilationUnit $\rightarrow$  languageId toplevelClass;
+languageId  $\rightarrow$   identifier;
+toplevelClass $\rightarrow$ classCategory classDeclaration;
+classCategory $\rightarrow$ [string];
 \end{newspeak}
 
 {\it

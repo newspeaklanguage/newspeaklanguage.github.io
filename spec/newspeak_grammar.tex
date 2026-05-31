@@ -1,0 +1,298 @@
+\documentclass{article}
+\usepackage{newspeak}
+\usepackage{hyperref}
+\usepackage{epsfig}
+%\usepackage{amssymb,amsmath,amsthm}
+\newcommand{\code}[1]{{\sf #1}}
+\title{Newspeak Programming Language Grammar}
+\author{Gilad Bracha}
+\begin{document}
+
+
+\begin{newspeak}  
+  
+colon $\rightarrow$ (whitespace $|$ comment)* ``:";
+comma $\rightarrow$ (whitespace $|$ comment)* ``,";
+dot $\rightarrow$ (whitespace $|$ comment)* ``.";
+doublevbar $\rightarrow$ (whitespace $|$ comment)* ``$||$";
+equalSign $\rightarrow$ (whitespace $|$ comment)* ``=";
+eventualSendOperator $\rightarrow$  (whitespace $|$ comment)* ``$<-:$pound $\rightarrow$ ``\#";
+assignSlot $\rightarrow$ (whitespace $|$ comment)* ``::=";
+hat $\rightarrow$ (whitespace $|$ comment)* ``\^{}";
+inverseMixinOperator $\rightarrow$  (whitespace $|$ comment)* ``$:>$pound $\rightarrow$ ``\#";
+lbracket $\rightarrow$ (whitespace $|$ comment)* ``[";
+lcurly $\rightarrow$ (whitespace $|$ comment)* ``\{";
+lparen $\rightarrow$ (whitespace $|$ comment)* ``(";
+langleBracket $\rightarrow$ (whitespace $|$ comment)* ``$<$";
+mixinOperator $\rightarrow$  (whitespace $|$ comment)* ``$<:$pound $\rightarrow$ ``\#";
+angleBracket $\rightarrow$ (whitespace $|$ comment)* ``$>$";
+rbracket $\rightarrow$ (whitespace $|$ comment)* ``]";
+rcurly $\rightarrow$ (whitespace $|$ comment)* ``\}";
+rparen $\rightarrow$ (whitespace $|$ comment)* ``)";
+semicolon $\rightarrow$ ``;";
+slash $\rightarrow$ (whitespace $|$ comment)* ``/";
+vbar $\rightarrow$ (whitespace $|$ comment)* ``$|$";
+                                                                                                       
+letter $\rightarrow$   ``a" - ``z"$|$  ``A" - ``Z";
+                                                             
+specialCharacter $\rightarrow$   ``+"   $|$  ``/" $|$   ``$\backslash$'" $|$  ``*"   $|$  ``\~{}"  $|$ 
+                                        ``$<$" $|$  ``$>$" $|$  ``=" $|$  ``@"  $|$  ``\%" $|$ 
+                                      ``$|$"  $|$  ``\&" $|$  ``?"  $|$  ``!" $|$   ``,'";      
+                                     
+underscore $\rightarrow$  ``\_";                                                       
+
+id $\rightarrow$ (letter $|$ underscore)  (letter $|$ digit $|$ underscore)*;
+                                           
+identifier $\rightarrow$  (whitespace $|$ comment)*  id;
+ 
+unarySelector $\rightarrow$ identifier;
+
+kw $\rightarrow$ id  ``:"; 
+
+kws $\rightarrow$ kw+;   
+  
+keyword $\rightarrow$ (whitespace $|$ comment)*  kw; 
+
+setterKw $\rightarrow$ kw  ``:"; 
+
+setterKeyword $\rightarrow$ (whitespace $|$ comment)*  setterKw;  
+
+beginComment $\rightarrow$   ``(*";
+
+endComment $\rightarrow$  ``*)";
+ 
+metadataTag $\rightarrow$  ``:" id  ``:";
+ 
+comment $\rightarrow$ beginComment  [metadataTag] ((~endComment any) $|$ comment)*	endComment;
+ 
+binSel $\rightarrow$  (specialCharacter $|$  ``-'") (specialCharacter*);
+                                           
+binarySelector $\rightarrow$ (whitespace $|$ comment)*  binSel;
+                                           
+digit $\rightarrow$ ``0'' - ``9'';
+
+digits $\rightarrow$  digit+;
+
+uppercaseLetter $\rightarrow$ ``A'' - ``Z'';
+
+extendedDigits $\rightarrow$ (digit $|$ uppercaseLetter)+;
+
+radix $\rightarrow$ digits ``r";
+                   
+fraction $\rightarrow$  dot digits;
+
+extendedFraction $\rightarrow$  dot extendedDigits;
+                        
+exponent $\rightarrow$  ``e"  [``-"] digits;
+
+decimalNum $\rightarrow$ [``-"] digits [fraction] [exponent];
+
+radixNum $\rightarrow$ radix,
+                [``-"] 
+               extendedDigits 
+               [extendedFraction]
+               [exponent];
+                                                                                                                   
+num $\rightarrow$   radixNum $|$ decimalNum;
+                                                                                                         
+number $\rightarrow$  (whitespace $|$ comment)*  num;
+                                                                                                         
+character $\rightarrow$ digit $|$ letter $|$ specialCharacter $|$  ``[" $|$  ``]"  $|$
+                 ``\{" $|$  ``\}" $|$  ``("  $|$  ``)" $|$ 
+                 ``\^{}" $|$  ``;" $|$  ``\$" $|$  ``\#" $|$
+                 ``:" $|$  ``." $|$  ``-" $|$ underscore $|$  ``\textquoteright"; 
+                 
+twoDblQuotes $\rightarrow$   ``""  ``"";      
+
+aChar $\rightarrow$  ``""  (character $|$ twoDblQuotes $|$  ``'" $|$ `  ')  ``"";
+
+characterConstant $\rightarrow$ (whitespace $|$ comment)*  aChar;
+ 
+twoQuotes $\rightarrow$   ``'"  ``'";    
+
+stringBody $\rightarrow$ (character $|$ aWhitespaceChar $|$  ``"" $|$ twoQuotes)*;
+
+str $\rightarrow$  ``'" ,  stringBody   ``'";
+
+string $\rightarrow$ (whitespace $|$ comment)*  str;
+
+sym $\rightarrow$ str $|$ kws $|$ binSel $|$ id;
+
+symbol $\rightarrow$ (whitespace $|$ comment)* pound sym;
+literal $\rightarrow$  number $|$ symbol $|$ characterConstant $|$ string $|$ tuple;
+
+
+classToken $\rightarrow$ (whitespace $|$ comment)* ``class'' ;
+selfToken $\rightarrow$ (whitespace $|$ comment)* ``self'' ;
+superToken $\rightarrow$ (whitespace $|$ comment)* ``super'' ;
+outerToken $\rightarrow$ (whitespace $|$ comment)* ``outer'' ;
+
+tuple $\rightarrow$  lcurly [expression (dot expression)* [dot]]  rcurly;
+
+block $\rightarrow$ lbracket  [blockParameters] codeBody  rbracket;
+ 
+blockParameters $\rightarrow$  blockParameter+ vbar;
+ 
+blockParameter $\rightarrow$ colon slotDecl;                                
+
+slotDecl $\rightarrow$ identifier [type];    
+codeBody $\rightarrow$ [temporaries]  statements;    
+  
+temporaries $\rightarrow$ slotDecls;
+  
+slotDecls $\rightarrow$ seqSlotDecls $|$ simSlotDecls;
+
+returnStatement $\rightarrow$ hat  expression [dot];
+  
+statements $\rightarrow$ returnStatement  $|$   
+                  statementSequence $|$
+                  empty;
+                         
+statementSequence $\rightarrow$ expression [furtherStatements];
+  
+furtherStatements $\rightarrow$ dot statements;     
+
+parenthesizedExpression $\rightarrow$ lparen expression rparen;
+
+message $\rightarrow$ keywordMsg $|$ unarySelector $|$ binaryMsg;
+
+binaryMsg $\rightarrow$ binarySelector unaryExpression;
+
+keywordMsg $\rightarrow$  (keyword binaryExpression)+;
+
+primary $\rightarrow$  unarySelector $|$
+               literal $|$
+               block $|$ 
+               parenthesizedExpression;
+ 
+unaryExpression $\rightarrow$ primary unarySelector*;
+
+binaryExpression $\rightarrow$  unaryExpression binaryMsg*;
+
+keywordExpression $\rightarrow$  binaryExpression [keywordMsg];
+
+implicitKeywordSend $\rightarrow$ keywordMsg;
+
+sendExpression $\rightarrow$ implicitKeywordSend $|$ cascadedMessageExpression; 
+expression $\rightarrow$ [setterKeyword] sendExpression;
+
+nontrivialUnaryMessages $\rightarrow$ unarySelector+ binaryMsg*  [keywordMsg];
+nontrivialBinaryMessages $\rightarrow$ binaryMsg+ [keywordMsg];
+keywordMessages $\rightarrow$ keywordMsg;
+nonEmptyMessages $\rightarrow$ nontrivialUnaryMessages $|$
+                             nontrivialBinaryMessages  $|$
+                             keywordMessages;
+cascadeMsg $\rightarrow$ semicolon (keywordMsg $|$ binaryMsg $|$ unarySelector).
+msgCascade $\rightarrow$ nonEmptyMessages cascadeMsg*;
+                                                                                                                        
+cascadedMessageExpression $\rightarrow$ primary [msgCascade]; 
+
+typeParameterDecl $\rightarrow$ langleBracket lbracket identifier (comma identifier)* rbracket rangleBracket;
+
+classDeclaration $\rightarrow$ (classToken identifier [typeParameterDecl] messagePattern equalSign
+                     inheritanceListAndOrBody) $|$
+                  (classToken identifier [typeParameterDecl] empty equalSign
+                     inheritanceListAndOrBody);
+inheritanceListAndOrBody $\rightarrow$ defaultSuperclassAndBody $|$ 
+                                     explicitInheritanceListAndOrBody;
+defaultSuperclassAndBody $\rightarrow$ classBody;
+explicitInheritanceListAndOrBody $\rightarrow$ inheritanceClause mixinSpec;
+mixinSpec $\rightarrow$  classBody $|$ mixinAppSuffix;
+mixinAppSuffix $\rightarrow$ (mixinOperator inheritanceClause)+  
+                      (dot $|$ classBody);
+                      
+inheritanceClause $\rightarrow$ [inheritancePrefix] unarySelector [message];
+
+inheritancePrefix $\rightarrow$ outerReceiver $|$  
+                              selfToken $|$  
+                              superToken;
+outerReceiver $\rightarrow$ outerToken identifier;       
+
+classBody $\rightarrow$ classHeader sideDecl [classSideDecl];
+
+classHeader $\rightarrow$  lparen  [classComment] 
+                        [slotDecls] initExprs  rparen;  
+                                             
+classComment  $\rightarrow$ [whitespace] comment;    
+initExprs $\rightarrow$ [expression (dot expression)* [dot]];  
+sideDecl $\rightarrow$ lparen (nestedClassDecl $|$ lazySlotDecl $|$ methodDecl)* rparen;
+accessModifier $\rightarrow$  (''private'' $|$ 
+                        ''public'' $|$
+                        ''protected'') whitespace;
+
+nestedClassDecl $\rightarrow$ [accessModifier] classDeclaration;
+classSideDecl $\rightarrow$ colon lparen methodDecl* rparen;     
+
+seqSlotDecls $\rightarrow$ vbar, slotDefs vbar;
+slotDefs $\rightarrow$ slotDef*;
+
+slotDef $\rightarrow$  [accessModifier] slotDecl
+     [((equalSign $|$ assignSlot) expression dot) $|$ dot];
+     
+simSlotDecls $\rightarrow$ doublevbar slotDefs doublevbar;
+
+lazyModifier $\rightarrow$ ''lazy'' whitespace;
+
+lazySlotDecl $\rightarrow$ ((lazyModifier [accessModifier]) $|$ (accessModifier lazyModifier))
+                      slotDecl (equalSign $|$  assignSlot) expression dot;
+                      
+methodDecl $\rightarrow$ [accessModifier] messagePattern equalSign 
+                  lparen codeBody rparen;
+                    
+messagePattern::  (unaryMsgPattern $|$
+                       binaryMsgPattern $|$
+                       keywordMsgPattern) [returnType];
+unaryMsgPattern $\rightarrow$ unarySelector;
+
+binaryMsgPattern $\rightarrow$ binarySelector slotDecl;
+                                                         
+keywordMsgPattern $\rightarrow$ (keyword slotDecl)+;
+
+compilationUnit $\rightarrow$  languageId toplevelClass;
+languageId  $\rightarrow$   identifier;
+toplevelClass $\rightarrow$ classCategory classDeclaration;
+classCategory $\rightarrow$ [string];
+
+
+arg $\rightarrow$ (whitespace $|$ comment)* ``arg";
+for $\rightarrow$ (whitespace $|$ comment)* ``for";
+generic $\rightarrow$ (whitespace $|$ comment)* ``generic";
+inheritedTypeOf $\rightarrow$ (whitespace $|$ comment)* ``inheritedTypeOf";
+is $\rightarrow$ (whitespace $|$ comment)* ``is";
+mssg $\rightarrow$ (whitespace $|$ comment)* ``message";
+of $\rightarrow$ (whitespace $|$ comment)* ``of";
+
+receiverType $\rightarrow$ (whitespace $|$ comment)* ``receiverType";
+subtypeOf $\rightarrow$ (whitespace $|$ comment)* ``subtypeOf";
+typeArg $\rightarrow$ (whitespace $|$ comment)* ``typeArg";
+where $\rightarrow$ (whitespace $|$ comment)* ``where";
+returnType $\rightarrow$ hat type;
+
+type $\rightarrow$ langleBracket typeExpr rangleBracket;
+typePrimary $\rightarrow$ identifier [typeArguments];
+typeFactor $\rightarrow$ typePrimary $|$ blockType $|$ tupleType $|$ parenthesizedTypeExpression;
+parenthesizedTypeExpression $\rightarrow$ lparen typeExpr rparen;
+typeTerm $\rightarrow$ typeFactor identifier*;
+typeExpr $\rightarrow$ typeTerm [(vbar $|$ semicolon $|$ slash) typeExpr];
+typeArguments $\rightarrow$ lbracket typeExpr (comma typeExpr)* rbracket;
+tupleType $\rightarrow$ lcurly [typeExpr (dot typeExpr)*] rcurly;
+
+blockArgType $\rightarrow$ colon typeTerm;
+blockReturnType $\rightarrow$ typeExpr;
+nonEmptyBlockArgList $\rightarrow$ blockArgType+ [vbar blockReturnType];
+blockType $\rightarrow$ lbracket (nonEmptyBlockArgList $|$ [blockReturnType]) rbracket;
+
+typePattern $\rightarrow$ langleBracket typeFormal (semicolon typeFormal)* rangleBracket; 
+typeFormal $\rightarrow$ where identifier [typeParamConstraint] is inferenceClause;
+typeParamConstraint $\rightarrow$ langleBracket [typeBoundQualifier] typeExpr rangleBracket;
+typeBoundQualifier $\rightarrow$ subtypeOf $|$ inheritedTypeOf;
+inferenceClause $\rightarrow$ receiverType
+		$|$ (returnType returnTypeInferenceClause)
+		$|$ typeArgInferenceClause
+		$|$ (arg number [of msgSelector] );
+returnTypeInferenceClause $\rightarrow$ of msgSelector;
+msgSelector $\rightarrow$ symbolConstant mssg of inferenceClause;
+typeArgInferenceClause $\rightarrow$ typeArg number for generic symbol of inferenceClause;
+                                                               
+\end{newspeak}
+\end{document}
