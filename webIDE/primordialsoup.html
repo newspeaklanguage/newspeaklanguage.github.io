@@ -64,5 +64,17 @@ https://raw.github.com/Stuk/jszip/main/LICENSE.markdown.
     <link rel="stylesheet" href="CodeMirror/lib/codemirror.css"></link>
     <script src="CodeMirror/addon/display/autorefresh.js"></script>
     <script src="jszip.min.js"></script>
+    <!-- isomorphic-git + lightning-fs for the MemoryHole web git backend.
+         Expose window.git, window.LightningFS, window.GitHttp for the
+         Newspeak side to reach via platform js global at: 'git' /
+         'LightningFS' / 'GitHttp'. The http/web bundle is needed only
+         for remote operations (clone/fetch/push).
+         Self-hosted (not loaded from a CDN) — vendored bytes verified
+         byte-identical to the npm tarballs. The public SPA does not
+         currently load this page; the script tags below are kept clean
+         to avoid leaving unpinned CDN references in the deployed tree. -->
+    <script src="public/assets/lib/vendor/isomorphic-git-1.38.4.umd.min.js"></script>
+    <script src="public/assets/lib/vendor/lightning-fs-4.6.2.min.js"></script>
+    <script src="public/assets/lib/vendor/isomorphic-git-1.38.4-http-web.umd.js"></script>
   </body>
 </html>
