@@ -48,6 +48,11 @@
         // Vendored bytes preserved at public/assets/lib/vendor/; bumping
         // the pinned filename here requires bumping the corresponding
         // urlsToCache entry in sw.js AND the pwaVersion.
+        // buffer must come BEFORE isomorphic-git -- the bundle expects a
+        // `Buffer` global at evaluation time. The setup script that runs
+        // right after loads exposes window.Buffer from the bundle's
+        // window.buffer.Buffer.
+        '/webIDE/public/assets/lib/vendor/buffer-6.0.3.bundle.min.js',
         '/webIDE/public/assets/lib/vendor/isomorphic-git-1.38.4.umd.min.js',
         '/webIDE/public/assets/lib/vendor/lightning-fs-4.6.2.min.js',
         '/webIDE/public/assets/lib/vendor/isomorphic-git-1.38.4-http-web.umd.js',
@@ -60,6 +65,14 @@
         let script = document.createElement('script');
         script.src = url;
         script.async = false;
+        // Pin window.Buffer right after buffer's bundle finishes loading,
+        // so the next script in line (isomorphic-git) finds it as a
+        // global. The bundle exposes the export as window.buffer.Buffer.
+        if (url.indexOf('buffer-6.0.3.bundle.min.js') >= 0) {
+          script.onload = function () {
+            window.Buffer = window.buffer.Buffer;
+          };
+        }
         document.body.appendChild(script);
       });
 

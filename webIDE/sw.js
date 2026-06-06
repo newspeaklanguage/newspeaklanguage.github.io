@@ -65,7 +65,7 @@
 // The version update can be done either manually (we rely on this),
 // or by applying some framework that generates this sw.js worker script.
 
-const pwaVersion = 880;
+const pwaVersion = 882;
 
 // Cache name used by the 'caches' global variable.
 // The pwaCacheName now includes the pwaVersion;
@@ -88,6 +88,7 @@ const pwaAppResources = [
     // Self-hosted vendor JS (must match the <script> list in index.html).
     // Service worker pre-caches them so the IDE works offline once the
     // first online load completes.
+    '/webIDE/public/assets/lib/vendor/buffer-6.0.3.bundle.min.js',
     '/webIDE/public/assets/lib/vendor/isomorphic-git-1.38.4.umd.min.js',
     '/webIDE/public/assets/lib/vendor/lightning-fs-4.6.2.min.js',
     '/webIDE/public/assets/lib/vendor/isomorphic-git-1.38.4-http-web.umd.js',
