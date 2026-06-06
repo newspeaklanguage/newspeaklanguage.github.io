@@ -41,6 +41,17 @@
         '/webIDE/public/assets/lib/codemirror.js',
         '/webIDE/public/assets/lib/codemirror_autorefresh.js',
         '/webIDE/public/assets/lib/jszip.min.js',
+        // Self-hosted third-party JS for MemoryHole + side-by-side diffs.
+        // Loaded with async=false so they execute in listed order and are
+        // in window.* before the Newspeak side first reads
+        // `global at: 'git' / 'LightningFS' / 'GitHttp' / 'diff_match_patch'`.
+        // Vendored bytes preserved at public/assets/lib/vendor/; bumping
+        // the pinned filename here requires bumping the corresponding
+        // urlsToCache entry in sw.js AND the pwaVersion.
+        '/webIDE/public/assets/lib/vendor/isomorphic-git-1.38.4.umd.min.js',
+        '/webIDE/public/assets/lib/vendor/lightning-fs-4.6.2.min.js',
+        '/webIDE/public/assets/lib/vendor/isomorphic-git-1.38.4-http-web.umd.js',
+        '/webIDE/public/assets/lib/vendor/diff_match_patch-2019-07.js',
       ];
 
       // Dynamic scripts with async=false all load, then execute in listed order
