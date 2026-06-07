@@ -36,6 +36,15 @@
     <!-- Imports of JS scripts. -->
     <script>
       let scripts = [
+        // buffer MUST come before primordialsoup.js. Emscripten installs
+        // a deprecation getter on `window.buffer` (lowercase) that warns
+        // and returns undefined, and the getter is non-configurable --
+        // so the UMD bundle's assignment to `window.buffer` silently
+        // fails once primordialsoup.js has run. We load the polyfill
+        // first and pin window.Buffer (capital B, not the deprecated
+        // symbol) via the onload handler below; after that we never
+        // read window.buffer again.
+        '/webIDE/public/assets/lib/vendor/buffer-6.0.3.bundle.min.js',
         '/webIDE/public/assets/lib/primordialsoup-setup.js',
         '/webIDE/public/assets/lib/primordialsoup.js',
         '/webIDE/public/assets/lib/codemirror.js',
@@ -48,11 +57,6 @@
         // Vendored bytes preserved at public/assets/lib/vendor/; bumping
         // the pinned filename here requires bumping the corresponding
         // urlsToCache entry in sw.js AND the pwaVersion.
-        // buffer must come BEFORE isomorphic-git -- the bundle expects a
-        // `Buffer` global at evaluation time. The setup script that runs
-        // right after loads exposes window.Buffer from the bundle's
-        // window.buffer.Buffer.
-        '/webIDE/public/assets/lib/vendor/buffer-6.0.3.bundle.min.js',
         '/webIDE/public/assets/lib/vendor/isomorphic-git-1.38.4.umd.min.js',
         '/webIDE/public/assets/lib/vendor/lightning-fs-4.6.2.min.js',
         '/webIDE/public/assets/lib/vendor/isomorphic-git-1.38.4-http-web.umd.js',
