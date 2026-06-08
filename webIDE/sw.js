@@ -65,7 +65,7 @@
 // The version update can be done either manually (we rely on this),
 // or by applying some framework that generates this sw.js worker script.
 
-const pwaVersion = 886;
+const pwaVersion = 887;
 
 // Cache name used by the 'caches' global variable.
 // The pwaCacheName now includes the pwaVersion;
@@ -149,6 +149,7 @@ const addAllResourcesToCache = async (resources, cacheName) => {
 //   (when request.url is not in pwaAppResources)
 
 const putInCache = async (request, response, cacheName) => {
+    if (request.method !== 'GET') return;    
     const cache = await caches.open(cacheName);
     await cache.put(request, response);
 };
