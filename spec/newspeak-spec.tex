@@ -1498,14 +1498,12 @@ application. If the superclass clause is given implicitly
 it defaults to \code{Object}.  
 
  \begin{newspeak}
- classDeclaration $\rightarrow$ (classToken identifier typeParameterDecl? messagePattern equalSign
+ classDeclaration $\rightarrow$ (classToken identifier messagePattern equalSign
                      inheritanceListAndOrBody) $|$
-                  (classToken identifier typeParameterDecl? empty equalSign
+                  (classToken identifier empty equalSign
                      inheritanceListAndOrBody);
 
 classToken $\rightarrow$ (whitespace $|$ comment)* ''class'' ;
-
-typeParameterDecl $\rightarrow$ langleBracket lbracket identifier (comma identifier)* rbracket rangleBracket;
 
 inheritanceListAndOrBody $\rightarrow$ defaultSuperclassAndBody $|$
                                      explicitInheritanceListAndOrBody;
@@ -1519,7 +1517,6 @@ mixinAppSuffix $\rightarrow$ (mixinOperator  inheritanceClause)+
  %mixinSpecifier $\rightarrow$ classBody $|$ mixinApplication.
 \end{newspeak}
 
-An optional type parameter declaration may appear between the class name and the primary factory method pattern. It declares the formal type parameters of a generic class. For example, \code{class Map <[K, V]> new: capacity <Integer>} declares that \code{Map} has two type parameters, \code{K} and \code{V}. These names are in scope within the class body and may be used in type annotations on slots, method parameters, and return types.
 
 A class expression is always evaluated in the context of an enclosing object $eo$  (\ref{enclosing}). If a class expression is directly nested in a method (\ref{mtds}) or closure, the enclosing object $eo$ is the activation (\ref{activations}) $a$ in which evaluation takes place.
  
