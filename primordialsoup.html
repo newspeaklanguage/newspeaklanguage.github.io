@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>Primordial Soup</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      function scheduleTurn(timeout) {
+        if (timeout >= 0) {
+          setTimeout(function() {
+            var timeout = Module._handle_message();
+            scheduleTurn(timeout);
+          }, timeout);
+        }
+      }
+
+      var Module = {
+        noInitialRun: true,
+        noExitRuntime: true,
+        onRuntimeInitialized: function() {
+          var url = new URLSearchParams(window.location.search);
+          var request = new XMLHttpRequest();
+          request.open("GET", url.get("snapshot"), true);
+          request.responseType = "arraybuffer";
+          request.onload = function (event) {
+            var jsBuffer = new Uint8Array(request.response);
+            var cBuffer = _malloc(jsBuffer.length);
+            writeArrayToMemory(jsBuffer, cBuffer);
+            Module._load_snapshot(cBuffer, jsBuffer.length);
+            _free(cBuffer);
+            scheduleTurn(0);
+          };
+          request.send();
+        },
+        print: function(text) {
+          if (arguments.length > 1) {
+            text = Array.prototype.slice.call(arguments).join(" ");
+          }
+          console.log(text);
+        },
+        printErr: function(text) {
+          if (arguments.length > 1) {
+            text = Array.prototype.slice.call(arguments).join(" ");
+          }
+          console.error(text);
+        },
+        setStatus: function(text) {
+          console.log(text);
+        },
+      };
+    </script>
+    <!-- feross/buffer 6.0.3 — Node Buffer API polyfill for the browser.
+         MIT, bundles base64-js (MIT) + ieee754 (BSD-3-Clause) into a
+         single self-contained UMD file via browserify. Required by
+         isomorphic-git which has hard `Buffer` references at runtime;
+         self-hosting from npm to avoid CDN trust.
+
+         MUST load before primordialsoup.js. Emscripten installs a
+         deprecation getter on `window.buffer` (the lowercase global)
+         that warns and returns undefined; that getter is
+         non-configurable, so the UMD bundle's assignment to
+         `window.buffer` silently fails once Emscripten has run. We
+         therefore (1) place the bundle ahead of the {{{SCRIPT}}}
+         injection point so the bundle wins the race, and (2) pin the
+         constructor onto `window.Buffer` (capital B — not the
+         deprecated symbol) before letting primordialsoup.js load. -->
+    <script src="vendor/buffer-6.0.3.bundle.min.js"></script>
+    <script>window.Buffer = window.buffer.Buffer;</script>
+<script async type="text/javascript" src="primordialsoup.js"></script>
+    <script src="CodeMirror/lib/codemirror.js"></script>
+    <link rel="stylesheet" href="CodeMirror/lib/codemirror.css"></link>
+    <script src="CodeMirror/addon/display/autorefresh.js"></script>
+    <!-- JSZip is used by the Documents module (Ampleforth) to load and
+         save .zip-bundled documents. -->
+    <script src="jszip.min.js"></script>
+    <!-- isomorphic-git + lightning-fs for the MemoryHole web git backend.
+         Expose window.git, window.LightningFS, window.GitHttp for the
+         Newspeak side to reach via platform js global at: 'git' /
+         'LightningFS' / 'GitHttp'. The http/web bundle is needed only
+         for remote operations (clone/fetch/push).
+         Self-hosted (not loaded from a CDN) -- vendored bytes live in
+         newspeak/out/vendor/ and are mirrored alongside the HTML by
+         the deploy scripts. Pinning the major versions in the script
+         filenames keeps the runtime upgrade explicit. -->
+    <script src="vendor/isomorphic-git-1.38.4.umd.min.js"></script>
+    <script src="vendor/lightning-fs-4.6.2.min.js"></script>
+    <script src="vendor/isomorphic-git-1.38.4-http-web.umd.js"></script>
+    <!-- Google's diff-match-patch for side-by-side textual diffs in the
+         ChangesetPresenter's changed-member rows. Apache 2.0; no
+         runtime deps. Exposes window.diff_match_patch (lowercase) as
+         the constructor. Self-hosted: see newspeak/out/vendor/. -->
+    <script src="vendor/diff_match_patch-2019-07.js"></script>
+  </body>
+</html>
