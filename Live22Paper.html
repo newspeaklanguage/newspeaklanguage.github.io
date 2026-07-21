@@ -1,0 +1,332 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"/><title>Live22Paper</title></head><body data-ampleforth-doc="Live22Paper"><div id="ampleforth-ssr"> <!-- self_ampleforth -->
+  <h1>Ampleforth: A Live Literate Editor</h1>
+  
+  <h2>Abstract</h2>
+
+  <i>Ampleforth</i> is an editor for rich text documents with embedded media, including arbitrary interactive user interface elements. 
+  These may themselves be transcluded Ampleforth documents. 
+  Ampleforth documents are <a href="https://newspeaklanguage.org" contenteditable="false">Newspeak</a> objects and therefore naturally have a dynamic scope which can be used to reference live objects within them. 
+  Documents then mesh naturally with exemplar support in the IDE, making it easy to write code in the scope of the document and evaluate it live at any point. 
+  A document contains a markup program that runs in the document's scope. Executing the markup subsumes the concept of weaving a literate program. 
+  The structured view of code provided by a Smalltalk-style IDE likewise subsumes tangling.
+  <br>
+  The system allows for either WYSIWYG or markup editing (or a mix of both), and maintains a live bidirectional relation between the two.&nbsp;
+  Ampleforth runs in the web browser, and has the potential to replace a wide variety of editing tools such as word processors, presentation managers, GUI builders, computational notebooks and more. 
+  The editor is written in the Newspeak programming language, and incorporates a complete Newspeak IDE, enabling Ampleforth to be scripted and modified live within itself. 
+  We discuss Ampleforth's design, implementation and use. We believe
+  the design principles of Ampleforth extend beyond documents to much
+  more general virtual worlds.  
+
+  
+  <h2> Introduction</h2>
+  
+  Let's begin by recapping what live literate programming means.
+<br><br>
+<i>Live programming</i> means that when you change a program, 
+you instantly see the consequent changes to its behavior. 
+<br>
+To illustrate this, consider the trivial counter application shown
+below:
+<br><br>
+
+<br><br>
+The counter is live; try it out. 
+You can use the <i>increment</i> button to increment the counter,
+the <i>decrement</i> button to decrement it, and <i>reset</i> to set it back to its initial value. 
+Leave the counter at a non-zero value. This will be useful later.
+<br><br>
+Suppose you decide that the word <i>reset</i> isn't clear. 
+You'd like the <i>reset</i> button's label to be more explicit - perhaps it should
+say <i>set to 0</i>.
+<br><br> 
+The code that controls the counter display is in the method
+<b>definition</b> below. Click the toggle arrow below left to open the
+method:
+<br><br>
+<pre class="newspeak-source">definition = (
+			^row: {label: subject count. mediumBlank. button: 'increment'
+					action: [ updateGUI: [ subject increment ] ]. button: 'decrement'
+					action: [ updateGUI: [ subject decrement ] ]. button: 'reset'
+					action: [ updateGUI: [ subject clear ] ]. }
+		)</pre>
+  <br><br>
+  Change the line that determines the <i>reset</i> button's label 
+  (it's just above the closing curly brace, <b>}</b>) to read:<br>
+  <i>button: 'set to 0' action: [updateGUI: [subject clear]]. </i>
+  <br>
+  and accept the change.  
+  <br><br>
+  The displayed counter has changed as desired.
+  Moreover, the state of the counter is preserved - its value is as you left it before you changed the program;
+  we did not restart the counter program, or refresh the web page.
+  This is crucial. The counter state may be trivial, but in any real application,
+  recreating the program state is difficult, tedious, time consuming and error prone.
+  <br><br>
+  <i>Literate programming</i> means writing programs as essays: a well structured narrative, 
+  designed for human consumption, well presented both logically and physically. 
+  <br><br>
+ <i>Live literate programming</i> combines live and literate programming into something greater than the sum of its parts.  
+ You should be able to write programs as essays, if you so desire, but you should also be free to write them as 
+ slide presentations or interactive demonstrations or perhaps something else entirely. And you should
+ be able to write multiple narratives about the program, or about several programs. And they should all be live.
+ <br><br>
+ This essay is an example of live literate programming used to discuss
+itself, but there is more to it. Once you have a tool adequate to the
+task of live literate programming, you find you have much more. You
+have&nbsp;an editor for&nbsp;<i>interactive documents</i>&nbsp;of many
+kinds.&nbsp;
+
+<h2>Design Principles</h2>
+
+The core requirements for the editor are:
+<ol>
+<li>It must allow the creation, modification and viewing of hypermedia documents with interactive content.</li>
+<li>It must be fully programmable.</li>
+<li>It must specify documents linguistically.</li>
+</ol>
+
+(1) is obvious. However (2) is deeper than might appear. 
+It means that everything the editor can do in response to the UI can not only be done, but also modified, programmatically, by the user of the editor. 
+Hence it isn't enough that the editor support scripting of its operations. 
+It must be implemented in a fully dynamic language, so that one can modify the running editor from within itself.  
+Conceptual economy tells us that this programming language should serve as the scripting language as well. 
+Lastly, (3) implies that the document is defined by a language, which most naturally would be a markup language. 
+The markup is the document representation, and is reified in the editor's implementation language, which is also its scripting language. 
+A linguistic definition of the document is easier for humans to understand and for machines to process. We can assign it well-defined semantics. 
+Per (1), the markup language must of course be able to represent general interactive content and its behavior. 
+The best way to do this is to reference code in the general purpose programming language that defines and scripts the editor.
+<br><br>
+In more detail: a good editor must adhere to the following architectural principles:
+<ol>
+<li>Specify documents via a language (i.e., markup). However, using that language has to  be completely optional. 
+Users must be free to view and edit the document via either markup or WYSIWYG, or both. 
+Changes in one view should instantly be reflected in the other. </li>
+<li>Full Hypermedia support. The markup language needs to cover not just text formatting, but arbitrary interactive widgets.
+</li>
+<li> Scriptability. The editor must be programmable via a general purpose scripting language.
+The scripting language must support full reflection. Anything one can do interactively should be doable programmatically. 
+This implies supporting metaprogramming on the markup program describing the document, requiring the markup language to be reified 
+as data in the scripting language. Ideally, the markup language would be a subset of the scripting language.</li>
+<li>The editor is self-hosting. 
+It is implemented in the scripting language and so it can be extended or modified arbitrarily, live, from within itself.</li>
+</ol>
+We set out to implement an editor in accordance with these principles.  
+We use HTML as our markup language. It is the only existing markup language that meets requirement (2). 
+It also meets the needs of requirement (3) in that it is reified in a general purpose programming language (Javascript) in the form of the DOM. 
+Pragmatically, it is universally available, with high quality implementations on every platform.
+
+Our scripting language is Newspeak. 
+Newspeak is fully reflective (per requirement (3)) and runs in the web browser, 
+where it can access the DOM by means of a FFI to JavaScript (note that JavaScript itself is not fully reflective). 
+We implement our editor in Newspeak, fulfilling requirement (4).
+
+     
+ <h2>Ampleforth Operation</h2>
+
+Here we discuss both how Ampleforth is&nbsp;<i>operated</i>&nbsp;- its&nbsp;concrete UI, and how it <i>operates</i> - its implementation.
+       
+<h3>Operating Ampleforth</h3>
+
+How do we create or modify documents like this one? A document is an object, and we can create it in
+the IDE and edit it there.  To illustrate, consider the document below.  
+It's being viewed via an object presenter.  We see that the document is an instance of
+class <b>LiveAnE_mmanual</b>. Each document has its own class, which is always
+a subclass of <b>Document</b>. The object presenter includes an evaluator, where we can
+evaluate expressions in the scope of the object. Underneath the evaluator,  we see two tabs:
+<br><br>
+<i>[Document LiveAnE_mmanual]</i> and <i>[Basic]</i>.
+<br><br>
+Each tab selects a different view of the document. The <i>Basic</i> tab will show us the 
+document as a regular object, 
+listing its slots. The other tab, which is selected by default, shows us the document 
+properly rendered.
+<br><br>
+ <!-- self_ampleforth -->
+   <h1>Live: An E_mmanual</h1>
+
+<i> With apologies to Georges Perec</i>
+<br><br>
+This year marks the <i>n</i>th anniversary of the publication 
+of <a href="https://en.wikipedia.org/wiki/Emmanuel_Goldstein" contenteditable="false">Emmanuel Goldstein</a>'s 
+classic, <i>Theory and Practice of Oligarchical Collectivism
+(TAPOC)</i>.
+<br><br>
+I was wondering what I could do to honor Emmanuel and bring this great work of literature to life.
+<br><br>
+Among his followers, TAPOC, affectionately called simply  <i>The Book</i>, was regarded as a veritable user's manual for life.  So
+it seems appropriate to recreate it in electronic form, as a live E-manual. 
+The first step is to create the necessary tooling, and that is the focus of this post.
+      <br><br>
+      Of course, there is also the problem of obtaining an authentic version of the text, 
+      as all known copies were lost prior to 1984. For this problem, I have assuredly found an admirable solution, 
+      but the margin of this blog is too narrow to contain it.
+      
+<br><br>
+The document consists of three parts:
+<ul>
+<li>The <i>rendered view</i> shown above.</li>
+<li>The <i>raw view</i> showing the raw HTML code used to define the document.&nbsp; This part is hidden by default. 
+It can be expanded, or collapsed, by means of the toggle switch to the left of the rendered view, or via the <i>Toggle Raw HTML</i> button in the toolbar discussed below.</li>
+<li>The <i>toolbar</i> which consists of a number of user interface elements to control the editor. 
+It too is hidden by default, and controlled by another toggle switch, located above rendered and raw views.</li>
+</ul>
+You can edit the document in either the rendered or raw views; perhaps you think the word 
+<b>E_mmanual</b> is  a typo. Maybe it should be written <b>E_manual</b>, or perhaps 
+<b>Emmanuel</b>. Notice that as you type in the raw text window, the rendered text changes live and vice versa.
+<br><br>
+To add a live widget to the text above, type&nbsp;<i>alertButton</i>&nbsp;&nbsp;in the rendered view, select it and press the&nbsp;<i>Make it an Amplet&nbsp;</i>button in the toolbar. A button will appear. Do as it says - press it. 
+A helpful alert message will appear,&nbsp;
+ demonstrating that one can add live widgets
+without having to edit the HTML&nbsp; markup in the the raw view.
+
+<h3>How Ampleforth Operates</h3><div>
+
+How does Ampleforth actually work?  The system replaces any DOM element marked with class 
+<i>ampleforth</i> with a Newspeak widget. 
+The example above added the following to the raw view:
+<br><br>
+<i>&lt;div class = "ampleforth"&nbsp;ampletid="1"&nbsp;name = "alertButton" contenteditable = "false"&gt;&lt;/div&gt;</i></div><div><br>Which widget to use is determined by the <i>name</i> attribute of the DOM element in question.
+The value of the <i>name</i> attribute should identify a Newspeak method with no arguments.
+The identified method is invoked on the document; the result should be
+a Newspeak widget (technically, a Hopscotch fragment), which will be displayed at that
+point. The aforementioned DOM element is known as an <i>amplet</i>.</div><br>
+In the case above, a method named <b>alertButton</b> is already in place.  
+If it wasn't, we would have to add it. To do that, we simply edit the class of the document. We
+can access the class by clicking on the toggle to the left of <i>class</i> near the top of the object presenter.
+This expands the class in place, so we can add a new method  to it. We can also see the existing
+<b>alertButton</b> method we used above.
+
+<h4>What Could Go Wrong?</h4>
+
+What if the expression given in the document does not evaluate to a
+  Fragment? 
+  <br>
+  If it evaluates without error, we place an
+  error message that links to an inspector on the result in the 
+  document.
+  <br>
+
+<br>
+Consider a bad selector in the <i>name</i> attribute of an <i>ampleforth</i> node.
+<br>
+
+<br>
+<br>
+We get a link to a debugger showing the error.
+<br><br>
+Another interesting situation is recursion, as attempted below, which yields an informative error message: 
+<br>
+<br>
+
+
+<h2>From Editor to GUI Builder</h2>
+
+Consider a document with embedded widgets, in which there is no text.&nbsp; We can use Ampleforth to create such a document and then make it immutable. 
+The document is now reduced to a pure UI widget. Ampleforth served as a GUI builder when we created the document. 
+However, just as a text editor both creates text and views it modelessly, in Ampleforth the UI is live as we edit it; there is no GUI building "mode". 
+In Ampleforth, as in Morphic, <i><b>the GUI is the GUI
+builder</b></i>. Unlike Morphic, inadvertent modification of the UI is
+not an issue.&nbsp;By default, embedded widgets are immutable, and the
+top level can easily be made immutable by editing the raw
+view.&nbsp;Likewise, editing an embedded widget requires changing the
+markup or accessing the original.
+<br>
+<i>Caveats: editing transcluded widget documents by changing the
+markup would modify the original everywhere, as would accessing the
+original. One likely wants to clone them and then modify.</i>
+<div><i>One also wants infinite undo, which we can provide by using a local git repo for the markup.</i></div>
+<br>
+The semantics of the UI are given by the code in the methods
+referenced by the document's amplets.&nbsp;
+  <br>
+Documents are naturally defined as singletons - unique instances of their class.&nbsp; However, a GUI builder should allow the creation of reusable widgets. 
+One way to do this is to clone the document and its class. Such clones
+may be edited further. As a more general alternative, we can have
+multiple instances of a document class.
+<br>
+Methods can be added to documents to modify their state. 
+Assuming the amplet computation depends&nbsp; on the state, each instance displays differently, as a distinct document with shared behavior. 
+This allows for documents to serve as reusable widgets.
+<br>
+Another potential concern is that documents, as described so far, do not separate behavior from presentation.&nbsp; 
+This makes them very concrete, easy to understand and easy to manipulate interactively. 
+Nothing precludes the document from maintaining its application state as a distinct object, known as a <i>subject</i> in Hopscotch parlance. 
+In that case, amplet methods delegate all state queries and mutations to the subject.&nbsp; 
+This allows distinct documents to provide alternate views of an
+application.
+<br>
+Documents therefore have a <i>low floor,</i> where users can create simple UIs by concrete editing without being burdened by concerns of reuse or abstractions such as model-view-controller. 
+At the same time, documents have a <i>high ceiling</i>: can be evolved into completely general purpose, reusable UI components that separate presentation from behavior, and behavior from data. 
+Ampleforth provides a modeless medium for creating and interacting with such UIs, as well as a mechanism to deploy frozen documents where the UI cannot be altered.
+
+<br><br>
+
+<h2>Related Work</h2>
+
+The space limits of this essay preclude a thorough survey of all the relevant literature. Here are just a few highlights. 
+The tradition of literate programming goes back to <a href="https://www-cs-faculty.stanford.edu/~knuth/lp.html" contenteditable="false">Knuth</a>. 
+Contemporary efforts include <a href="https://orgmode.org/worg/org-contrib/babel/intro.html" contenteditable="false">Babel</a>, 
+<a href="https://nextjournal.com/mk/clerk-preview" contenteditable="false">Clerk</a>,
+<div>&nbsp;<a href="https://dl.acm.org/doi/10.1145/3126594.3126642" contenteditable="false">CodeStrates</a>, 
+<a href="https://gtoolkit.com/" contenteditable="false">Glamorous Toolkit</a>,&nbsp; <a href="https://github.com/LivelyKernel/lively4-core" contenteditable="false">Lively 4</a>, 
+<a href="https://github.com/zot/Leisure" https:="" plt.cs.northwestern.edu="" snapshots="" current="" pdf-doc="" scribble.pdf"="" contenteditable="false&gt;Lounge&lt;/a&gt;
+and &lt;a href=">Scribble</a>. 
+Older projects that embody relevant ideas are <a href="https://hypercard.org" contenteditable="false">HyperCard</a>, 
+<a href="https://dl.acm.org/doi/10.1207/s15327051hci0101_1" contenteditable="false">Boxer </a>
+and <a href="https://squeak.org/" contenteditable="false">Squeak </a>Morphic.&nbsp; 
+Computational notebooks can be seen as stylized use of a tool like Ampleforth. 
+As an&nbsp; excellent example, see <a href="https://github.com/khinsen/leibniz-pharo" contenteditable="false">Leibniz</a>, which is built upon Glamorous Toolkit.
+
+
+<h2>Status</h2>
+The editor is still at the prototype stage. Nevertheless, it works well enough to write this article.  To the left of the text you are reading, you should be able to
+locate two toggle symbols. Much as with the embedded editor above, clicking on the top toggle will reveal the editor menu;
+the other will open the raw HTML window containing the source for this paper.&nbsp; The biggest issues now are the performance and robustness of the Newspeak web-based implementation itself.&nbsp;<br><br>
+<h2>Future Work</h2>
+<div>
+Here are some important directions that could be pursued.</div><h3>Links as Relations</h3>
+
+The links between documents are in fact relationships, and the model and the language could be extended to capitalize on that. 
+The web of links forms a database, and we might query it. Put slightly differently, Hypermedia defines a graph, which can be queried by means of a graph query language. 
+The editor's host language might incorporate or become a query language, perhaps via linguistic symbiosis with a logic programming language.&nbsp; 
+All of this is reminiscent of HyperCard and/or Boxer.
+
+<h3>Documents in 3D</h3>
+
+Another direction is extending documents from the plane into 3-space. 
+One view of this suggests creating a 3D view of the document graph for ease of navigation and manipulation, 
+as in <a href="https://substack.soft.space/p/softspacear-prototype04" contenteditable="false">SoftspaceAR|Prototype 4</a>. 
+In that model, documents themselves remain two dimensional. 
+Another idea is to let documents become three dimensional themselves: documents become rooms.&nbsp; 
+The two views are somewhat orthogonal two each other, and both mesh naturally with virtual reality. 
+The current implementation may serve as a suitable departure point, assuming the metaverse contains a web browser.
+
+<br>
+
+Combining the two perspectives above, Ampleforth becomes something like Sherlock Holmes' mind palace; 
+the web starts to approximate Borges' library of Babel: an infinite
+Memory Hall.
+
+<h3>Collaboration</h3>
+
+Ampleforth should become not only live and literate, but <a href="https://www.inkandswitch.com/local-first/" contenteditable="false">local-first</a>. 
+Documents can then be edited offline, asynchronously, by different parties. 
+The different replicas of a document may then be reconciled when the clients on which they are run come online. 
+At the same time, real time collaboration is also desirable, requiring synchronous reconciliation. 
+A promising approach is exemplified by <a href="https://croquet.io" contenteditable="false">Croquet.io</a>, where 3D virtual realities can
+be synchronized in real time.
+
+<h2>Conclusions</h2>
+
+Ampleforth is a live literate program editor based on the idea that documents are objects whose contents are specified by HTML markup. 
+The editor supports the insertion and manipulation of arbitrary, live, interactive UI elements within documents.&nbsp; 
+Ampleforth provides both a raw markup view and a rendered view with WYSIWYG editing,&nbsp; and maintains a live bidirectional connection between the the two. 
+The markup references live UI components via the dynamic scope of the document object. 
+Ampleforth is implemented in the Newspeak programming language, and is integrated into Newspeak's reflective, self-hosting IDE.&nbsp; 
+This architecture makes the editor scriptable and modifiable from within itself.&nbsp; 
+We argue that this design approach applies well beyond the traditional notion of rich text editing, 
+since the editor can subsume an open-ended set of editing tools,&nbsp; simultaneously acting as GUI and GUI builder.&nbsp; 
+We see the potential of extending Ampleforth beyond the flat page, into three dimensional virtual or augmented reality. 
+The ultimate goal is to utilize language support for synchronization to allow for both real-time and asynchronous collaboration, making Ampleforth an immersive computing environment fully controllable by the end-user.
+</div>
+</div><script src="deploy-boot.js"></script></body></html>
