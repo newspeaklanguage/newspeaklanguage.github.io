@@ -1,4 +1,4 @@
-// deploy-boot.js  shared boot for deployed Ampleforth documents.
+// deploy-boot.js — shared boot for deployed Ampleforth documents.
 //
 // Each deployed page is lean:
 //   <body data-ampleforth-doc="Name">
@@ -8,7 +8,7 @@
 // This script: (1) reads the document name, (2) points the URL at
 // AmpleforthViewer + <Name>.zip, (3) removes the static fallback once the live
 // UI mounts, and (4) boots the runtime by REPLAYING the standard
-// primordialsoup.html loader  fetched at runtime  so there is no second copy
+// primordialsoup.html loader — fetched at runtime — so there is no second copy
 // of the pinned boot boilerplate to drift out of sync.
 (function () {
   var docName = document.body.getAttribute('data-ampleforth-doc') || '';
