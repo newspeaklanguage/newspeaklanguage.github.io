@@ -1927,9 +1927,18 @@ run();
 // end include: postamble.js
 
 // include: meta/croquet-post.js
+// <psoup-only> the JS deploy gets its own header (newspeak tool/croquet-glue-js/header.js)
 /* Croquet integration for the Newspeak runtime, linked in via --post-js.
    Extracted verbatim from the working hand-maintained croquetpsoup.js (the tail
    following the emscripten glue), which was the only copy that ever ran. */
+// </psoup-only>
+/* THIS FILE IS CANONICAL for both platforms. The copy that a Croquet JS deploy
+   ships (DeploymentManager.ns, JSPackager>>croquetSupportScript) is GENERATED
+   from it by the newspeak repository's tool/mirror-croquet-glue.py - never edit
+   that copy by hand. Lines between <psoup-only> and </psoup-only> are dropped
+   there; everything from <startup> to the end of the file is replaced by
+   tool/croquet-glue-js/startup.js. After editing this file, run the script
+   (its --check mode reports a stale copy). */
 var theModel;
 var theView;
 var localViewId;
@@ -2014,20 +2023,214 @@ function newspeakFragmentData(fid, data) {
     return {fid: fid, data: data}
 }
 
+/* A CodeMirror change record, as published: where, and what was put there.
+   NOT what was removed - CodeMirror records the deleted text too, and for
+   select-all-and-paste that is the whole old document. Nothing reads it. */
 function nsCodeMirrorChange(change) {
     return {from: nsCursorPos(change.from.ch, change.from.line),
 	    to:  nsCursorPos(change.to.ch, change.to.line),
-	    text: change.text,
-	    removed: change.removed
+	    text: change.text
 	   }
 }
 
+/* Editors publish EDITS, never text (newspeak
+   CROQUET_EDITOR_DIFF_SYNC_DESIGN_2026-09-18.md). Until 2026-09-18 every change
+   event carried the editor's full text; over 8KB each one took the Data-API
+   detour, about a second, strictly in order, and typing in a large class source
+   lagged without bound.
+
+   What replaces the text is the SHADOW: per editor, the document as the ordered
+   event stream defines it. Every client applies every change event to it, in
+   session order, its own echoes included, so the shadows are identical
+   everywhere by construction - the invariant that a full-text setValue on every
+   client used to buy. Synchronized responses read the shadow; the visible
+   editor of the client that is typing may be ahead of it.
+
+   A CodeMirror.Doc understands the same positions and the same replaceRange as
+   the editor. The shadows live HERE, in JavaScript, keyed by fragment id (which
+   survives same-kind adoption), rather than being driven by alien sends from
+   Newspeak, whose call semantics differ between psoup and NS2JS. */
+const nsShadows = new Map();
+
+// Diagnostics: the last few hundred shadow operations, for the probes and the console.
+const nsShadowLog = [];
+function nsShadowNote(op, fid, detail) {
+    nsShadowLog.push(op + ' ' + fid + ' ' + detail);
+    if (nsShadowLog.length > 400) nsShadowLog.splice(0, 200);
+}
+
+function nsShadowInit(fid, text) {
+    nsShadowNote('init', fid, 'len=' + (text == null ? 0 : String(text).length) + (nsShadows.has(fid) ? ' (replaces len=' + nsShadows.get(fid).getValue().length + ')' : ''));
+    nsShadows.set(fid, new CodeMirror.Doc(text == null ? '' : String(text)));
+    return true;
+}
+
+// From the visible editor's text, without taking the text through Newspeak.
+function nsShadowInitFrom(fid, cm) { return nsShadowInit(fid, cm.getValue()); }
+
+function nsShadowHas(fid) { return nsShadows.has(fid); }
+
+function nsShadowDrop(fid) { if (nsShadows.has(fid)) nsShadowNote('drop', fid, ''); return nsShadows.delete(fid); }
+
+// null when there is no shadow: the caller falls back to the visible editor.
+function nsShadowText(fid) {
+    const doc = nsShadows.get(fid);
+    return doc ? doc.getValue() : null;
+}
+
+function nsReplaceRanges(target, changes, origin) {
+    for (const c of changes) {
+	target.replaceRange(c.text.join('\n'), c.from, c.to, origin);
+    }
+}
+
+// changes: the records of one published event, each relative to the document
+// the one before it left. Answers false when there is no shadow to apply to.
+function nsShadowApply(fid, changes) {
+    const doc = nsShadows.get(fid);
+    if (!doc) { nsShadowNote('apply-NO-SHADOW', fid, ''); return false; }
+    nsReplaceRanges(doc, changes, 'croquet');
+    nsShadowNote('apply', fid, changes.length + ' record(s) -> len=' + doc.getValue().length);
+    return true;
+}
+
+// A PROGRAMMATIC partial edit (an untagged replaceSelection: an evaluation's
+// result put into the text) reaches the shadow as the raw CodeMirror record.
+// Every client makes it for itself, in lockstep, so it is never published.
+function nsShadowApplyOne(fid, change) {
+    const doc = nsShadows.get(fid);
+    if (!doc) return false;
+    doc.replaceRange(change.text.join('\n'), change.from, change.to, 'croquet');
+    return true;
+}
+
+// The same records applied to a VISIBLE editor, as one operation, tagged
+// 'croquet' so that the publishing hooks leave them alone. CodeMirror keeps
+// this client's own cursor where it belongs.
+function nsApplyChanges(cm, changes) {
+    cm.operation(() => nsReplaceRanges(cm, changes, 'croquet'));
+    return true;
+}
+
+function nsShadowMatches(fid, cm) {
+    const doc = nsShadows.get(fid);
+    return !!doc && doc.getValue() === cm.getValue();
+}
+
+// Bring a visible editor back to the shadow - after another client's edits
+// arrived while this one had edits of its own in flight. Local, no network.
+// Answers whether anything had to change.
+function nsResyncFromShadow(fid, cm) {
+    const doc = nsShadows.get(fid);
+    if (!doc) return false;
+    const text = doc.getValue();
+    if (cm.getValue() === text) return false;
+    const cursor = cm.getCursor();
+    cm.setValue(text);
+    cm.setCursor(cursor, null, {origin: 'croquet', scroll: false});
+    return true;
+}
+
+// This client's clock, in ms, for LOCAL decisions only (how long an echo has
+// been awaited); it must never reach replicated state. Both take an argument
+// because Newspeak cannot call a JavaScript function of none.
+function nsNowPlus(ms) { return Date.now() + ms; }
+function nsIsPast(deadline) { return Date.now() > deadline; }
+
+// The records of one flush window, per editor, not yet published. Kept here,
+// by fragment id, so that same-kind adoption needs no handoff.
+const nsPendingEdits = new Map();
+function nsPendingAdd(fid, change) {
+    let list = nsPendingEdits.get(fid);
+    if (!list) { list = []; nsPendingEdits.set(fid, list); }
+    list.push(nsCodeMirrorChange(change));
+    return list.length;
+}
+function nsPendingHas(fid) { return nsPendingEdits.has(fid); }
+function nsPendingDrop(fid) { return nsPendingEdits.delete(fid); }
+// Answers the records (an empty array when there are none) and forgets them.
+function nsPendingTake(fid) {
+    const list = nsPendingEdits.get(fid) || [];
+    nsPendingEdits.delete(fid);
+    return list;
+}
+
+// An event in the edit format (changes), as opposed to the full-text format
+// of sessions recorded before 2026-09-19 (textBeingAccepted + change).
+function nsIsEditEvent(e) { return !!e && Array.isArray(e.changes); }
+
+// One published edit event applied to a VISIBLE editor that did not send it:
+// the records, then the sender's selection if it moved, as one operation.
+function nsApplyEdits(cm, e) {
+    cm.operation(() => {
+	nsReplaceRanges(cm, e.changes, 'croquet');
+	if (e.selection) {
+	    cm.setSelection(e.selection.anchor, e.selection.head, {origin: 'croquet', scroll: false});
+	}
+    });
+    return true;
+}
+
+// The payload of one published edit event. cm is the editor when the user's
+// selection moved in the window, null when it did not: the selection is READ
+// here, at publication, when the editor holds exactly the document the records
+// lead to, rather than collected from beforeSelectionChange events, which
+// describe a selection CodeMirror may still adjust. Nothing here is ever
+// undefined, which would not survive publication.
+function nsCodeMirrorEdits(changes, cm, sender, seq) {
+    const d = {changes: changes, sender: sender, seq: seq};
+    if (cm) {
+	const r = cm.listSelections()[0];
+	d.selection = {anchor: nsSelectionPos(r.anchor), head: nsSelectionPos(r.head)};
+    }
+    return d;
+}
+
+// The payload of a selection published on its own: the user moved the cursor
+// and edited nothing in the window. Read at publication, as above.
+function nsCurrentSelection(cm, sender) {
+    const r = cm.listSelections()[0];
+    return {anchor: nsSelectionPos(r.anchor), head: nsSelectionPos(r.head), sender: sender};
+}
+
+/* A selection position always goes out with a NUMERIC column. CodeMirror lets a
+   column be left out to mean "end of line" (its own selectAll builds
+   Pos(lastLine) with no ch), and an undefined value does not survive
+   publication: replaceUndefined turns it into {}. In practice CodeMirror
+   reports clipped positions to beforeSelectionChange, so this is a guard, not
+   a fix for anything observed: a column past the end is clipped to the end of
+   the line, and IS a number. */
+const NS_END_OF_LINE = 1000000000;
+function nsSelectionPos(p) {
+    return {line: p.line, ch: (typeof p.ch === 'number') ? p.ch : NS_END_OF_LINE};
+}
+
 function nsCodeMirrorSelectionChange(change) {
-    var from = change.ranges[0].anchor;
-    var to = change.ranges[0].head;
-    return {anchor: {line: from.line, ch: from.ch},
-	    head: {line: to.line, ch: to.ch}
-	   }
+    return {anchor: nsSelectionPos(change.ranges[0].anchor),
+	    head: nsSelectionPos(change.ranges[0].head)};
+}
+
+/* CodeMirror's own selectAll command - Cmd-A, and execCommand('selectAll') -
+   sets the selection with NO origin, so to the publishing hook
+   (HopscotchForCroquet CodeMirrorFragment>>respondToBeforeSelectionChange:) it
+   looked like a programmatic operation and stayed on the client that pressed
+   it, while a mouse or shift-arrow selection ('*mouse', '+move') is published.
+   A following synchronized Evaluate Selection then ran on that client alone
+   (found by the determinism probe, 2026-09-17). The command is replaced, once,
+   by one that tags its selection '*selectAll' and gives its end an explicit
+   column (see nsSelectionPos). Done here, in JavaScript, so that both
+   platforms run the same code. Answers whether CodeMirror was there to patch. */
+function nsPatchSelectAll() {
+    if (typeof CodeMirror === 'undefined' || !CodeMirror.commands) return false;
+    if (!CodeMirror.commands.__nsSelectAllPublishes) {
+	CodeMirror.commands.selectAll = function (cm) {
+	    const last = cm.lastLine();
+	    cm.setSelection(CodeMirror.Pos(cm.firstLine(), 0), CodeMirror.Pos(last, cm.getLine(last).length),
+			    {origin: '*selectAll', scroll: false});
+	};
+	CodeMirror.commands.__nsSelectAllPublishes = true;
+    }
+    return true;
 }
 
 function nsPopstateData(event){
@@ -2194,6 +2397,15 @@ var nsPublishChain = Promise.resolve();
 
 // The single outbound funnel: HopscotchForCroquet's publish:event:data: calls
 // this instead of theView.publish directly.
+// A synchronized-inbox post (HopscotchForCroquet synchronizedInbox:post:payload:):
+// input that reached ONE client from outside the session, to be recorded once
+// per (topic, id) by the model and applied everywhere from the record. The id
+// travels beside the envelope's data, not inside it, so the model can read it
+// even when the text has been detoured for size.
+function nsSyncInboxPost(topic, id, text) {
+    nsPublish('nssyncinbox_', 'syncInbox_post', {fid: topic, id: String(id), data: text});
+}
+
 function nsPublish(scope, eventSpec, data) {
     nsPublishChain = nsPublishChain.then(async () => {
 	try {
@@ -2214,7 +2426,20 @@ function nsPublish(scope, eventSpec, data) {
 		&& !nsContainsDataHandle(data.data)) {
 		const bytes = new TextEncoder().encode(JSON.stringify(data.data));
 		const handle = await theView.session.data.store(bytes.buffer);
-		payload = {fid: data.fid, data: {__nsDetouredPayload: true, handle: handle}};
+		// Keep every other field of the envelope (an inbox post carries its
+		// message id beside the data, and the model needs it visible).
+		payload = Object.assign({}, data, {data: {__nsDetouredPayload: true, handle: handle}});
+	    }
+	    // The publisher's label rides along for the divergence alarm's label
+	    // check (nsCheckLabel): the model records it beside the event. A bare
+	    // fragment id becomes {fid, label, bare: true}; the model's
+	    // publishEvent unwraps it (nsBareFid). No label registered (a
+	    // coordinated fetch, an inbox post, an old vfuel): payload unchanged.
+	    const fid = isEnvelope ? data.fid : (typeof data === 'string' ? data : null);
+	    const label = fid === null ? undefined : nsFragmentLabels.get(scope + fid);
+	    if (label !== undefined) {
+		payload = isEnvelope ? Object.assign({}, payload, {label: label})
+		                     : {fid: data, label: label, bare: true};
 	    }
 	    theView.publish(scope, eventSpec, payload);
 	} catch (err) {
@@ -2246,8 +2471,240 @@ async function nsResolvePayload(e) {
 // it. The RAW handler is recorded too: replayEvents must invoke handlers
 // inline from its own chain thunks (see there), where calling the wrapped form
 // would re-enqueue and decouple lookup order from execution order.
-function nsSubscribe(scope, eventSpec, handler) {
+// Coordinated-fetch answers that arrived before anything was listening for
+// them. A subscription for such a key is created when the APPLICATION issues
+// that request, and it legitimately can come later than the recorded answer:
+// the construct that issues it may sit in deferred content, which realizes
+// across animation frames. Waiting for it inside the dispatch chain is not an
+// option -- the chain is what delivers the events that drive the realization,
+// so waiting there starves the thing being waited for, and one unmatched
+// answer stalls every answer behind it. So the answer is kept here instead,
+// and handed over the moment its subscriber registers. Keyed exactly as
+// newspeakSubscriptions is, and cleared on delivery: each answer is consumed
+// once.
+const nsPendingCoordAnswers = new Map();
+
+// ---- Fragment-id minting ledger (diagnostic) --------------------------------
+//
+// Every synchronized fragment takes its Croquet event address from a per-type
+// counter incremented at construction, so clients agree on which widget an
+// event refers to ONLY if they construct fragments in the same order and
+// number (CROQUET_SCOPED_FRAGMENT_IDS_2026-08-18.md). A client that builds one
+// extra widget skews every later id on that counter, and the failure surfaces
+// much later and somewhere else -- as "no subscriber for nsbutton_/533", or as
+// a click landing on the wrong widget.
+//
+// This records the minting sequence so two clients can be diffed directly: the
+// first index at which their ledgers disagree IS the divergence, and the entry
+// names the type and the presenter that was being built. Without it the only
+// evidence is a consequence hundreds of events downstream, which is how this
+// class of bug has been debugged so far -- badly.
+//
+// OFF by default. Recording costs a bridge crossing per fragment construction,
+// and an IDE builds thousands per render, so this is not something to impose on
+// every build. Off costs nothing at all: HopscotchForCroquet reads the flag once
+// into a lazy slot, so a disabled ledger makes no crossings.
+//
+// Because it is read once, before the first fragment exists, it cannot be turned
+// on from the console mid-session -- enable it and reload:
+//     localStorage.setItem('ns_mint_ledger', 'on')
+// or put &mintLedger=on in the page URL (what the probes do).
+var nsMintLedgerOn = (function () {
+    try { if (/[?&]mintLedger=on\b/.test(location.search)) return true } catch (e) {}
+    try { return localStorage.getItem('ns_mint_ledger') === 'on' } catch (e) { return false }
+})();
+const NS_LEDGER_CAP = 100000;
+const nsIdLedger = [];
+const nsMintContext = [];
+let nsLedgerTruncated = false;
+
+function nsPushMintContext(label) { nsMintContext.push(label); }
+function nsPopMintContext(ignored) { nsMintContext.pop(); }
+
+function nsRecordMint(type, ordinal, scopePath) {
+    if (nsIdLedger.length >= NS_LEDGER_CAP) { nsLedgerTruncated = true; return }
+    nsIdLedger.push({t: type, o: ordinal, s: scopePath || '',
+                     c: nsMintContext.length ? nsMintContext[nsMintContext.length - 1] : ''});
+}
+
+// Diffing API. A long session mints tens of thousands of ids, far too many to
+// ship over CDP in one value, so: compare block hashes to find the first
+// differing block, then slice just that block.
+function nsLedgerCount() { return nsIdLedger.length }
+
+function nsLedgerBlockHashes(step) {
+    const n = step || 500, out = [];
+    let h = 0x811c9dc5;
+    for (let i = 0; i < nsIdLedger.length; i++) {
+        const e = nsIdLedger[i], str = e.t + '/' + e.o + '/' + e.s + '/' + e.c;
+        for (let j = 0; j < str.length; j++) { h ^= str.charCodeAt(j); h = (h * 0x01000193) >>> 0 }
+        if ((i + 1) % n === 0) out.push({i: i + 1, h: h});
+    }
+    out.push({i: nsIdLedger.length, h: h});
+    return out;
+}
+
+function nsLedgerSlice(from, to) { return nsIdLedger.slice(from, to) }
+
+// Per-type totals -- the cheap top-level check, and what a live client can be
+// asked for without shipping anything large.
+function nsLedgerTotals() {
+    const m = {};
+    for (const e of nsIdLedger) m[e.t] = (m[e.t] || 0) + 1;
+    return {counts: m, total: nsIdLedger.length, truncated: nsLedgerTruncated};
+}
+
+function nsLedgerReset() { nsIdLedger.length = 0; nsLedgerTruncated = false }
+
+// Replay pacing. Live, consecutive events are separated by real time, so
+// everything an event's handler sets in motion asynchronously -- the promise
+// hops between a chat's Send and its coordinated completion request, a
+// render's deferred content -- has run before the next event arrives. The
+// replay chain is promise-driven, so without a pause those hops interleave
+// with the dispatch of the FOLLOWING recorded events: a request went out after
+// the recorded answer to it had already been dispatched ("holding early
+// answer"), the UI passed through its states in a different order than the
+// original, and the fragment ordinals drifted -- observed as orphaned
+// keystrokes for nscodemirror_/21 right after a held answer (2026-09-13).
+// One macrotask drains every promise continuation the handler spawned; one
+// animation frame lets deferred content take its first step. ~17ms per event.
+//
+// A page that is not being painted - a background tab, a minimized or covered
+// window, one on another desktop - gets NO animation frames, and its timers
+// are throttled to one a second (one a minute after five minutes). A joiner
+// in that state never got past its first recorded event (2026-09-17). There
+// is nothing to pace for there either: Hopscotch drains a hidden page's
+// deferred content whole, in a promise turn right after the handler
+// (HopscotchForHTML5>>nextFrameDo:ifNoFrame:). So a hidden page takes one
+// macrotask, from a MessageChannel, which is not throttled. A painted page
+// races its frame against a timer, in case it is hidden while it waits.
+function nsMacrotask() {
+    if (typeof MessageChannel !== 'function') return new Promise(r => setTimeout(r, 0));
+    return new Promise(r => {
+	const c = new MessageChannel();
+	c.port1.onmessage = () => { c.port1.close(); r(); };
+	c.port2.postMessage(0);
+    });
+}
+
+function nsPageIsPainted() {
+    return typeof requestAnimationFrame === 'function' &&
+	!(typeof document !== 'undefined' && document.hidden);
+}
+
+function nsReplayPace() {
+    if (!nsPageIsPainted()) return nsMacrotask();
+    return new Promise(r => setTimeout(r, 0)).then(() => new Promise(r => {
+	let settled = false;
+	const once = () => { if (!settled) { settled = true; r(); } };
+	requestAnimationFrame(once);
+	setTimeout(once, 250);
+    }));
+}
+
+/* Divergence alarm.
+
+   The invariant every synchronized fragment rests on: a recorded event's
+   address (scope + fragment id + event kind) names a live, subscribed fragment
+   on EVERY client. When a client has minted ids in a different order, an event
+   lands on a fragment that is not there - and until now that was silent live:
+   Croquet delivers to no one, the client's state quietly stops matching, and
+   the failure surfaces hundreds of events later as a dead chat, debugged
+   backwards. (Replay had its own "no subscriber" warning; this is the live
+   counterpart.)
+
+   The check is per event and deterministic - no digests, no timing races
+   between concurrent users. The root model tells its own view about every
+   event it records (nsEventRecorded, a local model-to-view publish: nothing
+   crosses the reflector). The view counts how many events it EXPECTS per
+   address and how many were actually DELIVERED to a handler; when, after a
+   bounded wait for deferred realization, delivered lags expected, it reports
+   the event: index, address, and whether the fragment was ever here (retired -
+   a late event for something this client legitimately disposed of, e.g. a
+   click racing a navigation - is a warning, not a divergence). nsDivergences
+   keeps the reports for the probes. */
+const nsExpectedDeliveries = new Map(), nsActualDeliveries = new Map();
+const nsRetiredKeys = new Set();
+const nsDivergences = [];
+const NS_DELIVERY_WAIT_MS = 15000;
+
+/* The alarm's second half: the label check. The delivery count above is
+   silent when a fragment of the SAME kind happens to sit at the address -
+   ids shifted by one inside a presenter, so a click recorded for Apply is
+   delivered to Cancel (the ledger's finding of 2026-09-14). So each
+   subscription registers what its fragment IS - its croquetLabel
+   (HopscotchForCroquet): enclosing presenter, kind, and a button's or
+   link's text - the publisher's label rides in the recorded event (nsPublish,
+   publishEvent), and every client compares the two at the address on
+   receipt: live from nsCheckDelivery once the event has been delivered,
+   under replay from replayEvents before it is dispatched. Deterministic per
+   event, like the count. Reported once, kind 'label'. An event recorded by a
+   build without labels carries none and is not checked; nor is an address
+   this client has no label for. Labels are kept for the session (an address
+   is re-subscribed with its current label on every re-display; a retired
+   one costs a few bytes). */
+const nsFragmentLabels = new Map();   // subscriber scope (type marker + fid) -> label
+
+// A bare payload as the model receives it: the fragment id itself, or the
+// {fid, label, bare} wrapper nsPublish sends for a labelled publisher.
+function nsBareFid(p) { return (p && typeof p === 'object' && p.bare) ? p.fid : p }
+function nsBareLabel(p) { return (p && typeof p === 'object' && p.bare) ? p.label : undefined }
+
+function nsCheckLabel(n, e, key) {
+    if (e.label == null) return false;
+    const mine = nsFragmentLabels.get(e.scope + e.fid);
+    if (mine == null || mine === e.label) return false;
+    nsDivergences.push({event: n, key: key, kind: 'label', scope: e.scope, fid: e.fid,
+                        eventSpec: e.eventSpec, published: e.label, here: mine});
+    console.error('Croquet DIVERGENCE: recorded event ' + n + ' (' + e.eventSpec + ' for ' +
+        e.scope + e.fid + ') was published by "' + e.label + '" but the fragment at that ' +
+        'address on this client is "' + mine + '": this client minted ids in a different ' +
+        'order. Ledger (mintLedger=on) names the first differing mint; nsDivergences holds the report.');
+    return true;
+}
+
+function nsNoteDelivered(key) {
+    nsActualDeliveries.set(key, (nsActualDeliveries.get(key) || 0) + 1);
+}
+
+function nsCheckDelivery(n) {
+    const e = theModel && theModel.newspeakEvents[n];
+    if (!e) return;
+    // A coordinated answer this client never asked for is benign (see replayEvents).
+    if (e.scope === 'nscoordfetch_') return;
+    const key = e.scope + e.fid + e.eventSpec;
+    nsExpectedDeliveries.set(key, (nsExpectedDeliveries.get(key) || 0) + 1);
+    const expected = nsExpectedDeliveries.get(key);
+    const started = Date.now();
+    const poll = () => {
+        if ((nsActualDeliveries.get(key) || 0) >= expected) { nsCheckLabel(n, e, key); return }
+        if (Date.now() - started < NS_DELIVERY_WAIT_MS) { setTimeout(poll, 250); return }
+        const retired = nsRetiredKeys.has(key);
+        const report = {event: n, key: key, kind: 'delivery', scope: e.scope, fid: e.fid, eventSpec: e.eventSpec,
+                        retired: retired, expected: expected, delivered: nsActualDeliveries.get(key) || 0};
+        nsDivergences.push(report);
+        const where = 'recorded event ' + n + ' (' + e.eventSpec + ' for ' + e.scope + e.fid + ')';
+        if (retired) {
+            console.warn('Croquet: ' + where + ' arrived for a fragment this client had retired; ' +
+                'harmless if every client retired it too (a click racing a navigation), ' +
+                'a divergence if not');
+        } else {
+            console.error('Croquet DIVERGENCE: ' + where + ' was never delivered on this client - ' +
+                'no fragment here is subscribed at that address, so this client minted ids in a ' +
+                'different order (or lost the fragment). Ledger (mintLedger=on) names the first ' +
+                'differing mint; nsDivergences holds the report.');
+        }
+    };
+    setTimeout(poll, 250);
+}
+
+function nsDivergenceCount() { return nsDivergences.length }
+
+// label (optional): the subscribing fragment's croquetLabel, registered for
+// the address for the alarm's label check (nsCheckLabel); nothing else reads it.
+function nsSubscribe(scope, eventSpec, handler, label) {
     const wrapped = e => {
+	nsNoteDelivered(scope + eventSpec);
 	nsDispatchChain = nsDispatchChain.then(async () => {
 	    try {
 		handler(await nsResolvePayload(e));
@@ -2256,9 +2713,25 @@ function nsSubscribe(scope, eventSpec, handler) {
 	    }
 	});
     };
-    newspeakSubscriptions.set(scope + eventSpec,
-	{scope: scope, eventSpec: eventSpec, handler: wrapped, raw: handler});
+    const key = scope + eventSpec;
+    if (label != null) nsFragmentLabels.set(scope, label);
+    newspeakSubscriptions.set(key,
+	{scope: scope, eventSpec: eventSpec, handler: wrapped, raw: handler, label: label});
     theView.subscribe(scope, eventSpec, wrapped);
+    // An answer that outran this subscription is waiting; deliver it now, in
+    // the chain, so it keeps its place relative to everything after it.
+    if (nsPendingCoordAnswers.has(key)) {
+	const held = nsPendingCoordAnswers.get(key);
+	nsPendingCoordAnswers.delete(key);
+	console.info('Croquet: delivering held answer for "' + key + '"');
+	nsDispatchChain = nsDispatchChain.then(async () => {
+	    try {
+		handler(await nsResolvePayload(held));
+	    } catch (err) {
+		console.error('Newspeak deferred dispatch (' + scope + ' ' + eventSpec + ') failed:', err);
+	    }
+	});
+    }
 }
 
 // The inbound funnel's inverse: HopscotchForCroquet calls this when a fragment
@@ -2273,6 +2746,7 @@ function nsUnsubscribe(scope, eventSpec) {
     const entry = newspeakSubscriptions.get(key);
     if (!entry) return;
     newspeakSubscriptions.delete(key);
+    nsRetiredKeys.add(key);
     if (theView && theView.session) {
 	theView.unsubscribe(scope, eventSpec, entry.handler);
     }
@@ -2333,6 +2807,8 @@ Only afterward is the snapshot state restored in the new model. Next a new root 
     
     addEvent(e){
 	this.newspeakEvents.push(e);
+	// Local (model-to-view) notice for the divergence alarm, nsCheckDelivery.
+	this.publish(this.sessionId, 'nsEventRecorded', this.newspeakEvents.length - 1);
 	// Debounced persistence: one pending future per burst of events; the
 	// flag is model state, so it snapshots/restores consistently.
 	if (!this.persistPending) {
@@ -2347,17 +2823,28 @@ Only afterward is the snapshot state restored in the new model. Next a new root 
 	    version: 1,
 	    newspeakEvents: nsFlattenHandles(this.newspeakEvents),
 	    coordinatedFetches: nsFlattenHandles(this.coordinatedFetches),
+	    syncInboxSeen: this.syncInboxSeen,
 	    timers: this.timers
 	}));
     }
 
-    publishEventAndData(scope, eventSpec, data, fid) {
-	this.addEvent({scope: scope, eventSpec: eventSpec, fid: fid, data: data});
+    // label: the publisher's croquetLabel when nsPublish attached one; recorded
+    // beside the event for the alarm's label check, absent otherwise so an
+    // event's record keeps its old shape.
+    publishEventAndData(scope, eventSpec, data, fid, label) {
+	const e = {scope: scope, eventSpec: eventSpec, fid: fid, data: data};
+	if (label != null) e.label = label;
+	this.addEvent(e);
 	this.publish(scope + fid, eventSpec, data);
     }
 
-    publishEvent(scope, eventSpec, fid) {
-	this.addEvent({scope: scope, eventSpec: eventSpec, fid: fid, data: fid});
+    // p: a bare fragment id, or {fid, label, bare: true} from a publisher
+    // with a registered label (nsPublish).
+    publishEvent(scope, eventSpec, p) {
+	const fid = nsBareFid(p);
+	const e = {scope: scope, eventSpec: eventSpec, fid: fid, data: fid};
+	if (nsBareLabel(p) != null) e.label = nsBareLabel(p);
+	this.addEvent(e);
 	this.publish(scope + fid, eventSpec);
     }
     
@@ -2415,13 +2902,22 @@ Only afterward is the snapshot state restored in the new model. Next a new root 
 	// Coordinated once-per-session fetches (see HopscotchForCroquet.ns
 	// coordinatedFetch:via:ifSuccess:ifFailure:; Documents uses keys like
 	// 'document:<name>' for transclusions). Maps fetch key ->
-	// {status: 'fetching'} or {status: 'loaded', handle}. A plain object, so
-	// it snapshots without custom serializers. Like newspeakEvents, the reset
-	// here is the fresh-session default; a snapshot restore overwrites it.
+	// {status: 'fetching'}, {status: 'loaded', handle} or
+	// {status: 'failed', reason}. A plain object, so it snapshots without
+	// custom serializers. Like newspeakEvents, the reset here is the
+	// fresh-session default; a snapshot restore overwrites it.
 	this.coordinatedFetches = {};
 	this.subscribe('nscoordfetch_', 'coordinatedFetch_request', this.coordinatedFetch_request);
+	this.subscribe('nscoordfetch_', 'coordinatedFetch_await', this.coordinatedFetch_await);
 	this.subscribe('nscoordfetch_', 'coordinatedFetch_loaded', this.coordinatedFetch_loaded);
 	this.subscribe('nscoordfetch_', 'coordinatedFetch_failed', this.coordinatedFetch_failed);
+
+	// Synchronized inbox (HopscotchForCroquet synchronizedInbox:post:payload:):
+	// topic -> {id: true} for every delivery recorded, so a message posted by
+	// several local clients - or re-sent by a reconnecting stream - is
+	// delivered once. Persisted with the history, like coordinatedFetches.
+	this.syncInboxSeen = {};
+	this.subscribe('nssyncinbox_', 'syncInbox_post', this.syncInbox_post);
 
 	// Synchronized timers (see HopscotchForCroquet.ns TimerFragment). Maps
 	// fragment id -> {remaining} while a countdown runs, then PERMANENTLY
@@ -2446,6 +2942,7 @@ Only afterward is the snapshot state restored in the new model. Next a new root 
 	    this.newspeakEvents = nsReviveHandles(persisted.newspeakEvents) || [];
 	    this.coordinatedFetches = nsReviveHandles(persisted.coordinatedFetches) || {};
 	    this.timers = persisted.timers || {};
+	    this.syncInboxSeen = persisted.syncInboxSeen || {};
 	    // Countdowns that were mid-flight when the previous island died:
 	    // their pending future ticks died with it, so reschedule.
 	    for (const fid in this.timers) {
@@ -2527,78 +3024,88 @@ Only afterward is the snapshot state restored in the new model. Next a new root 
 	this.publishEvent('nsradiobutton_', 'model_radioButton_pressed', fid);
     }
     codeMirror_beforeChange(nsOptions){
-	this.publishEventAndData('nscodemirror_', 'model_codeMirror_beforeChange', nsOptions.data, nsOptions.fid);
+	this.publishEventAndData('nscodemirror_', 'model_codeMirror_beforeChange', nsOptions.data, nsOptions.fid, nsOptions.label);
     }
     codeMirror_change(nsOptions){
-	this.publishEventAndData('nscodemirror_', 'model_codeMirror_change', nsOptions.data, nsOptions.fid);
+	this.publishEventAndData('nscodemirror_', 'model_codeMirror_change', nsOptions.data, nsOptions.fid, nsOptions.label);
     }
     codeMirror_keydown(nsOptions){
-	this.publishEventAndData('nscodemirror_', 'model_codeMirror_keydown', nsOptions.data, nsOptions.fid);
+	this.publishEventAndData('nscodemirror_', 'model_codeMirror_keydown', nsOptions.data, nsOptions.fid, nsOptions.label);
     }
     codeMirror_accept(nsOptions){
-	this.publishEventAndData('nscodemirror_', 'model_codeMirror_accept', nsOptions.data, nsOptions.fid);
+	this.publishEventAndData('nscodemirror_', 'model_codeMirror_accept', nsOptions.data, nsOptions.fid, nsOptions.label);
     }
     codeMirror_cancel(nsOptions){
-	this.publishEventAndData('nscodemirror_', 'model_codeMirror_cancel', nsOptions.data, nsOptions.fid);
+	this.publishEventAndData('nscodemirror_', 'model_codeMirror_cancel', nsOptions.data, nsOptions.fid, nsOptions.label);
     }
     codeMirror_beforeSelectionChange(nsOptions){
-	this.publishEventAndData('nscodemirror_', 'model_codeMirror_beforeSelectionChange', nsOptions.data, nsOptions.fid);
+	this.publishEventAndData('nscodemirror_', 'model_codeMirror_beforeSelectionChange', nsOptions.data, nsOptions.fid, nsOptions.label);
     }    
     textEditor_accept(nsOptions){
-	this.publishEventAndData('nstexteditor_', 'model_textEditor_accept', nsOptions.data, nsOptions.fid);
+	this.publishEventAndData('nstexteditor_', 'model_textEditor_accept', nsOptions.data, nsOptions.fid, nsOptions.label);
     }
     textEditor_change(nsOptions){
-	this.publishEventAndData('nstexteditor_', 'model_textEditor_change', nsOptions.data, nsOptions.fid);
+	this.publishEventAndData('nstexteditor_', 'model_textEditor_change', nsOptions.data, nsOptions.fid, nsOptions.label);
     }
     textEditor_cancel(nsOptions){
-	this.publishEventAndData('nstexteditor_', 'model_textEditor_cancel', nsOptions.data, nsOptions.fid);
+	this.publishEventAndData('nstexteditor_', 'model_textEditor_cancel', nsOptions.data, nsOptions.fid, nsOptions.label);
     }
     toggleComposer_toggle(fid){
 	this.publishEvent('nstogglecomposer_', 'model_toggleComposer_toggle', fid);
     }     
     picker_pick(nsOptions){
-	this.publishEventAndData('nspicker_', 'model_picker_pick', nsOptions.data, nsOptions.fid);
+	this.publishEventAndData('nspicker_', 'model_picker_pick', nsOptions.data, nsOptions.fid, nsOptions.label);
     }
     color_picker_pick(nsOptions){
-	this.publishEventAndData('nscolorpicker_', 'model_colorPicker_pick', nsOptions.data, nsOptions.fid);
+	this.publishEventAndData('nscolorpicker_', 'model_colorPicker_pick', nsOptions.data, nsOptions.fid, nsOptions.label);
     }
     date_picker_pick(nsOptions){
-	this.publishEventAndData('nsdatepicker_', 'model_datePicker_pick', nsOptions.data, nsOptions.fid);
+	this.publishEventAndData('nsdatepicker_', 'model_datePicker_pick', nsOptions.data, nsOptions.fid, nsOptions.label);
     }    
     time_picker_pick(nsOptions){
-	this.publishEventAndData('nstimepicker_', 'model_timePicker_pick', nsOptions.data, nsOptions.fid);
+	this.publishEventAndData('nstimepicker_', 'model_timePicker_pick', nsOptions.data, nsOptions.fid, nsOptions.label);
     }
     slider_pick(nsOptions){
-	this.publishEventAndData('nsslider_', 'model_slider_pick', nsOptions.data, nsOptions.fid);
+	this.publishEventAndData('nsslider_', 'model_slider_pick', nsOptions.data, nsOptions.fid, nsOptions.label);
     }     
-    dropDownMenu_click(fid){
-	this.publishEventAndData('nsdropdownmenu_', 'model_dropDownMenu_click', fid, fid);
+    dropDownMenu_click(p){
+	const fid = nsBareFid(p);
+	this.publishEventAndData('nsdropdownmenu_', 'model_dropDownMenu_click', fid, fid, nsBareLabel(p));
     }
     menu_click(nsOptions){
-	this.publishEventAndData('nsmenu_', 'model_menu_click', nsOptions.data, nsOptions.fid);
+	this.publishEventAndData('nsmenu_', 'model_menu_click', nsOptions.data, nsOptions.fid, nsOptions.label);
     }
     shell_userBack(nsOptions){
-	this.publishEventAndData('nsshell_', 'model_shell_userBack', nsOptions.data, nsOptions.fid);
+	this.publishEventAndData('nsshell_', 'model_shell_userBack', nsOptions.data, nsOptions.fid, nsOptions.label);
     }
     shell_activeMenuBlurred(fid){
 	console.log('shell_activeMenuBlurred ' + fid);
 	this.publishEvent('nsshell_', 'model_shell_activeMenuBlurred', fid);
     }     
     fileChooser_click(nsOptions){
-	this.publishEventAndData('nsfilechooser_', 'model_fileChooser_click', nsOptions.data, nsOptions.fid);
+	this.publishEventAndData('nsfilechooser_', 'model_fileChooser_click', nsOptions.data, nsOptions.fid, nsOptions.label);
     }
     mediaCreator_setFile(nsOptions){
-	this.publishEventAndData('nsmediacreator_', 'model_mediaCreator_setFile', nsOptions.data, nsOptions.fid);
+	this.publishEventAndData('nsmediacreator_', 'model_mediaCreator_setFile', nsOptions.data, nsOptions.fid, nsOptions.label);
     }
     // Coordinated once-per-session fetches. Every client wanting the bytes
     // for a key publishes a request carrying its view id; the FIRST request
     // elects that view as the fetcher (reflector ordering is the election).
-    // Only loaded answers are recorded in newspeakEvents -- including repeat
-    // answers to late requests, so the per-client processed-event counting
-    // stays exact -- ensuring every client, and every late joiner replaying
-    // history, consumes the same stored bytes. The election and failure
-    // broadcasts are NOT recorded, and their Newspeak-side handlers are
-    // subscribed uncounted.
+    // Answers -- loaded AND failed -- are recorded in newspeakEvents,
+    // including repeat answers to late requests, so the per-client
+    // processed-event counting stays exact, ensuring every client, and every
+    // late joiner replaying history, consumes the same stored bytes or the
+    // same failure. Only the election broadcast is NOT recorded (its
+    // Newspeak-side handler is subscribed uncounted).
+    //
+    // A failure is an ANSWER, not a vacancy. Until 2026-09-13 a failure
+    // deleted the entry "so a retry can re-elect"; a late joiner replaying
+    // the request then found no entry, was elected, and fetched afresh --
+    // a provider call the original never made, a reply the original never
+    // saw, and a divergent history from there on (croquet-probes/
+    // setup-latejoin-probe.js FAIL_TURN=1). A retry is a NEW request under
+    // a NEW key -- every caller mints one per attempt (HostForCroquet
+    // sharingKeyFor:/performKeyFor:) -- so nothing needs the old key back.
     coordinatedFetch_request(nsOptions){
 	const name = nsOptions.fid;
 	const entry = this.coordinatedFetches.hasOwnProperty(name) ? this.coordinatedFetches[name] : null;
@@ -2607,16 +3114,59 @@ Only afterward is the snapshot state restored in the new model. Next a new root 
 	    this.publish('nscoordfetch_' + name, 'model_coordinatedFetch_fetch', nsOptions.data);
 	} else if (entry.status === 'loaded') {
 	    this.publishEventAndData('nscoordfetch_', 'model_coordinatedFetch_loaded', entry.handle, name);
+	} else if (entry.status === 'failed') {
+	    this.publishEventAndData('nscoordfetch_', 'model_coordinatedFetch_failed', entry.reason, name);
 	}
 	// status 'fetching': an answer is already on its way; ignore.
     }
+    // A client that needs this answer but CANNOT produce it -- the agent bus is
+    // the case: an agent is a process listening on one participant's machine,
+    // so a client elsewhere must consume the reply without ever being elected
+    // to fetch it. Unlike a request this never elects and never creates an
+    // entry; it only asks for an answer that already exists, because a client
+    // that starts waiting after the answer was broadcast would otherwise wait
+    // forever (the broadcast reaches whoever is subscribed at that instant,
+    // and the replay stash covers only clients replaying history).
+    coordinatedFetch_await(nsOptions){
+	const name = nsOptions.fid;
+	const entry = this.coordinatedFetches.hasOwnProperty(name) ? this.coordinatedFetches[name] : null;
+	if (entry && entry.status === 'loaded')
+	    // NOT publishEventAndData: an await must add NOTHING to newspeakEvents.
+	    // A late requester's answer is recorded (coordinatedFetch_request), and
+	    // has to be, because its Newspeak handler is subscribed through
+	    // subscribeFragment: and so advances the replay cursor. An await comes
+	    // from a client that may itself be REPLAYING -- a joiner catching up
+	    // through a bus chat asks here -- and appending to the history a client
+	    // is walking skews that client's cursor and orphans events for
+	    // everyone. So the answer rides its own unrecorded event, subscribed
+	    // uncounted, and is private to whoever asked.
+	    this.publish('nscoordfetch_' + name, 'model_coordinatedFetch_awaited', entry.handle);
+	else if (entry && entry.status === 'failed')
+	    // The failure, off the record for the same reason.
+	    this.publish('nscoordfetch_' + name, 'model_coordinatedFetch_awaitedFailure', entry.reason);
+	// No entry, or still fetching: the answer is yet to come and this
+	// client is already subscribed for it.
+    }
     coordinatedFetch_loaded(nsOptions){
 	this.coordinatedFetches[nsOptions.fid] = {status: 'loaded', handle: nsOptions.data};
-	this.publishEventAndData('nscoordfetch_', 'model_coordinatedFetch_loaded', nsOptions.data, nsOptions.fid);
+	this.publishEventAndData('nscoordfetch_', 'model_coordinatedFetch_loaded', nsOptions.data, nsOptions.fid, nsOptions.label);
     }
     coordinatedFetch_failed(nsOptions){
-	delete this.coordinatedFetches[nsOptions.fid];
-	this.publish('nscoordfetch_' + nsOptions.fid, 'model_coordinatedFetch_failed', nsOptions.data);
+	// Recorded, like a loaded answer: a replaying client must meet the
+	// failure where the original did, enter the same error state, and
+	// replay the user's Retry -- not be elected to fetch in its place.
+	this.coordinatedFetches[nsOptions.fid] = {status: 'failed', reason: nsOptions.data};
+	this.publishEventAndData('nscoordfetch_', 'model_coordinatedFetch_failed', nsOptions.data, nsOptions.fid, nsOptions.label);
+    }
+    // Synchronized inbox: record one delivery per (topic, id). The delivery
+    // is a recorded event under the topic's scope, so every client - and
+    // every late joiner replaying - applies the input at the same position.
+    syncInbox_post(nsOptions){
+	const topic = nsOptions.fid, id = String(nsOptions.id);
+	const seen = this.syncInboxSeen[topic] || (this.syncInboxSeen[topic] = {});
+	if (seen[id]) return;
+	seen[id] = true;
+	this.publishEventAndData('nssyncinbox_', 'model_syncInbox_deliver', nsOptions.data, topic);
     }
     // Synchronized timers. Every client publishes start on realizing a timer
     // fragment; only the first registers (idempotent start). The count rides
@@ -2678,14 +3228,18 @@ class NewspeakCroquetView extends Croquet.View {
 	if (!nsSyncRandomSeeded) { nsSyncRandomSeeded = true; nsSyncRandomSeed(this.sessionId); }
 	this.presenter = presenter;
         storeModelAndView(model, this);
+	this.subscribe(this.sessionId, 'nsEventRecorded', nsCheckDelivery);
         replaySubscriptions();
 	this.replay();   	
+// <psoup-only> Emscripten run dependency; the JS deploy gates on the Session.join promise instead
 	if (croquetDepActive) {
 	    removeRunDependency(croquetDepId);
 	    croquetDepActive = false;
         }
+// </psoup-only>
     }
 
+// <psoup-only> no JS deploy predates the large-payload detour
     // Newspeak subscriptions arrive via nsSubscribe (above), which records the
     // wrapped handler in newspeakSubscriptions and subscribes it. This method
     // remains ONLY for compatibility with vfuels older than the large-payload
@@ -2696,6 +3250,7 @@ class NewspeakCroquetView extends Croquet.View {
     addSubscription(scope, eventSpec, handler) {
 	newspeakSubscriptions.set(scope + eventSpec, {scope: scope, eventSpec: eventSpec, handler: handler});
     }
+// </psoup-only>
 
     storedData() {return this.session.data}
     
@@ -2720,6 +3275,39 @@ class NewspeakCroquetView extends Croquet.View {
 	    // realizes across animation frames afterwards. A lookup at enqueue
 	    // time -- or a synchronous loop, as this originally was -- runs
 	    // before any of that construction and finds nothing.
+	    // How long it is worth waiting for a subscriber depends on what kind
+	    // of thing subscribes. A FRAGMENT's subscription appears when the
+	    // fragment realizes, which trails the event by animation frames on a
+	    // big page -- hence the wait. A coordinated-fetch scope has no
+	    // fragment: it exists only if the application issued that request, so
+	    // if it is absent now, nothing that happens later in this replay will
+	    // conjure it, and waiting cannot help.
+	    //
+	    // Worse, waiting actively harms: the wait BLOCKS this chain, and the
+	    // chain is what dispatches the events that would make the application
+	    // issue its next request. One unmatched answer therefore starves the
+	    // subscriptions for every answer behind it, turning a single mismatch
+	    // into a cascade -- observed as nine 15s stalls in a row, two minutes
+	    // of dead catch-up, and finally a client disconnected for overflowing
+	    // its send-rate buffer while stalled.
+	    //
+	    // A missing coordinated answer is in any case benign: it is bytes this
+	    // client never asked for.
+	    //
+	    // But "absent now" and "never coming" are not the same thing. A
+	    // completion's request is issued by the CONTINUATION of the previous
+	    // answer -- the tool round: answer arrives, the tool runs, its result
+	    // is sent -- and that continuation is asynchronous, so at the moment
+	    // the next recorded answer comes up in this loop the request for it
+	    // may be a few promise hops away. Holding it and moving on dispatched
+	    // the user's next keystrokes and Send BEFORE that round had closed, so
+	    // the joiner sent a request whose history lacked the previous reply, a
+	    // body nobody recorded, and got itself elected to fetch it (2026-09-13,
+	    // croquet-probes/setup-latejoin-probe.js: 4-message body vs the
+	    // original's 5). So: wait for the requester, bounded, THEN hold. The
+	    // bound only bites for an answer this client will truly never ask for,
+	    // which on a correct application is a bug in its own right.
+	    const waitBudget = e.scope === 'nscoordfetch_' ? 10000 : 15000;
 	    nsDispatchChain = nsDispatchChain.then(async () => {
 		// Wait for the subscriber to appear while deferred content
 		// drains (one action per animation frame; big pages take
@@ -2728,17 +3316,29 @@ class NewspeakCroquetView extends Croquet.View {
 		// where slow catch-up beats wrong catch-up.
 		let s = newspeakSubscriptions.get(k);
 		let waited = 0;
-		while (!s && waited < 15000) {
+		while (!s && waited < waitBudget) {
 		    await new Promise(r => setTimeout(r, 100));
 		    waited += 100;
 		    s = newspeakSubscriptions.get(k);
 		}
 		if (!s) {
+		    if (e.scope === 'nscoordfetch_') {
+			// Not lost, just early: held for whoever asks for this
+			// resource later in the replay. See nsPendingCoordAnswers.
+			nsPendingCoordAnswers.set(k, e.data);
+			console.info('Croquet replay: holding early answer for "' + k +
+			    '" (event ' + n + ' of ' + total + ') until its requester subscribes');
+			return;
+		    }
 		    console.warn('Croquet replay: no subscriber for key "' + k +
 			'" (scope=' + e.scope + ' fid=' + e.fid + ' event=' + e.eventSpec +
 			') after ' + waited + 'ms, event ' + n + ' of ' + total + ' - skipped');
 		    return;
 		}
+		nsNoteDelivered(k);
+		// The alarm's label check, before dispatch: a replayed event whose
+		// publisher was labelled differently from the fragment here.
+		nsCheckLabel(n, e, k);
 		try {
 		    // raw, not the wrapped handler: wrapped would re-enqueue at
 		    // the chain's tail, decoupling execution from this slot.
@@ -2748,6 +3348,9 @@ class NewspeakCroquetView extends Croquet.View {
 		} catch (err) {
 		    console.error('Croquet replay of "' + k + '" failed; event skipped:', err);
 		}
+		// Let this event's asynchronous fallout settle before the next
+		// recorded event is dispatched. See nsReplayPace.
+		await nsReplayPace();
 	    });
 	}
     }
@@ -2847,6 +3450,7 @@ function getURIParam(paramName) {
 }
 
 
+// <psoup-only> the generated JS program defines the download helpers itself
 async function saveBlobWithSaveFilePicker(fileName, fileBlob) {
     let fileHandle;
     let writableStream;
@@ -2945,7 +3549,9 @@ async function safeDownloadBlob(fileName, fileBlob) {
         return { success: true, method: 'Standard', message: 'Standard download started (may be renamed by browser).' };
     }
 }
+// </psoup-only>
 
+// <startup> replaced wholesale in the JS deploy (tool/croquet-glue-js/startup.js)
 const name = getURIParam("sessionId"); 
 // or else Croquet.App.autoSession();
 const apiKey = getURIParam("apiKey");// originates from croquet.io/keys
