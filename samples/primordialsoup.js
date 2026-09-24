@@ -1891,6 +1891,13 @@ run();
 
 // include: meta/custom-post.js
 /**
+ * NOTE: this file is CANONICAL for platform JS helpers reached from Newspeak
+ * as window globals. The NS2JS deployment carries a MIRROR of every function
+ * here in the compiler prelude (newspeak/Newspeak2JSCompilation.ns, the
+ * "Platform helper parity" verbatim) - when adding or changing a helper here,
+ * update the mirror in the same change, or JS deploys will lack it
+ * (seen 2026-07-23: safeDownloadBlob missing broke Ampleforth document save).
+ *
  * Safely downloads a Blob, using showSaveFilePicker (FSAA) if available,
  * and falling back to the standard <a> tag download otherwise.
  *
