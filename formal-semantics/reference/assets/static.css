@@ -1,0 +1,11 @@
+
+[hidden] { display: none !important; }
+.definition-search { width: 100%; border: 1px solid #afc4d8; outline: none; }
+.definition-search:focus { border-color: #3685ce; box-shadow: 0 0 0 3px rgb(54 133 206 / 18%); }
+.search-icon { display: grid; place-items: center; font-size: 1.35rem; }
+.site-links { display: flex; gap: .8rem; margin-top: .25rem; font-size: .75rem; }
+.site-links a { color: #406d97; text-decoration: none; }
+.site-links a:hover, .site-links a:focus-visible { color: #175ea8; text-decoration: underline; }
+.anchor-link { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-weight: 800; }
+.parameter-empty { grid-column: 1 / -1; }
+.parameter-empty dd { font-style: italic; }
