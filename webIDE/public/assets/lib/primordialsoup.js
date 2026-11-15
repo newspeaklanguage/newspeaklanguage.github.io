@@ -1625,17 +1625,19 @@ unexportedSymbols.forEach(unexportedRuntimeSymbol);
 function checkIncomingModuleAPI() {
   ignoredModuleProp('fetchSettings');
 }
-function _JS_initializeAliens() { var aliens = new Array(); aliens.push(undefined); aliens.push(null); aliens.push(false); aliens.push(true); aliens.push(window); Module.aliens = aliens; }
+function _JS_initializeAliens() { var table = new Array(); table.push(undefined); table.push(null); table.push(false); table.push(true); table.push(window); Module.alienTable = table; Module.aliens = new Array(); }
+function _JS_noteDispatchAbandoned() { Module.dispatchAbandoned = true; }
 function _JS_pushInteger(value) { var aliens = Module.aliens; aliens.push(value); }
 function _JS_pushFloat(value) { var aliens = Module.aliens; aliens.push(value); }
-function _JS_pushString(addr,size) { var aliens = Module.aliens; var value = UTF8ToString(addr, size); aliens.push(value); }
-function _JS_pushAlien(index) { var aliens = Module.aliens; aliens.push(aliens[index]); }
-function _JS_pushExpat(index) { var aliens = Module.aliens; function expat() { for (var i = 0; i < arguments.length; i++) { aliens.push(arguments[i]); } Module._handle_signal(index, arguments.length, 0, 0); return aliens.pop(); } aliens.push(expat); }
-function _JS_peekType() { var aliens = Module.aliens; var alien = aliens[aliens.length - 1]; if (null === alien) { return -1; } if (false === alien) { return -2; } if (true === alien) { return -3; } if (typeof alien === "number") { return (alien === (0 | alien)) ? -4 : -5; } if (typeof alien === "string") { return lengthBytesUTF8(alien); } return -6; }
+function _JS_pushString(addr,size) { var aliens = Module.aliens; var memory = HEAPU8; var value = ""; var end = addr + size; while (addr < end) { var codePoint; var b1 = memory[addr++]; if ((b1 & 0x80) == 0) { codePoint = b1; } else if ((b1 & 0xE0) == 0xC0) { var b2 = memory[addr++]; codePoint = ((b1 & 0x1F) << 6) | (b2 & 0x3F); } else if ((b1 & 0xF0) == 0xE0) { var b2 = memory[addr++]; var b3 = memory[addr++]; codePoint = ((b1 & 0xF) << 12) | ((b2 & 0x3F) << 6) | (b3 & 0x3F); } else { var b2 = memory[addr++]; var b3 = memory[addr++]; var b4 = memory[addr++]; codePoint = ((b1 & 0x7) << 18) | ((b2 & 0x3F) << 12) | ((b3 & 0x3F) << 6) | (b4 & 0x3F); } value += String.fromCodePoint(codePoint); } aliens.push(value); }
+function _JS_pushAlien(index) { Module.aliens.push(Module.alienTable[index]); }
+function _JS_pushExpat(index) { var aliens = Module.aliens; function expat() { var depth = Module.callbackDepth | 0; if (depth >= 64) { throw new Error("Newspeak callbacks nested too deeply"); } var base = aliens.length; for (var i = 0; i < arguments.length; i++) { aliens.push(arguments[i]); } var outerAbandoned = Module.dispatchAbandoned; Module.dispatchAbandoned = false; Module.callbackDepth = depth + 1; var timeout; try { timeout = Module._handle_signal(index, arguments.length, 0, 0); } finally { Module.callbackDepth = depth; } var abandoned = Module.dispatchAbandoned; Module.dispatchAbandoned = outerAbandoned; if (typeof scheduleTurn === "function") { scheduleTurn(timeout); } if (abandoned) { if (aliens.length > base) { aliens.length = base; } throw new Error("Newspeak callback ended with an unhandled exception"); } var result = aliens.pop(); if (aliens.length > base) { aliens.length = base; } return result; } aliens.push(expat); }
+function _JS_peekType() { var aliens = Module.aliens; var alien = aliens[aliens.length - 1]; if (null === alien) { aliens.pop(); return -1; } if (false === alien) { aliens.pop(); return -2; } if (true === alien) { aliens.pop(); return -3; } if (typeof alien === "number") { return (alien === (0 | alien)) ? -4 : -5; } if (typeof alien === "string") { var length = 0; for (var i = 0; i < alien.length; i++) { var codeUnit = alien.charCodeAt(i); if (codeUnit <= 0x7F) { length += 1; } else if (codeUnit <= 0x7FF) { length += 2; } else if (codeUnit >= 0xD800 && codeUnit <= 0xDFFF) { length += 4; i++; } else { length += 3; } } return length; } return -6; }
 function _JS_popInteger() { var aliens = Module.aliens; return aliens.pop(); }
 function _JS_popFloat() { var aliens = Module.aliens; return aliens.pop(); }
-function _JS_popString(addr,size) { var aliens = Module.aliens; var string = aliens.pop(); stringToUTF8(string, addr, size + 1); }
-function _JS_peekAlien() { var aliens = Module.aliens; var lastIndex = aliens.length - 1; if (undefined === aliens[lastIndex]) { aliens.pop(); return 0; } else { return lastIndex; } }
+function _JS_popString(addr,size) { var aliens = Module.aliens; var string = aliens.pop(); var memory = HEAPU8; for (var i = 0; i < string.length; i++) { var codePoint = string.codePointAt(i); if (codePoint <= 0x7F) { memory[addr++] = codePoint; } else if (codePoint <= 0x7FF) { memory[addr++] = 0xC0 | (codePoint >> 6); memory[addr++] = 0x80 | (codePoint & 0x3F); } else if (codePoint <= 0xFFFF) { memory[addr++] = 0xE0 | (codePoint >> 12); memory[addr++] = 0x80 | ((codePoint >> 6) & 0x3F); memory[addr++] = 0x80 | (codePoint & 0x3F); } else { memory[addr++] = 0xF0 | (codePoint >> 18); memory[addr++] = 0x80 | ((codePoint >> 12) & 0x3F); memory[addr++] = 0x80 | ((codePoint >> 6) & 0x3F); memory[addr++] = 0x80 | (codePoint & 0x3F); i++; } } }
+function _JS_peekAlien() { var alien = Module.aliens.pop(); if (undefined === alien) { return 0; } var table = Module.alienTable; table.push(alien); return table.length - 1; }
+function _JS_alienTableSize() { return Module.alienTable.length; }
 function _JS_peekExpat() { throw "Unimplemented"; }
 function _JS_performGet() { var aliens = Module.aliens; var selector = aliens.pop(); var receiver = aliens.pop(); try { var result = Reflect.get(receiver, selector); aliens.push(result); return true; } catch (exception) { aliens.push(exception); return false; } }
 function _JS_performSet() { var aliens = Module.aliens; var argument = aliens.pop(); var selector = aliens.pop(); var receiver = aliens.pop(); try { var result = Reflect.set(receiver, selector, argument); aliens.push(argument); return true; } catch (exception) { aliens.push(exception); return false; } }
@@ -1689,7 +1691,11 @@ function assignWasmExports(wasmExports) {
 }
 var wasmImports = {
   /** @export */
+  _JS_alienTableSize,
+  /** @export */
   _JS_initializeAliens,
+  /** @export */
+  _JS_noteDispatchAbandoned,
   /** @export */
   _JS_peekAlien,
   /** @export */
