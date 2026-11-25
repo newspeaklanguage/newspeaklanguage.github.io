@@ -1,0 +1,27 @@
+<!doctype html>
+<!-- Copyright (c) 2026-2027, Gilad Bracha. All rights reserved. Use of this source
+     code is governed by a BSD-style license that can be found in the LICENSE file. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Newspeak Documents on Eurasia</title>
+<!-- The document viewer (AmpleforthViewer) on Eurasia: the page psoup's viewer
+     is (primordialsoup.html?snapshot=AmpleforthViewer.vfuel&docName=...). The
+     viewer shows the document named by the docName query parameter, fetched
+     from this page's server as <docName>.zip; docName may be a path
+     (menus/MenuDirectory). ?interpret runs without the compiler.
+
+     It boots as a deployed document page does, through deploy-boot.js
+     (canonical in the newspeak repository), told to use Eurasia; that script
+     holds the one list of libraries to load. The libraries (web/libs), the VM
+     and the image (viewer/base.eus) are staged beside this page by
+     scripts/ide.sh and scripts/site-runtime.sh. -->
+<style>
+body { margin: 0; background: #fff; }
+</style>
+</head>
+<body data-ampleforth-runtime="eurasia">
+<script src="deploy-boot.js"></script>
+</body>
+</html>
