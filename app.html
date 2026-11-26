@@ -1,0 +1,39 @@
+<!doctype html>
+<!-- Copyright (c) 2026-2027, Gilad Bracha. All rights reserved. Use of this source
+     code is governed by a BSD-style license that can be found in the LICENSE file. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Newspeak on Eurasia</title>
+<!-- The page of an application deployed to Eurasia from the IDE
+     (DeploymentManager; EURASIA_BUILD_AND_DEPLOY_DESIGN_2026-11-21.md, section
+     2.6): ide.html puts it in the bundle as index.html, beside base.eus, the
+     VM it was made for (eurasia_web.wasm, eurasia.mjs) and the files the
+     application's platform needs, which replace the line below. -->
+<!-- LIBRARIES -->
+<style>
+body { margin: 0; background: #fff; }
+</style>
+</head>
+<body>
+<script type="module">
+  import { run } from './eurasia.mjs';
+  const fetchBytes = async (url) => {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`cannot fetch ${url}: ${response.status}`);
+    return new Uint8Array(await response.arrayBuffer());
+  };
+  try {
+    const [wasm, snapshot] = await Promise.all([fetchBytes('eurasia_web.wasm'), fetchBytes('base.eus')]);
+    // ?interpret runs without the compiler.
+    const jit = new URLSearchParams(location.search).has('interpret') ? 0 : 1;
+    const result = await run(wasm, snapshot, { print: (line) => console.log(line), jit });
+    console.log('eurasia:', result.status === 'exited' ? `exited ${result.code}` : 'idle');
+  } catch (e) {
+    console.error('eurasia:', e.message);
+    document.body.append(`Eurasia failed: ${e.message}`);
+  }
+</script>
+</body>
+</html>

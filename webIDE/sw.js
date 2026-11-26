@@ -65,7 +65,7 @@
 // The version update can be done either manually (we rely on this),
 // or by applying some framework that generates this sw.js worker script.
 
-const pwaVersion = 915;
+const pwaVersion = 917;
 
 // Cache name used by the 'caches' global variable.
 // The pwaCacheName now includes the pwaVersion;
@@ -116,7 +116,7 @@ const pwaAppResources = [
     '/disclosureClosedImage.png',
     '/disclosureOpenImage.png',
     '/downloadImage.png',
-    '/dropdownImage.png',
+    '/dropDownImage.png',
     '/expandImage.png',    
     '/findImage.png',
     '/forwardImage.png',    
@@ -131,6 +131,25 @@ const pwaAppResources = [
     '/publicAccessImage.png',
     '/refreshImage.png',    
     '/saveImage.png',
+
+    // The IDE on Eurasia (index.html?eurasia opens webIDE/eurasia.html, which
+    // loads these from the site's root; newspeak's tool/deploy-site.sh puts
+    // them there and bumps pwaVersion).
+    '/webIDE/eurasia.html',
+    '/eurasia.mjs',
+    '/eurasia_web.wasm',
+    '/images.mjs',
+    '/ide/base.eus',
+    '/custom-post.js',
+    '/jszip.min.js',
+    '/CodeMirror/lib/codemirror.js',
+    '/CodeMirror/lib/codemirror.css',
+    '/CodeMirror/addon/display/autorefresh.js',
+    '/vendor/buffer-6.0.3.bundle.min.js',
+    '/vendor/isomorphic-git-1.38.4.umd.min.js',
+    '/vendor/lightning-fs-4.6.2.min.js',
+    '/vendor/isomorphic-git-1.38.4-http-web.umd.js',
+    '/vendor/diff_match_patch-2019-07.js',
 ];
 
 // Add all resources to cache.

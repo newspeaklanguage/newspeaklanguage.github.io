@@ -1,0 +1,178 @@
+<!doctype html>
+<!-- Copyright (c) 2026-2027, Gilad Bracha. All rights reserved. Use of this source
+     code is governed by a BSD-style license that can be found in the LICENSE file. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<base href="/">
+<script>if ("serviceWorker" in navigator) navigator.serviceWorker.register("/webIDE/sw.js");</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Newspeak IDE on Eurasia</title>
+<!-- The libraries psoup's IDE page loads (newspeak/out/primordialsoup.html),
+     copied beside this page by scripts/web-tests.sh. -->
+<script src="vendor/buffer-6.0.3.bundle.min.js"></script>
+<script>window.Buffer = window.buffer.Buffer;</script>
+<script src="CodeMirror/lib/codemirror.js"></script>
+<link rel="stylesheet" href="CodeMirror/lib/codemirror.css">
+<script src="CodeMirror/addon/display/autorefresh.js"></script>
+<script src="jszip.min.js"></script>
+<script src="vendor/isomorphic-git-1.38.4.umd.min.js"></script>
+<script src="vendor/lightning-fs-4.6.2.min.js"></script>
+<script src="vendor/isomorphic-git-1.38.4-http-web.umd.js"></script>
+<script src="vendor/diff_match_patch-2019-07.js"></script>
+<!-- psoup's page helpers that Newspeak reaches as window globals
+     (safeDownloadBlob, for WebFiles' saves): primordialsoup/meta/custom-post.js,
+     canonical there, staged here by scripts/ide.sh. -->
+<script src="custom-post.js"></script>
+<style>
+body { margin: 0; background: #fff; }
+</style>
+</head>
+<body>
+<!-- Runs the IDE's image (query parameter snapshot, default ide/base.eus) on
+     Eurasia's wasm32 build. The IDE draws the page; what the program prints
+     goes to the console. With the query parameter record (record=n: a
+     checkpoint after every n allocations), the session is recorded (M7),
+     keeping the last two checkpoints and the events after the older one, so
+     that the log stays bounded (keep=k keeps k; keep=0 keeps everything):
+     eurasiaSaveLog() in the console, or Ctrl-Shift-L, downloads its log, to
+     replay with `eurasia --replay`; eurasiaUploadLog() sends it to
+     scripts/serve-web.sh's server instead.
+
+     Saved images: the IDE's Save Image (Actors>>saveImage:) hands the
+     running image to this page, which keeps it in the browser's origin
+     private file system (directory eurasia-images). When there are saved
+     images and no snapshot parameter, the page offers them, or a fresh IDE,
+     before it starts; image=name opens one directly. -->
+<script type="module">
+  import { run, genesis } from './eurasia.mjs';
+  import { imageStore } from './images.mjs';
+  const params = new URLSearchParams(location.search);
+  const fetchBytes = async (url) => {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`cannot fetch ${url}: ${response.status}`);
+    return new Uint8Array(await response.arrayBuffer());
+  };
+  // Saved images (images.mjs), in the directory eurasia-images.
+  const images = imageStore('eurasia-images');
+  // A deployed application, zipped (JSZip, which this page loads): its base
+  // image, the VM it was made for, its page, and the files its platform
+  // needs (Hopscotch's CodeMirror and page helpers; its image resources).
+  const bundle = async (request, base, wasm) => {
+    const zip = new JSZip();
+    const fetchText = async (url) => {
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`cannot fetch ${url}: ${response.status}`);
+      return response.text();
+    };
+    const libraries = request.hopscotch
+      ? ['CodeMirror/lib/codemirror.js', 'CodeMirror/lib/codemirror.css', 'CodeMirror/addon/display/autorefresh.js', 'custom-post.js']
+      : [];
+    const tags = libraries.map((f) => f.endsWith('.css')
+      ? `<link rel="stylesheet" href="${f}">`
+      : `<script src="${f}"><\/script>`).join('\n');
+    const page = (await fetchText('app.html')).replace('<!-- LIBRARIES -->', tags);
+    zip.file('index.html', page);
+    zip.file('base.eus', base);
+    zip.file('eurasia_web.wasm', wasm);
+    zip.file('eurasia.mjs', await fetchText('eurasia.mjs'));
+    for (const f of libraries) zip.file(f, await fetchText(f));
+    for (const image of request.images) zip.file(`${image}.png`, await fetchBytes(`${image}.png`));
+    return zip.generateAsync({ type: 'blob' });
+  };
+  const startingImage = async () => {
+    if (params.has('snapshot')) return fetchBytes(params.get('snapshot'));
+    if (params.has('image')) return images.read(params.get('image'));
+    const saved = await images.list();
+    return (saved.length > 0 && await images.choose(saved, 'Start a fresh IDE')) || fetchBytes('ide/base.eus');
+  };
+  try {
+    const [wasm, snapshot] = await Promise.all([
+      fetchBytes('eurasia_web.wasm'),
+      startingImage(),
+    ]);
+    const record = params.has('record') ? Number(params.get('record') || 0) : undefined;
+    const keep = params.has('keep') ? Number(params.get('keep') || 0) : 2;
+    // ?jit=n compiles each method at its nth activation (?jit alone: the
+    // first); off by default, and while recording (replay is interpreted).
+    const jit = params.has('jit') ? Number(params.get('jit') || 1) : 0;
+    if (jit > 0) console.log(record !== undefined ? 'eurasia: recording, so not compiling' : `eurasia: compiling methods at activation ${jit}`);
+    let controls = null;
+    if (record !== undefined) {
+      window.eurasiaSaveLog = () => {
+        const bytes = controls.log();
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(new Blob([bytes]));
+        link.download = 'eurasia-session.eurl';
+        link.click();
+        URL.revokeObjectURL(link.href);
+        return `${bytes.length} bytes`;
+      };
+      // Sends the log to the server (scripts/serve-web.py keeps it in
+      // target/web/uploads).
+      window.eurasiaUploadLog = async (name = 'eurasia-session.eurl') => {
+        const bytes = controls.log();
+        const response = await fetch(`uploads/${name}`, { method: 'PUT', body: bytes });
+        if (!response.ok) throw new Error(`upload failed: ${response.status}`);
+        return `${bytes.length} bytes uploaded as uploads/${name}`;
+      };
+      // Capturing, before the IDE's own handlers: outside any VM call.
+      window.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.shiftKey && e.key === 'L') {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          setTimeout(window.eurasiaSaveLog, 0);
+        }
+      }, true);
+      console.log('eurasia: recording; eurasiaSaveLog() or Ctrl-Shift-L saves the log');
+    }
+    const result = await run(wasm, snapshot, {
+      print: (line) => console.log(line),
+      record,
+      keep,
+      jit,
+      names: params.has('names'),
+      onStart: (c) => { controls = c; },
+      // The IDE hands over a genesis image (Mirrors>>deliverImage:named:)
+      // with a JSON request ({kind: 'bundle', name, hopscotch, images}): a
+      // deployment from the IDE (DeploymentManager; build and deploy design,
+      // sections 2.5 and 2.6). A VM of its own runs genesis on it, and the
+      // base image, the VM it was made for, a page (app.html) and what the
+      // application's platform needs are zipped. That may outlast the click's
+      // activation, so the page does not save the zip: it sets
+      // window.eurasiaDelivery, synchronously, to a promise of a delivery
+      // ({ok, file, size, save} or {ok: false, message}; never rejected).
+      // The IDE calls save() (a promise of safeDownloadBlob's outcome) at
+      // once if the deploy click still allows a save, else from the click
+      // on Save of a confirmation (Browsing>>saveOrConfirm:saving:).
+      onDeliverImage: (name, genesisImage) => {
+        const request = JSON.parse(name);
+        const file = `${request.name}_eurasia_app.zip`;
+        window.eurasiaDelivery = genesis(wasm, genesisImage)
+          .then((base) => bundle(request, base, wasm))
+          .then((blob) => ({
+            ok: true,
+            file,
+            size: `${(blob.size / 1048576).toFixed(1)} MB`,
+            save: () => safeDownloadBlob(file, blob),
+          }))
+          .catch((e) => {
+            console.error(`eurasia: ${request.name} was not built:`, e);
+            return { ok: false, message: e.message };
+          });
+      },
+      onSaveImage: (name, bytes) => {
+        images.store(name, bytes).catch((e) => {
+          console.error('eurasia: the image was not saved:', e);
+          alert(`The image ${name} was not saved: ${e.message}`);
+        });
+      },
+    });
+    console.log('eurasia:', result.status === 'exited' ? `exited ${result.code}` : 'idle');
+  } catch (e) {
+    console.error('eurasia:', e.message);
+    document.body.append(`Eurasia failed: ${e.message}`);
+  }
+</script>
+</body>
+</html>
